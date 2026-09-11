@@ -22,6 +22,39 @@ import type { BlogPost } from "../types";
  * app riprogettata nel suo complesso. Nessuna data di lancio non comunicata
  * da Apple.
  *
+ * MICRO-GATE P1.21-B (11/09/2026), review SEO/GEO/truth applicata (11 punti,
+ * verificata con un pass di verifica avversariale a 4 agenti paralleli,
+ * uno per locale, prima di applicare — vedi Workflow wf_81179ac7-df3):
+ * - Ogni riferimento al 14/9 reso evergreen ("Apple ha annunciato la
+ *   disponibilità... a partire dal 14 settembre 2026"), corretto un vero
+ *   errore di tempo verbale: il paragrafo "Cosa ha annunciato Apple"
+ *   diceva "iOS 27 è arrivato" al passato, ma la data di preparazione di
+ *   questo articolo (11/9) precede il 14/9 di 3 giorni.
+ * - Rimossa ogni variante "FitMesh legge qualunque/tutto ciò che è presente
+ *   in Apple Salute": ora "legge, previa autorizzazione, i campioni dei
+ *   tipi HealthKit supportati, senza limitarli alla sola sorgente Apple
+ *   Watch" (TL;DR, corpo, benefici CTA).
+ * - Chiarito che il riconoscimento di Garmin/Samsung/Fitbit/altri come nomi
+ *   sorgente NON è un'integrazione diretta iOS: sono le app di quei
+ *   produttori a scrivere in Apple Salute, FitMesh legge da lì.
+ * - Distinti esplicitamente i ruoli invece di affermare che Apple Salute
+ *   "non unisce" fonti eterogenee: Apple Salute = archivio/analisi
+ *   dell'ecosistema Apple dei dati che raggiungono HealthKit; FitMesh =
+ *   dashboard cross-platform legata all'account, con ponte opzionale.
+ * - "Nessuna app può leggere Readiness/Health Age, punto" sostituito con
+ *   il risultato circoscritto dell'audit dell'11/9 (nessuna API pubblica
+ *   documentata identificata; FitMesh non ne dichiara supporto oggi).
+ * - Title FR accorciato, 4 meta description riscritte (da 189-212 a
+ *   153-165 caratteri), intro riaperta con risposta diretta, aggiunta
+ *   tabella di raffronto compatta prima del verdetto.
+ * - Il pass di verifica ha trovato un problema reale non nella lista dei
+ *   10 punti espliciti ma comunque in violazione del framing vincolato:
+ *   la frase centrale del verdetto ("Apple Health diventa molto più
+ *   completa...") usava un presente non coperto da hedging per una
+ *   funzione non ancora pubblica — corretto in "una volta disponibile,
+ *   [...] diventerà" in tutte e 4 le lingue (anche dove il pass EN/DE/FR
+ *   l'aveva giudicato borderline-accettabile, per coerenza).
+ *
  * Verdetto centrale fissato dal mandato: Apple Health diventa molto più
  * completa e può ridurre il bisogno di alcune app di sola analisi, ma non
  * sostituisce automaticamente gli strumenti che collegano dispositivi,
@@ -54,7 +87,7 @@ export const post: BlogPost = {
     it: "La nuova Apple Health sostituisce le altre app?",
     en: "Will the New Apple Health Replace Fitness Apps?",
     de: "Ersetzt die neue Apple Health andere Apps?",
-    fr: "La nouvelle Apple Health remplace-t-elle les autres apps ?",
+    fr: "Nouvelle Apple Health : remplace-t-elle les apps ?",
   },
   primaryKeyword: {
     it: "nuova apple health sostituisce altre app",
@@ -89,39 +122,39 @@ export const post: BlogPost = {
     ],
   },
   metaDescription: {
-    it: "Apple ha annunciato una app Salute riprogettata con Insights e Longevity: cosa sappiamo davvero, cosa non è ancora documentato nelle API, e dove FitMesh resta utile per chi usa più dispositivi.",
-    en: "Apple has announced a redesigned Health app with Insights and Longevity: what we actually know, what isn't documented in the API yet, and where FitMesh still matters for multi-device users.",
-    de: "Apple hat eine neu gestaltete App Health mit Insights und Longevity angekündigt: was wir wirklich wissen, was in der API noch nicht dokumentiert ist, und wo FitMesh für Multi-Device-Nutzer weiterhin nützlich ist.",
-    fr: "Apple a annoncé une app Santé repensée avec Insights et Longevity : ce que l'on sait vraiment, ce qui n'est pas encore documenté dans l'API, et où FitMesh reste utile pour qui utilise plusieurs appareils.",
+    it: "Apple ha annunciato una nuova app Salute con Insights e Longevity: cosa sappiamo, cosa non è documentato, e dove FitMesh resta utile con più dispositivi.",
+    en: "Apple has announced a redesigned Health app with Insights and Longevity: what we know, what's undocumented, and where FitMesh still matters for multi-device users.",
+    de: "Apple hat eine neue App Health mit Insights und Longevity angekündigt: was wir wissen, was noch offen ist, und wo FitMesh für mehrere Geräte nützlich bleibt.",
+    fr: "Apple a annoncé une app Santé repensée avec Insights et Longevity : ce que l'on sait, ce qui reste flou, et où FitMesh reste utile avec plusieurs appareils.",
   },
   tldr: {
     it: [
       "Apple ha annunciato (9/9/2026) una app Salute completamente riprogettata, con i tab Insights e Longevity — ma non è ancora disponibile: arriverà più avanti nel 2026, prima solo in inglese USA, separata dal rilascio di iOS 27 del 14/9.",
       "Serve un iPhone/iPad abilitato per Apple Intelligence per l'intera app; alcune funzioni (frequenza cardiaca ogni 5 secondi, HRV più frequente, la complicazione Passi sul quadrante) richiedono in più Apple Watch Series 12 o Ultra 4.",
       "A oggi, sulla documentazione sviluppatore Apple, Readiness e Health Age non risultano esposti tramite HealthKit ad app di terze parti: nessuna prova che si possano leggere da fuori la app Salute.",
-      "FitMesh, nella release pubblica 3.10.0, legge già qualunque dato presente in Apple Salute — non solo quello di Apple Watch — e può scrivere alcune metriche verso Apple Salute su attivazione esplicita, con limiti dichiarati.",
-      "Il ruolo di FitMesh resta distinto dalla nuova app Salute: unire dispositivi e piattaforme diverse in un solo posto, cosa che — per quanto annunciato finora — l'app Salute nativa non fa.",
+      "FitMesh, nella release pubblica 3.10.0, legge — previa autorizzazione dell'utente — i campioni dei tipi HealthKit supportati (passi, frequenza cardiaca, sonno e altri), senza limitarli alla sola sorgente Apple Watch, e può scrivere alcune metriche verso Apple Salute su attivazione esplicita, con limiti dichiarati.",
+      "Il ruolo di FitMesh resta distinto: Apple Salute è l'archivio e l'analisi dell'ecosistema Apple dei dati che raggiungono HealthKit, mentre FitMesh è una dashboard cross-platform legata all'account, con un ponte opzionale verso alcune metriche supportate.",
     ],
     en: [
       "Apple has announced (9/9/2026) a completely redesigned Health app, with Insights and Longevity tabs — but it isn't available yet: it's coming later in 2026, starting in U.S. English only, separate from the iOS 27 release on 9/14.",
       "An Apple Intelligence-enabled iPhone/iPad is required for the whole app; some features (5-second heart rate, more frequent HRV, the Steps watch face complication) additionally require Apple Watch Series 12 or Ultra 4.",
       "As of today, Apple's developer documentation shows no evidence that Readiness or Health Age are exposed via HealthKit to third-party apps: nothing suggests they can be read from outside the Health app.",
-      "FitMesh, in its public 3.10.0 release, already reads any data present in Apple Health — not just data from Apple Watch — and can write some metrics to Apple Health when explicitly enabled, with stated limits.",
-      "FitMesh's role stays distinct from the new Health app: bringing different devices and platforms together in one place, which — based on what's been announced so far — the native Health app doesn't do.",
+      "FitMesh, in its public 3.10.0 release, reads — with the user's authorization — samples of the supported HealthKit types (steps, heart rate, sleep, and others), without limiting itself to the Apple Watch source, and can write some metrics to Apple Health when explicitly enabled, with stated limits.",
+      "FitMesh's role stays distinct: Apple Health is the Apple ecosystem's archive and analysis of data that reaches HealthKit, while FitMesh is a cross-platform, account-based dashboard with an optional bridge to some supported metrics.",
     ],
     de: [
       "Apple hat (9.9.2026) eine komplett neu gestaltete App Health angekündigt, mit den Tabs Insights und Longevity — verfügbar ist sie aber noch nicht: Sie kommt später im Jahr 2026, zunächst nur auf US-Englisch, getrennt vom iOS-27-Release am 14.9.",
       "Für die gesamte App ist ein Apple-Intelligence-fähiges iPhone/iPad nötig; einige Funktionen (Herzfrequenz alle 5 Sekunden, häufigere HRV, die Schritte-Komplikation auf dem Zifferblatt) erfordern zusätzlich Apple Watch Series 12 oder Ultra 4.",
       "Laut der Apple-Entwicklerdokumentation gibt es heute keinen Beleg dafür, dass Readiness oder Health Age über HealthKit für Drittanbieter-Apps zugänglich sind: nichts deutet darauf hin, dass sie außerhalb der App Health lesbar sind.",
-      "FitMesh liest in seiner öffentlichen Version 3.10.0 bereits jeden in Apple Health vorhandenen Wert — nicht nur den der Apple Watch — und kann einige Messwerte bei expliziter Aktivierung nach Apple Health schreiben, mit klar benannten Grenzen.",
-      "Die Rolle von FitMesh bleibt von der neuen App Health unterschieden: unterschiedliche Geräte und Plattformen an einem Ort zusammenzuführen — etwas, das die native App Health nach bisherigem Stand nicht tut.",
+      "FitMesh liest in seiner öffentlichen Version 3.10.0 — nach Zustimmung der Nutzerin oder des Nutzers — Messwerte der unterstützten HealthKit-Typen (Schritte, Herzfrequenz, Schlaf und weitere), ohne sich auf die Apple-Watch-Quelle zu beschränken, und kann bei expliziter Aktivierung einige Messwerte nach Apple Health schreiben, mit klar benannten Grenzen.",
+      "Die Rolle von FitMesh bleibt eigenständig: Apple Health ist das Archiv und die Analyse des Apple-Ökosystems für Daten, die HealthKit erreichen, während FitMesh ein kontobasiertes, plattformübergreifendes Dashboard mit einer optionalen Brücke zu einigen unterstützten Messwerten ist.",
     ],
     fr: [
       "Apple a annoncé (9/9/2026) une app Santé entièrement repensée, avec les onglets Insights et Longevity — mais elle n'est pas encore disponible : elle arrivera plus tard en 2026, d'abord en anglais américain uniquement, séparément de la sortie d'iOS 27 le 14/9.",
       "Un iPhone/iPad compatible Apple Intelligence est requis pour toute l'app ; certaines fonctions (fréquence cardiaque toutes les 5 secondes, VFC plus fréquente, la complication Pas sur le cadran) nécessitent en plus une Apple Watch Series 12 ou Ultra 4.",
       "À ce jour, la documentation développeur Apple ne montre aucune preuve que Readiness ou Health Age soient exposés via HealthKit aux applications tierces : rien n'indique qu'ils soient lisibles en dehors de l'app Santé.",
-      "FitMesh, dans sa version publique 3.10.0, lit déjà toute donnée présente dans Apple Santé — pas seulement celle de l'Apple Watch — et peut écrire certaines mesures vers Apple Santé sur activation explicite, avec des limites déclarées.",
-      "Le rôle de FitMesh reste distinct de la nouvelle app Santé : réunir des appareils et plateformes différents au même endroit, ce que — d'après ce qui a été annoncé jusqu'ici — l'app Santé native ne fait pas.",
+      "FitMesh, dans sa version publique 3.10.0, lit — avec l'autorisation de l'utilisateur — des échantillons des types HealthKit pris en charge (pas, fréquence cardiaque, sommeil et autres), sans se limiter à la seule source Apple Watch, et peut écrire certaines mesures vers Apple Santé sur activation explicite, avec des limites déclarées.",
+      "Le rôle de FitMesh reste distinct : Apple Santé est l'archive et l'analyse de l'écosystème Apple pour les données qui atteignent HealthKit, tandis que FitMesh est un tableau de bord multiplateforme lié au compte, avec un pont optionnel vers certaines mesures prises en charge.",
     ],
   },
   hero: {
@@ -148,10 +181,10 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Il 9 settembre 2026 Apple ha annunciato una riprogettazione profonda della app Salute, insieme ai nuovi Apple Watch Series 12 e Ultra 4. L'annuncio è ambizioso: punteggi giornalieri, un'analisi di lungo periodo della salute, persino analisi del sangue collegate. È lecito chiedersi se, arrivata, renda superflue le app che oggi uniscono più dispositivi — inclusa FitMesh. La risposta onesta, a questo punto, è: dipende da cosa possiedi, e su alcuni punti Apple stessa non è stata ancora chiara.",
-        en: "On September 9, 2026, Apple announced a deep redesign of the Health app, alongside the new Apple Watch Series 12 and Ultra 4. The announcement is ambitious: daily scores, a long-term health analysis, even connected blood testing. It's fair to ask whether, once it arrives, it will make apps that bring multiple devices together — FitMesh included — unnecessary. The honest answer, at this point, is: it depends on what you own, and on some points Apple itself hasn't been clear yet.",
-        de: "Am 9. September 2026 hat Apple eine tiefgreifende Neugestaltung der App Health angekündigt, zusammen mit den neuen Apple Watch Series 12 und Ultra 4. Die Ankündigung ist ambitioniert: tägliche Punktzahlen, eine langfristige Gesundheitsanalyse, sogar angebundene Bluttests. Es ist berechtigt zu fragen, ob sie, sobald verfügbar, Apps überflüssig macht, die heute mehrere Geräte zusammenführen — FitMesh eingeschlossen. Die ehrliche Antwort lautet derzeit: Es hängt davon ab, was du besitzt, und bei einigen Punkten war Apple selbst noch nicht eindeutig.",
-        fr: "Le 9 septembre 2026, Apple a annoncé une refonte profonde de l'app Santé, aux côtés des nouvelles Apple Watch Series 12 et Ultra 4. L'annonce est ambitieuse : scores quotidiens, analyse de santé à long terme, et même des analyses sanguines connectées. Il est légitime de se demander si, une fois disponible, elle rendra inutiles les applications qui réunissent aujourd'hui plusieurs appareils — FitMesh y compris. La réponse honnête, à ce stade, est : cela dépend de ce que vous possédez, et sur certains points Apple elle-même n'a pas encore été claire.",
+        it: "La nuova Apple Salute non rende obsolete tutte le altre app — ma può ridurre il bisogno di applicazioni di sola analisi nello scenario esclusivamente Apple. Il 9 settembre 2026 Apple ha annunciato una riprogettazione profonda della app Salute, insieme ai nuovi Apple Watch Series 12 e Ultra 4: punteggi giornalieri, un'analisi di lungo periodo della salute, persino analisi del sangue collegate. Resta lecito chiedersi cosa significhi per le app che oggi uniscono più dispositivi — inclusa FitMesh: dipende da cosa possiedi, e su alcuni punti Apple stessa non è stata ancora chiara.",
+        en: "The new Apple Health doesn't make every other app obsolete — but it can reduce the need for analysis-only apps in the Apple-only scenario. On September 9, 2026, Apple announced a deep redesign of the Health app, alongside the new Apple Watch Series 12 and Ultra 4: daily scores, a long-term health analysis, even connected blood testing. It's still fair to ask what this means for apps that bring multiple devices together today — FitMesh included: it depends on what you own, and on some points Apple itself hasn't been clear yet.",
+        de: "Die neue Apple Health macht nicht jede andere App überflüssig — kann aber im rein Apple-basierten Szenario den Bedarf an reinen Analyse-Apps verringern. Am 9. September 2026 hat Apple eine tiefgreifende Neugestaltung der App Health angekündigt, zusammen mit den neuen Apple Watch Series 12 und Ultra 4: tägliche Punktzahlen, eine langfristige Gesundheitsanalyse, sogar angebundene Bluttests. Es bleibt berechtigt zu fragen, was das für Apps bedeutet, die heute mehrere Geräte zusammenführen — FitMesh eingeschlossen: Es hängt davon ab, was du besitzt, und bei einigen Punkten war Apple selbst noch nicht eindeutig.",
+        fr: "La nouvelle Apple Santé ne rend pas toutes les autres applications obsolètes — mais elle peut réduire le besoin d'applications de simple analyse dans le scénario exclusivement Apple. Le 9 septembre 2026, Apple a annoncé une refonte profonde de l'app Santé, aux côtés des nouvelles Apple Watch Series 12 et Ultra 4 : scores quotidiens, analyse de santé à long terme, et même des analyses sanguines connectées. Il reste légitime de se demander ce que cela signifie pour les applications qui réunissent aujourd'hui plusieurs appareils — FitMesh y compris : cela dépend de ce que vous possédez, et sur certains points Apple elle-même n'a pas encore été claire.",
       },
     },
     {
@@ -167,10 +200,10 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Prima distinzione importante, spesso confusa: **iOS 27** è arrivato il 14 settembre 2026 con watchOS 27, ma la **app Salute riprogettata è una cosa diversa e separata**, non ancora disponibile. Apple scrive esplicitamente che arriverà \"later this year\" (più avanti nel 2026), inizialmente solo in inglese statunitense, con altre lingue a seguire — nessuna data precisa comunicata. Fonte: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), 9 settembre 2026.",
-        en: "First important distinction, often confused: **iOS 27** arrived on September 14, 2026 alongside watchOS 27, but the **redesigned Health app is a separate, different thing**, not yet available. Apple explicitly states it's coming \"later this year\" (in 2026), initially in U.S. English only, with more languages to follow — no precise date given. Source: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), September 9, 2026.",
-        de: "Eine wichtige, oft verwechselte Unterscheidung: **iOS 27** kam am 14. September 2026 zusammen mit watchOS 27, aber die **neu gestaltete App Health ist etwas Eigenes und Separates**, noch nicht verfügbar. Apple schreibt ausdrücklich, sie komme \"later this year\" (im Laufe des Jahres 2026), zunächst nur auf US-Englisch, weitere Sprachen sollen folgen — kein genaues Datum genannt. Quelle: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), 9. September 2026.",
-        fr: "Première distinction importante, souvent confondue : **iOS 27** est arrivé le 14 septembre 2026 avec watchOS 27, mais l'**app Santé repensée est une chose différente et séparée**, pas encore disponible. Apple écrit explicitement qu'elle arrivera \"later this year\" (plus tard en 2026), d'abord en anglais américain uniquement, avec d'autres langues à suivre — aucune date précise communiquée. Source : [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), 9 septembre 2026.",
+        it: "Prima distinzione importante, spesso confusa: Apple ha annunciato la disponibilità di **iOS 27** e **watchOS 27** a partire dal 14 settembre 2026, ma la **app Salute riprogettata è una cosa diversa e separata**, non ancora disponibile. Apple scrive esplicitamente che arriverà \"later this year\" (più avanti nel 2026), inizialmente solo in inglese statunitense, con altre lingue a seguire — nessuna data precisa comunicata. Fonte: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), 9 settembre 2026.",
+        en: "First important distinction, often confused: Apple has announced the availability of **iOS 27** and **watchOS 27** starting September 14, 2026, but the **redesigned Health app is a separate, different thing**, not yet available. Apple explicitly states it's coming \"later this year\" (in 2026), initially in U.S. English only, with more languages to follow — no precise date given. Source: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), September 9, 2026.",
+        de: "Eine wichtige, oft verwechselte Unterscheidung: Apple hat die Verfügbarkeit von **iOS 27** und **watchOS 27** ab dem 14. September 2026 angekündigt, aber die **neu gestaltete App Health ist etwas Eigenes und Separates**, noch nicht verfügbar. Apple schreibt ausdrücklich, sie komme \"later this year\" (im Laufe des Jahres 2026), zunächst nur auf US-Englisch, weitere Sprachen sollen folgen — kein genaues Datum genannt. Quelle: [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), 9. September 2026.",
+        fr: "Première distinction importante, souvent confondue : Apple a annoncé la disponibilité d'**iOS 27** et **watchOS 27** à partir du 14 septembre 2026, mais l'**app Santé repensée est une chose différente et séparée**, pas encore disponible. Apple écrit explicitement qu'elle arrivera \"later this year\" (plus tard en 2026), d'abord en anglais américain uniquement, avec d'autres langues à suivre — aucune date précise communiquée. Source : [Apple Newsroom — Apple advances health and fitness capabilities using Apple Intelligence](https://www.apple.com/newsroom/2026/09/apple-advances-health-and-fitness-capabilities-using-apple-intelligence/), 9 septembre 2026.",
       },
     },
     {
@@ -258,10 +291,10 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Diversamente dalle funzioni annunciate ma non ancora rilasciate, questo è verificabile: nella release pubblica 3.10.0, su iPhone FitMesh legge da Apple Salute qualunque dato presente nei tipi supportati (passi, frequenza cardiaca, sonno, SpO2, calorie, peso e altri), senza restringersi ai soli dati scritti da Apple Watch — la lettura non filtra per sorgente, e riconosce esplicitamente decine di app e dispositivi terzi (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, l'anello Colmi, e altri) quando arbitra tra più fonti. Per il dettaglio completo del meccanismo, incluso cosa il ponte NON fa, vedi [i dati dell'anello smart in Apple Salute](/it/blog/dati-anello-smart-apple-salute).",
-        en: "Unlike features that have been announced but not yet released, this is verifiable: in the public 3.10.0 release, on iPhone FitMesh reads any data present in Apple Health for the supported types (steps, heart rate, sleep, SpO2, calories, weight, and others), without restricting itself to data written by Apple Watch — reading doesn't filter by source, and it explicitly recognizes dozens of third-party apps and devices (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, the Colmi ring, and others) when arbitrating between multiple sources. For the full mechanism, including what the bridge does NOT do, see [smart ring data in Apple Health](/en/blog/dati-anello-smart-apple-salute).",
-        de: "Anders als bei angekündigten, aber noch nicht veröffentlichten Funktionen ist dies überprüfbar: In der öffentlichen Version 3.10.0 liest FitMesh auf dem iPhone jeden in Apple Health vorhandenen Wert der unterstützten Typen (Schritte, Herzfrequenz, Schlaf, SpO2, Kalorien, Gewicht und weitere), ohne sich auf von der Apple Watch geschriebene Daten zu beschränken — das Lesen filtert nicht nach Quelle und erkennt bei der Abwägung mehrerer Quellen ausdrücklich Dutzende Drittanbieter-Apps und -Geräte (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, den Colmi-Ring und weitere). Den vollständigen Mechanismus, einschließlich dessen, was die Brücke NICHT tut, findest du unter [Smart-Ring-Daten in Apple Health](/de/blog/dati-anello-smart-apple-salute).",
-        fr: "Contrairement aux fonctions annoncées mais pas encore publiées, ceci est vérifiable : dans la version publique 3.10.0, sur iPhone, FitMesh lit toute donnée présente dans Apple Santé pour les types pris en charge (pas, fréquence cardiaque, sommeil, SpO2, calories, poids et autres), sans se limiter aux données écrites par l'Apple Watch — la lecture ne filtre pas par source, et reconnaît explicitement des dizaines d'applications et d'appareils tiers (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, la bague Colmi, et d'autres) lors de l'arbitrage entre plusieurs sources. Pour le mécanisme complet, y compris ce que le pont ne fait PAS, voir [les données de la bague connectée dans Apple Santé](/fr/blog/dati-anello-smart-apple-salute).",
+        it: "Diversamente dalle funzioni annunciate ma non ancora rilasciate, questo è verificabile: nella release pubblica 3.10.0, su iPhone FitMesh legge — previa autorizzazione dell'utente — i campioni dei tipi HealthKit supportati (passi, frequenza cardiaca, sonno, SpO2, calorie, peso e altri), senza limitarli alla sola sorgente Apple Watch: la lettura non filtra per sorgente. Quando arbitra tra più fonti riconosce esplicitamente decine di nomi sorgente di app e dispositivi terzi (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, l'anello Colmi, e altri) — non un collegamento diretto di FitMesh con quei produttori, ma dati che quelle stesse app scrivono in Apple Salute e che FitMesh poi legge da lì. Per il dettaglio completo del meccanismo, incluso cosa il ponte NON fa, vedi [i dati dell'anello smart in Apple Salute](/it/blog/dati-anello-smart-apple-salute).",
+        en: "Unlike features that have been announced but not yet released, this is verifiable: in the public 3.10.0 release, on iPhone FitMesh reads — with the user's authorization — samples of the supported HealthKit types (steps, heart rate, sleep, SpO2, calories, weight, and others), without limiting itself to the Apple Watch source: reading doesn't filter by source. When arbitrating between multiple sources, it explicitly recognizes dozens of third-party app and device source names (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, the Colmi ring, and others) — not a direct connection between FitMesh and those manufacturers, but data those same apps write into Apple Health, which FitMesh then reads from there. For the full mechanism, including what the bridge does NOT do, see [smart ring data in Apple Health](/en/blog/dati-anello-smart-apple-salute).",
+        de: "Anders als bei angekündigten, aber noch nicht veröffentlichten Funktionen ist dies überprüfbar: In der öffentlichen Version 3.10.0 liest FitMesh auf dem iPhone — nach Zustimmung der Nutzerin oder des Nutzers — Messwerte der unterstützten HealthKit-Typen (Schritte, Herzfrequenz, Schlaf, SpO2, Kalorien, Gewicht und weitere), ohne sich auf die Apple-Watch-Quelle zu beschränken: Das Lesen filtert nicht nach Quelle. Bei der Abwägung mehrerer Quellen erkennt es ausdrücklich Dutzende Quellennamen von Drittanbieter-Apps und -Geräten (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, den Colmi-Ring und weitere) — keine direkte Verbindung zwischen FitMesh und diesen Herstellern, sondern Daten, die dieselben Apps in Apple Health schreiben und die FitMesh von dort liest. Den vollständigen Mechanismus, einschließlich dessen, was die Brücke NICHT tut, findest du unter [Smart-Ring-Daten in Apple Health](/de/blog/dati-anello-smart-apple-salute).",
+        fr: "Contrairement aux fonctions annoncées mais pas encore publiées, ceci est vérifiable : dans la version publique 3.10.0, sur iPhone, FitMesh lit — avec l'autorisation de l'utilisateur — des échantillons des types HealthKit pris en charge (pas, fréquence cardiaque, sommeil, SpO2, calories, poids et autres), sans se limiter à la seule source Apple Watch : la lecture ne filtre pas par source. Lors de l'arbitrage entre plusieurs sources, il reconnaît explicitement des dizaines de noms de sources d'applications et d'appareils tiers (Samsung Health, Garmin, Fitbit, Amazfit, Huawei, Polar, Oura, Whoop, Suunto, la bague Colmi, et d'autres) — pas une connexion directe entre FitMesh et ces fabricants, mais des données que ces mêmes applications écrivent dans Apple Santé, que FitMesh lit ensuite depuis là. Pour le mécanisme complet, y compris ce que le pont ne fait PAS, voir [les données de la bague connectée dans Apple Santé](/fr/blog/dati-anello-smart-apple-salute).",
       },
     },
     {
@@ -309,6 +342,41 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "table",
+      caption: {
+        it: "Apple Health annunciata, FitMesh 3.10.0, e cosa resta da vedere",
+        en: "Apple Health as announced, FitMesh 3.10.0, and what's still unknown",
+        de: "Apple Health wie angekündigt, FitMesh 3.10.0, und was noch offen ist",
+        fr: "Apple Santé telle qu'annoncée, FitMesh 3.10.0, et ce qui reste inconnu",
+      },
+      headers: {
+        it: ["Aspetto", "Apple Health (annunciata)", "FitMesh 3.10.0", "Non ancora noto"],
+        en: ["Aspect", "Apple Health (announced)", "FitMesh 3.10.0", "Not yet known"],
+        de: ["Aspekt", "Apple Health (angekündigt)", "FitMesh 3.10.0", "Noch nicht bekannt"],
+        fr: ["Aspect", "Apple Santé (annoncée)", "FitMesh 3.10.0", "Pas encore connu"],
+      },
+      rows: [
+        {
+          it: ["Disponibilità", "Annunciata il 9/9/2026, non ancora pubblica", "Già in release pubblica", "Data di lancio precisa"],
+          en: ["Availability", "Announced 9/9/2026, not yet public", "Already in public release", "Precise launch date"],
+          de: ["Verfügbarkeit", "Angekündigt am 9.9.2026, noch nicht öffentlich", "Bereits in öffentlicher Version", "Genaues Startdatum"],
+          fr: ["Disponibilité", "Annoncée le 9/9/2026, pas encore publique", "Déjà en version publique", "Date de lancement précise"],
+        },
+        {
+          it: ["Punteggi Readiness / Health Age", "Presentati, solo nell'app Salute nativa", "Non letti, nessun supporto dichiarato", "Se e quando arriverà un'API pubblica"],
+          en: ["Readiness / Health Age scores", "Presented, native Health app only", "Not read, no support claimed", "Whether/when a public API arrives"],
+          de: ["Readiness-/Health-Age-Punktzahlen", "Vorgestellt, nur in der nativen App Health", "Nicht gelesen, kein Support beansprucht", "Ob/wann eine öffentliche API kommt"],
+          fr: ["Scores Readiness / Health Age", "Présentés, app Santé native uniquement", "Non lus, aucune prise en charge revendiquée", "Si/quand une API publique arrivera"],
+        },
+        {
+          it: ["Dati da dispositivi non-Apple", "Nessun meccanismo di unione descritto finora", "Letti da HealthKit se già presenti lì, arbitrati tra più fonti", "Se entreranno nei punteggi nativi"],
+          en: ["Data from non-Apple devices", "No unification mechanism described so far", "Read from HealthKit when already there, arbitrated across sources", "Whether it will feed native scores"],
+          de: ["Daten von Nicht-Apple-Geräten", "Bisher kein Zusammenführungsmechanismus beschrieben", "Aus HealthKit gelesen, wenn dort vorhanden, quellenübergreifend abgewogen", "Ob sie in native Punktzahlen einfließen"],
+          fr: ["Données d'appareils non-Apple", "Aucun mécanisme d'unification décrit jusqu'ici", "Lues depuis HealthKit si déjà présentes, arbitrées entre sources", "Si elles alimenteront les scores natifs"],
+        },
+      ],
+    },
+    {
       type: "heading",
       level: 2,
       text: {
@@ -321,10 +389,10 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Separando cosa Apple ha annunciato, cosa è già documentato nelle API, cosa non sappiamo ancora, e cosa FitMesh fa davvero oggi: **Apple Health diventa molto più completa e può ridurre il bisogno di alcune app di sola analisi. Non sostituisce però automaticamente gli strumenti che collegano dispositivi, fonti e piattaforme differenti.** Il primo strato (l'annuncio) è ambizioso ma non ancora verificabile nell'uso pubblico. Il secondo strato (le API) oggi non espone Readiness o Health Age a terzi — quindi nessuna app, FitMesh inclusa, può leggerli, punto. Il terzo strato (le domande aperte) riguarda soprattutto se e come i dati di dispositivi non-Apple entreranno in questi punteggi: non lo sappiamo, e non lo scriviamo come se lo sapessimo. Il quarto strato — l'unico verificabile con certezza oggi — è che FitMesh, nella sua release pubblica, unisce già dati da fonti Apple e non-Apple in un solo posto: è un ruolo distinto da quello della app Salute riprogettata, non in competizione diretta con essa.",
-        en: "Separating what Apple has announced, what's already documented in the API, what we still don't know, and what FitMesh actually does today: **Apple Health becomes much more capable and may reduce the need for some analysis-only apps. It doesn't, however, automatically replace tools that connect different devices, sources, and platforms.** The first layer (the announcement) is ambitious but not yet verifiable in public use. The second layer (the API) today doesn't expose Readiness or Health Age to third parties — so no app, FitMesh included, can read them, full stop. The third layer (open questions) is mostly about whether and how data from non-Apple devices will feed into these scores: we don't know, and we're not writing as if we did. The fourth layer — the only one verifiable with certainty today — is that FitMesh, in its public release, already brings together data from Apple and non-Apple sources in one place: a distinct role from the redesigned Health app, not in direct competition with it.",
-        de: "Wenn man trennt, was Apple angekündigt hat, was in der API bereits dokumentiert ist, was wir noch nicht wissen, und was FitMesh heute tatsächlich tut: **Apple Health wird deutlich leistungsfähiger und kann den Bedarf an manchen reinen Analyse-Apps verringern. Sie ersetzt aber nicht automatisch Werkzeuge, die unterschiedliche Geräte, Quellen und Plattformen verbinden.** Die erste Ebene (die Ankündigung) ist ambitioniert, aber im öffentlichen Einsatz noch nicht überprüfbar. Die zweite Ebene (die API) macht Readiness oder Health Age heute nicht für Dritte zugänglich — also kann keine App, FitMesh eingeschlossen, sie lesen, Punkt. Die dritte Ebene (offene Fragen) betrifft vor allem, ob und wie Daten von Nicht-Apple-Geräten in diese Punktzahlen einfließen: Wir wissen es nicht, und wir schreiben nicht so, als wüssten wir es. Die vierte Ebene — die einzige, die heute mit Sicherheit überprüfbar ist — ist, dass FitMesh in seiner öffentlichen Version bereits Daten aus Apple- und Nicht-Apple-Quellen an einem Ort zusammenführt: eine eigenständige Rolle, getrennt von der neu gestalteten App Health, nicht in direkter Konkurrenz zu ihr.",
-        fr: "En séparant ce qu'Apple a annoncé, ce qui est déjà documenté dans l'API, ce que l'on ne sait pas encore, et ce que FitMesh fait réellement aujourd'hui : **Apple Santé devient beaucoup plus complète et peut réduire le besoin de certaines applications de simple analyse. Elle ne remplace cependant pas automatiquement les outils qui relient différents appareils, sources et plateformes.** Le premier niveau (l'annonce) est ambitieux mais pas encore vérifiable en usage public. Le deuxième niveau (l'API) n'expose aujourd'hui ni Readiness ni Health Age aux tiers — donc aucune application, FitMesh y compris, ne peut les lire, point final. Le troisième niveau (les questions ouvertes) concerne surtout si et comment les données d'appareils non-Apple alimenteront ces scores : nous ne le savons pas, et nous n'écrivons pas comme si nous le savions. Le quatrième niveau — le seul vérifiable avec certitude aujourd'hui — est que FitMesh, dans sa version publique, réunit déjà des données de sources Apple et non-Apple au même endroit : un rôle distinct de la nouvelle app Santé, pas en concurrence directe avec elle.",
+        it: "Separando cosa Apple ha annunciato, cosa è già documentato nelle API, cosa non sappiamo ancora, e cosa FitMesh fa davvero oggi: **una volta disponibile, Apple Health diventerà molto più completa e potrà ridurre il bisogno di alcune app di sola analisi. Non sostituirà però automaticamente gli strumenti che collegano dispositivi, fonti e piattaforme differenti.** Il primo strato (l'annuncio) è ambizioso ma non ancora verificabile nell'uso pubblico. Il secondo strato (le API): l'11 settembre 2026 non abbiamo identificato nessuna API HealthKit pubblica documentata per Readiness o Health Age, e FitMesh non ne dichiara oggi il supporto. Il terzo strato (le domande aperte) riguarda soprattutto se e come i dati di dispositivi non-Apple entreranno in questi punteggi: non lo sappiamo, e non lo scriviamo come se lo sapessimo. Il quarto strato — l'unico verificabile con certezza oggi — riguarda i ruoli: Apple Salute è l'archivio e l'analisi dell'ecosistema Apple dei dati che raggiungono HealthKit; FitMesh, nella sua release pubblica, è una dashboard cross-platform legata all'account che unisce già fonti Apple e non-Apple in un solo posto, con un ponte opzionale verso alcune metriche supportate. Sono ruoli distinti, non necessariamente in competizione.",
+        en: "Separating what Apple has announced, what's already documented in the API, what we still don't know, and what FitMesh actually does today: **once available, Apple Health will become much more capable and may reduce the need for some analysis-only apps. It won't, however, automatically replace tools that connect different devices, sources, and platforms.** The first layer (the announcement) is ambitious but not yet verifiable in public use. The second layer (the API): as of September 11, 2026 we identified no documented public HealthKit API for Readiness or Health Age, and FitMesh doesn't claim support for either today. The third layer (open questions) is mostly about whether and how data from non-Apple devices will feed into these scores: we don't know, and we're not writing as if we did. The fourth layer — the only one verifiable with certainty today — is about roles: Apple Health is the Apple ecosystem's archive and analysis of data that reaches HealthKit; FitMesh, in its public release, is a cross-platform, account-based dashboard that already brings Apple and non-Apple sources together in one place, with an optional bridge to some supported metrics. These are distinct roles, not necessarily in competition.",
+        de: "Wenn man trennt, was Apple angekündigt hat, was in der API bereits dokumentiert ist, was wir noch nicht wissen, und was FitMesh heute tatsächlich tut: **sobald verfügbar, wird Apple Health deutlich leistungsfähiger und kann den Bedarf an manchen reinen Analyse-Apps verringern. Sie wird aber nicht automatisch Werkzeuge ersetzen, die unterschiedliche Geräte, Quellen und Plattformen verbinden.** Die erste Ebene (die Ankündigung) ist ambitioniert, aber im öffentlichen Einsatz noch nicht überprüfbar. Die zweite Ebene (die API): Mit Stand 11. September 2026 haben wir keine dokumentierte öffentliche HealthKit-API für Readiness oder Health Age identifiziert, und FitMesh erhebt heute für keines von beiden einen Unterstützungsanspruch. Die dritte Ebene (offene Fragen) betrifft vor allem, ob und wie Daten von Nicht-Apple-Geräten in diese Punktzahlen einfließen: Wir wissen es nicht, und wir schreiben nicht so, als wüssten wir es. Die vierte Ebene — die einzige, die heute mit Sicherheit überprüfbar ist — betrifft die Rollen: Apple Health ist das Archiv und die Analyse des Apple-Ökosystems für Daten, die HealthKit erreichen; FitMesh ist in seiner öffentlichen Version ein kontobasiertes, plattformübergreifendes Dashboard, das bereits Apple- und Nicht-Apple-Quellen an einem Ort zusammenführt, mit einer optionalen Brücke zu einigen unterstützten Messwerten. Das sind eigenständige Rollen, nicht zwangsläufig in Konkurrenz.",
+        fr: "En séparant ce qu'Apple a annoncé, ce qui est déjà documenté dans l'API, ce que l'on ne sait pas encore, et ce que FitMesh fait réellement aujourd'hui : **une fois disponible, Apple Santé deviendra beaucoup plus complète et pourra réduire le besoin de certaines applications de simple analyse. Elle ne remplacera cependant pas automatiquement les outils qui relient différents appareils, sources et plateformes.** Le premier niveau (l'annonce) est ambitieux mais pas encore vérifiable en usage public. Le deuxième niveau (l'API) : au 11 septembre 2026, nous n'avons identifié aucune API HealthKit publique documentée pour Readiness ou Health Age, et FitMesh ne revendique aujourd'hui la prise en charge d'aucun des deux. Le troisième niveau (les questions ouvertes) concerne surtout si et comment les données d'appareils non-Apple alimenteront ces scores : nous ne le savons pas, et nous n'écrivons pas comme si nous le savions. Le quatrième niveau — le seul vérifiable avec certitude aujourd'hui — concerne les rôles : Apple Santé est l'archive et l'analyse de l'écosystème Apple pour les données qui atteignent HealthKit ; FitMesh, dans sa version publique, est un tableau de bord multiplateforme lié au compte qui réunit déjà des sources Apple et non-Apple au même endroit, avec un pont optionnel vers certaines mesures prises en charge. Ce sont des rôles distincts, pas nécessairement en concurrence.",
       },
     },
     {
@@ -345,22 +413,22 @@ export const post: BlogPost = {
       },
       benefits: {
         it: [
-          "Legge qualunque dato presente in Apple Salute, non solo quello di Apple Watch",
+          "Legge, previa autorizzazione, i campioni dei tipi HealthKit supportati — non solo quelli di Apple Watch",
           "Può scrivere alcune metriche verso Apple Salute, su attivazione esplicita",
           "Storico legato al tuo account, non al dispositivo fisico",
         ],
         en: [
-          "Reads any data present in Apple Health, not just data from Apple Watch",
+          "Reads, with authorization, samples of the supported HealthKit types — not just Apple Watch ones",
           "Can write some metrics to Apple Health, on explicit opt-in",
           "History tied to your account, not to the physical device",
         ],
         de: [
-          "Liest jeden in Apple Health vorhandenen Wert, nicht nur den der Apple Watch",
+          "Liest, nach Zustimmung, Messwerte der unterstützten HealthKit-Typen — nicht nur die der Apple Watch",
           "Kann bei expliziter Aktivierung einige Messwerte nach Apple Health schreiben",
           "Verlauf an dein Konto gebunden, nicht an das physische Gerät",
         ],
         fr: [
-          "Lit toute donnée présente dans Apple Santé, pas seulement celle de l'Apple Watch",
+          "Lit, avec autorisation, des échantillons des types HealthKit pris en charge — pas seulement ceux de l'Apple Watch",
           "Peut écrire certaines mesures vers Apple Santé, sur activation explicite",
           "Historique lié à votre compte, pas à l'appareil physique",
         ],
@@ -388,10 +456,10 @@ export const post: BlogPost = {
         fr: "La nouvelle app Santé est-elle déjà disponible ?",
       },
       a: {
-        it: "No. Apple l'ha annunciata il 9 settembre 2026 e ha dichiarato che arriverà più avanti nel 2026, inizialmente solo in inglese statunitense, separatamente dal rilascio di iOS 27 (14 settembre). Non è stata comunicata una data precisa.",
-        en: "No. Apple announced it on September 9, 2026, and stated it's coming later in 2026, initially in U.S. English only, separately from the iOS 27 release (September 14). No precise date has been given.",
-        de: "Nein. Apple hat sie am 9. September 2026 angekündigt und erklärt, sie komme später im Jahr 2026, zunächst nur auf US-Englisch, getrennt vom iOS-27-Release (14. September). Ein genaues Datum wurde nicht genannt.",
-        fr: "Non. Apple l'a annoncée le 9 septembre 2026 et a déclaré qu'elle arriverait plus tard en 2026, d'abord en anglais américain uniquement, séparément de la sortie d'iOS 27 (14 septembre). Aucune date précise n'a été communiquée.",
+        it: "No. Apple l'ha annunciata il 9 settembre 2026 e ha dichiarato che arriverà più avanti nel 2026, inizialmente solo in inglese statunitense — separatamente da iOS 27 e watchOS 27, la cui disponibilità Apple ha annunciato a partire dal 14 settembre 2026. Non è stata comunicata una data precisa per la nuova app Salute.",
+        en: "No. Apple announced it on September 9, 2026, and stated it's coming later in 2026, initially in U.S. English only — separately from iOS 27 and watchOS 27, whose availability Apple announced starting September 14, 2026. No precise date has been given for the new Health app.",
+        de: "Nein. Apple hat sie am 9. September 2026 angekündigt und erklärt, sie komme später im Jahr 2026, zunächst nur auf US-Englisch — getrennt von iOS 27 und watchOS 27, deren Verfügbarkeit Apple ab dem 14. September 2026 angekündigt hat. Für die neue App Health wurde kein genaues Datum genannt.",
+        fr: "Non. Apple l'a annoncée le 9 septembre 2026 et a déclaré qu'elle arriverait plus tard en 2026, d'abord en anglais américain uniquement — séparément d'iOS 27 et watchOS 27, dont Apple a annoncé la disponibilité à partir du 14 septembre 2026. Aucune date précise n'a été communiquée pour la nouvelle app Santé.",
       },
     },
     {
