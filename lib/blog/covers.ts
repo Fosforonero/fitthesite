@@ -31,7 +31,8 @@ export type CoverType =
   | "pixelWatch"
   | "googleHealthSync"
   | "apiMigration"
-  | "stepsChart";
+  | "stepsChart"
+  | "appleHealthConnected";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -98,6 +99,14 @@ export const COVER_FILE: Record<CoverType, string> = {
   // nessun testo/logo incorporato. Sostituisce il placeholder "troubleshooting"
   // (gear.webp) assegnato prima che l'asset fosse disponibile.
   stepsChart: "steps-total-vs-hourly-chart.webp",
+  // ADDENDUM P1.21-A (11/09/2026): cover dedicata consegnata da Matteo da
+  // /Users/matteo/Downloads/fitmesh-apple-health.webp, copiata (non
+  // spostata/modificata) con questo nome descrittivo stabile. Verificata:
+  // WebP reale, 1200x675 esatti, SHA-256 identico a byte tra sorgente e
+  // copia, illustrazione concettuale (telefono con dashboard salute
+  // connesso a smartwatch/anello/fascia via linee luminose) — nessun testo,
+  // nessun logo Apple, non uno screenshot iOS reale.
+  appleHealthConnected: "apple-health-connected-devices.webp",
 };
 
 /**
@@ -225,6 +234,9 @@ export const POST_COVER: Record<string, CoverType> = {
   // post news/ecosystem), NON uno screenshot che finga di mostrare la UI
   // reale. Segnalato a Matteo come scelta di ripiego, non ideale.
   "novita-giorni-passati": "dashboard",
+  // SPRINT P1.21 (11/09/2026): cover dedicata consegnata da Matteo, vedi
+  // commento su appleHealthConnected in COVER_FILE sopra.
+  "nuova-apple-health-rende-inutili-altre-app": "appleHealthConnected",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

@@ -152,6 +152,10 @@ export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   // perimetro di lingue (it/en/de/fr) e stesso meccanismo — nessuna lingua
   // aggiuntiva sbloccata rispetto ai due post precedenti.
   "novita-giorni-passati",
+  // SPRINT P1.21 (11/09/2026): pubblicazione iniziale it/en/de/fr, stesso
+  // meccanismo — sourcing puntuale su fonti Apple/HealthKit in inglese,
+  // non ancora esteso alle altre locale.
+  "nuova-apple-health-rende-inutili-altre-app",
 ]);
 
 /**
