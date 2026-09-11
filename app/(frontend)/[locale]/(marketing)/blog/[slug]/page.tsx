@@ -6,7 +6,7 @@ import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
-import { BlogRenderer, renderMarkdownInline } from "@/components/blog/BlogRenderer";
+import { BlogRenderer, renderMarkdownInline, isEnglishFallbackHref } from "@/components/blog/BlogRenderer";
 import { BlogSources } from "@/components/blog/BlogSources";
 import { ArticleMeta } from "@/components/blog/ArticleMeta";
 import { coverSrc, coverAlt, coverCaption, COVER_W, COVER_H } from "@/lib/blog/covers";
@@ -842,24 +842,34 @@ export default async function BlogArticle({
               {t.relatedHeading}
             </h2>
             <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {related.slice(0, 3).map(({ post: r, href }) => (
-                <Link
-                  key={r.slug}
-                  href={href}
-                  prefetch={false}
-                  className="card p-5 group hover:-translate-y-0.5 transition-transform"
-                >
-                  <p className="text-xs text-brand-aqua font-medium">
-                    {categoryLabel(r.category, lc)}
-                  </p>
-                  <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-text-primary group-hover:text-brand-aqua transition leading-snug">
-                    {tl(r.hero.title, lc)}
-                  </h3>
-                  <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-2">
-                    {tl(r.hero.subtitle, lc)}
-                  </p>
-                </Link>
-              ))}
+              {related.slice(0, 3).map(({ post: r, href }) => {
+                // SPRINT P1.21-C FASE 4: stessa dichiarazione "(EN)" di
+                // renderMarkdownInline/fitmesh-editorial-cta — una related
+                // card il cui titolo/sottotitolo sono già in lc (via `tl`,
+                // che ricade su `en` solo se il campo manca) ma il cui `href`
+                // punta comunque a `/en/...` (post non indicizzabile in lc)
+                // era indistinguibile da una destinazione realmente in lc.
+                const isEnFallback = isEnglishFallbackHref(href, lc);
+                return (
+                  <Link
+                    key={r.slug}
+                    href={href}
+                    prefetch={false}
+                    className="card p-5 group hover:-translate-y-0.5 transition-transform"
+                  >
+                    <p className="text-xs text-brand-aqua font-medium">
+                      {categoryLabel(r.category, lc)}
+                      {isEnFallback && <span className="text-text-muted font-normal"> · EN</span>}
+                    </p>
+                    <h3 className="mt-2 font-display text-lg font-semibold tracking-tight text-text-primary group-hover:text-brand-aqua transition leading-snug">
+                      {tl(r.hero.title, lc)}
+                    </h3>
+                    <p className="mt-2 text-sm text-text-secondary leading-relaxed line-clamp-2">
+                      {tl(r.hero.subtitle, lc)}
+                    </p>
+                  </Link>
+                );
+              })}
             </div>
           </section>
         )}
