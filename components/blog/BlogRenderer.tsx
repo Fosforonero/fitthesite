@@ -132,6 +132,22 @@ export function localizeInternalHref(href: string, locale: Locale): string | nul
 }
 
 /**
+ * SPRINT P1.21-C, FASE 4 — un href RISOLTO (già passato da `localizeInternalHref`/
+ * `blogLinkHref`/`blogLinkHrefSync`) che ricade su `/en/...` per un lettore che
+ * NON è su `en` è un fallback silenzioso se non dichiarato: un'etichetta
+ * localizzata che porta a una pagina inglese è indistinguibile da un link
+ * normale senza un segnale visibile. Estratta dal blocco `fitmesh-editorial-cta`
+ * (unico punto che già lo faceva, per `secondaryHref`) in modo che OGNI
+ * chiamante — link inline nel corpo (`renderMarkdownInline`), CTA, related
+ * card — usi la STESSA regola invece di duplicarla o ometterla altrove.
+ * Comportamento additivo: non cambia NESSUN href risolto, aggiunge solo
+ * un'etichetta "(EN)" quando il fallback è già avvenuto a monte.
+ */
+export function isEnglishFallbackHref(href: string | null | undefined, locale: Locale): boolean {
+  return locale !== "en" && typeof href === "string" && href.startsWith("/en/");
+}
+
+/**
  * Renderer pattern-matching esaustivo su `BlogSection`. Mai estendere senza
  * aggiungere il nuovo variant qui sotto, altrimenti TS si lamenta del `never`.
  *
@@ -167,6 +183,12 @@ export function renderMarkdownInline(text: string, locale: Locale): ReactNode[] 
         if (resolvedHref === null) {
           return <Fragment key={i}>{label}</Fragment>;
         }
+        // SPRINT P1.21-C FASE 4: stessa dichiarazione "(EN)" già usata dal
+        // blocco fitmesh-editorial-cta per secondaryHref, estesa qui a OGNI
+        // link inline nel corpo (era assente: un lettore FR che clicca un
+        // link con testo francese finiva silenziosamente su una pagina
+        // inglese, indistinguibile da un link normale).
+        const isEnFallback = isEnglishFallbackHref(resolvedHref, locale);
         return (
           <Link
             key={i}
@@ -174,6 +196,7 @@ export function renderMarkdownInline(text: string, locale: Locale): ReactNode[] 
             className="text-brand-aqua hover:text-brand-green underline-offset-2 hover:underline transition"
           >
             {label}
+            {isEnFallback && <span className="text-text-muted font-normal"> (EN)</span>}
           </Link>
         );
       }
@@ -480,13 +503,11 @@ export function BlogRenderer({
             // (SSOT provider/blog/landing), non un semplice swap — per una
             // destinazione non indicizzabile nella locale corrente, il
             // fallback è esplicitamente EN (mai un'altra locale, mai un 404).
-            // Quel fallback deve però essere dichiarato: senza indicazione
-            // visibile, un'etichetta localizzata che porta a una pagina
-            // inglese è indistinguibile da un link normale. Basta il testo
-            // visibile stesso — è già accessibile, nessun aria-label extra
-            // necessario.
-            const secondaryHrefIsEnglishFallback =
-              locale !== "en" && typeof secondaryHref === "string" && secondaryHref.startsWith("/en/");
+            // SPRINT P1.21-C FASE 4: la dichiarazione del fallback (era logica
+            // inline solo qui) è ora `isEnglishFallbackHref`, condivisa anche
+            // da `renderMarkdownInline` e dalle related card — vedi la sua
+            // doc comment per il motivo.
+            const secondaryHrefIsEnglishFallback = isEnglishFallbackHref(secondaryHref, locale);
             const benefits = s.benefits ? tll(s.benefits, locale) : [];
             const ctaPlacementValue =
               s.placement === "after_solution"

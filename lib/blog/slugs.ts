@@ -881,15 +881,24 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
   // meccanismo dei due post /novita gemelli sopra (REDIRECT_INCOMPLETE_LOCALE_SLUGS
   // in indexability.ts) — la profondità di sourcing (fonti Apple in inglese,
   // verificate puntualmente) sconsiglia l'espansione alle altre locale ora.
+  // SPRINT P1.21-C (11/09/2026): estensione ES/PT/PL/NL con slug reali
+  // tradotti (stesso trattamento di de/fr sopra) — contenuto completo e
+  // verificato indicizzabile (isPostLocaleComplete). SV/DA passano invece
+  // dal meccanismo overlay nordico (lib/blog/nordic-overlay.json) e NON
+  // hanno una entry qui, per lo stesso motivo di OGNI altro post coperto
+  // dall'overlay in questo file: nessuna locale nordica ha mai uno slug
+  // proprio, ricadono tutte sullo slug canonico IT (vedi `localized()` in
+  // slug-i18n.ts). tr/ja/ko restano non tradotti, stesso motivo originale
+  // (sourcing puntuale su fonti Apple in inglese).
   "nuova-apple-health-rende-inutili-altre-app": {
     en: "will-new-apple-health-replace-other-apps",
     de: "ersetzt-neue-apple-health-andere-apps",
     fr: "nouvelle-apple-sante-remplace-autres-apps",
-    es: "nuova-apple-health-rende-inutili-altre-app",
-    pt: "nuova-apple-health-rende-inutili-altre-app",
-    pl: "nuova-apple-health-rende-inutili-altre-app",
+    es: "nueva-apple-salud-sustituye-apps-fitness",
+    pt: "nova-apple-saude-substitui-apps-fitness",
+    pl: "nowa-apple-health-zastapi-aplikacje-fitness",
+    nl: "nieuwe-apple-gezondheid-vervangt-fitnessapps",
     tr: "nuova-apple-health-rende-inutili-altre-app",
-    nl: "nuova-apple-health-rende-inutili-altre-app",
     ja: "nuova-apple-health-rende-inutili-altre-app",
     ko: "nuova-apple-health-rende-inutili-altre-app",
   },
