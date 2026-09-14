@@ -1050,6 +1050,7 @@ export const post: BlogPost = {
       ctaHref: {
         it: "/it/sync/garmin",
         en: "/en/sync/garmin",
+        de: "/de/lp/garmin-connect-pc",
       },
     },
   ],
