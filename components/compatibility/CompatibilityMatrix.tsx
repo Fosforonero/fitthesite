@@ -10,6 +10,7 @@ import {
   type PhoneOs,
 } from "@/lib/compatibility/matrix-data";
 import type { SupportedMatrixLocale } from "@/lib/compatibility/glossary-data";
+import { resolveGuideLink, resolveUnverifiedLink } from "@/lib/compatibility/matrix-links";
 
 interface CompatibilityMatrixProps {
   locale: SupportedMatrixLocale;
@@ -18,35 +19,47 @@ interface CompatibilityMatrixProps {
 type OsFilter = "all" | PhoneOs;
 type FamilyFilter = "all" | DeviceFamily;
 
-const UI_COPY: Record<
-  SupportedMatrixLocale,
-  {
-    title: string;
-    subtitle: string;
-    badge: string;
-    filterOsLabel: string;
-    filterFamilyLabel: string;
-    allOs: string;
-    allFamilies: string;
-    stepALabel: string;
-    stepBLabel: string;
-    stepCLabel: string;
-    stepDLabel: string;
-    metricsLabel: string;
-    requirementsLabel: string;
-    limitationsLabel: string;
-    officialSourceLabel: string;
-    evidenceLabel: string;
-    verifiedDateLabel: string;
-    subpathsLabel: string;
-    guideLinkLabel: string;
-    resultsAnnounce: (count: number) => string;
-    noResultsTitle: string;
-    noResultsDesc: string;
-    unverifiedBadge: string;
-    learnMore: string;
-  }
-> = {
+export interface MatrixUiCopy {
+  title: string;
+  subtitle: string;
+  badge: string;
+  filterOsLabel: string;
+  filterFamilyLabel: string;
+  allOs: string;
+  allFamilies: string;
+  stepALabel: string;
+  stepBLabel: string;
+  stepCLabel: string;
+  stepDLabel: string;
+  metricsLabel: string;
+  requirementsLabel: string;
+  limitationsLabel: string;
+  officialSourceLabel: string;
+  evidenceLabel: string;
+  verifiedDateLabel: string;
+  subpathsLabel: string;
+  guideLinkLabel: string;
+  resultsAnnounce: (count: number) => string;
+  noResultsTitle: string;
+  noResultsDesc: string;
+  unverifiedBadge: string;
+  learnMore: string;
+  colDeviceOs: string;
+  colStatus: string;
+  colEvidence: string;
+  colRouteData: string;
+  colOfficialSource: string;
+  subpathRequirements: string;
+  subpathMetrics: string;
+  subpathFallback: string;
+  toggleDetailsOpen: string;
+  toggleDetailsClosed: string;
+  cardToggleOpen: string;
+  cardToggleClosed: string;
+  resetFilters: string;
+}
+
+export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
   it: {
     badge: "Matrice di Compatibilità Ufficiale",
     title: "Cosa legge FitMesh dal tuo dispositivo",
@@ -72,8 +85,21 @@ const UI_COPY: Record<
     noResultsTitle: "Nessun percorso trovato per i filtri selezionati",
     noResultsDesc:
       "Prova a reimpostare i filtri su 'Tutti' per consultare l'elenco completo.",
-    unverifiedBadge: "Percorso non verificato in questa prima matrice",
+    unverifiedBadge: "Percorso non censito in questa prima matrice",
     learnMore: "Approfondisci nella documentazione",
+    colDeviceOs: "Dispositivo & OS",
+    colStatus: "Stato",
+    colEvidence: "Evidenza & Direzione",
+    colRouteData: "Percorso & Dati (A → B → C → D)",
+    colOfficialSource: "Fonte Ufficiale",
+    subpathRequirements: "Requisiti",
+    subpathMetrics: "Metriche",
+    subpathFallback: "Fallback",
+    toggleDetailsOpen: "▲ Nascondi dettaglio A-D",
+    toggleDetailsClosed: "▼ Mostra dettaglio completo A-B-C-D",
+    cardToggleOpen: "▲ Chiudi scheda dettagliata",
+    cardToggleClosed: "▼ Apri scheda completa (A-D, requisiti, limiti)",
+    resetFilters: "Reimposta filtri",
   },
   en: {
     badge: "Official Compatibility Matrix",
@@ -99,8 +125,21 @@ const UI_COPY: Record<
     resultsAnnounce: (count) => `Displaying ${count} compatibility routes.`,
     noResultsTitle: "No route found for selected filters",
     noResultsDesc: "Try resetting filters to 'All' to view the complete catalog.",
-    unverifiedBadge: "Route not verified in this initial matrix",
+    unverifiedBadge: "Route not mapped in this initial matrix",
     learnMore: "Learn more in documentation",
+    colDeviceOs: "Device & OS",
+    colStatus: "Status",
+    colEvidence: "Evidence & Direction",
+    colRouteData: "Route & Data (A → B → C → D)",
+    colOfficialSource: "Official Source",
+    subpathRequirements: "Requirements",
+    subpathMetrics: "Metrics",
+    subpathFallback: "Fallback",
+    toggleDetailsOpen: "▲ Hide A-D details",
+    toggleDetailsClosed: "▼ Show full A-B-C-D details",
+    cardToggleOpen: "▲ Close detailed card",
+    cardToggleClosed: "▼ Open full card (A-D, requirements, limits)",
+    resetFilters: "Reset filters",
   },
   de: {
     badge: "Offizielle Kompatibilitätsmatrix",
@@ -127,8 +166,21 @@ const UI_COPY: Record<
     noResultsTitle: "Kein Pfad für die ausgewählten Filter gefunden",
     noResultsDesc:
       "Setze die Filter auf 'Alle' zurück, um den vollständigen Katalog zu sehen.",
-    unverifiedBadge: "In dieser ersten Matrix nicht verifizierter Pfad",
+    unverifiedBadge: "In dieser ersten Matrix nicht erfasster Pfad",
     learnMore: "In der Dokumentation nachlesen",
+    colDeviceOs: "Gerät & OS",
+    colStatus: "Status",
+    colEvidence: "Evidenz & Richtung",
+    colRouteData: "Pfad & Daten (A → B → C → D)",
+    colOfficialSource: "Offizielle Quelle",
+    subpathRequirements: "Voraussetzungen",
+    subpathMetrics: "Metriken",
+    subpathFallback: "Fallback",
+    toggleDetailsOpen: "▲ Details A-D ausblenden",
+    toggleDetailsClosed: "▼ Vollständige Details A-B-C-D anzeigen",
+    cardToggleOpen: "▲ Detailansicht schließen",
+    cardToggleClosed: "▼ Vollständige Karte öffnen (A-D, Voraussetzungen, Limits)",
+    resetFilters: "Filter zurücksetzen",
   },
   fr: {
     badge: "Matrice de Compatibilité Officielle",
@@ -155,8 +207,21 @@ const UI_COPY: Record<
     noResultsTitle: "Aucun parcours trouvé pour les filtres sélectionnés",
     noResultsDesc:
       "Réinitialisez les filtres sur 'Tous' pour afficher le catalogue complet.",
-    unverifiedBadge: "Parcours non vérifié dans cette première matrice",
+    unverifiedBadge: "Parcours non répertorié dans cette première matrice",
     learnMore: "En savoir plus dans la documentation",
+    colDeviceOs: "Appareil & OS",
+    colStatus: "Statut",
+    colEvidence: "Preuve & Direction",
+    colRouteData: "Parcours & Données (A → B → C → D)",
+    colOfficialSource: "Source officielle",
+    subpathRequirements: "Prérequis",
+    subpathMetrics: "Métriques",
+    subpathFallback: "Secours",
+    toggleDetailsOpen: "▲ Masquer le détail A-D",
+    toggleDetailsClosed: "▼ Afficher le détail complet A-B-C-D",
+    cardToggleOpen: "▲ Fermer la fiche détaillée",
+    cardToggleClosed: "▼ Ouvrir la fiche complète (A-D, prérequis, limites)",
+    resetFilters: "Réinitialiser les filtres",
   },
 };
 
@@ -325,14 +390,26 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
           <p className="mt-2 text-sm text-text-secondary leading-relaxed max-w-xl mx-auto">
             {unverifiedInfo.description[locale] || unverifiedInfo.description.en}
           </p>
-          <div className="mt-4 flex justify-center">
-            <Link
-              href={unverifiedInfo.helpHref}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-aqua hover:underline"
-            >
-              {copy.learnMore} →
-            </Link>
-          </div>
+          {(() => {
+            const unverifiedLink = resolveUnverifiedLink(unverifiedInfo.providerSlug, locale);
+            if (!unverifiedLink) return null;
+            return (
+              <div className="mt-4 flex justify-center">
+                <Link
+                  href={unverifiedLink.href}
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-brand-aqua hover:underline"
+                >
+                  {copy.learnMore}
+                  {unverifiedLink.isFallbackEn && (
+                    <span className="text-[10px] px-1.5 py-0.5 bg-surface border border-border-subtle rounded text-text-muted font-normal">
+                      (EN)
+                    </span>
+                  )}
+                  {" "}→
+                </Link>
+              </div>
+            );
+          })()}
         </div>
       )}
 
@@ -353,7 +430,7 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
             }}
             className="mt-4 px-4 py-2 rounded-pill bg-surface-elevated text-xs font-semibold text-text-primary hover:bg-surface-elevated/80 border border-border-subtle transition"
           >
-            Reset
+            {copy.resetFilters}
           </button>
         </div>
       )}
@@ -367,16 +444,17 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
             </caption>
             <thead>
               <tr className="bg-surface-elevated/80 border-b border-border-subtle text-text-muted uppercase tracking-wider text-[11px]">
-                <th scope="col" className="p-4 font-semibold w-52">Dispositivo & OS</th>
-                <th scope="col" className="p-4 font-semibold w-32">Stato</th>
-                <th scope="col" className="p-4 font-semibold w-56">Evidenza & Direzione</th>
-                <th scope="col" className="p-4 font-semibold">Percorso & Dati (A → B → C → D)</th>
-                <th scope="col" className="p-4 font-semibold w-40">Fonte Ufficiale</th>
+                <th scope="col" className="p-4 font-semibold w-52">{copy.colDeviceOs}</th>
+                <th scope="col" className="p-4 font-semibold w-32">{copy.colStatus}</th>
+                <th scope="col" className="p-4 font-semibold w-56">{copy.colEvidence}</th>
+                <th scope="col" className="p-4 font-semibold">{copy.colRouteData}</th>
+                <th scope="col" className="p-4 font-semibold w-40">{copy.colOfficialSource}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-subtle/60">
               {filteredPaths.map((p) => {
                 const isExpanded = expandedRow === p.id;
+                const guideLink = resolveGuideLink(p, locale);
                 return (
                   <tr
                     key={p.id}
@@ -389,13 +467,19 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
                       <div className="inline-flex items-center gap-1.5 mt-1 text-[11px] font-mono text-text-secondary bg-surface-elevated px-2 py-0.5 rounded border border-border-subtle/50">
                         {p.phoneOsLabel[locale] || p.phoneOsLabel.en}
                       </div>
-                      {p.guideHref && (
+                      {guideLink && (
                         <div className="mt-2">
                           <Link
-                            href={p.guideHref}
+                            href={guideLink.href}
                             className="text-[11px] text-brand-aqua hover:underline inline-flex items-center gap-1"
                           >
-                            {copy.guideLinkLabel} →
+                            {copy.guideLinkLabel}
+                            {guideLink.isFallbackEn && (
+                              <span className="text-[9px] px-1 py-0.2 bg-surface border border-border-subtle rounded text-text-muted">
+                                (EN)
+                              </span>
+                            )}
+                            {" "}→
                           </Link>
                         </div>
                       )}
@@ -437,9 +521,9 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
                             <div key={sub.id} className="text-[11px] space-y-1 pt-1.5 first:pt-0 border-t first:border-t-0 border-border-subtle/50">
                               <div className="font-semibold text-text-primary">{sub.title[locale] || sub.title.en}</div>
                               <div className="text-text-secondary font-mono text-[10px]">{sub.route[locale] || sub.route.en}</div>
-                              <div className="text-text-secondary"><span className="text-text-muted">Requisiti:</span> {sub.requirements[locale] || sub.requirements.en}</div>
-                              <div className="text-text-secondary"><span className="text-text-muted">Metriche:</span> {sub.metricsRead[locale] || sub.metricsRead.en}</div>
-                              <div className="text-text-secondary"><span className="text-text-muted">Fallback:</span> {sub.fallback[locale] || sub.fallback.en}</div>
+                              <div className="text-text-secondary"><span className="text-text-muted">{copy.subpathRequirements}:</span> {sub.requirements[locale] || sub.requirements.en}</div>
+                              <div className="text-text-secondary"><span className="text-text-muted">{copy.subpathMetrics}:</span> {sub.metricsRead[locale] || sub.metricsRead.en}</div>
+                              <div className="text-text-secondary"><span className="text-text-muted">{copy.subpathFallback}:</span> {sub.fallback[locale] || sub.fallback.en}</div>
                             </div>
                           ))}
                         </div>
@@ -452,7 +536,7 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
                         className="text-[11px] font-medium text-brand-aqua hover:underline inline-flex items-center gap-1 mt-1"
                         aria-expanded={isExpanded}
                       >
-                        {isExpanded ? "▲ Nascondi dettaglio A-D" : "▼ Mostra dettaglio completo A-B-C-D"}
+                        {isExpanded ? copy.toggleDetailsOpen : copy.toggleDetailsClosed}
                       </button>
 
                       {isExpanded && (
@@ -508,6 +592,7 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
       <div className="lg:hidden space-y-4">
         {filteredPaths.map((p) => {
           const isExpanded = expandedRow === p.id;
+          const guideLink = resolveGuideLink(p, locale);
           return (
             <article
               key={p.id}
@@ -567,9 +652,9 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
                     <div key={sub.id} className="text-xs space-y-1 pt-2 first:pt-0 border-t first:border-t-0 border-border-subtle/60">
                       <div className="font-semibold text-text-primary">{sub.title[locale] || sub.title.en}</div>
                       <div className="text-text-secondary font-mono text-[10px]">{sub.route[locale] || sub.route.en}</div>
-                      <div className="text-[11px] text-text-secondary"><strong className="text-text-muted">Requisiti:</strong> {sub.requirements[locale] || sub.requirements.en}</div>
-                      <div className="text-[11px] text-text-secondary"><strong className="text-text-muted">Metriche:</strong> {sub.metricsRead[locale] || sub.metricsRead.en}</div>
-                      <div className="text-[11px] text-text-secondary"><strong className="text-text-muted">Fallback:</strong> {sub.fallback[locale] || sub.fallback.en}</div>
+                      <div className="text-[11px] text-text-secondary"><strong className="text-text-muted">{copy.subpathRequirements}:</strong> {sub.requirements[locale] || sub.requirements.en}</div>
+                      <div className="text-[11px] text-text-secondary"><strong className="text-text-muted">{copy.subpathMetrics}:</strong> {sub.metricsRead[locale] || sub.metricsRead.en}</div>
+                      <div className="text-[11px] text-text-secondary"><strong className="text-text-muted">{copy.subpathFallback}:</strong> {sub.fallback[locale] || sub.fallback.en}</div>
                     </div>
                   ))}
                 </div>
@@ -583,7 +668,7 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
                   className="w-full py-2.5 px-3 rounded-xl bg-surface-elevated hover:bg-surface-elevated/80 border border-border-subtle text-xs font-semibold text-brand-aqua text-center transition"
                   aria-expanded={isExpanded}
                 >
-                  {isExpanded ? "▲ Chiudi scheda dettagliata" : "▼ Apri scheda completa (A-D, requisiti, limiti)"}
+                  {isExpanded ? copy.cardToggleOpen : copy.cardToggleClosed}
                 </button>
               </div>
 
@@ -635,13 +720,19 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
                 <p className="text-[10px] text-text-secondary italic">
                   &quot;{p.officialSource.supportedClaim[locale] || p.officialSource.supportedClaim.en}&quot;
                 </p>
-                {p.guideHref && (
+                {guideLink && (
                   <div className="mt-1 pt-1 border-t border-border-subtle/40">
                     <Link
-                      href={p.guideHref}
+                      href={guideLink.href}
                       className="text-xs font-semibold text-brand-green hover:underline inline-flex items-center gap-1"
                     >
-                      {copy.guideLinkLabel} →
+                      {copy.guideLinkLabel}
+                      {guideLink.isFallbackEn && (
+                        <span className="text-[10px] px-1.5 py-0.5 bg-surface border border-border-subtle rounded text-text-muted font-normal">
+                          (EN)
+                        </span>
+                      )}
+                      {" "}→
                     </Link>
                   </div>
                 )}

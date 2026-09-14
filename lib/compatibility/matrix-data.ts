@@ -72,7 +72,7 @@ export interface CompatibilityPath {
   officialSources?: readonly OfficialSource[];
   evidence: EvidenceFact;
   subpaths?: readonly CompatibilitySubpath[];
-  guideHref?: string;
+  guideSlug?: string;
 }
 
 export const EVIDENCE_LABELS: Record<EvidenceLevel, Record<SupportedMatrixLocale, string>> = {
@@ -205,7 +205,6 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Parcours officiellement documenté par Garmin et vérifié dans le code Health Connect de la version publique FitMesh 3.10.0+191.",
       },
     },
-    guideHref: "/blog/garmin-samsung-health-sync-guide",
   },
 
   // ── 2. Garmin su iPhone (iOS) ─────────────────────────────────────────
@@ -310,7 +309,7 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Parcours officiellement documenté par Garmin ; pris en charge par le framework HealthKit dans la version FitMesh 3.10.0+191 selon les conditions iOS.",
       },
     },
-    guideHref: "/sync/garmin",
+    guideSlug: "garmin-samsung-health-sync-guide",
   },
 
   // ── 3. Fitbit su Android ──────────────────────────────────────────────
@@ -353,22 +352,22 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Matériel Fitbit : mesure commune des pas, de la fréquence cardiaque et du sommeil. Fonctions selon le modèle : capteur cEDA (stress), ECG, température cutanée (Sense/Versa) et GPS intégré.",
       },
       stepB: {
-        it: "L'app Fitbit su Android elabora le metriche collegandole all'account Google associato.",
-        en: "The Fitbit app on Android processes metrics linked to your associated Google account.",
-        de: "Die Fitbit-App auf Android verarbeitet die Werte im verknüpften Google-Konto.",
-        fr: "L'application Fitbit sur Android traite les métriques associées au compte Google.",
+        it: "L'app Google Health sullo smartphone Android elabora e visualizza le metriche sull'account Google associato al dispositivo Fitbit.",
+        en: "The Google Health app on Android processes and displays metrics linked to the Google account associated with the Fitbit device.",
+        de: "Die Google Health App auf Android verarbeitet und visualisiert die Werte im verknüpften Google-Konto des Fitbit-Geräts.",
+        fr: "L'application Google Health sur Android traite et affiche les métriques sur le compte Google associé à l'appareil Fitbit.",
       },
       stepC: {
-        it: "L'app Fitbit trasferisce a Health Connect i passi, la frequenza cardiaca, la durata del sonno, le calorie e le sessioni di allenamento.",
-        en: "The Fitbit app transfers steps, heart rate, sleep duration, calories, and workout sessions to Health Connect.",
-        de: "Die Fitbit-App überträgt Schritte, Herzfrequenz, Schlafdauer, Kalorien und Trainingseinheiten an Health Connect.",
-        fr: "L'application Fitbit transfère à Health Connect les pas, le rythme cardiaque, la durée du sommeil, les calories et les entraînements.",
+        it: "Google Health trasferisce a Health Connect i passi, la frequenza cardiaca, la durata del sonno, le calorie e le sessioni di allenamento.",
+        en: "Google Health transfers steps, heart rate, sleep duration, calories, and workout sessions to Health Connect.",
+        de: "Google Health überträgt Schritte, Herzfrequenz, Schlafdauer, Kalorien und Trainingseinheiten an Health Connect.",
+        fr: "Google Health transfère à Health Connect les pas, le rythme cardiaque, la durée du sommeil, les calories et les entraînements.",
       },
       stepD: {
-        it: "FitMesh Android (release 3.10.0+191) legge i dati standard da Health Connect e aggiorna la dashboard personale senza richiedere abbonamento Fitbit Premium.",
-        en: "FitMesh Android (release 3.10.0+191) reads standard data from Health Connect and updates your personal dashboard without requiring a Fitbit Premium subscription.",
-        de: "FitMesh Android (Release 3.10.0+191) liest Standarddaten aus Health Connect aus und aktualisiert das Dashboard ohne Pflicht zu Fitbit Premium.",
-        fr: "FitMesh Android (version 3.10.0+191) lit les données standard depuis Health Connect et met à jour le tableau de bord sans abonnement Fitbit Premium.",
+        it: "FitMesh Android (release 3.10.0+191) legge i dati standard da Health Connect e aggiorna la dashboard personale senza richiedere abbonamenti premium.",
+        en: "FitMesh Android (release 3.10.0+191) reads standard data from Health Connect and updates your personal dashboard without requiring premium subscriptions.",
+        de: "FitMesh Android (Release 3.10.0+191) liest Standarddaten aus Health Connect aus und aktualisiert das Dashboard ohne Pflicht zu Premium-Abos.",
+        fr: "FitMesh Android (version 3.10.0+191) lit les données standard depuis Health Connect et met à jour le tableau de bord sans abonnement premium.",
       },
     },
     metricsSummary: {
@@ -378,16 +377,16 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       fr: "Pas, fréquence cardiaque, durée du sommeil, calories, distance, entraînements",
     },
     requirements: {
-      it: "Smartphone Android; app Fitbit con account Google attivo; sincronizzazione Health Connect abilitata nelle impostazioni Fitbit.",
-      en: "Android smartphone; Fitbit app with active Google account; Health Connect sync enabled in Fitbit settings.",
-      de: "Android-Smartphone; Fitbit-App mit aktivem Google-Konto; in der Fitbit-App aktivierte Health Connect-Synchronisierung.",
-      fr: "Smartphone Android ; application Fitbit avec compte Google actif ; synchronisation Health Connect activée dans Fitbit.",
+      it: "Smartphone Android; app Google Health installata con account Google attivo; sincronizzazione Health Connect abilitata.",
+      en: "Android smartphone; Google Health app installed with active Google account; Health Connect synchronization enabled.",
+      de: "Android-Smartphone; installierte Google Health App mit aktivem Google-Konto; aktivierte Health Connect-Synchronisierung.",
+      fr: "Smartphone Android ; application Google Health installée avec compte Google actif ; synchronisation Health Connect activée.",
     },
     limitations: {
-      it: "L'app Fitbit e l'account Google restano obbligatori sullo smartphone. L'esportazione delle fasi del sonno dettagliate (REM/profondo) dipende dalla configurazione concessa dall'app Fitbit.",
-      en: "The Fitbit app and Google account remain required on the smartphone. Export of detailed sleep stages (REM/deep) depends on what the Fitbit app shares.",
-      de: "Die Fitbit-App und das Google-Konto bleiben auf dem Smartphone erforderlich. Der Export detaillierter Schlafphasen (REM/Tiefschlaf) hängt von der Fitbit-App ab.",
-      fr: "L'application Fitbit et le compte Google restent requis sur le smartphone. L'export des phases détaillées de sommeil dépend du partage de l'application Fitbit.",
+      it: "L'app Google Health e l'account Google restano obbligatori sullo smartphone. L'esportazione delle fasi del sonno dettagliate (REM/profondo) dipende dalla configurazione concessa dall'app.",
+      en: "The Google Health app and Google account remain required on the smartphone. Export of detailed sleep stages (REM/deep) depends on permissions granted in the app.",
+      de: "Die Google Health App und das Google-Konto bleiben auf dem Smartphone erforderlich. Der Export detaillierter Schlafphasen hängt von den App-Einstellungen ab.",
+      fr: "L'application Google Health et le compte Google restent requis sur le smartphone. L'export des phases détaillées de sommeil dépend des autorisations de l'application.",
     },
     officialSource: {
       title: {
@@ -399,23 +398,22 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       url: "https://support.google.com/fitbit/answer/13045614",
       verifiedDate: "2026-09-14",
       supportedClaim: {
-        it: "L'app Fitbit su Android scrive passi, distanza, sonno, minuti in zona attiva, esercizi e calorie in Health Connect.",
-        en: "Fitbit Android app writes steps, distance, sleep, active zone minutes, exercise, and calories to Health Connect.",
-        de: "Die Fitbit-Android-App schreibt Schritte, Distanz, Schlaf, Aktivzonenminuten, Training und Kalorien in Health Connect.",
-        fr: "L'application Fitbit Android écrit pas, distance, sommeil, minutes en zone active, exercices et calories dans Health Connect.",
+        it: "L'app scrive passi, distanza, sonno, minuti in zona attiva, esercizi e calorie in Health Connect su Android.",
+        en: "App writes steps, distance, sleep, active zone minutes, exercise, and calories to Health Connect on Android.",
+        de: "App schreibt Schritte, Distanz, Schlaf, Aktivzonenminuten, Training und Kalorien in Health Connect auf Android.",
+        fr: "L'application écrit pas, distance, sommeil, minutes en zone active, exercices et calories dans Health Connect sur Android.",
       },
     },
     evidence: {
       level: "vendor_documented",
       label: EVIDENCE_LABELS.vendor_documented,
       details: {
-        it: "Percorso documentato ufficialmente da Google/Fitbit e verificato nel codice di lettura Health Connect della release FitMesh 3.10.0+191.",
-        en: "Route officially documented by Google/Fitbit and verified in the Health Connect reader code of FitMesh release 3.10.0+191.",
-        de: "Offiziell von Google/Fitbit dokumentierter Pfad, verifiziert im Health Connect-Code des FitMesh-Releases 3.10.0+191.",
-        fr: "Parcours officiellement documenté par Google/Fitbit et vérifié dans le code Health Connect de FitMesh 3.10.0+191.",
+        it: "Percorso documentato ufficialmente da Google e verificato nel codice di lettura Health Connect della release FitMesh 3.10.0+191.",
+        en: "Route officially documented by Google and verified in the Health Connect reader code of FitMesh release 3.10.0+191.",
+        de: "Offiziell von Google dokumentierter Pfad, verifiziert im Health Connect-Code des FitMesh-Releases 3.10.0+191.",
+        fr: "Parcours officiellement documenté par Google et vérifié dans le code Health Connect de FitMesh 3.10.0+191.",
       },
     },
-    guideHref: "/lp/fitbit-daten-exportieren-google",
   },
 
   // ── 4. Fitbit su iPhone (iOS) ─────────────────────────────────────────
@@ -458,10 +456,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Matériel Fitbit : mesure des pas, du pouls et du sommeil. Fonctions selon le modèle : capteur cEDA, ECG et température.",
       },
       stepB: {
-        it: "L'app Google Health (Fitbit) per iOS memorizza e mostra le metriche sul profilo utente Google associato.",
-        en: "The Google Health (Fitbit) iOS app stores and displays metrics on the linked Google profile.",
-        de: "Die Google Health (Fitbit) iOS-App speichert und zeigt Messwerte im verknüpften Google-Konto an.",
-        fr: "L'application Google Health (Fitbit) pour iOS enregistre et affiche les métriques sur le profil Google associé.",
+        it: "L'app Google Health per iOS memorizza e mostra le metriche sul profilo utente Google associato.",
+        en: "The Google Health iOS app stores and displays metrics on the linked Google profile.",
+        de: "Die Google Health iOS-App speichert und zeigt Messwerte im verknüpften Google-Konto an.",
+        fr: "L'application Google Health pour iOS enregistre et affiche les métriques sur le profil Google associé.",
       },
       stepC: {
         it: "Quando Google Health rende disponibile in Apple Health un tipo di dato proveniente dal dispositivo Fitbit e l'utente concede i relativi permessi, FitMesh può leggere i tipi HealthKit supportati dalla release. L'esportazione dipende dai permessi concessi dall'utente in Google Health e dalla compatibilità del singolo modello Fitbit.",
@@ -496,7 +494,7 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
     },
     officialSource: {
       title: {
-        it: "Google Support: Condividere i dati Fitbit con Apple Health",
+        it: "Google Support: Condividere i dati con Apple Health",
         en: "Google Support: Share Fitbit data with Apple Health",
         de: "Google Support: Fitbit-Daten mit Apple Health teilen",
         fr: "Support Google : Partager les données Fitbit avec Apple Santé",
@@ -520,7 +518,6 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Parcours documenté par Google Health et pris en charge par le code HealthKit de FitMesh 3.10.0+191, conditionné aux autorisations utilisateur.",
       },
     },
-    guideHref: "/sync/fitbit",
   },
 
   // ── 5. Galaxy Watch su Android ─────────────────────────────────────────
@@ -707,40 +704,6 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Samsung Health écrit pas, sommeil, rythme cardiaque, entraînements et calories dans Health Connect sur Android.",
       },
     },
-    officialSources: [
-      {
-        title: {
-          it: "Samsung Support: Sincronizzazione Samsung Health e Health Connect",
-          en: "Samsung Support: Syncing Samsung Health with Health Connect",
-          de: "Samsung Support: Synchronisierung von Samsung Health mit Health Connect",
-          fr: "Support Samsung : Synchronisation Samsung Health et Health Connect",
-        },
-        url: "https://www.samsung.com/us/support/answer/ANS00091380/",
-        verifiedDate: "2026-09-14",
-        supportedClaim: {
-          it: "Samsung Health supporta la scrittura in Health Connect di passi, sonno, battito cardiaco, calorie e attività.",
-          en: "Samsung Health supports writing steps, sleep, heart rate, calories, and activities to Health Connect.",
-          de: "Samsung Health unterstützt das Schreiben von Schritten, Schlaf, Puls, Kalorien und Aktivitäten in Health Connect.",
-          fr: "Samsung Health prend en charge l'écriture des pas, du sommeil, du pouls, des calories et des activités dans Health Connect.",
-        },
-      },
-      {
-        title: {
-          it: "Samsung Developers: Panoramica Samsung Health Data SDK",
-          en: "Samsung Developers: Samsung Health Data SDK Overview",
-          de: "Samsung Developers: Samsung Health Data SDK Übersicht",
-          fr: "Samsung Developers : Présentation du Samsung Health Data SDK",
-        },
-        url: "https://developer.samsung.com/health/data/overview.html",
-        verifiedDate: "2026-09-14",
-        supportedClaim: {
-          it: "Accesso diretto alle metriche sanitarie tramite SDK nativo su smartphone Samsung Galaxy per applicazioni autorizzate.",
-          en: "Direct access to health metrics via native SDK on Samsung Galaxy smartphones for authorized partner applications.",
-          de: "Direkter Zugriff auf Gesundheitsdaten über natives SDK auf Samsung Galaxy-Smartphones für autorisierte Anwendungen.",
-          fr: "Accès direct aux données de santé via SDK natif sur smartphones Samsung Galaxy pour applications autorisées.",
-        },
-      },
-    ],
     evidence: {
       level: "vendor_documented",
       label: EVIDENCE_LABELS.vendor_documented,
@@ -751,7 +714,6 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Parcours standard documenté par Samsung ; parcours additionnel implémenté dans le module SamsungHealthSource de FitMesh 3.10.0+191.",
       },
     },
-    guideHref: "/sync/galaxy-watch",
   },
 
   // ── 6. Pixel Watch su Android ─────────────────────────────────────────
@@ -794,22 +756,22 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Matériel Pixel Watch : mesure continue des pas, de la fréquence cardiaque, des calories et du sommeil avec phases. Selon la génération : capteur de température cutanée et cEDA sur Pixel Watch 2 et 3.",
       },
       stepB: {
-        it: "L'app Google Pixel Watch gestisce l'hardware, mentre l'app Fitbit su Android raccoglie ed elabora le metriche sanitarie.",
-        en: "The Google Pixel Watch app manages device hardware, while the Fitbit app on Android collects and analyzes health metrics.",
-        de: "Die Google Pixel Watch App verwaltet die Hardware, während die Fitbit-App auf Android die Gesundheitsdaten sammelt.",
-        fr: "L'application Google Pixel Watch gère la montre, tandis que l'application Fitbit sur Android traite les données de santé.",
+        it: "L'app Google Pixel Watch gestisce la connessione hardware con l'orologio, mentre Google Health raccoglie ed elabora le metriche sanitarie sull'account utente.",
+        en: "The Google Pixel Watch app manages hardware connection with the watch, while Google Health collects and analyzes health metrics on the user account.",
+        de: "Die Google Pixel Watch App verwaltet die Hardware-Verbindung zur Uhr, während Google Health die Gesundheitsdaten im Nutzerkonto verarbeitet.",
+        fr: "L'application Google Pixel Watch gère la connexion matérielle, tandis que Google Health traite les métriques de santé sur le compte utilisateur.",
       },
       stepC: {
-        it: "L'app Fitbit su Pixel Watch è nativamente integrata con Health Connect ed esporta passi, frequenza cardiaca, calorie, sonno con stadi e sessioni di allenamento.",
-        en: "The Fitbit app on Pixel Watch is natively integrated with Health Connect and exports steps, heart rate, calories, sleep with stages, and workouts.",
-        de: "Die Fitbit-App auf der Pixel Watch ist nativ mit Health Connect integriert und exportiert Schritte, Puls, Kalorien, Schlaf mit Phasen und Workouts.",
-        fr: "L'application Fitbit sur Pixel Watch est nativement intégrée à Health Connect et exporte pas, fréquence cardiaque, calories, sommeil et entraînements.",
+        it: "I dati biometrici rilevati da Pixel Watch vengono sincronizzati tramite Google Health verso Health Connect (passi, frequenza cardiaca, calorie, sonno con stadi e sessioni di allenamento).",
+        en: "Biometric data measured by Pixel Watch is synced through Google Health into Health Connect (steps, heart rate, calories, sleep with stages, and workouts).",
+        de: "Die von der Pixel Watch erfassten biometrischen Daten werden über Google Health an Health Connect übertragen (Schritte, Puls, Kalorien, Schlafphasen und Workouts).",
+        fr: "Les données biométriques de la Pixel Watch sont synchronisées via Google Health vers Health Connect (pas, fréquence cardiaque, calories, phases de sommeil et entraînements).",
       },
       stepD: {
-        it: "FitMesh Android (release 3.10.0+191) interroga Health Connect e rende disponibili i dati senza vincolo di abbonamento a Fitbit Premium.",
-        en: "FitMesh Android (release 3.10.0+191) queries Health Connect and presents data without requiring a Fitbit Premium subscription.",
-        de: "FitMesh Android (Release 3.10.0+191) ruft Daten aus Health Connect ab und stellt sie ohne Pflicht zu Fitbit Premium bereit.",
-        fr: "FitMesh Android (version 3.10.0+191) lit Health Connect et affiche les données sans obligation d'abonnement Fitbit Premium.",
+        it: "FitMesh Android (release 3.10.0+191) interroga Health Connect e rende disponibili i dati senza vincolo di abbonamento premium.",
+        en: "FitMesh Android (release 3.10.0+191) queries Health Connect and presents data without requiring a premium subscription.",
+        de: "FitMesh Android (Release 3.10.0+191) ruft Daten aus Health Connect ab und stellt sie ohne Pflicht zu Premium-Abos bereit.",
+        fr: "FitMesh Android (version 3.10.0+191) lit Health Connect et affiche les données sans obligation d'abonnement premium.",
       },
     },
     metricsSummary: {
@@ -819,10 +781,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       fr: "Pas, fréquence cardiaque continue, sommeil avec phases, calories actives, entraînements",
     },
     requirements: {
-      it: "Smartphone Android compatibile con Google Pixel Watch; sincronizzazione con Health Connect abilitata nell'app Fitbit.",
-      en: "Android smartphone compatible with Google Pixel Watch; Health Connect sync enabled in the Fitbit app.",
-      de: "Mit der Google Pixel Watch kompatibles Android-Smartphone; aktivierte Health Connect-Synchronisierung in der Fitbit-App.",
-      fr: "Smartphone Android compatible avec Google Pixel Watch ; synchronisation Health Connect activée dans Fitbit.",
+      it: "Smartphone Android compatibile con Google Pixel Watch; app Google Pixel Watch e Google Health installate con sincronizzazione Health Connect abilitata.",
+      en: "Android smartphone compatible with Google Pixel Watch; Google Pixel Watch and Google Health apps installed with Health Connect sync enabled.",
+      de: "Mit der Google Pixel Watch kompatibles Android-Smartphone; Google Pixel Watch und Google Health Apps installiert mit aktivierter Health Connect-Synchronisierung.",
+      fr: "Smartphone Android compatible avec Google Pixel Watch ; applications Google Pixel Watch et Google Health installées avec synchronisation Health Connect activée.",
     },
     limitations: {
       it: "Disponibile solo su Android. Questo percorso si applica specificamente a Pixel Watch e non va assimilato genericamente a tutti gli smartwatch Wear OS di altri produttori.",
@@ -832,18 +794,18 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
     },
     officialSource: {
       title: {
-        it: "Google Support: Configurare e sincronizzare Google Pixel Watch con Fitbit",
-        en: "Google Support: Set up and sync Google Pixel Watch with Fitbit",
-        de: "Google Support: Google Pixel Watch mit Fitbit einrichten und synchronisieren",
-        fr: "Support Google : Configurer et synchroniser la Google Pixel Watch avec Fitbit",
+        it: "Google Support: Configurare e sincronizzare Google Pixel Watch",
+        en: "Google Support: Set up and sync Google Pixel Watch",
+        de: "Google Support: Google Pixel Watch einrichten und synchronisieren",
+        fr: "Support Google : Configurer et synchroniser la Google Pixel Watch",
       },
       url: "https://support.google.com/googlepixelwatch/answer/12759285",
       verifiedDate: "2026-09-14",
       supportedClaim: {
-        it: "Pixel Watch sincronizza i dati dei sensori con l'app Fitbit, che a sua volta li esporta verso Health Connect.",
-        en: "Pixel Watch syncs sensor data to the Fitbit app, which in turn exports it to Health Connect.",
-        de: "Die Pixel Watch synchronisiert Sensordaten mit der Fitbit-App, die sie wiederum an Health Connect exportiert.",
-        fr: "La Pixel Watch synchronise les données avec l'application Fitbit, qui les exporte ensuite vers Health Connect.",
+        it: "Pixel Watch sincronizza i dati dei sensori con Google Health, che a sua volta li esporta verso Health Connect.",
+        en: "Pixel Watch syncs sensor data to Google Health, which in turn exports it to Health Connect.",
+        de: "Die Pixel Watch synchronisiert Sensordaten mit Google Health, das sie wiederum an Health Connect exportiert.",
+        fr: "La Pixel Watch synchronise les données avec Google Health, qui les exporte ensuite vers Health Connect.",
       },
     },
     evidence: {
@@ -856,7 +818,6 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Parcours officiellement documenté par Google et vérifié dans le code Health Connect de FitMesh 3.10.0+191.",
       },
     },
-    guideHref: "/sync/pixel-watch",
   },
 
   // ── 7. Oura Ring su Android ───────────────────────────────────────────
@@ -877,12 +838,12 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       de: "Oura Ring (Gen2 / Gen3+)",
       fr: "Bague Oura (Gen2 / Gen3+)",
     },
-    status: "supported",
+    status: "conditional",
     statusLabel: {
-      it: "Supportato",
-      en: "Supported",
-      de: "Unterstützt",
-      fr: "Pris en charge",
+      it: "Condizionale",
+      en: "Conditional",
+      de: "Bedingt unterstützt",
+      fr: "Sous conditions",
     },
     direction: "read",
     directionLabel: {
@@ -905,10 +866,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "L'application Oura sur Android reçoit les données via Bluetooth, calcule les scores propriétaires (Readiness, Sommeil, Activité) et synchronise avec le cloud Oura.",
       },
       stepC: {
-        it: "L'app Oura supporta l'esportazione verso Health Connect: passi, sonno (durata e stadi), frequenza cardiaca a riposo, frequenza cardiaca, HRV e calorie attive.",
-        en: "The Oura app supports export to Health Connect: steps, sleep (duration and stages), resting heart rate, heart rate, HRV, and active calories.",
-        de: "Die Oura-App unterstützt den Export an Health Connect: Schritte, Schlaf (Dauer und Phasen), Ruhepuls, Herzfrequenz, HRV und Aktivitätskalorien.",
-        fr: "L'application Oura prend en charge l'export vers Health Connect : pas, sommeil (durée et phases), pouls au repos, fréquence cardiaque, VFC et calories actives.",
+        it: "L'app Oura per Android supporta l'esportazione verso Health Connect di: passi, sonno (durata totale e stadi), frequenza cardiaca, calorie attive e sessioni di allenamento.",
+        en: "The Oura app for Android supports export to Health Connect of: steps, sleep (total duration and stages), heart rate, active calories, and workout sessions.",
+        de: "Die Oura-App für Android unterstützt den Export an Health Connect von: Schritten, Schlaf (Gesamtdauer und Phasen), Herzfrequenz, Aktivitätskalorien und Workouts.",
+        fr: "L'application Oura pour Android prend en charge l'export vers Health Connect de : pas, sommeil (durée totale et phases), fréquence cardiaque, calories actives et entraînements.",
       },
       stepD: {
         it: "FitMesh Android (release 3.10.0+191) legge da Health Connect le metriche esportate da Oura. Nessuna API Oura diretta live viene interrogata.",
@@ -918,10 +879,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       },
     },
     metricsSummary: {
-      it: "Passi, durata e stadi del sonno, frequenza a riposo, frequenza cardiaca, calorie attive",
-      en: "Steps, sleep duration & stages, resting heart rate, heart rate, active calories",
-      de: "Schritte, Schlafdauer & Phasen, Ruhepuls, Herzfrequenz, Aktivitätskalorien",
-      fr: "Pas, durée et phases de sommeil, fréquence au repos, rythme cardiaque, calories actives",
+      it: "Passi, durata e stadi del sonno, frequenza cardiaca, calorie attive, allenamenti (esportati da Oura in Health Connect e letti da FitMesh)",
+      en: "Steps, sleep duration & stages, heart rate, active calories, workouts (exported by Oura to Health Connect and read by FitMesh)",
+      de: "Schritte, Schlafdauer & Phasen, Herzfrequenz, Aktivitätskalorien, Workouts (von Oura an Health Connect exportiert und von FitMesh ausgelesen)",
+      fr: "Pas, durée et phases de sommeil, rythme cardiaque, calories actives, entraînements (exportés par Oura vers Health Connect et lus par FitMesh)",
     },
     requirements: {
       it: "Smartphone Android; app Oura installata con account attivo; integrazione Health Connect attivata nelle impostazioni dell'app Oura; abbonamento Oura per Gen3+.",
@@ -945,10 +906,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       url: "https://support.ouraring.com/hc/en-us/articles/10786105824531-Health-Connect-by-Android-Integration",
       verifiedDate: "2026-09-14",
       supportedClaim: {
-        it: "L'app Oura esporta passi, stadi del sonno, frequenza cardiaca a riposo, frequenza cardiaca e calorie verso Health Connect su Android.",
-        en: "Oura App exports steps, sleep stages, resting heart rate, heart rate, and calories to Health Connect on Android.",
-        de: "Die Oura-App exportiert Schritte, Schlafphasen, Ruhepuls, Puls und Kalorien an Health Connect auf Android.",
-        fr: "L'application Oura exporte pas, phases de sommeil, pouls au repos, rythme cardiaque et calories vers Health Connect sur Android.",
+        it: "L'app Oura esporta passi, stadi del sonno, frequenza cardiaca e calorie verso Health Connect su Android.",
+        en: "Oura App exports steps, sleep stages, heart rate, and calories to Health Connect on Android.",
+        de: "Die Oura-App exportiert Schritte, Schlafphasen, Puls und Kalorien an Health Connect auf Android.",
+        fr: "L'application Oura exporte pas, phases de sommeil, rythme cardiaque et calories vers Health Connect sur Android.",
       },
     },
     evidence: {
@@ -961,10 +922,113 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Parcours officiellement documenté par le centre d'aide Oura et pris en charge par le code Health Connect de FitMesh 3.10.0+191.",
       },
     },
-    guideHref: "/sync/oura",
   },
 
-  // ── 8. Colmi Smart Ring su Android ────────────────────────────────────
+  // ── 8. Oura Ring su iPhone (iOS) ──────────────────────────────────────
+  {
+    id: "oura-ios",
+    providerSlug: "oura",
+    phoneOs: "ios",
+    phoneOsLabel: {
+      it: "iPhone (iOS)",
+      en: "iPhone (iOS)",
+      de: "iPhone (iOS)",
+      fr: "iPhone (iOS)",
+    },
+    deviceFamily: "oura-ring",
+    deviceFamilyLabel: {
+      it: "Oura Ring (Gen2 / Gen3+)",
+      en: "Oura Ring (Gen2 / Gen3+)",
+      de: "Oura Ring (Gen2 / Gen3+)",
+      fr: "Bague Oura (Gen2 / Gen3+)",
+    },
+    status: "conditional",
+    statusLabel: {
+      it: "Condizionale",
+      en: "Conditional",
+      de: "Bedingt unterstützt",
+      fr: "Sous conditions",
+    },
+    direction: "read",
+    directionLabel: {
+      it: "Lettura via Apple Health",
+      en: "Read via Apple Health",
+      de: "Lesen über Apple Health",
+      fr: "Lecture via Apple Santé",
+    },
+    steps: {
+      stepA: {
+        it: "Hardware Oura Ring (Gen2, Gen3 e successivi): misurazione di frequenza cardiaca a riposo, variabilità della frequenza cardiaca (HRV), sonno con stadi, temperatura corporea notturna, passi e calorie. Richiede abbonamento attivo Oura per Gen3+ per l'elaborazione completa nell'app Oura.",
+        en: "Oura Ring hardware (Gen2, Gen3, and later): measurement of resting heart rate, heart rate variability (HRV), sleep with stages, nighttime body temperature, steps, and calories. Active Oura membership required for Gen3+ for full processing in the Oura app.",
+        de: "Oura Ring Hardware (Gen2, Gen3 und neuer): Erfassung von Ruhepuls, Herzfrequenzvariabilität (HRV), Schlaf mit Phasen, nächtlicher Körpertemperatur, Schritten und Kalorien. Aktives Oura-Abonnement für Gen3+ in der Oura-App erforderlich.",
+        fr: "Matériel Oura Ring (Gen2, Gen3 et ultérieurs) : mesure du pouls au repos, de la variabilité cardiaque (VFC), du sommeil avec phases, de la température nocturne, des pas et des calories. Abonnement actif Oura requis pour Gen3+.",
+      },
+      stepB: {
+        it: "L'app Oura su iPhone riceve i dati via Bluetooth, elabora gli indici proprietari (Readiness, Sleep, Activity Score) e li archivia sul profilo utente Oura.",
+        en: "The Oura app on iPhone receives data via Bluetooth, calculates proprietary scores (Readiness, Sleep, Activity Score), and stores them on the user's Oura profile.",
+        de: "Die Oura-App auf dem iPhone empfängt Daten über Bluetooth, berechnet proprietäre Scores (Readiness, Schlaf, Aktivität) und speichert sie im Oura-Profil.",
+        fr: "L'application Oura sur iPhone reçoit les données via Bluetooth, calcule les scores propriétaires (Readiness, Sommeil, Activité) et les stocke sur le profil Oura.",
+      },
+      stepC: {
+        it: "L'app Oura per iOS supporta l'esportazione verso Apple Health: sonno (analisi del sonno), frequenza cardiaca a riposo, frequenza cardiaca, frequenza respiratoria, passi, calorie attive e allenamenti, previa concessione dei permessi in Apple Salute.",
+        en: "The Oura iOS app supports export to Apple Health: sleep (sleep analysis), resting heart rate, heart rate, respiratory rate, steps, active calories, and workouts, subject to permissions in Apple Health.",
+        de: "Die Oura iOS-App unterstützt den Export an Apple Health: Schlaf (Schlafanalyse), Ruhepuls, Herzfrequenz, Atemfrequenz, Schritte, Aktivitätskalorien und Workouts nach Freigabe in Apple Health.",
+        fr: "L'application Oura pour iOS prend en charge l'export vers Apple Santé : sommeil (analyse du sommeil), pouls au repos, rythme cardiaque, fréquence respiratoire, pas, calories actives et entraînements.",
+      },
+      stepD: {
+        it: "FitMesh iOS (release 3.10.0+191) legge da HealthKit l'intersezione tra i tipi esportati da Oura e i tipi supportati dall'app (STEPS, HEART_RATE, RESTING_HEART_RATE, SLEEP, ACTIVE_ENERGY, WORKOUT). Non viene interrogata alcuna API Oura cloud diretta.",
+        en: "FitMesh iOS (release 3.10.0+191) reads from HealthKit the intersection between types exported by Oura and types supported by the app (STEPS, HEART_RATE, RESTING_HEART_RATE, SLEEP, ACTIVE_ENERGY, WORKOUT). No direct Oura cloud API is queried.",
+        de: "FitMesh iOS (Release 3.10.0+191) liest aus HealthKit die Schnittmenge der von Oura exportierten und von der App unterstützten Typen aus (STEPS, HEART_RATE, RESTING_HEART_RATE, SLEEP, ACTIVE_ENERGY, WORKOUT). Es wird keine direkte Oura-Cloud-API abgefragt.",
+        fr: "FitMesh iOS (version 3.10.0+191) lit depuis HealthKit l'intersection entre les types exportés par Oura et ceux pris en charge (STEPS, HEART_RATE, RESTING_HEART_RATE, SLEEP, ACTIVE_ENERGY, WORKOUT). Aucune API directe Oura n'est interrogée.",
+      },
+    },
+    metricsSummary: {
+      it: "Passi, durata e stadi del sonno, frequenza cardiaca a riposo, frequenza cardiaca, calorie attive, allenamenti",
+      en: "Steps, sleep duration & stages, resting heart rate, heart rate, active calories, workouts",
+      de: "Schritte, Schlafdauer & Phasen, Ruhepuls, Herzfrequenz, Aktivitätskalorien, Workouts",
+      fr: "Pas, durée et phases de sommeil, pouls au repos, rythme cardiaque, calories actives, entraînements",
+    },
+    requirements: {
+      it: "iPhone con iOS; app Oura installata con account attivo; sincronizzazione Apple Health attivata nelle impostazioni dell'app Oura con autorizzazioni concesse; abbonamento Oura per Gen3+.",
+      en: "iPhone with iOS; Oura app installed with active account; Apple Health sync enabled in Oura app settings with granted permissions; active Oura membership for Gen3+.",
+      de: "iPhone mit iOS; installierte Oura-App mit aktivem Konto; aktivierte Apple Health-Synchronisierung in den Oura-Einstellungen mit erteilten Rechten; Oura-Abo für Gen3+.",
+      fr: "iPhone sous iOS ; application Oura installée avec compte actif ; synchronisation Apple Santé activée dans les paramètres Oura avec autorisations accordées ; abonnement Oura pour Gen3+.",
+    },
+    limitations: {
+      it: "Gli indici proprietari Oura (Readiness Score, Sleep Score) non vengono scritti in Apple Health e non sono leggibili da FitMesh. L'aggiornamento dipende dall'apertura e sincronizzazione dell'app Oura con l'anello.",
+      en: "Proprietary Oura scores (Readiness Score, Sleep Score) are not written to Apple Health and are not readable by FitMesh. Updates depend on opening and syncing the Oura app with the ring.",
+      de: "Proprietäre Oura-Scores (Readiness Score, Sleep Score) werden nicht in Apple Health geschrieben und sind nicht lesbar. Aktualisierungen hängen von der Synchronisierung der Oura-App mit dem Ring ab.",
+      fr: "Les scores propriétaires Oura (Readiness, Score de sommeil) ne sont pas écrits dans Apple Santé et ne sont pas lisibles par FitMesh. La mise à jour dépend de l'ouverture et synchronisation de l'application Oura.",
+    },
+    officialSource: {
+      title: {
+        it: "Oura Help Center: Integrazione Apple Health",
+        en: "Oura Help Center: Apple Health Integration",
+        de: "Oura Help Center: Apple Health Integration",
+        fr: "Centre d'aide Oura : Intégration Apple Santé",
+      },
+      url: "https://support.ouraring.com/hc/en-us/articles/360025438734-Apple-Health-Integration",
+      verifiedDate: "2026-09-14",
+      supportedClaim: {
+        it: "L'app Oura per iOS scrive sonno, frequenza cardiaca, frequenza a riposo, frequenza respiratoria e allenamenti in Apple Health.",
+        en: "Oura iOS app writes sleep, heart rate, resting heart rate, respiratory rate, and workouts to Apple Health.",
+        de: "Die Oura iOS-App schreibt Schlaf, Herzfrequenz, Ruhepuls, Atemfrequenz und Workouts in Apple Health.",
+        fr: "L'application Oura pour iOS écrit sommeil, rythme cardiaque, pouls au repos, fréquence respiratoire et entraînements dans Apple Santé.",
+      },
+    },
+    evidence: {
+      level: "vendor_documented",
+      label: EVIDENCE_LABELS.vendor_documented,
+      details: {
+        it: "Percorso documentato ufficialmente da Oura Help Center e verificato nel codice HealthKit della release pubblica FitMesh 3.10.0+191.",
+        en: "Route officially documented by Oura Help Center and verified in the HealthKit reader code of public release FitMesh 3.10.0+191.",
+        de: "Offiziell vom Oura Help Center dokumentierter Pfad, verifiziert im HealthKit-Code des FitMesh-Releases 3.10.0+191.",
+        fr: "Parcours officiellement documenté par le centre d'aide Oura et vérifié dans le code HealthKit de FitMesh 3.10.0+191.",
+      },
+    },
+  },
+
+  // ── 9. Colmi Smart Ring su Android ────────────────────────────────────
   {
     id: "colmi-android",
     providerSlug: "colmi-ring",
@@ -991,10 +1055,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
     },
     direction: "read",
     directionLabel: {
-      it: "Lettura BLE diretta (senza app terza)",
-      en: "Direct BLE Read (no third-party app)",
-      de: "Direktes BLE-Lesen (ohne Drittanbieter-App)",
-      fr: "Lecture BLE directe (sans application tierce)",
+      it: "Lettura BLE diretta (senza app del produttore)",
+      en: "Direct BLE Read (no manufacturer app)",
+      de: "Direktes BLE-Lesen (ohne Hersteller-App)",
+      fr: "Lecture BLE directe (sans application du fabricant)",
     },
     steps: {
       stepA: {
@@ -1004,10 +1068,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Matériel Colmi testé (modèles R02, R06, R09) : mesure des pas par tranches de 15 minutes, pouls périodique et sommeil avec phases. Capteur de température cutanée spécifique aux modèles R02 et R09.",
       },
       stepB: {
-        it: "Nessuna app terza del produttore (es. QRing) è necessaria né utilizzata. L'anello si connette direttamente all'applicazione FitMesh.",
-        en: "No third-party manufacturer app (such as QRing) is required or used. The ring connects directly to the FitMesh app.",
-        de: "Keine Drittanbieter-App des Herstellers (wie QRing) erforderlich oder genutzt. Der Ring verbindet sich direkt mit der FitMesh-App.",
-        fr: "Aucune application tierce du fabricant (comme QRing) n'est nécessaire. La bague se connecte directement à FitMesh.",
+        it: "La lettura dall'anello non richiede l'app o il cloud del produttore Colmi. L'anello comunica direttamente con FitMesh via Bluetooth Low Energy.",
+        en: "Reading from the ring does not require the manufacturer Colmi's app or cloud. The ring communicates directly with FitMesh via Bluetooth Low Energy.",
+        de: "Das Auslesen vom Ring erfordert weder Hersteller-App noch Cloud von Colmi. Der Ring kommuniziert direkt mit FitMesh über Bluetooth Low Energy.",
+        fr: "La lecture depuis la bague ne nécessite ni application ni cloud du fabricant Colmi. La bague communique directement avec FitMesh en Bluetooth Low Energy.",
       },
       stepC: {
         it: "Il trasferimento dati avviene tramite protocollo Bluetooth Low Energy (BLE) direttamente tra il controller radio dell'anello e l'applicazione FitMesh.",
@@ -1016,17 +1080,17 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Le transfert de données s'effectue via le protocole Bluetooth Low Energy (BLE) directement entre la bague et l'application FitMesh.",
       },
       stepD: {
-        it: "FitMesh Android (release 3.10.0+191) scarica i bucket temporali nativi dall'anello via BLE, applica la pipeline di decodifica e salva le metriche nel cloud per la dashboard web.",
-        en: "FitMesh Android (release 3.10.0+191) downloads native temporal buckets from the ring via BLE, applies the decoding pipeline, and saves metrics to cloud dashboard.",
-        de: "FitMesh Android (Release 3.10.0+191) lädt native Zeit-Buckets über BLE herunter, führt die Dekodierung aus und speichert die Werte für das Cloud-Dashboard.",
-        fr: "FitMesh Android (version 3.10.0+191) télécharge les tranches temporelles via BLE, applique le décodage et enregistre les données pour le tableau de bord.",
+        it: "FitMesh Android (release 3.10.0+191) scarica i bucket temporali nativi dall'anello via BLE, applica la pipeline di decodifica e sincronizza le metriche con il backend cloud FitMesh per la dashboard web personale.",
+        en: "FitMesh Android (release 3.10.0+191) downloads native temporal buckets from the ring via BLE, applies the decoding pipeline, and syncs metrics with the FitMesh cloud backend for your personal web dashboard.",
+        de: "FitMesh Android (Release 3.10.0+191) lädt native Zeit-Buckets über BLE herunter, führt die Dekodierung aus und synchronisiert die Werte mit dem FitMesh-Cloud-Backend für das Dashboard.",
+        fr: "FitMesh Android (version 3.10.0+191) télécharge les tranches temporelles via BLE, applique le décodage et synchronise les données avec le backend cloud FitMesh pour votre tableau de bord.",
       },
     },
     metricsSummary: {
-      it: "Passi (bucket 15 min), frequenza cardiaca, sonno con stadi, temperatura cutanea (R02/R09), stato batteria",
-      en: "Steps (15-min buckets), heart rate, sleep with stages, skin temperature (R02/R09), battery status",
-      de: "Schritte (15-Min.-Buckets), Puls, Schlaf mit Phasen, Hauttemperatur (R02/R09), Batteriestand",
-      fr: "Pas (tranches 15 min), fréquence cardiaque, sommeil avec phases, température cutanée (R02/R09), batterie",
+      it: "Passi (bucket 15 min), frequenza cardiaca periodica, sonno con stadi, temperatura cutanea (R02/R09), stato batteria",
+      en: "Steps (15-min buckets), periodic heart rate, sleep with stages, skin temperature (R02/R09), battery status",
+      de: "Schritte (15-Min.-Buckets), periodischer Puls, Schlaf mit Phasen, Hauttemperatur (R02/R09), Batteriestand",
+      fr: "Pas (tranches 15 min), fréquence cardiaque périodique, sommeil avec phases, température cutanée (R02/R09), batterie",
     },
     requirements: {
       it: "Smartphone Android con Bluetooth abilitato; anello Colmi carico e posizionato a portata radio durante il sync.",
@@ -1035,25 +1099,25 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       fr: "Smartphone Android avec Bluetooth activé ; bague Colmi chargée et à portée radio pendant la synchronisation.",
     },
     limitations: {
-      it: "La sincronizzazione richiede la vicinanza fisica dell'anello durante il ciclo di lettura manuale o in background. Modelli non testati (es. cloni generici) potrebbero non implementare lo stesso profilo GATT.",
-      en: "Synchronization requires physical proximity of the ring during manual or background sync cycles. Untested models (e.g. generic clones) may not implement the same GATT profile.",
-      de: "Die Synchronisierung erfordert die physische Nähe des Rings während des Abgleichs. Nicht getestete Klone implementieren möglicherweise ein abweichendes GATT-Profil.",
-      fr: "La synchronisation requiert la proximité physique de la bague pendant le cycle de lecture. Les modèles non testés peuvent ne pas disposer du même profil GATT.",
+      it: "La lettura dall'anello non richiede l'app o il cloud del produttore Colmi. L'eventuale sincronizzazione con dashboard segue l'architettura FitMesh descritta nella Privacy Policy. La sincronizzazione richiede la vicinanza dell'anello allo smartphone.",
+      en: "Reading from the ring does not require the manufacturer Colmi app or cloud. Synchronization with dashboard follows the FitMesh architecture described in the Privacy Policy. Sync requires physical proximity of the ring to the smartphone.",
+      de: "Das Auslesen vom Ring erfordert weder Hersteller-App noch Cloud von Colmi. Die Synchronisierung mit dem Dashboard folgt der FitMesh-Architektur laut Datenschutzerklärung. Die Synchronisierung erfordert physische Nähe zum Smartphone.",
+      fr: "La lecture depuis la bague ne requiert ni application ni cloud du fabricant Colmi. La synchronisation avec le tableau de bord suit l'architecture FitMesh décrite dans la Politique de confidentialité. La synchronisation requiert la proximité de la bague.",
     },
     officialSource: {
       title: {
-        it: "Specifiche protocollo GATT BLE e driver nativo Colmi FitMesh",
-        en: "FitMesh Colmi Native BLE GATT Protocol & Driver Specification",
-        de: "Spezifikation des nativen FitMesh Colmi BLE-GATT-Protokolls & Treibers",
-        fr: "Spécifications du protocole BLE GATT et pilote natif Colmi FitMesh",
+        it: "Architettura e Specifiche di Release FitMesh v3.10.0+191 (Driver BLE Colmi)",
+        en: "FitMesh Release Architecture & Specifications v3.10.0+191 (Colmi BLE Driver)",
+        de: "FitMesh Release-Architektur & Spezifikationen v3.10.0+191 (Colmi BLE-Treiber)",
+        fr: "Architecture et spécifications de version FitMesh v3.10.0+191 (Pilote BLE Colmi)",
       },
-      url: "https://www.fitmesh.fit/it/sync/colmi-ring",
+      url: "https://github.com/Fosforonero/fitthesite",
       verifiedDate: "2026-09-14",
       supportedClaim: {
-        it: "Driver BLE nativo integrato in FitMesh con lettura diretta di bucket a 15 minuti, battito, sonno e temperatura senza cloud terzi.",
-        en: "Native BLE driver built into FitMesh reading direct 15-minute buckets, heart rate, sleep, and temperature without third-party clouds.",
-        de: "Nativer, in FitMesh integrierter BLE-Treiber zum direkten Auslesen von 15-Minuten-Buckets, Puls, Schlaf und Temperatur ohne Drittanbieter-Cloud.",
-        fr: "Pilote BLE natif intégré à FitMesh lisant directement les tranches de 15 minutes, le pouls, le sommeil et la température sans cloud tiers.",
+        it: "Driver BLE proprietario FitMesh integrato nella release per la lettura diretta di bucket a 15 min, frequenza, sonno e temperatura senza app o cloud del produttore Colmi.",
+        en: "Proprietary FitMesh BLE driver built into release for direct reading of 15-min buckets, heart rate, sleep, and temperature without manufacturer Colmi app or cloud.",
+        de: "Proprietärer FitMesh BLE-Treiber zum direkten Auslesen von 15-Min.-Buckets, Puls, Schlaf und Temperatur ohne Hersteller-App oder Cloud von Colmi.",
+        fr: "Pilote BLE propriétaire FitMesh intégré à la release pour la lecture directe des tranches de 15 min, pouls, sommeil et température sans application ni cloud Colmi.",
       },
     },
     evidence: {
@@ -1066,10 +1130,9 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Testé et vérifié sur des appareils réels Colmi R02, R06 et R09 avec le code de version FitMesh 3.10.0+191.",
       },
     },
-    guideHref: "/sync/colmi-ring",
   },
 
-  // ── 9. Colmi Smart Ring su iPhone (iOS) ────────────────────────────────
+  // ── 10. Colmi Smart Ring su iPhone (iOS) ───────────────────────────────
   {
     id: "colmi-ios",
     providerSlug: "colmi-ring",
@@ -1096,10 +1159,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
     },
     direction: "read-write",
     directionLabel: {
-      it: "Lettura BLE diretta + Scrittura Apple Health opzionale",
-      en: "Direct BLE Read + Optional Apple Health Write",
-      de: "Direktes BLE-Lesen + optionales Apple Health Schreiben",
-      fr: "Lecture BLE directe + Écriture Apple Santé optionnelle",
+      it: "Lettura BLE diretta + Scrittura HealthKit opzionale (passi, FC riposo)",
+      en: "Direct BLE Read + Optional HealthKit Write (steps, resting HR)",
+      de: "Direktes BLE-Lesen + optionales HealthKit-Schreiben (Schritte, Ruhepuls)",
+      fr: "Lecture BLE directe + Écriture HealthKit optionnelle (pas, fréquence au repos)",
     },
     steps: {
       stepA: {
@@ -1109,29 +1172,29 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Matériel Colmi testé (modèles R02, R06, R09) : mesure des pas, du pouls périodique et du sommeil avec phases. Capteur de température sur modèles R02 et R09.",
       },
       stepB: {
-        it: "Nessuna applicazione terza necessaria; FitMesh iOS comunica direttamente con l'anello tramite CoreBluetooth.",
-        en: "No third-party application required; FitMesh iOS communicates directly with the ring via CoreBluetooth.",
-        de: "Keine Drittanbieter-App erforderlich; FitMesh iOS kommuniziert direkt mit dem Ring über CoreBluetooth.",
-        fr: "Aucune application tierce requise ; FitMesh iOS communique directement avec la bague via CoreBluetooth.",
+        it: "La lettura dall'anello non richiede l'app o il cloud del produttore Colmi. L'anello comunica direttamente con FitMesh iOS tramite CoreBluetooth.",
+        en: "Reading from the ring does not require the manufacturer Colmi's app or cloud. The ring communicates directly with FitMesh iOS via CoreBluetooth.",
+        de: "Das Auslesen vom Ring erfordert weder Hersteller-App noch Cloud von Colmi. Der Ring kommuniziert direkt mit FitMesh iOS über CoreBluetooth.",
+        fr: "La lecture depuis la bague ne nécessite ni application ni cloud du fabricant Colmi. La bague communique directement avec FitMesh iOS via CoreBluetooth.",
       },
       stepC: {
-        it: "Connessione BLE gestita da CoreBluetooth tra l'anello e l'iPhone.",
-        en: "BLE connection managed via CoreBluetooth between the ring and iPhone.",
-        de: "BLE-Verbindung über CoreBluetooth zwischen Ring und iPhone.",
-        fr: "Connexion BLE gérée par CoreBluetooth entre la bague et l'iPhone.",
+        it: "Connessione BLE nativa gestita tramite CoreBluetooth tra il chip dell'anello e l'iPhone.",
+        en: "Native BLE connection managed via CoreBluetooth between the ring chip and the iPhone.",
+        de: "Native BLE-Verbindung über CoreBluetooth zwischen Ring-Chip und iPhone.",
+        fr: "Connexion BLE native gérée via CoreBluetooth entre la bague et l'iPhone.",
       },
       stepD: {
-        it: "FitMesh iOS (release 3.10.0+191) scarica i dati per la dashboard e, se abilitato dall'utente nelle Impostazioni, scrive in Apple Health (HealthKit) sonno con stadi, passi e frequenza a riposo.",
-        en: "FitMesh iOS (release 3.10.0+191) downloads data for dashboard and, if enabled by user in Settings, writes sleep with stages, steps, and resting HR into Apple Health (HealthKit).",
-        de: "FitMesh iOS (Release 3.10.0+191) lädt Daten für das Dashboard und schreibt bei Nutzeraktivierung Schlaf mit Phasen, Schritte und Ruhepuls in Apple Health.",
-        fr: "FitMesh iOS (version 3.10.0+191) télécharge les données et, si activé dans les Paramètres, écrit le sommeil avec phases, les pas et le repos dans Apple Santé.",
+        it: "Colmi BLE → FitMesh → backend/dashboard FitMesh → ponte HealthKit su iPhone. FitMesh riceve i dati via BLE dall'anello e li carica sul backend cloud FitMesh per la dashboard. Quando l'interruttore Apple Salute è attivo nelle impostazioni, il ponte HealthKit su iPhone legge i dati consolidati dal cloud e scrive in Apple Salute: passi (in gap-fill anti-loop), frequenza cardiaca a riposo, saturazione (SpO2), calorie attive e distanza. L'esportazione del sonno è disattivata nella release pubblica (flag kHealthKitSleepExportEnabled disabilitato).",
+        en: "Colmi BLE → FitMesh → backend/dashboard FitMesh → HealthKit bridge on iPhone. FitMesh receives data via BLE from the ring and uploads it to the FitMesh cloud backend for the dashboard. When the Apple Health toggle is enabled in settings, the HealthKit bridge on iPhone reads consolidated cloud data and writes to Apple Health: steps (anti-loop gap-fill), resting heart rate, SpO2, active calories, and distance. Sleep export is disabled in the public release (kHealthKitSleepExportEnabled flag disabled).",
+        de: "Colmi BLE → FitMesh → Backend/Dashboard FitMesh → HealthKit-Brücke auf dem iPhone. FitMesh empfängt Daten per BLE vom Ring und lädt sie in das FitMesh-Cloud-Backend für das Dashboard hoch. Bei aktiviertem Apple Health-Schalter liest die HealthKit-Brücke die konsolidierten Cloud-Daten und schreibt in Apple Health: Schritte (Anti-Loop Gap-Fill), Ruhepuls, SpO2, Aktivitätskalorien und Distanz. Der Schlaf-Export ist im öffentlichen Release deaktiviert (Flag kHealthKitSleepExportEnabled deaktiviert).",
+        fr: "Colmi BLE → FitMesh → backend/tableau de bord FitMesh → pont HealthKit sur iPhone. FitMesh reçoit les données via BLE et les téléverse sur le backend FitMesh pour le tableau de bord. Lorsque l'option Apple Santé est activée, le pont HealthKit lit les données cloud et écrit dans Apple Santé : pas (comblement anti-boucle), fréquence au repos, SpO2, calories actives et distance. L'export du sommeil est désactivé dans la version publique (flag kHealthKitSleepExportEnabled désactivé).",
       },
     },
     metricsSummary: {
-      it: "Passi, frequenza cardiaca, sonno con stadi, temperatura cutanea (R02/R09); write-back opzionale su Apple Health",
-      en: "Steps, heart rate, sleep with stages, skin temperature (R02/R09); optional Apple Health write-back",
-      de: "Schritte, Puls, Schlaf mit Phasen, Hauttemperatur (R02/R09); optionales Apple Health Write-Back",
-      fr: "Pas, pouls, sommeil avec phases, température cutanée (R02/R09) ; écriture optionnelle dans Apple Santé",
+      it: "Passi (bucket 15 min), frequenza cardiaca periodica, sonno con stadi su dashboard FitMesh; esportazione opzionale in Apple Health di passi (gap-fill) e frequenza a riposo (sonno escluso dal write-back)",
+      en: "Steps (15-min buckets), periodic heart rate, sleep with stages on FitMesh dashboard; optional Apple Health export of steps (gap-fill) and resting HR (sleep excluded from write-back)",
+      de: "Schritte (15-Min.-Buckets), periodischer Puls, Schlaf mit Phasen im FitMesh-Dashboard; optionaler Apple Health-Export von Schritten (Gap-Fill) und Ruhepuls (Schlaf vom Write-Back ausgeschlossen)",
+      fr: "Pas (tranches 15 min), fréquence cardiaque périodique, sommeil avec phases sur le tableau de bord FitMesh ; export optionnel vers Apple Santé des pas (comblement) et repos (sommeil exclu du write-back)",
     },
     requirements: {
       it: "iPhone con Bluetooth attivo; anello Colmi carico; per la scrittura su Apple Salute è richiesta l'attivazione nelle impostazioni dell'app.",
@@ -1140,25 +1203,25 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       fr: "iPhone avec Bluetooth activé ; bague Colmi chargée ; l'écriture dans Apple Santé requiert l'activation dans les paramètres.",
     },
     limitations: {
-      it: "Il write-back verso Apple Health è opzionale (disattivato di default). La sincronizzazione richiede la vicinanza dell'anello all'iPhone.",
-      en: "Write-back to Apple Health is opt-in (disabled by default). Synchronization requires proximity of the ring to the iPhone.",
-      de: "Das Schreiben in Apple Health ist optional (standardmäßig deaktiviert). Die Synchronisierung erfordert Nähe zum iPhone.",
-      fr: "L'écriture dans Apple Santé est optionnelle (désactivée par défaut). La synchronisation requiert la proximité de la bague.",
+      it: "La lettura dall'anello non richiede l'app o il cloud del produttore Colmi. L'eventuale sincronizzazione con dashboard e Apple Health segue l'architettura FitMesh descritta nella Privacy Policy. Il write-back verso Apple Health è opzionale (disattivato di default) e non include il sonno nella release 3.10.0+191.",
+      en: "Reading from the ring does not require the manufacturer Colmi app or cloud. Any synchronization with dashboard and Apple Health follows the FitMesh architecture described in the Privacy Policy. Apple Health write-back is opt-in (disabled by default) and does not include sleep in release 3.10.0+191.",
+      de: "Das Auslesen vom Ring erfordert weder Hersteller-App noch Cloud von Colmi. Eine Synchronisierung mit Dashboard und Apple Health folgt der in der Datenschutzerklärung beschriebenen FitMesh-Architektur. Das Schreiben in Apple Health ist optional (standardmäßig deaktiviert) und schließt Schlaf in Release 3.10.0+191 aus.",
+      fr: "La lecture depuis la bague ne nécessite ni application ni cloud du fabricant Colmi. Toute synchronisation avec le tableau de bord et Apple Santé suit l'architecture FitMesh décrite dans la Politique de confidentialité. L'écriture dans Apple Santé est optionnelle (désactivée par défaut) et n'inclut pas le sommeil dans la version 3.10.0+191.",
     },
     officialSource: {
       title: {
-        it: "Documentazione FitMesh iOS: Supporto anelli smart e ponte HealthKit",
-        en: "FitMesh iOS Documentation: Smart Ring Support & HealthKit Bridge",
-        de: "FitMesh iOS Dokumentation: Smart Ring Unterstützung & HealthKit Brücke",
-        fr: "Documentation FitMesh iOS : Support des bagues et pont HealthKit",
+        it: "Architettura e Specifiche di Release FitMesh v3.10.0+191 (HealthKit Writer)",
+        en: "FitMesh Release Architecture & Specifications v3.10.0+191 (HealthKit Writer)",
+        de: "FitMesh Release-Architektur & Spezifikationen v3.10.0+191 (HealthKit Writer)",
+        fr: "Architecture et spécifications de version FitMesh v3.10.0+191 (HealthKit Writer)",
       },
-      url: "https://www.fitmesh.fit/it/sync/colmi-ring",
+      url: "https://developer.apple.com/documentation/healthkit",
       verifiedDate: "2026-09-14",
       supportedClaim: {
-        it: "Lettura BLE diretta da anelli Colmi R02/R06/R09 e scrittura opzionale certificata verso Apple HealthKit.",
-        en: "Direct BLE read from Colmi R02/R06/R09 rings and certified optional write-back to Apple HealthKit.",
-        de: "Direktes BLE-Lesen von Colmi R02/R06/R09-Ringen und zertifiziertes optionales Schreiben an Apple HealthKit.",
-        fr: "Lecture BLE directe des bagues Colmi R02/R06/R09 et écriture optionnelle certifiée vers Apple HealthKit.",
+        it: "Scrittura HealthKit opzionale di passi e frequenza a riposo dal backend FitMesh; flag esportazione sonno disabilitato nella release pubblica 3.10.0+191.",
+        en: "Optional HealthKit write of steps and resting HR from FitMesh backend; sleep export flag disabled in public release 3.10.0+191.",
+        de: "Optionales HealthKit-Schreiben von Schritten und Ruhepuls aus dem FitMesh-Backend; Schlaf-Export-Flag im öffentlichen Release 3.10.0+191 deaktiviert.",
+        fr: "Écriture HealthKit optionnelle des pas et fréquence au repos depuis le backend FitMesh ; flag d'exportation du sommeil désactivé dans la version 3.10.0+191.",
       },
     },
     evidence: {
@@ -1171,7 +1234,6 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Testé et vérifié sur iPhone physique avec bagues Colmi R02, R06 et R09 dans le code de FitMesh 3.10.0+191.",
       },
     },
-    guideHref: "/sync/colmi-ring",
   },
 ];
 
@@ -1180,7 +1242,7 @@ export interface UnverifiedPathInfo {
   deviceFamily: DeviceFamily;
   title: Record<SupportedMatrixLocale, string>;
   description: Record<SupportedMatrixLocale, string>;
-  helpHref: string;
+  providerSlug: string;
 }
 
 export const UNVERIFIED_COMBINATIONS_MAP: Record<string, UnverifiedPathInfo> = {
@@ -1188,51 +1250,34 @@ export const UNVERIFIED_COMBINATIONS_MAP: Record<string, UnverifiedPathInfo> = {
     phoneOs: "ios",
     deviceFamily: "galaxy-watch",
     title: {
-      it: "Galaxy Watch su iPhone: Percorso non verificato in questa prima matrice",
-      en: "Galaxy Watch on iPhone: Route not verified in this initial matrix",
-      de: "Galaxy Watch auf dem iPhone: In dieser ersten Matrix nicht verifizierter Pfad",
-      fr: "Galaxy Watch sur iPhone : Parcours non vérifié dans cette première matrice",
+      it: "Galaxy Watch su iPhone: Percorso non censito in questa prima matrice",
+      en: "Galaxy Watch on iPhone: Route not mapped in this initial matrix",
+      de: "Galaxy Watch auf dem iPhone: In dieser ersten Matrix nicht erfasster Pfad",
+      fr: "Galaxy Watch sur iPhone : Parcours non répertorié dans cette première matrice",
     },
     description: {
-      it: "I modelli recenti Galaxy Watch basati su Wear OS non supportano ufficialmente l'abbinamento con iPhone. Non presentiamo questa combinazione come supportata.",
-      en: "Recent Wear OS-based Galaxy Watch models do not officially support pairing with iPhone. We do not present this combination as supported.",
-      de: "Neuere Wear OS-basierte Galaxy Watch Modelle unterstützen offiziell keine Kopplung mit dem iPhone. Wir führen diese Kombination nicht als unterstützt.",
-      fr: "Les modèles récents de Galaxy Watch sous Wear OS ne prennent pas officiellement en charge le jumelage avec iPhone.",
+      it: "Questa prima release della matrice documenta i percorsi ufficiali su smartphone Android. L'abbinamento di Galaxy Watch su iPhone non è compreso in questa ricognizione.",
+      en: "This initial matrix release documents official routes on Android smartphones. Pairing Galaxy Watch with iPhone is not included in this survey.",
+      de: "Diese erste Version der Matrix dokumentiert offizielle Pfade auf Android-Smartphones. Die Kopplung der Galaxy Watch mit dem iPhone ist in dieser Übersicht nicht enthalten.",
+      fr: "Cette première version de la matrice documente les parcours officiels sous Android. Le jumelage de Galaxy Watch avec iPhone n'est pas inclus dans cet état des lieux.",
     },
-    helpHref: "/sync/galaxy-watch",
+    providerSlug: "galaxy-watch",
   },
   "pixel-watch-ios": {
     phoneOs: "ios",
     deviceFamily: "pixel-watch",
     title: {
-      it: "Pixel Watch su iPhone: Percorso non verificato in questa prima matrice",
-      en: "Pixel Watch on iPhone: Route not verified in this initial matrix",
-      de: "Pixel Watch auf dem iPhone: In dieser ersten Matrix nicht verifizierter Pfad",
-      fr: "Pixel Watch sur iPhone : Parcours non vérifié dans cette première matrice",
+      it: "Pixel Watch su iPhone: Percorso non censito in questa prima matrice",
+      en: "Pixel Watch on iPhone: Route not mapped in this initial matrix",
+      de: "Pixel Watch auf dem iPhone: In dieser ersten Matrix nicht erfasster Pfad",
+      fr: "Pixel Watch sur iPhone : Parcours non répertorié dans cette première matrice",
     },
     description: {
-      it: "Google Pixel Watch richiede uno smartphone Android e non supporta l'abbinamento a iOS. Non è pertanto disponibile una sincronizzazione con FitMesh iOS.",
-      en: "Google Pixel Watch requires an Android smartphone and does not support pairing with iOS. Sychronization with FitMesh iOS is therefore unavailable.",
-      de: "Die Google Pixel Watch erfordert ein Android-Smartphone und unterstützt keine Kopplung mit iOS.",
-      fr: "La Google Pixel Watch nécessite un smartphone Android et n'est pas compatible avec iOS.",
+      it: "Questa prima release della matrice documenta i percorsi supportati su Android. L'utilizzo di Google Pixel Watch su iOS non è censito in questa versione.",
+      en: "This initial matrix release documents supported routes on Android. Using Google Pixel Watch on iOS is not mapped in this version.",
+      de: "Diese erste Version der Matrix dokumentiert unterstützte Pfade unter Android. Die Nutzung der Google Pixel Watch unter iOS wird in dieser Version nicht erfasst.",
+      fr: "Cette première version de la matrice documente les parcours pris en charge sous Android. L'utilisation de Google Pixel Watch sous iOS n'est pas répertoriée dans cette version.",
     },
-    helpHref: "/sync/pixel-watch",
-  },
-  "oura-ring-ios": {
-    phoneOs: "ios",
-    deviceFamily: "oura-ring",
-    title: {
-      it: "Oura Ring su iPhone: Percorso non verificato in questa prima matrice",
-      en: "Oura Ring on iPhone: Route not verified in this initial matrix",
-      de: "Oura Ring auf dem iPhone: In dieser ersten Matrix nicht verifizierter Pfad",
-      fr: "Bague Oura sur iPhone : Parcours non vérifié dans cette première matrice",
-    },
-    description: {
-      it: "Questa prima release della matrice documenta il percorso Health Connect su Android. Il percorso Oura su iOS via Apple Health sarà verificato e censito in una fase successiva.",
-      en: "This initial matrix release documents the Health Connect path on Android. The Oura iOS route via Apple Health will be verified and mapped in a subsequent release.",
-      de: "Diese erste Version der Matrix dokumentiert den Health Connect-Pfad unter Android. Der Oura-Pfad unter iOS über Apple Health wird später verifiziert.",
-      fr: "Cette première version de la matrice documente le parcours Health Connect sous Android. Le parcours Oura sous iOS via Apple Santé sera vérifié ultérieurement.",
-    },
-    helpHref: "/sync/oura",
+    providerSlug: "pixel-watch",
   },
 };

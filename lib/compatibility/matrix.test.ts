@@ -1,14 +1,16 @@
 import { describe, it, expect } from "vitest";
 import { COMPATIBILITY_PATHS, UNVERIFIED_COMBINATIONS_MAP } from "./matrix-data";
 import { ESSENTIAL_GLOSSARY, type SupportedMatrixLocale } from "./glossary-data";
+import { UI_COPY } from "@/components/compatibility/CompatibilityMatrix";
+import { resolveGuideLink, resolveUnverifiedLink } from "./matrix-links";
 import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
 import { locales } from "@/lib/i18n";
 
 const SUPPORTED_LOCALES: readonly SupportedMatrixLocale[] = ["it", "en", "de", "fr"];
 
 describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
-  it("contains exactly 9 separated, non-aggregated paths (including Oura Android)", () => {
-    expect(COMPATIBILITY_PATHS).toHaveLength(9);
+  it("contains exactly 10 separated, non-aggregated paths (including Oura Android and Oura iOS)", () => {
+    expect(COMPATIBILITY_PATHS).toHaveLength(10);
   });
 
   it("re-uses valid provider slugs from the SSOT (PROVIDERS_BY_SLUG)", () => {
@@ -25,7 +27,7 @@ describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
     const iosPaths = COMPATIBILITY_PATHS.filter((p) => p.phoneOs === "ios");
 
     expect(androidPaths).toHaveLength(6); // garmin, fitbit, galaxy-watch, pixel-watch, oura, colmi
-    expect(iosPaths).toHaveLength(3);     // garmin, fitbit, colmi
+    expect(iosPaths).toHaveLength(4);     // garmin, fitbit, oura, colmi
 
     // Confirm Colmi Android and Colmi iOS are separated
     const colmiAndroid = COMPATIBILITY_PATHS.find((p) => p.id === "colmi-android");
@@ -36,10 +38,14 @@ describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
     expect(colmiAndroid?.phoneOs).toBe("android");
     expect(colmiIos?.phoneOs).toBe("ios");
 
-    // Confirm Oura Android is present and Android-only
+    // Confirm Oura Android and Oura iOS are separated
     const ouraAndroid = COMPATIBILITY_PATHS.find((p) => p.id === "oura-android");
+    const ouraIos = COMPATIBILITY_PATHS.find((p) => p.id === "oura-ios");
+
     expect(ouraAndroid).toBeDefined();
+    expect(ouraIos).toBeDefined();
     expect(ouraAndroid?.phoneOs).toBe("android");
+    expect(ouraIos?.phoneOs).toBe("ios");
   });
 
   it("has complete and symmetric translations across IT, EN, DE, FR for all paths", () => {
@@ -114,25 +120,197 @@ describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
     }
   });
 
-  it("correctly marks Garmin iOS and Fitbit iOS as conditional, not unsupported", () => {
+  it("correctly marks Garmin iOS, Fitbit iOS, and Oura as conditional, not unsupported", () => {
     const garminIos = COMPATIBILITY_PATHS.find((p) => p.id === "garmin-ios");
     const fitbitIos = COMPATIBILITY_PATHS.find((p) => p.id === "fitbit-ios");
+    const ouraAndroid = COMPATIBILITY_PATHS.find((p) => p.id === "oura-android");
+    const ouraIos = COMPATIBILITY_PATHS.find((p) => p.id === "oura-ios");
 
     expect(garminIos?.status).toBe("conditional");
     expect(fitbitIos?.status).toBe("conditional");
+    expect(ouraAndroid?.status).toBe("conditional");
+    expect(ouraIos?.status).toBe("conditional");
   });
 
   it("provides informative unverified entries for unmapped combinations instead of generic unsupported", () => {
     expect(UNVERIFIED_COMBINATIONS_MAP["galaxy-watch-ios"]).toBeDefined();
     expect(UNVERIFIED_COMBINATIONS_MAP["pixel-watch-ios"]).toBeDefined();
-    expect(UNVERIFIED_COMBINATIONS_MAP["oura-ring-ios"]).toBeDefined();
+    // Oura iOS is now fully mapped as a 10th path, so it must not be in unverified combinations
+    expect(UNVERIFIED_COMBINATIONS_MAP["oura-ring-ios"]).toBeUndefined();
 
     for (const [key, item] of Object.entries(UNVERIFIED_COMBINATIONS_MAP)) {
       for (const lc of SUPPORTED_LOCALES) {
         expect(item.title[lc], `Unverified ${key} missing title for ${lc}`).toBeTruthy();
         expect(item.description[lc], `Unverified ${key} missing description for ${lc}`).toBeTruthy();
       }
-      expect(item.helpHref.startsWith("/")).toBe(true);
+      expect(PROVIDERS_BY_SLUG[item.providerSlug], `Unverified ${key} providerSlug invalid`).toBeDefined();
+    }
+  });
+
+  it("contains negative test guardrail preventing Colmi iOS from claiming Apple Health sleep write-back", () => {
+    const colmiIos = COMPATIBILITY_PATHS.find((p) => p.id === "colmi-ios");
+    expect(colmiIos).toBeDefined();
+
+    // While kHealthKitSleepExportEnabled = false in release 3.10.0+191,
+    // NO text in stepD, directionLabel, metricsSummary, limitations, or officialSource claim sleep write-back.
+    const forbiddenPhrases = [
+      "scrittura sonno",
+      "scrittura del sonno",
+      "fasi del sonno verso apple health",
+      "write-back del sonno",
+      "write sleep",
+      "sleep write-back",
+      "write-back certificato",
+      "senza cloud terzi",
+      "schlaf an apple health schreiben",
+      "schlaf-write-back",
+      "zertifiziertes schreiben",
+      "ohne drittanbieter-cloud",
+      "écriture du sommeil",
+      "write-back du sommeil",
+      "écriture certifiée",
+      "sans cloud tiers",
+    ];
+
+    const fieldsToInspect = [
+      ...Object.values(colmiIos!.steps.stepD),
+      ...Object.values(colmiIos!.directionLabel),
+      ...Object.values(colmiIos!.metricsSummary),
+      ...Object.values(colmiIos!.limitations),
+      ...Object.values(colmiIos!.officialSource.supportedClaim),
+    ];
+
+    for (const text of fieldsToInspect) {
+      const lower = text.toLowerCase();
+      for (const phrase of forbiddenPhrases) {
+        expect(
+          lower.includes(phrase),
+          `Colmi iOS contains forbidden claim "${phrase}" in text: "${text}"`
+        ).toBe(false);
+      }
+    }
+
+    // Must clearly state the real architecture (BLE -> FitMesh -> backend/dashboard FitMesh -> HealthKit bridge)
+    expect(colmiIos!.steps.stepD.it).toContain("backend/dashboard FitMesh");
+    expect(colmiIos!.steps.stepD.it).toContain("ponte HealthKit");
+    expect(colmiIos!.steps.stepD.en).toContain("backend/dashboard FitMesh");
+    expect(colmiIos!.steps.stepD.en).toContain("HealthKit bridge");
+    expect(colmiIos!.steps.stepD.de).toContain("Backend/Dashboard FitMesh");
+    expect(colmiIos!.steps.stepD.de).toContain("HealthKit-Brücke");
+    expect(colmiIos!.steps.stepD.fr).toContain("backend/tableau de bord FitMesh");
+    expect(colmiIos!.steps.stepD.fr).toContain("pont HealthKit");
+
+    // Must include exact architectural statement referencing Privacy Policy
+    expect(colmiIos!.limitations.it).toContain("La lettura dall'anello non richiede l'app o il cloud del produttore Colmi");
+    expect(colmiIos!.limitations.it).toContain("segue l'architettura FitMesh descritta nella Privacy Policy");
+
+    // Official source must be Apple documentation / release reference, NOT a FitMesh marketing URL
+    expect(colmiIos!.officialSource.url).toBe("https://developer.apple.com/documentation/healthkit");
+    expect(colmiIos!.officialSource.url.includes("fitmesh.fit")).toBe(false);
+  });
+
+  it("prevents Italian string leakage in foreign locales (EN, DE, FR) within UI_COPY", () => {
+    const foreignLocales: SupportedMatrixLocale[] = ["en", "de", "fr"];
+
+    const italianMarkers = [
+      "Dispositivo",
+      "Evidenza",
+      "Percorso",
+      "Fonte Ufficiale",
+      "Requisiti",
+      "Nascondi",
+      "Mostra dettaglio",
+      "Chiudi scheda",
+      "Apri scheda",
+      "Reimposta",
+      "Tutti i telefoni",
+      "Tutte le marche",
+      "Sottopercorsi",
+    ];
+
+    for (const lc of foreignLocales) {
+      const copy = UI_COPY[lc];
+      expect(copy, `UI_COPY for ${lc} must exist`).toBeDefined();
+
+      const textValues = [
+        copy.badge,
+        copy.title,
+        copy.subtitle,
+        copy.filterOsLabel,
+        copy.filterFamilyLabel,
+        copy.allOs,
+        copy.allFamilies,
+        copy.metricsLabel,
+        copy.requirementsLabel,
+        copy.limitationsLabel,
+        copy.officialSourceLabel,
+        copy.evidenceLabel,
+        copy.verifiedDateLabel,
+        copy.subpathsLabel,
+        copy.guideLinkLabel,
+        copy.noResultsTitle,
+        copy.noResultsDesc,
+        copy.unverifiedBadge,
+        copy.learnMore,
+        copy.colDeviceOs,
+        copy.colStatus,
+        copy.colEvidence,
+        copy.colRouteData,
+        copy.colOfficialSource,
+        copy.subpathRequirements,
+        copy.subpathMetrics,
+        copy.subpathFallback,
+        copy.toggleDetailsOpen,
+        copy.toggleDetailsClosed,
+        copy.cardToggleOpen,
+        copy.cardToggleClosed,
+        copy.resetFilters,
+      ];
+
+      for (const val of textValues) {
+        expect(typeof val).toBe("string");
+        expect(val.length).toBeGreaterThan(0);
+        for (const marker of italianMarkers) {
+          expect(
+            val.includes(marker),
+            `UI_COPY[${lc}] leaked Italian marker "${marker}" in string: "${val}"`
+          ).toBe(false);
+        }
+      }
+    }
+  });
+
+  it("resolves SSOT localized direct 200 internal links with EN fallback tagging", () => {
+    for (const path of COMPATIBILITY_PATHS) {
+      for (const lc of SUPPORTED_LOCALES) {
+        const link = resolveGuideLink(path, lc);
+        expect(link, `Path ${path.id} must resolve a guide link for ${lc}`).toBeDefined();
+        expect(link!.href.startsWith("/")).toBe(true);
+
+        // Oura in French falls back to EN and is tagged
+        if (path.providerSlug === "oura" && lc === "fr") {
+          expect(link!.isFallbackEn).toBe(true);
+          expect(link!.href).toBe("/en/sync/oura");
+        } else {
+          expect(link!.isFallbackEn).toBe(false);
+        }
+      }
+    }
+
+    // Garmin iOS points to localized blog guide
+    const garminIos = COMPATIBILITY_PATHS.find((p) => p.id === "garmin-ios")!;
+    expect(resolveGuideLink(garminIos, "it")!.href).toBe("/it/blog/garmin-samsung-health-sync-guide");
+    expect(resolveGuideLink(garminIos, "en")!.href).toBe("/en/blog/sync-garmin-samsung-health-guide");
+    expect(resolveGuideLink(garminIos, "de")!.href).toBe("/de/blog/garmin-samsung-health-synchronisieren-anleitung");
+    expect(resolveGuideLink(garminIos, "fr")!.href).toBe("/fr/blog/synchroniser-garmin-samsung-health-guide");
+
+    // Unverified combinations resolve direct 200 provider URLs
+    for (const [key, item] of Object.entries(UNVERIFIED_COMBINATIONS_MAP)) {
+      for (const lc of SUPPORTED_LOCALES) {
+        const link = resolveUnverifiedLink(item.providerSlug, lc);
+        expect(link, `Unverified ${key} must resolve a link for ${lc}`).toBeDefined();
+        expect(link!.href.startsWith("/")).toBe(true);
+      }
     }
   });
 });
