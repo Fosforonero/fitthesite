@@ -1289,3 +1289,31 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
   date.
 - **Risultati log**: questa sezione è locale, non pushata (nessun secondo
   deployment generato solo per la documentazione).
+
+### P0 — Test Ottimizzazione CTR (5 URL selezionate)
+
+- **Data preparazione**: 2026-09-14
+- **Stato**: `PREPARATO` (non pubblicato — in attesa di review e deploy effettivo; la data di inizio esperimento coinciderà con il deployment in produzione)
+- **Scopo**: Testare la risposta del CTR sulle 5 URL canoniche con alto volume di impressioni nei CSV GSC e forte troncamento o formulazione passiva in SERP, intervenendo esclusivamente su `seoTitle` (metadati `<title>` renderizzati) senza toccare H1, copy body, CTA o publishedAt degli articoli. Esclusi contenuti Apple recenti e promesse non provate ("in 3 minuti", "garantito", "migrazione immediata").
+- **Target (5 URL canoniche)**:
+  1. `https://www.fitmesh.fit/en/blog/google-health-replaces-google-fit`
+  2. `https://www.fitmesh.fit/en/blog/galaxy-ring-android-health-connect`
+  3. `https://www.fitmesh.fit/it/blog/galaxy-ring-android-health-connect`
+  4. `https://www.fitmesh.fit/en/blog/oura-ring-health-connect-android`
+  5. `https://www.fitmesh.fit/it/blog/garmin-samsung-health-sync-guide`
+- **Modifiche applicate**:
+  - `google-health-google-fit.ts`: `seoTitle.en` impostato a `"Google Health vs Google Fit: What Changes in 2026"` (59c renderizzati con brand suffix, descrive differenze e transizione futura senza promettere una migrazione già eseguibile; era `"Google Health vs Google Fit: What Changed?"`, 53c passivo).
+  - `galaxy-ring-android-health-connect.ts`: aggiunti `seoTitle.it` (`"Galaxy Ring su Android: Setup e Health Connect"`, 58c renderizzati, riduce il titolo base da 89c a 48c) ed `seoTitle.en` (`"Galaxy Ring on Android: Setup & Health Connect Sync"`, 61c renderizzati, riduce il titolo base da 67c a 51c).
+  - `oura-ring-health-connect-android.ts`: aggiunto `seoTitle.en` (`"Oura Ring on Android: Health Connect Sync Guide"`, 57c renderizzati, riduce il titolo base da 70c a 47c).
+  - `garmin-samsung-health-sync-guide.ts`: aggiunto `seoTitle.it` (`"Sincronizzare Garmin con Samsung Health (2026)"`, 58c renderizzati, riduce il titolo base da 72c a 48c).
+- **Verifiche eseguite**:
+  - `npx tsc --noEmit` -> 0 errori (pulito)
+  - `tools/check-bing-seo-recommendations.ts` -> VERDE (tutti i title <= 70c, meta 150-160c)
+  - `pnpm test` (vitest) -> 48 passed, 897 passed, 23 skipped (0 falliti)
+  - Zero modifiche a file di test (`git diff origin/main..HEAD -- '*.test.*'` vuoto); discrepanza +1 test / +2 skip in perimetro spiegata dalla deriva preesistente post-PR #69.
+- **Protocollo di misurazione**:
+  - Data inizio esperimento = data del deployment effettivo.
+  - Registrazione separata della data di prima osservazione dei nuovi title nei risultati SERP (quando rilevabile).
+  - Check a +14gg e +28gg dal deploy effettivo (esito "dati insufficienti" ammesso se i volumi non raggiungono significatività statistica).
+  - Il confronto prima/dopo non dimostra da solo causalità: la valutazione deve normalizzare per la posizione media e monitorare il query mix.
+

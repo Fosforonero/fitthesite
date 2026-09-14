@@ -67,8 +67,13 @@ export const post: BlogPost = {
   // intervento title (EN consumer article: 22 clic, 3192 impression, CTR
   // 0.69%, posizione 7.60 — la piu' debole delle 5 baseline fornite). H1
   // invariato (non falso), solo il <title> renderizzato cambia.
+  //
+  // P0 CTR Test (2026-09-14): seoTitle.en aggiornato a "Google Health vs Google Fit: What Changes in 2026"
+  // (49c + 10 = 59c renderizzati <= 60c). Descrive accuratamente differenze e transizione annunciata
+  // senza promettere una migrazione già eseguibile (coerente con P1.8B fact ledger).
+  // H1, slug e meta description invariati.
   seoTitle: {
-    en: "Google Health vs Google Fit: What Changed?",
+    en: "Google Health vs Google Fit: What Changes in 2026",
   },
     metaDescription: {
       it: "Google Fit sta per essere sostituito da Google Health. Cosa migra e cosa no, e come vedere insieme anche i wearable che Google Health non copre direttamente.",

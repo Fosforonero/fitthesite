@@ -8,6 +8,13 @@ export const post: BlogPost = {
   // Oura->Health Connect->FitMesh) — vedi commenti puntuali sotto.
   updatedAt: "2026-09-01",
   readMinutes: 7,
+  // P0 CTR Test (2026-09-14): seoTitle en aggiunto per risolvere il
+  // troncamento critico in SERP (title EN precedente 80c renderizzati,
+  // CTR GSC 0.25%). Il nuovo title resta a 57c renderizzati con
+  // brand suffix (" · FitMesh", 10c). H1 e body invariati.
+  seoTitle: {
+    en: "Oura Ring on Android: Health Connect Sync Guide",
+  },
   hero: {
     kicker: {
         it: "Guida",
