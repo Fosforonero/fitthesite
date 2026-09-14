@@ -622,7 +622,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           de: [
             "Übersichtliches Web-Dashboard, zugänglich von PC, Mac, Tablet und Smartphone",
             "Periodische Synchronisierung via Health Connect (Fitbit-App → Health Connect → FitMesh), beim Öffnen der App oder best-effort im Hintergrund",
-            "Sichere Speicherung der synchronisierten Metriken auf europäischen Servern für dein persönliches Dashboard, ohne Weitergabe an Werbenetzwerke",
+            "Die synchronisierten Metriken werden im FitMesh-Backend gespeichert, um sie in deinem persönlichen Dashboard bereitzustellen",
             "Export der synchronisierten Daten als CSV oder JSON jederzeit möglich",
             "Kein Fitbit Premium erforderlich; unverbindliche Testphase zum Kennenlernen aller Pro-Funktionen (Übersicht der regulären Pläne in den App-Einstellungen)",
             "Umfang über Health Connect: Standard-Metriken (Schritte, Puls, Gesamtschlafdauer, Aktivitätskalorien, Distanz, Basis-Workouts)",
@@ -638,7 +638,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           fr: [
             "Tableau de bord web clair accessible depuis PC, Mac, tablette et smartphone",
             "Synchronisation périodique via Health Connect (application Fitbit → Health Connect → FitMesh), à l'ouverture de l'application ou en arrière-plan best-effort",
-            "Stockage sécurisé des métriques synchronisées sur serveurs européens pour votre tableau de bord personnel, sans revente de données",
+            "Les métriques synchronisées sont conservées sur le backend FitMesh pour être disponibles dans votre tableau de bord personnel",
             "Export des données synchronisées en CSV ou JSON à tout moment",
             "Fitbit Premium non requis ; période d'essai pour découvrir les fonctions Pro (détail des formules consultable dans les paramètres de l'application)",
             "Périmètre via Health Connect : métriques standardisées (pas, fréquence cardiaque, durée totale du sommeil, calories, distance, entraînements)",
@@ -770,9 +770,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         a: {
           it: "Oggi via Health Connect Fitbit espone solo la durata totale del sonno. Le fasi dettagliate arriveranno con l'integrazione OAuth Fitbit Web API, prevista per Q3 2026. La data total è comunque visibile da subito.",
           en: "Today via Health Connect Fitbit only exposes total sleep duration. Detailed stages will arrive with the Fitbit Web API OAuth integration, planned for Q3 2026. Total duration is visible from day one.",
-          de: "Aktuell überträgt die Fitbit-App über Health Connect nur die Gesamtschlafdauer (Startzeit, Endzeit und Gesamtlänge). Aufgeschlüsselte Schlafphasen (wie REM-, Leicht- und Tiefschlaf) werden von Fitbit über die lokale Health Connect Schnittstelle derzeit nicht übermittelt. Die Gesamtschlafzeit ist ab dem ersten Tag auf deinem Dashboard sichtbar.",
+          de: "FitMesh liest die von der Fitbit-App an Health Connect auf Android übergebenen Schlafdaten aus. Die Verfügbarkeit einzelner Metriken wie Gesamtschlafzeit oder detaillierter Schlafphasen (REM-, Leicht- und Tiefschlaf) hängt davon ab, welche Daten die Fitbit-App aktuell mit Health Connect synchronisiert. Die synchronisierte Schlafdauer ist in deinem Dashboard einsehbar.",
           pt: "Hoje, via Health Connect, o Fitbit expõe apenas a duração total do sono. As fases detalhadas chegarão com a integração OAuth da Fitbit Web API, prevista para o Q3 2026. A duração total já é visível desde o primeiro dia.",
-          fr: "Actuellement, l'application Fitbit ne transmet via Health Connect que la durée totale du sommeil (heure de début, heure de fin et durée globale). Les phases détaillées (sommeil paradoxal, léger, profond) ne sont pas partagées par Fitbit via l'interface Health Connect. Le temps de sommeil global est quant à lui visible dès le premier jour sur votre tableau de bord.",
+          fr: "FitMesh lit les données de sommeil transmises par l'application Fitbit à Health Connect sur Android. La disponibilité des métriques, qu'il s'agisse de la durée totale ou des phases de sommeil détaillées (paradoxal, léger, profond), dépend des données effectivement partagées par l'application Fitbit avec Health Connect. La durée de sommeil synchronisée est consultable sur votre tableau de bord.",
           pl: "Dziś w Health Connect Fitbit pokazana jest tylko cała durata senu. Detalowe fazy pojawią się podczas integracji OAuth Fitbit Web API, oczekiwanej na III kwartał 2026 roku. Cała trwałość senu jest jednak widoczna od początku.",
           tr: "Bugün Health Connect Fitbit sadece uykunuzun toplam süresini gösteriyor. Detaylı fasi bilgileri OAuth Fitbit Web API'si ile birlikte gelecek ve bu tarihe Q3 2026'i bekliyoruz. Toplam süre hala ilk başta görünüyor.",
           nl: "Vandaag toont Fitbit via Health Connect alleen de totale slaapduur. Gedetailleerde fasen komen met de OAuth-integratie van de Fitbit Web API, gepland voor Q3 2026. De totale duur is vanaf dag een zichtbaar.",
@@ -968,7 +968,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "CSV/JSON export of collected data.",
           ],
           de: [
-            "Lokale Health Connect Synchronisierung: Liest von Garmin freigegebene Standard-Metriken (Schritte, Puls, Gesamtschlafdauer, Aktivitätskalorien, Distanz, Workouts) direkt auf Android aus ([Garmin Support Dokumentation](https://support.garmin.com/)).",
+            "Lokale Health Connect Synchronisierung: Liest von Garmin freigegebene Standard-Metriken (Schritte, Puls, Gesamtschlafdauer, Aktivitätskalorien, Distanz, Workouts) direkt auf Android aus ([Garmin Support: Weitergabe an Health Connect](https://support.garmin.com/?faq=Zk545Yp36a0489i9D70a16)).",
             "Proprietäre Metriken: Body Battery, Training Load und Erholungszeit verbleiben im Garmin-System. Eine direkte API-Anbindung erfordert die Freigabe im Garmin Developer Program ([Garmin Health API Übersicht](https://developer.garmin.com/health-api/overview/)) und garantiert nicht automatisch den Zugriff auf alle herstellerspezifischen Berechnungen.",
             "Plattformübergreifendes Dashboard: Garmin-Werte neben Galaxy Watch, Pixel Watch oder weiteren über Health Connect angebundenen Wearables auf einer gemeinsamen Oberfläche.",
             "Volle Datenkontrolle: Beliebiger Export deiner synchronisierten Gesundheitsdaten als CSV oder JSON jederzeit möglich.",
