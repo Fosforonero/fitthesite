@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { describe, it, expect } from "vitest";
 import { COMPATIBILITY_PATHS, UNVERIFIED_COMBINATIONS_MAP } from "./matrix-data";
 import { ESSENTIAL_GLOSSARY, type SupportedMatrixLocale } from "./glossary-data";
@@ -265,6 +267,7 @@ describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
         copy.cardToggleOpen,
         copy.cardToggleClosed,
         copy.resetFilters,
+        copy.sourceDocumentsLabel,
       ];
 
       for (const val of textValues) {
@@ -312,6 +315,156 @@ describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
         expect(link!.href.startsWith("/")).toBe(true);
       }
     }
+  });
+
+  it("contains negative guardrail preventing Oura iOS from claiming Apple Health resting HR export without direct evidence", () => {
+    const ouraIos = COMPATIBILITY_PATHS.find((p) => p.id === "oura-ios");
+    expect(ouraIos).toBeDefined();
+
+    // Guardrail: no positive claim that Oura exports resting heart rate to Apple Health / HealthKit
+    const forbiddenPositiveClaims = [
+      "esporta la frequenza a riposo",
+      "esportazione della frequenza a riposo verso apple",
+      "frequenza cardiaca a riposo verso apple",
+      "writes resting heart rate to apple",
+      "exports resting heart rate to apple",
+      "schreibt ruhepuls in apple",
+      "exporte la fréquence au repos vers apple",
+    ];
+
+    const fieldsToInspect = [
+      ...Object.values(ouraIos!.steps.stepC),
+      ...Object.values(ouraIos!.steps.stepD),
+      ...Object.values(ouraIos!.metricsSummary),
+      ...Object.values(ouraIos!.officialSource.supportedClaim),
+    ];
+
+    for (const text of fieldsToInspect) {
+      const lower = text.toLowerCase();
+      for (const phrase of forbiddenPositiveClaims) {
+        expect(
+          lower.includes(phrase),
+          `Oura iOS contains forbidden claim "${phrase}" in text: "${text}"`
+        ).toBe(false);
+      }
+    }
+
+    // Must clearly state that resting HR is NOT listed / exported as a standalone HealthKit record
+    expect(ouraIos!.steps.stepC.it).toContain("La documentazione Oura non elenca la frequenza a riposo (RESTING_HEART_RATE) tra i dati esportati");
+    expect(ouraIos!.steps.stepD.it).toContain("Non viene dedotto né letto un record RESTING_HEART_RATE da Oura");
+    expect(ouraIos!.limitations.it).toContain("frequenza cardiaca a riposo calcolata internamente da Oura non transitano come record autonomi in Apple Health");
+    expect(ouraIos!.limitations.en).toContain("resting heart rate calculated internally by Oura do not transfer as standalone records to Apple Health");
+    expect(ouraIos!.limitations.de).toContain("intern von Oura berechnete Ruhepuls werden nicht als autonome Datensätze an Apple Health übertragen");
+    expect(ouraIos!.limitations.fr).toContain("fréquence au repos calculée en interne par Oura ne sont pas transférés comme enregistrements autonomes dans Apple Santé");
+
+    // Must introduce partial list with standard phrasing
+    expect(ouraIos!.metricsSummary.it.startsWith("Tra i dati supportati:")).toBe(true);
+    expect(ouraIos!.metricsSummary.en.startsWith("Among supported data:")).toBe(true);
+    expect(ouraIos!.metricsSummary.de.startsWith("Unter den unterstützten Daten:")).toBe(true);
+    expect(ouraIos!.metricsSummary.fr.startsWith("Parmi les données prises en charge :")).toBe(true);
+
+    // Respiratory rate reconciled in C, D and metricsSummary
+    expect(ouraIos!.metricsSummary.it).toContain("frequenza respiratoria");
+    expect(ouraIos!.metricsSummary.en).toContain("respiratory rate");
+    expect(ouraIos!.metricsSummary.de).toContain("Atemfrequenz");
+    expect(ouraIos!.metricsSummary.fr).toContain("fréquence respiratoire");
+    expect(ouraIos!.steps.stepD.it).toContain("RESPIRATORY_RATE");
+  });
+
+  it("contains guardrail ensuring Oura Android distinctly lists both HR and HRV RMSSD without conflation", () => {
+    const ouraAndroid = COMPATIBILITY_PATHS.find((p) => p.id === "oura-android");
+    expect(ouraAndroid).toBeDefined();
+
+    // Must include both HR and HRV as distinct metrics across all 4 locales
+    expect(ouraAndroid!.metricsSummary.it).toContain("frequenza cardiaca");
+    expect(ouraAndroid!.metricsSummary.it).toContain("variabilità della frequenza cardiaca (HRV RMSSD)");
+
+    expect(ouraAndroid!.metricsSummary.en).toContain("heart rate");
+    expect(ouraAndroid!.metricsSummary.en).toContain("heart rate variability (HRV RMSSD)");
+
+    expect(ouraAndroid!.metricsSummary.de).toContain("Herzfrequenz");
+    expect(ouraAndroid!.metricsSummary.de).toContain("Herzfrequenzvariabilität (HRV RMSSD)");
+
+    expect(ouraAndroid!.metricsSummary.fr).toContain("fréquence cardiaque");
+    expect(ouraAndroid!.metricsSummary.fr).toContain("variabilité de la fréquence cardiaque (HRV RMSSD)");
+
+    // In stepD, both HEART_RATE and HEART_RATE_VARIABILITY_RMSSD are explicitly mapped
+    expect(ouraAndroid!.steps.stepD.it).toContain("HEART_RATE");
+    expect(ouraAndroid!.steps.stepD.it).toContain("HEART_RATE_VARIABILITY_RMSSD");
+    expect(ouraAndroid!.steps.stepD.en).toContain("HEART_RATE");
+    expect(ouraAndroid!.steps.stepD.en).toContain("HEART_RATE_VARIABILITY_RMSSD");
+
+    // Partial list phrasing
+    expect(ouraAndroid!.metricsSummary.it.startsWith("Tra i dati supportati:")).toBe(true);
+    expect(ouraAndroid!.metricsSummary.en.startsWith("Among supported data:")).toBe(true);
+    expect(ouraAndroid!.metricsSummary.de.startsWith("Unter den unterstützten Daten:")).toBe(true);
+    expect(ouraAndroid!.metricsSummary.fr.startsWith("Parmi les données prises en charge :")).toBe(true);
+  });
+
+  it("contains guardrail ensuring source titles align with official domains and Colmi iOS references Apple Developer", () => {
+    // Colmi iOS must reference Apple Developer HealthKit framework
+    const colmiIos = COMPATIBILITY_PATHS.find((p) => p.id === "colmi-ios")!;
+    expect(colmiIos.officialSource.url).toBe("https://developer.apple.com/documentation/healthkit");
+    expect(colmiIos.officialSource.title.it).toContain("Apple Developer: Documentazione Framework HealthKit");
+    expect(colmiIos.officialSource.title.en).toContain("Apple Developer: HealthKit Framework Documentation");
+    expect(colmiIos.officialSource.title.de).toContain("Apple Developer: HealthKit-Framework-Dokumentation");
+    expect(colmiIos.officialSource.title.fr).toContain("Apple Developer : Documentation du framework HealthKit");
+
+    // Never leak internal variable names in public user-facing strings
+    for (const path of COMPATIBILITY_PATHS) {
+      const allStrings = [
+        ...Object.values(path.steps.stepA),
+        ...Object.values(path.steps.stepB),
+        ...Object.values(path.steps.stepC),
+        ...Object.values(path.steps.stepD),
+        ...Object.values(path.requirements),
+        ...Object.values(path.limitations),
+        ...Object.values(path.metricsSummary),
+        ...Object.values(path.officialSource.supportedClaim),
+        ...Object.values(path.officialSource.title),
+      ];
+      for (const str of allStrings) {
+        expect(str.includes("kHealthKitSleepExportEnabled")).toBe(false);
+      }
+    }
+
+    // Domain alignments
+    for (const path of COMPATIBILITY_PATHS) {
+      const parsedUrl = new URL(path.officialSource.url);
+      if (path.providerSlug === "oura") {
+        expect(parsedUrl.hostname).toBe("support.ouraring.com");
+      } else if (path.providerSlug === "garmin") {
+        expect(parsedUrl.hostname).toBe("support.garmin.com");
+      } else if (path.providerSlug === "fitbit" || path.id === "pixel-watch-android") {
+        expect(parsedUrl.hostname).toBe("support.google.com");
+      } else if (path.id === "galaxy-watch-android") {
+        expect(parsedUrl.hostname).toBe("www.samsung.com");
+      } else if (path.id === "colmi-android") {
+        expect(parsedUrl.hostname).toBe("github.com");
+      } else if (path.id === "colmi-ios") {
+        expect(parsedUrl.hostname).toBe("developer.apple.com");
+      }
+    }
+  });
+
+  it("contains guardrail verifying UI component uses sourceDocumentsLabel without quotation marks on paraphrases", () => {
+    // All 4 locales define sourceDocumentsLabel without empty strings
+    for (const lc of SUPPORTED_LOCALES) {
+      expect(UI_COPY[lc].sourceDocumentsLabel).toBeTruthy();
+    }
+    expect(UI_COPY.it.sourceDocumentsLabel).toBe("La fonte documenta:");
+    expect(UI_COPY.en.sourceDocumentsLabel).toBe("Source documents:");
+    expect(UI_COPY.de.sourceDocumentsLabel).toBe("Die Quelle dokumentiert:");
+    expect(UI_COPY.fr.sourceDocumentsLabel).toBe("La source documente :");
+
+    // Inspect component source: no quotation marks wrapping supportedClaim
+    const componentSource = fs.readFileSync(
+      path.join(process.cwd(), "components/compatibility/CompatibilityMatrix.tsx"),
+      "utf-8"
+    );
+    expect(componentSource.includes("&quot;{p.officialSource.supportedClaim")).toBe(false);
+    expect(componentSource.includes('"{p.officialSource.supportedClaim')).toBe(false);
+    expect(componentSource.includes("copy.sourceDocumentsLabel")).toBe(true);
   });
 });
 

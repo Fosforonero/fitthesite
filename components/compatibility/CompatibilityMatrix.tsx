@@ -57,6 +57,7 @@ export interface MatrixUiCopy {
   cardToggleOpen: string;
   cardToggleClosed: string;
   resetFilters: string;
+  sourceDocumentsLabel: string;
 }
 
 export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
@@ -100,6 +101,7 @@ export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
     cardToggleOpen: "▲ Chiudi scheda dettagliata",
     cardToggleClosed: "▼ Apri scheda completa (A-D, requisiti, limiti)",
     resetFilters: "Reimposta filtri",
+    sourceDocumentsLabel: "La fonte documenta:",
   },
   en: {
     badge: "Official Compatibility Matrix",
@@ -140,6 +142,7 @@ export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
     cardToggleOpen: "▲ Close detailed card",
     cardToggleClosed: "▼ Open full card (A-D, requirements, limits)",
     resetFilters: "Reset filters",
+    sourceDocumentsLabel: "Source documents:",
   },
   de: {
     badge: "Offizielle Kompatibilitätsmatrix",
@@ -181,6 +184,7 @@ export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
     cardToggleOpen: "▲ Detailansicht schließen",
     cardToggleClosed: "▼ Vollständige Karte öffnen (A-D, Voraussetzungen, Limits)",
     resetFilters: "Filter zurücksetzen",
+    sourceDocumentsLabel: "Die Quelle dokumentiert:",
   },
   fr: {
     badge: "Matrice de Compatibilité Officielle",
@@ -222,6 +226,7 @@ export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
     cardToggleOpen: "▲ Fermer la fiche détaillée",
     cardToggleClosed: "▼ Ouvrir la fiche complète (A-D, prérequis, limites)",
     resetFilters: "Réinitialiser les filtres",
+    sourceDocumentsLabel: "La source documente :",
   },
 };
 
@@ -576,8 +581,9 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
                       <div className="text-[10px] text-text-muted mt-1">
                         {copy.verifiedDateLabel}: {p.officialSource.verifiedDate}
                       </div>
-                      <div className="mt-1.5 text-[10px] text-text-secondary leading-snug italic">
-                        &quot;{p.officialSource.supportedClaim[locale] || p.officialSource.supportedClaim.en}&quot;
+                      <div className="mt-1.5 text-[10px] text-text-secondary leading-snug">
+                        <span className="font-semibold text-text-primary">{copy.sourceDocumentsLabel}</span>{" "}
+                        <span>{p.officialSource.supportedClaim[locale] || p.officialSource.supportedClaim.en}</span>
                       </div>
                     </td>
                   </tr>
@@ -717,8 +723,9 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
                 <div className="text-[10px] text-text-muted">
                   {copy.verifiedDateLabel}: {p.officialSource.verifiedDate}
                 </div>
-                <p className="text-[10px] text-text-secondary italic">
-                  &quot;{p.officialSource.supportedClaim[locale] || p.officialSource.supportedClaim.en}&quot;
+                <p className="text-[10px] text-text-secondary leading-relaxed">
+                  <span className="font-semibold text-text-primary">{copy.sourceDocumentsLabel}</span>{" "}
+                  <span>{p.officialSource.supportedClaim[locale] || p.officialSource.supportedClaim.en}</span>
                 </p>
                 {guideLink && (
                   <div className="mt-1 pt-1 border-t border-border-subtle/40">
