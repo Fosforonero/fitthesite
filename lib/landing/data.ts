@@ -488,7 +488,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     slug: "fitbit-export-google",
     relatedProvider: "fitbit",
     publishedAt: "2026-05-21",
-    updatedAt: "2026-05-21",
+    updatedAt: "2026-09-14",
     primaryKeyword: {
       it: "esportare dati fitbit google",
       en: "export fitbit data google",
@@ -504,6 +504,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     secondaryKeywords: {
       it: ["alternativa dashboard fitbit", "vedere dati fitbit senza app", "fitbit web 2026"],
       en: ["fitbit dashboard alternative", "view fitbit data without app", "fitbit web 2026"],
+      de: ["Fitbit Dashboard Alternative", "Fitbit Daten ohne App ansehen", "Fitbit Web 2026"],
+      fr: ["tableau de bord fitbit alternatif", "voir donnees fitbit sans application", "fitbit web 2026"],
       pl: [
         "alternatywa panelu dashboards fitbit",
         "oglądać dane fitbit bez aplikacji",
@@ -533,9 +535,9 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Vuoi esportare e visualizzare i dati Fitbit dopo l'acquisizione Google? Dashboard web alternativa via Health Connect, niente Fitbit Premium, privacy-first.",
       en: "Want to export and view Fitbit data after Google acquisition? Alternative web dashboard via Health Connect, no Fitbit Premium, privacy-first.",
-      de: "Möchtest du deine Fitbit-Daten nach der Google-Übernahme exportieren und anzeigen? Alternative Web-Dashboard via Health Connect, ohne Fitbit Premium, Privacy-first.",
+      de: "Fitbit-Daten nach den Google-Änderungen auf einem eigenen Web-Dashboard ansehen. Synchronisierung via Health Connect auf Android, ohne Pflicht zu Fitbit Premium.",
       pt: "Quer exportar e visualizar os dados do Fitbit após a aquisição pelo Google? Painel web alternativo via Health Connect, sem Fitbit Premium, privacidade em primeiro lugar.",
-      fr: "Vous souhaitez exporter vos données Fitbit après l'acquisition par Google ? Tableau de bord web alternatif via Health Connect, sans Fitbit Premium, confidentialité en priorité.",
+      fr: "Consultez vos données Fitbit sur votre propre tableau de bord web suite aux changements Google. Synchronisation via Health Connect sur Android, sans Fitbit Premium.",
       pl: "Chcesz eksportować i wyświetlać dane Fitbit po pobraniu Google? Alternatywna panelowa strona internetowa za pomocą Health Connect, bez Fitbit Premium, priorytet prywatności.",
       tr: "İstediğinizde Fitbit verilerini dışa aktarabilir ve görebilirsiniz mi Google sonucu? Web tabanlı alternatif panel Health Connect yoluyla, Fitbit Premium olmadan, gizlilik ilkeli.",
       nl: "Wil je je Fitbit-gegevens exporteren en bekijken na de overname door Google? Alternatief webdashboard via Health Connect, geen Fitbit Premium, privacy voorop.",
@@ -622,7 +624,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Periodische Synchronisierung via Health Connect (Fitbit App → HC → FitMesh), beim Öffnen der App oder best-effort im Hintergrund",
             "Lokaler Verlauf auf unserem Backend gespeichert",
             "Datenexport als CSV/JSON, wann immer du möchtest",
-            "Kein Fitbit Premium, kein FitMesh-Abonnement",
+            "Kein Fitbit Premium erforderlich; 14 Tage FitMesh Pro kostenlos testen, danach optionaler Einmalkauf oder Abo",
             "Roadmap: OAuth Fitbit Web API-Integration für detaillierte Schlafphasen und 12-Monate-Backfill",
           ],
           pt: [
@@ -638,7 +640,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "Synchronisation périodique via Health Connect (app Fitbit → HC → FitMesh), à l'ouverture de l'application ou en arrière-plan best-effort",
             "Historique local stocké sur notre backend",
             "Export des données en CSV/JSON quand vous le souhaitez",
-            "Sans Fitbit Premium, sans abonnement FitMesh",
+            "Fitbit Premium non requis ; essai de 14 jours FitMesh Pro gratuit, puis achat à vie ou abonnement optionnel",
             "Feuille de route : intégration OAuth Fitbit Web API pour les phases de sommeil détaillées et le backfill 12 mois",
           ],
           pl: [
@@ -839,7 +841,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     slug: "garmin-connect-pc",
     relatedProvider: "garmin",
     publishedAt: "2026-05-21",
-    updatedAt: "2026-05-21",
+    updatedAt: "2026-09-14",
     primaryKeyword: {
       it: "garmin connect pc",
       en: "garmin connect pc",
@@ -855,6 +857,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     secondaryKeywords: {
       it: ["dashboard garmin browser", "garmin connect alternativa", "vedere dati garmin"],
       en: ["garmin dashboard browser", "garmin connect alternative", "view garmin data"],
+      de: ["Garmin Dashboard Browser", "Garmin Connect Alternative", "Garmin Daten PC ansehen"],
       pl: [
         "pulpit garmin browser",
         "garmin connect alternatywa",
@@ -884,7 +887,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Dashboard Garmin alternativa accessibile da PC, in aggiunta a Garmin Connect web. Cross-sync con Galaxy Watch, Oura, Fitbit. Setup via Health Connect.",
       en: "Alternative Garmin dashboard accessible from PC, in addition to Garmin Connect web. Cross-sync with Galaxy Watch, Oura, Fitbit. Setup via Health Connect.",
-      de: "Alternatives Garmin-Dashboard, zugänglich vom PC, zusätzlich zu Garmin Connect Web. Cross-Sync mit Galaxy Watch, Oura, Fitbit. Einrichtung via Health Connect.",
+      de: "Alternatives Garmin-Dashboard für den Browser, zusätzlich zu Garmin Connect Web. Kombiniere Daten mit Galaxy Watch, Pixel Watch und Wear OS. Einrichtung via Health Connect.",
       pt: "Painel alternativo do Garmin acessível pelo PC, além do Garmin Connect web. Cross-sync com Galaxy Watch, Oura, Fitbit. Configuração via Health Connect.",
       fr: "Tableau de bord Garmin alternatif accessible depuis PC, en complément de Garmin Connect web. Synchronisation croisée avec Galaxy Watch, Oura, Fitbit. Configuration via Health Connect.",
       pl: "Panel zarządzania Garmin alternatywny dostępny z komputera, w dodatku do Garmin Connect web. Cross-sync z Galaxy Watch, Oura, Fitbit. Konfiguracja za pomocą Health Connect.",
@@ -910,7 +913,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       subtitle: {
         it: "Garmin Connect web funziona, ma è isolato. Se hai anche un Galaxy Watch per la quotidianità o un Oura per il sonno, vuoi vederli insieme. FitMesh Sync li unifica.",
         en: "Garmin Connect web works, but it's isolated. If you also have a Galaxy Watch for daily wear or an Oura for sleep, you want them together. FitMesh Sync unifies them.",
-        de: "Garmin Connect Web funktioniert, aber es ist isoliert. Wenn du auch eine Galaxy Watch für den Alltag oder einen Oura für den Schlaf hast, möchtest du sie zusammen sehen. FitMesh Sync vereint sie.",
+        de: "Garmin Connect Web funktioniert, bleibt aber auf Garmin isoliert. Wenn du für den Alltag eine Galaxy Watch oder eine Wear OS Uhr trägst, möchtest du deine Gesundheitsdaten an einem Ort sehen. FitMesh Sync führt sie zusammen.",
         pt: "O Garmin Connect web funciona, mas é isolado. Se você também tem um Galaxy Watch para o dia a dia ou um Oura para o sono, quer vê-los juntos. FitMesh Sync os unifica.",
         fr: "Garmin Connect web fonctionne, mais il est isolé. Si vous avez aussi une Galaxy Watch pour le quotidien ou un Oura pour le sommeil, vous voulez les voir ensemble. FitMesh Sync les unifie.",
         pl: "Garmin Connect sieć działa, ale jest izolowana. Jeśli masz również Galaxy Watch na codzienne użycie lub Oura do śpienia, chcesz, aby one były połączone. FitMesh Sync je unifikuje.",
@@ -934,7 +937,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Garmin Connect è una delle migliori web dashboard wearable ancora in piedi nel 2026. Per chi usa solo Garmin va benissimo. Il problema arriva quando hai anche un Galaxy Watch (perché alla sera vuoi un orologio normale), un Oura Ring (perché segui meglio il sonno), o vuoi che i tuoi dati Garmin compaiano in un'app salute unificata. Garmin Connect è chiuso al suo silos.",
           en: "Garmin Connect is one of the best wearable web dashboards still standing in 2026. For Garmin-only users it's perfect. The problem comes when you also have a Galaxy Watch (because in the evening you want a regular watch), an Oura Ring (because you track sleep more carefully), or want your Garmin data to appear in a unified health app. Garmin Connect is closed to its silo.",
-          de: "Garmin Connect ist eines der besten Wearable-Web-Dashboards, das 2026 noch existiert. Für reine Garmin-Nutzer ist es perfekt. Das Problem entsteht, wenn du auch eine Galaxy Watch hast (weil du abends eine normale Uhr willst), einen Oura Ring (weil du den Schlaf genauer verfolgst) oder deine Garmin-Daten in einer einheitlichen Health-App sehen möchtest. Garmin Connect bleibt in seinem eigenen Silo.",
+          de: "Garmin Connect ist eines der besten Wearable-Web-Dashboards, das 2026 noch existiert. Für reine Garmin-Nutzer ist es ideal. Das Problem entsteht, wenn du im Alltag zusätzlich eine Galaxy Watch oder Pixel Watch trägst oder deine Garmin-Daten auf einer einheitlichen Plattform sehen möchtest. Garmin Connect bleibt in seinem eigenen Silo.",
           pt: "O Garmin Connect é um dos melhores painéis web para wearables ainda em pé em 2026. Para quem usa só Garmin, é perfeito. O problema aparece quando você também tem um Galaxy Watch (porque à noite quer um relógio normal), um Oura Ring (porque acompanha melhor o sono) ou quer que seus dados Garmin apareçam em um app de saúde unificado. O Garmin Connect é fechado no seu próprio silo.",
           fr: "Garmin Connect est l'un des meilleurs tableaux de bord web pour appareils connectés encore en activité en 2026. Pour les utilisateurs exclusifs de Garmin, c'est parfait. Le problème survient quand vous avez aussi une Galaxy Watch (parce que le soir vous voulez une montre classique), un Oura Ring (parce que vous suivez mieux votre sommeil) ou que vous voulez voir vos données Garmin dans une application de santé unifiée. Garmin Connect reste fermé dans son propre silo.",
           pl: "Garmin Connect jest jedną z najlepszych web dashboardów wearable nadal działających w 2026 roku. Dla tych, którzy używają tylko Garmin, jest idealnym rozwiązaniem. Problem pojawia się, gdy masz również Galaxy Watch (bo na wieczór chcesz normalny zegarek), Oura Ring (bo lepiej śledzi Twoje spoczywki), lub chcesz, aby Twoje dane Garmin pojawiały się w jednej aplikacji zdrowotnej. Garmin Connect jest zamknięty w swoim silosie.",
@@ -965,10 +968,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
             "CSV/JSON export of collected data.",
           ],
           de: [
-            "Liest Garmin-Daten via Health Connect (Schritte, BPM, Gesamtschlaf, Kalorien, Distanz, Basis-Trainings): funktioniert heute.",
-            "Roadmap Q3 2026: OAuth-Integration der Garmin Health API für Body Battery, Training Load, Recovery Time, Stress Score und detailliertes GPS.",
-            "Cross-Source-Web-Dashboard: Garmin neben Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura, wenn aktiv.",
-            "CSV/JSON-Export der gesammelten Daten.",
+            "Liest freigegebene Garmin-Daten via Health Connect (Schritte, Puls, Gesamtschlaf, Kalorien, Distanz, Basis-Trainings): funktioniert heute auf Android.",
+            "Roadmap: OAuth-Integration der Garmin Health API für erweiterte Metriken (vorbehaltlich der Freigabe im Garmin Developer Program).",
+            "Web-Dashboard für mehrere Quellen: Garmin neben Galaxy Watch, Pixel Watch oder Fitbit auf einer gemeinsamen Oberfläche.",
+            "CSV/JSON-Export der synchronisierten Daten jederzeit möglich.",
           ],
           pt: [
             "Lê dados do Garmin via Health Connect (passos, BPM, sono total, calorias, distância, treinos básicos): funciona hoje.",
@@ -1021,7 +1024,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         body: {
           it: "Atleta con Garmin per gli allenamenti + Galaxy Watch per la quotidianità? Coppia Oura Ring di notte + Garmin di giorno? FitMesh ti dà una vista unica senza che tu debba scegliere.",
           en: "Athlete with Garmin for workouts + Galaxy Watch daily? Oura Ring at night + Garmin by day? FitMesh gives you a single view without forcing you to choose.",
-          de: "Athleten mit Garmin für Trainings und Galaxy Watch im Alltag? Oura Ring nachts und Garmin tagsüber? FitMesh gibt dir eine einheitliche Ansicht, ohne dass du dich entscheiden musst.",
+          de: "Garmin für das Lauftraining und eine Galaxy Watch oder Pixel Watch im Büro? FitMesh bietet dir eine konsistente Übersicht deiner Gesundheitsdaten, ohne dass du zwischen verschiedenen Silos wechseln musst.",
           pt: "Atleta com Garmin para os treinos e Galaxy Watch no dia a dia? Oura Ring à noite e Garmin durante o dia? FitMesh te dá uma visão única sem que você precise escolher.",
           fr: "Sportif avec Garmin pour les entraînements et Galaxy Watch au quotidien ? Oura Ring la nuit et Garmin le jour ? FitMesh vous offre une vue unifiée sans que vous ayez à choisir.",
           pl: "Atleta zαι Garmin dla treningów + Galaxy Watch dla codzienności? Zespół Oura Szpilki nocnej + Garmin dnia? FitMesh da Ci unikalny widok bez potrzeby wyboru.",
@@ -1079,7 +1082,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         a: {
           it: "Non oggi: sono metriche proprietarie Garmin non esposte via Health Connect. Saranno disponibili con l'integrazione OAuth Garmin Health API, in roadmap per Q3 2026 (dipende dall'approvazione Garmin Developer Program).",
           en: "Not today: they're proprietary Garmin metrics not exposed via Health Connect. They'll be available with the Garmin Health API OAuth integration, on the Q3 2026 roadmap (depends on Garmin Developer Program approval).",
-          de: "Nicht heute: Das sind proprietäre Garmin-Metriken, die nicht über Health Connect verfügbar sind. Sie werden mit der OAuth-Integration der Garmin Health API verfügbar, die für Q3 2026 geplant ist (abhängig von der Genehmigung des Garmin Developer Program).",
+          de: "Aktuell nicht: Body Battery und Training Load sind proprietäre Garmin-Metriken, die Garmin nicht in Health Connect exportiert. Health Connect überträgt Standard-Fitnessdaten (Schritte, Puls, Schlaf, Kalorien, Trainings). Erweiterte Metriken erfordern eine direkte API-Anbindung, die von der Freigabe im Garmin Developer Program abhängt.",
           pt: "Não hoje: são métricas proprietárias do Garmin não expostas via Health Connect. Estarão disponíveis com a integração OAuth da Garmin Health API, prevista para o Q3 2026 (sujeito à aprovação do Garmin Developer Program).",
           fr: "Pas aujourd'hui : ce sont des métriques propriétaires Garmin non exposées via Health Connect. Elles seront disponibles avec l'intégration OAuth Garmin Health API, prévue pour le T3 2026 (sous réserve de l'approbation du Garmin Developer Program).",
           pl: "Nie dzisiaj: są to prywatne metryki Garmin nie ekspozycyjne poprzez Health Connect. Stany będą dostępne w ramach integracji OAuth API Health, w planie productu na kwartał III 2026 (zależy od zatwierdzenia programu Garmin Developer).",

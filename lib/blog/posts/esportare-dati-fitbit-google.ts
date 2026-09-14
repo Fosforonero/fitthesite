@@ -895,7 +895,12 @@ export const post: BlogPost = {
         ja: "FitMeshでFitbitを見る →",
         ko: "FitMesh에서 Fitbit 보기 →",
       },
-      ctaHref: { it: "/it/sync/fitbit", en: "/en/sync/fitbit" },
+      ctaHref: {
+        it: "/it/sync/fitbit",
+        en: "/en/sync/fitbit",
+        de: "/de/lp/fitbit-daten-exportieren-google",
+        fr: "/fr/lp/exporter-donnees-fitbit-google",
+      },
     },
   ],
   faq: [
