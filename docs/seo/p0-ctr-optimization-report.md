@@ -20,83 +20,89 @@ Il branch è allineato all'HEAD di `origin/main` (`dc4aca4` / PR #70):
 
 ---
 
-## 2. Baseline Ricostruita dai Dati Reali (5 URL Canoniche)
+## 2. Baseline Ricostruita dall'Export Ufficiale GSC (09/09/2026)
 
-In conformità alle linee guida metodologiche:
-- Nessun dato stimato: i valori non presenti nell'export sono dichiarati non disponibili.
-- Le URL sono verificate con `lib/blog/slugs.ts` per corrispondere alle varianti canoniche effettive.
-- Esclusi tutti i post Apple Health pubblicati di recente (`nuova-apple-health.ts`, PR #69-#70).
+* **Fonte dati**: Archivio originale `fitmesh.fit-Performance-on-Search-2026-09-09.zip`.
+* **Filtri applicati**: `Filters.csv` -> Search type: `Web`, Periodo: `Last 3 months` (intervallo esatto estratto da `Chart.csv`: **2026-06-07** - **2026-09-06**).
+* **Nessun dato stimato**: I valori di Clic, Impression, CTR e Posizione provengono esattamente da `Pages.csv`.
+* **Assenza di segmentazione pagina-query nell'export**: L'export GSC ufficiale fornisce separatamente `Pages.csv` (metriche aggregate per URL) e `Queries.csv` (metriche aggregate sitewide). Non contiene una matrice bidimensionale URL ✕ Query. Pertanto, l'associazione di specifiche query o intenti di ricerca a ciascuna pagina è **dichiarata formalmente come ipotesi qualitativa editoriale**, non come attribuzione misurata.
+* **Segmentazione del test**:
+  * **3 Target EN Primari**: Volumi elevati di impressioni con CTR debole o margini di ottimizzazione snippet.
+  * **1 Target IT Secondario**: Volume moderato con spazio di miglioramento CTR rispetto ad altre varianti europee.
+  * **1 Miglioramento Editoriale Qualitativo (Fuori KPI CTR)**: Galaxy Ring IT presenta solo 75 impressioni in 3 mesi (campione insufficiente per significatività statistica CTR); la modifica risolve un'eccessiva estensione editoriale del titolo (96c) ed è esclusa dal monitoraggio KPI CTR.
 
-| # | URL Canonica Effettiva | Locale | File TS | Impression | Clic | CTR | Posizione | Fonte Export / Periodo | Query Disponibili / Intento |
-|---|---|---|---|---:|---:|---:|---:|---|---|
-| 1 | `https://www.fitmesh.fit/en/blog/google-health-replaces-google-fit` | EN | `google-health-google-fit.ts` | 1.127 | 9 | 0,80% | 8,17 | GSC `fitmesh.fit-Performance-on-Search-2026-07-23` (3 mesi fino al 20/07/2026); al 25/08 in P1.8B: 3.192 imp, 22 clic, 0,69% CTR, pos 7,60 | `google health vs google fit`, `google fit shutdown 2026 what to use` · Intento: differenze e impatto transizione |
-| 2 | `https://www.fitmesh.fit/en/blog/galaxy-ring-android-health-connect` | EN | `galaxy-ring-android-health-connect.ts` | 483 | 1 | 0,21% | 8,73 | GSC `fitmesh.fit-Performance-on-Search-2026-07-23` (3 mesi fino al 20/07/2026) | `galaxy ring android health connect`, `galaxy ring outside samsung health` · Intento: setup e compatibilità |
-| 3 | `https://www.fitmesh.fit/it/blog/galaxy-ring-android-health-connect` | IT | `galaxy-ring-android-health-connect.ts` | *N/D* | *N/D* | *N/D* | *N/D* | *Non segmentato per questa URL nell'export 2026-07-23* (incluso per simmetria strutturale col troncamento a 99c) | `galaxy ring android health connect` · Intento: setup su Android |
-| 4 | `https://www.fitmesh.fit/en/blog/oura-ring-health-connect-android` | EN | `oura-ring-health-connect-android.ts` | 404 | 1 | 0,25% | 10,75 | GSC `fitmesh.fit-Performance-on-Search-2026-07-23` (3 mesi fino al 20/07/2026) | `oura ring health connect android`, `sync oura data to android` · Intento: compatibilità e limitazioni sync |
-| 5 | `https://www.fitmesh.fit/it/blog/garmin-samsung-health-sync-guide` | IT | `garmin-samsung-health-sync-guide.ts` | *N/D* | *N/D* | *N/D* | *N/D* | *Non segmentato per questa URL nell'export 2026-07-23* (presente cluster EN `sync-garmin-samsung-health-guide`: 712 imp, 7 clic, 0,98% CTR, pos 8,97; DE: 563 imp, 17 clic, 3,02% CTR, pos 6,94) | `sincronizzare garmin con samsung health` · Intento: procedura di sincronizzazione |
+### Tabella Metriche di Baseline (GSC 2026-06-07 / 2026-09-06)
 
-*Nota Dispositivo*: Il dato per singola URL non è segmentato nei report GSC di base (aggregato sitewide: mobile 66%, desktop 34%).
+| Ruolo Test | URL Canonica Effettiva | Locale | File TS | Impression | Clic | CTR | Posizione | Ipotesi di Intento di Ricerca (Qualitativa) |
+|---|---|---|---|---:|---:|---:|---:|---|
+| **Target Primario EN** | `https://www.fitmesh.fit/en/blog/google-health-replaces-google-fit` | EN | `google-health-google-fit.ts` | 7.457 | 40 | 0,54% | 7,20 | Differenze concettuali Google Health vs Google Fit e transizione futura annunciata |
+| **Target Primario EN** | `https://www.fitmesh.fit/en/blog/galaxy-ring-android-health-connect` | EN | `galaxy-ring-android-health-connect.ts` | 2.929 | 9 | 0,31% | 8,09 | Setup Galaxy Ring su Android e canali di sincronizzazione con Health Connect |
+| **Target Primario EN** | `https://www.fitmesh.fit/en/blog/oura-ring-health-connect-android` | EN | `oura-ring-health-connect-android.ts` | 1.049 | 2 | 0,19% | 10,21 | Guida all'integrazione Oura Ring con Health Connect su sistema Android |
+| **Target Secondario IT** | `https://www.fitmesh.fit/it/blog/garmin-samsung-health-sync-guide` | IT | `garmin-samsung-health-sync-guide.ts` | 894 | 17 | 1,90% | 6.61 | Guida operativa alla sincronizzazione tra Garmin Connect e Samsung Health |
+| **Miglioramento Editoriale** *(Escluso KPI CTR)* | `https://www.fitmesh.fit/it/blog/galaxy-ring-android-health-connect` | IT | `galaxy-ring-android-health-connect.ts` | 75 | 1 | 1,33% | 6,89 | Setup Galaxy Ring su Android (modifica qualitativa: risoluzione lunghezza titolo 96c) |
+
+*Nota Dispositivo*: Il dato per singola URL non è segmentato nei report GSC base (aggregato sitewide da `Devices.csv`: mobile 66,7%, desktop 33,3%).
 
 ---
 
 ## 3. Schede Prima / Dopo dei Metadati Renderizzati
 
-> **Comportamento Renderizzato**: `blog/[slug]/page.tsx` appende automaticamente ` · FitMesh` (10 caratteri) al tag `<title>`, all'OpenGraph title e a Twitter title. L'H1 visibile in pagina (`post.hero.title`) e il corpo dell'articolo **restano invariati**.
+> **Regola di Rendering**: `blog/[slug]/page.tsx` appende automaticamente il brand suffix ` · FitMesh` (10 caratteri) al tag `<title>`, a `og:title` e `twitter:title`. L'H1 visibile in pagina (`post.hero.title`) e il corpo dell'articolo **restano rigorosamente invariati**. I conteggi di seguito sono verificati programmaticamente.
 
-### URL 1: `https://www.fitmesh.fit/en/blog/google-health-replaces-google-fit`
+### Target Primario 1 (EN): `/en/blog/google-health-replaces-google-fit`
 * **Data Ultima Modifica nel Codice**: 2026-08-25 (PR #61)
 * **Title Prima**:
-  * Base: `"Google Health vs Google Fit: What Changed?"` (43c)
-  * Renderizzato: `Google Health vs Google Fit: What Changed? · FitMesh` (53c)
+  * Base (`origin/main` `seoTitle.en`): `"Google Health vs Google Fit: What Changed?"` (42c)
+  * Renderizzato: `Google Health vs Google Fit: What Changed? · FitMesh` (**52c**)
 * **Title Dopo**:
   * Base (`seoTitle.en`): `"Google Health vs Google Fit: What Changes in 2026"` (49c)
   * Renderizzato: `Google Health vs Google Fit: What Changes in 2026 · FitMesh` (**59c**)
-* **Verifica Contenuto (Punto 3 del Mandato)**: L'articolo chiarisce che la migrazione dei dati consumer non è ancora attiva né confermata con data certa da Google (solo annunciata per fine 2026). Di conseguenza, "2026 Migration Guide" è stato **scartato** perché ingannevole. "What Changes in 2026" riflette fedelmente il contenuto dell'articolo (cambio nome app Fitbit, differenze Health Connect, transizione futura).
+* **Verifica Contenuto & Motivazione**: L'articolo analizza le differenze tra le piattaforme e la transizione futura annunciata per fine 2026, precisando che la migrazione dei dati consumer non è ancora attiva né completata da Google. La formulazione "What Changes in 2026" sostituisce la formulazione passiva "What Changed?" rispecchiando esattamente lo stato di transizione senza fare promesse ingannevoli (es. "Migration Guide" scartata perché non vi è migrazione eseguibile).
 * **Meta Description**: Invariata (148c).
 
-### URL 2: `https://www.fitmesh.fit/en/blog/galaxy-ring-android-health-connect`
+### Target Primario 2 (EN): `/en/blog/galaxy-ring-android-health-connect`
 * **Data Ultima Modifica nel Codice**: 2026-09-01 (PR #63)
 * **Title Prima**:
-  * Base (`hero.title.en`): `"Galaxy Ring on Android: setup, health data, and Health Connect sync"` (67c)
-  * Renderizzato: `Galaxy Ring on Android: setup, health data, and Health Connect sync · FitMesh` (77c)
+  * Base (fallback su `hero.title.en`): `"Galaxy Ring on Android: setup, health data, and Health Connect sync"` (67c)
+  * Renderizzato: `Galaxy Ring on Android: setup, health data, and Health Connect sync · FitMesh` (**77c**)
 * **Title Dopo**:
   * Base (`seoTitle.en`): `"Galaxy Ring on Android: Setup & Health Connect Sync"` (51c)
   * Renderizzato: `Galaxy Ring on Android: Setup & Health Connect Sync · FitMesh` (**61c**)
-* **Ipotesi di Lavoro**: La riduzione a 61c renderizzati mira a ridurre la probabilità di troncamento nei risultati di ricerca rispetto a 77c. L'effettiva visualizzazione integrale dipende dalla larghezza in pixel calcolata dai motori di ricerca.
+* **Motivazione**: Compattazione del titolo da 77c a 61c renderizzati per rendere visibile l'intento principale entro le soglie tipiche di troncamento visivo delle SERP desktop e mobile.
 * **Meta Description**: Invariata (152c).
 
-### URL 3: `https://www.fitmesh.fit/it/blog/galaxy-ring-android-health-connect`
+### Target Primario 3 (EN): `/en/blog/oura-ring-health-connect-android`
 * **Data Ultima Modifica nel Codice**: 2026-09-01 (PR #63)
 * **Title Prima**:
-  * Base (`hero.title.it`): `"Galaxy Ring su Android: impostazione, dati di salute e sincronizzazione Health Connect"` (89c)
-  * Renderizzato: `Galaxy Ring su Android: impostazione, dati di salute e sincronizzazione Health Connect · FitMesh` (99c)
-* **Title Dopo**:
-  * Base (`seoTitle.it`): `"Galaxy Ring su Android: Setup e Health Connect"` (48c)
-  * Renderizzato: `Galaxy Ring su Android: Setup e Health Connect · FitMesh` (**58c**)
-* **Ipotesi di Lavoro**: Con 99 caratteri renderizzati, la stringa supera ampiamente le soglie medie visibili su dispositivi mobili. Il titolo a 58c rende immediatamente leggibile l'argomento centrale.
-* **Meta Description**: Invariata (160c).
-
-### URL 4: `https://www.fitmesh.fit/en/blog/oura-ring-health-connect-android`
-* **Data Ultima Modifica nel Codice**: 2026-09-01 (PR #63)
-* **Title Prima**:
-  * Base (`hero.title.en`): `"Oura Ring on Android: Health Connect sync and what data you can access"` (70c)
-  * Renderizzato: `Oura Ring on Android: Health Connect sync and what data you can access · FitMesh` (80c)
+  * Base (fallback su `hero.title.en`): `"Oura Ring on Android: Health Connect sync and what data you can access"` (70c)
+  * Renderizzato: `Oura Ring on Android: Health Connect sync and what data you can access · FitMesh` (**80c**)
 * **Title Dopo**:
   * Base (`seoTitle.en`): `"Oura Ring on Android: Health Connect Sync Guide"` (47c)
   * Renderizzato: `Oura Ring on Android: Health Connect Sync Guide · FitMesh` (**57c**)
-* **Ipotesi di Lavoro**: Compattazione del titolo da 80c a 57c renderizzati per anticipare l'intento guida e verificare l'impatto sul CTR.
+* **Motivazione**: Compattazione del titolo da 80c a 57c renderizzati, introducendo la dicitura guida/sync per intercettare l'intento di configurazione.
 * **Meta Description**: Invariata (154c).
 
-### URL 5: `https://www.fitmesh.fit/it/blog/garmin-samsung-health-sync-guide`
+### Target Secondario 4 (IT): `/it/blog/garmin-samsung-health-sync-guide`
 * **Data Ultima Modifica nel Codice**: 2026-08-25 (PR #62)
 * **Title Prima**:
-  * Base (`hero.title.it`): `"Come sincronizzare Garmin con Samsung Health e Health Connect nel 2026"` (72c)
-  * Renderizzato: `Come sincronizzare Garmin con Samsung Health e Health Connect nel 2026 · FitMesh` (82c)
+  * Base (fallback su `hero.title.it`): `"Come sincronizzare Garmin con Samsung Health e Health Connect nel 2026"` (70c)
+  * Renderizzato: `Come sincronizzare Garmin con Samsung Health e Health Connect nel 2026 · FitMesh` (**80c**)
 * **Title Dopo**:
-  * Base (`seoTitle.it`): `"Sincronizzare Garmin con Samsung Health (2026)"` (48c)
-  * Renderizzato: `Sincronizzare Garmin con Samsung Health (2026) · FitMesh` (**58c**)
-* **Ipotesi di Lavoro**: La variante tedesca usa una formula sintetica (`Garmin mit Samsung Health synchronisieren`) ed esibisce un CTR del 3,02%. La variante italiana a 82c renderizzati viene riallineata a 58c per verificare se una struttura più snella favorisca il click.
+  * Base (`seoTitle.it`): `"Sincronizzare Garmin con Samsung Health (2026)"` (46c)
+  * Renderizzato: `Sincronizzare Garmin con Samsung Health (2026) · FitMesh` (**56c**)
+* **Motivazione**: Allineamento alla formula sintetica già adottata con successo nella variante tedesca (`Garmin mit Samsung Health synchronisieren`), passando da 80c a 56c renderizzati.
 * **Meta Description**: Invariata (156c).
+
+### Miglioramento Editoriale 5 (IT, Fuori KPI CTR): `/it/blog/galaxy-ring-android-health-connect`
+* **Data Ultima Modifica nel Codice**: 2026-09-01 (PR #63)
+* **Title Prima**:
+  * Base (fallback su `hero.title.it`): `"Galaxy Ring su Android: impostazione, dati di salute e sincronizzazione Health Connect"` (86c)
+  * Renderizzato: `Galaxy Ring su Android: impostazione, dati di salute e sincronizzazione Health Connect · FitMesh` (**96c**)
+* **Title Dopo**:
+  * Base (`seoTitle.it`): `"Galaxy Ring su Android: Setup e Health Connect"` (46c)
+  * Renderizzato: `Galaxy Ring su Android: Setup e Health Connect · FitMesh` (**56c**)
+* **Motivazione**: Intervento puramente qualitativo ed editoriale. Con 75 impressioni in 3 mesi non vi è volume sufficiente per testare il CTR; il titolo base a 86c (96c renderizzato) risultava tuttavia macroscopicamente sproporzionato rispetto agli standard del sito e viene compattato a 56c.
+* **Meta Description**: Invariata (160c).
 
 ---
 
@@ -125,13 +131,14 @@ In conformità alle linee guida metodologiche:
 3. **Punti di Controllo**:
    * **+14 giorni dal deploy**: Prima rilevazione esplorativa. Ammesso l'esito formale "dati insufficienti" qualora le impression accumulate non consentano significatività statistica.
    * **+28 giorni dal deploy**: Valutazione del periodo consolidato.
-4. **Vincoli di Causalità**:
+4. **Vincoli Metodologici e di Causalità**:
+   * Il paniere primario di valutazione CTR è ristretto ai **3 target EN** e al **target IT secondario** (Garmin). Galaxy Ring IT è escluso dai KPI CTR.
    * Il confronto temporale prima/dopo non dimostra da solo causalità: fattori esogeni (aggiornamenti algoritmici, fluttuazioni di mercato stagionali) possono alterare le metriche.
-   * L'analisi dovrà obbligatoriamente normalizzare per la **posizione media** (es. un peggioramento di ranking deprime il CTR indipendentemente dalla bontà del titolo) e monitorare il **query mix** (verificando che le impression rimangano stabili per tipologia di query).
+   * L'analisi dovrà obbligatoriamente normalizzare per la **posizione media** (un peggioramento di ranking deprime il CTR indipendentemente dal titolo) e monitorare il **query mix** complessivo.
 
 ---
 
-## Stato Git del Branch
+## 6. Stato Git del Branch
 
 * **Branch**: `seo/p0-ctr-optimization-5urls`
 * **Base**: `origin/main` (`dc4aca4`)

@@ -22,10 +22,12 @@ export const post: BlogPost = {
   // "slug canonico usato sotto una locale non canonica", quindi non esiste
   // una cannibalizzazione ATTIVA da risolvere con un redirect — il dato
   // GSC a doppia URL con click era stale/pre-fix. Nessuna consolidazione
-  // P0 CTR Test (2026-09-14): seoTitle.it aggiunto (title IT precedente
-  // 82c renderizzati con truncation in SERP, a fronte del 3.02% CTR della
-  // variante tedesca compatta). Nuovo title IT: 58c renderizzati con
-  // brand suffix (" · FitMesh", 10c).
+  // necessaria: le URL canoniche EN/DE sono le uniche raggiungibili come
+  // pagina 200, quindi il fix titolo qui e' sicuro (nessun rischio di
+  // correggere una pagina che sta per essere redirectata via).
+  //
+  // P0 CTR Test (2026-09-14): override seoTitle.it compatto per test CTR SERP.
+  // H1, slug e body invariati.
   seoTitle: {
     it: "Sincronizzare Garmin con Samsung Health (2026)",
     nl: "Garmin met Samsung Health synchroniseren",

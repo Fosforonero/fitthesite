@@ -1294,26 +1294,25 @@ Reddit) resta a carico di Matteo — nessuna suite automatica lo sostituisce.
 
 - **Data preparazione**: 2026-09-14
 - **Stato**: `PREPARATO` (non pubblicato — in attesa di review e deploy effettivo; la data di inizio esperimento coinciderà con il deployment in produzione)
-- **Scopo**: Testare la risposta del CTR sulle 5 URL canoniche con alto volume di impressioni nei CSV GSC e forte troncamento o formulazione passiva in SERP, intervenendo esclusivamente su `seoTitle` (metadati `<title>` renderizzati) senza toccare H1, copy body, CTA o publishedAt degli articoli. Esclusi contenuti Apple recenti e promesse non provate ("in 3 minuti", "garantito", "migrazione immediata").
-- **Target (5 URL canoniche)**:
-  1. `https://www.fitmesh.fit/en/blog/google-health-replaces-google-fit`
-  2. `https://www.fitmesh.fit/en/blog/galaxy-ring-android-health-connect`
-  3. `https://www.fitmesh.fit/it/blog/galaxy-ring-android-health-connect`
-  4. `https://www.fitmesh.fit/en/blog/oura-ring-health-connect-android`
-  5. `https://www.fitmesh.fit/it/blog/garmin-samsung-health-sync-guide`
-- **Modifiche applicate**:
-  - `google-health-google-fit.ts`: `seoTitle.en` impostato a `"Google Health vs Google Fit: What Changes in 2026"` (59c renderizzati con brand suffix, descrive differenze e transizione futura senza promettere una migrazione già eseguibile; era `"Google Health vs Google Fit: What Changed?"`, 53c passivo).
-  - `galaxy-ring-android-health-connect.ts`: aggiunti `seoTitle.it` (`"Galaxy Ring su Android: Setup e Health Connect"`, 58c renderizzati, riduce il titolo base da 89c a 48c) ed `seoTitle.en` (`"Galaxy Ring on Android: Setup & Health Connect Sync"`, 61c renderizzati, riduce il titolo base da 67c a 51c).
-  - `oura-ring-health-connect-android.ts`: aggiunto `seoTitle.en` (`"Oura Ring on Android: Health Connect Sync Guide"`, 57c renderizzati, riduce il titolo base da 70c a 47c).
-  - `garmin-samsung-health-sync-guide.ts`: aggiunto `seoTitle.it` (`"Sincronizzare Garmin con Samsung Health (2026)"`, 58c renderizzati, riduce il titolo base da 72c a 48c).
+- **Scopo**: Testare la risposta del CTR sulle pagine con rilevante volume di impressioni nei CSV GSC e margini di ottimizzazione snippet, intervenendo esclusivamente su `seoTitle` (metadati `<title>` renderizzati con brand suffix ` · FitMesh`, 10c) senza toccare H1, copy body, CTA o publishedAt degli articoli. Esclusi contenuti Apple recenti e promesse non provate ("in 3 minuti", "garantito", "migrazione immediata").
+- **Baseline GSC (Export ufficiale 2026-09-09, periodo 2026-06-07 / 2026-09-06, Web search)**:
+  - **3 Target Primari EN (KPI CTR)**:
+    1. `https://www.fitmesh.fit/en/blog/google-health-replaces-google-fit`: 40 clic, 7.457 imp, 0,54% CTR, pos 7,20. Titolo da 52c a 59c renderizzati (`"Google Health vs Google Fit: What Changes in 2026"`, differenze e transizione senza promesse di migrazione immediata).
+    2. `https://www.fitmesh.fit/en/blog/galaxy-ring-android-health-connect`: 9 clic, 2.929 imp, 0,31% CTR, pos 8,09. Titolo da 77c a 61c renderizzati (`"Galaxy Ring on Android: Setup & Health Connect Sync"`).
+    3. `https://www.fitmesh.fit/en/blog/oura-ring-health-connect-android`: 2 clic, 1.049 imp, 0,19% CTR, pos 10,21. Titolo da 80c a 57c renderizzati (`"Oura Ring on Android: Health Connect Sync Guide"`).
+  - **1 Target Secondario IT (KPI CTR)**:
+    4. `https://www.fitmesh.fit/it/blog/garmin-samsung-health-sync-guide`: 17 clic, 894 imp, 1,90% CTR, pos 6,61. Titolo da 80c a 56c renderizzati (`"Sincronizzare Garmin con Samsung Health (2026)"`).
+  - **1 Miglioramento Editoriale Qualitativo (Escluso dai KPI CTR)**:
+    5. `https://www.fitmesh.fit/it/blog/galaxy-ring-android-health-connect`: 1 clic, 75 imp, 1,33% CTR, pos 6,89. Titolo da 96c a 56c renderizzati (`"Galaxy Ring su Android: Setup e Health Connect"`). Volume campionario (75 imp in 3 mesi) insufficiente per significatività statistica di test; intervento qualitativo per risolvere la sproporzione del titolo base a 86c.
+- **Dichiarazione metodologica su query e intenti**: L'export GSC ufficiale non contiene una matrice di segmentazione incrociata URL ✕ Query; le attribuzioni di intento sono formalizzate come ipotesi qualitative editoriali e non come dati misurati.
 - **Verifiche eseguite**:
   - `npx tsc --noEmit` -> 0 errori (pulito)
   - `tools/check-bing-seo-recommendations.ts` -> VERDE (tutti i title <= 70c, meta 150-160c)
-  - `pnpm test` (vitest) -> 48 passed, 897 passed, 23 skipped (0 falliti)
-  - Zero modifiche a file di test (`git diff origin/main..HEAD -- '*.test.*'` vuoto); discrepanza +1 test / +2 skip in perimetro spiegata dalla deriva preesistente post-PR #69.
+  - `pnpm test` (vitest) -> 48 passed, 897 passed, 23 skipped (0 falliti; 0 modifiche a file di test)
 - **Protocollo di misurazione**:
-  - Data inizio esperimento = data del deployment effettivo.
+  - Data inizio esperimento = data del deployment effettivo in produzione.
   - Registrazione separata della data di prima osservazione dei nuovi title nei risultati SERP (quando rilevabile).
   - Check a +14gg e +28gg dal deploy effettivo (esito "dati insufficienti" ammesso se i volumi non raggiungono significatività statistica).
-  - Il confronto prima/dopo non dimostra da solo causalità: la valutazione deve normalizzare per la posizione media e monitorare il query mix.
+  - Paniere KPI ristretto ai 3 target EN primari e al target IT secondario (Garmin).
+  - Valutazione normalizzata per la posizione media e monitoraggio della stabilità del query mix.
 
