@@ -18,6 +18,11 @@ import {
 } from "@/lib/providers/data";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
+import { CompatibilitySection } from "@/components/compatibility/CompatibilitySection";
+import type { SupportedMatrixLocale } from "@/lib/compatibility/glossary-data";
+
+const isMatrixLocale = (locale: string): locale is SupportedMatrixLocale =>
+  ["it", "en", "de", "fr"].includes(locale);
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -335,6 +340,9 @@ export default async function IntegrationsHub({
           </div>
         </section>
       ))}
+
+      {/* COMPATIBILITY MATRIX & ESSENTIAL GLOSSARY (IT, EN, DE, FR only) */}
+      {isMatrixLocale(lc) && <CompatibilitySection locale={lc} />}
 
       {/* HEALTH CONNECT NOTE */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
