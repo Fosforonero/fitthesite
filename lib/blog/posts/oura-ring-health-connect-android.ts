@@ -8,6 +8,11 @@ export const post: BlogPost = {
   // Oura->Health Connect->FitMesh) — vedi commenti puntuali sotto.
   updatedAt: "2026-09-01",
   readMinutes: 7,
+  // P0 CTR Test (2026-09-14): override seoTitle.en compatto per test CTR SERP.
+  // H1, slug e body invariati.
+  seoTitle: {
+    en: "Oura Ring on Android: Health Connect Sync Guide",
+  },
   hero: {
     kicker: {
         it: "Guida",

@@ -8,6 +8,12 @@ export const post: BlogPost = {
   // Samsung->Health Connect->FitMesh) — vedi commenti puntuali sotto.
   updatedAt: "2026-09-01",
   readMinutes: 8,
+  // P0 CTR Test (2026-09-14): override seoTitle it ed en compatti per test CTR SERP.
+  // H1, slug e body invariati.
+  seoTitle: {
+    it: "Galaxy Ring su Android: Setup e Health Connect",
+    en: "Galaxy Ring on Android: Setup & Health Connect Sync",
+  },
   hero: {
     kicker: {
         it: "Guida",

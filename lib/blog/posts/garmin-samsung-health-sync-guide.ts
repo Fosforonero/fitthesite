@@ -25,7 +25,11 @@ export const post: BlogPost = {
   // necessaria: le URL canoniche EN/DE sono le uniche raggiungibili come
   // pagina 200, quindi il fix titolo qui e' sicuro (nessun rischio di
   // correggere una pagina che sta per essere redirectata via).
+  //
+  // P0 CTR Test (2026-09-14): override seoTitle.it compatto per test CTR SERP.
+  // H1, slug e body invariati.
   seoTitle: {
+    it: "Sincronizzare Garmin con Samsung Health (2026)",
     nl: "Garmin met Samsung Health synchroniseren",
     en: "Sync Garmin with Samsung Health and Health Connect",
     de: "Garmin mit Samsung Health synchronisieren",
