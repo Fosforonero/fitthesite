@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
+import { PROVIDERS, PROVIDERS_BY_SLUG } from "@/lib/providers/data";
 import {
   SUPPORTED_PROVIDERS_ANDROID,
   SUPPORTED_PROVIDERS_IOS,
@@ -14,6 +14,8 @@ import {
 } from "@/lib/providers/models";
 import { providerPlatforms } from "@/lib/providers/platforms";
 import type { Locale } from "@/lib/i18n";
+import fs from "node:fs";
+import path from "node:path";
 
 const PROVIDER_LOCALES: Locale[] = [
   "it",
@@ -151,6 +153,159 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
           isProviderVariantIndexable(garmin, lc),
           `garmin variant ${lc} should be indexable`,
         ).toBe(true);
+      }
+    });
+  });
+
+  describe("Huawei Health Catalog & Neutral Guardrails", () => {
+    const huawei = PROVIDERS_BY_SLUG["huawei"];
+
+    it("has status 'not-available'", () => {
+      expect(huawei).toBeDefined();
+      expect(huawei.status).toBe("not-available");
+      expect(huawei.status).not.toBe("coming-soon");
+      expect(huawei.status).not.toBe("roadmap-q4");
+    });
+
+    it("has zero supported data types", () => {
+      expect(huawei.dataTypes.every((d) => !d.supported)).toBe(true);
+    });
+
+    it("has no setupGuide", () => {
+      expect(huawei.setupGuide).toBeUndefined();
+    });
+
+    it("does not promise coming-soon, Q4 2026, waitlist, beta, 12-month backfill, polling, or OAuth approval", () => {
+      const allText = JSON.stringify({
+        tagline: huawei.tagline,
+        longDesc: huawei.longDesc,
+        techNote: huawei.techNote,
+        faqs: huawei.faqs,
+      });
+
+      expect(allText).not.toMatch(/Q4 2026|T4 2026|coming-soon|in arrivo|closed beta|beta aperta/i);
+      expect(allText).not.toMatch(/12 mesi|12-month|backfill/i);
+      expect(allText).not.toMatch(/waitlist|lista d'attesa/i);
+      expect(allText).not.toMatch(/polling/i);
+      expect(allText).not.toMatch(/AppGallery/i);
+    });
+
+    it("is indexable across all 11 provider catalog locales with neutral copy", () => {
+      for (const lc of PROVIDER_LOCALES) {
+        expect(
+          isProviderVariantIndexable(huawei, lc),
+          `huawei variant ${lc} should be indexable`,
+        ).toBe(true);
+      }
+    });
+
+    it("is not advertised as out-of-the-box Health Connect in marketing pages", () => {
+      const rootDir = process.cwd();
+      const pressContent = fs.readFileSync(path.join(rootDir, "app/(frontend)/[locale]/(marketing)/press/page.tsx"), "utf-8");
+      const intContent = fs.readFileSync(path.join(rootDir, "app/(frontend)/[locale]/(marketing)/integrations/page.tsx"), "utf-8");
+      const famContent = fs.readFileSync(path.join(rootDir, "app/(frontend)/[locale]/(marketing)/famiglia/page.tsx"), "utf-8");
+      const roadContent = fs.readFileSync(path.join(rootDir, "app/(frontend)/[locale]/(marketing)/roadmap/page.tsx"), "utf-8");
+
+      expect(pressContent).not.toMatch(/Huawei/i);
+      expect(intContent).not.toMatch(/Huawei Health/i);
+      expect(famContent).not.toMatch(/Huawei/i);
+      expect(roadContent).not.toMatch(/Huawei Health Kit/i);
+    });
+  });
+
+  describe("Suunto Catalog & Neutral Guardrails", () => {
+    const suunto = PROVIDERS_BY_SLUG["suunto"];
+
+    it("has status 'not-available'", () => {
+      expect(suunto).toBeDefined();
+      expect(suunto.status).toBe("not-available");
+      expect(suunto.status).not.toBe("beta");
+      expect(suunto.status).not.toBe("coming-soon");
+    });
+
+    it("has zero supported data types and workouts is strictly false", () => {
+      expect(suunto.dataTypes.every((d) => !d.supported)).toBe(true);
+      const workouts = suunto.dataTypes.find((d) => d.key === "workouts");
+      expect(workouts?.supported).toBe(false);
+    });
+
+    it("has no setupGuide", () => {
+      expect(suunto.setupGuide).toBeUndefined();
+    });
+
+    it("does not claim false PKCE, webhook, real-time sync, sync on app open, or arbitrary sync times (15-60s)", () => {
+      const allText = JSON.stringify({
+        tagline: suunto.tagline,
+        longDesc: suunto.longDesc,
+        techNote: suunto.techNote,
+        faqs: suunto.faqs,
+      });
+
+      expect(allText).not.toMatch(/PKCE/i);
+      expect(allText).not.toMatch(/webhook/i);
+      expect(allText).not.toMatch(/real-time|tempo reale/i);
+      expect(allText).not.toMatch(/apertura.*app|opening the app/i);
+      expect(allText).not.toMatch(/15-60|15\s*secondi|60\s*secondi/i);
+    });
+
+    it("does not leak internal token routes, proxy secrets, or unverified public beta claims", () => {
+      const allText = JSON.stringify({
+        tagline: suunto.tagline,
+        longDesc: suunto.longDesc,
+        techNote: suunto.techNote,
+        faqs: suunto.faqs,
+      });
+
+      expect(allText).not.toMatch(/\/api\/v1\/suunto\/token/);
+      expect(allText).not.toMatch(/\/api\/v1\/oauth\/suunto\/exchange/);
+      expect(allText).not.toMatch(/client_secret|basic auth/i);
+    });
+
+    it("is indexable across all 11 provider catalog locales with neutral copy", () => {
+      for (const lc of PROVIDER_LOCALES) {
+        expect(
+          isProviderVariantIndexable(suunto, lc),
+          `suunto variant ${lc} should be indexable`,
+        ).toBe(true);
+      }
+    });
+  });
+
+  describe("Universal not-available Status Invariants", () => {
+    const notAvailableProviders = PROVIDERS.filter((p) => p.status === "not-available");
+
+    it("ensures at least Huawei and Suunto are not-available", () => {
+      const slugs = notAvailableProviders.map((p) => p.slug);
+      expect(slugs).toContain("huawei");
+      expect(slugs).toContain("suunto");
+    });
+
+    it("strictly requires ZERO supported data types on all not-available providers", () => {
+      for (const p of notAvailableProviders) {
+        for (const dt of p.dataTypes) {
+          expect(
+            dt.supported,
+            `Provider ${p.slug} has status 'not-available' but claims data type '${dt.key}' is supported`,
+          ).toBe(false);
+        }
+      }
+    });
+
+    it("strictly prohibits setupGuide on all not-available providers", () => {
+      for (const p of notAvailableProviders) {
+        expect(
+          p.setupGuide,
+          `Provider ${p.slug} has status 'not-available' and must not have a setupGuide`,
+        ).toBeUndefined();
+      }
+    });
+
+    it("strictly prohibits viaHC on all not-available providers", () => {
+      for (const p of notAvailableProviders) {
+        expect(
+          (p as unknown as Record<string, unknown>).viaHC,
+          `Provider ${p.slug} has status 'not-available' and must not define viaHC`,
+        ).toBeUndefined();
       }
     });
   });
