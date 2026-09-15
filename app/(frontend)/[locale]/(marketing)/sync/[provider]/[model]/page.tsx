@@ -78,6 +78,19 @@ const UI = {
     ja: "とFitMesh — 直接Bluetooth接続ガイド",
     ko: "과 FitMesh — 직접 블루투스 가이드",
   },
+  titleSuffixBridge: {
+    it: "con FitMesh — guida Health Connect e Apple Health",
+    en: "with FitMesh — Health Connect & Apple Health guide",
+    es: "con FitMesh — guía Health Connect y Apple Health",
+    de: "mit FitMesh — Health Connect und Apple Health Anleitung",
+    pt: "com FitMesh — guia Health Connect e Apple Health",
+    fr: "avec FitMesh — guide Health Connect et Apple Health",
+    pl: "z FitMesh — przewodnik Health Connect i Apple Health",
+    tr: "FitMesh ile — Health Connect ve Apple Health kılavuzu",
+    nl: "met FitMesh — Health Connect en Apple Health handleiding",
+    ja: "とFitMesh — Health ConnectおよびApple Healthガイド",
+    ko: "과 FitMesh — Health Connect 및 Apple Health 가이드",
+  },
   hcFeaturesTitle: {
     it: "Dati scritti su Health Connect",
     en: "Data written to Health Connect",
@@ -103,6 +116,19 @@ const UI = {
     nl: "Gegevens gelezen via directe Bluetooth",
     ja: "直接Bluetooth経由で読み取られるデータ",
     ko: "직접 블루투스로 읽는 데이터",
+  },
+  hcFeaturesTitleBridge: {
+    it: "Dati supportati via Health Connect e Apple Health",
+    en: "Supported data via Health Connect and Apple Health",
+    es: "Datos compatibles vía Health Connect y Apple Health",
+    de: "Unterstützte Daten über Health Connect und Apple Health",
+    pt: "Dados suportados via Health Connect e Apple Health",
+    fr: "Données prises en charge via Health Connect et Apple Health",
+    pl: "Dane obsługiwane przez Health Connect i Apple Health",
+    tr: "Health Connect ve Apple Health aracılığıyla desteklenen veriler",
+    nl: "Ondersteunde gegevens via Health Connect en Apple Health",
+    ja: "Health ConnectおよびApple Health経由でサポートされるデータ",
+    ko: "Health Connect 및 Apple Health를 통해 지원되는 데이터",
   },
   faqTitle: {
     it: "Domande frequenti",
@@ -195,6 +221,19 @@ const UI = {
     ja: "FitMeshはBluetoothで直接接続します（",
     ko: "FitMesh는 블루투스로 직접 연결됩니다 —",
   },
+  ctaBodyBridge: {
+    it: "FitMesh legge i tuoi dati via Health Connect su Android e Apple Health su iPhone — incluso il tuo",
+    en: "FitMesh reads your data via Health Connect on Android and Apple Health on iPhone — including your",
+    es: "FitMesh lee tus datos vía Health Connect en Android y Apple Health en iPhone — incluido tu",
+    de: "FitMesh liest deine Daten über Health Connect auf Android und Apple Health auf dem iPhone — einschließlich deines",
+    pt: "FitMesh lê seus dados via Health Connect no Android e Apple Health no iPhone — incluindo seu",
+    fr: "FitMesh lit vos données via Health Connect sur Android et Apple Health sur iPhone — y compris votre",
+    pl: "FitMesh odczytuje Twoje dane przez Health Connect na Androidzie i Apple Health na iPhonie — w tym Twój",
+    tr: "FitMesh, Android'de Health Connect ve iPhone'da Apple Health üzerinden verilerinizi okur — dahil",
+    nl: "FitMesh leest je gegevens via Health Connect op Android en Apple Health op iPhone — inclusief je",
+    ja: "FitMeshはAndroidのHealth ConnectおよびiPhoneのApple Health経由でデータを読み取ります（",
+    ko: "FitMesh는 Android의 Health Connect 및 iPhone의 Apple Health를 통해 데이터를 읽습니다 —",
+  },
   ctaLabel: {
     it: "Inizia gratis",
     en: "Get started free",
@@ -216,17 +255,18 @@ function t(key: keyof typeof UI, lc: Locale): string {
 }
 
 /**
- * Come `t()`, ma sceglie fra una stringa "Health Connect" e la sua variante
- * BLE in base a `provider.syncMechanism` — di default (campo omesso) i
- * provider passano da Health Connect, quindi `baseKey` resta il default.
+ * Come `t()`, ma sceglie fra una stringa "Health Connect", BLE o bridge di sistema in base a `provider.syncMechanism`.
  */
 function tSync(
   baseKey: keyof typeof UI,
   bleKey: keyof typeof UI,
+  bridgeKey: keyof typeof UI,
   lc: Locale,
-  provider: { syncMechanism?: "health-connect" | "direct-ble" | "healthkit" },
+  provider: { syncMechanism?: "health-connect" | "direct-ble" | "healthkit" | "system-bridge" },
 ): string {
-  return t(provider.syncMechanism === "direct-ble" ? bleKey : baseKey, lc);
+  if (provider.syncMechanism === "direct-ble") return t(bleKey, lc);
+  if (provider.syncMechanism === "system-bridge") return t(bridgeKey, lc);
+  return t(baseKey, lc);
 }
 
 // ── Static generation ─────────────────────────────────────────────────────────
@@ -255,7 +295,7 @@ export async function generateMetadata({
   const m = models.find((x) => x.slug === modelSlug);
   if (!p || !m) return {};
 
-  const title = `${t("titlePrefix", lc)} ${m.name} ${tSync("titleSuffix", "titleSuffixBle", lc, p)}`;
+  const title = `${t("titlePrefix", lc)} ${m.name} ${tSync("titleSuffix", "titleSuffixBle", "titleSuffixBridge", lc, p)}`;
   const description = toMetaDescription(
     m.description[lc] ?? m.description["en"] ?? "",
   );
@@ -319,7 +359,7 @@ export default async function ModelPage({
     .filter((x): x is { model: ProviderModel; href: string } => x.href !== null)
     .slice(0, 4);
   const pageUrl = `${SITE_URL}/${lc}/sync/${p.slug}/${m.slug}`;
-  const isLive = p.status === "live" || p.status === "live-basic" || p.status === "beta";
+  const isLive = p.status === "live" || p.status === "live-basic" || p.status === "live-bridge" || p.status === "beta";
 
   // JSON-LD: SoftwareApplication + FAQPage
   const faqSchema = m.faq.length
@@ -395,7 +435,13 @@ export default async function ModelPage({
           <h1 className="text-3xl sm:text-4xl font-bold mb-4 leading-tight">
             {m.name}{" "}
             <span className="text-accent-primary">
-              {p.syncMechanism === "direct-ble" ? "Bluetooth" : "Health Connect"}
+              {p.syncMechanism === "direct-ble"
+                ? "Bluetooth"
+                : p.syncMechanism === "system-bridge"
+                ? "Health Connect / Apple Health"
+                : p.syncMechanism === "healthkit"
+                ? "Apple Health"
+                : "Health Connect"}
             </span>{" "}
             sync guide {new Date().getFullYear()}
           </h1>
@@ -412,7 +458,7 @@ export default async function ModelPage({
         {/* HC Features */}
         <section className="max-w-5xl mx-auto px-4 pb-12">
           <h2 className="text-xl font-semibold mb-4">
-            {tSync("hcFeaturesTitle", "hcFeaturesTitleBle", lc, p)}
+            {tSync("hcFeaturesTitle", "hcFeaturesTitleBle", "hcFeaturesTitleBridge", lc, p)}
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {m.hcFeatures.map((feat) => (
@@ -493,7 +539,7 @@ export default async function ModelPage({
           <div className="bg-bg-secondary rounded-2xl px-8 py-10 text-center">
             <h2 className="text-2xl font-bold mb-3">{t("ctaTitle", lc)}</h2>
             <p className="text-text-secondary mb-6 max-w-md mx-auto">
-              {tSync("ctaBody", "ctaBodyBle", lc, p)} {m.name}.
+              {tSync("ctaBody", "ctaBodyBle", "ctaBodyBridge", lc, p)} {m.name}.
             </p>
             {isLive ? (
               <a

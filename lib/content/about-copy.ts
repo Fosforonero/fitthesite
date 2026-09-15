@@ -240,12 +240,28 @@ export const ABOUT_COPY = {
     da: "På vej med dedikeret OAuth", no: "Kommer med dedikert OAuth", fi: "Tulossa oman OAuth-yhteyden kautta",
   } satisfies Localized,
 
+  ouraDirectApi: {
+    it: "Oura API diretta per metriche proprietarie", en: "Oura direct API for proprietary metrics", es: "API directa de Oura para métricas proprietarias",
+    de: "Oura direkte API für proprietäre Metriken", pt: "API direta Oura para métricas proprietárias", fr: "API directe Oura pour les métriques propriétaires",
+    pl: "Bezpośrednie API Oura dla zastrzeżonych metryk", tr: "Özel metrikler için doğrudan Oura API", nl: "Directe Oura API voor eigen metrieken",
+    ja: "独自指標向けの Oura 直接 API", ko: "독점 지표를 위한 Oura 직접 API", sv: "Oura direkt-API för proprietära mätvärden",
+    da: "Oura direkte API til proprietære målinger", no: "Oura direkte API for proprietære målinger", fi: "Oura suora API omiin mittauksiin",
+  } satisfies Localized,
+
+  garminDirectApi: {
+    it: "Garmin API diretta per Body Battery e metriche avanzate", en: "Garmin direct API for Body Battery and advanced metrics", es: "API directa de Garmin para Body Battery y métricas avanzadas",
+    de: "Garmin direkte API für Body Battery und erweiterte Metriken", pt: "API direta Garmin para Body Battery e métricas avançadas", fr: "API directe Garmin pour Body Battery et métriques avancées",
+    pl: "Bezpośrednie API Garmin dla Body Battery i zaawansowanych metryk", tr: "Body Battery ve gelişmiş metrikler için doğrudan Garmin API", nl: "Directe Garmin API voor Body Battery en geavanceerde metrieken",
+    ja: "Body Battery および高度な指標向けの Garmin 直接 API", ko: "Body Battery 및 고급 지표를 위한 Garmin 직접 API", sv: "Garmin direkt-API för Body Battery och avancerade mätvärden",
+    da: "Garmin direkte API til Body Battery og avancerede målinger", no: "Garmin direkte API for Body Battery og avanserte målinger", fi: "Garmin suora API Body Batterylle ja edistyneille mittauksille",
+  } satisfies Localized,
+
   fitbitHistoricalGps: {
-    it: "Fitbit dati storici + GPS workout (Q3 2026)", en: "Fitbit historical + GPS workouts (Q3 2026)", es: "Fitbit historial + entrenamientos GPS (Q3 2026)",
-    de: "Fitbit Verlaufsdaten + GPS-Workouts (Q3 2026)", pt: "Fitbit histórico + treinos GPS (Q3 2026)", fr: "Fitbit historique + séances GPS (Q3 2026)",
-    pl: "Fitbit: dane historyczne oraz treningi GPS (Q3 2026)", tr: "Fitbit geçmiş veriler + GPS antrenmanları (2026 3. Çeyrek)", nl: "Fitbit-geschiedenis + GPS-trainingen (Q3 2026)",
-    ja: "Fitbitの過去データ + GPSワークアウト(2026年第3四半期)", ko: "Fitbit 과거 데이터 + GPS 운동 기록(2026년 3분기)", sv: "Fitbit historik + GPS-träningspass (Q3 2026)",
-    da: "Fitbit-historik + GPS-træninger (Q3 2026)", no: "Fitbit historikk + GPS-treninger (Q3 2026)", fi: "Fitbitin historiatiedot + GPS-harjoitukset (Q3 2026)",
+    it: "Fitbit accesso cloud dati storici", en: "Fitbit cloud access for historical data", es: "Fitbit acceso en la nube para datos históricos",
+    de: "Fitbit Cloud-Zugriff für Verlaufsdaten", pt: "Fitbit acesso na nuvem para dados históricos", fr: "Fitbit accès cloud pour les données historiques",
+    pl: "Fitbit: dostęp chmurowy do danych historycznych", tr: "Fitbit geçmiş veriler için bulut erişimi", nl: "Fitbit cloud-toegang voor historische gegevens",
+    ja: "Fitbit 過去データのクラウドアクセス", ko: "Fitbit 과거 데이터 클라우드 접근", sv: "Fitbit molnåtkomst för historiska data",
+    da: "Fitbit-cloudadgang til historiske data", no: "Fitbit skyadgang for historiske data", fi: "Fitbitin pilvikäyttö historiatietoihin",
   } satisfies Localized,
 
   upToDateListPrefix: {
