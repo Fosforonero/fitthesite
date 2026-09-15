@@ -7,6 +7,12 @@ import {
 import { isProviderVariantIndexable } from "@/lib/providers/indexability";
 import { LANDING_PAGES } from "@/lib/landing/data";
 import { ABOUT_COPY } from "@/lib/content/about-copy";
+import {
+  PROVIDER_MODELS,
+  PLATFORM_FEATURE_LABELS,
+  type PlatformFeatureKey,
+} from "@/lib/providers/models";
+import { providerPlatforms } from "@/lib/providers/platforms";
 import type { Locale } from "@/lib/i18n";
 
 const PROVIDER_LOCALES: Locale[] = [
@@ -181,6 +187,148 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
         garmin: ABOUT_COPY.garminDirectApi,
       });
       expect(hwRoadmap).not.toMatch(/Q3 2026|T3 2026|Q4 2026/);
+    });
+  });
+
+  describe("Oura Models Guardrails (ring-gen3 and ring-4)", () => {
+    const ouraModels = PROVIDER_MODELS["oura"] ?? [];
+    const gen3 = ouraModels.find((m) => m.slug === "ring-gen3");
+    const ring4 = ouraModels.find((m) => m.slug === "ring-4");
+
+    it("defines both ring-gen3 and ring-4 in PROVIDER_MODELS.oura", () => {
+      expect(gen3).toBeDefined();
+      expect(ring4).toBeDefined();
+    });
+
+    it("has distinct platformFeatures for Android and iOS without excluded metrics", () => {
+      for (const model of [gen3!, ring4!]) {
+        expect(model.platformFeatures).toBeDefined();
+        const android = model.platformFeatures?.android ?? [];
+        const ios = model.platformFeatures?.ios ?? [];
+
+        // Android supported metrics (Oura Health Connect official docs)
+        expect(android).toContain("sleep");
+        expect(android).toContain("heart_rate");
+        expect(android).toContain("hrv");
+        expect(android).toContain("steps");
+        expect(android).toContain("active_energy");
+        expect(android).toContain("distance");
+        expect(android).toContain("workouts");
+
+        // Android prohibited metrics (no SpO2, skin temp, autonomous resting HR, sleep stages)
+        expect(android).not.toContain("spo2");
+        expect(android).not.toContain("skin_temperature");
+        expect(android).not.toContain("resting_heart_rate");
+        expect(android).not.toContain("sleep_stages");
+
+        // iOS supported metrics (Oura Apple Health official docs)
+        expect(ios).toContain("sleep_stages");
+        expect(ios).toContain("heart_rate");
+        expect(ios).toContain("respiratory_rate");
+        expect(ios).toContain("steps");
+        expect(ios).toContain("active_energy");
+        expect(ios).toContain("workouts");
+
+        // iOS prohibited metrics (no autonomous distance or resting HR record)
+        expect(ios).not.toContain("distance");
+        expect(ios).not.toContain("resting_heart_rate");
+        expect(ios).not.toContain("spo2");
+        expect(ios).not.toContain("skin_temperature");
+      }
+    });
+
+    it("hcFeatures do not advertise SpO2, skin temperature, resting HR, sleep stages, or RMSSD", () => {
+      for (const model of [gen3!, ring4!]) {
+        const hc = model.hcFeatures.map((f) => f.toLowerCase());
+        expect(hc.some((f) => f.includes("spo2"))).toBe(false);
+        expect(hc.some((f) => f.includes("skin") || f.includes("temperat"))).toBe(false);
+        expect(hc.some((f) => f.includes("resting"))).toBe(false);
+        expect(hc.some((f) => f.includes("stage") || f.includes("fasi"))).toBe(false);
+        expect(hc.some((f) => f.includes("rmssd"))).toBe(false);
+      }
+    });
+
+    it("does not claim SpO2, skin temperature, autonomous resting HR, sleep stages on Android, or complete Readiness export across all 11 locales", () => {
+      for (const model of [gen3!, ring4!]) {
+        for (const lc of PROVIDER_LOCALES) {
+          const desc = model.description[lc] ?? "";
+          expect(desc).not.toMatch(/più accurato|most accurate/i);
+
+          for (const faq of model.faq) {
+            const a = faq.a[lc] ?? "";
+            expect(a).not.toMatch(/readiness.*(tutti|complet|interamente|fully)/i);
+          }
+        }
+      }
+    });
+
+    it("separates ring measurement, Oura app display, bridge export, and FitMesh reading across all 11 locales", () => {
+      for (const model of [gen3!, ring4!]) {
+        for (const lc of PROVIDER_LOCALES) {
+          const desc = model.description[lc] ?? "";
+          expect(desc.length).toBeGreaterThan(50);
+        }
+        expect(model.faq.length).toBeGreaterThanOrEqual(2);
+      }
+    });
+
+    it("has authentic, non-English FAQ translations for all non-English locales for both models", () => {
+      const nonEnLocales: Locale[] = ["it", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"];
+      for (const model of [gen3!, ring4!]) {
+        for (const faq of model.faq) {
+          for (const lc of nonEnLocales) {
+            expect(faq.q[lc]).toBeDefined();
+            expect(faq.a[lc]).toBeDefined();
+            expect(faq.q[lc]).not.toBe(faq.q.en);
+            expect(faq.a[lc]).not.toBe(faq.a.en);
+          }
+        }
+      }
+    });
+  });
+
+  describe("Platform Features Dictionary & SSOT Platform Helpers", () => {
+    it("PLATFORM_FEATURE_LABELS covers all PlatformFeatureKeys across all 11 catalog locales", () => {
+      const requiredKeys: PlatformFeatureKey[] = [
+        "sleep",
+        "sleep_stages",
+        "heart_rate",
+        "hrv",
+        "respiratory_rate",
+        "steps",
+        "active_energy",
+        "distance",
+        "workouts",
+      ];
+
+      for (const key of requiredKeys) {
+        const entry = PLATFORM_FEATURE_LABELS[key];
+        expect(entry, `PLATFORM_FEATURE_LABELS must define ${key}`).toBeDefined();
+        for (const lc of PROVIDER_LOCALES) {
+          const label = entry[lc];
+          expect(label, `Key ${key} must have label in ${lc}`).toBeDefined();
+          expect(label.trim().length, `Key ${key} in ${lc} must not be empty`).toBeGreaterThan(0);
+        }
+      }
+    });
+
+    it("providerPlatforms SSOT returns expected platform lists for all providers", () => {
+      const oura = PROVIDERS_BY_SLUG["oura"];
+      const colmi = PROVIDERS_BY_SLUG["colmi-ring"];
+      const apple = PROVIDERS_BY_SLUG["apple-health"];
+      const samsung = PROVIDERS_BY_SLUG["galaxy-watch"];
+      const garmin = PROVIDERS_BY_SLUG["garmin"];
+      const pixel = PROVIDERS_BY_SLUG["pixel-watch"];
+      const polar = PROVIDERS_BY_SLUG["polar"];
+
+      expect(providerPlatforms(oura)).toEqual(["android", "ios"]);
+      expect(providerPlatforms(colmi)).toEqual(["android", "ios"]);
+      expect(providerPlatforms(apple)).toEqual(["ios"]);
+      expect(providerPlatforms(samsung)).toEqual(["android"]);
+      expect(providerPlatforms(garmin)).toEqual(["android"]);
+      expect(providerPlatforms(pixel)).toEqual(["android"]);
+      expect(providerPlatforms(polar)).toEqual(["android"]);
+      expect(providerPlatforms(undefined)).toEqual(["android"]);
     });
   });
 });

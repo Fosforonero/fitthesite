@@ -8,7 +8,8 @@ import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { PROVIDERS_BY_SLUG } from "@/lib/providers/data";
-import { PROVIDER_MODELS, type ProviderModel } from "@/lib/providers/models";
+import { PROVIDER_MODELS, type ProviderModel, PLATFORM_FEATURE_LABELS } from "@/lib/providers/models";
+import { providerPlatforms } from "@/lib/providers/platforms";
 import {
   isProviderModelVariantIndexable,
   providerModelLinkHref,
@@ -129,6 +130,57 @@ const UI = {
     nl: "Ondersteunde gegevens via Health Connect en Apple Health",
     ja: "Health ConnectおよびApple Health経由でサポートされるデータ",
     ko: "Health Connect 및 Apple Health를 통해 지원되는 데이터",
+  },
+  androidPlatformTitle: {
+    it: "Dati supportati su Android (Health Connect)",
+    en: "Supported data on Android (Health Connect)",
+    es: "Datos compatibles en Android (Health Connect)",
+    de: "Unterstützte Daten auf Android (Health Connect)",
+    pt: "Dados suportados no Android (Health Connect)",
+    fr: "Données prises en charge sur Android (Health Connect)",
+    pl: "Obsługiwane dane na Androidzie (Health Connect)",
+    tr: "Android'de desteklenen veriler (Health Connect)",
+    nl: "Ondersteunde gegevens op Android (Health Connect)",
+    ja: "Androidで対応しているデータ（Health Connect）",
+    ko: "Android에서 지원되는 데이터 (Health Connect)",
+    sv: "Data som stöds på Android (Health Connect)",
+    da: "Understøttede data på Android (Health Connect)",
+    no: "Støttede data på Android (Health Connect)",
+    fi: "Tuetut tiedot Androidissa (Health Connect)",
+  },
+  iosPlatformTitle: {
+    it: "Dati supportati su iPhone (Apple Health)",
+    en: "Supported data on iPhone (Apple Health)",
+    es: "Datos compatibles en iPhone (Apple Health)",
+    de: "Unterstützte Daten auf dem iPhone (Apple Health)",
+    pt: "Dados suportados no iPhone (Apple Health)",
+    fr: "Données prises en charge sur iPhone (Apple Health)",
+    pl: "Obsługiwane dane na iPhonie (Apple Health)",
+    tr: "iPhone'da desteklenen veriler (Apple Health)",
+    nl: "Ondersteunde gegevens op iPhone (Apple Health)",
+    ja: "iPhoneで対応しているデータ（Apple Health）",
+    ko: "iPhone에서 지원되는 데이터 (Apple Health)",
+    sv: "Data som stöds på iPhone (Apple Health)",
+    da: "Understøttede data på iPhone (Apple Health)",
+    no: "Støttede data på iPhone (Apple Health)",
+    fi: "Tuetut tiedot iPhonessa (Apple Health)",
+  },
+  iosAbsenceNote: {
+    it: "Nota: L'elenco ufficiale dei dati esportati da Oura verso Apple Health non include un record autonomo di distanza o frequenza cardiaca a riposo.",
+    en: "Note: Official Oura documentation for Apple Health does not list a standalone record for distance or resting heart rate.",
+    es: "Nota: El listado oficial de datos exportados por Oura a Apple Health no incluye un registro autónomo de distancia o frecuencia en reposo.",
+    de: "Hinweis: Die offizielle Oura-Dokumentation für Apple Health führt keinen eigenständigen Datensatz für Distanz oder Ruhepuls auf.",
+    pt: "Nota: A lista oficial de dados exportados pela Oura para o Apple Health não inclui um registro autônomo de distância ou frequência em repouso.",
+    fr: "Remarque : La documentation officielle Oura pour Apple Health n'inclut pas d'enregistrement autonome pour la distance ou la fréquence au repos.",
+    pl: "Uwaga: Oficjalny wykaz danych eksportowanych przez Oura do Apple Health nie zawiera autonomicznego rekordu dystansu ani tętna spoczynkowego.",
+    tr: "Not: Oura'nın resmi Apple Health veri listesinde bağımsız mesafe veya dinlenme kalp hızı kaydı yer almaz.",
+    nl: "Opmerking: De officiële Oura-documentatie voor Apple Health bevat geen zelfstandig record voor afstand of rusthartslag.",
+    ja: "注記: Oura公式のApple Healthドキュメントには距離や安静時心拍数の個別レコードは記載されていません。",
+    ko: "참고: Oura의 공식 Apple Health 데이터 목록에는 거리 또는 안정 시 심박수에 대한 독립 레코드가 포함되어 있지 않습니다.",
+    sv: "Obs: Officiell Oura-dokumentation för Apple Health innehåller inget fristående rekord för distans eller vilopuls.",
+    da: "Bemærk: Officiel Oura-dokumentation for Apple Health indeholder ikke en særskilt registrering for distance eller hvilepuls.",
+    no: "Merk: Offisiell Oura-dokumentasjon for Apple Health inneholder ikke en egen registrering for distanse eller hvilepuls.",
+    fi: "Huomautus: Ouran virallinen Apple Health -dokumentaatio ei sisällä erillistä tietuetta matkalle tai leposykkeelle.",
   },
   faqTitle: {
     it: "Domande frequenti",
@@ -451,26 +503,81 @@ export default async function ModelPage({
           </p>
 
           {isLive && (
-            <StoreButtonsRow locale={lc} />
+            <StoreButtonsRow locale={lc} platforms={providerPlatforms(p)} />
           )}
         </section>
 
-        {/* HC Features */}
+        {/* HC / Platform Features */}
         <section className="max-w-5xl mx-auto px-4 pb-12">
-          <h2 className="text-xl font-semibold mb-4">
-            {tSync("hcFeaturesTitle", "hcFeaturesTitleBle", "hcFeaturesTitleBridge", lc, p)}
-          </h2>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {m.hcFeatures.map((feat) => (
-              <li
-                key={feat}
-                className="flex items-center gap-2 bg-bg-secondary rounded-lg px-4 py-3 text-sm"
-              >
-                <span className="text-accent-primary">✓</span>
-                <span>{renderInlineBold(feat)}</span>
-              </li>
-            ))}
-          </ul>
+          {m.platformFeatures ? (
+            <div className="space-y-6">
+              <h2 className="text-xl font-semibold mb-4">
+                {tSync("hcFeaturesTitle", "hcFeaturesTitleBle", "hcFeaturesTitleBridge", lc, p)}
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {m.platformFeatures.android && (
+                  <div className="bg-bg-secondary rounded-xl p-5 border border-white/5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#3DDC84]" aria-hidden="true" />
+                      <h3 className="font-semibold text-base text-text-primary">
+                        {t("androidPlatformTitle", lc)}
+                      </h3>
+                    </div>
+                    <ul className="space-y-2">
+                      {m.platformFeatures.android.map((featKey) => (
+                        <li key={featKey} className="flex items-center gap-2 text-sm text-text-secondary">
+                          <span className="text-accent-primary">✓</span>
+                          <span>{PLATFORM_FEATURE_LABELS[featKey]?.[lc] ?? PLATFORM_FEATURE_LABELS[featKey]?.en}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {m.platformFeatures.ios && (
+                  <div className="bg-bg-secondary rounded-xl p-5 border border-white/5 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="w-2.5 h-2.5 rounded-full bg-white" aria-hidden="true" />
+                        <h3 className="font-semibold text-base text-text-primary">
+                          {t("iosPlatformTitle", lc)}
+                        </h3>
+                      </div>
+                      <ul className="space-y-2">
+                        {m.platformFeatures.ios.map((featKey) => (
+                          <li key={featKey} className="flex items-center gap-2 text-sm text-text-secondary">
+                            <span className="text-accent-primary">✓</span>
+                            <span>{PLATFORM_FEATURE_LABELS[featKey]?.[lc] ?? PLATFORM_FEATURE_LABELS[featKey]?.en}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    {p.slug === "oura" && (
+                      <p className="mt-4 pt-3 border-t border-white/10 text-xs text-text-tertiary leading-relaxed">
+                        {t("iosAbsenceNote", lc)}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div>
+              <h2 className="text-xl font-semibold mb-4">
+                {tSync("hcFeaturesTitle", "hcFeaturesTitleBle", "hcFeaturesTitleBridge", lc, p)}
+              </h2>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {m.hcFeatures.map((feat) => (
+                  <li
+                    key={feat}
+                    className="flex items-center gap-2 bg-bg-secondary rounded-lg px-4 py-3 text-sm"
+                  >
+                    <span className="text-accent-primary">✓</span>
+                    <span>{renderInlineBold(feat)}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
 
         {/* FAQ */}
@@ -542,14 +649,13 @@ export default async function ModelPage({
               {tSync("ctaBody", "ctaBodyBle", "ctaBodyBridge", lc, p)} {m.name}.
             </p>
             {isLive ? (
-              <a
-                href={PLAY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-accent-primary text-black font-semibold px-6 py-3 rounded-xl hover:opacity-90 transition-opacity"
-              >
-                {t("ctaLabel", lc)}
-              </a>
+              <div className="flex justify-center">
+                <StoreButtonsRow
+                  locale={lc}
+                  platforms={providerPlatforms(p)}
+                  className="justify-center"
+                />
+              </div>
             ) : (
               <a
                 href="mailto:waitlist@fitmesh.fit"
