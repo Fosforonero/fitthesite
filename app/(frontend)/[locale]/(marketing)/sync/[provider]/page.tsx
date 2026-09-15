@@ -12,7 +12,13 @@ import {
   PROVIDERS,
   PROVIDERS_BY_SLUG,
   type Provider,
+  statusLabel,
+  NOT_AVAILABLE_CTA_TITLE,
+  notAvailableDescription,
+  SEE_ALL_INTEGRATIONS,
+  NOT_AVAILABLE_A11Y,
 } from "@/lib/providers/data";
+import { providerPlatforms } from "@/lib/providers/platforms";
 import {
   isProviderVariantIndexable,
   providerLinkHref,
@@ -45,97 +51,6 @@ function renderInlineBold(text: string): ReactNode[] {
     }
     return <Fragment key={i}>{part}</Fragment>;
   });
-}
-
-/** Localised status label with es fallback. */
-function statusLabel(
-  status: Provider["status"],
-  lc: Locale,
-): { text: string; color: string } {
-  const map: Record<
-    Provider["status"],
-    { it: string; en: string; es: string; de: string; pt: string; fr: string; nl: string; ja: string; ko: string; color: string }
-  > = {
-    live: {
-      it: "Disponibile ora",
-      en: "Available now",
-      es: "Disponible ahora",
-      de: "Jetzt verfügbar",
-      pt: "Disponível agora",
-      fr: "Disponible maintenant",
-      nl: "Nu beschikbaar",
-      ja: "今すぐ利用可能",
-      ko: "지금 이용 가능",
-      color: "#31E981",
-    },
-    "live-basic": {
-      it: "Funziona via Health Connect",
-      en: "Works via Health Connect",
-      es: "Funciona via Health Connect",
-      de: "Funktioniert über Health Connect",
-      pt: "Funciona via Health Connect",
-      fr: "Fonctionne via Health Connect",
-      nl: "Werkt via Health Connect",
-      ja: "Health Connect経由で動作",
-      ko: "Health Connect 경유 작동",
-      color: "#21E6C1",
-    },
-    "live-bridge": {
-      it: "Health Connect / Apple Health",
-      en: "Health Connect / Apple Health",
-      es: "Health Connect / Apple Health",
-      de: "Health Connect / Apple Health",
-      pt: "Health Connect / Apple Health",
-      fr: "Health Connect / Apple Health",
-      nl: "Health Connect / Apple Health",
-      ja: "Health Connect / Apple Health",
-      ko: "Health Connect / Apple Health",
-      color: "#21E6C1",
-    },
-    beta: { it: "Beta", en: "Beta", es: "Beta", de: "Beta", pt: "Beta", fr: "Beta", nl: "Beta", ja: "Beta", ko: "Beta", color: "#FFB547" },
-    // P1.9 FASE 2: stessa aggiunta di lib/providers/data.ts:statusLabel —
-    // le due mappe sono duplicate (debito noto, non risolto qui: fuori
-    // scope unificarle in questo giro), tenute allineate a mano.
-    "limited-beta": { it: "Accesso limitato", en: "Limited access", es: "Acceso limitado", de: "Eingeschränkter Zugang", pt: "Acesso limitado", fr: "Accès limité", nl: "Beperkte toegang", ja: "限定アクセス", ko: "제한된 접근", color: "#FFB547" },
-    "roadmap-q3": {
-      it: "In arrivo Q3 2026",
-      en: "Coming Q3 2026",
-      es: "Próximamente Q3 2026",
-      de: "Kommt Q3 2026",
-      pt: "Em breve Q3 2026",
-      fr: "Bientôt T3 2026",
-      nl: "Binnenkort Q3 2026",
-      ja: "Q3 2026に登場",
-      ko: "Q3 2026 출시 예정",
-      color: "#38BDF8",
-    },
-    "roadmap-q4": {
-      it: "In arrivo Q4 2026",
-      en: "Coming Q4 2026",
-      es: "Próximamente Q4 2026",
-      de: "Kommt Q4 2026",
-      pt: "Em breve Q4 2026",
-      fr: "Bientôt T4 2026",
-      nl: "Binnenkort Q4 2026",
-      ja: "Q4 2026に登場",
-      ko: "Q4 2026 출시 예정",
-      color: "#A78BFA",
-    },
-    "coming-soon": {
-      it: "In arrivo",
-      en: "Coming soon",
-      es: "Próximamente",
-      de: "Demnächst",
-      pt: "Em breve",
-      fr: "Bientôt disponible",
-      nl: "Binnenkort beschikbaar",
-      ja: "近日公開",
-      ko: "곧 출시",
-      color: "#7CFF5B",
-    },
-  };
-  const entry = map[status];
-  return { text: (entry as Record<string, string>)[lc] ?? entry.en, color: entry.color };
 }
 
 /** Localised category label with es fallback. */
@@ -282,6 +197,7 @@ export default async function ProviderLanding({
   // (via HC) sia `live-bridge` (bridge di sistema) sono usabili oggi.
   const isLive = p.status === "live" || p.status === "live-basic" || p.status === "live-bridge";
   const isLiveBasic = p.status === "live-basic";
+  const isNotAvailable = p.status === "not-available";
   const status = statusLabel(p.status, lc);
   const category = categoryLabel(p.category, lc);
 
@@ -368,7 +284,7 @@ export default async function ProviderLanding({
   // Makes the page eligible for Google HowTo rich results on setup-intent queries.
   const howToSteps = p.setupGuide ? tll(p.setupGuide.steps, lc) : [];
   const howToLd =
-    p.setupGuide && howToSteps.length > 0
+    !isNotAvailable && p.setupGuide && howToSteps.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "HowTo",
@@ -475,7 +391,14 @@ export default async function ProviderLanding({
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              {isLive ? (
+              {isNotAvailable ? (
+                <Link
+                  href={`/${lc}/integrations`}
+                  className="inline-flex items-center px-5 py-3 rounded-pill btn-cta text-sm font-semibold"
+                >
+                  {SEE_ALL_INTEGRATIONS[lc] ?? SEE_ALL_INTEGRATIONS.en}
+                </Link>
+              ) : isLive ? (
                 <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.syncProviderHero} />
               ) : (
                 <a
@@ -500,19 +423,12 @@ export default async function ProviderLanding({
                   )}
                 </a>
               )}
-              {!isLiveBasic && (
+              {!isLiveBasic && !isNotAvailable && (
                 <Link
                   href={`/${lc}/integrations`}
                   className="inline-flex items-center px-5 py-3 rounded-pill border border-divider text-text-primary font-medium hover:bg-white/5 transition"
                 >
-                  {t(
-                    "Vedi tutte le integrazioni",
-                    "See all integrations",
-                    "Ver todas las integraciones",
-                    "Bekijk alle integraties",
-                    "すべての連携を見る",
-                    "모든 연동 보기",
-                  )}
+                  {SEE_ALL_INTEGRATIONS[lc] ?? SEE_ALL_INTEGRATIONS.en}
                 </Link>
               )}
             </div>
@@ -625,7 +541,7 @@ export default async function ProviderLanding({
             </div>
           </section>
         );
-        return !p.editorialTemplateV2 ? dataTypesSection : null;
+        return !p.editorialTemplateV2 && !isNotAvailable ? dataTypesSection : null;
       })()}
 
       {/* ═══ FASE 5 P1.8C — blocchi 2-4 del nuovo modello editoriale, pilota
@@ -693,7 +609,7 @@ export default async function ProviderLanding({
 
       {/* DATA TYPES GRID — nuova posizione (blocco 5), solo per editorialTemplateV2 */}
       {(() => {
-        if (!p.editorialTemplateV2) return null;
+        if (!p.editorialTemplateV2 || isNotAvailable) return null;
         return (
           <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-12">
             <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
@@ -919,7 +835,7 @@ export default async function ProviderLanding({
       )}
 
       {/* SETUP GUIDE (optional) */}
-      {p.setupGuide && (
+      {!isNotAvailable && p.setupGuide && (
         <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-12">
           <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
             {t(
@@ -1138,7 +1054,9 @@ export default async function ProviderLanding({
       {/* FINAL CTA */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-20 text-center">
         <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary">
-          {isLive
+          {isNotAvailable
+            ? (NOT_AVAILABLE_CTA_TITLE[lc] ?? NOT_AVAILABLE_CTA_TITLE.en)
+            : isLive
             ? t("Pronto a iniziare?", "Ready to start?", "¿Listo para empezar?", "Klaar om te beginnen?", "始める準備はできましたか？", "시작할 준비가 되셨나요?")
             : t("Vuoi essere avvisato?", "Want to be notified?", "¿Quieres que te avisemos?", "Wil je een melding?", "通知を受け取りますか？", "알림을 받으시겠어요?")}
         </h2>
@@ -1146,7 +1064,9 @@ export default async function ProviderLanding({
           {/* P1.8C: era "...e in 30 secondi i tuoi dati sono live" — stesso
               bug di tempo assoluto non sostenuto del bottone hero sopra,
               corretto una volta per tutti i provider. */}
-          {isLive
+          {isNotAvailable
+            ? notAvailableDescription(p.name, lc)
+            : isLive
             ? t(
                 "Scarica FitMesh Sync e autorizza Health Connect: i tuoi dati iniziano a comparire in dashboard al sync successivo.",
                 "Download FitMesh Sync and authorize Health Connect: your data starts appearing on the dashboard at the next sync.",
@@ -1165,7 +1085,14 @@ export default async function ProviderLanding({
               )}
         </p>
         <div className="mt-8 flex justify-center">
-          {isLive ? (
+          {isNotAvailable ? (
+            <Link
+              href={`/${lc}/integrations`}
+              className="inline-flex items-center px-6 py-3 rounded-pill btn-cta text-sm font-semibold"
+            >
+              {SEE_ALL_INTEGRATIONS[lc] ?? SEE_ALL_INTEGRATIONS.en}
+            </Link>
+          ) : isLive ? (
             <StoreButtonsRow locale={lc} className="justify-center" ctaLocation={CTA_PLACEMENTS.syncProviderFinalCta} />
           ) : (
             <a

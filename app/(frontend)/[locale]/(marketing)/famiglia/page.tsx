@@ -118,7 +118,7 @@ const COPY = {
     ],
     techstack_h2: "Funziona con tutti i wearable che gia' avete",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Se uno di voi ha un wearable diverso, basta che scriva i dati su Health Connect (lo fanno tutti dal 2024). Niente acquisto vincolato a un marchio.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Se uno di voi ha un wearable diverso, basta che scriva i dati su Health Connect (lo fanno tutti dal 2024). Niente acquisto vincolato a un marchio.",
     pricing_kicker: "Quanto costa",
     pricing_h2: "Mesh Famiglia fino a 8 membri con Pro",
     pricing_body:
@@ -234,7 +234,7 @@ const COPY = {
     ],
     techstack_h2: "Works with all wearables you already own",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. If one of you has a different wearable, it just needs to write data to Health Connect (all major brands do since 2024). No brand lock-in.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. If one of you has a different wearable, it just needs to write data to Health Connect (all major brands do since 2024). No brand lock-in.",
     pricing_kicker: "What it costs",
     pricing_h2: "Family Mesh up to 8 members with Pro",
     pricing_body:
@@ -350,7 +350,7 @@ const COPY = {
     ],
     techstack_h2: "Compatible con todos los wearables que ya tienes",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Si alguno de vosotros tiene un wearable diferente, basta con que escriba los datos en Health Connect (lo hacen todas las marcas principales desde 2024). Sin ataduras a ninguna marca.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Si alguno de vosotros tiene un wearable diferente, basta con que escriba los datos en Health Connect (lo hacen todas las marcas principales desde 2024). Sin ataduras a ninguna marca.",
     pricing_kicker: "Cuánto cuesta",
     pricing_h2: "Mesh Familia hasta 8 miembros con Pro",
     pricing_body:
@@ -466,7 +466,7 @@ const COPY = {
     ],
     techstack_h2: "Funktioniert mit allen Wearables, die ihr bereits besitzt",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Falls jemand aus eurer Gruppe ein anderes Wearable hat, muss es nur Daten an Health Connect übermitteln (das tun alle großen Marken seit 2024). Kein Markenzwang.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Falls jemand aus eurer Gruppe ein anderes Wearable hat, muss es nur Daten an Health Connect übermitteln (das tun alle großen Marken seit 2024). Kein Markenzwang.",
     pricing_kicker: "Was es kostet",
     pricing_h2: "Mesh Familie bis zu 8 Mitglieder mit Pro",
     pricing_body:
@@ -582,7 +582,7 @@ const COPY = {
     ],
     techstack_h2: "Funciona com todos os wearables que você já tem",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Se alguém do grupo tiver um wearable diferente, basta que ele grave os dados no Health Connect (todas as marcas principais fazem isso desde 2024). Sem vínculo com nenhuma marca.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Se alguém do grupo tiver um wearable diferente, basta que ele grave os dados no Health Connect (todas as marcas principais fazem isso desde 2024). Sem vínculo com nenhuma marca.",
     pricing_kicker: "Quanto custa",
     pricing_h2: "Mesh Família com até 8 membros no Pro",
     pricing_body:
@@ -698,7 +698,7 @@ const COPY = {
     ],
     techstack_h2: "Compatible avec tous les appareils connectés que vous possédez déjà",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Si l'un d'entre vous possède un appareil différent, il lui suffit d'écrire les données sur Health Connect (toutes les grandes marques le font depuis 2024). Aucun engagement envers une marque.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Si l'un d'entre vous possède un appareil différent, il lui suffit d'écrire les données sur Health Connect (toutes les grandes marques le font depuis 2024). Aucun engagement envers une marque.",
     pricing_kicker: "Combien ça coûte",
     pricing_h2: "Mesh Famille jusqu'à 8 membres avec Pro",
     pricing_body:
@@ -814,7 +814,7 @@ const COPY = {
     ],
     techstack_h2: "Dziala ze wszystkimi noszonymi urzadzeniami, które juz macie",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Jesli ktos z was ma inne urzadzenie, wystarczy ze zapisuje dane do Health Connect (robia to wszystkie wieksze marki od 2024). Zadnego uzaleznienia od jednej marki.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Jesli ktos z was ma inne urzadzenie, wystarczy ze zapisuje dane do Health Connect (robia to wszystkie wieksze marki od 2024). Zadnego uzaleznienia od jednej marki.",
     pricing_kicker: "Ile kosztuje",
     pricing_h2: "Mesh Rodzina do 8 czlonków z Pro",
     pricing_body:
@@ -930,7 +930,7 @@ const COPY = {
     ],
     techstack_h2: "Zaten sahip oldugunuz tüm giyilebilirlerle calisir",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Grubunuzdan birinin farkli bir giyilebiliri varsa, verileri Health Connect'e yazması yeterlidir (tüm büyük markalar bunu 2024'ten beri yapiyor). Herhangi bir markaya bagli kalma zorunlulugu yok.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Grubunuzdan birinin farkli bir giyilebiliri varsa, verileri Health Connect'e yazması yeterlidir (tüm büyük markalar bunu 2024'ten beri yapiyor). Herhangi bir markaya bagli kalma zorunlulugu yok.",
     pricing_kicker: "Ne kadar tutar",
     pricing_h2: "Mesh Aile, Pro ile 8 üyeye kadar",
     pricing_body:
