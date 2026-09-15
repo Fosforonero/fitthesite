@@ -761,7 +761,7 @@ const BG_SYNC_NEGATION_WINDOW = 40;
 // alcuna transizione (entrambi sono \w). Niente \b finale, quindi.
 const BG_SYNC_CONTEXT_RE = /\bsync|\bsincronizza/i;
 const BG_SYNC_HONEST_QUALIFIER_RE = /depends on|dipende da|quando apri l'app|when you open the app/i;
-const BG_SYNC_NEGATION_RE = /\bnon\b|\bnot\b/i;
+const BG_SYNC_NEGATION_RE = /\bnon\b|\bnot\b|n't\b|\bno\b/i;
 const BG_ABSOLUTE_CLAIMS: { label: string; re: RegExp }[] = [
   { label: "sempre/always", re: /\bsempre\b|\balways\b/gi },
   { label: "non devi aprire l'app / you don't need to open the app", re: /non devi aprire (?:l'app|alcuna app)|you (?:don't|do not) need to open (?:the|any) app/gi },

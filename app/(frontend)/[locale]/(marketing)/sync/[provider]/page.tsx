@@ -80,6 +80,18 @@ function statusLabel(
       ko: "Health Connect 경유 작동",
       color: "#21E6C1",
     },
+    "live-bridge": {
+      it: "Health Connect / Apple Health",
+      en: "Health Connect / Apple Health",
+      es: "Health Connect / Apple Health",
+      de: "Health Connect / Apple Health",
+      pt: "Health Connect / Apple Health",
+      fr: "Health Connect / Apple Health",
+      nl: "Health Connect / Apple Health",
+      ja: "Health Connect / Apple Health",
+      ko: "Health Connect / Apple Health",
+      color: "#21E6C1",
+    },
     beta: { it: "Beta", en: "Beta", es: "Beta", de: "Beta", pt: "Beta", fr: "Beta", nl: "Beta", ja: "Beta", ko: "Beta", color: "#FFB547" },
     // P1.9 FASE 2: stessa aggiunta di lib/providers/data.ts:statusLabel —
     // le due mappe sono duplicate (debito noto, non risolto qui: fuori
@@ -266,9 +278,9 @@ export default async function ProviderLanding({
     ? `/${lc}/fitness-data-sync`
     : "/en/fitness-data-sync";
 
-  // "isLive" = CTA primaria è Play Store. Sia `live` (nativo) sia `live-basic`
-  // (via HC) sono usabili oggi → entrambi mostrano il bottone Play Store.
-  const isLive = p.status === "live" || p.status === "live-basic";
+  // "isLive" = CTA primaria è Store. Sia `live` (nativo) sia `live-basic`
+  // (via HC) sia `live-bridge` (bridge di sistema) sono usabili oggi.
+  const isLive = p.status === "live" || p.status === "live-basic" || p.status === "live-bridge";
   const isLiveBasic = p.status === "live-basic";
   const status = statusLabel(p.status, lc);
   const category = categoryLabel(p.category, lc);
