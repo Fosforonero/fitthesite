@@ -290,13 +290,7 @@ describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
         expect(link, `Path ${path.id} must resolve a guide link for ${lc}`).toBeDefined();
         expect(link!.href.startsWith("/")).toBe(true);
 
-        // Oura in French falls back to EN and is tagged
-        if (path.providerSlug === "oura" && lc === "fr") {
-          expect(link!.isFallbackEn).toBe(true);
-          expect(link!.href).toBe("/en/sync/oura");
-        } else {
-          expect(link!.isFallbackEn).toBe(false);
-        }
+        expect(link!.isFallbackEn).toBe(false);
       }
     }
 

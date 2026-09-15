@@ -643,6 +643,10 @@ if (CAPABILITY_STATUS.vo2max?.status !== "live_verified") {
         if (VO2_NEGATION_RE.test(capMatch[1])) continue; // "FitMesh non legge/does not read" — negazione corretta
         if (!sameSentence(capMatch.index, capMatch[0].length)) continue; // capacità menzionata in un'altra frase
         if (VO2_NEGATION_RE.test(betweenText(capMatch.index, capMatch[0].length))) continue; // negazione più avanti nella stessa frase ("...quindi non riceve...VO2 max")
+        // Una domanda interrogativa ("FitMesh legge il VO2 max...?") non è una claim affermativa
+        const afterMatch = window.slice(Math.max(vo2EndInWindow, capMatch.index + capMatch[0].length));
+        const endPunct = afterMatch.match(/[.!?]/);
+        if (endPunct && endPunct[0] === "?") continue;
         problems.push(`[vo2max scan] ${rel} has "${vo2Match[0]}" near "FitMesh${capMatch[1]}${capMatch[2]}" (capability status: ${CAPABILITY_STATUS.vo2max?.status}) — ${CAPABILITY_STATUS.vo2max?.note} Context: "...${window.replace(/\s+/g, " ")}..."`);
         found = true;
       }
@@ -761,7 +765,7 @@ const BG_SYNC_NEGATION_WINDOW = 40;
 // alcuna transizione (entrambi sono \w). Niente \b finale, quindi.
 const BG_SYNC_CONTEXT_RE = /\bsync|\bsincronizza/i;
 const BG_SYNC_HONEST_QUALIFIER_RE = /depends on|dipende da|quando apri l'app|when you open the app/i;
-const BG_SYNC_NEGATION_RE = /\bnon\b|\bnot\b/i;
+const BG_SYNC_NEGATION_RE = /\bnon\b|\bnot\b|n't\b|\bno\b/i;
 const BG_ABSOLUTE_CLAIMS: { label: string; re: RegExp }[] = [
   { label: "sempre/always", re: /\bsempre\b|\balways\b/gi },
   { label: "non devi aprire l'app / you don't need to open the app", re: /non devi aprire (?:l'app|alcuna app)|you (?:don't|do not) need to open (?:the|any) app/gi },

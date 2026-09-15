@@ -15,6 +15,8 @@ import PlayStoreButton from "./PlayStoreButton";
 type Props = {
   /** Locale per i label localizzati. */
   locale: Locale;
+  /** Piattaforme abilitate per questa CTA (default entrambe). */
+  platforms?: readonly ("android" | "ios")[] | ("android" | "ios")[];
   /** Forza il Play Store disabled (default false: app live su Play Store). */
   playDisabled?: boolean;
   /** Forza l'App Store disabled (default false: app live sull'App Store). */
@@ -44,12 +46,16 @@ type Props = {
 
 export default function StoreButtonsRow({
   locale,
+  platforms,
   playDisabled = false,
   iosDisabled = false,
   className = "",
   style,
   ctaLocation,
 }: Props) {
+  const showPlay = !platforms || platforms.includes("android");
+  const showIos = !platforms || platforms.includes("ios");
+
   const PLAY = {
     it: { small: "Disponibile su", store: "Google Play", soon: "In arrivo" },
     en: { small: "GET IT ON", store: "Google Play", soon: "Coming Soon" },
@@ -99,18 +105,22 @@ export default function StoreButtonsRow({
       // da OutboundTracker per il campo content_cluster/target_type.
       data-cta-target-type="store"
     >
-      <PlayStoreButton
-        disabled={playDisabled}
-        comingSoonLabel={playLabels.soon}
-        smallLabel={playLabels.small}
-        storeLabel={playLabels.store}
-      />
-      <AppleStoreButton
-        disabled={iosDisabled}
-        comingSoonLabel={appleLabels.soon}
-        smallLabel={appleLabels.small}
-        storeLabel={appleLabels.store}
-      />
+      {showPlay && (
+        <PlayStoreButton
+          disabled={playDisabled}
+          comingSoonLabel={playLabels.soon}
+          smallLabel={playLabels.small}
+          storeLabel={playLabels.store}
+        />
+      )}
+      {showIos && (
+        <AppleStoreButton
+          disabled={iosDisabled}
+          comingSoonLabel={appleLabels.soon}
+          smallLabel={appleLabels.small}
+          storeLabel={appleLabels.store}
+        />
+      )}
     </div>
   );
 }
