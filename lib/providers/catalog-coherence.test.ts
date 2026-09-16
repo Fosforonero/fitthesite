@@ -486,4 +486,34 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
       expect(providerPlatforms(undefined)).toEqual(["android"]);
     });
   });
+
+  describe("P0.22-C-E Micro-Gate Editorial & Claim Guardrails", () => {
+    it("enforces negative constraints on Hanja, Oura Membership scope, bridge phrasing, latencies, and sensor comparisons", () => {
+      // 1. No Hanja in Korean Fitbit copy
+      const fitbit = PROVIDERS_BY_SLUG["fitbit"];
+      const fitbitFaqStr = JSON.stringify(fitbit.faqs);
+      expect(fitbitFaqStr).not.toContain("수面");
+
+      // 2. No unproven latency (15-30) in Fitbit or Garmin technical notes
+      const garmin = PROVIDERS_BY_SLUG["garmin"];
+      const fitbitNotesStr = JSON.stringify(fitbit.setupGuide?.technicalNotes || {}) + JSON.stringify(fitbit.techNote || {});
+      const garminNotesStr = JSON.stringify(garmin.setupGuide?.technicalNotes || {}) + JSON.stringify(garmin.techNote || {});
+      expect(fitbitNotesStr).not.toMatch(/15–30|15-30|latenza|latency/i);
+      expect(garminNotesStr).not.toMatch(/15–30|15-30|latenza|latency/i);
+
+      // 3. No "all health data" or "full health data" relative to Oura Membership
+      const ouraModels = PROVIDER_MODELS["oura"] || [];
+      const ouraModelsStr = JSON.stringify(ouraModels);
+      expect(ouraModelsStr).not.toMatch(/full health data|all health data|tutti i dati sanitari|todos los datos de salud|alle Gesundheitsdaten|todos os dados de saúde|toutes les données de santé|pełne dane zdrowotne|tüm sağlık verilerini|alle gezondheidsgegevens|完全な健康データ|모든 건강 데이터/);
+
+      // 4. No "reads them locally" or local-only implication in Oura models
+      expect(ouraModelsStr).not.toMatch(/reads them locally|legge in locale|lee localmente|lokal liest|lê localmente|lit localement|odczytuje je lokalnie|yerel olarak okur|lokaal uitleest/);
+
+      // 5. No banned Oura Ring 4 sensor comparison to previous generations
+      const ring4 = ouraModels.find((m) => m.slug === "ring-4");
+      expect(ring4).toBeDefined();
+      const ring4DescStr = JSON.stringify(ring4?.description);
+      expect(ring4DescStr).not.toMatch(/recessed interior sensors|compared to previous generations|sensori interni a filo|generazione precedente|sensores interiores enrasados|bündig integrierte Innensensoren|sensores internos embutidos|capteurs intérieurs affleurants|wpuszczane czujniki wewnętrzne|gömme iç sensörlere|verzonken sensoren|前世代と比べて|이전 세대 대비/);
+    });
+  });
 });
