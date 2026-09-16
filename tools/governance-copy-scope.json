@@ -1,0 +1,43 @@
+{
+  "_note": [
+    "Perimetro del controllo em dash di governance:check.",
+    "Solo copy FitMesh user-facing. Non e' un elenco di tutto il repository, ed e' apposta:",
+    "un grep globale pretenderebbe una riscrittura di massa, che questo cancello non chiede.",
+    "Codice, test, fixture, dipendenze, documenti tecnici e materiale di terzi restano fuori.",
+    "Per allargare il perimetro: aggiungi qui, poi rigenera la baseline con --update-baseline",
+    "e leggi il diff prima di committarlo."
+  ],
+  "include": [
+    { "dir": "lib/blog/posts", "extensions": [".ts", ".tsx"] },
+    { "dir": "lib/content", "extensions": [".ts", ".tsx"] },
+    { "dir": "lib/landing", "extensions": [".ts", ".tsx"] },
+    { "dir": "lib/providers", "extensions": [".ts", ".tsx"] },
+    { "dir": "lib/labs", "extensions": [".ts", ".tsx"] },
+    { "dir": "lib/dictionaries", "extensions": [".json"] },
+    { "dir": "components", "extensions": [".tsx"] },
+    { "dir": "app/(frontend)", "extensions": [".tsx"] }
+  ],
+  "excludeDirs": [
+    "node_modules",
+    ".next",
+    ".git",
+    "__tests__",
+    "__fixtures__",
+    "fixtures",
+    "test",
+    "tests"
+  ],
+  "excludeFileSuffixes": [
+    ".test.ts",
+    ".test.tsx",
+    ".spec.ts",
+    ".spec.tsx",
+    ".d.ts",
+    ".stories.tsx"
+  ],
+  "excludePathContains": [
+    "/legacy/",
+    "/third-party/"
+  ],
+  "allowMarker": "governance:allow-em-dash"
+}

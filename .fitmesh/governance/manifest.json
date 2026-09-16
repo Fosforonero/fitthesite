@@ -1,0 +1,27 @@
+{
+  "manifestVersion": 1,
+  "governanceVersion": "1.0.0",
+  "sourceRepository": "https://github.com/Fosforonero/fitmesh-governance.git",
+  "sourceCommit": "ae1237ee6ee1a24af3a5084b5a38ff35022e7285",
+  "exportedAt": "2026-09-16T05:46:45Z",
+  "consumer": "site",
+  "files": [
+    {"path": "VERSION", "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03", "bytes": 6},
+    {"path": "standards/EDITORIAL-CORE.md", "sha256": "10a392e7343e5b842a4f9c83c078069364ca50fc3c9d9bef41b3fd08cddb7295", "bytes": 16215},
+    {"path": "standards/SITE-WRITING.md", "sha256": "220dcf7e6f4070520e2fc97af26b30719310fdbb45766d8facb23e46c8e6c45e", "bytes": 23434},
+    {"path": "standards/TRANSLATIONS.md", "sha256": "0f6143eefce41e64f7e8df3a0fe122d25807a6eb5e8a70f1df483c6a025a00d4", "bytes": 15989},
+    {"path": "workflows/CLAIM-REVIEW.md", "sha256": "15500b7fd4a3171f1bc486df16bacb1ce2f8038342f1b4fc1c2ba372d6e4cd28", "bytes": 20362},
+    {"path": "workflows/EDITORIAL-REVIEW.md", "sha256": "c745531adf01b8529944996b6929c3d3778e0071167a1580d3756bbc866973d8", "bytes": 21242}
+  ],
+  "adapters": [
+    {"runtime": "codex", "path": "AGENTS.md", "template": "adapters/AGENTS.managed.md", "blockSha256": "1a86936c70acb2b306b4b105c0dc1bca14d00b718099df96b419a3a786759e1f"},
+    {"runtime": "claude-code", "path": "CLAUDE.md", "template": "adapters/CLAUDE.managed.md", "blockSha256": "a556e7a0269ad89655de8952f6803f4f7844d2be15f11d0e84e2039e36b40d47"},
+    {"runtime": "gemini-cli", "path": "GEMINI.md", "template": "adapters/GEMINI.managed.md", "blockSha256": "d484b040a6d7a08c165c7aff3cf6286889cfe3dbbfcbec0e7b5a7e912ec9ea7f"},
+    {"runtime": "gemini-antigravity", "path": ".agents/rules/fitmesh-editorial.md", "template": "adapters/antigravity-writing.md", "blockSha256": "3055458d88301fe7de8e1d0a85549fbd7da636b25e645e9d86e133a43630aefb"}
+  ],
+  "inlineRules": [
+    "Do not use em dashes in FitMesh-authored user-facing copy.",
+    "Do not mention internal AI tools, models or agents in user-facing copy,",
+    "Do not publish unverified future dates, availability claims or promises."
+  ]
+}
