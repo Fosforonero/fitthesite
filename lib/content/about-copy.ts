@@ -233,7 +233,7 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   ouraDirectApi: {
-    it: "Oura API diretta per metriche proprietarie", en: "Oura direct API for proprietary metrics", es: "API directa de Oura para métricas proprietarias",
+    it: "Oura API diretta per metriche proprietarie", en: "Oura direct API for proprietary metrics", es: "API directa de Oura para métricas propietarias",
     de: "Oura direkte API für proprietäre Metriken", pt: "API direta Oura para métricas proprietárias", fr: "API directe Oura pour les métriques propriétaires",
     pl: "Bezpośrednie API Oura dla zastrzeżonych metryk", tr: "Özel metrikler için doğrudan Oura API", nl: "Directe Oura API voor eigen metrieken",
     ja: "独自指標向けの Oura 直接 API", ko: "독점 지표를 위한 Oura 직접 API", sv: "Oura direkt-API för proprietära mätvärden",
@@ -242,7 +242,7 @@ export const ABOUT_COPY = {
 
   garminDirectApi: {
     it: "Garmin API diretta per Body Battery e metriche avanzate", en: "Garmin direct API for Body Battery and advanced metrics", es: "API directa de Garmin para Body Battery y métricas avanzadas",
-    de: "Garmin direkte API für Body Battery und erweiterte Metriken", pt: "API direta Garmin para Body Battery e métricas avanzadas", fr: "API directe Garmin pour Body Battery et métriques avancées",
+    de: "Garmin direkte API für Body Battery und erweiterte Metriken", pt: "API direta Garmin para Body Battery e métricas avançadas", fr: "API directe Garmin pour Body Battery et métriques avancées",
     pl: "Bezpośrednie API Garmin dla Body Battery i zaawansowanych metryk", tr: "Body Battery ve gelişmiş metrikler için doğrudan Garmin API", nl: "Directe Garmin API voor Body Battery en geavanceerde metrieken",
     ja: "Body Battery および高度な指標向けの Garmin 直接 API", ko: "Body Battery 및 고급 지표를 위한 Garmin 직접 API", sv: "Garmin direkt-API för Body Battery och avancerade mätvärden",
     da: "Garmin direkte API til Body Battery og avancerede målinger", no: "Garmin direkte API for Body Battery og avanserte målinger", fi: "Garmin suora API Body Batterylle ja edistyneille mittauksille",

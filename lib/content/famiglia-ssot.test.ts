@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { FAMIGLIA_COMING_SOON, getFamigliaComingSoon } from "./famiglia-coming-soon";
 
 describe("famiglia-coming-soon SSOT", () => {
-  const locales = ["it", "es", "en"] as const;
+  const locales = ["it", "es", "en", "de", "pt", "fr", "pl", "tr"] as const;
 
   it("guarantees sub and metaDescription are identical across all locales (anti-divergence)", () => {
     for (const lc of locales) {
@@ -146,7 +146,12 @@ describe("famiglia-coming-soon SSOT", () => {
     expect(getFamigliaComingSoon("it")).toBe(FAMIGLIA_COMING_SOON.it);
     expect(getFamigliaComingSoon("es")).toBe(FAMIGLIA_COMING_SOON.es);
     expect(getFamigliaComingSoon("en")).toBe(FAMIGLIA_COMING_SOON.en);
-    expect(getFamigliaComingSoon("de")).toBe(FAMIGLIA_COMING_SOON.en);
-    expect(getFamigliaComingSoon("fr")).toBe(FAMIGLIA_COMING_SOON.en);
+    expect(getFamigliaComingSoon("de")).toBe(FAMIGLIA_COMING_SOON.de);
+    expect(getFamigliaComingSoon("fr")).toBe(FAMIGLIA_COMING_SOON.fr);
+    expect(getFamigliaComingSoon("pt")).toBe(FAMIGLIA_COMING_SOON.pt);
+    expect(getFamigliaComingSoon("pl")).toBe(FAMIGLIA_COMING_SOON.pl);
+    expect(getFamigliaComingSoon("tr")).toBe(FAMIGLIA_COMING_SOON.tr);
+    expect(getFamigliaComingSoon("ja")).toBe(FAMIGLIA_COMING_SOON.en);
+    expect(getFamigliaComingSoon("ko")).toBe(FAMIGLIA_COMING_SOON.en);
   });
 });
