@@ -207,21 +207,21 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   devicesIntro: {
-    it: "Tutto ciò che scrive su Health Connect è supportato nativamente, quindi praticamente ogni smartwatch in commercio dal 2024:",
-    en: "Anything that writes to Health Connect is supported natively, practically every smartwatch on the market since 2024:",
-    es: "Todo dispositivo que escriba en Health Connect es compatible de forma nativa, es decir, prácticamente cualquier smartwatch en el mercado desde 2024:",
-    de: "Alles, was Daten in Health Connect schreibt, wird nativ unterstützt, also praktisch jede Smartwatch auf dem Markt seit 2024:",
-    pt: "Tudo que grava dados no Health Connect é compatível de forma nativa, ou seja, praticamente qualquer smartwatch disponível desde 2024:",
-    fr: "Tout appareil qui écrit dans Health Connect est pris en charge nativement, soit pratiquement toutes les montres connectées sur le marché depuis 2024:",
-    pl: "Każde urządzenie zapisujące dane w Health Connect jest obsługiwane natywnie — praktycznie każdy smartwatch dostępny na rynku od 2024 roku:",
-    tr: "Health Connect'e veri yazan her cihaz doğrudan desteklenir; pratikte 2024'ten beri piyasadaki hemen hemen her akıllı saat:",
-    nl: "Alles wat naar Health Connect schrijft, wordt native ondersteund — vrijwel elke smartwatch die sinds 2024 op de markt is:",
-    ja: "Health Connectにデータを書き込むデバイスならネイティブに対応しており、2024年以降に発売されたスマートウォッチはほぼすべて含まれます:",
-    ko: "Health Connect에 데이터를 기록하는 기기라면 무엇이든 네이티브로 지원되며, 사실상 2024년 이후 출시된 거의 모든 스마트워치가 해당됩니다:",
-    sv: "Allt som skriver till Health Connect stöds nativt – i praktiken varenda smartklocka på marknaden sedan 2024:",
-    da: "Alt, der skriver til Health Connect, understøttes nativt, praktisk talt alle smartwatches på markedet siden 2024:",
-    no: "Alt som skriver til Health Connect støttes nativt — praktisk talt alle smartklokker på markedet siden 2024:",
-    fi: "Kaikki, mikä kirjoittaa Health Connectiin, toimii natiivisti – käytännössä jokainen vuoden 2024 jälkeen markkinoille tullut älykello:",
+    it: "I dispositivi che sincronizzano con Health Connect (Android) o Apple Salute (iOS) sono supportati:",
+    en: "Devices that sync with Health Connect (Android) or Apple Health (iOS) are supported:",
+    es: "Los dispositivos que sincronizan con Health Connect (Android) o Apple Health (iOS) son compatibles:",
+    de: "Geräte, die mit Health Connect (Android) oder Apple Health (iOS) synchronisieren, werden unterstützt:",
+    pt: "Dispositivos que sincronizam com o Health Connect (Android) ou Apple Health (iOS) são compatíveis:",
+    fr: "Les appareils synchronisés avec Health Connect (Android) ou Apple Santé (iOS) sont pris en charge :",
+    pl: "Obsługiwane są urządzenia synchronizujące dane z Health Connect (Android) lub Apple Zdrowie (iOS):",
+    tr: "Health Connect (Android) veya Apple Health (iOS) ile senkronize olan cihazlar desteklenir:",
+    nl: "Apparaten die synchroniseren met Health Connect (Android) of Apple Gezondheid (iOS) worden ondersteund:",
+    ja: "Health Connect（Android）またはAppleヘルスケア（iOS）と同期するデバイスに対応しています:",
+    ko: "Health Connect(Android) 또는 Apple 건강(iOS)과 동기화되는 기기를 지원합니다:",
+    sv: "Enheter som synkroniserar med Health Connect (Android) eller Apple Hälsa (iOS) stöds:",
+    da: "Enheder, der synkroniserer med Health Connect (Android) eller Apple Sundhed (iOS), understøttes:",
+    no: "Enheter som synkroniserer med Health Connect (Android) eller Apple Helse (iOS), støttes:",
+    fi: "Laitteet, jotka synkronoivat Health Connectin (Android) tai Apple Terveyden (iOS) kanssa, ovat tuettuja:",
   } satisfies Localized,
 
   nativelySupported: {
@@ -230,14 +230,6 @@ export const ABOUT_COPY = {
     pl: "Obsługiwane natywnie", tr: "Doğrudan destekleniyor", nl: "Native ondersteund",
     ja: "ネイティブ対応", ko: "네이티브 지원", sv: "Stöds nativt",
     da: "Understøttes nativt", no: "Native støtte", fi: "Natiivisti tuettu",
-  } satisfies Localized,
-
-  comingWithOauth: {
-    it: "In arrivo con OAuth dedicata", en: "Coming with dedicated OAuth", es: "Próximamente con OAuth dedicada",
-    de: "Demnächst verfügbar mit dediziertem OAuth", pt: "Em breve com OAuth dedicado", fr: "Bientôt disponible avec OAuth dédié",
-    pl: "Wkrótce dzięki dedykowanemu OAuth", tr: "Özel OAuth ile yakında", nl: "Binnenkort met eigen OAuth",
-    ja: "専用OAuthで対応予定", ko: "전용 OAuth로 곧 지원 예정", sv: "Kommer med dedikerad OAuth",
-    da: "På vej med dedikeret OAuth", no: "Kommer med dedikert OAuth", fi: "Tulossa oman OAuth-yhteyden kautta",
   } satisfies Localized,
 
   ouraDirectApi: {
@@ -250,7 +242,7 @@ export const ABOUT_COPY = {
 
   garminDirectApi: {
     it: "Garmin API diretta per Body Battery e metriche avanzate", en: "Garmin direct API for Body Battery and advanced metrics", es: "API directa de Garmin para Body Battery y métricas avanzadas",
-    de: "Garmin direkte API für Body Battery und erweiterte Metriken", pt: "API direta Garmin para Body Battery e métricas avançadas", fr: "API directe Garmin pour Body Battery et métriques avancées",
+    de: "Garmin direkte API für Body Battery und erweiterte Metriken", pt: "API direta Garmin para Body Battery e métricas avanzadas", fr: "API directe Garmin pour Body Battery et métriques avancées",
     pl: "Bezpośrednie API Garmin dla Body Battery i zaawansowanych metryk", tr: "Body Battery ve gelişmiş metrikler için doğrudan Garmin API", nl: "Directe Garmin API voor Body Battery en geavanceerde metrieken",
     ja: "Body Battery および高度な指標向けの Garmin 直接 API", ko: "Body Battery 및 고급 지표를 위한 Garmin 직접 API", sv: "Garmin direkt-API för Body Battery och avancerade mätvärden",
     da: "Garmin direkte API til Body Battery og avancerede målinger", no: "Garmin direkte API for Body Battery og avanserte målinger", fi: "Garmin suora API Body Batterylle ja edistyneille mittauksille",
@@ -262,6 +254,38 @@ export const ABOUT_COPY = {
     pl: "Fitbit: dostęp chmurowy do danych historycznych", tr: "Fitbit geçmiş veriler için bulut erişimi", nl: "Fitbit cloud-toegang voor historische gegevens",
     ja: "Fitbit 過去データのクラウドアクセス", ko: "Fitbit 과거 데이터 클라우드 접근", sv: "Fitbit molnåtkomst för historiska data",
     da: "Fitbit-cloudadgang til historiske data", no: "Fitbit skyadgang for historiske data", fi: "Fitbitin pilvikäyttö historiatietoihin",
+  } satisfies Localized,
+
+  otherConnections: {
+    it: "Altre connessioni e anelli supportati", en: "Other connections and supported rings", es: "Otras conexiones y anillos compatibles",
+    de: "Weitere Verbindungen und unterstützte Ringe", pt: "Outras conexões e anéis compatíveis", fr: "Autres connexions et bagues prises en charge",
+    pl: "Inne połączenia i obsługiwane pierścienie", tr: "Diğer bağlantılar ve desteklenen yüzükler", nl: "Andere verbindingen en ondersteunde ringen",
+    ja: "その他の接続および対応リング", ko: "기타 연결 및 지원되는 링", sv: "Andra anslutningar och stödda ringar",
+    da: "Andre forbindelser og understøttede ringe", no: "Andre tilkoblinger og støttede ringer", fi: "Muut yhteydet ja tuetut sormukset",
+  } satisfies Localized,
+
+  colmiRingBluetooth: {
+    it: "Anelli Colmi (R02, R06) via Bluetooth diretto", en: "Colmi rings (R02, R06) via direct Bluetooth", es: "Anillos Colmi (R02, R06) vía Bluetooth directo",
+    de: "Colmi-Ringe (R02, R06) über direktes Bluetooth", pt: "Anéis Colmi (R02, R06) via Bluetooth direto", fr: "Bagues Colmi (R02, R06) via Bluetooth direct",
+    pl: "Pierścienie Colmi (R02, R06) przez bezpośredni Bluetooth", tr: "Doğrudan Bluetooth ile Colmi yüzükleri (R02, R06)", nl: "Colmi-ringen (R02, R06) via directe Bluetooth",
+    ja: "直接Bluetooth接続のColmiリング（R02、R06）", ko: "블루투스 직접 연결 Colmi 링 (R02, R06)", sv: "Colmi-ringar (R02, R06) via direkt Bluetooth",
+    da: "Colmi-ringe (R02, R06) via direkte Bluetooth", no: "Colmi-ringer (R02, R06) via direkte Bluetooth", fi: "Colmi-sormukset (R02, R06) suoralla Bluetooth-yhteydellä",
+  } satisfies Localized,
+
+  stravaLimitedAccess: {
+    it: "Strava via OAuth (accesso limitato)", en: "Strava via OAuth (limited access)", es: "Strava vía OAuth (acceso limitado)",
+    de: "Strava über OAuth (eingeschränkter Zugriff)", pt: "Strava via OAuth (acesso limitado)", fr: "Strava via OAuth (accès limité)",
+    pl: "Strava przez OAuth (ograniczony dostęp)", tr: "OAuth ile Strava (kısıtlı erişim)", nl: "Strava via OAuth (beperkte toegang)",
+    ja: "OAuth経由のStrava（限定アクセス）", ko: "OAuth 연동 Strava (제한된 접근)", sv: "Strava via OAuth (begränsad åtkomst)",
+    da: "Strava via OAuth (begrænset adgang)", no: "Strava via OAuth (begrenset tilgang)", fi: "Strava OAuthin kautta (rajoitettu pääsy)",
+  } satisfies Localized,
+
+  seeAllIntegrations: {
+    it: "Elenco completo e dettagli su /integrations", en: "Full list and details on /integrations", es: "Listado completo y detalles en /integrations",
+    de: "Vollständige Liste und Details auf /integrations", pt: "Lista completa e detalhes em /integrations", fr: "Liste complète et détails sur /integrations",
+    pl: "Pełna lista i szczegóły na /integrations", tr: "Tüm liste ve ayrıntılar /integrations sayfasında", nl: "Volledige lijst en details op /integrations",
+    ja: "完全なリストと詳細は /integrations を参照", ko: "전체 목록 및 세부 정보는 /integrations 참조", sv: "Fullständig lista och detaljer på /integrations",
+    da: "Fuld liste og detaljer på /integrations", no: "Fullstendig liste og detaljer på /integrations", fi: "Koko lista ja tiedot sivulla /integrations",
   } satisfies Localized,
 
   upToDateListPrefix: {

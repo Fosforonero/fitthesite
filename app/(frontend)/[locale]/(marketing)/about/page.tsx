@@ -192,11 +192,11 @@ export default async function AboutPage({
               color: "#31E981",
             },
             {
-              h: tl(ABOUT_COPY.comingWithOauth, lc),
+              h: tl(ABOUT_COPY.otherConnections, lc),
               items: [
-                tl(ABOUT_COPY.ouraDirectApi, lc),
-                tl(ABOUT_COPY.fitbitHistoricalGps, lc),
-                tl(ABOUT_COPY.garminDirectApi, lc),
+                tl(ABOUT_COPY.colmiRingBluetooth, lc),
+                tl(ABOUT_COPY.stravaLimitedAccess, lc),
+                tl(ABOUT_COPY.seeAllIntegrations, lc),
               ],
               color: "#21E6C1",
             },
