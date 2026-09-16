@@ -25,7 +25,7 @@ export type ProviderStatus =
   | "limited-beta"
   | "roadmap-q3" // Pianificato Q3 2026 (NO path HC, serve OAuth)
   | "roadmap-q4" // Pianificato Q4 2026 (NO path HC, serve OAuth)
-  | "coming-soon" // In arrivo (data TBD — es. BLE diretto, feature sperimentali)
+  | "coming-soon" // In arrivo (data TBD: es. BLE diretto, feature sperimentali)
   | "not-available"; // Integrazione non attiva/non disponibile nella release pubblica
 
 export type ProviderCategory =
@@ -3841,15 +3841,15 @@ export const PROVIDERS: Provider[] = [
           ko: "FitMesh와 Garmin Connect 데이터를 동기화하는 방법은 무엇인가요?",
         },
         a: {
-          it: "Attualmente FitMesh importa i dati Garmin tramite Android Health Connect — attiva la sincronizzazione Garmin Connect → Health Connect nelle impostazioni dell'app Garmin Connect. L'eventuale accesso diretto via API Garmin Health richiede l'approvazione formale al Garmin Developer Program.",
-          en: "Currently, FitMesh imports Garmin data via Android Health Connect — enable Garmin Connect → Health Connect sync in the Garmin Connect app settings. Direct access via Garmin Health API is subject to formal approval in the Garmin Developer Program.",
-          es: "Actualmente, FitMesh importa datos de Garmin a través de Android Health Connect — habilita la sincronización Garmin Connect → Health Connect en los ajustes de Garmin Connect. El acceso directo a través de la API Garmin Health requiere la aprobación formal del Garmin Developer Program.",
-          de: "Aktuell importiert FitMesh Garmin-Daten über Android Health Connect — aktiviere die Synchronisation Garmin Connect → Health Connect in den Einstellungen der Garmin Connect App. Der direkte Zugriff über die Garmin Health API setzt die formelle Genehmigung im Garmin Developer Program voraus.",
-          pt: "Atualmente, o FitMesh importa dados do Garmin via Android Health Connect — habilite a sincronização Garmin Connect → Health Connect nas configurações do Garmin Connect. O acesso direto via API Garmin Health requer aprovação formal no Garmin Developer Program.",
-          fr: "Actuellement, FitMesh importe les données Garmin via Android Health Connect — activez la synchronisation Garmin Connect → Health Connect dans les paramètres de Garmin Connect. L'accès direct via l'API Garmin Health nécessite l'approbation formelle du Garmin Developer Program.",
-          pl: "Obecnie FitMesh importuje dane Garmin za pośrednictwem Android Health Connect — włącz synchronizację Garmin Connect → Health Connect w ustawieniach aplikacji Garmin Connect. Bezpośrednia integracja API podlega procedurze zatwierdzenia w programie Garmin Developer Program.",
-          tr: "FitMesh şu anda Garmin verilerini Android Health Connect üzerinden içe aktarır — Garmin Connect ayarlarında Garmin Connect → Health Connect senkronizasyonunu etkinleştirin. Garmin Health API üzerinden doğrudan erişim, Garmin Developer Program resmi onayına tabidir.",
-          nl: "Momenteel importeert FitMesh Garmin-gegevens via Android Health Connect — schakel de synchronisatie Garmin Connect → Health Connect in via de instellingen van de Garmin Connect-app. Directe toegang via de Garmin Health API vereist formele goedkeuring binnen het Garmin Developer Program.",
+          it: "Attualmente FitMesh importa i dati Garmin tramite Android Health Connect. Attiva la sincronizzazione Garmin Connect → Health Connect nelle impostazioni dell'app Garmin Connect. L'eventuale accesso diretto via API Garmin Health richiede l'approvazione formale al Garmin Developer Program.",
+          en: "Currently, FitMesh imports Garmin data via Android Health Connect. Enable Garmin Connect → Health Connect sync in the Garmin Connect app settings. Direct access via Garmin Health API is subject to formal approval in the Garmin Developer Program.",
+          es: "Actualmente, FitMesh importa datos de Garmin a través de Android Health Connect. Habilita la sincronización Garmin Connect → Health Connect en los ajustes de Garmin Connect. El acceso directo a través de la API Garmin Health requiere la aprobación formal del Garmin Developer Program.",
+          de: "Aktuell importiert FitMesh Garmin-Daten über Android Health Connect. Aktiviere die Synchronisation Garmin Connect → Health Connect in den Einstellungen der Garmin Connect App. Der direkte Zugriff über die Garmin Health API setzt die formelle Genehmigung im Garmin Developer Program voraus.",
+          pt: "Atualmente, o FitMesh importa dados do Garmin via Android Health Connect. Habilite a sincronização Garmin Connect → Health Connect nas configurações do Garmin Connect. O acesso direto via API Garmin Health requer aprovação formal no Garmin Developer Program.",
+          fr: "Actuellement, FitMesh importe les données Garmin via Android Health Connect. Activez la synchronisation Garmin Connect → Health Connect dans les paramètres de Garmin Connect. L'accès direct via l'API Garmin Health nécessite l'approbation formelle du Garmin Developer Program.",
+          pl: "Obecnie FitMesh importuje dane Garmin za pośrednictwem Android Health Connect. Włącz synchronizację Garmin Connect → Health Connect w ustawieniach aplikacji Garmin Connect. Bezpośrednia integracja API podlega procedurze zatwierdzenia w programie Garmin Developer Program.",
+          tr: "FitMesh şu anda Garmin verilerini Android Health Connect üzerinden içe aktarır. Garmin Connect ayarlarında Garmin Connect → Health Connect senkronizasyonunu etkinleştirin. Garmin Health API üzerinden doğrudan erişim, Garmin Developer Program resmi onayına tabidir.",
+          nl: "Momenteel importeert FitMesh Garmin-gegevens via Android Health Connect. Schakel de synchronisatie Garmin Connect → Health Connect in via de instellingen van de Garmin Connect-app. Directe toegang via de Garmin Health API vereist formele goedkeuring binnen het Garmin Developer Program.",
           ja: "現在、FitMeshはAndroid Health Connect経由でGarminのデータをインポートします。Garmin Connectアプリの設定でGarmin Connect → Health Connectの同期を有効にしてください。Garmin Health APIによる直接アクセスにはGarmin Developer Programの正式承認が必要です。",
           ko: "현재 FitMesh는 Android Health Connect를 통해 Garmin 데이터를 가져옵니다. Garmin Connect 앱 설정에서 Garmin Connect → Health Connect 동기화를 활성화하세요. Garmin Health API를 통한 직접 연동은 Garmin Developer Program의 공식 승인이 필요합니다.",
         },

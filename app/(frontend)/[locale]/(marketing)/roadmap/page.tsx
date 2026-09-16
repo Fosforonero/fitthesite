@@ -223,7 +223,7 @@ const COLUMNS: RoadmapColumn[] = [
       },
       {
         status: "live",
-        title: { it: "Esportazione dati — JSON", en: "Data export — JSON", es: "Exportación de datos — JSON", de: "Datenexport — JSON", pt: "Exportação de dados — JSON", fr: "Export des données — JSON", pl: "Eksport danych — JSON", tr: "Veri dışa aktarma — JSON", nl: "Gegevensexport — JSON", ja: "データエクスポート — JSON", ko: "데이터 내보내기 — JSON", sv: "Dataexport – JSON", da: "Dataeksport – JSON", no: "Dataeksport -- JSON", fi: "Tietojen vienti – JSON" },
+        title: { it: "Esportazione dati: JSON", en: "Data export: JSON", es: "Exportación de datos: JSON", de: "Datenexport: JSON", pt: "Exportação de dados: JSON", fr: "Export des données: JSON", pl: "Eksport danych: JSON", tr: "Veri dışa aktarma: JSON", nl: "Gegevensexport: JSON", ja: "データエクスポート: JSON", ko: "데이터 내보내기: JSON", sv: "Dataexport – JSON", da: "Dataeksport – JSON", no: "Dataeksport -- JSON", fi: "Tietojen vienti – JSON" },
         desc: {
           it: "Scarica una copia delle principali categorie di dati associate al tuo account, in formato leggibile e portabile.",
           en: "Download a copy of the main data categories associated with your account in a readable and portable format.",
@@ -353,7 +353,7 @@ const COLUMNS: RoadmapColumn[] = [
       },
       {
         status: "in-progress",
-        title: { it: "Fitbit — guida setup completa", en: "Fitbit — full setup guide", es: "Fitbit: guía de configuración completa", de: "Fitbit — vollständiger Einrichtungsleitfaden", pt: "Fitbit — guia de configuração completo", fr: "Fitbit — guide de configuration complet", pl: "Fitbit — pełny przewodnik konfiguracji", tr: "Fitbit — tam kurulum kılavuzu", nl: "Fitbit — volledige installatiegids", ja: "Fitbit — 完全セットアップガイド", ko: "Fitbit — 전체 설정 가이드", sv: "Fitbit – komplett installationsguide", da: "Fitbit – komplet opsætningsguide", no: "Fitbit -- fullstendig oppsettsguide", fi: "Fitbit – täydellinen käyttöönotto-opas" },
+        title: { it: "Fitbit: guida setup completa", en: "Fitbit: full setup guide", es: "Fitbit: guía de configuración completa", de: "Fitbit: vollständiger Einrichtungsleitfaden", pt: "Fitbit: guia de configuração completo", fr: "Fitbit: guide de configuration complet", pl: "Fitbit: pełny przewodnik konfiguracji", tr: "Fitbit: tam kurulum kılavuzu", nl: "Fitbit: volledige installatiegids", ja: "Fitbit: 完全セットアップガイド", ko: "Fitbit: 전체 설정 가이드", sv: "Fitbit – komplett installationsguide", da: "Fitbit – komplet opsætningsguide", no: "Fitbit -- fullstendig oppsettsguide", fi: "Fitbit – täydellinen käyttöönotto-opas" },
         desc: {
           it: "Onboarding passo-passo nell'app per attivare il bridge Fitbit → Health Connect, con verifica automatica dei permessi.",
           en: "Step-by-step in-app onboarding to enable the Fitbit → Health Connect bridge, with automatic permission check.",
