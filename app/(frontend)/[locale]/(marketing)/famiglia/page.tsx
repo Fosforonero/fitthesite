@@ -492,7 +492,7 @@ const COPY = {
       {
         q: "Sind die Gesundheitsdaten meiner Familie sicher?",
         a:
-          "Ja. Alles ist via HTTPS/TLS verschlüsselt. Speicherung auf Supabase EU (Frankfurt). Zugriff auf die jeweilige Gruppe beschränkt via Row-Level Security in Postgres. Keine Datenhändler, keine profilbasierte Werbung. Volle DSGVO-Konformität.",
+          "Ja. Alles ist via HTTPS/TLS verschlüsselt. Zugriff auf die jeweilige Gruppe beschränkt via Row-Level Security in Postgres. Keine Datenhändler, keine profilbasierte Werbung.",
       },
       {
         q: "Ist dies ein Medizinprodukt?",
@@ -608,7 +608,7 @@ const COPY = {
       {
         q: "Os dados de saúde da minha família estão seguros?",
         a:
-          "Sim. Tudo criptografado via HTTPS/TLS. Armazenamento no Supabase EU (Frankfurt). Acesso restrito ao grupo específico via Row-Level Security no Postgres. Sem corretores de dados, sem publicidade baseada em perfil. Total conformidade com o LGPD e GDPR.",
+          "Sim. Tudo criptografado via HTTPS/TLS. Acesso restrito ao grupo específico via Row-Level Security no Postgres. Sem corretores de dados, sem publicidade baseada em perfil.",
       },
       {
         q: "Isso é um dispositivo médico?",
@@ -724,7 +724,7 @@ const COPY = {
       {
         q: "Les données de santé de ma famille sont-elles en sécurité?",
         a:
-          "Oui. Tout est chiffré via HTTPS/TLS. Stockage sur Supabase EU (Francfort). Accès limité au groupe spécifique via Row-Level Security dans Postgres. Aucun courtier de données, aucune publicité profilée. Conformité totale au RGPD.",
+          "Oui. Tout est chiffré via HTTPS/TLS. Accès limité au groupe spécifique via Row-Level Security dans Postgres. Aucun courtier de données, aucune publicité profilée.",
       },
       {
         q: "Est-ce un dispositif médical?",
@@ -840,7 +840,7 @@ const COPY = {
       {
         q: "Czy dane zdrowotne mojej rodziny są bezpieczne?",
         a:
-          "Tak. Wszystko szyfrowane przez HTTPS/TLS. Przechowywanie w Supabase EU (Frankfurt). Dostęp ograniczony do konkretnej grupy przez Row-Level Security w Postgres. Bez brokerów danych, bez reklam profilowanych. Pełna zgodność z RODO.",
+          "Tak. Wszystko szyfrowane przez HTTPS/TLS. Dostęp ograniczony do konkretnej grupy przez Row-Level Security w Postgres. Bez brokerów danych, bez reklam profilowanych.",
       },
       {
         q: "Czy to jest urządzenie medyczne?",
@@ -956,7 +956,7 @@ const COPY = {
       {
         q: "Ailemin sağlık verileri güvende mi?",
         a:
-          "Evet. Her şey HTTPS/TLS ile şifrelenmiştir. Supabase EU (Frankfurt) üzerinde depolama. Postgres'teki Row-Level Security ile belirli grupla sınırlı erişim. Veri brokeri yok, profil reklamcılığı yok. Tam GDPR uyumluluğu.",
+          "Evet. Her şey HTTPS/TLS ile şifrelenmiştir. Postgres'teki Row-Level Security ile belirli grupla sınırlı erişim. Veri brokeri yok, profil reklamcılığı yok.",
       },
       {
         q: "Bu bir tıbbi cihaz mı?",
