@@ -587,4 +587,69 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
       expect(garmin.faqs[0].a.en).toContain("Health Connect on Android");
     });
   });
+
+  describe("P0.22-C-G Micro-Gate Corrections & Guardrails", () => {
+    it("enforces Android 14+ for Garmin setupGuide and prohibits Android 10-13 as sufficient", () => {
+      const garmin = PROVIDERS_BY_SLUG["garmin"];
+      expect(garmin.setupGuide).toBeDefined();
+      const steps = garmin.setupGuide?.steps || {};
+
+      for (const [locale, stepsArray] of Object.entries(steps)) {
+        const localeSteps = stepsArray as string[];
+        // Step 0 must mention Android 14
+        expect(localeSteps[0]).toMatch(/Android 14/i);
+        // Step 0 must not present Android 10-13 as sufficient for Garmin Connect integration
+        expect(localeSteps[0]).not.toMatch(/Android (10|11|12|13)\+ e app/i);
+        // Step 1 must not instruct downloading Health Connect from Play Store on older Android
+        expect(localeSteps[1]).not.toMatch(/Installa \*\*Health Connect\*\* dal Play Store/i);
+        expect(localeSteps[1]).not.toMatch(/Install \*\*Health Connect\*\* from the Play Store/i);
+      }
+    });
+
+    it("prohibits 'recommended/consigliato' in Oura Gen3 and Ring 4 membership FAQs and enforces factual requirement", () => {
+      const ouraModels = PROVIDER_MODELS["oura"] || [];
+      const targets = ouraModels.filter((m) => m.slug === "ring-gen3" || m.slug === "ring-4");
+      expect(targets).toHaveLength(2);
+
+      for (const model of targets) {
+        const membershipFaq = model.faq.find(
+          (f) =>
+            Boolean(f.q.it?.includes("abbonamento")) ||
+            Boolean(f.q.it?.includes("membership")) ||
+            Boolean(f.q.en?.includes("subscription")) ||
+            Boolean(f.q.en?.includes("membership")),
+        );
+        expect(membershipFaq).toBeDefined();
+
+        const answerText = JSON.stringify(membershipFaq?.a);
+        // Must NOT use vague recommendation language
+        expect(answerText).not.toMatch(/consigliat|recommended|se recomienda|wird empfohlen|recomenda-se|est recommandé|zalecan|önerilir|aanbevolen|推奨|권장/i);
+        // Must NOT include vague "strongly limited functionality" evaluations
+        expect(answerText).not.toMatch(/fortemente limitat|severely limited|muy limitad|stark eingeschränk|bastante limitad|très limitée|mocno ogranicz|kısıtlı|sterk beperkt|大幅に制限|크게 제한/i);
+
+        // Must state the factual requirement
+        expect(membershipFaq?.a.it).toBe("Per Oura Ring Gen3 e Ring 4 è necessaria una membership attiva per usare l'integrazione Oura con Apple Health o Health Connect.");
+        expect(membershipFaq?.a.en).toBe("For Oura Ring Gen3 and Ring 4, an active membership is required to use the Oura integration with Apple Health or Health Connect.");
+      }
+    });
+
+    it("prohibits listing HRV as a common cross-platform metric across Apple Health and Health Connect in Oura FAQs", () => {
+      const ouraModels = PROVIDER_MODELS["oura"] || [];
+      const targets = ouraModels.filter((m) => m.slug === "ring-gen3" || m.slug === "ring-4");
+      expect(targets).toHaveLength(2);
+
+      for (const model of targets) {
+        const allFaqAnswers = JSON.stringify(model.faq.map((f) => f.a));
+        // No grouping of HRV in a joint cross-platform export list
+        expect(allFaqAnswers).not.toMatch(/come sonno, frequenza cardiaca, HRV e passi/i);
+        expect(allFaqAnswers).not.toMatch(/such as sleep, heart rate, HRV, and steps/i);
+        expect(allFaqAnswers).not.toMatch(/como sueño, frecuencia cardíaca, HRV y pasos/i);
+        expect(allFaqAnswers).not.toMatch(/wie Schlaf, Herzfrequenz, HRV und Schritte/i);
+
+        // Must use the preferred formulation in FAQ 0
+        expect(model.faq[0].a.it).toContain("FitMesh legge soltanto le categorie indicate per la piattaforma nella matrice e autorizzate dall'utente.");
+        expect(model.faq[0].a.en).toContain("FitMesh only reads categories indicated for the platform in the matrix and authorized by the user.");
+      }
+    });
+  });
 });
