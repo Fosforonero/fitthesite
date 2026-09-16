@@ -135,7 +135,7 @@ const COPY = {
       {
         q: "Mesh Famiglia mostra la posizione degli altri membri?",
         a:
-          "Mesh Famiglia non è attualmente disponibile. Nel progetto attuale di Mesh Famiglia, la vista del gruppo non include la posizione geografica degli altri membri né condivide coordinate GPS. Per informazioni sul trattamento degli altri dati consulta la Privacy Policy.",
+          "Mesh Famiglia non è attualmente disponibile. Nel progetto attuale, la vista del gruppo non include la posizione geografica degli altri membri.",
       },
       {
         q: "Cosa succede se un membro vuole uscire dal gruppo?",
@@ -251,7 +251,7 @@ const COPY = {
       {
         q: "Does Family Mesh show the location of other members?",
         a:
-          "Family Mesh is not currently available. In the current design of Family Mesh, the group view does not include other members' geographic location or share GPS coordinates. For details on how other data is handled, consult our Privacy Policy.",
+          "Family Mesh is not currently available. In the current design, the group view does not include other members' geographic location.",
       },
       {
         q: "What if a member wants to leave the group?",
@@ -367,7 +367,7 @@ const COPY = {
       {
         q: "¿Mesh Familia muestra la ubicación de los demás miembros?",
         a:
-          "Mesh Familia no está disponible actualmente. En el diseño actual de Mesh Familia, la vista de grupo no incluye la ubicación geográfica de los demás miembros ni comparte coordenadas GPS. Para más información sobre el tratamiento de los demás datos, consulta la Política de Privacidad.",
+          "Mesh Familia no está disponible actualmente. En el diseño actual, la vista del grupo no incluye la ubicación geográfica de los demás miembros.",
       },
       {
         q: "¿Qué pasa si un miembro quiere salir del grupo?",
@@ -483,7 +483,7 @@ const COPY = {
       {
         q: "Zeigt Mesh Familie den Standort anderer Mitglieder?",
         a:
-          "Mesh Familie ist derzeit nicht verfügbar. Im aktuellen Entwurf von Mesh Familie enthält die Gruppenansicht weder den geografischen Standort anderer Mitglieder noch GPS-Koordinaten. Informationen zur Datenverarbeitung findest du in der Datenschutzerklärung.",
+          "Mesh Familie ist derzeit nicht verfügbar. Im aktuellen Entwurf enthält die Gruppenansicht nicht den geografischen Standort anderer Mitglieder.",
       },
       {
         q: "Was passiert, wenn ein Mitglied die Gruppe verlassen möchte?",
@@ -599,7 +599,7 @@ const COPY = {
       {
         q: "O Mesh Família mostra a localização dos outros membros?",
         a:
-          "O Mesh Família não está disponível no momento. No projeto atual do Mesh Família, a visualização do grupo não inclui a localização geográfica de outros membros nem compartilha coordenadas GPS. Para obter informações sobre o tratamento de dados, consulte nossa Política de Privacidade.",
+          "O Mesh Família não está disponível no momento. No projeto atual, a visualização do grupo não inclui a localização geográfica de outros membros.",
       },
       {
         q: "O que acontece se um membro quiser sair do grupo?",
@@ -715,7 +715,7 @@ const COPY = {
       {
         q: "Mesh Famille montre-t-il la localisation des autres membres?",
         a:
-          "Mesh Famille n'est actuellement pas disponible. Dans la conception actuelle de Mesh Famille, la vue de groupe n'inclut pas la localisation géographique des autres membres ni les coordonnées GPS. Pour plus d'informations sur le traitement des données, consultez notre Politique de Confidentialité.",
+          "Mesh Famille n'est actuellement pas disponible. Dans la conception actuelle, la vue de groupe n'inclut pas la localisation géographique des autres membres.",
       },
       {
         q: "Que se passe-t-il si un membre veut quitter le groupe?",
@@ -831,7 +831,7 @@ const COPY = {
       {
         q: "Czy Mesh Rodzina pokazuje lokalizację innych członków?",
         a:
-          "Mesh Rodzina nie jest obecnie dostępna. W obecnym projekcie Mesh Rodzina widok grupy nie zawiera lokalizacji geograficznej innych członków ani współrzędnych GPS. Szczegółowe informacje o przetwarzaniu danych znajdziesz w Polityce Prywatności.",
+          "Mesh Rodzina nie jest obecnie dostępna. W obecnym projekcie widok grupy nie zawiera lokalizacji geograficznej innych członków.",
       },
       {
         q: "Co się dzieje, gdy członek chce opuścić grupę?",
@@ -947,7 +947,7 @@ const COPY = {
       {
         q: "Mesh Aile diğer üyelerin konumunu gösterir mi?",
         a:
-          "Mesh Aile şu anda mevcut değildir. Mesh Aile'nin mevcut tasarımında grup görünümü diğer üyelerin coğrafi konumunu veya GPS koordinatlarını içermez. Veri işleme hakkında bilgi için Gizlilik Politikamıza bakın.",
+          "Mesh Aile şu anda mevcut değildir. Mevcut tasarımda grup görünümü diğer üyelerin coğrafi konumunu içermez.",
       },
       {
         q: "Bir üye gruptan ayrılmak isterse ne olur?",
@@ -1418,7 +1418,7 @@ function ComingSoonState({
         <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary text-center">
           {copy.why_h2}
         </h2>
-        <div className="mt-8 grid sm:grid-cols-3 gap-6">
+        <div className="mt-8 grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
           {copy.why_items.map((item) => (
             <div key={item.title} className="rounded-2xl border border-text-muted/15 bg-bg-elevated/40 p-5">
               <h3 className="font-display text-lg font-semibold text-text-primary">{item.title}</h3>
