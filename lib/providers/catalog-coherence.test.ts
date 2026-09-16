@@ -516,4 +516,75 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
       expect(ring4DescStr).not.toMatch(/recessed interior sensors|compared to previous generations|sensori interni a filo|generazione precedente|sensores interiores enrasados|bündig integrierte Innensensoren|sensores internos embutidos|capteurs intérieurs affleurants|wpuszczane czujniki wewnętrzne|gömme iç sensörlere|verzonken sensoren|前世代と比べて|이전 세대 대비/);
     });
   });
+
+  describe("P0.22-C-F Micro-Gate Semantic Absolutes & Bridge Guardrails", () => {
+    it("enforces positive bridge phrasing on Oura and removes generic absolutes on proprietary metrics", () => {
+      const oura = PROVIDERS_BY_SLUG["oura"];
+      const ouraModels = PROVIDER_MODELS["oura"] || [];
+      const ouraAllText = JSON.stringify({
+        longDesc: oura.longDesc,
+        techNote: oura.techNote,
+        faqs: oura.faqs,
+        models: ouraModels,
+      });
+
+      // No negative absolute claiming all proprietary Oura metrics do not transfer
+      expect(ouraAllText).not.toMatch(
+        /metriche proprietarie Oura non|proprietary Oura metrics (do not transfer|are not transferred)|métricas proprietárias da Oura não|métricas exclusivas da Oura não são|proprietäre Oura-Metriken werden nicht|proprietäre Oura-Werte werden nicht|métriques exclusives à Oura ne sont pas|autorskie wskaźniki Oura nie|Oura'ya özel metrikler (aktarılmaz|köprü üzerinden)|merkeigen Oura-metrieken worden niet|Oura独自の.*(転送されません|経由しません)|Oura 독(점|자) .*전달되지/i,
+      );
+
+      // Must describe positive behavior: reads categories exported and authorized
+      expect(oura.techNote?.it).toContain("FitMesh legge soltanto le categorie che l'app Oura esporta nel bridge scelto e che l'utente autorizza");
+      expect(oura.techNote?.en).toContain("FitMesh only reads categories that the Oura app exports to the chosen bridge and that the user authorizes");
+    });
+
+    it("enforces conditional bridge copy and prohibits fully functional, all supported models, or Garmin partnerships", () => {
+      const garmin = PROVIDERS_BY_SLUG["garmin"];
+      const garminAllText = JSON.stringify({
+        longDesc: garmin.longDesc,
+        techNote: garmin.techNote,
+        faqs: garmin.faqs,
+      });
+
+      // 1. Prohibit "fully functional" and translations
+      expect(garminAllText).not.toMatch(
+        /fully functional|pienamente operativa|totalmente operacional|voll funktionsfähig|pleinement opérationnelle|działa w pełni|tamamen çalışmaktadır|volledig functioneel|完全に動作|완벽하게 작동/i,
+      );
+
+      // 2. Prohibit "for all supported models" and translations
+      expect(garminAllText).not.toMatch(
+        /for all supported models|tutti i modelli supportati|todos los modelos soportados|alle unterstützten Modelle|tous les modèles pris en charge|wszystkich obsługiwanych modeli|desteklenen tüm modeller|alle ondersteunde modellen|サポートされているすべてのモデル|지원되는 모든 모델/i,
+      );
+
+      // 3. Prohibit Garmin partnerships claim
+      expect(garminAllText).not.toMatch(
+        /partnerships with Garmin|partnership aziendali con Garmin|partnership con Garmin|parcerias com a Garmin|partenariats avec Garmin|partnerstwa z firmą Garmin|Garmin ile ortaklıklar|partnerschappen met Garmin|Garminとのパートナーシップ|Garmin과의 파트너십/i,
+      );
+
+      // 4. Prohibit unconditional "automatic bridge" in techNote / faqs
+      expect(garminAllText).not.toMatch(
+        /bridge automatico|automatic bridge|automatische Brücke|bridge automática|pont automatique|automatyczny most|otomatik köprüsü|automatische koppeling|自動ブリッジ|자동 브리지/i,
+      );
+
+      // 5. Verify exact required factual copy for bridge & API
+      expect(garminAllText).toContain("Garmin Connect può inviare a Health Connect le categorie documentate dopo una sincronizzazione riuscita del dispositivo");
+      expect(garminAllText).toContain("Garmin Connect Developer Program");
+    });
+
+    it("prohibits 'Android Health Connect' in modified Fitbit and Garmin FAQs in favor of 'Health Connect su Android'", () => {
+      const fitbit = PROVIDERS_BY_SLUG["fitbit"];
+      const garmin = PROVIDERS_BY_SLUG["garmin"];
+
+      const fitbitFaqText = JSON.stringify(fitbit.faqs[0]);
+      const garminFaqText = JSON.stringify(garmin.faqs[0]);
+
+      expect(fitbitFaqText).not.toContain("Android Health Connect");
+      expect(garminFaqText).not.toContain("Android Health Connect");
+
+      expect(fitbit.faqs[0].a.it).toContain("Health Connect su Android");
+      expect(fitbit.faqs[0].a.en).toContain("Health Connect on Android");
+      expect(garmin.faqs[0].a.it).toContain("Health Connect su Android");
+      expect(garmin.faqs[0].a.en).toContain("Health Connect on Android");
+    });
+  });
 });

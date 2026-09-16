@@ -352,11 +352,11 @@
     "body.7.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App de Android y panel web. Sincronización periódica desde Oura vía Health Connect para los datos compatibles.",
     "body.7.ctaLabel": "Prueba FitMesh gratis →",
     "faq.0.q": "¿Veré el Readiness Score de Oura?",
-    "faq.0.a": "No hoy: el Readiness Score es una métrica propietaria de Oura no expuesta a través de Health Connect. La integración API directa no está activa actualmente. Hoy vía Health Connect ves sueño con fases, pasos y calorías.",
+    "faq.0.a": "No hoy: el Readiness Score no aparece en el listado oficial de exportaciones verificadas hacia Health Connect y se queda en la app Oura. La integración API directa no está activa actualmente. FitMesh lee las categorías compatibles vía Health Connect (sueño con fases, pasos y calorías).",
     "faq.1.q": "¿Funciona con Oura Ring 3 y 4?",
-    "faq.1.a": "Sí, ambas generaciones son compatibles con Health Connect a través de la app de Oura para Android. El Oura Ring 4 tiene sensores mejorados; los datos estándar como sueño con fases, pasos y frecuencia cardíaca se transfieren a Health Connect, mientras que las métricas propietarias se mantienen en la app de Oura.",
+    "faq.1.a": "Sí, ambas generaciones son compatibles con la sincronización a través de la app de Oura para Android. FitMesh lee las categorías que la app Oura exporta a Health Connect y que el usuario autoriza (como sueño con fases, pasos y frecuencia cardíaca). Las métricas que no figuran en el listado oficial de exportación se mantienen en la app de Oura.",
     "faq.2.q": "¿Necesito una suscripción a Oura para usar FitMesh?",
-    "faq.2.a": "Para los modelos Gen 3 y Gen 4, se recomienda una suscripción activa a Oura Membership para procesar y sincronizar continuamente todos los datos sanitarios con la app Oura y Health Connect.",
+    "faq.2.a": "Para los modelos Gen 3 y Gen 4, se recomienda una suscripción activa a Oura Membership para procesar y sincronizar continuamente los datos compatibles con la app Oura y Health Connect.",
     "secondaryKeywords": [
       "panel web oura ring",
       "exportar datos de oura",
@@ -365,7 +365,7 @@
     ],
     "body.3.items": [
       "**Disponible hoy vía Health Connect**: pasos, calorías, sueño total con fases (Profundo, REM, Ligero, Despierto)",
-      "**No incluidos en los puentes actuales**: Readiness Score, desviación de temperatura cutánea y métricas propietarias de Oura no transmitidas por Health Connect"
+      "**No incluidos en la exportación verificada para el puente**: el Readiness Score y la desviación de temperatura no aparecen en la lista oficial de exportación; consulta la matriz para más detalles"
     ],
     "body.5.items": [
       "Instala **FitMesh Sync** desde Google Play e inicia sesión con Google.",
