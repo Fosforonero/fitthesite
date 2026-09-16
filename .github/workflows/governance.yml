@@ -1,0 +1,133 @@
+# ============================================================================
+# GOVERNANCE — lo snapshot delle regole editoriali non e' stato manomesso.
+#
+# COSA FA
+# -------
+# Un comando solo, `pnpm governance:check`, che verifica tre cose senza rete:
+# che ogni file sotto `.fitmesh/governance/` combaci con il suo SHA-256 nel
+# manifest, che i quattro adattatori portino ancora le tre regole inline nel
+# blocco gestito, e che non siano comparsi em dash NUOVI nel copy user-facing
+# dichiarato in `tools/governance-copy-scope.json`.
+#
+# COSA NON FA, ed e' la parte importante
+# --------------------------------------
+# Non distribuisce niente: nessun deploy, nessun `next build`, nessun
+# artefatto, permessi di sola lettura. Non tocca il database. Non esegue la
+# suite Vitest: quella ha gia' il suo cancello in `backend-suite.yml` e questo
+# workflow non deve rallentarla ne' duplicarla.
+#
+# Non fa un grep globale degli em dash. Il 16/09/2026 il repository ne
+# conteneva 5597 in 629 file: un grep globale avrebbe preteso una riscrittura
+# di massa, che non e' quello che questo cancello chiede. Guarda il perimetro
+# dichiarato e confronta con una baseline delle occorrenze preesistenti, cosi'
+# che a diventare rosso sia solo cio' che si aggiunge da oggi.
+#
+# PERCHE' E' SEPARATO DA backend-suite.yml
+# ----------------------------------------
+# Quello costruisce un PG17 effimero e ci gira sopra l'intera suite: minuti,
+# non secondi. Questo deve poter fallire subito e dire una cosa sola. Tenerli
+# separati significa anche che una regola editoriale rotta non si nasconde
+# dentro il rosso di un'altra suite.
+# ============================================================================
+name: Governance — snapshot, adattatori, em dash
+
+on:
+  workflow_dispatch:
+  # I due elenchi sono ripetuti di proposito, identici. GitHub Actions non
+  # supporta ufficialmente le ancore YAML, e in questo repository un push che
+  # toccava solo un workflow non ha prodotto nessun run proprio per questo.
+  pull_request:
+    paths:
+      - ".fitmesh/**"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "GEMINI.md"
+      - ".agents/**"
+      - "tools/check-governance.ts"
+      - "tools/governance-copy-scope.json"
+      - "tools/governance-emdash-baseline.json"
+      - "tools/governance-selftest.sh"
+      - "lib/**"
+      - "components/**"
+      - "app/**"
+      - "package.json"
+      - ".nvmrc"
+      - ".github/workflows/governance.yml"
+  push:
+    branches:
+      - "main"
+      - "chore/**"
+    paths:
+      - ".fitmesh/**"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "GEMINI.md"
+      - ".agents/**"
+      - "tools/check-governance.ts"
+      - "tools/governance-copy-scope.json"
+      - "tools/governance-emdash-baseline.json"
+      - "tools/governance-selftest.sh"
+      - "lib/**"
+      - "components/**"
+      - "app/**"
+      - "package.json"
+      - ".nvmrc"
+      - ".github/workflows/governance.yml"
+
+# Sola lettura. Questo workflow non deve poter scrivere niente, da nessuna parte.
+permissions:
+  contents: read
+
+concurrency:
+  group: governance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Snapshot, adattatori e em dash
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      COREPACK_ENABLE_DOWNLOAD_PROMPT: "0"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node congelato (.nvmrc)
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: pnpm congelato (packageManager di package.json)
+        run: |
+          set -uo pipefail
+          atteso="$(node -p "require('./package.json').packageManager")"
+          corepack enable
+          corepack prepare "${atteso}" --activate
+          effettivo="pnpm@$(pnpm --version 2>/dev/null)"
+          if [ "${effettivo}" != "${atteso}" ]; then
+            echo "ROSSO: pnpm effettivo «${effettivo}», atteso «${atteso}»."
+            exit 1
+          fi
+          echo "pnpm ${effettivo}, come dichiarato"
+
+      - name: Dipendenze dal lockfile
+        run: pnpm install --frozen-lockfile
+
+      - name: Il cancello
+        run: pnpm governance:check
+
+      - name: Il cancello prova se stesso (test negativi)
+        # Un guardrail visto solo passare non e' un guardrail. Questo passo
+        # rompe di proposito cio' che il controllo dovrebbe intercettare e
+        # pretende un rosso, poi ripristina e pretende di nuovo il verde.
+        # Lavora su copie in $RUNNER_TEMP, mai sull'albero del checkout.
+        run: bash tools/governance-selftest.sh
+
+      - name: Referto
+        if: always()
+        run: |
+          echo "node:  $(node --version)"
+          echo "check: pnpm governance:check"
+          echo "deploy: nessuno. Questo workflow non distribuisce e non carica artefatti."
