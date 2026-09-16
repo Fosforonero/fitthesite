@@ -129,12 +129,12 @@ const COPY = {
       {
         q: "Un familiare non e' molto pratico di tecnologia. Riesce a usarla?",
         a:
-          "Sì. Una volta installata l'app e cliccato il link di invito che gli mandi, non deve fare nient'altro. L'app sincronizza da sola in background. Il resto della famiglia vede i suoi dati dalla propria app. Non deve aprire più nulla.",
+          "Sì. Una volta installata l'app e cliccato il link di invito che gli mandi, la configurazione iniziale è completata e il resto della famiglia vede i dati condivisi nella propria app. La sincronizzazione dipende dai permessi e dalle regole in background del telefono. In alcuni casi può essere necessario riaprire FitMesh.",
       },
       {
         q: "Posso vedere la posizione dei membri famiglia?",
         a:
-          "No, mai. FitMesh Sync non raccoglie ne' condivide dati di posizione. Se cerchi quello, serve un'app dedicata tipo Google Family Link.",
+          "No. Mesh Famiglia non mostra la posizione degli altri membri nella vista del gruppo. Se cerchi il tracciamento della posizione, serve un'app dedicata tipo Google Family Link.",
       },
       {
         q: "Cosa succede se un membro vuole uscire dal gruppo?",
@@ -245,12 +245,12 @@ const COPY = {
       {
         q: "A family member isn't very tech-savvy. Can they use it?",
         a:
-          "Yes. Once the app is installed and they tap the invite link you send, they don't need to do anything else. The app syncs in background automatically. The rest of the family sees their data in their own app. They never need to open it again.",
+          "Yes. Once the app is installed and they tap the invite link you send, initial setup is complete and the rest of the family sees shared data in their own app. Sync depends on phone permissions and background execution rules. In some cases, reopening FitMesh may be required.",
       },
       {
         q: "Can I see family members' location?",
         a:
-          "No, never. FitMesh Sync does not collect or share location data. If you need that, use a dedicated app like Google Family Link.",
+          "No. Family Mesh does not show the location of other members in the group view. If you need location tracking, use a dedicated app like Google Family Link.",
       },
       {
         q: "What if a member wants to leave the group?",
@@ -361,12 +361,12 @@ const COPY = {
       {
         q: "Un familiar no es muy hábil con la tecnología. ¿Puede usarla?",
         a:
-          "Sí. Una vez instalada la app y tocado el enlace de invitación que le envías, no tiene que hacer nada más. La app sincroniza sola en segundo plano. El resto de la familia ve sus datos desde su propia app. No necesita volver a abrirla nunca más.",
+          "Sí. Una vez instalada la app y tocado el enlace de invitación que le envías, la configuración inicial queda lista y el resto de la familia ve los datos compartidos desde su propia app. La sincronización depende de los permisos y de las reglas de ejecución en segundo plano del teléfono. En algunos casos puede ser necesario volver a abrir FitMesh.",
       },
       {
         q: "¿Puedo ver la ubicación de los miembros de la familia?",
         a:
-          "No, nunca. FitMesh Sync no recopila ni comparte datos de ubicación. Si necesitas eso, usa una app dedicada como Google Family Link.",
+          "No. Mesh Familia no muestra la ubicación de los demás miembros en la vista de grupo. Si buscas seguimiento de ubicación, usa una app dedicada como Google Family Link.",
       },
       {
         q: "¿Qué pasa si un miembro quiere salir del grupo?",
@@ -477,12 +477,12 @@ const COPY = {
       {
         q: "Ein Familienmitglied ist nicht sehr technikaffin. Kann es die App trotzdem nutzen?",
         a:
-          "Ja. Sobald die App installiert ist und die Person auf den Einladungslink tippt, den du sendest, ist nichts weiter nötig. Die App synchronisiert automatisch im Hintergrund. Der Rest der Familie sieht die Daten in der eigenen App. Die Person muss die App nie wieder öffnen.",
+          "Ja. Sobald die App installiert ist und die Person auf den Einladungslink tippt, den du sendest, ist die Ersteinrichtung abgeschlossen und der Rest der Familie sieht die geteilten Daten in der eigenen App. Die Synchronisierung hängt von den Berechtigungen und den Hintergrundregeln des Telefons ab. In manchen Fällen kann es erforderlich sein, FitMesh erneut zu öffnen.",
       },
       {
         q: "Kann ich den Standort der Familienmitglieder sehen?",
         a:
-          "Nein, niemals. FitMesh Sync erfasst oder teilt keine Standortdaten. Falls du das benötigst, verwende eine spezialisierte App wie Google Family Link.",
+          "Nein. Mesh Familie zeigt den Standort anderer Mitglieder in der Gruppenansicht nicht an. Wenn du Standortverfolgung suchst, verwende eine spezialisierte App wie Google Family Link.",
       },
       {
         q: "Was passiert, wenn ein Mitglied die Gruppe verlassen möchte?",
@@ -593,12 +593,12 @@ const COPY = {
       {
         q: "Um familiar não tem muita intimidade com tecnologia. Consegue usar?",
         a:
-          "Sim. Depois de instalar o app e tocar no link de convite que você envia, essa pessoa não precisa fazer mais nada. O app sincroniza automaticamente em segundo plano. O resto da família vê os dados dela no próprio app. Ela nunca mais precisa abrir nada.",
+          "Sim. Depois de instalar o app e tocar no link de convite que você envia, a configuração inicial está concluída e o restante da família vê os dados compartilhados no próprio app. A sincronização depende das permissões e das regras de segundo plano do telefone. Em alguns casos, pode ser necessário reabrir o FitMesh.",
       },
       {
         q: "Posso ver a localização dos membros da família?",
         a:
-          "Não, nunca. FitMesh Sync não coleta nem compartilha dados de localização. Se precisar disso, use um app dedicado como o Google Family Link.",
+          "Não. O Mesh Família não mostra a localização dos outros membros na visualização do grupo. Se você precisa de rastreamento de localização, use um app dedicado como o Google Family Link.",
       },
       {
         q: "O que acontece se um membro quiser sair do grupo?",
@@ -709,12 +709,12 @@ const COPY = {
       {
         q: "Un membre de la famille n'est pas très à l'aise avec la technologie. Peut-il l'utiliser?",
         a:
-          "Oui. Une fois l'app installée et le lien d'invitation que vous envoyez touché, cette personne n'a rien d'autre à faire. L'app synchronise automatiquement en arrière-plan. Le reste de la famille voit ses données dans sa propre app. Elle n'a plus jamais besoin de l'ouvrir.",
+          "Oui. Une fois l'app installée et le lien d'invitation que vous envoyez touché, la configuration initiale est terminée et le reste de la famille voit les données partagées dans sa propre app. La synchronisation dépend des autorisations et des règles d'exécution en arrière-plan du téléphone. Dans certains cas, il peut être nécessaire de rouvrir FitMesh.",
       },
       {
         q: "Puis-je voir la localisation des membres de la famille?",
         a:
-          "Non, jamais. FitMesh Sync ne collecte ni ne partage de données de localisation. Si vous avez besoin de cela, utilisez une application dédiée comme Google Family Link.",
+          "Non. Mesh Famille n'affiche pas la localisation des autres membres dans la vue de groupe. Si vous cherchez un suivi de localisation, utilisez une application dédiée comme Google Family Link.",
       },
       {
         q: "Que se passe-t-il si un membre veut quitter le groupe?",
@@ -825,12 +825,12 @@ const COPY = {
       {
         q: "Członek rodziny nie radzi sobie dobrze z technologią. Czy może korzystać z aplikacji?",
         a:
-          "Tak. Po zainstalowaniu aplikacji i kliknięciu w link zaproszenia, który wyślesz, ta osoba nie musi robić nic więcej. Aplikacja synchronizuje się automatycznie w tle. Reszta rodziny widzi jej dane we własnej aplikacji. Nie musi już nigdy jej otwierać.",
+          "Tak. Po zainstalowaniu aplikacji i kliknięciu w link zaproszenia, który wyślesz, wstępna konfiguracja jest zakończona, a reszta rodziny widzi udostępnione dane we własnej aplikacji. Synchronizacja zależy od uprawnień oraz reguł działania w tle w telefonie. W niektórych przypadkach może być konieczne ponowne otwarcie FitMesh.",
       },
       {
         q: "Czy mogę zobaczyć lokalizację członków rodziny?",
         a:
-          "Nie, nigdy. FitMesh Sync nie zbiera ani nie udostępnia danych o lokalizacji. Jeśli potrzebujesz tego, skorzystaj z dedykowanej aplikacji, takiej jak Google Family Link.",
+          "Nie. Mesh Rodzina nie pokazuje lokalizacji innych członków w widoku grupy. Jeśli szukasz śledzenia lokalizacji, skorzystaj z dedykowanej aplikacji, takiej jak Google Family Link.",
       },
       {
         q: "Co się dzieje, gdy członek chce opuścić grupę?",
@@ -941,12 +941,12 @@ const COPY = {
       {
         q: "Bir aile üyesinin teknolojiyle arası pek iyi değil. Uygulamayı kullanabilir mi?",
         a:
-          "Evet. Uygulama yüklendikten ve gönderdiğiniz davet bağlantısına tıklandıktan sonra başka bir şey yapması gerekmez. Uygulama arka planda otomatik olarak senkronize olur. Ailenin geri kalanı verilerini kendi uygulamasında görür. Bir daha uygulamayı açmasına gerek kalmaz.",
+          "Evet. Uygulama yüklendikten ve gönderdiğiniz davet bağlantısına tıklandıktan sonra ilk kurulum tamamlanır ve ailenin geri kalanı paylaşılan verileri kendi uygulamasında görür. Senkronizasyon, telefonun izinlerine ve arka plan kurallarına bağlıdır. Bazı durumlarda FitMesh'i yeniden açmak gerekebilir.",
       },
       {
         q: "Aile üyelerinin konumunu görebilir miyim?",
         a:
-          "Hayır, asla. FitMesh Sync konum verisi toplamaz veya paylaşmaz. Buna ihtiyacınız varsa Google Family Link gibi özel bir uygulama kullanın.",
+          "Hayır. Mesh Aile, grup görünümünde diğer üyelerin konumunu göstermez. Konum takibi arıyorsanız Google Family Link gibi özel bir uygulama kullanın.",
       },
       {
         q: "Bir üye gruptan ayrılmak isterse ne olur?",
