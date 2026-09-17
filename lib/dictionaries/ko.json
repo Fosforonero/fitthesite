@@ -74,7 +74,8 @@
     "description": "사이트 운영에 필요한 쿠키를 사용하며, 동의하시면 제품 개선을 위해 Google Analytics도 사용합니다. 광고 또는 프로파일링 쿠키는 사용하지 않습니다.",
     "details_link": "세부 정보",
     "accept": "모두 허용",
-    "reject": "선택적 거부"
+    "reject": "선택적 거부",
+    "preferences": "쿠키 설정"
   },
   "legal": {
     "last_updated": "최종 업데이트",

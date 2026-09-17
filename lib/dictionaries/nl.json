@@ -74,7 +74,8 @@
     "description": "We gebruiken strikt noodzakelijke cookies voor de werking van de site en, met jouw toestemming, Google Analytics om te leren hoe we het product kunnen verbeteren. Geen advertentie- of profileringscookies.",
     "details_link": "Details",
     "accept": "Alles accepteren",
-    "reject": "Optionele weigeren"
+    "reject": "Optionele weigeren",
+    "preferences": "Cookievoorkeuren"
   },
   "legal": {
     "last_updated": "Laatst bijgewerkt",

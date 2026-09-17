@@ -74,7 +74,8 @@
     "description": "We use strictly necessary cookies for the site to function and, with your consent, Google Analytics to learn how to improve the product. No advertising or profiling cookies.",
     "details_link": "Details",
     "accept": "Accept all",
-    "reject": "Reject optional"
+    "reject": "Reject optional",
+    "preferences": "Cookie preferences"
   },
   "legal": {
     "last_updated": "Last updated",

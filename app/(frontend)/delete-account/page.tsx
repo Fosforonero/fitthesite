@@ -6,6 +6,7 @@ import { organizationCompactRef } from "@/components/seo/OrganizationJsonLd";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { DELETE_ACCOUNT_COPY } from "@/lib/content/delete-account-copy";
 import { SITE_URL } from "@/lib/product-facts";
+import { getDictionary } from "@/lib/i18n";
 
 const PAGE_URL = `${SITE_URL}/delete-account`;
 
@@ -40,8 +41,9 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function DeleteAccountPage() {
+export default async function DeleteAccountPage() {
   const t = DELETE_ACCOUNT_COPY.en;
+  const [en, it] = await Promise.all([getDictionary("en"), getDictionary("it")]);
 
   const webPageJsonLd = {
     "@context": "https://schema.org",
@@ -78,7 +80,7 @@ export default function DeleteAccountPage() {
       <JsonLd data={webPageJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={faqJsonLd} />
-      <DeleteAccountView />
+      <DeleteAccountView consentLabels={{ en: en.cookie_banner.preferences, it: it.cookie_banner.preferences }} />
     </>
   );
 }

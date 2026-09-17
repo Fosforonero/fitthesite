@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
-import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
+import { locales, type Locale, type Dictionary, getDictionary, localeAlternates } from "@/lib/i18n";
 import { LegalPage, Section } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
+import ConsentPreferencesButton from "@/components/ConsentPreferencesButton";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "16 giugno 2026";
-const LAST_UPDATED_EN = "June 16, 2026";
-const LAST_UPDATED_ES = "16 de junio de 2026";
-const LAST_UPDATED_DE = "16. Juni 2026";
-const LAST_UPDATED_PT = "16 de junho de 2026";
-const LAST_UPDATED_FR = "16 juin 2026";
+const LAST_UPDATED_IT = "17 settembre 2026";
+const LAST_UPDATED_EN = "September 17, 2026";
+const LAST_UPDATED_ES = "17 de septiembre de 2026";
+const LAST_UPDATED_DE = "17. September 2026";
+const LAST_UPDATED_PT = "17 de setembro de 2026";
+const LAST_UPDATED_FR = "17 septembre 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -82,9 +83,9 @@ export default async function CookiesPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Cookie Policy", path: `/${lc}/cookies` }]} locale={lc} />
-      <LegalJsonLd locale={lc} path="/cookies" name={t.legal.cookies_title} dateModified="2026-06-16" />
+      <LegalJsonLd locale={lc} path="/cookies" name={t.legal.cookies_title} dateModified="2026-09-17" />
       <LegalPage kicker={t.legal.section} title={t.legal.cookies_title} lastUpdated={lastUpdated}>
-        {lc === "it" ? <CookiesIT /> : lc === "es" ? <CookiesES /> : lc === "de" ? <CookiesDE /> : lc === "pt" ? <CookiesPT /> : lc === "fr" ? <CookiesFR /> : <CookiesEN />}
+        {lc === "it" ? <CookiesIT /> : lc === "es" ? <CookiesES /> : lc === "de" ? <CookiesDE /> : lc === "pt" ? <CookiesPT /> : lc === "fr" ? <CookiesFR /> : <CookiesEN labels={t.cookie_banner} />}
       </LegalPage>
     </>
   );
@@ -134,8 +135,8 @@ function CookiesIT() {
             </thead>
             <tbody>
               <Row name="fitmesh_cookie_consent" type="localStorage" category="Tecnico" duration="Persistente" scope="Memorizza la tua scelta sul banner cookie. Non contiene dati personali." />
-              <Row name="_ga" type="cookie" category="Analytics (opzionale)" duration="2 anni" scope="Google Analytics 4: identifica visitatori in modo anonimo. Caricato SOLO dopo «Accetta tutto»." />
-              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (opzionale)" duration="2 anni" scope="Google Analytics 4: persistenza di sessione. Caricato SOLO dopo «Accetta tutto»." />
+              <Row name="_ga" type="cookie" category="Analytics (opzionale)" duration="2 anni" scope="Google Analytics 4: identificativo che distingue un visitatore da un altro. Impostato SOLO dopo «Accetta tutto»." />
+              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (opzionale)" duration="2 anni" scope="Google Analytics 4: persistenza di sessione. Impostato SOLO dopo «Accetta tutto»." />
               <Row name="Cookie tecnici Vercel" type="cookie" category="Tecnico" duration="Sessione" scope="Load balancing e prevenzione abusi della piattaforma di hosting." />
             </tbody>
           </table>
@@ -145,10 +146,13 @@ function CookiesIT() {
       <Section title="Google Analytics 4 — dettagli">
         <p>
           Usiamo Google Analytics 4 (proprietà{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) con
-          configurazione: <strong className="text-text-primary">Consent Mode v2</strong>,
-          IP anonymization (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
-          advertising signals disattivati. Dettagli completi sull'utilizzo di Google:{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>). Il tag di Google viene caricato solo dopo che hai
+          scelto «Accetta tutto» nel banner: prima di quella scelta, e dopo un rifiuto, il sito
+          non invia richieste a Google Analytics. Nelle pagine di accesso, della dashboard web e degli
+          inviti, e in quelle a cui torni dopo aver autorizzato un servizio collegato, il tag non
+          viene caricato; se ci arrivi con il tag già caricato, la pagina si ricarica senza. Segnali
+          pubblicitari e personalizzazione degli annunci sono disattivati. Dettagli completi
+          sull'utilizzo di Google:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
         </p>
       </Section>
@@ -170,10 +174,13 @@ function CookiesIT() {
 
       <Section title="Come gestire il consenso">
         <p>
-          Hai pieno controllo. Per modificare la scelta: DevTools del browser (F12) → "Application"
-          → localStorage di fitmesh.fit → cancella{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">fitmesh_cookie_consent</code>.
-          Alla prossima visita rivedrai il banner.
+          Puoi cambiare la scelta in qualsiasi momento con il pulsante «Preferenze cookie» in fondo
+          alle pagine del sito, oppure da qui:{" "}
+          <ConsentPreferencesButton label="Preferenze cookie" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" />.
+          Il banner si riapre: se scegli «Rifiuta opzionali» dopo aver accettato, il sito smette di
+          inviare eventi a Google Analytics, cancella i cookie <code className="text-brand-aqua font-mono text-[0.85em]">_ga</code> e{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">_ga_WLBXXFB21G</code> a cui può accedere e ricarica la pagina
+          senza il tag di Google.
         </p>
         <p>
           Per disattivare GA su tutti i siti puoi installare il{" "}
@@ -193,7 +200,8 @@ function CookiesIT() {
   );
 }
 
-function CookiesEN() {
+/** Il corpo inglese e' servito anche a pl, tr, nl, ja, ko, sv, da, no, fi: i nomi dei pulsanti vengono dal dizionario della lingua della pagina. */
+function CookiesEN({ labels }: { labels: Dictionary["cookie_banner"] }) {
   return (
     <>
       <Section title="In short">
@@ -219,8 +227,8 @@ function CookiesEN() {
             </thead>
             <tbody>
               <Row name="fitmesh_cookie_consent" type="localStorage" category="Technical" duration="Persistent" scope="Stores your choice on the cookie banner. Contains no personal data." />
-              <Row name="_ga" type="cookie" category="Analytics (optional)" duration="2 years" scope="Google Analytics 4: anonymous visitor identification. Loaded ONLY after «Accept all»." />
-              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (optional)" duration="2 years" scope="Google Analytics 4: session persistence. Loaded ONLY after «Accept all»." />
+              <Row name="_ga" type="cookie" category="Analytics (optional)" duration="2 years" scope={`Google Analytics 4: identifier that tells one visitor from another. Set ONLY after “${labels.accept}”.`} />
+              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (optional)" duration="2 years" scope={`Google Analytics 4: session persistence. Set ONLY after “${labels.accept}”.`} />
               <Row name="Vercel technical cookies" type="cookie" category="Technical" duration="Session" scope="Hosting platform load balancing and abuse prevention." />
             </tbody>
           </table>
@@ -230,10 +238,12 @@ function CookiesEN() {
       <Section title="Google Analytics 4 — details">
         <p>
           We use Google Analytics 4 (property{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) with
-          configuration: <strong className="text-text-primary">Consent Mode v2</strong>,
-          IP anonymization (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
-          advertising signals disabled. Full Google privacy details:{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>). The Google tag is loaded only after you choose
+          “{labels.accept}” in the banner: before that choice, and after a rejection, the site sends
+          no requests to Google Analytics. On sign-in, web dashboard and invitation pages, and
+          on pages you return to after authorizing a connected service, the tag is not loaded; if
+          you reach one with the tag already loaded, the page reloads without it. Advertising signals and
+          ad personalization are disabled. Full Google privacy details:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
         </p>
       </Section>
@@ -255,10 +265,13 @@ function CookiesEN() {
 
       <Section title="How to manage your consent">
         <p>
-          You have full control. To change your choice: browser DevTools (F12) → "Application" →
-          localStorage of fitmesh.fit → delete{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">fitmesh_cookie_consent</code>.
-          On next visit, the banner reappears.
+          You can change your choice at any time with the “{labels.preferences}” button at the bottom
+          of the site's pages, or from here:{" "}
+          <ConsentPreferencesButton label={labels.preferences} className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" />.
+          The banner reopens: if you choose “{labels.reject}” after accepting, the site stops sending
+          events to Google Analytics, deletes the <code className="text-brand-aqua font-mono text-[0.85em]">_ga</code> and{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">_ga_WLBXXFB21G</code> cookies it can reach, and reloads the page
+          without the Google tag.
         </p>
         <p>
           To disable GA across all sites you can install the{" "}
@@ -304,8 +317,8 @@ function CookiesES() {
             </thead>
             <tbody>
               <Row name="fitmesh_cookie_consent" type="localStorage" category="Técnica" duration="Persistente" scope="Guarda tu elección en el banner de cookies. No contiene datos personales." />
-              <Row name="_ga" type="cookie" category="Analítica (opcional)" duration="2 años" scope="Google Analytics 4: identifica visitantes de forma anónima. Se carga SOLO tras «Aceptar todo»." />
-              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analítica (opcional)" duration="2 años" scope="Google Analytics 4: persistencia de sesión. Se carga SOLO tras «Aceptar todo»." />
+              <Row name="_ga" type="cookie" category="Analítica (opcional)" duration="2 años" scope="Google Analytics 4: identificador que distingue a un visitante de otro. Se establece SOLO tras «Aceptar todo»." />
+              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analítica (opcional)" duration="2 años" scope="Google Analytics 4: persistencia de sesión. Se establece SOLO tras «Aceptar todo»." />
               <Row name="Cookies técnicas de Vercel" type="cookie" category="Técnica" duration="Sesión" scope="Equilibrio de carga y prevención de abusos de la plataforma de alojamiento." />
             </tbody>
           </table>
@@ -315,10 +328,13 @@ function CookiesES() {
       <Section title="Google Analytics 4 — detalles">
         <p>
           Usamos Google Analytics 4 (propiedad{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) con
-          configuración: <strong className="text-text-primary">Consent Mode v2</strong>,
-          anonimización de IP (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
-          señales publicitarias desactivadas. Información completa sobre el uso de datos por parte de Google:{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>). La etiqueta de Google solo se carga después de que
+          elijas «Aceptar todo» en el banner: antes de esa elección, y tras un rechazo, el sitio no
+          envía solicitudes a Google Analytics. En las páginas de inicio de sesión, del panel web
+          y de invitaciones, y en las páginas a las que vuelves después de autorizar un servicio
+          conectado, la etiqueta no se carga; si llegas a una con la etiqueta ya cargada, la página
+          se recarga sin ella. Las señales publicitarias y la personalización de anuncios están desactivadas.
+          Información completa sobre el uso de datos por parte de Google:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
         </p>
       </Section>
@@ -340,10 +356,13 @@ function CookiesES() {
 
       <Section title="Cómo gestionar tu consentimiento">
         <p>
-          Tienes el control total. Para cambiar tu elección: herramientas de desarrollo del navegador
-          (F12) → "Application" → localStorage de fitmesh.fit → elimina{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">fitmesh_cookie_consent</code>.
-          En tu próxima visita, el banner volverá a aparecer.
+          Puedes cambiar tu elección en cualquier momento con el botón «Preferencias de cookies» al
+          pie de las páginas del sitio, o desde aquí:{" "}
+          <ConsentPreferencesButton label="Preferencias de cookies" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" />.
+          El banner vuelve a abrirse: si eliges «Rechazar opcionales» después de haber aceptado, el
+          sitio deja de enviar eventos a Google Analytics, elimina las cookies <code className="text-brand-aqua font-mono text-[0.85em]">_ga</code> y{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">_ga_WLBXXFB21G</code> a las que puede acceder y vuelve a cargar
+          la página sin la etiqueta de Google.
         </p>
         <p>
           Para desactivar GA en todos los sitios, puedes instalar el{" "}
@@ -390,8 +409,8 @@ function CookiesDE() {
             </thead>
             <tbody>
               <Row name="fitmesh_cookie_consent" type="localStorage" category="Technisch" duration="Dauerhaft" scope="Speichert deine Auswahl im Cookie-Banner. Enthält keine personenbezogenen Daten." />
-              <Row name="_ga" type="cookie" category="Analytics (optional)" duration="2 Jahre" scope="Google Analytics 4: anonyme Identifizierung von Besuchern. Wird NUR nach «Alle akzeptieren» geladen." />
-              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (optional)" duration="2 Jahre" scope="Google Analytics 4: Sitzungspersistenz. Wird NUR nach «Alle akzeptieren» geladen." />
+              <Row name="_ga" type="cookie" category="Analytics (optional)" duration="2 Jahre" scope="Google Analytics 4: Kennung, die Besucher voneinander unterscheidet. Wird NUR nach „Alle akzeptieren“ gesetzt." />
+              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (optional)" duration="2 Jahre" scope="Google Analytics 4: Sitzungspersistenz. Wird NUR nach „Alle akzeptieren“ gesetzt." />
               <Row name="Technische Vercel-Cookies" type="cookie" category="Technisch" duration="Sitzung" scope="Load-Balancing und Missbrauchsschutz der Hosting-Plattform." />
             </tbody>
           </table>
@@ -401,10 +420,13 @@ function CookiesDE() {
       <Section title="Google Analytics 4 — Details">
         <p>
           Wir verwenden Google Analytics 4 (Property{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) mit
-          Konfiguration: <strong className="text-text-primary">Consent Mode v2</strong>,
-          IP-Anonymisierung (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
-          Werbesignale deaktiviert. Vollständige Datenschutzinformationen von Google:{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>). Das Google-Tag wird erst geladen, nachdem du im
+          Banner „Alle akzeptieren“ gewählt hast: Vor dieser Wahl und nach einer Ablehnung sendet die
+          Website keine Anfragen an Google Analytics. Auf Anmelde- und Einladungsseiten, im Web-Dashboard
+          und auf Seiten, auf die du nach der Autorisierung eines verbundenen Dienstes zurückkehrst,
+          wird das Tag nicht geladen; kommst du mit bereits geladenem Tag dorthin, wird die Seite
+          ohne das Tag neu geladen. Werbesignale und personalisierte Werbung sind
+          deaktiviert. Vollständige Datenschutzinformationen von Google:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
         </p>
       </Section>
@@ -426,10 +448,13 @@ function CookiesDE() {
 
       <Section title="Einwilligung verwalten">
         <p>
-          Du hast die volle Kontrolle. Um deine Auswahl zu ändern: Browser-DevTools (F12) → „Application"
-          → localStorage von fitmesh.fit → Eintrag{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">fitmesh_cookie_consent</code>{" "}
-          löschen. Beim nächsten Besuch erscheint das Banner erneut.
+          Du kannst deine Auswahl jederzeit über die Schaltfläche „Cookie-Einstellungen“ am Ende
+          der Seiten dieser Website ändern oder direkt hier:{" "}
+          <ConsentPreferencesButton label="Cookie-Einstellungen" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" />.
+          Das Banner öffnet sich erneut: Wählst du nach einer Zustimmung „Optionale ablehnen“, sendet
+          die Website keine Ereignisse mehr an Google Analytics, löscht die Cookies <code className="text-brand-aqua font-mono text-[0.85em]">_ga</code> und{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">_ga_WLBXXFB21G</code>, soweit sie darauf zugreifen kann, und lädt
+          die Seite ohne das Google-Tag neu.
         </p>
         <p>
           Um GA auf allen Websites zu deaktivieren, kannst du das{" "}
@@ -476,8 +501,8 @@ function CookiesPT() {
             </thead>
             <tbody>
               <Row name="fitmesh_cookie_consent" type="localStorage" category="Técnico" duration="Persistente" scope="Armazena sua escolha no banner de cookies. Não contém dados pessoais." />
-              <Row name="_ga" type="cookie" category="Analytics (opcional)" duration="2 anos" scope="Google Analytics 4: identificação anônima de visitantes. Carregado APENAS após «Aceitar tudo»." />
-              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (opcional)" duration="2 anos" scope="Google Analytics 4: persistência de sessão. Carregado APENAS após «Aceitar tudo»." />
+              <Row name="_ga" type="cookie" category="Analytics (opcional)" duration="2 anos" scope="Google Analytics 4: identificador que distingue um visitante de outro. Definido APENAS após “Aceitar tudo”." />
+              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (opcional)" duration="2 anos" scope="Google Analytics 4: persistência de sessão. Definido APENAS após “Aceitar tudo”." />
               <Row name="Cookies técnicos do Vercel" type="cookie" category="Técnico" duration="Sessão" scope="Balanceamento de carga e prevenção de abusos da plataforma de hospedagem." />
             </tbody>
           </table>
@@ -487,10 +512,13 @@ function CookiesPT() {
       <Section title="Google Analytics 4 — detalhes">
         <p>
           Usamos o Google Analytics 4 (propriedade{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) com
-          configuração em conformidade com o LGPD: <strong className="text-text-primary">Consent Mode v2</strong>,
-          anonimização de IP (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
-          sinais de publicidade desativados. Detalhes completos sobre a privacidade do Google:{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>). A tag do Google só é carregada depois que você
+          escolhe “Aceitar tudo” no banner: antes dessa escolha, e depois de uma recusa, o site não
+          envia solicitações ao Google Analytics. Nas páginas de login, do painel web e de convites, e
+          nas páginas às quais você volta depois de autorizar um serviço conectado, a tag não é
+          carregada; se você chegar a uma delas com a tag já carregada, a página é recarregada sem ela. Os sinais de
+          publicidade e a personalização de anúncios estão desativados. Detalhes completos sobre a
+          privacidade do Google:{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
         </p>
       </Section>
@@ -512,10 +540,13 @@ function CookiesPT() {
 
       <Section title="Como gerenciar seu consentimento">
         <p>
-          Você tem controle total. Para alterar sua escolha: DevTools do navegador (F12) → "Application"
-          → localStorage do fitmesh.fit → exclua{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">fitmesh_cookie_consent</code>.
-          Na próxima visita, o banner reaparecerá.
+          Você pode alterar sua escolha a qualquer momento pelo botão “Preferências de cookies” no
+          rodapé das páginas do site, ou por aqui:{" "}
+          <ConsentPreferencesButton label="Preferências de cookies" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" />.
+          O banner é reaberto: se você escolher “Recusar opcionais” depois de ter aceitado, o site
+          deixa de enviar eventos ao Google Analytics, exclui os cookies <code className="text-brand-aqua font-mono text-[0.85em]">_ga</code> e{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">_ga_WLBXXFB21G</code> que consegue acessar e recarrega a página
+          sem a tag do Google.
         </p>
         <p>
           Para desativar o GA em todos os sites, você pode instalar o{" "}
@@ -562,8 +593,8 @@ function CookiesFR() {
             </thead>
             <tbody>
               <Row name="fitmesh_cookie_consent" type="localStorage" category="Technique" duration="Persistant" scope="Enregistre votre choix sur le bandeau cookies. Ne contient aucune donnée personnelle." />
-              <Row name="_ga" type="cookie" category="Analytics (optionnel)" duration="2 ans" scope="Google Analytics 4: identification anonyme des visiteurs. Chargé UNIQUEMENT après «Tout accepter»." />
-              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (optionnel)" duration="2 ans" scope="Google Analytics 4: persistance de session. Chargé UNIQUEMENT après «Tout accepter»." />
+              <Row name="_ga" type="cookie" category="Analytics (optionnel)" duration="2 ans" scope="Google Analytics 4 : identifiant qui distingue un visiteur d'un autre. Défini UNIQUEMENT après « Tout accepter »." />
+              <Row name="_ga_WLBXXFB21G" type="cookie" category="Analytics (optionnel)" duration="2 ans" scope="Google Analytics 4 : persistance de session. Défini UNIQUEMENT après « Tout accepter »." />
               <Row name="Cookies techniques Vercel" type="cookie" category="Technique" duration="Session" scope="Équilibrage de charge et prévention des abus de la plateforme d'hébergement." />
             </tbody>
           </table>
@@ -573,10 +604,13 @@ function CookiesFR() {
       <Section title="Google Analytics 4 — détails">
         <p>
           Nous utilisons Google Analytics 4 (propriété{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>) avec
-          une configuration: <strong className="text-text-primary">Consent Mode v2</strong>,
-          anonymisation de l'IP (<code className="text-brand-aqua font-mono text-[0.85em]">anonymize_ip: true</code>),
-          signaux publicitaires désactivés. Informations complètes sur la confidentialité Google:{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">G-WLBXXFB21G</code>). La balise Google n'est chargée qu'après votre choix
+          « Tout accepter » dans le bandeau : avant ce choix, et après un refus, le site n'envoie
+          aucune requête à Google Analytics. Sur les pages de connexion, du tableau de bord web et
+          d'invitation, ainsi que sur les pages où vous revenez après avoir autorisé un service
+          connecté, la balise n'est pas chargée ; si vous y arrivez alors que la balise est déjà
+          chargée, la page se recharge sans elle. Les signaux publicitaires et la personnalisation des annonces sont
+          désactivés. Informations complètes sur la confidentialité Google :{" "}
           <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4">policies.google.com/privacy</a>.
         </p>
       </Section>
@@ -598,10 +632,13 @@ function CookiesFR() {
 
       <Section title="Gérer votre consentement">
         <p>
-          Vous avez le contrôle total. Pour modifier votre choix: outils de développement du navigateur
-          (F12) → «Application» → localStorage de fitmesh.fit → supprimez{" "}
-          <code className="text-brand-aqua font-mono text-[0.85em]">fitmesh_cookie_consent</code>.
-          À la prochaine visite, le bandeau réapparaîtra.
+          Vous pouvez modifier votre choix à tout moment avec le bouton « Paramètres des cookies » en
+          bas des pages du site, ou d'ici :{" "}
+          <ConsentPreferencesButton label="Paramètres des cookies" className="text-brand-aqua hover:text-brand-blue underline underline-offset-4" />.
+          Le bandeau s'ouvre à nouveau : si vous choisissez « Refuser les optionnels » après avoir
+          accepté, le site cesse d'envoyer des événements à Google Analytics, supprime les cookies <code className="text-brand-aqua font-mono text-[0.85em]">_ga</code> et{" "}
+          <code className="text-brand-aqua font-mono text-[0.85em]">_ga_WLBXXFB21G</code> auxquels il a accès et recharge la page
+          sans la balise Google.
         </p>
         <p>
           Pour désactiver GA sur tous les sites, vous pouvez installer le{" "}

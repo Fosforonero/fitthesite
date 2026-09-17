@@ -74,7 +74,8 @@
     "description": "Używamy niezbędnych plików cookie do działania strony oraz, za Twoją zgodą, Google Analytics w celu ulepszania produktu. Żadnych plików cookie reklamowych ani profilujących.",
     "details_link": "Szczegóły",
     "accept": "Zaakceptuj wszystkie",
-    "reject": "Odrzuć opcjonalne"
+    "reject": "Odrzuć opcjonalne",
+    "preferences": "Ustawienia plików cookie"
   },
   "legal": {
     "last_updated": "Ostatnia aktualizacja",

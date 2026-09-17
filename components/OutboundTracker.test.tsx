@@ -77,12 +77,17 @@ beforeEach(() => {
   (globalThis as unknown as { IntersectionObserver: unknown }).IntersectionObserver =
     FakeIntersectionObserver;
   (window as unknown as { gtag: unknown }).gtag = vi.fn();
+  // P0.24-A: gli eventi partono solo con consenso dato e GA caricato. Questi
+  // test descrivono il contenuto degli eventi, quindi dichiarano quello stato;
+  // l'assenza di eventi senza consenso e' in components/AnalyticsConsent.test.tsx.
+  (window as unknown as { __fitmeshAnalytics?: unknown }).__fitmeshAnalytics = { loaded: true, active: true };
   window.history.replaceState({}, "", "/de/preise");
 });
 
 afterEach(() => {
   cleanup();
   delete (window as unknown as { gtag?: unknown }).gtag;
+  delete (window as unknown as { __fitmeshAnalytics?: unknown }).__fitmeshAnalytics;
 });
 
 describe("funnel post-Founder — le tre dimensioni comuni", () => {
@@ -208,6 +213,10 @@ describe("privacy — superficie dei dati", () => {
       // dato sanitario/identificativo, vedi lib/analytics/cta.ts.
       "content_cluster",
       "target_type",
+      // P0.24-A: URL della pagina corrente, senza query salvo UTM, aggiunto da
+      // trackEvent (lib/analytics/consent.ts) perche' GA4 non lo aggiorna da solo
+      // dopo una navigazione client-side.
+      "page_location",
     ]);
 
     render(
@@ -251,11 +260,13 @@ describe("P0.14A — external_community_click (r/FitMesh)", () => {
     expect(events).toHaveLength(1);
     // toEqual (non toMatchObject): prova che non ci sia NESSUN parametro
     // oltre ai quattro dichiarati — niente campaign, niente id, niente PII.
+    // page_location e' aggiunto da trackEvent per ogni evento (P0.24-A).
     expect(events[0]).toEqual({
       platform: "reddit",
       placement: COMMUNITY_PLACEMENTS.footer,
       locale: "de",
       path: "/de/preise",
+      page_location: `${window.location.origin}/de/preise`,
     });
     // un link Reddit non è ne' una CTA ne' uno store: non deve mai comparire li'.
     expect(eventsNamed("cta_click")).toHaveLength(0);

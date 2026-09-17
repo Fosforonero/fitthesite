@@ -74,7 +74,8 @@
     "description": "Usamos cookies técnicas esenciales (imprescindibles para el sitio) y, con tu consentimiento, Google Analytics para entender cómo mejorar el producto. Ninguna cookie publicitaria ni de perfilado.",
     "details_link": "Detalles",
     "accept": "Aceptar todo",
-    "reject": "Rechazar opcionales"
+    "reject": "Rechazar opcionales",
+    "preferences": "Preferencias de cookies"
   },
   "legal": {
     "last_updated": "Última actualización",

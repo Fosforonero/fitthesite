@@ -65,22 +65,23 @@
       "support": "Tuki",
       "privacy": "Tietosuojakäytäntö",
       "terms": "Käyttöehdot",
-      "cookies": "Rakennepalvelujen käytäntö",
+      "cookies": "Evästekäytäntö",
       "community": "Yhteisö"
     }
   },
   "cookie_banner": {
-    "title": "Rakennepalvelut & tietosuoja",
-    "description": "Käytämme ainoastaan pakollisia rakennepalveluita sivuston toimintaan ja, kun hyväksyt, Google Analytics -palvelua parantaaksemme tuotetta. Ei mainonnan tai profiloivan rakennepalveluiden käyttöä.",
+    "title": "Evästeet ja tietosuoja",
+    "description": "Käytämme sivuston toiminnan kannalta välttämättömiä evästeitä ja, jos hyväksyt, Google Analyticsia tuotteen parantamiseen. Emme käytä mainonta- tai profilointievästeitä.",
     "details_link": "Tiedot",
     "accept": "Hyväksy kaikki",
-    "reject": "Hylkää valinnaiset"
+    "reject": "Hylkää valinnaiset",
+    "preferences": "Evästeasetukset"
   },
   "legal": {
     "last_updated": "Viimeisimmät päivitykset",
     "privacy_title": "Tietosuojakäytäntö",
     "terms_title": "Käyttöehdot",
-    "cookies_title": "Rakennepalvelujen käytäntö",
+    "cookies_title": "Evästekäytäntö",
     "support_title": "Usein kysytyt kysymykset",
     "section": "Oikeudet"
   },

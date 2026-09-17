@@ -47,7 +47,8 @@
     "p14b:hardening-check": "tsx tools/check-p14b-hardening.ts",
     "lang-switcher:http-check": "tsx tools/check-language-switcher-http.ts",
     "oneplus-health:claims-check": "tsx tools/check-oneplus-health-claims.ts",
-    "oneplus-health:browser-check": "tsx tools/check-oneplus-health-browser.ts"
+    "oneplus-health:browser-check": "tsx tools/check-oneplus-health-browser.ts",
+    "privacy:analytics-consent-check": "tsx tools/check-analytics-consent-browser.ts"
   },
   "dependencies": {
     "@apple/app-store-server-library": "^3.1.0",

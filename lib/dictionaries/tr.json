@@ -74,7 +74,8 @@
     "description": "Sitenin çalışması için zorunlu çerezler kullanıyoruz ve onayınızla, ürünü geliştirmek amacıyla Google Analytics kullanıyoruz. Reklam veya profil oluşturma çerezi bulunmamaktadır.",
     "details_link": "Ayrıntılar",
     "accept": "Tümünü kabul et",
-    "reject": "Opsiyonelleri reddet"
+    "reject": "Opsiyonelleri reddet",
+    "preferences": "Çerez tercihleri"
   },
   "legal": {
     "last_updated": "Son güncelleme",

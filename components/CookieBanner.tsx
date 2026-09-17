@@ -5,34 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { locales, type Locale, defaultLocale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/i18n";
-
-declare global {
-  interface Window {
-    gtag?: (...args: unknown[]) => void;
-  }
-}
-
-const STORAGE_KEY = "fitmesh_cookie_consent";
-
-type Consent = { analytics: boolean; ts: number };
-
-function updateGtagConsent(granted: boolean) {
-  try {
-    window.gtag?.("consent", "update", {
-      analytics_storage: granted ? "granted" : "denied",
-    });
-  } catch {
-    /* silent */
-  }
-}
-
-function persist(consent: Consent) {
-  try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
-  } catch {
-    /* silent */
-  }
-}
+import { CONSENT_REOPEN_EVENT, readConsent, writeConsent } from "@/lib/analytics/consent";
 
 export default function CookieBanner({ dict }: { dict: Dictionary }) {
   const [visible, setVisible] = useState(false);
@@ -43,31 +16,22 @@ export default function CookieBanner({ dict }: { dict: Dictionary }) {
     (locales as readonly string[]).find((l) => pathname.startsWith(`/${l}`)) as Locale | undefined ??
     defaultLocale;
 
+  // Il banner non accende ne' spegne analytics: salva la scelta, e
+  // AnalyticsConsent (montato nel root layout) la applica.
   useEffect(() => {
-    try {
-      const stored = window.localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed: Consent = JSON.parse(stored);
-        updateGtagConsent(!!parsed.analytics);
-        return;
-      }
-    } catch {
-      /* fall through */
-    }
-    setVisible(true);
+    if (!readConsent()) setVisible(true);
+    const reopen = () => setVisible(true);
+    window.addEventListener(CONSENT_REOPEN_EVENT, reopen);
+    return () => window.removeEventListener(CONSENT_REOPEN_EVENT, reopen);
   }, []);
 
   const acceptAll = () => {
-    const consent: Consent = { analytics: true, ts: Date.now() };
-    persist(consent);
-    updateGtagConsent(true);
+    writeConsent(true);
     setVisible(false);
   };
 
   const rejectOptional = () => {
-    const consent: Consent = { analytics: false, ts: Date.now() };
-    persist(consent);
-    updateGtagConsent(false);
+    writeConsent(false);
     setVisible(false);
   };
 

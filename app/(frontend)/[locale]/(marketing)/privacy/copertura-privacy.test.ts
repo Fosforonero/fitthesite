@@ -26,10 +26,12 @@ function corpiPerLingua(): Record<string, string> {
   const lingue = ["IT", "EN", "ES", "DE", "PT", "FR"];
   const out: Record<string, string> = {};
   for (let i = 0; i < lingue.length; i++) {
-    const inizio = SORGENTE.indexOf(`function Privacy${lingue[i]}()`);
+    // P0.24-A: PrivacyEN riceve le etichette del banner come prop, quindi si
+    // cerca l'apertura della firma e non la firma vuota.
+    const inizio = SORGENTE.indexOf(`function Privacy${lingue[i]}(`);
     expect(inizio, `manca function Privacy${lingue[i]}`).toBeGreaterThan(-1);
     const succ = lingue[i + 1]
-      ? SORGENTE.indexOf(`function Privacy${lingue[i + 1]}()`)
+      ? SORGENTE.indexOf(`function Privacy${lingue[i + 1]}(`)
       : SORGENTE.length;
     out[lingue[i]] = SORGENTE.slice(inizio, succ);
   }

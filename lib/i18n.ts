@@ -187,6 +187,7 @@ export type Dictionary = {
     details_link: string;
     accept: string;
     reject: string;
+    preferences: string;
   };
   legal: {
     last_updated: string;

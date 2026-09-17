@@ -1,9 +1,7 @@
-import Script from "next/script";
 import { inter, grotesk } from "@/lib/fonts";
+import AnalyticsConsent from "@/components/AnalyticsConsent";
 import OutboundTracker from "@/components/OutboundTracker";
 import "@/app/(frontend)/globals.css";
-
-const GA_MEASUREMENT_ID = "G-WLBXXFB21G";
 
 /**
  * P0.9: corpo del vecchio, unico `app/(frontend)/layout.tsx` — quel file
@@ -47,44 +45,11 @@ export function RootHtmlShell({
           fetchPriority="high"
         />
 
-        {/* GA4 with Consent Mode v2 — applies to ALL pages regardless of locale.
-            See BRAND.md §15. */}
-        <Script id="gtag-consent-default" strategy="beforeInteractive">{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          window.gtag = gtag;
-          gtag('consent', 'default', {
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'analytics_storage': 'denied',
-            'functionality_storage': 'granted',
-            'security_storage': 'granted',
-            'wait_for_update': 500
-          });
-          gtag('js', new Date());
-          gtag('config', '${GA_MEASUREMENT_ID}', {
-            anonymize_ip: true,
-            allow_google_signals: false,
-            allow_ad_personalization_signals: false
-          });
-          try {
-            var stored = window.localStorage.getItem('fitmesh_cookie_consent');
-            if (stored) {
-              var v = JSON.parse(stored);
-              if (v && v.analytics === true) {
-                gtag('consent', 'update', { 'analytics_storage': 'granted' });
-              }
-            }
-          } catch (_) {}
-        `}</Script>
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="lazyOnload"
-        />
       </head>
       <body className="min-h-screen flex flex-col font-sans bg-page antialiased">
         {children}
+        {/* GA4 solo dopo «Accetta» nel banner: vedi lib/analytics/consent.ts. */}
+        <AnalyticsConsent />
         <OutboundTracker />
       </body>
     </html>
