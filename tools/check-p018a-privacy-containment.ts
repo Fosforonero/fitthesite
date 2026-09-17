@@ -98,10 +98,8 @@ const FILES: Array<{
     // (Francoforte)" + "Conformità GDPR full" in it/en/es: ERA LIVE,
     // pubblicato, mai trovato prima — corretto qui. Le righe sotto restano
     // skip perché VERAMENTE morte (confermato leggendo faqLocale nel
-    // codice): faqs[3] di de/pt/fr/pl/tr (mai usate, faqLocale non le
-    // seleziona mai) e il resto del render "full mode" (righe 977-1370,
-    // mai raggiunto).
-    skipLines: [495, 611, 727, 843, 959],
+    // faqs[3] di tutte le lingue è stato integralmente allineato alla formulazione
+    // autorizzata senza riferimenti a server Francoforte o certificazioni GDPR/RODO.
     skipRanges: [[977, 1370]],
   },
   { path: "app/(frontend)/[locale]/(marketing)/privacy/page.tsx", categories: ["gdpr_as_certification", "unproven_deletion_timing"] },

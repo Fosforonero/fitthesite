@@ -26,6 +26,7 @@ import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { isLocaleInCopy } from "@/lib/content/page-copy-gate";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
+import { getFamigliaComingSoon } from "@/lib/content/famiglia-coming-soon";
 
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
 
@@ -49,7 +50,7 @@ const COPY = {
     hero_kicker: "Mesh Famiglia",
     hero_h1: "La salute di tutta la famiglia, in un'unica dashboard",
     hero_sub:
-      "Crei un gruppo, inviti chi vuoi (genitori, partner, figli), e ognuno condivide con gli altri passi, sonno e frequenza cardiaca in un'unica dashboard. Privacy first: ognuno sceglie cosa condividere.",
+      "Crei un gruppo, inviti chi vuoi (genitori, partner, figli), e ognuno condivide con gli altri passi, sonno e frequenza cardiaca in un'unica dashboard. La funzione è progettata per offrire una vista condivisa di alcune metriche del gruppo.",
     cta_primary: "Scarica l'app",
     cta_secondary: "Come funziona",
     why_kicker: "Perchè serve",
@@ -116,9 +117,9 @@ const COPY = {
         color: "brand-green",
       },
     ],
-    techstack_h2: "Funziona con tutti i wearable che gia' avete",
+    techstack_h2: "Funziona con i wearable compatibili che già avete",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Se uno di voi ha un wearable diverso, basta che scriva i dati su Health Connect (lo fanno tutti dal 2024). Niente acquisto vincolato a un marchio.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Se uno di voi ha un dispositivo diverso, basta che sincronizzi i dati con Health Connect o Apple Salute. Niente acquisto vincolato a un marchio.",
     pricing_kicker: "Quanto costa",
     pricing_h2: "Mesh Famiglia fino a 8 membri con Pro",
     pricing_body:
@@ -129,12 +130,12 @@ const COPY = {
       {
         q: "Un familiare non e' molto pratico di tecnologia. Riesce a usarla?",
         a:
-          "Sì. Una volta installata l'app e cliccato il link di invito che gli mandi, non deve fare nient'altro. L'app sincronizza da sola in background. Il resto della famiglia vede i suoi dati dalla propria app. Non deve aprire più nulla.",
+          "Sì. Una volta installata l'app e cliccato il link di invito che gli mandi, la configurazione iniziale è completata e il resto della famiglia vede i dati condivisi nella propria app. La sincronizzazione dipende dai permessi e dalle regole in background del telefono. In alcuni casi può essere necessario riaprire FitMesh.",
       },
       {
-        q: "Posso vedere la posizione dei membri famiglia?",
+        q: "Mesh Famiglia mostra la posizione degli altri membri?",
         a:
-          "No, mai. FitMesh Sync non raccoglie ne' condivide dati di posizione. Se cerchi quello, serve un'app dedicata tipo Google Family Link.",
+          "Mesh Famiglia non è attualmente disponibile. Nel progetto attuale, la vista del gruppo non include la posizione geografica degli altri membri.",
       },
       {
         q: "Cosa succede se un membro vuole uscire dal gruppo?",
@@ -144,7 +145,7 @@ const COPY = {
       {
         q: "I dati salute dei miei familiari sono al sicuro?",
         a:
-          "Sì. Tutto cifrato HTTPS/TLS. Accesso vincolato al gruppo specifico via Row-Level Security Postgres. Niente broker dati, niente pubblicita' profilata.",
+          "La connessione al servizio usa HTTPS/TLS. Per informazioni sul trattamento dei dati consulta la Privacy Policy.",
       },
       {
         q: "E' un dispositivo medico?",
@@ -165,7 +166,7 @@ const COPY = {
     hero_kicker: "Family Mesh",
     hero_h1: "Your whole family's health, in one dashboard",
     hero_sub:
-      "Create a group, invite anyone (parents, partner, kids), and everyone shares steps, sleep and heart rate with each other in one dashboard. Privacy-first: everyone chooses what to share.",
+      "Create a group, invite anyone (parents, partner, kids), and everyone shares steps, sleep and heart rate with each other in one dashboard. The feature is designed to provide a shared view of some group metrics.",
     cta_primary: "Get the app",
     cta_secondary: "How it works",
     why_kicker: "Why it matters",
@@ -232,9 +233,9 @@ const COPY = {
         color: "brand-green",
       },
     ],
-    techstack_h2: "Works with all wearables you already own",
+    techstack_h2: "Works with compatible wearables you already own",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. If one of you has a different wearable, it just needs to write data to Health Connect (all major brands do since 2024). No brand lock-in.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. If someone uses a different device, it just needs to sync data with Health Connect or Apple Health. No brand lock-in.",
     pricing_kicker: "What it costs",
     pricing_h2: "Family Mesh up to 8 members with Pro",
     pricing_body:
@@ -245,12 +246,12 @@ const COPY = {
       {
         q: "A family member isn't very tech-savvy. Can they use it?",
         a:
-          "Yes. Once the app is installed and they tap the invite link you send, they don't need to do anything else. The app syncs in background automatically. The rest of the family sees their data in their own app. They never need to open it again.",
+          "Yes. Once the app is installed and they tap the invite link you send, initial setup is complete and the rest of the family sees shared data in their own app. Sync depends on phone permissions and background execution rules. In some cases, reopening FitMesh may be required.",
       },
       {
-        q: "Can I see family members' location?",
+        q: "Does Family Mesh show the location of other members?",
         a:
-          "No, never. FitMesh Sync does not collect or share location data. If you need that, use a dedicated app like Google Family Link.",
+          "Family Mesh is not currently available. In the current design, the group view does not include other members' geographic location.",
       },
       {
         q: "What if a member wants to leave the group?",
@@ -260,7 +261,7 @@ const COPY = {
       {
         q: "Are my family's health data safe?",
         a:
-          "Yes. Everything is encrypted via HTTPS/TLS. Access bound to the specific group via Row-Level Security in Postgres. No data brokers, no profiling ads.",
+          "Connections to the service use HTTPS/TLS. For details on data handling, consult our Privacy Policy.",
       },
       {
         q: "Is this a medical device?",
@@ -281,7 +282,7 @@ const COPY = {
     hero_kicker: "Mesh Familia",
     hero_h1: "La salud de toda la familia, en un solo panel",
     hero_sub:
-      "Creas un grupo, invitas a quien quieras (padres, pareja, hijos), y cada uno comparte con los demás pasos, sueño y frecuencia cardíaca en un solo panel. Privacidad primero: cada persona elige qué compartir.",
+      "Creas un grupo, invitas a quien quieras (padres, pareja, hijos), y cada uno comparte con los demás pasos, sueño y frecuencia cardíaca en un solo panel. La función está pensada para ofrecer una vista compartida de algunas métricas del grupo.",
     cta_primary: "Descarga la app",
     cta_secondary: "Cómo funciona",
     why_kicker: "Por qué lo necesitas",
@@ -348,9 +349,9 @@ const COPY = {
         color: "brand-green",
       },
     ],
-    techstack_h2: "Compatible con todos los wearables que ya tienes",
+    techstack_h2: "Compatible con los wearables que ya tienes",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Si alguno de vosotros tiene un wearable diferente, basta con que escriba los datos en Health Connect (lo hacen todas las marcas principales desde 2024). Sin ataduras a ninguna marca.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Si alguien de la familia usa otro dispositivo, solo necesita sincronizar datos con Health Connect o Apple Health. Sin ataduras a ninguna marca.",
     pricing_kicker: "Cuánto cuesta",
     pricing_h2: "Mesh Familia hasta 8 miembros con Pro",
     pricing_body:
@@ -361,12 +362,12 @@ const COPY = {
       {
         q: "Un familiar no es muy hábil con la tecnología. ¿Puede usarla?",
         a:
-          "Sí. Una vez instalada la app y tocado el enlace de invitación que le envías, no tiene que hacer nada más. La app sincroniza sola en segundo plano. El resto de la familia ve sus datos desde su propia app. No necesita volver a abrirla nunca más.",
+          "Sí. Una vez instalada la app y tocado el enlace de invitación que le envías, la configuración inicial queda lista y el resto de la familia ve los datos compartidos desde su propia app. La sincronización depende de los permisos y de las reglas de ejecución en segundo plano del teléfono. En algunos casos puede ser necesario volver a abrir FitMesh.",
       },
       {
-        q: "¿Puedo ver la ubicación de los miembros de la familia?",
+        q: "¿Mesh Familia muestra la ubicación de los demás miembros?",
         a:
-          "No, nunca. FitMesh Sync no recopila ni comparte datos de ubicación. Si necesitas eso, usa una app dedicada como Google Family Link.",
+          "Mesh Familia no está disponible actualmente. En el diseño actual, la vista del grupo no incluye la ubicación geográfica de los demás miembros.",
       },
       {
         q: "¿Qué pasa si un miembro quiere salir del grupo?",
@@ -376,7 +377,7 @@ const COPY = {
       {
         q: "¿Los datos de salud de mis familiares están seguros?",
         a:
-          "Sí. Todo cifrado mediante HTTPS/TLS. Acceso restringido al grupo específico mediante Row-Level Security en Postgres. Sin intermediarios de datos, sin publicidad basada en perfiles.",
+          "La conexión con el servicio utiliza HTTPS/TLS. Para más información sobre el tratamiento de datos, consulta la Política de Privacidad.",
       },
       {
         q: "¿Es un dispositivo médico?",
@@ -397,7 +398,7 @@ const COPY = {
     hero_kicker: "Mesh Familie",
     hero_h1: "Die Gesundheit der ganzen Familie, in einem Dashboard",
     hero_sub:
-      "Du erstellst eine Gruppe, lädst ein, wen du möchtest (Eltern, Partner, Kinder), und jeder teilt Schritte, Schlaf und Herzfrequenz mit den anderen in einem Dashboard. Datenschutz an erster Stelle: Jeder entscheidet selbst, was er teilt.",
+      "Du erstellst eine Gruppe, lädst ein, wen du möchtest (Eltern, Partner, Kinder), und jeder teilt Schritte, Schlaf und Herzfrequenz mit den anderen in einem Dashboard. Die Funktion ist darauf ausgelegt, eine gemeinsame Ansicht einiger Gruppenmetriken zu bieten.",
     cta_primary: "App herunterladen",
     cta_secondary: "So funktioniert es",
     why_kicker: "Warum es wichtig ist",
@@ -464,9 +465,9 @@ const COPY = {
         color: "brand-green",
       },
     ],
-    techstack_h2: "Funktioniert mit allen Wearables, die ihr bereits besitzt",
+    techstack_h2: "Funktioniert mit kompatiblen Wearables, die ihr bereits besitzt",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Falls jemand aus eurer Gruppe ein anderes Wearable hat, muss es nur Daten an Health Connect übermitteln (das tun alle großen Marken seit 2024). Kein Markenzwang.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Falls jemand in der Familie ein anderes Gerät nutzt, muss es lediglich Daten an Health Connect oder Apple Health übertragen. Kein Markenzwang.",
     pricing_kicker: "Was es kostet",
     pricing_h2: "Mesh Familie bis zu 8 Mitglieder mit Pro",
     pricing_body:
@@ -477,12 +478,12 @@ const COPY = {
       {
         q: "Ein Familienmitglied ist nicht sehr technikaffin. Kann es die App trotzdem nutzen?",
         a:
-          "Ja. Sobald die App installiert ist und die Person auf den Einladungslink tippt, den du sendest, ist nichts weiter nötig. Die App synchronisiert automatisch im Hintergrund. Der Rest der Familie sieht die Daten in der eigenen App. Die Person muss die App nie wieder öffnen.",
+          "Ja. Sobald die App installiert ist und die Person auf den Einladungslink tippt, den du sendest, ist die Ersteinrichtung abgeschlossen und der Rest der Familie sieht die geteilten Daten in der eigenen App. Die Synchronisierung hängt von den Berechtigungen und den Hintergrundregeln des Telefons ab. In manchen Fällen kann es erforderlich sein, FitMesh erneut zu öffnen.",
       },
       {
-        q: "Kann ich den Standort der Familienmitglieder sehen?",
+        q: "Zeigt Mesh Familie den Standort anderer Mitglieder?",
         a:
-          "Nein, niemals. FitMesh Sync erfasst oder teilt keine Standortdaten. Falls du das benötigst, verwende eine spezialisierte App wie Google Family Link.",
+          "Mesh Familie ist derzeit nicht verfügbar. Im aktuellen Entwurf enthält die Gruppenansicht nicht den geografischen Standort anderer Mitglieder.",
       },
       {
         q: "Was passiert, wenn ein Mitglied die Gruppe verlassen möchte?",
@@ -492,7 +493,7 @@ const COPY = {
       {
         q: "Sind die Gesundheitsdaten meiner Familie sicher?",
         a:
-          "Ja. Alles ist via HTTPS/TLS verschlüsselt. Speicherung auf Supabase EU (Frankfurt). Zugriff auf die jeweilige Gruppe beschränkt via Row-Level Security in Postgres. Keine Datenhändler, keine profilbasierte Werbung. Volle DSGVO-Konformität.",
+          "Die Verbindung zum Dienst verwendet HTTPS/TLS. Informationen zur Datenverarbeitung findest du in der Datenschutzerklärung.",
       },
       {
         q: "Ist dies ein Medizinprodukt?",
@@ -513,7 +514,7 @@ const COPY = {
     hero_kicker: "Mesh Família",
     hero_h1: "A saúde de toda a família, em um único painel",
     hero_sub:
-      "Você cria um grupo, convida quem quiser (pais, parceiro, filhos), e cada um compartilha com os demais passos, sono e frequência cardíaca em um único painel. Privacidade em primeiro lugar: cada pessoa escolhe o que compartilhar.",
+      "Você cria um grupo, convida quem quiser (pais, parceiro, filhos) e compartilham passos, sono e frequência cardíaca em um único painel. O recurso foi projetado para oferecer uma visualização compartilhada de algumas métricas do grupo.",
     cta_primary: "Baixe o app",
     cta_secondary: "Como funciona",
     why_kicker: "Por que faz diferença",
@@ -580,9 +581,9 @@ const COPY = {
         color: "brand-green",
       },
     ],
-    techstack_h2: "Funciona com todos os wearables que você já tem",
+    techstack_h2: "Funciona com os wearables compatíveis que você já tem",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Se alguém do grupo tiver um wearable diferente, basta que ele grave os dados no Health Connect (todas as marcas principais fazem isso desde 2024). Sem vínculo com nenhuma marca.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Se alguém do grupo usar outro dispositivo, basta sincronizar os dados com o Health Connect ou Apple Health. Sem vínculo a marcas.",
     pricing_kicker: "Quanto custa",
     pricing_h2: "Mesh Família com até 8 membros no Pro",
     pricing_body:
@@ -593,12 +594,12 @@ const COPY = {
       {
         q: "Um familiar não tem muita intimidade com tecnologia. Consegue usar?",
         a:
-          "Sim. Depois de instalar o app e tocar no link de convite que você envia, essa pessoa não precisa fazer mais nada. O app sincroniza automaticamente em segundo plano. O resto da família vê os dados dela no próprio app. Ela nunca mais precisa abrir nada.",
+          "Sim. Depois de instalar o app e tocar no link de convite que você envia, a configuração inicial está concluída e o restante da família vê os dados compartilhados no próprio app. A sincronização depende das permissões e das regras de segundo plano do telefone. Em alguns casos, pode ser necessário reabrir o FitMesh.",
       },
       {
-        q: "Posso ver a localização dos membros da família?",
+        q: "O Mesh Família mostra a localização dos outros membros?",
         a:
-          "Não, nunca. FitMesh Sync não coleta nem compartilha dados de localização. Se precisar disso, use um app dedicado como o Google Family Link.",
+          "O Mesh Família não está disponível no momento. No projeto atual, a visualização do grupo não inclui a localização geográfica de outros membros.",
       },
       {
         q: "O que acontece se um membro quiser sair do grupo?",
@@ -608,7 +609,7 @@ const COPY = {
       {
         q: "Os dados de saúde da minha família estão seguros?",
         a:
-          "Sim. Tudo criptografado via HTTPS/TLS. Armazenamento no Supabase EU (Frankfurt). Acesso restrito ao grupo específico via Row-Level Security no Postgres. Sem corretores de dados, sem publicidade baseada em perfil. Total conformidade com o LGPD e GDPR.",
+          "A conexão com o serviço usa HTTPS/TLS. Para obter informações sobre o tratamento de dados, consulte nossa Política de Privacidade.",
       },
       {
         q: "Isso é um dispositivo médico?",
@@ -629,7 +630,7 @@ const COPY = {
     hero_kicker: "Mesh Famille",
     hero_h1: "La santé de toute la famille, dans un seul tableau de bord",
     hero_sub:
-      "Vous créez un groupe, invitez qui vous voulez (parents, partenaire, enfants), et chacun partage avec les autres ses pas, son sommeil et sa fréquence cardiaque dans un seul tableau de bord. La confidentialité d'abord: chacun choisit ce qu'il partage.",
+      "Vous créez un groupe, invitez qui vous voulez (parents, partenaire, enfants), et partagez vos pas, votre sommeil et votre fréquence cardiaque dans un seul tableau de bord. La fonctionnalité est conçue pour offrir une vue partagée de certaines métriques du groupe.",
     cta_primary: "Téléchargez l'app",
     cta_secondary: "Comment ça marche",
     why_kicker: "Pourquoi c'est utile",
@@ -696,9 +697,9 @@ const COPY = {
         color: "brand-green",
       },
     ],
-    techstack_h2: "Compatible avec tous les appareils connectés que vous possédez déjà",
+    techstack_h2: "Compatible avec les appareils connectés que vous possédez déjà",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Si l'un d'entre vous possède un appareil différent, il lui suffit d'écrire les données sur Health Connect (toutes les grandes marques le font depuis 2024). Aucun engagement envers une marque.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Si un membre de la famille utilise un autre appareil, il suffit qu'il synchronise ses données avec Health Connect ou Apple Santé. Aucun engagement de marque.",
     pricing_kicker: "Combien ça coûte",
     pricing_h2: "Mesh Famille jusqu'à 8 membres avec Pro",
     pricing_body:
@@ -709,12 +710,12 @@ const COPY = {
       {
         q: "Un membre de la famille n'est pas très à l'aise avec la technologie. Peut-il l'utiliser?",
         a:
-          "Oui. Une fois l'app installée et le lien d'invitation que vous envoyez touché, cette personne n'a rien d'autre à faire. L'app synchronise automatiquement en arrière-plan. Le reste de la famille voit ses données dans sa propre app. Elle n'a plus jamais besoin de l'ouvrir.",
+          "Oui. Une fois l'app installée et le lien d'invitation que vous envoyez touché, la configuration initiale est terminée et le reste de la famille voit les données partagées dans sa propre app. La synchronisation dépend des autorisations et des règles d'exécution en arrière-plan du téléphone. Dans certains cas, il peut être nécessaire de rouvrir FitMesh.",
       },
       {
-        q: "Puis-je voir la localisation des membres de la famille?",
+        q: "Mesh Famille montre-t-il la localisation des autres membres?",
         a:
-          "Non, jamais. FitMesh Sync ne collecte ni ne partage de données de localisation. Si vous avez besoin de cela, utilisez une application dédiée comme Google Family Link.",
+          "Mesh Famille n'est actuellement pas disponible. Dans la conception actuelle, la vue de groupe n'inclut pas la localisation géographique des autres membres.",
       },
       {
         q: "Que se passe-t-il si un membre veut quitter le groupe?",
@@ -724,7 +725,7 @@ const COPY = {
       {
         q: "Les données de santé de ma famille sont-elles en sécurité?",
         a:
-          "Oui. Tout est chiffré via HTTPS/TLS. Stockage sur Supabase EU (Francfort). Accès limité au groupe spécifique via Row-Level Security dans Postgres. Aucun courtier de données, aucune publicité profilée. Conformité totale au RGPD.",
+          "La connexion au service utilise HTTPS/TLS. Pour plus d'informations sur le traitement des données, consultez notre Politique de Confidentialité.",
       },
       {
         q: "Est-ce un dispositif médical?",
@@ -743,235 +744,235 @@ const COPY = {
   },
   pl: {
     hero_kicker: "Mesh Rodzina",
-    hero_h1: "Zdrowie calej rodziny, w jednym panelu",
+    hero_h1: "Zdrowie całej rodziny w jednym panelu",
     hero_sub:
-      "Tworzysz grupe, zapraszasz kogo chcesz (rodziców, partnera, dzieci), a kazdy udostepnia innym swoje kroki, sen i tetno w jednym panelu. Prywatnosc przede wszystkim: kazdy sam decyduje, co udostepnia.",
-    cta_primary: "Pobierz aplikacje",
-    cta_secondary: "Jak to dziala",
+      "Tworzysz grupę, zapraszasz kogo chcesz (rodziców, partnera, dzieci), a każdy udostępnia innym swoje kroki, sen i tętno w jednym panelu. Funkcja została zaprojektowana, aby oferować wspólny widok niektórych wskaźników grupy.",
+    cta_primary: "Pobierz aplikację",
+    cta_secondary: "Jak to działa",
     why_kicker: "Dlaczego warto",
     why_h2: "Trzy sytuacje, ten sam panel",
     why_items: [
       {
-        title: "Rodzice i dorosle dzieci",
+        title: "Rodzice i dorosłe dzieci",
         body:
-          "Mieszkacie osobno, ale trzymacie sie na biezaco: kto dzis chodzil, kto dobrze spal. Kazdy udostepnia swoje dane innym, bez koniecznosci pytania czy pisania wiadomosci codziennie.",
+          "Mieszkacie osobno, ale jesteście na bieżąco: kto dzisiaj spacerował, kto dobrze spał. Każdy udostępnia swoje dane bliskim bez konieczności codziennego dopytywania.",
       },
       {
         title: "Rodzina z nastolatkami",
         body:
-          "Twoje dziecko ma Mi Band, ty masz Galaxy Watch. Widzicie nawzajem swoje kroki, sen i tetno w tej samej aplikacji: bez mediów spolecznosciowych, bez czatów, tylko liczby, którymi sie dzielicie.",
+          "Twoje dziecko ma Mi Band, Ty masz Galaxy Watch. Widzicie nawzajem swoje kroki, sen i tętno w tej samej aplikacji: bez mediów społecznościowych, bez czatów, tylko czytelne podsumowania.",
       },
       {
-        title: "Partnerzy i malzonkowie",
+        title: "Partnerzy i małżonkowie",
         body:
-          "Pracujecie w róznych miejscach i widujecie sie wieczorami. Wiedza, ze ona zrobila swoje 8000 kroków albo ze on dobrze spal, to maly sposób na dbanie o siebie na odleglosc.",
+          "Pracujecie w różnych miejscach i spotykacie się wieczorem. Świadomość, że partner zrobił swoje 8000 kroków lub dobrze wypoczął, to prosty sposób na troskę na odległość.",
       },
     ],
-    how_kicker: "Jak to dziala",
+    how_kicker: "Jak to działa",
     how_h2: "Trzy kroki, dwie minuty",
     how_steps: [
       {
-        title: "Tworzysz grupe rodzinna",
+        title: "Tworzysz grupę rodzinną",
         body:
-          "W aplikacji FitMesh dotknij 'Mesh Rodzina' → 'Utwórz grupe'. Nadaj jej nazwe (np. 'Rodzina Kowalskich'). Ty jestes administratorem.",
+          "W aplikacji FitMesh wybierz 'Mesh Rodzina' → 'Utwórz grupę'. Nadaj jej nazwę (np. 'Rodzina Kowalskich'). Ty jesteś administratorem.",
       },
       {
-        title: "Zapraszasz kogo chcesz przez link",
+        title: "Zapraszasz bliskich przez link",
         body:
-          "Aplikacja generuje kod MESH-XXXX i link do udostepnienia (WhatsApp, SMS, e-mail). Kto kliknie, pobiera aplikacje i dolacza. Mesh Rodzina obejmuje do 8 czlonków z FitMesh Pro: kazdy testuje wszystkie funkcje za darmo przez 14 dni, a potem aktywuje Pro.",
+          "Aplikacja generuje kod MESH-XXXX i link do udostępnienia (WhatsApp, SMS, e-mail). Kto kliknie, pobiera aplikację i dołącza. Mesh Rodzina obejmuje do 8 członków z FitMesh Pro: każdy testuje wszystkie funkcje bezpłatnie przez 14 dni, a potem aktywuje Pro.",
       },
       {
-        title: "Kazdy wybiera, co udostepnia",
+        title: "Każdy wybiera, co udostępnia",
         body:
-          "Domyslnie udostepniane: kroki, sen, tetno spoczynkowe, poziom aktywnosci. NIE udostepniane domyslnie: waga, cisnienie, cykl, glikemia, lokalizacja. Mozna zmienic w dowolnym momencie w aplikacji.",
+          "Domyślnie udostępniane: kroki, sen, tętno spoczynkowe, ogólna aktywność. NIGDY nieudostępniane domyślnie: waga, ciśnienie, cykl, glikemia, lokalizacja. Ustawienia można zmienić w każdej chwili.",
       },
     ],
-    privacy_kicker: "Prywatnosc i kontrola",
-    privacy_h2: "Co widzisz i czego NIGDY nie widzisz",
+    privacy_kicker: "Prywatność i kontrola",
+    privacy_h2: "Co widzisz, a czego NIGDY nie zobaczysz",
     privacy_columns: [
       {
-        title: "Co widza inni czlonkowie",
+        title: "Co widzą inni członkowie",
         items: [
-          "Imie, które wybralo wybrany przez czlonka (np. 'Mama', 'Luca')",
-          "Dzienna liczba kroków",
-          "Laczna liczba godzin snu",
-          "Srednie i spoczynkowe tetno",
-          "Ogólny poziom aktywnosci (niski/sredni/wysoki)",
+          "Nazwę wybraną przez członka (np. 'Mama', 'Łukasz')",
+          "Dzienną liczbę kroków",
+          "Łączny czas snu",
+          "Średnie i spoczynkowe tętno",
+          "Ogólny poziom aktywności (niski/średni/wysoki)",
         ],
         color: "brand-aqua",
       },
       {
-        title: "Czego NIGDY nie widac",
+        title: "Czego NIGDY nie widać",
         items: [
-          "Lokalizacja geograficzna czlonka",
-          "Waga i sklad ciala",
-          "Cykl miesiaczkowy",
-          "Cisnienie, glikemia, wrazliwe dane medyczne",
-          "Powiadomienia, wiadomosci, kontakty z telefonu",
+          "Lokalizacji geograficznej członków",
+          "Wagi i składu ciała",
+          "Cyklu menstruacyjnego",
+          "Ciśnienia, glikemii i wrażliwych danych medycznych",
+          "Powiadomień, wiadomości ani kontaktów z telefonu",
         ],
         color: "brand-green",
       },
     ],
-    techstack_h2: "Dziala ze wszystkimi noszonymi urzadzeniami, które juz macie",
+    techstack_h2: "Działa ze zgodnymi urządzeniami, które już macie",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Jesli ktos z was ma inne urzadzenie, wystarczy ze zapisuje dane do Health Connect (robia to wszystkie wieksze marki od 2024). Zadnego uzaleznienia od jednej marki.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Jeśli ktoś z Was ma inne urządzenie, wystarczy, że zapisuje dane w Health Connect lub Apple Zdrowie. Bez uzależnienia od jednej marki.",
     pricing_kicker: "Ile kosztuje",
-    pricing_h2: "Mesh Rodzina do 8 czlonków z Pro",
+    pricing_h2: "Mesh Rodzina do 8 członków z Pro",
     pricing_body:
-      "Mesh Rodzina to funkcja FitMesh Pro: obejmuje do 8 czlonków, z rozszerzona historia oraz priorytetowa synchronizacja. Kazda osoba testuje wszystkie funkcje za darmo przez 14 dni (równiez osoby dolaczajace do Mesh); potem aktywuje FitMesh Pro dozywotnio (jednorazowy zakup: 3,99 EUR na Androidzie · 4,99 EUR na iPhonie, cena startowa) albo subskrypcje za 1,19 EUR co 6 miesiecy.",
-    faq_kicker: "Czeste pytania",
-    faq_h2: "Watpliwosci i odpowiedzi",
+      "Mesh Rodzina to funkcja FitMesh Pro: obejmuje do 8 członków, z rozszerzoną historią oraz priorytetową synchronizacją. Każda osoba testuje wszystkie funkcje za darmo przez 14 dni (również osoby dołączające do Mesh); potem aktywuje FitMesh Pro dożywotnio (jednorazowy zakup: 3,99 EUR na Androidzie · 4,99 EUR na iPhonie, cena startowa) albo subskrypcję za 1,19 EUR co 6 miesięcy.",
+    faq_kicker: "Częste pytania",
+    faq_h2: "Wątpliwości i odpowiedzi",
     faqs: [
       {
-        q: "Czlonek rodziny nie radzi sobie dobrze z technologia. Czy moze korzystac z aplikacji?",
+        q: "Członek rodziny nie radzi sobie dobrze z technologią. Czy może korzystać z aplikacji?",
         a:
-          "Tak. Po zainstalowaniu aplikacji i kliknieciu w link zaproszenia, który wyslesz, ta osoba nie musi robic nic wiecej. Aplikacja synchronizuje sie automatycznie w tle. Reszta rodziny widzi jej dane we wlasnej aplikacji. Nie musi juz nigdy jej otwierac.",
+          "Tak. Po zainstalowaniu aplikacji i kliknięciu w link zaproszenia, który wyślesz, wstępna konfiguracja jest zakończona, a reszta rodziny widzi udostępnione dane we własnej aplikacji. Synchronizacja zależy od uprawnień oraz reguł działania w tle w telefonie. W niektórych przypadkach może być konieczne ponowne otwarcie FitMesh.",
       },
       {
-        q: "Czy moge zobaczyc lokalizacje czlonków rodziny?",
+        q: "Czy Mesh Rodzina pokazuje lokalizację innych członków?",
         a:
-          "Nie, nigdy. FitMesh Sync nie zbiera ani nie udostepnia danych o lokalizacji. Jesli potrzebujesz tego, skorzystaj z dedykowanej aplikacji, takiej jak Google Family Link.",
+          "Mesh Rodzina nie jest obecnie dostępna. W obecnym projekcie widok grupy nie zawiera lokalizacji geograficznej innych członków.",
       },
       {
-        q: "Co sie dzieje, gdy czlonek chce opuscic grupe?",
+        q: "Co się dzieje, gdy członek chce opuścić grupę?",
         a:
-          "Z jego telefonu: Mesh Rodzina → Ustawienia grupy → Opusc grupe. Jego dane historyczne sa natychmiast usuwane z widoku innych czlonków. Nie jest wymagana zgoda administratora.",
+          "Na telefonie członka grupy: Mesh Rodzina → Ustawienia grupy → Opuść grupę. Dane historyczne tej osoby są natychmiast usuwane z widoku innych członków. Zgoda administratora nie jest wymagana.",
       },
       {
-        q: "Czy dane zdrowotne mojej rodziny sa bezpieczne?",
+        q: "Czy dane zdrowotne mojej rodziny są bezpieczne?",
         a:
-          "Tak. Wszystko szyfrowane przez HTTPS/TLS. Przechowywanie na Supabase EU (Frankfurt). Dostep ograniczony do konkretnej grupy przez Row-Level Security w Postgres. Brak brokerów danych, brak reklam profilowanych. Pelna zgodnosc z RODO.",
+          "Połączenie z usługą wykorzystuje HTTPS/TLS. Szczegółowe informacje o przetwarzaniu danych znajdziesz w Polityce Prywatności.",
       },
       {
-        q: "Czy to jest urzadzenie medyczne?",
+        q: "Czy to jest urządzenie medyczne?",
         a:
-          "Nie. FitMesh Sync to aplikacja fitness i wellness. NIE zastepuje lekarza ani nie diagnozuje chorób. W przypadku jakichkolwiek watpliwosci klinicznych zawsze skonsultuj sie ze swoim lekarzem.",
+          "Nie. FitMesh Sync to aplikacja fitness i wellness. NIE zastępuje lekarza ani nie diagnozuje chorób. W przypadku jakichkolwiek wątpliwości klinicznych zawsze skonsultuj się ze swoim lekarzem.",
       },
       {
-        q: "Ile osób moge zaprosic?",
+        q: "Ile osób mogę zaprosić?",
         a:
-          "Mesh Rodzina obejmuje do 8 czlonków (wlaczajac Ciebie) z FitMesh Pro. Kazda osoba testuje wszystko za darmo przez 14 dni, a potem aktywuje Pro: dozywotnio (3,99 EUR Android · 4,99 EUR iPhone) albo 1,19 EUR co 6 miesiecy.",
+          "Mesh Rodzina obejmuje do 8 członków (włączając Ciebie) z FitMesh Pro. Każda osoba testuje wszystko za darmo przez 14 dni, a potem aktywuje Pro: dożywotnio (3,99 EUR Android · 4,99 EUR iPhone) albo 1,19 EUR co 6 miesięcy.",
       },
     ],
-    final_cta_h2: "Zacznij dzis: 3 minuty na stworzenie pierwszej grupy",
+    final_cta_h2: "Zacznij dziś: 3 minuty na stworzenie pierwszej grupy",
     final_cta_body:
-      "Pobierz FitMesh ze sklepu Play Store, utwórz grupe rodzinna i udostepnij link komu chcesz. Dziala od razu, nawet jesli Twoi bliscy nie otwieraja aplikacji przez kilka dni.",
+      "Pobierz FitMesh ze sklepu Play Store lub App Store, utwórz grupę rodzinną i udostępnij link komu chcesz. Działa od razu, nawet jeśli Twoi bliscy nie otwierają aplikacji przez kilka dni.",
   },
   tr: {
     hero_kicker: "Mesh Aile",
-    hero_h1: "Tüm ailenizin sagligi, tek bir panelde",
+    hero_h1: "Tüm ailenizin sağlığı, tek bir panelde",
     hero_sub:
-      "Bir grup olusturursunuz, istediginiz kisiyi davet edersiniz (ebeveynler, partner, cocuklar), ve herkes birbiriyle adim, uyku ve kalp hizini tek bir panelde paylasir. Gizlilik önce gelir: herkes neyi paylasacagina kendisi karar verir.",
-    cta_primary: "Uygulamayi indir",
-    cta_secondary: "Nasil calisir",
+      "Bir grup oluşturun, istediklerinizi davet edin (ebeveynler, partner, çocuklar) ve adımları, uykuyu ve kalp atış hızını tek bir panelde paylaşın. Bu özellik, bazı grup metriklerinin paylaşılan bir görünümünü sunmak üzere tasarlanmıştır.",
+    cta_primary: "Uygulamayı indir",
+    cta_secondary: "Nasıl çalışır",
     why_kicker: "Neden gerekli",
-    why_h2: "Üc durum, ayni panel",
+    why_h2: "Üç durum, aynı panel",
     why_items: [
       {
-        title: "Ebeveynler ve yetiskin cocuklar",
+        title: "Ebeveynler ve yetişkin çocuklar",
         body:
-          "Farkli evlerde yasarsiniz ama birbirinizden haberdar olursunuz: bugün kim yürüdü, kim iyi uyudu. Herkes kendi verilerini digerleriyle paylasir, her gün sormaya ya da mesaj atmaya gerek kalmadan.",
+          "Farklı evlerde yaşarsınız ama birbirinizden haberdar olursunuz: bugün kim yürüdü, kim iyi uyudu. Herkes kendi verilerini diğerleriyle paylaşır, her gün sormaya ya da mesaj atmaya gerek kalmadan.",
       },
       {
-        title: "Ergenlik caginda cocugu olan aileler",
+        title: "Ergenlik çağında çocuğu olan aileler",
         body:
-          "Cocugunuzun Mi Band'i var, sizin Galaxy Watch'unuz. Ayni uygulamada birbirinizin adimlarini, uykusunu ve kalp hizini görürsünüz: sosyal medya yok, sohbet yok, sadece aranizda paylasilan sayilar.",
+          "Çocuğunuzun Mi Band'i var, sizin Galaxy Watch'unuz. Aynı uygulamada birbirinizin adımlarını, uykusunu ve kalp hızını görürsünüz: sosyal medya yok, sohbet yok, sadece aranızda paylaşılan sayılar.",
       },
       {
-        title: "Esler ve partnerler",
+        title: "Eşler ve partnerler",
         body:
-          "Farkli yerlerde calisiyorsunuz ve aksamlari görüsüyorsunuz. Onun 8000 adimini tamamladigini ya da onun iyi uyudugunu bilmek, uzaktan birbirinize göz kulak olmanin küçük bir yoludur.",
+          "Farklı yerlerde çalışıyorsunuz ve akşamları görüşüyorsunuz. Onun 8000 adımını tamamladığını ya da onun iyi uyuduğunu bilmek, uzaktan birbirinize göz kulak olmanın küçük bir yoludur.",
       },
     ],
-    how_kicker: "Nasil calisir",
-    how_h2: "Üc adim, iki dakika",
+    how_kicker: "Nasıl çalışır",
+    how_h2: "Üç adım, iki dakika",
     how_steps: [
       {
-        title: "Aile grubunu olusturun",
+        title: "Aile grubunu oluşturun",
         body:
-          "FitMesh uygulamasinda 'Mesh Aile' → 'Grup olustur' secenegine dokunun. Bir isim verin (örnegin 'Yilmaz Ailesi'). Yönetici sizsiniz.",
+          "FitMesh uygulamasında 'Mesh Aile' → 'Grup oluştur' seçeneğine dokunun. Bir isim verin (örneğin 'Yılmaz Ailesi'). Yönetici sizsiniz.",
       },
       {
-        title: "Istediginiz kisiyi link ile davet edin",
+        title: "İstediğiniz kişiyi link ile davet edin",
         body:
-          "Uygulama bir MESH-XXXX kodu ve paylasilabilir bir link olusturur (WhatsApp, SMS, e-posta). Tiklayan kisi uygulamayi indirir ve katilir. Mesh Aile, FitMesh Pro ile 8 üyeye kadar cikar: herkes tüm özellikleri 14 gün boyunca ücretsiz dener, sonra Pro'yu etkinlestirir.",
+          "Uygulama bir MESH-XXXX kodu ve paylaşılabilir bir bağlantı oluşturur (WhatsApp, SMS, e-posta). Tıklayan kişi uygulamayı indirir ve katılır. Mesh Aile, FitMesh Pro ile 8 üyeye kadar çıkar: herkes tüm özellikleri 14 gün boyunca ücretsiz dener, sonra Pro'yu etkinleştirir.",
       },
       {
-        title: "Herkes neyi paylasmak istedigini secer",
+        title: "Herkes neyi paylaşmak istediğini seçer",
         body:
-          "Varsayilan olarak paylasilan: adimlar, uyku, dinlenme kalp hizi, aktivite seviyesi. Varsayilan olarak PAYLASILMAYAN: kilo, tansiyon, adet döngüsü, kan sekeri, konum. Uygulamadan istediginiz zaman degistirilebilir.",
+          "Varsayılan olarak paylaşılan: adımlar, uyku, dinlenme kalp hızı, aktivite seviyesi. Varsayılan olarak PAYLAŞILMAYAN: kilo, tansiyon, adet döngüsü, kan şekeri, konum. Uygulamadan istediğiniz zaman değiştirilebilir.",
       },
     ],
     privacy_kicker: "Gizlilik ve kontrol",
     privacy_h2: "Ne görürsünüz ve ASLA ne görmezsiniz",
     privacy_columns: [
       {
-        title: "Diger üyelerin gördükleri",
+        title: "Diğer üyelerin gördükleri",
         items: [
-          "Üyenin sectigi isim (örnegin 'Anne', 'Luca')",
-          "Günlük adim sayisi",
+          "Üyenin seçtiği isim (örneğin 'Anne', 'Luca')",
+          "Günlük adım sayısı",
           "Toplam uyku saatleri",
-          "Ortalama ve dinlenme kalp hizi",
-          "Genel aktivite seviyesi (düsük/orta/yüksek)",
+          "Ortalama ve dinlenme kalp hızı",
+          "Genel aktivite seviyesi (düşük/orta/yüksek)",
         ],
         color: "brand-aqua",
       },
       {
         title: "ASLA görülmeyenler",
         items: [
-          "Üyenin cografi konumu",
+          "Üyenin coğrafi konumu",
           "Kilo ve vücut kompozisyonu",
           "Adet döngüsü",
-          "Tansiyon, kan sekeri, hassas saglik verileri",
-          "Telefonun bildirimleri, mesajlari ve kisileri",
+          "Tansiyon, kan şekeri, hassas sağlık verileri",
+          "Telefonun bildirimleri, mesajları ve kişileri",
         ],
         color: "brand-green",
       },
     ],
-    techstack_h2: "Zaten sahip oldugunuz tüm giyilebilirlerle calisir",
+    techstack_h2: "Zaten sahip olduğunuz uyumlu cihazlarla çalışır",
     techstack_body:
-      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings, Honor, Huawei. Grubunuzdan birinin farkli bir giyilebiliri varsa, verileri Health Connect'e yazması yeterlidir (tüm büyük markalar bunu 2024'ten beri yapiyor). Herhangi bir markaya bagli kalma zorunlulugu yok.",
+      "Galaxy Watch, Mi Band, Pixel Watch, Garmin, Fitbit, Polar, Withings. Ailenizden birinin farklı bir cihazı varsa, verileri Health Connect veya Apple Health ile senkronize etmesi yeterlidir. Herhangi bir markaya bağlı kalma zorunluluğu yok.",
     pricing_kicker: "Ne kadar tutar",
     pricing_h2: "Mesh Aile, Pro ile 8 üyeye kadar",
     pricing_body:
-      "Mesh Aile bir FitMesh Pro özelligidir: 8 üyeye kadar cikar, genisletilmis gecmis ve senkronizasyon önceligi sunar. Her kisi tüm özellikleri 14 gün boyunca ücretsiz dener (Mesh'e katilanlar dahil); ardindan FitMesh Pro'yu ömür boyu etkinlestirir (tek seferlik satin alma: Android'de 3,99 EUR · iPhone'da 4,99 EUR, lansman fiyati) ya da 6 ayda bir 1,19 EUR aboneligi secer.",
-    faq_kicker: "Sik sorulan sorular",
-    faq_h2: "Sorular ve yanitlar",
+      "Mesh Aile bir FitMesh Pro özelliğidir: 8 üyeye kadar çıkar, genişletilmiş geçmiş ve senkronizasyon önceliği sunar. Her kişi tüm özellikleri 14 gün boyunca ücretsiz dener (Mesh'e katılanlar dahil); ardından FitMesh Pro'yu ömür boyu etkinleştirir (tek seferlik satın alma: Android'de 3,99 EUR · iPhone'da 4,99 EUR, lansman fiyatı) ya da 6 ayda bir 1,19 EUR aboneliği seçer.",
+    faq_kicker: "Sık sorulan sorular",
+    faq_h2: "Sorular ve yanıtlar",
     faqs: [
       {
-        q: "Bir aile üyesi teknolojiyle pek arasi iyi degil. Uygulamayi kullanabilir mi?",
+        q: "Bir aile üyesinin teknolojiyle arası pek iyi değil. Uygulamayı kullanabilir mi?",
         a:
-          "Evet. Uygulama yüklendikten ve gonderdiginiz davet linkine tiklandiktan sonra baska bir sey yapmasi gerekmiyor. Uygulama arka planda otomatik olarak senkronize olur. Ailenin geri kalani verilerini kendi uygulamasinda görür. Bir daha uygulamayi acmasina gerek kalmaz.",
+          "Evet. Uygulama yüklendikten ve gönderdiğiniz davet bağlantısına tıklandıktan sonra ilk kurulum tamamlanır ve ailenin geri kalanı paylaşılan verileri kendi uygulamasında görür. Senkronizasyon, telefonun izinlerine ve arka plan kurallarına bağlıdır. Bazı durumlarda FitMesh'i yeniden açmak gerekebilir.",
       },
       {
-        q: "Aile üyelerinin konumunu görebilir miyim?",
+        q: "Mesh Aile diğer üyelerin konumunu gösterir mi?",
         a:
-          "Hayir, asla. FitMesh Sync konum verisi toplamaz veya paylasmaz. Buna ihtiyaciniz varsa Google Family Link gibi özel bir uygulama kullanin.",
+          "Mesh Aile şu anda mevcut değildir. Mevcut tasarımda grup görünümü diğer üyelerin coğrafi konumunu içermez.",
       },
       {
-        q: "Bir üye gruptan ayrilmak isterse ne olur?",
+        q: "Bir üye gruptan ayrılmak isterse ne olur?",
         a:
-          "Kendi telefonundan: Mesh Aile → Grup ayarlari → Gruptan ayril. Gecmis verileri diger üyelerin görünümünden aninda kaldirilir. Yönetici onayi gerekmez.",
+          "Kendi telefonundan: Mesh Aile → Grup ayarları → Gruptan ayrıl. Geçmiş verileri diğer üyelerin görünümünden anında kaldırılır. Yönetici onayı gerekmez.",
       },
       {
-        q: "Ailemi saglik verileri güvende mi?",
+        q: "Ailemin sağlık verileri güvende mi?",
         a:
-          "Evet. Her sey HTTPS/TLS ile sifrelenmistir. Supabase EU (Frankfurt) üzerinde depolama. Postgres'teki Row-Level Security ile belirli grupla sinirli erisim. Veri brokeri yok, profil reklamciligi yok. Tam GDPR uyumlulugu.",
+          "Hizmete bağlantı HTTPS/TLS kullanır. Veri işleme hakkında bilgi için Gizlilik Politikamıza bakın.",
       },
       {
-        q: "Bu bir tibbi cihaz mi?",
+        q: "Bu bir tıbbi cihaz mı?",
         a:
-          "Hayir. FitMesh Sync bir fitness ve yasam tarzi uygulamasidir. Doktor YERINI TUTMAZ ve hastaliklari teshis etmez. Herhangi bir saglik endisesi icin her zaman doktorunuza basvurun.",
+          "Hayır. FitMesh Sync bir fitness ve yaşam tarzı uygulamasıdır. Doktor YERİNİ TUTMAZ ve hastalıkları teşhis etmez. Herhangi bir sağlık endişesi için her zaman doktorunuza başvurun.",
       },
       {
-        q: "Kac kisi davet edebilirim?",
+        q: "Kaç kişi davet edebilirim?",
         a:
-          "Mesh Aile, FitMesh Pro ile 8 üyeye kadar cikar (siz dahil). Her kisi her seyi 14 gün boyunca ücretsiz dener, sonra Pro'yu etkinlestirir: ömür boyu (3,99 EUR Android · 4,99 EUR iPhone) ya da 6 ayda bir 1,19 EUR.",
+          "Mesh Aile, FitMesh Pro ile 8 üyeye kadar çıkar (siz dahil). Her kişi her şeyi 14 gün boyunca ücretsiz dener, sonra Pro'yu etkinleştirir: ömür boyu (3,99 EUR Android · 4,99 EUR iPhone) ya da 6 ayda bir 1,19 EUR.",
       },
     ],
-    final_cta_h2: "Bugün baslayin: ilk grubu olusturmak 3 dakika",
+    final_cta_h2: "Bugün başlayın: ilk grubu oluşturmak 3 dakika",
     final_cta_body:
-      "FitMesh'i Play Store'dan indirin, aile grubunu olusturun ve linki istediginiz kisinle paylasin. Aile üyeleriniz günlerce uygulamayi acmasa bile hemen calisir.",
+      "FitMesh'i Play Store veya App Store'dan indirin, aile grubunu oluşturun ve bağlantıyı istediğiniz kişiyle paylaşın. Aile üyeleriniz günlerce uygulamayı açmasa bile hemen çalışır.",
   },
 } as const;
 
@@ -1004,22 +1005,9 @@ export async function generateMetadata({
   if (!locales.includes(locale as Locale)) return {};
   const lc = locale as Locale;
 
+  const comingSoon = getFamigliaComingSoon(lc);
   const title = COMING_SOON
-    ? (lc === "it"
-        ? "Mesh Famiglia — In arrivo | FitMesh Sync"
-        : lc === "es"
-        ? "Mesh Familia — Próximamente | FitMesh Sync"
-        : lc === "de"
-        ? "Mesh Familie — Demnächst verfügbar | FitMesh Sync"
-        : lc === "pt"
-        ? "Mesh Família — Em breve | FitMesh Sync"
-        : lc === "fr"
-        ? "Mesh Famille — Bientôt disponible | FitMesh Sync"
-        : lc === "pl"
-        ? "Mesh Rodzina — Wkrótce | FitMesh Sync"
-        : lc === "tr"
-        ? "Mesh Aile — Cok yakinda | FitMesh Sync"
-        : "Family Mesh — Coming soon | FitMesh Sync")
+    ? comingSoon.metaTitle
     : (lc === "it"
         ? "Mesh Famiglia — Condividi la salute con la tua famiglia | FitMesh Sync"
         : lc === "es"
@@ -1036,36 +1024,22 @@ export async function generateMetadata({
         ? "Mesh Aile — Sagliginizi ailenizle paylasin | FitMesh Sync"
         : "Family Mesh — Share health with your family | FitMesh Sync");
   const description = COMING_SOON
-    ? (lc === "it"
-        ? "Mesh Famiglia: condividi passi, sonno e frequenza cardiaca con la tua famiglia in un'unica dashboard privacy-first. Feature in arrivo nei prossimi mesi: scarica FitMesh Sync e prova gratis le funzioni già disponibili."
-        : lc === "es"
-        ? "Mesh Familia: comparte pasos, sueño y frecuencia cardíaca con tu familia en un panel privado. Próximamente: descarga FitMesh Sync y prueba gratis las funciones ya disponibles."
-        : lc === "de"
-        ? "Mesh Familie: Teile Schritte, Schlaf und Herzfrequenz mit deiner Familie in einem datenschutzfreundlichen Dashboard. Demnächst verfügbar: Lade FitMesh Sync herunter und teste die bereits verfügbaren Funktionen kostenlos."
-        : lc === "pt"
-        ? "Mesh Família: compartilhe passos, sono e frequência cardíaca com sua família em um painel com privacidade em primeiro lugar. Em breve: baixe o FitMesh Sync e experimente gratuitamente os recursos já disponíveis."
-        : lc === "fr"
-        ? "Mesh Famille: partagez vos pas, votre sommeil et votre fréquence cardiaque avec votre famille dans un tableau de bord axé sur la confidentialité. Bientôt disponible: téléchargez FitMesh Sync et essayez gratuitement les fonctionnalités déjà disponibles."
-        : lc === "pl"
-        ? "Mesh Rodzina: dziel sie krokami, snem i tetnem z rodzina w jednym panelu z prywatnoscia na pierwszym miejscu. Wkrótce: pobierz FitMesh Sync i wypróbuj za darmo funkcje, które sa juz dostepne."
-        : lc === "tr"
-        ? "Mesh Aile: adimlarinizi, uykunuzu ve kalp hizinizi ailenizle gizlilik öncelikli tek bir panelde paylasin. Cok yakinda: FitMesh Sync'i indirin ve mevcut özellikleri ücretsiz deneyin."
-        : "Family Mesh: share steps, sleep and heart rate with your family in one privacy-first dashboard. Coming in the next months: download FitMesh Sync and try the features already available for free.")
+    ? comingSoon.metaDescription
     : (lc === "it"
-        ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Privacy-first, funzione Pro fino a 8 membri (14 giorni di prova gratis), niente posizione condivisa."
+        ? "Mesh Famiglia ti permette di vedere passi, sonno e battito di genitori, partner o figli in un'unica dashboard. Niente posizione geografica condivisa."
         : lc === "es"
-        ? "Mesh Familia te permite ver pasos, sueño y frecuencia cardíaca de padres, pareja o hijos en un solo panel. Privacidad primero, función Pro hasta 8 miembros (14 días de prueba gratis), sin ubicación compartida."
+        ? "Mesh Familia te permite ver pasos, sueño y frecuencia cardíaca de padres, pareja o hijos en un solo panel. Sin ubicación geográfica compartida."
         : lc === "de"
-        ? "Mesh Familie zeigt dir Schritte, Schlaf und Herzfrequenz von Eltern, Partner oder Kindern in einem Dashboard. Datenschutz an erster Stelle, Pro-Funktion für bis zu 8 Mitglieder (14 Tage kostenlos testen), kein Standort geteilt."
+        ? "Mesh Familie zeigt dir Schritte, Schlaf und Herzfrequenz von Eltern, Partner oder Kindern in einem Dashboard. Kein geografischer Standort geteilt."
         : lc === "pt"
-        ? "Mesh Família permite ver passos, sono e frequência cardíaca de pais, parceiro ou filhos em um único painel. Privacidade em primeiro lugar, recurso Pro para até 8 membros (14 dias de teste grátis), sem compartilhamento de localização."
+        ? "Mesh Família permite ver passos, sono e frequência cardíaca de pais, parceiro ou filhos em um único painel. Sem compartilhamento de localização geográfica."
         : lc === "fr"
-        ? "Mesh Famille vous permet de voir les pas, le sommeil et la fréquence cardiaque de parents, partenaire ou enfants dans un tableau de bord. Confidentialité d'abord, fonction Pro jusqu'à 8 membres (14 jours d'essai gratuit), sans localisation partagée."
+        ? "Mesh Famille vous permet de voir les pas, le sommeil et la fréquence cardiaque de parents, partenaire ou enfants dans un tableau de bord. Sans localisation géographique partagée."
         : lc === "pl"
-        ? "Mesh Rodzina pozwala zobaczyc kroki, sen i tetno rodziców, partnera lub dzieci w jednym panelu. Prywatnosc na pierwszym miejscu, funkcja Pro do 8 czlonków (14 dni testu za darmo), bez udostepniania lokalizacji."
+        ? "Mesh Rodzina pozwala zobaczyc kroki, sen i tetno rodziców, partnera lub dzieci w jednym panelu. Bez udostepniania lokalizacji geograficznej."
         : lc === "tr"
-        ? "Mesh Aile ebeveynlerinizin, partnerinizin veya cocuklarinizin adim, uyku ve kalp hizini tek panelde görmenizi saglar. Gizlilik önce gelir, 8 üyeye kadar Pro özelligi (14 gün ücretsiz deneme), konum paylasimsiz."
-        : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. Privacy-first, Pro feature up to 8 members (14-day free trial), no location sharing.");
+        ? "Mesh Aile ebeveynlerinizin, partnerinizin veya cocuklarinizin adim, uyku ve kalp hizini tek panelde görmenizi saglar. Cografi konum paylasimi yoktur."
+        : "Family Mesh lets you see steps, sleep, and heart rate of parents, partners or kids in one dashboard. No geographic location sharing.");
 
   return {
     title,
@@ -1115,22 +1089,28 @@ export default async function FamigliaLanding({
     : lc === "tr" ? "Mesh Aile"
     : "Family Mesh";
 
+  const comingSoon = getFamigliaComingSoon(lc);
+
   // JSON-LD WebPage — usato in entrambi gli stati (full + coming-soon).
   const webPageLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     "@id": `${SITE_URL}${path}#webpage`,
     url: `${SITE_URL}${path}`,
-    name: lc === "it"
+    name: COMING_SOON
+      ? comingSoon.metaTitle
+      : lc === "it"
       ? "Mesh Famiglia — Condividi la salute con la tua famiglia"
       : lc === "es"
       ? "Mesh Familia — Comparte tu salud con tu familia"
       : "Family Mesh — Share health with your family",
-    description: lc === "it"
-      ? "Crea un gruppo famiglia, invita genitori/partner/figli: ognuno condivide passi/sonno/frequenza cardiaca con gli altri in un'unica dashboard. Privacy-first."
+    description: COMING_SOON
+      ? comingSoon.metaDescription
+      : lc === "it"
+      ? "Crea un gruppo famiglia, invita genitori/partner/figli: ognuno condivide passi/sonno/frequenza cardiaca con gli altri in un'unica dashboard."
       : lc === "es"
-      ? "Crea un grupo familiar, invita a padres/pareja/hijos: cada uno comparte pasos/sueño/frecuencia cardíaca con los demás en un solo panel. Privacidad primero."
-      : "Create a family group, invite parents/partner/kids: everyone shares steps/sleep/heart rate with each other in one dashboard. Privacy-first.",
+      ? "Crea un grupo familiar, invita a padres/pareja/hijos: cada uno comparte pasos/sueño/frecuencia cardíaca con los demás en un solo panel."
+      : "Create a family group, invite parents/partner/kids: everyone shares steps/sleep/heart rate with each other in one dashboard.",
     inLanguage: schemaLanguage(lc),
   };
 
@@ -1383,118 +1363,27 @@ function ComingSoonState({
   path: string;
   webPageLd: Record<string, unknown>;
 }) {
-  const copy = lc === "it"
-    ? {
-        kicker: "Mesh Famiglia",
-        h1: "In arrivo: la salute di tutta la famiglia, in un'unica dashboard",
-        sub: "Stiamo finendo Mesh Famiglia: crei un gruppo e ogni membro condivide con gli altri passi, sonno e frequenza cardiaca, tutto in un'unica dashboard. Niente posizione condivisa, niente pubblicità. Nel frattempo scarica FitMesh Sync e prova gratis le funzioni già disponibili.",
-        cta: "Scarica FitMesh e prova gratis",
-        secondary: "Nel frattempo: scarica FitMesh Sync su Android o iOS",
-        why_h2: "Perché serve",
-        why_items: [
-          {
-            title: "Un nucleo familiare, una sola vista",
-            body: "Genitori, partner, figli: ognuno condivide passi, sonno e frequenza cardiaca con gli altri membri della famiglia, in un'unica dashboard. Niente app da controllare una per una.",
-          },
-          {
-            title: "Privacy by design",
-            body: "Niente posizione GPS condivisa, niente broker dati, niente profilazione ads. Dati cifrati.",
-          },
-          {
-            title: "Multi-vendor, niente lock-in",
-            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: qualsiasi wearable supportato da Health Connect (Android) o HealthKit (iOS).",
-          },
-        ],
-        availability_h2: "Quando arriva",
-        availability_body: "Mesh Famiglia richiede l'app pubblicata su entrambi gli store per funzionare end-to-end (il familiare che inviti deve poter installare da Play Store o App Store): condizione già soddisfatta, Android e iOS sono entrambi live, incluse le storefront UE. La feature è in sviluppo attivo, senza una data di rilascio confermata.",
-      }
-    : lc === "es"
-    ? {
-        kicker: "Mesh Familia",
-        h1: "Próximamente: la salud de toda la familia, en un solo panel",
-        sub: "Estamos terminando Mesh Familia: creas un grupo y cada miembro comparte con los demás pasos, sueño y frecuencia cardíaca, todo en un único panel. Sin ubicación compartida, sin publicidad. Mientras tanto, descarga FitMesh Sync y prueba gratis las funciones ya disponibles.",
-        cta: "Descarga FitMesh y pruébala gratis",
-        secondary: "Mientras tanto: descarga FitMesh Sync en Android o iOS",
-        why_h2: "Por qué lo necesitas",
-        why_items: [
-          {
-            title: "Un núcleo familiar, una sola vista",
-            body: "Padres, pareja, hijos: cada uno comparte pasos, sueño y frecuencia cardíaca con el resto de la familia, en un único panel. Sin tener que revisar apps por separado, una por una.",
-          },
-          {
-            title: "Privacidad por diseño",
-            body: "Sin ubicación GPS compartida, sin intermediarios de datos, sin publicidad basada en perfiles. Datos cifrados.",
-          },
-          {
-            title: "Multi-dispositivo, sin ataduras",
-            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: cualquier wearable compatible con Health Connect (Android) o HealthKit (iOS).",
-          },
-        ],
-        availability_h2: "Cuándo llega",
-        availability_body: "Mesh Familia requiere que la app esté publicada en ambas tiendas para funcionar de extremo a extremo (el familiar que invites debe poder instalarla desde Play Store o App Store): esa condición ya se cumple, Android e iOS ya están disponibles, incluidas todas las tiendas de la Unión Europea. La función está en desarrollo activo, sin fecha de lanzamiento confirmada.",
-      }
-    : {
-        kicker: "Family Mesh",
-        h1: "Coming soon: your whole family's health, in one dashboard",
-        sub: "We're finishing Family Mesh: you create a group and every member shares steps, sleep, and heart rate with each other, all in one dashboard. No location sharing, no ads. In the meantime, download FitMesh Sync and try the features already available for free.",
-        cta: "Download FitMesh and try it free",
-        secondary: "Meanwhile: download FitMesh Sync on Android or iOS",
-        why_h2: "Why it matters",
-        why_items: [
-          {
-            title: "One household, one shared view",
-            body: "Parents, partners, kids: everyone shares steps, sleep, and heart rate with the rest of the family, in one dashboard. No need to check separate apps one by one.",
-          },
-          {
-            title: "Privacy by design",
-            body: "No GPS location sharing, no data brokers, no ad profiling. Data encrypted.",
-          },
-          {
-            title: "Multi-vendor, no lock-in",
-            body: "Galaxy Watch, Pixel Watch, Garmin, Fitbit, Polar, Oura: any wearable supported by Health Connect (Android) or HealthKit (iOS).",
-          },
-        ],
-        availability_h2: "When it arrives",
-        availability_body: "Family Mesh requires the app published on both stores to work end-to-end (the family member you invite must be able to install from Play Store or App Store): that condition is already met, Android and iOS are both live, including all European Union storefronts. The feature is in active development, with no confirmed release date.",
-      };
+  const copy = getFamigliaComingSoon(lc);
 
-  // FAQ: relocated verbatim from the full-mode COPY object (never rendered
-  // while COMING_SOON=true, since generateMetadata/FamigliaLanding return
-  // early into this component). Trimmed to 4 of the 6 existing questions —
-  // the ones about ease of use, location privacy, data security and medical
-  // device status — dropping "leaving the group" and "how many members" as
-  // those are feature-mechanics details that don't apply pre-launch. Only
-  // wired for it/es/en, the 3 locales this component has real translated
-  // copy for above (all other locales fall back to the English `copy`
-  // object and would otherwise show an English FAQ under a non-English
-  // canonical, mismatched with this page's own JSON-LD language claims).
-  const faqLocale = lc === "it" || lc === "es" ? lc : "en";
-  const faqSource = COPY[faqLocale];
-  const faqs =
-    lc === "it" || lc === "es" || lc === "en"
-      ? [faqSource.faqs[0], faqSource.faqs[1], faqSource.faqs[3], faqSource.faqs[4]]
-      : null;
-  const faqLd = faqs
-    ? {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        mainEntity: faqs.map((f) => ({
-          "@type": "Question",
-          name: f.q,
-          acceptedAnswer: { "@type": "Answer", text: f.a },
-        })),
-      }
-    : null;
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: copy.faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
 
   return (
     <article className="relative">
       <JsonLd data={webPageLd} />
-      {faqLd && <JsonLd data={faqLd} />}
+      <JsonLd data={faqLd} />
       <Breadcrumbs items={[{ name: crumbName, path }]} locale={lc} />
 
       <section className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-12 pb-16 sm:pt-20 sm:pb-20 text-center">
         <p className="text-[10px] uppercase tracking-[0.24em] text-brand-aqua font-semibold">
-          {copy.kicker} · {lc === "it" ? "In arrivo" : lc === "es" ? "Próximamente" : "Coming soon"}
+          {copy.kicker} · {copy.badge}
         </p>
         <h1 className="mt-4 font-display text-display-lg sm:text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
           {copy.h1}
@@ -1504,19 +1393,21 @@ function ComingSoonState({
         </p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
-            href={`/${lc}#download`}
+            href={copy.ctaCatalogHref}
             className="inline-flex items-center justify-center rounded-full bg-brand-aqua text-bg-base px-6 py-3 text-sm font-semibold hover:bg-brand-aqua/90 transition"
           >
-            {copy.cta}
+            {copy.ctaCatalog}
           </Link>
-          <a
-            href={PLAY_URL}
-            target="_blank"
-            rel="noopener"
+          <Link
+            href={`/${lc}#download`}
             className="inline-flex items-center justify-center rounded-full border border-text-muted/30 text-text-primary px-6 py-3 text-sm hover:bg-text-muted/10 transition"
           >
-            {copy.secondary}
-          </a>
+            {lc === "it"
+              ? "Scarica l'app per le funzioni attive"
+              : lc === "es"
+              ? "Descarga la app para las funciones activas"
+              : "Download the app for active features"}
+          </Link>
         </div>
         <div className="mt-8">
           <TrustBadges locale={lc === "it" ? "it" : "en"} variant="compact" />
@@ -1527,7 +1418,7 @@ function ComingSoonState({
         <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary text-center">
           {copy.why_h2}
         </h2>
-        <div className="mt-8 grid sm:grid-cols-3 gap-6">
+        <div className="mt-8 grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
           {copy.why_items.map((item) => (
             <div key={item.title} className="rounded-2xl border border-text-muted/15 bg-bg-elevated/40 p-5">
               <h3 className="font-display text-lg font-semibold text-text-primary">{item.title}</h3>
@@ -1537,35 +1428,33 @@ function ComingSoonState({
         </div>
       </section>
 
-      {faqs && (
-        <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
-          <p className="text-center text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-            {faqSource.faq_kicker}
-          </p>
-          <h2 className="mt-3 text-center font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
-            {faqSource.faq_h2}
-          </h2>
-          <dl className="mt-8 space-y-4">
-            {faqs.map((f) => (
-              <details
-                key={f.q}
-                className="group rounded-2xl border border-text-muted/15 bg-bg-elevated/40 p-5 sm:p-6"
-              >
-                <summary className="cursor-pointer list-none font-display font-semibold text-text-primary flex items-start gap-3">
-                  <span className="flex-1">{f.q}</span>
-                  <span
-                    aria-hidden
-                    className="shrink-0 mt-1 text-brand-aqua transition-transform group-open:rotate-45"
-                  >
-                    +
-                  </span>
-                </summary>
-                <p className="mt-4 text-sm text-text-secondary leading-relaxed">{f.a}</p>
-              </details>
-            ))}
-          </dl>
-        </section>
-      )}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+        <p className="text-center text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
+          {copy.faq_kicker}
+        </p>
+        <h2 className="mt-3 text-center font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
+          {copy.faq_h2}
+        </h2>
+        <dl className="mt-8 space-y-4">
+          {copy.faqs.map((f) => (
+            <details
+              key={f.q}
+              className="group rounded-2xl border border-text-muted/15 bg-bg-elevated/40 p-5 sm:p-6"
+            >
+              <summary className="cursor-pointer list-none font-display font-semibold text-text-primary flex items-start gap-3">
+                <span className="flex-1">{f.q}</span>
+                <span
+                  aria-hidden
+                  className="shrink-0 mt-1 text-brand-aqua transition-transform group-open:rotate-45"
+                >
+                  +
+                </span>
+              </summary>
+              <p className="mt-4 text-sm text-text-secondary leading-relaxed">{f.a}</p>
+            </details>
+          ))}
+        </dl>
+      </section>
 
       <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12 text-center">
         <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
@@ -1574,10 +1463,10 @@ function ComingSoonState({
         <p className="mt-5 text-text-secondary leading-relaxed">{copy.availability_body}</p>
         <div className="mt-8">
           <Link
-            href={`/${lc}#download`}
+            href={copy.ctaCatalogHref}
             className="inline-flex items-center justify-center rounded-full bg-brand-aqua text-bg-base px-6 py-3 text-sm font-semibold hover:bg-brand-aqua/90 transition"
           >
-            {copy.cta}
+            {copy.ctaCatalog}
           </Link>
         </div>
       </section>

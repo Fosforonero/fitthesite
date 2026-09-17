@@ -524,7 +524,7 @@ export const APP_FEATURE_LIST_IOS: Record<Locale, string[]> = {
 // Niente verità globale derivata da un unico `status`: un provider live su
 // Android non è automaticamente live su iOS (vedi Provider.platforms in
 // lib/providers/data.ts — default ["android"] se omesso).
-const LIVE_STATUSES = new Set<ProviderStatus>(["live", "live-basic"]);
+const LIVE_STATUSES = new Set<ProviderStatus>(["live", "live-basic", "live-bridge"]);
 
 function platformsOf(p: (typeof PROVIDERS)[number]): Array<"android" | "ios"> {
   return p.platforms ?? ["android"];

@@ -282,7 +282,7 @@
     "body.6.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App de Android + panel web.",
     "body.6.ctaLabel": "Prueba FitMesh gratis →",
     "faq.0.q": "¿Veo las fases de sueño REM/Profundo/Ligero?",
-    "faq.0.a": "Hoy, a través de Health Connect, Fitbit solo expone la duración total del sueño. Las fases detalladas llegarán con la integración OAuth de la Fitbit Web API, prevista para el Q3 2026. La duración total está disponible desde el primer día.",
+    "faq.0.a": "FitMesh lee los datos de sueño que la app Fitbit escribe en Health Connect en Android. La disponibilidad de métricas como fases de sueño detalladas depende de lo que Fitbit transfiera a Health Connect; la duración total del sueño está disponible desde el primer día.",
     "faq.1.q": "¿Puede FitMesh borrar mis datos si cambio de opinión?",
     "faq.1.a": "Sí. En Ajustes → 'Eliminar cuenta y datos' se borra todo de nuestros servidores. Los datos en la nube de Fitbit/Google y en tu dispositivo no se ven afectados (gestiónalos por separado).",
     "faq.2.q": "¿Tengo que eliminar mi cuenta de Fitbit?",
@@ -298,7 +298,7 @@
       "Historial almacenado en nuestro backend",
       "Exportación de datos CSV/JSON cuando quieras",
       "Sin Fitbit Premium, sin suscripción a FitMesh",
-      "Hoja de ruta: integración OAuth de la Fitbit Web API para fases de sueño detalladas y carga retroactiva de 12 meses"
+      "Alcance vía Health Connect: métricas estandarizadas (pasos, frecuencia cardíaca, duración total del sueño, calorías, distancia, entrenamientos básicos)"
     ]
   },
   "garmin-connect-pc": {
@@ -317,7 +317,7 @@
     "body.4.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. Funciona ya mediante Health Connect.",
     "body.4.ctaLabel": "Prueba FitMesh gratis →",
     "faq.0.q": "¿Veré Body Battery y Training Load?",
-    "faq.0.a": "Todavía no: son métricas propias de Garmin que no se exponen mediante Health Connect. Estarán disponibles con la integración OAuth de Garmin Health API, prevista en la hoja de ruta del Q3 2026 (depende de la aprobación del Garmin Developer Program).",
+    "faq.0.a": "No actualmente: son métricas propietarias de Garmin no expuestas a través de Health Connect. El acceso directo mediante API requeriría aprobación formal en el Garmin Developer Program y no garantiza la exportación de todos los cálculos internos.",
     "faq.1.q": "¿Qué relojes Garmin son compatibles?",
     "faq.1.a": "Todos los Garmin compatibles con Garmin Connect Android (desde 2018 en adelante): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Comprueba que 'Sincronizar con Health Connect' esté activado en los ajustes de Garmin Connect.",
     "faq.2.q": "¿Sustituye a Garmin Connect?",
@@ -329,7 +329,7 @@
     ],
     "body.2.items": [
       "Lee los datos de Garmin mediante Health Connect (pasos, FC, sueño total, calorías, distancia, entrenamientos básicos): funciona ya.",
-      "Hoja de ruta Q3 2026: integración OAuth de Garmin Health API para Body Battery, Training Load, Recovery Time, Stress Score y GPS detallado.",
+      "Métricas propietarias: Body Battery, Training Load y tiempo de recuperación permanecen en Garmin. Una integración directa API requeriría aprobación formal en el Garmin Developer Program.",
       "Panel web multifuente: Garmin junto a Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura cuando estén activos.",
       "Exportación CSV/JSON de los datos recopilados."
     ]
@@ -347,16 +347,16 @@
     "body.2.text": "La app de Oura en Android escribe algunos datos en Health Connect: pasos, calorías, sueño (duración total y fases básicas). FitMesh lee de Health Connect al abrir la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería.",
     "body.4.text": "Configuración en 4 pasos",
     "body.6.title": "Multi-wearable: Oura y Galaxy Watch juntos",
-    "body.6.body": "Muchas personas usan Oura por la noche (para el sueño y la recuperación) y un Galaxy Watch o Garmin durante el día (para el deporte y las notificaciones). FitMesh unifica ambos en un solo panel: tu Oura Readiness Score (cuando esté disponible vía API) junto a los pasos y entrenamientos del Watch.",
+    "body.6.body": "Muchas personas usan Oura por la noche (para el sueño y la recuperación) y un Galaxy Watch o Garmin durante el día (para el deporte y las notificaciones). FitMesh unifica ambos en un solo panel: tus datos de sueño de Oura junto a los pasos y entrenamientos del Watch.",
     "body.7.title": "Mantén tus datos de Oura en una plataforma que controlas tú",
-    "body.7.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App de Android y panel web. Sincronización periódica desde Oura vía Health Connect (al abrir la app, o en segundo plano best-effort), hoja de ruta de la API de Oura para métricas avanzadas.",
+    "body.7.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App de Android y panel web. Sincronización periódica desde Oura vía Health Connect para los datos compatibles.",
     "body.7.ctaLabel": "Prueba FitMesh gratis →",
     "faq.0.q": "¿Veré el Readiness Score de Oura?",
-    "faq.0.a": "Todavía no: el Readiness Score es una métrica propietaria de Oura que no se expone a través de Health Connect. Está en la hoja de ruta con la integración OAuth de la API de Oura. Hoy, vía HC, ves el sueño con fases, los pasos y las calorías.",
+    "faq.0.a": "No hoy: el Readiness Score no aparece en el listado oficial de exportaciones verificadas hacia Health Connect y se queda en la app Oura. La integración API directa no está activa actualmente. FitMesh lee las categorías compatibles vía Health Connect (sueño con fases, pasos y calorías).",
     "faq.1.q": "¿Funciona con Oura Ring 3 y 4?",
-    "faq.1.a": "Sí, ambas generaciones son compatibles con Health Connect a través de la app de Oura para Android. El Oura Ring 4 tiene sensores mejorados para la temperatura corporal y el SpO2: estas métricas avanzadas estarán disponibles con la integración de la API de Oura prevista en la hoja de ruta.",
+    "faq.1.a": "Sí, ambas generaciones son compatibles con la sincronización a través de la app de Oura para Android. FitMesh lee las categorías que la app Oura exporta a Health Connect y que el usuario autoriza (como sueño con fases, pasos y frecuencia cardíaca). Las métricas que no figuran en el listado oficial de exportación se mantienen en la app de Oura.",
     "faq.2.q": "¿Necesito una suscripción a Oura para usar FitMesh?",
-    "faq.2.a": "Para los datos de Health Connect (disponibles hoy), no: Health Connect funciona con independencia de la suscripción a Oura. Para métricas avanzadas vía la API de Oura (Readiness Score, HRV detallado), puede requerirse una cuenta activa de Oura.",
+    "faq.2.a": "Para los modelos Gen 3 y Gen 4, se recomienda una suscripción activa a Oura Membership para procesar y sincronizar continuamente los datos compatibles con la app Oura y Health Connect.",
     "secondaryKeywords": [
       "panel web oura ring",
       "exportar datos de oura",
@@ -365,7 +365,7 @@
     ],
     "body.3.items": [
       "**Disponible hoy vía Health Connect**: pasos, calorías, sueño total con fases (Profundo, REM, Ligero, Despierto)",
-      "**En la hoja de ruta**: integración directa con la API de Oura para el Readiness Score, HRV detallado, temperatura corporal nocturna, tendencia de SpO2"
+      "**No incluidos en la exportación verificada para el puente**: el Readiness Score y la desviación de temperatura no aparecen en la lista oficial de exportación; consulta la matriz para más detalles"
     ],
     "body.5.items": [
       "Instala **FitMesh Sync** desde Google Play e inicia sesión con Google.",

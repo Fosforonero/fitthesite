@@ -177,6 +177,7 @@ export default async function AboutPage({
                 "Garmin Forerunner/Fenix/Venu (via Garmin Connect)",
                 "Polar Vantage/Grit X (via Polar Flow)",
                 "Withings Body+/ScanWatch (via Health Mate)",
+                "Oura Ring Gen 2/3/4 (via Health Connect / HealthKit)",
                 // P1.9 FASE 2 (2026-09-01): "Strava (via OAuth)" rimosso da
                 // questo gruppo — devicesIntro sopra dice "tutto ciò che
                 // scrive su Health Connect è supportato nativamente", ma
@@ -191,11 +192,11 @@ export default async function AboutPage({
               color: "#31E981",
             },
             {
-              h: tl(ABOUT_COPY.comingWithOauth, lc),
+              h: tl(ABOUT_COPY.otherConnections, lc),
               items: [
-                "Oura Ring Gen 3/4 (Q4 2026)",
-                tl(ABOUT_COPY.fitbitHistoricalGps, lc),
-                "Garmin Body Battery + Training Load (Q3 2026)",
+                tl(ABOUT_COPY.colmiRingBluetooth, lc),
+                tl(ABOUT_COPY.stravaLimitedAccess, lc),
+                tl(ABOUT_COPY.seeAllIntegrations, lc),
               ],
               color: "#21E6C1",
             },
