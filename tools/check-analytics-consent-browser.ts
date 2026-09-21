@@ -20,6 +20,11 @@
  *    client-side;
  *  - una route con codici nell'URL compare come referrer di un page_view
  *    dopo pagina esclusa -> link -> indietro -> avanti;
+ *  - una pagina NON esclusa raggiunta con code, state, token o click id nella
+ *    query li manda a Google in un page_view generato da gtag.js sulla history
+ *    (navigazione client-side, indietro, avanti): flusso HL;
+ *  - un ripristino dalla cache avanti/indietro (pageshow persistente) dopo una
+ *    revoca fatta altrove lascia GA attivo o parte una richiesta: flusso PS;
  *  - un payload contiene un indirizzo email, dati utente hashati (em=), un
  *    UUID o un parametro code/state/token;
  *  - la console registra errori (esclusi gli avvisi della CSP report-only e
@@ -31,7 +36,7 @@
  * non intercetta nulla.
  *
  * Uso: BASE_URL=http://localhost:3924 npx tsx tools/check-analytics-consent-browser.ts
- * Solo alcuni flussi: GUARDRAIL_FLOWS=BF (nomi: A, B, C, D, D-stessa-pagina, P, BF).
+ * Solo alcuni flussi: GUARDRAIL_FLOWS=BF (nomi: A, B, C, D, D-stessa-pagina, P, BF, HL, PS).
  * Controllo di controllo: GUARDRAIL_FLOWS=BF GUARDRAIL_DROP_REFERRER=1 deve dare ROSSO.
  */
 import { mkdtempSync, rmSync } from "node:fs";
@@ -344,6 +349,73 @@ async function run(engine: BrowserType, mobile: boolean) {
   // Pagina esclusa -> link client-side -> indietro -> avanti. Con l'avanti il
   // documento si ricarica e il primo page_view puo' portare come referrer
   // l'URL escluso: non deve arrivare a Google.
+  // Landing ostile: una pagina non esclusa raggiunta con parametri che non
+  // devono arrivare a Google. Il primo page_view e' ripulito dal config; quelli
+  // che gtag.js genera da solo sulla history (link, indietro, avanti) portano
+  // URL e referrer del browser: la sanificazione all'uscita deve ripulirli.
+  await flow("HL", async (ctx) => {
+    await visit(ctx, "/it", (p) => bannerButton(p, "accept"));
+    const page = await ctx.newPage();
+    const hits: Hit[] = [];
+    const errors: string[] = [];
+    watch(page, hits, errors);
+    const hostile = "?code=SECRETCODE1&state=SECRETSTATE1&token=TOK123&fbclid=FB1&utm_source=news&utm_content=3f2b8c1e-9a4d-4e6f-8b7a-1c2d3e4f5a6b";
+    await page.goto(`${BASE_URL}/it/about${hostile}`, { waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await footerLink(page, "/integrations");
+    await page.waitForURL(/\/integrations$/, { timeout: 15_000 });
+    await page.waitForTimeout(2500);
+    await page.goBack({ waitUntil: "load" });
+    await page.waitForTimeout(2500);
+    await page.goForward({ waitUntil: "load" });
+    await page.waitForTimeout(9000);
+    await page.close({ runBeforeUnload: true });
+    await new Promise((r) => setTimeout(r, 800));
+    const sent = hits.filter((h) => !h.blocked);
+    const pv = pageViews(sent);
+    check(pv.length >= 3, `${tag} HL: solo ${pv.length} page_view (il controllo non ha esercitato la history)`);
+    const leaked = sent.filter((h) => /SECRETCODE1|SECRETSTATE1|TOK123|FB1\b|3f2b8c1e/.test(h.raw));
+    check(leaked.length === 0, `${tag} HL: ${leaked.length} richieste Google con code, state, token, click id o UUID dell'URL di ingresso`);
+    check(errors.length === 0, `${tag} HL: errori console ${errors.join(" | ")}`);
+  });
+
+  // Revoca fatta in un altro documento mentre questa pagina e' nella cache
+  // avanti/indietro: al ripristino (pageshow persistente) il consenso si rilegge.
+  await flow("PS", async (ctx) => {
+    const page = await ctx.newPage();
+    const hits: Hit[] = [];
+    const errors: string[] = [];
+    watch(page, hits, errors);
+    await page.goto(`${BASE_URL}/it`, { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    await bannerButton(page, "accept");
+    await page.waitForTimeout(3500);
+    // La revoca avviene altrove: per questa pagina non c'e' nessun evento storage.
+    await page.evaluate(() => localStorage.setItem("fitmesh_cookie_consent", JSON.stringify({ analytics: false, ts: Date.now() })));
+    const before = hits.length;
+    let reloaded = true;
+    try {
+      await Promise.all([
+        page.waitForEvent("load", { timeout: 15_000 }),
+        page.evaluate(() => window.dispatchEvent(new PageTransitionEvent("pageshow", { persisted: true }))),
+      ]);
+    } catch {
+      reloaded = false;
+    }
+    await page.waitForTimeout(2000);
+    const gtagAfter = await page.evaluate(() => typeof (window as unknown as { gtag?: unknown }).gtag).catch(() => "errore");
+    await page.mouse.wheel(0, 2500);
+    await page.waitForTimeout(9000);
+    const cookies = (await ctx.cookies()).map((c) => c.name);
+    await page.close({ runBeforeUnload: true });
+    await new Promise((r) => setTimeout(r, 800));
+    const later = hits.slice(before).filter((h) => !h.blocked);
+    check(reloaded, `${tag} PS: dopo il ripristino la pagina non si e' ricaricata senza il tag`);
+    check(gtagAfter === "undefined", `${tag} PS: gtag ancora definito dopo il ripristino`);
+    check(later.length === 0, `${tag} PS: ${later.length} richieste Google dopo la revoca fatta altrove (${later.map((h) => h.host + h.path).join(", ")})`);
+    check(!cookies.some((c) => c.startsWith("_ga")), `${tag} PS: cookie _ga ancora presenti dopo la revoca`);
+  });
+
   await flow("BF", async (ctx) => {
     await visit(ctx, "/it", (p) => bannerButton(p, "accept"));
     const page = await ctx.newPage();

@@ -5,11 +5,15 @@ let currentPath = "/it";
 vi.mock("next/navigation", () => ({ usePathname: () => currentPath }));
 
 import AnalyticsConsent from "./AnalyticsConsent";
+import CookieBanner from "./CookieBanner";
 import OutboundTracker from "./OutboundTracker";
+import { getDictionary } from "@/lib/i18n";
 import {
   CONSENT_STORAGE_KEY,
   GA_MEASUREMENT_ID,
   isAnalyticsActive,
+  isAnalyticsExcludedPath,
+  sanitizeCollectQuery,
   pageLifecycle,
   RELOAD_CSP,
   sanitizeEventParams,
@@ -491,5 +495,227 @@ describe("parametri evento", () => {
     trackEvent("cta_click", { cta_id: "ok", note: "scrivi a mario.rossi@example.com" });
     const [ev] = commands("event") as [[string, string, Record<string, unknown>]];
     expect(ev[2]).toEqual({ cta_id: "ok", note: "redacted", page_location: `${window.location.origin}/it` });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Micro-gate P0.24-A-A: correzioni emerse dalla revisione avversariale.
+// ---------------------------------------------------------------------------
+
+const ORIGIN = () => window.location.origin;
+const enc = encodeURIComponent;
+
+describe("uscita verso GA: dl e dr sanificati su ogni richiesta di raccolta", () => {
+  // gtag.js genera da solo i page_view sulla history con URL e referrer del
+  // browser, query compresa: l'unico punto controllabile e' l'uscita.
+  const collect = () =>
+    `https://region1.google-analytics.com/g/collect?v=2&tid=G-TEST&gtm=45je69f3v9&_p=1234567890&gcs=G101&` +
+    `dl=${enc(`${ORIGIN()}/it/about?code=SECRETCODE1&state=SECRETSTATE1&token=TOK123&fbclid=FB1&utm_source=news`)}&` +
+    `dr=${enc(`${ORIGIN()}/it?code=SECRETCODE2&email=mario@example.com`)}&cid=123456789.1234567890&en=page_view`;
+
+  function setup() {
+    const fetchSpy = vi.fn(async (..._args: unknown[]) => new Response(null, { status: 204 }));
+    const beaconSpy = vi.fn((..._args: unknown[]) => true);
+    window.fetch = fetchSpy as unknown as typeof window.fetch;
+    Object.defineProperty(navigator, "sendBeacon", { value: beaconSpy, configurable: true, writable: true });
+    render(<AnalyticsConsent />);
+    act(() => {
+      writeConsent(true);
+    });
+    return { fetchSpy, beaconSpy };
+  }
+
+  it("fetch: dl e dr perdono code, state, token e click id; il resto della richiesta resta identico", async () => {
+    const { fetchSpy } = setup();
+    await window.fetch(collect(), { method: "POST", keepalive: true });
+    const sent = String(fetchSpy.mock.calls.at(-1)![0]);
+    const q = new URL(sent).searchParams;
+    expect(q.get("dl")).toBe(`${ORIGIN()}/it/about?utm_source=news`);
+    expect(q.get("dr")).toBe(`${ORIGIN()}/it`);
+    for (const [k, v] of [["v", "2"], ["tid", "G-TEST"], ["gtm", "45je69f3v9"], ["_p", "1234567890"], ["gcs", "G101"], ["cid", "123456789.1234567890"], ["en", "page_view"]]) {
+      expect(q.get(k), k).toBe(v);
+    }
+    expect(sent).not.toMatch(/SECRET|TOK123|FB1|mario|example\.com/);
+  });
+
+  it("fetch: anche le righe del corpo di una richiesta raggruppata, con i loro fine riga", async () => {
+    const { fetchSpy } = setup();
+    const body =
+      `en=scroll&epn.percent_scrolled=90&dl=${enc(`${ORIGIN()}/it?code=SECRETCODE1&utm_medium=m`)}\r\n` +
+      `en=page_view&dr=${enc(`${ORIGIN()}/it/x?token=TOK123`)}&_et=5`;
+    await window.fetch("https://region1.google-analytics.com/g/collect?v=2&tid=G-TEST", { method: "POST", body });
+    const sentBody = String((fetchSpy.mock.calls.at(-1)![1] as RequestInit).body);
+    expect(sentBody).toBe(
+      `en=scroll&epn.percent_scrolled=90&dl=${enc(`${ORIGIN()}/it?utm_medium=m`)}\r\n` +
+        `en=page_view&dr=${enc(`${ORIGIN()}/it/x`)}&_et=5`,
+    );
+  });
+
+  it("sendBeacon: stessa sanificazione di URL e corpo", () => {
+    const { beaconSpy } = setup();
+    navigator.sendBeacon(collect(), `en=page_view&dl=${enc(`${ORIGIN()}/it?state=SECRETSTATE1`)}`);
+    const [url, data] = beaconSpy.mock.calls.at(-1) as unknown as [string, string];
+    expect(new URL(url).searchParams.get("dl")).toBe(`${ORIGIN()}/it/about?utm_source=news`);
+    expect(data).toBe(`en=page_view&dl=${enc(`${ORIGIN()}/it`)}`);
+  });
+
+  it("un referrer di un altro sito resta invariato (attribuzione del traffico) e le altre richieste non vengono toccate", async () => {
+    const { fetchSpy } = setup();
+    const external = "https://www.google.com/search?q=fitmesh";
+    await window.fetch(`https://region1.google-analytics.com/g/collect?v=2&dr=${enc(external)}`);
+    expect(new URL(String(fetchSpy.mock.calls.at(-1)![0])).searchParams.get("dr")).toBe(external);
+    const other = `${ORIGIN()}/api/v1/ping?dl=${enc(`${ORIGIN()}/x?code=KEEP`)}`;
+    await window.fetch(other);
+    expect(fetchSpy.mock.calls.at(-1)![0]).toBe(other);
+  });
+
+  it("i campi campagna con un valore non sicuro diventano redacted, gli altri restano", () => {
+    expect(sanitizeCollectQuery("v=2&cs=newsletter&cm=email&cn=20260921_launch")).toBe("v=2&cs=newsletter&cm=email&cn=20260921_launch");
+    expect(sanitizeCollectQuery(`cs=${enc("mario@example.com")}&cn=550e8400-e29b-41d4-a716-446655440000&cc=1234567890123&ct=ok`)).toBe(
+      "cs=redacted&cn=redacted&cc=redacted&ct=ok",
+    );
+  });
+
+  it("i wrapper non cambiano il comportamento nativo: nessun argomento, stessi argomenti", async () => {
+    const { fetchSpy, beaconSpy } = setup();
+    await (window.fetch as unknown as () => Promise<Response>)();
+    expect(fetchSpy).toHaveBeenLastCalledWith();
+    const init = { method: "POST" };
+    await window.fetch("/api/v1/x", init);
+    expect(fetchSpy).toHaveBeenLastCalledWith("/api/v1/x", init);
+    (navigator.sendBeacon as unknown as () => boolean)();
+    expect(beaconSpy).toHaveBeenLastCalledWith();
+  });
+
+  it("dopo la revoca la richiesta resta scartata (la sanificazione non la riapre)", async () => {
+    const { fetchSpy } = setup();
+    act(() => {
+      writeConsent(false);
+    });
+    const before = fetchSpy.mock.calls.length;
+    const res = await window.fetch(collect(), { method: "POST" });
+    expect(res.status).toBe(204);
+    expect(fetchSpy.mock.calls.length).toBe(before);
+  });
+});
+
+describe("valori UTM: etichette di campagna, non identificativi", () => {
+  const loc = (query: string) => sanitizePageLocation(`https://www.fitmesh.fit/it?${query}`);
+
+  it("indirizzi, UUID, numeri di 10 o piu' cifre, esadecimali lunghi, JWT e valori lunghi diventano redacted", () => {
+    const out = loc(
+      `utm_source=${enc("mario@example.com")}&utm_medium=3f2b8c1e-9a4d-4e6f-8b7a-1c2d3e4f5a6b&utm_campaign=1234567890123&` +
+        `utm_content=0123456789abcdef0123456789abcdef&utm_term=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.dozjgNryP4J3`,
+    );
+    expect(out).toBe("https://www.fitmesh.fit/it?utm_source=redacted&utm_medium=redacted&utm_campaign=redacted&utm_term=redacted&utm_content=redacted");
+    expect(loc(`utm_source=${"a".repeat(101)}`)).toBe("https://www.fitmesh.fit/it?utm_source=redacted");
+  });
+
+  it("le etichette normali restano, anche con una data", () => {
+    expect(loc("utm_source=newsletter&utm_medium=email&utm_campaign=20260921_launch&utm_content=hero-cta")).toBe(
+      "https://www.fitmesh.fit/it?utm_source=newsletter&utm_medium=email&utm_campaign=20260921_launch&utm_content=hero-cta",
+    );
+  });
+
+  it("il referrer del sito applica lo stesso filtro", () => {
+    expect(sanitizeReferrer(`${ORIGIN()}/it?utm_source=${enc("mario@example.com")}&code=X`)).toBe(`${ORIGIN()}/it?utm_source=redacted`);
+  });
+});
+
+describe("pageshow: ripristino dalla cache avanti/indietro", () => {
+  const restore = (persisted: boolean) => {
+    const event = new Event("pageshow") as Event & { persisted: boolean };
+    Object.defineProperty(event, "persisted", { value: persisted });
+    window.dispatchEvent(event);
+  };
+
+  it("una scelta revocata altrove mentre la pagina era congelata spegne GA al ripristino", () => {
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 1 }));
+    render(<AnalyticsConsent />);
+    expect(isAnalyticsActive()).toBe(true);
+    // La pagina e' nella cache: la revoca avviene altrove, senza evento `storage` per lei.
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: false, ts: 2 }));
+    expect(isAnalyticsActive()).toBe(true);
+    restore(false); // caricamento normale: il gestore non fa nulla
+    expect(reload).not.toHaveBeenCalled();
+    restore(true);
+    expect(isAnalyticsActive()).toBe(false);
+    expect(win()[DISABLE]).toBe(true);
+    expect(reload).toHaveBeenCalledTimes(1);
+    expect(reloadCsp()).toEqual([RELOAD_CSP]);
+  });
+
+  it("la scelta cancellata altrove vale come nessun consenso", () => {
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 1 }));
+    render(<AnalyticsConsent />);
+    window.localStorage.clear();
+    restore(true);
+    expect(isAnalyticsActive()).toBe(false);
+    expect(reload).toHaveBeenCalledTimes(1);
+  });
+
+  it("un consenso dato altrove mentre la pagina era congelata carica GA una volta sola", () => {
+    render(<AnalyticsConsent />);
+    expect(gaScripts()).toHaveLength(0);
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 3 }));
+    restore(true);
+    expect(gaScripts()).toHaveLength(1);
+    restore(true);
+    expect(gaScripts()).toHaveLength(1);
+    expect(commands("config")).toHaveLength(1);
+  });
+
+  it("il gestore viene rimosso allo smontaggio", () => {
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 1 }));
+    const { unmount } = render(<AnalyticsConsent />);
+    unmount();
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: false, ts: 2 }));
+    restore(true);
+    expect(reload).not.toHaveBeenCalled();
+  });
+});
+
+describe("percorsi esclusi: il confronto non dipende dalla normalizzazione dell'hosting", () => {
+  it.each([
+    "/oauth", "/oauth/", "/oauth/fitbit/callback", "/it/auth", "/it/auth/", "/it/auth/login", "/en/app/devices",
+    "/fr/admin/beta", "/it/famiglia/join/CODICE",
+    "/IT/auth/login", "/It/AUTH/login", "/it/%61uth/login", "/it/auth%2Flogin", "//it/auth/login", "/it//auth///login", "/OAUTH/x", "/it/famiglia//join/CODICE",
+  ])("%s e' escluso", (path) => {
+    expect(isAnalyticsExcludedPath(path)).toBe(true);
+  });
+
+  it.each(["/", "/it", "/it/blog", "/it/authx", "/oauthx", "/it/famiglia/joinx/CODICE", "/it/famiglia", "/delete-account", "/self-host", "/it/%E0%A4%A"])(
+    "%s non e' escluso",
+    (path) => {
+      expect(isAnalyticsExcludedPath(path)).toBe(false);
+    },
+  );
+});
+
+describe("banner: la scelta fatta in un'altra scheda vale anche qui", () => {
+  it("un consenso salvato altrove nasconde il banner, una scelta cancellata lo mostra", async () => {
+    const dict = await getDictionary("it");
+    render(<CookieBanner dict={dict} />);
+    expect(document.querySelector('[role="dialog"]')).not.toBeNull();
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 1 }));
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", { key: CONSENT_STORAGE_KEY }));
+    });
+    expect(document.querySelector('[role="dialog"]')).toBeNull();
+    window.localStorage.clear();
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", { key: null }));
+    });
+    expect(document.querySelector('[role="dialog"]')).not.toBeNull();
+  });
+
+  it("un'altra chiave non cambia il banner", async () => {
+    const dict = await getDictionary("it");
+    render(<CookieBanner dict={dict} />);
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 1 }));
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", { key: "altra_chiave" }));
+    });
+    expect(document.querySelector('[role="dialog"]')).not.toBeNull();
   });
 });

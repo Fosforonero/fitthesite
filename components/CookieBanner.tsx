@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { locales, type Locale, defaultLocale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/i18n";
-import { CONSENT_REOPEN_EVENT, readConsent, writeConsent } from "@/lib/analytics/consent";
+import { CONSENT_REOPEN_EVENT, CONSENT_STORAGE_KEY, readConsent, writeConsent } from "@/lib/analytics/consent";
 
 export default function CookieBanner({ dict }: { dict: Dictionary }) {
   const [visible, setVisible] = useState(false);
@@ -21,8 +21,16 @@ export default function CookieBanner({ dict }: { dict: Dictionary }) {
   useEffect(() => {
     if (!readConsent()) setVisible(true);
     const reopen = () => setVisible(true);
+    // Una scelta fatta (o cancellata) in un'altra scheda vale anche qui.
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === CONSENT_STORAGE_KEY || event.key === null) setVisible(!readConsent());
+    };
     window.addEventListener(CONSENT_REOPEN_EVENT, reopen);
-    return () => window.removeEventListener(CONSENT_REOPEN_EVENT, reopen);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(CONSENT_REOPEN_EVENT, reopen);
+      window.removeEventListener("storage", onStorage);
+    };
   }, []);
 
   const acceptAll = () => {

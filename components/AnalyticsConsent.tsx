@@ -37,11 +37,19 @@ export default function AnalyticsConsent() {
     const onStorage = (event: StorageEvent) => {
       if (event.key === CONSENT_STORAGE_KEY || event.key === null) applyConsent(window.location.pathname);
     };
+    // Una pagina ripristinata dalla cache avanti/indietro torna com'era: le
+    // scelte fatte nel frattempo altrove non hanno prodotto eventi `storage`
+    // per lei. Si rilegge il consenso (revoca, rifiuto, scelta cancellata).
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) applyConsent(window.location.pathname);
+    };
     window.addEventListener(CONSENT_CHANGED_EVENT, onChange);
     window.addEventListener("storage", onStorage);
+    window.addEventListener("pageshow", onPageShow);
     return () => {
       window.removeEventListener(CONSENT_CHANGED_EVENT, onChange);
       window.removeEventListener("storage", onStorage);
+      window.removeEventListener("pageshow", onPageShow);
     };
   }, []);
 

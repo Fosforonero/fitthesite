@@ -65,11 +65,48 @@ export function requestConsentReopen(): void {
 const EXCLUDED_PATH =
   /^\/(?:oauth(?:\/|$)|[a-z]{2}\/(?:auth|app|admin)(?:\/|$)|[a-z]{2}\/famiglia\/join(?:\/|$))/;
 
+/**
+ * Il confronto non dipende da come il livello di hosting normalizza il
+ * percorso: maiuscole, segmenti percent-encoded e slash doppi portano allo
+ * stesso percorso escluso. Un percorso malformato si confronta cosi' com'e'.
+ */
+function normalizePath(pathname: string): string {
+  let path = pathname;
+  try {
+    path = path.split("/").map((segment) => decodeURIComponent(segment)).join("/");
+  } catch {
+    /* sequenza % non valida: si usa il percorso originale */
+  }
+  return path.toLowerCase().replace(/\/{2,}/g, "/");
+}
+
 export function isAnalyticsExcludedPath(pathname: string): boolean {
-  return EXCLUDED_PATH.test(pathname);
+  return EXCLUDED_PATH.test(normalizePath(pathname));
 }
 
 const KEPT_QUERY_PARAMS = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+
+const EMAIL = /[^\s@]+@[^\s@]+\.[^\s@]+/;
+const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
+const LONG_NUMBER = /\d{7,}/;
+const TOKEN_QUERY = /[?&](?:code|state|token|token_hash|access_token|refresh_token)=/i;
+
+/**
+ * Un valore UTM e' un'etichetta di campagna, ma i link di alcuni strumenti di
+ * email vi mettono l'indirizzo o l'id dell'iscritto. Si scartano indirizzi,
+ * UUID, sequenze di 10 o piu' cifre (una data come 20260921 resta), stringhe
+ * esadecimali lunghe, token in stile JWT e valori molto lunghi.
+ */
+function isUnsafeUtmValue(value: string): boolean {
+  return (
+    EMAIL.test(value) ||
+    UUID.test(value) ||
+    /\d{10,}/.test(value) ||
+    /[0-9a-f]{24,}/i.test(value) ||
+    /eyJ[\w-]{10,}\.[\w-]{10,}/.test(value) ||
+    value.length > 100
+  );
+}
 
 /** URL da inviare come `page_location`: origine e percorso, piu' i soli parametri UTM. */
 export function sanitizePageLocation(href: string): string {
@@ -82,7 +119,7 @@ export function sanitizePageLocation(href: string): string {
   const kept = new URLSearchParams();
   for (const key of KEPT_QUERY_PARAMS) {
     const value = url.searchParams.get(key);
-    if (value) kept.set(key, value);
+    if (value) kept.set(key, isUnsafeUtmValue(value) ? "redacted" : value);
   }
   const query = kept.toString();
   return `${url.origin}${url.pathname}${query ? `?${query}` : ""}`;
@@ -109,10 +146,6 @@ export function sanitizeReferrer(referrer: string): string {
   return isAnalyticsExcludedPath(url.pathname) ? "" : sanitizePageLocation(referrer);
 }
 
-const EMAIL = /[^\s@]+@[^\s@]+\.[^\s@]+/;
-const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
-const LONG_NUMBER = /\d{7,}/;
-const TOKEN_QUERY = /[?&](?:code|state|token|token_hash|access_token|refresh_token)=/i;
 // I link agli store contengono l'id numerico dell'app (App Store: 10 cifre):
 // sono pubblici e servono all'evento store_click, quindi non vanno oscurati.
 const STORE_URL = /^https:\/\/(?:apps\.apple\.com|play\.google\.com)\/[^\s@]*$/;
@@ -168,6 +201,64 @@ export function trackEvent(name: string, params: Record<string, unknown>): void 
 }
 
 const GOOGLE_TAG_HOST = /(^|\.)(google-analytics\.com|analytics\.google\.com|googletagmanager\.com)$/i;
+const GA_COLLECT_HOST = /(^|\.)(google-analytics\.com|analytics\.google\.com)$/i;
+
+function decodeParam(value: string): string | null {
+  try {
+    return decodeURIComponent(value.replace(/\+/g, " "));
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * gtag.js genera da solo i `page_view` sulle navigazioni client-side e sul
+ * avanti/indietro, con l'URL e il referrer del browser: query compresa
+ * (`code`, `state`, `token`, click id, indirizzi). Ne' `send_page_view:false` ne'
+ * `gtag("set")` lo impediscono (provato in browser su Chromium e WebKit).
+ * L'unico punto sotto il controllo del sito e' l'uscita: qui `dl` e `dr` di ogni
+ * richiesta di raccolta passano dagli stessi sanificatori del `config`, e i
+ * campi campagna con un valore non sicuro diventano "redacted". Il resto della
+ * richiesta resta identico byte per byte.
+ */
+export function sanitizeCollectQuery(query: string): string {
+  return query
+    .replace(/(^|&)(dl|dr)=([^&]*)/g, (_m, sep: string, key: string, value: string) => {
+      const text = decodeParam(value);
+      const clean = text === null ? "" : key === "dl" ? sanitizePageLocation(text) : sanitizeReferrer(text);
+      return `${sep}${key}=${encodeURIComponent(clean)}`;
+    })
+    .replace(/(^|&)(cs|cm|cn|ct|cc)=([^&]*)/g, (match: string, sep: string, key: string, value: string) => {
+      const text = decodeParam(value);
+      return text !== null && !isUnsafeUtmValue(text) ? match : `${sep}${key}=redacted`;
+    });
+}
+
+/** Il corpo di una richiesta raggruppata ha un evento per riga. */
+function sanitizeCollectBody(body: unknown): unknown {
+  if (typeof body !== "string") return body;
+  return body
+    .split("\n")
+    .map((line) => {
+      const cr = line.endsWith("\r") ? "\r" : "";
+      return sanitizeCollectQuery(cr ? line.slice(0, -1) : line) + cr;
+    })
+    .join("\n");
+}
+
+/** URL e corpo ripuliti se la destinazione e' la raccolta di GA (stringa o URL); altrimenti null. */
+function sanitizeCollectCall(target: unknown, body: unknown): { url: string; body: unknown } | null {
+  try {
+    const raw = typeof target === "string" ? target : target instanceof URL ? target.href : null;
+    if (raw === null) return null;
+    const url = new URL(raw, window.location.href);
+    if (!GA_COLLECT_HOST.test(url.hostname)) return null;
+    url.search = sanitizeCollectQuery(url.search.slice(1));
+    return { url: url.href, body: sanitizeCollectBody(body) };
+  } catch {
+    return null;
+  }
+}
 
 function isBlockedCollect(target: unknown): boolean {
   if (w()[GA_DISABLE_FLAG] !== true) return false;
@@ -195,15 +286,20 @@ function installCollectGuard(): void {
   win.__fitmeshCollectGuard = true;
   if (typeof window.fetch === "function") {
     const originalFetch = window.fetch.bind(window);
-    window.fetch = ((input: RequestInfo | URL, init?: RequestInit) =>
-      isBlockedCollect(input)
-        ? Promise.resolve(new Response(null, { status: 204 }))
-        : originalFetch(input, init)) as typeof window.fetch;
+    window.fetch = function fetch(...args: Parameters<typeof window.fetch>) {
+      if (isBlockedCollect(args[0])) return Promise.resolve(new Response(null, { status: 204 }));
+      const clean = sanitizeCollectCall(args[0], args[1]?.body);
+      if (!clean) return originalFetch(...args);
+      return originalFetch(clean.url, { ...args[1], body: clean.body as BodyInit | null | undefined });
+    } as typeof window.fetch;
   }
   if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
     const originalBeacon = navigator.sendBeacon.bind(navigator);
-    navigator.sendBeacon = (url: string | URL, data?: BodyInit | null) =>
-      isBlockedCollect(url) ? true : originalBeacon(url, data);
+    navigator.sendBeacon = function sendBeacon(...args: Parameters<Navigator["sendBeacon"]>) {
+      if (isBlockedCollect(args[0])) return true;
+      const clean = sanitizeCollectCall(args[0], args[1]);
+      return clean ? originalBeacon(clean.url, clean.body as BodyInit | null | undefined) : originalBeacon(...args);
+    };
   }
 }
 
