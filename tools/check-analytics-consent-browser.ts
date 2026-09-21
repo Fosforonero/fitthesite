@@ -31,6 +31,8 @@
  * non intercetta nulla.
  *
  * Uso: BASE_URL=http://localhost:3924 npx tsx tools/check-analytics-consent-browser.ts
+ * Solo alcuni flussi: GUARDRAIL_FLOWS=BF (nomi: A, B, C, D, D-stessa-pagina, P, BF).
+ * Controllo di controllo: GUARDRAIL_FLOWS=BF GUARDRAIL_DROP_REFERRER=1 deve dare ROSSO.
  */
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -55,6 +57,13 @@ const UNSAFE = [
 // `blocked`: richiesta fermata dalla CSP prima di uscire (Chromium emette
 // comunque l'evento request, poi requestfailed con motivo "csp").
 type Hit = { host: string; path: string; events: string[]; pages: string[]; raw: string; blocked: boolean };
+// Controllo di controllo: GUARDRAIL_DROP_REFERRER=1 toglie `page_referrer` dal
+// `config` di GA prima che arrivi al dataLayer, cioe' riproduce il comportamento
+// precedente alla correzione del referrer. Con questo interruttore il flusso BF
+// deve diventare ROSSO: se resta verde, il flusso non vede la perdita.
+const DROP_REFERRER = process.env.GUARDRAIL_DROP_REFERRER === "1";
+// GUARDRAIL_FLOWS=BF,P esegue solo quei flussi (messa a punto); senza, li esegue tutti.
+const ONLY_FLOWS = process.env.GUARDRAIL_FLOWS?.split(",").map((f) => f.trim()).filter(Boolean);
 const failures: string[] = [];
 let checks = 0;
 function check(ok: boolean, label: string) {
@@ -102,6 +111,27 @@ async function newContext(engine: BrowserType, dir: string, mobile: boolean): Pr
     hasTouch: mobile,
     locale: "it-IT",
   });
+  if (DROP_REFERRER) {
+    // Stringa e non funzione: tsx aggiunge helper (`__name`) alle funzioni
+    // serializzate da Playwright, che nella pagina non esistono.
+    await ctx.addInitScript(`(() => {
+      let real;
+      Object.defineProperty(window, "gtag", {
+        configurable: true,
+        get: () => real,
+        set: (fn) => {
+          real = function (...args) {
+            if (args[0] === "config" && args[2] && typeof args[2] === "object") {
+              const copy = { ...args[2] };
+              delete copy.page_referrer;
+              args[2] = copy;
+            }
+            return fn.apply(this, args);
+          };
+        },
+      });
+    })();`);
+  }
   // 204 e non abort: un abort produce errori di console che non sono del sito.
   if (LOCAL) await ctx.route(COLLECT, (route) => route.fulfill({ status: 204 }));
   await ctx.route(/play\.google\.com|apps\.apple\.com/, (route) => route.fulfill({ status: 204, body: "" }));
@@ -165,6 +195,7 @@ function consecutiveDuplicates(pv: string[]) {
 async function run(engine: BrowserType, mobile: boolean) {
   const tag = `${engine.name()}/${mobile ? "mobile" : "desktop"}`;
   const flow = async (name: string, body: (ctx: BrowserContext, restart: () => Promise<BrowserContext>) => Promise<void>) => {
+    if (ONLY_FLOWS && !ONLY_FLOWS.includes(name)) return;
     const dir = mkdtempSync(join(tmpdir(), "p024a-"));
     let ctx = await newContext(engine, dir, mobile);
     const restart = async () => {
@@ -323,8 +354,19 @@ async function run(engine: BrowserType, mobile: boolean) {
     await page.waitForTimeout(1500);
     await Promise.all([page.waitForURL((u) => u.pathname === "/it"), page.locator('a[href="/it"]').first().click()]);
     await page.waitForTimeout(3500);
-    await page.goBack({ waitUntil: "load" });
-    const gtagOnExcluded = await page.evaluate(() => typeof (window as unknown as { gtag?: unknown }).gtag);
+    // L'indietro e' una navigazione nello stesso documento: il sito reagisce
+    // ricaricando la pagina senza il tag. Si attende il `load` di quella
+    // ricarica, altrimenti lo stato si legge a meta' (WebKit: gtag ancora
+    // presente; Chromium: contesto distrutto dalla navigazione).
+    let reloaded = true;
+    try {
+      await Promise.all([page.waitForEvent("load", { timeout: 15_000 }), page.goBack()]);
+    } catch {
+      reloaded = false;
+    }
+    await page.waitForTimeout(2000);
+    const gtagOnExcluded = await page.evaluate(() => typeof (window as unknown as { gtag?: unknown }).gtag).catch(() => "errore");
+    check(reloaded, `${tag} BF: la pagina non si e' ricaricata tornando alla route esclusa`);
     await page.waitForTimeout(9000);
     await page.goForward({ waitUntil: "load" });
     await page.waitForTimeout(12000);
