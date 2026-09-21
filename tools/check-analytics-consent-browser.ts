@@ -25,6 +25,8 @@
  *    (navigazione client-side, indietro, avanti): flusso HL;
  *  - un ripristino dalla cache avanti/indietro (pageshow persistente) dopo una
  *    revoca fatta altrove lascia GA attivo o parte una richiesta: flusso PS;
+ *  - con lo storage indisponibile (WebView, quota) la prima navigazione
+ *    client-side dopo «Accetta» dimentica la scelta e ricarica la pagina: SU;
  *  - un payload contiene un indirizzo email, dati utente hashati (em=), un
  *    UUID o un parametro code/state/token;
  *  - la console registra errori (esclusi gli avvisi della CSP report-only e
@@ -36,7 +38,7 @@
  * non intercetta nulla.
  *
  * Uso: BASE_URL=http://localhost:3924 npx tsx tools/check-analytics-consent-browser.ts
- * Solo alcuni flussi: GUARDRAIL_FLOWS=BF (nomi: A, B, C, D, D-stessa-pagina, P, BF, HL, PS).
+ * Solo alcuni flussi: GUARDRAIL_FLOWS=BF (nomi: A, B, C, D, D-stessa-pagina, P, BF, HL, PS, SU).
  * Controllo di controllo: GUARDRAIL_FLOWS=BF GUARDRAIL_DROP_REFERRER=1 deve dare ROSSO.
  */
 import { mkdtempSync, rmSync } from "node:fs";
@@ -414,6 +416,40 @@ async function run(engine: BrowserType, mobile: boolean) {
     check(gtagAfter === "undefined", `${tag} PS: gtag ancora definito dopo il ripristino`);
     check(later.length === 0, `${tag} PS: ${later.length} richieste Google dopo la revoca fatta altrove (${later.map((h) => h.host + h.path).join(", ")})`);
     check(!cookies.some((c) => c.startsWith("_ga")), `${tag} PS: cookie _ga ancora presenti dopo la revoca`);
+  });
+
+  // Storage che lancia: la scelta fatta con «Accetta» vale per il documento e
+  // non fa ricaricare la pagina alla prima navigazione client-side.
+  await flow("SU", async (ctx) => {
+    await ctx.addInitScript(
+      `Object.defineProperty(window, "localStorage", { configurable: true, get() { throw new DOMException("denied", "SecurityError"); } });`,
+    );
+    const page = await ctx.newPage();
+    const hits: Hit[] = [];
+    const errors: string[] = [];
+    watch(page, hits, errors);
+    await page.goto(`${BASE_URL}/it`, { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    await bannerButton(page, "accept");
+    await page.waitForTimeout(2500);
+    await page.evaluate(() => ((window as unknown as { __suMarker?: number }).__suMarker = 1));
+    await footerLink(page, "/integrations");
+    await page.waitForURL(/\/integrations$/, { timeout: 15_000 });
+    await page.waitForTimeout(3000);
+    const st = await page.evaluate(() => ({
+      marker: (window as unknown as { __suMarker?: number }).__suMarker,
+      gtag: typeof (window as unknown as { gtag?: unknown }).gtag,
+      banner: !!document.querySelector('[role="dialog"] button'),
+    }));
+    await page.waitForTimeout(6000);
+    await page.close({ runBeforeUnload: true });
+    await new Promise((r) => setTimeout(r, 800));
+    const sent = hits.filter((h) => !h.blocked);
+    check(st.marker === 1, `${tag} SU: la pagina si e' ricaricata alla prima navigazione (la scelta e' stata dimenticata)`);
+    check(st.gtag === "function", `${tag} SU: dopo la navigazione gtag non e' piu' definito`);
+    check(!st.banner, `${tag} SU: il banner e' ricomparso dopo aver accettato`);
+    check(pageViews(sent).length >= 2, `${tag} SU: ${pageViews(sent).length} page_view invece di almeno 2 (uno per pagina)`);
+    check(errors.length === 0, `${tag} SU: errori console ${errors.join(" | ")}`);
   });
 
   await flow("BF", async (ctx) => {

@@ -31,19 +31,28 @@ type AnalyticsWindow = Window & {
   __fitmeshCollectGuard?: boolean;
   __fitmeshHistorySync?: boolean;
   __fitmeshReloading?: boolean;
+  __fitmeshMemoryConsent?: ConsentRecord;
 } & Record<string, unknown>;
 
 const w = () => window as unknown as AnalyticsWindow;
 
+/**
+ * Se lo storage non e' disponibile (WebView senza DOM storage, quota, browser
+ * che lo blocca) la scelta dell'utente vale per questo documento: senza,
+ * alla prima navigazione client-side `applyConsent` non troverebbe nessuna
+ * scelta, spegnerebbe GA e ricaricherebbe la pagina. La scelta in memoria si
+ * usa solo se lo storage non ha un valore proprio: con lo storage funzionante
+ * resta l'unica fonte, e una scelta cancellata altrove continua a valere.
+ */
 export function readConsent(): ConsentRecord | null {
   try {
     const raw = window.localStorage.getItem(CONSENT_STORAGE_KEY);
-    if (!raw) return null;
+    if (!raw) return w().__fitmeshMemoryConsent ?? null;
     const parsed = JSON.parse(raw) as Partial<ConsentRecord>;
     if (typeof parsed?.analytics !== "boolean") return null;
     return { analytics: parsed.analytics, ts: Number(parsed.ts) || 0 };
   } catch {
-    return null;
+    return w().__fitmeshMemoryConsent ?? null;
   }
 }
 
@@ -51,8 +60,9 @@ export function writeConsent(analytics: boolean): ConsentRecord {
   const record: ConsentRecord = { analytics, ts: Date.now() };
   try {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(record));
+    delete w().__fitmeshMemoryConsent;
   } catch {
-    /* storage non disponibile: la scelta vale solo per questa pagina */
+    w().__fitmeshMemoryConsent = record;
   }
   window.dispatchEvent(new CustomEvent(CONSENT_CHANGED_EVENT, { detail: record }));
   return record;
@@ -373,19 +383,39 @@ export function loadAnalytics(): void {
   win.__fitmeshAnalytics = { loaded: true, active: true };
 }
 
-/** Cookie `_ga*` sull'host corrente e sui domini padre che il sito controlla. */
-export function clearAnalyticsCookies(): void {
-  const names = document.cookie
-    .split(";")
-    .map((c) => c.trim().split("=")[0])
-    .filter((n) => n === "_ga" || n.startsWith("_ga_") || n === "_gid" || n === "_gat");
-  const host = window.location.hostname;
+// La famiglia di cookie analytics di Google: GA4 imposta solo `_ga` e `_ga_<ID>`,
+// gli altri sono di versioni precedenti o di configurazioni con la pubblicita'.
+const GA_COOKIE = /^(?:_ga|_ga_.+|_gid|_gat|_gat_.+|_gac_.+)$/;
+
+/**
+ * Cookie analytics di Google sull'host corrente e sui domini padre, con il
+ * percorso radice e con ogni prefisso del percorso corrente: un cookie si
+ * cancella solo con lo stesso dominio e lo stesso percorso con cui e' stato
+ * scritto. GA4 usa `path=/` sul dominio padre (verificato in browser), ma un
+ * `cookie_path` diverso o una versione precedente non devono restare.
+ * Gli altri cookie del sito (Supabase, lingua) non si toccano.
+ */
+export function clearAnalyticsCookies(host: string = window.location.hostname, pathname: string = window.location.pathname): void {
+  const names = new Set(
+    document.cookie
+      .split(";")
+      .map((c) => c.trim().split("=")[0])
+      .filter((n) => GA_COOKIE.test(n)),
+  );
   const parts = host.split(".");
   const domains = [""];
   for (let i = 0; i < parts.length - 1; i++) domains.push(`; domain=.${parts.slice(i).join(".")}`);
-  const expired = "; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  const paths = ["/"];
+  let prefix = "";
+  for (const segment of pathname.split("/").filter(Boolean)) {
+    prefix += `/${segment}`;
+    paths.push(prefix);
+  }
+  const expired = "; expires=Thu, 01 Jan 1970 00:00:00 GMT";
   for (const name of names) {
-    for (const domain of domains) document.cookie = `${name}=${expired}${domain}`;
+    for (const domain of domains) {
+      for (const path of paths) document.cookie = `${name}=${expired}; path=${path}${domain}`;
+    }
   }
 }
 

@@ -12,6 +12,7 @@ import {
   CONSENT_STORAGE_KEY,
   GA_MEASUREMENT_ID,
   isAnalyticsActive,
+  clearAnalyticsCookies,
   isAnalyticsExcludedPath,
   sanitizeCollectQuery,
   pageLifecycle,
@@ -110,7 +111,7 @@ window.addEventListener = ((type: string, listener: EventListenerOrEventListener
 afterEach(() => {
   cleanup();
   document.querySelectorAll("script, meta[http-equiv]").forEach((s) => s.remove());
-  for (const key of ["gtag", "dataLayer", "__fitmeshAnalytics", "__fitmeshCollectGuard", "__fitmeshHistorySync", "__fitmeshReloading", DISABLE]) {
+  for (const key of ["gtag", "dataLayer", "__fitmeshAnalytics", "__fitmeshCollectGuard", "__fitmeshHistorySync", "__fitmeshReloading", "__fitmeshMemoryConsent", DISABLE]) {
     delete win()[key];
   }
   pageLifecycle.reload = originalReload;
@@ -717,5 +718,114 @@ describe("banner: la scelta fatta in un'altra scheda vale anche qui", () => {
       window.dispatchEvent(new StorageEvent("storage", { key: "altra_chiave" }));
     });
     expect(document.querySelector('[role="dialog"]')).not.toBeNull();
+  });
+});
+
+describe("storage indisponibile: la scelta vale per il documento", () => {
+  const brokenStorage = (mode: "write" | "all") =>
+    Object.defineProperty(window, "localStorage", {
+      configurable: true,
+      value: {
+        getItem: () => {
+          if (mode === "all") throw new DOMException("denied", "SecurityError");
+          return null;
+        },
+        setItem: () => {
+          throw new DOMException("quota", "QuotaExceededError");
+        },
+        removeItem: () => {},
+        clear: () => {},
+      },
+    });
+
+  for (const mode of ["write", "all"] as const) {
+    it(`${mode === "write" ? "scrittura che fallisce" : "storage che lancia anche in lettura"}: Accetta, poi navigazioni client-side senza ricaricare la pagina`, () => {
+      brokenStorage(mode);
+      const { rerender } = render(<AnalyticsConsent />);
+      act(() => {
+        writeConsent(true);
+      });
+      expect(isAnalyticsActive()).toBe(true);
+      for (const path of ["/it/integrations", "/it/about", "/it"]) {
+        goTo(path);
+        rerender(<AnalyticsConsent />);
+      }
+      expect(reload).not.toHaveBeenCalled();
+      expect(isAnalyticsActive()).toBe(true);
+      expect(gaScripts()).toHaveLength(1);
+      expect(commands("config")).toHaveLength(1);
+    });
+
+    it(`${mode === "write" ? "scrittura che fallisce" : "storage che lancia anche in lettura"}: la revoca vale e ricarica`, () => {
+      brokenStorage(mode);
+      render(<AnalyticsConsent />);
+      act(() => {
+        writeConsent(true);
+      });
+      act(() => {
+        writeConsent(false);
+      });
+      expect(isAnalyticsActive()).toBe(false);
+      expect(reload).toHaveBeenCalledTimes(1);
+    });
+  }
+
+  it("con lo storage funzionante la scelta in memoria non c'e': una scelta cancellata altrove spegne GA", () => {
+    render(<AnalyticsConsent />);
+    act(() => {
+      writeConsent(true);
+    });
+    expect(win().__fitmeshMemoryConsent).toBeUndefined();
+    window.localStorage.clear();
+    act(() => {
+      window.dispatchEvent(new StorageEvent("storage", { key: null }));
+    });
+    expect(isAnalyticsActive()).toBe(false);
+    expect(reload).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("cancellazione dei cookie: host, domini padre e percorsi", () => {
+  function recorder(jar: string) {
+    const writes: string[] = [];
+    Object.defineProperty(document, "cookie", { configurable: true, get: () => jar, set: (v: string) => void writes.push(v) });
+    return writes;
+  }
+  afterEach(() => {
+    delete (document as unknown as Record<string, unknown>).cookie;
+  });
+  const JAR = "_ga=1; _ga_WLBXXFB21G=1; _gid=1; _gat=1; _gat_gtag_G-WLBXXFB21G=1; _gac_x=1; sb-auth-token=KEEP; fm_locale=KEEP; _gallery=KEEP; other_ga=KEEP";
+
+  it("host, tutti i domini padre e il percorso radice piu' ogni prefisso del percorso corrente", () => {
+    const writes = recorder(JAR);
+    clearAnalyticsCookies("www.fitmesh.fit", "/it/blog/post");
+    const of = (name: string) => writes.filter((x) => x.startsWith(`${name}=`));
+    expect(of("_ga")).toHaveLength(3 * 4);
+    for (const domain of ["", "; domain=.www.fitmesh.fit", "; domain=.fitmesh.fit"]) {
+      for (const path of ["/", "/it", "/it/blog", "/it/blog/post"]) {
+        expect(writes).toContain(`_ga=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=${path}${domain}`);
+      }
+    }
+    expect(writes.some((x) => x.includes("domain=.fit;") || x.endsWith("domain=.fit"))).toBe(false);
+  });
+
+  it("cancella la famiglia GA e nient'altro", () => {
+    const writes = recorder(JAR);
+    clearAnalyticsCookies("www.fitmesh.fit", "/");
+    const names = new Set(writes.map((x) => x.split("=")[0]));
+    expect([...names].sort()).toEqual(["_ga", "_ga_WLBXXFB21G", "_gac_x", "_gat", "_gat_gtag_G-WLBXXFB21G", "_gid"].sort());
+  });
+
+  it("localhost e un indirizzo IP: solo l'host, nessun dominio padre inventato", () => {
+    const writes = recorder("_ga=1");
+    clearAnalyticsCookies("localhost", "/it");
+    expect(writes.every((x) => !x.includes("domain="))).toBe(true);
+    expect(writes).toHaveLength(2);
+  });
+
+  it("un cookie con lo stesso nome scritto due volte (percorsi diversi) si cancella una sola volta per combinazione", () => {
+    const writes = recorder("_ga=1; _ga=2");
+    clearAnalyticsCookies("localhost", "/");
+    expect(writes).toHaveLength(1);
   });
 });
