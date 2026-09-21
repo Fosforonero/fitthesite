@@ -17,6 +17,8 @@ import {
   sanitizeCollectQuery,
   pageLifecycle,
   RELOAD_CSP,
+  RELOAD_RETRY_MS,
+  resetReloadState,
   sanitizeEventParams,
   sanitizeReferrer,
   sanitizePageLocation,
@@ -47,6 +49,20 @@ function reloadCsp() {
 function goTo(path: string) {
   currentPath = path;
   window.history.replaceState({}, "", path);
+}
+/** Quello che una ricarica butta via: script, meta, variabili di pagina, timer. */
+function discardDocument() {
+  document.querySelectorAll("script, meta[http-equiv]").forEach((s) => s.remove());
+  for (const key of ["gtag", "dataLayer", "__fitmeshAnalytics", "__fitmeshCollectGuard", "__fitmeshHistorySync", "__fitmeshReloading", "__fitmeshMemoryConsent", DISABLE]) {
+    delete win()[key];
+  }
+  resetReloadState();
+}
+/** Ripristino della pagina dalla cache avanti/indietro (`pageshow`). */
+function restore(persisted: boolean) {
+  const event = new Event("pageshow") as Event & { persisted: boolean };
+  Object.defineProperty(event, "persisted", { value: persisted });
+  window.dispatchEvent(event);
 }
 
 class NoopIO implements IntersectionObserver {
@@ -110,10 +126,7 @@ window.addEventListener = ((type: string, listener: EventListenerOrEventListener
 
 afterEach(() => {
   cleanup();
-  document.querySelectorAll("script, meta[http-equiv]").forEach((s) => s.remove());
-  for (const key of ["gtag", "dataLayer", "__fitmeshAnalytics", "__fitmeshCollectGuard", "__fitmeshHistorySync", "__fitmeshReloading", "__fitmeshMemoryConsent", DISABLE]) {
-    delete win()[key];
-  }
+  discardDocument();
   pageLifecycle.reload = originalReload;
   delete (document as unknown as Record<string, unknown>).referrer;
   window.history.pushState = originalPushState;
@@ -577,6 +590,14 @@ describe("uscita verso GA: dl e dr sanificati su ogni richiesta di raccolta", ()
     );
   });
 
+  it("il termine di ricerca ricavato dall'URL passa dallo stesso filtro dei campi campagna", () => {
+    expect(sanitizeCollectQuery("v=2&en=view_search_results&ep.search_term=fitbit")).toBe("v=2&en=view_search_results&ep.search_term=fitbit");
+    expect(sanitizeCollectQuery(`ep.search_term=${enc("550e8400-e29b-41d4-a716-446655440000")}&en=view_search_results`)).toBe(
+      "ep.search_term=redacted&en=view_search_results",
+    );
+    expect(sanitizeCollectQuery(`en=view_search_results&ep.search_term=${enc("mario@example.com")}`)).toBe("en=view_search_results&ep.search_term=redacted");
+  });
+
   it("i wrapper non cambiano il comportamento nativo: nessun argomento, stessi argomenti", async () => {
     const { fetchSpy, beaconSpy } = setup();
     await (window.fetch as unknown as () => Promise<Response>)();
@@ -618,18 +639,35 @@ describe("valori UTM: etichette di campagna, non identificativi", () => {
     );
   });
 
+  it.each([
+    ["un indirizzo codificato due volte", enc(enc("mario@example.com"))],
+    ["un code= nascosto nel valore", enc("a&code=SECRETINUTM")],
+    ["uno state= codificato tre volte", enc(enc(enc("x&state=SECRET")))],
+    ["un token alfanumerico di 32 caratteri", "k3Jd8sLq0PzXm2VbN7tRcYwH5aQe1UfG"],
+  ])("%s diventa redacted", (_label, value) => {
+    expect(loc(`utm_source=${value}`)).toBe("https://www.fitmesh.fit/it?utm_source=redacted");
+  });
+
+  it("le etichette con trattini, trattini bassi, spazi e un percento isolato restano", () => {
+    for (const label of ["spring-summer-sale-2026-newsletter-campaign", "newsletter_settembre", "Black+Friday", "50%25off", "hero-cta"]) {
+      expect(loc(`utm_source=${label}`), label).not.toContain("redacted");
+    }
+  });
+
+  it("un valore molto lungo si scarta subito: nessun costo quadratico sull'espressione degli indirizzi", () => {
+    const long = "a".repeat(100000);
+    const start = performance.now();
+    expect(loc(`utm_source=${long}`)).toBe("https://www.fitmesh.fit/it?utm_source=redacted");
+    expect(sanitizeEventParams({ q: long })).toEqual({ q: "redacted" });
+    expect(performance.now() - start).toBeLessThan(1000);
+  });
+
   it("il referrer del sito applica lo stesso filtro", () => {
     expect(sanitizeReferrer(`${ORIGIN()}/it?utm_source=${enc("mario@example.com")}&code=X`)).toBe(`${ORIGIN()}/it?utm_source=redacted`);
   });
 });
 
 describe("pageshow: ripristino dalla cache avanti/indietro", () => {
-  const restore = (persisted: boolean) => {
-    const event = new Event("pageshow") as Event & { persisted: boolean };
-    Object.defineProperty(event, "persisted", { value: persisted });
-    window.dispatchEvent(event);
-  };
-
   it("una scelta revocata altrove mentre la pagina era congelata spegne GA al ripristino", () => {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 1 }));
     render(<AnalyticsConsent />);
@@ -676,6 +714,61 @@ describe("pageshow: ripristino dalla cache avanti/indietro", () => {
   });
 });
 
+describe("ricarica che non si completa", () => {
+  // `reload` e' un mock: il documento resta vivo, come dopo uno Stop o una navigazione che scavalca la ricarica.
+  // La CSP temporanea non si solleva togliendo la meta (verificato su Chromium e WebKit): la ricarica si ripete.
+  beforeEach(() => {
+    vi.useFakeTimers();
+  });
+  afterEach(() => {
+    resetReloadState();
+    vi.useRealTimers();
+  });
+  function revoke() {
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 1 }));
+    render(<AnalyticsConsent />);
+    act(() => {
+      writeConsent(false);
+    });
+  }
+  const advance = (ms: number) =>
+    act(() => {
+      vi.advanceTimersByTime(ms);
+    });
+
+  it("la ricarica si ripete a intervalli crescenti, poi ogni minuto, finche' il documento vive", () => {
+    revoke();
+    expect(reload).toHaveBeenCalledTimes(1);
+    advance(RELOAD_RETRY_MS[0] - 1);
+    expect(reload).toHaveBeenCalledTimes(1);
+    advance(1);
+    expect(reload).toHaveBeenCalledTimes(2);
+    advance(RELOAD_RETRY_MS[1]);
+    expect(reload).toHaveBeenCalledTimes(3);
+    advance(RELOAD_RETRY_MS[2]);
+    advance(RELOAD_RETRY_MS[2]);
+    expect(reload).toHaveBeenCalledTimes(5);
+  });
+
+  it("azzerare lo stato (pagina sostituita o ripristinata) ferma i tentativi", () => {
+    revoke();
+    resetReloadState();
+    advance(RELOAD_RETRY_MS[0] * 20);
+    expect(reload).toHaveBeenCalledTimes(1);
+  });
+
+  it("pageshow dalla cache dopo una ricarica scavalcata: si ricarica di nuovo subito, con una sola meta CSP", () => {
+    revoke();
+    expect(reloadCsp()).toEqual([RELOAD_CSP]);
+    restore(false); // caricamento normale: il gestore non fa nulla
+    expect(reload).toHaveBeenCalledTimes(1);
+    restore(true);
+    expect(reload).toHaveBeenCalledTimes(2);
+    expect(reloadCsp()).toEqual([RELOAD_CSP]);
+    expect(win()[DISABLE]).toBe(true);
+  });
+});
+
 describe("percorsi esclusi: il confronto non dipende dalla normalizzazione dell'hosting", () => {
   it.each([
     "/oauth", "/oauth/", "/oauth/fitbit/callback", "/it/auth", "/it/auth/", "/it/auth/login", "/en/app/devices",
@@ -708,6 +801,21 @@ describe("banner: la scelta fatta in un'altra scheda vale anche qui", () => {
       window.dispatchEvent(new StorageEvent("storage", { key: null }));
     });
     expect(document.querySelector('[role="dialog"]')).not.toBeNull();
+  });
+
+  it("dopo un ripristino dalla cache la scelta si rilegge anche se l'evento storage non e' arrivato", async () => {
+    const dict = await getDictionary("it");
+    render(<CookieBanner dict={dict} />);
+    expect(document.querySelector('[role="dialog"]')).not.toBeNull();
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 1 })); // nessun evento storage
+    act(() => {
+      restore(false); // caricamento normale: nulla
+    });
+    expect(document.querySelector('[role="dialog"]')).not.toBeNull();
+    act(() => {
+      restore(true);
+    });
+    expect(document.querySelector('[role="dialog"]')).toBeNull();
   });
 
   it("un'altra chiave non cambia il banner", async () => {
@@ -782,6 +890,71 @@ describe("storage indisponibile: la scelta vale per il documento", () => {
     });
     expect(isAnalyticsActive()).toBe(false);
     expect(reload).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("scrittura che non riesce con una scelta vecchia ancora nello storage", () => {
+  // Storage pieno fino all'ultimo carattere (la scelta passa da «true» a «false» e cresce di uno): la lettura
+  // funziona, la scrittura della scelta lancia un errore o, in un browser che la ignora, non fa nulla.
+  class FullStorage extends MemoryStorage {
+    constructor(
+      private readonly mode: "throws" | "ignores",
+      seed: boolean | null,
+    ) {
+      super();
+      if (seed !== null) super.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: seed, ts: 1 }));
+    }
+    setItem(key: string, value: string) {
+      if (key !== CONSENT_STORAGE_KEY) return super.setItem(key, value);
+      if (this.mode === "throws") throw new DOMException("quota", "QuotaExceededError");
+    }
+  }
+  const install = (mode: "throws" | "ignores", seed: boolean | null) =>
+    Object.defineProperty(window, "localStorage", { value: new FullStorage(mode, seed), configurable: true });
+
+  for (const mode of ["throws", "ignores"] as const) {
+    it(`${mode}: un vecchio «accetto» non riaccende GA dopo il rifiuto e la ricarica`, () => {
+      install(mode, true);
+      render(<AnalyticsConsent />);
+      expect(isAnalyticsActive()).toBe(true);
+      act(() => {
+        writeConsent(false);
+      });
+      expect(isAnalyticsActive()).toBe(false);
+      expect(reload).toHaveBeenCalledTimes(1);
+      expect(window.localStorage.getItem(CONSENT_STORAGE_KEY)).toBeNull();
+      // La pagina dopo la ricarica: nessuna memoria del documento precedente, solo lo storage.
+      cleanup();
+      discardDocument();
+      render(<AnalyticsConsent />);
+      expect(gaScripts()).toHaveLength(0);
+      expect(win().gtag).toBeUndefined();
+    });
+
+    it(`${mode}: un vecchio «rifiuto» non annulla un Accetta che non si riesce a salvare`, () => {
+      install(mode, false);
+      const { rerender } = render(<AnalyticsConsent />);
+      act(() => {
+        writeConsent(true);
+      });
+      expect(isAnalyticsActive()).toBe(true);
+      goTo("/it/about");
+      rerender(<AnalyticsConsent />);
+      expect(reload).not.toHaveBeenCalled();
+      expect(isAnalyticsActive()).toBe(true);
+    });
+  }
+
+  it("scrittura ignorata senza nessuna scelta vecchia: Accetta non si annulla alla prima navigazione", () => {
+    install("ignores", null);
+    const { rerender } = render(<AnalyticsConsent />);
+    act(() => {
+      writeConsent(true);
+    });
+    goTo("/it/about");
+    rerender(<AnalyticsConsent />);
+    expect(reload).not.toHaveBeenCalled();
+    expect(isAnalyticsActive()).toBe(true);
   });
 });
 

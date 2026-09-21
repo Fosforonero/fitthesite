@@ -56,13 +56,32 @@ export function readConsent(): ConsentRecord | null {
   }
 }
 
+/** Scrive e rilegge: uno storage che ignora la scrittura senza errore vale come uno che la rifiuta. */
+function persistConsent(record: ConsentRecord): boolean {
+  try {
+    const raw = JSON.stringify(record);
+    window.localStorage.setItem(CONSENT_STORAGE_KEY, raw);
+    return window.localStorage.getItem(CONSENT_STORAGE_KEY) === raw;
+  } catch {
+    return false;
+  }
+}
+
 export function writeConsent(analytics: boolean): ConsentRecord {
   const record: ConsentRecord = { analytics, ts: Date.now() };
-  try {
-    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(record));
+  if (persistConsent(record)) {
     delete w().__fitmeshMemoryConsent;
-  } catch {
+  } else {
     w().__fitmeshMemoryConsent = record;
+    // Una scelta che non si riesce a salvare non deve lasciare una scelta vecchia
+    // ancora leggibile: dopo la ricarica che segue un rifiuto, un vecchio «accetto»
+    // riaccenderebbe GA (provato con lo storage pieno fino all'ultimo carattere, su
+    // Chromium e WebKit). Togliere non richiede spazio, quindi riesce anche a storage pieno.
+    try {
+      window.localStorage.removeItem(CONSENT_STORAGE_KEY);
+    } catch {
+      /* storage inutilizzabile: nessuna scelta salvata, ne' vecchia ne' nuova */
+    }
   }
   window.dispatchEvent(new CustomEvent(CONSENT_CHANGED_EVENT, { detail: record }));
   return record;
@@ -101,21 +120,44 @@ const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
 const LONG_NUMBER = /\d{7,}/;
 const TOKEN_QUERY = /[?&](?:code|state|token|token_hash|access_token|refresh_token)=/i;
 
+function looksLikeIdentifier(text: string): boolean {
+  return (
+    EMAIL.test(text) ||
+    UUID.test(text) ||
+    /\d{10,}/.test(text) ||
+    /[0-9a-f]{24,}/i.test(text) ||
+    /[A-Za-z0-9]{32,}/.test(text) ||
+    /eyJ[\w-]{10,}\.[\w-]{10,}/.test(text) ||
+    TOKEN_QUERY.test(text)
+  );
+}
+
 /**
  * Un valore UTM e' un'etichetta di campagna, ma i link di alcuni strumenti di
  * email vi mettono l'indirizzo o l'id dell'iscritto. Si scartano indirizzi,
  * UUID, sequenze di 10 o piu' cifre (una data come 20260921 resta), stringhe
- * esadecimali lunghe, token in stile JWT e valori molto lunghi.
+ * esadecimali o alfanumeriche lunghe, token in stile JWT, `code=`/`state=`/
+ * `token=` nascosti nel valore e valori molto lunghi. Il valore si controlla
+ * anche dopo averlo decodificato (fino a tre volte): un indirizzo codificato
+ * due volte non deve passare. Il controllo di lunghezza viene prima: le
+ * espressioni sopra sono quadratiche su una stringa lunga senza chiocciola, e
+ * questa funzione gira su ogni richiesta di raccolta.
  */
 function isUnsafeUtmValue(value: string): boolean {
-  return (
-    EMAIL.test(value) ||
-    UUID.test(value) ||
-    /\d{10,}/.test(value) ||
-    /[0-9a-f]{24,}/i.test(value) ||
-    /eyJ[\w-]{10,}\.[\w-]{10,}/.test(value) ||
-    value.length > 100
-  );
+  if (value.length > 100) return true;
+  let text = value;
+  for (let round = 0; round < 3; round++) {
+    if (looksLikeIdentifier(text)) return true;
+    let decoded: string;
+    try {
+      decoded = decodeURIComponent(text);
+    } catch {
+      return false;
+    }
+    if (decoded === text) return false;
+    text = decoded;
+  }
+  return looksLikeIdentifier(text);
 }
 
 /** URL da inviare come `page_location`: origine e percorso, piu' i soli parametri UTM. */
@@ -175,11 +217,11 @@ export function sanitizeEventParams(params: Record<string, unknown>): Record<str
     const text = String(value);
     const storeLink = STORE_URL.test(text) && !TOKEN_QUERY.test(text);
     const unsafe =
+      text.length > 200 ||
       EMAIL.test(text) ||
       UUID.test(text) ||
       (!storeLink && LONG_NUMBER.test(text)) ||
-      TOKEN_QUERY.test(text) ||
-      text.length > 200;
+      TOKEN_QUERY.test(text);
     out[key] = unsafe ? "redacted" : text;
   }
   return out;
@@ -228,8 +270,10 @@ function decodeParam(value: string): string | null {
  * `gtag("set")` lo impediscono (provato in browser su Chromium e WebKit).
  * L'unico punto sotto il controllo del sito e' l'uscita: qui `dl` e `dr` di ogni
  * richiesta di raccolta passano dagli stessi sanificatori del `config`, e i
- * campi campagna con un valore non sicuro diventano "redacted". Il resto della
- * richiesta resta identico byte per byte.
+ * campi campagna con un valore non sicuro diventano "redacted", come il termine
+ * di ricerca che la misurazione avanzata ricava da `?q=`/`?s=`/`?query=` (il sito
+ * non ha una ricerca: il valore e' quello dell'URL, con la stessa esposizione di
+ * `dl`). Il resto della richiesta resta identico byte per byte.
  */
 export function sanitizeCollectQuery(query: string): string {
   return query
@@ -238,7 +282,7 @@ export function sanitizeCollectQuery(query: string): string {
       const clean = text === null ? "" : key === "dl" ? sanitizePageLocation(text) : sanitizeReferrer(text);
       return `${sep}${key}=${encodeURIComponent(clean)}`;
     })
-    .replace(/(^|&)(cs|cm|cn|ct|cc)=([^&]*)/g, (match: string, sep: string, key: string, value: string) => {
+    .replace(/(^|&)(cs|cm|cn|ct|cc|ep\.search_term)=([^&]*)/g, (match: string, sep: string, key: string, value: string) => {
       const text = decodeParam(value);
       return text !== null && !isUnsafeUtmValue(text) ? match : `${sep}${key}=redacted`;
     });
@@ -440,6 +484,33 @@ function suspendAndReload(): void {
   win.__fitmeshReloading = true;
   blockExternalRequestsUntilReload();
   pageLifecycle.reload();
+  armReloadRetry(0);
+}
+
+/**
+ * Se la ricarica non si completa (Stop, una navigazione che la scavalca, la
+ * pagina congelata nella cache avanti/indietro) il documento resta sotto la CSP
+ * temporanea, e togliere l'elemento non la solleva (verificato su Chromium e
+ * WebKit): immagini e connessioni verso altri domini restano bloccate finche'
+ * il documento vive, e `__fitmeshReloading` impedirebbe ogni altra ricarica. La
+ * ricarica si ripete, a intervalli crescenti: una rete lenta non deve vedere la
+ * richiesta ripartire di continuo. Il timer sparisce con il documento.
+ */
+export const RELOAD_RETRY_MS = [10000, 30000, 60000] as const;
+let reloadRetry: number | undefined;
+
+function armReloadRetry(attempt: number): void {
+  reloadRetry = window.setTimeout(() => {
+    pageLifecycle.reload();
+    armReloadRetry(Math.min(attempt + 1, RELOAD_RETRY_MS.length - 1));
+  }, RELOAD_RETRY_MS[attempt]);
+}
+
+/** La pagina torna dalla cache avanti/indietro: la ricarica avviata prima del congelamento non e' arrivata, si riparte da capo. */
+export function resetReloadState(): void {
+  window.clearTimeout(reloadRetry);
+  reloadRetry = undefined;
+  delete w().__fitmeshReloading;
 }
 
 /**
@@ -451,9 +522,13 @@ function suspendAndReload(): void {
  * Il sito non registra gestori beforeunload, quindi la ricarica non si ferma.
  */
 export const RELOAD_CSP = "script-src 'none'; img-src 'none'; connect-src 'self'";
+const RELOAD_CSP_ID = "fitmesh-reload-csp";
 
 function blockExternalRequestsUntilReload(): void {
+  // Una sola meta: dopo un ripristino dalla cache la policy c'e' gia' e non si toglie.
+  if (document.getElementById(RELOAD_CSP_ID)) return;
   const meta = document.createElement("meta");
+  meta.id = RELOAD_CSP_ID;
   meta.httpEquiv = "Content-Security-Policy";
   meta.content = RELOAD_CSP;
   document.head.appendChild(meta);

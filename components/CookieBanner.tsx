@@ -25,11 +25,18 @@ export default function CookieBanner({ dict }: { dict: Dictionary }) {
     const onStorage = (event: StorageEvent) => {
       if (event.key === CONSENT_STORAGE_KEY || event.key === null) setVisible(!readConsent());
     };
+    // Dalla cache avanti/indietro gli eventi `storage` nati mentre la pagina era
+    // congelata possono non arrivare: si rilegge la scelta, come fa AnalyticsConsent.
+    const onPageShow = (event: PageTransitionEvent) => {
+      if (event.persisted) setVisible(!readConsent());
+    };
     window.addEventListener(CONSENT_REOPEN_EVENT, reopen);
     window.addEventListener("storage", onStorage);
+    window.addEventListener("pageshow", onPageShow);
     return () => {
       window.removeEventListener(CONSENT_REOPEN_EVENT, reopen);
       window.removeEventListener("storage", onStorage);
+      window.removeEventListener("pageshow", onPageShow);
     };
   }, []);
 

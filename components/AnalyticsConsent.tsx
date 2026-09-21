@@ -8,6 +8,7 @@ import {
   applyConsent,
   disableAnalytics,
   loadAnalytics,
+  resetReloadState,
   type ConsentRecord,
 } from "@/lib/analytics/consent";
 
@@ -39,9 +40,14 @@ export default function AnalyticsConsent() {
     };
     // Una pagina ripristinata dalla cache avanti/indietro torna com'era: le
     // scelte fatte nel frattempo altrove non hanno prodotto eventi `storage`
-    // per lei. Si rilegge il consenso (revoca, rifiuto, scelta cancellata).
+    // per lei. Si rilegge il consenso (revoca, rifiuto, scelta cancellata). Una
+    // ricarica avviata prima del congelamento e scavalcata dall'uscita dalla
+    // pagina non e' arrivata: si riparte da capo, altrimenti resterebbe un
+    // documento sotto la CSP temporanea e col tag ancora definito.
     const onPageShow = (event: PageTransitionEvent) => {
-      if (event.persisted) applyConsent(window.location.pathname);
+      if (!event.persisted) return;
+      resetReloadState();
+      applyConsent(window.location.pathname);
     };
     window.addEventListener(CONSENT_CHANGED_EVENT, onChange);
     window.addEventListener("storage", onStorage);

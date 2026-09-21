@@ -27,6 +27,11 @@
  *    revoca fatta altrove lascia GA attivo o parte una richiesta: flusso PS;
  *  - con lo storage indisponibile (WebView, quota) la prima navigazione
  *    client-side dopo «Accetta» dimentica la scelta e ricarica la pagina: SU;
+ *  - con lo storage pieno fino all'ultimo carattere (senza sostituire Storage)
+ *    il rifiuto non si scrive e il vecchio «accetto» riaccende GA dopo la
+ *    ricarica: QU;
+ *  - una ricarica interrotta dopo la revoca (Stop, ERR_ABORTED) lascia la pagina
+ *    sotto la CSP temporanea, col tag definito e senza altri tentativi: RA;
  *  - un payload contiene un indirizzo email, dati utente hashati (em=), un
  *    UUID o un parametro code/state/token;
  *  - la console registra errori (esclusi gli avvisi della CSP report-only e
@@ -38,7 +43,7 @@
  * non intercetta nulla.
  *
  * Uso: BASE_URL=http://localhost:3924 npx tsx tools/check-analytics-consent-browser.ts
- * Solo alcuni flussi: GUARDRAIL_FLOWS=BF (nomi: A, B, C, D, D-stessa-pagina, P, BF, HL, PS, SU).
+ * Solo alcuni flussi: GUARDRAIL_FLOWS=BF (nomi: A, B, C, D, D-stessa-pagina, P, BF, HL, PS, SU, QU, RA).
  * Controllo di controllo: GUARDRAIL_FLOWS=BF GUARDRAIL_DROP_REFERRER=1 deve dare ROSSO.
  */
 import { mkdtempSync, rmSync } from "node:fs";
@@ -450,6 +455,123 @@ async function run(engine: BrowserType, mobile: boolean) {
     check(!st.banner, `${tag} SU: il banner e' ricomparso dopo aver accettato`);
     check(pageViews(sent).length >= 2, `${tag} SU: ${pageViews(sent).length} page_view invece di almeno 2 (uno per pagina)`);
     check(errors.length === 0, `${tag} SU: errori console ${errors.join(" | ")}`);
+  });
+
+  // Storage pieno fino all'ultimo carattere, senza sostituire Storage: il rifiuto
+  // fa crescere la scelta di un carattere («true» -> «false») e non si scrive. Il
+  // vecchio «accetto» non deve riaccendere GA dopo la ricarica che segue il rifiuto.
+  await flow("QU", async (ctx) => {
+    const page = await ctx.newPage();
+    const hits: Hit[] = [];
+    const errors: string[] = [];
+    watch(page, hits, errors);
+    await page.goto(`${BASE_URL}/it`, { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    await bannerButton(page, "accept");
+    await page.waitForTimeout(3500);
+    // Stringa e non funzione: tsx aggiunge helper (`__name`) alle funzioni serializzate da Playwright.
+    const quota = await page.evaluate<{ filler: number; full: boolean; stored: string | null }>(`(() => {
+      const put = (n) => {
+        try {
+          localStorage.setItem("p024a_filler", "x".repeat(n));
+          return true;
+        } catch {
+          return false;
+        }
+      };
+      let lo = 0;
+      let hi = 16 * 1024 * 1024;
+      while (lo < hi) {
+        const mid = Math.ceil((lo + hi) / 2);
+        if (put(mid)) lo = mid;
+        else hi = mid - 1;
+      }
+      put(lo);
+      return { filler: lo, full: !put(lo + 1), stored: localStorage.getItem("fitmesh_cookie_consent") };
+    })()`);
+    check(quota.full && quota.filler > 0 && /"analytics":true/.test(quota.stored ?? ""), `${tag} QU: lo storage non e' pieno o la scelta non e' «accetto» (${JSON.stringify({ ...quota, stored: quota.stored?.slice(0, 40) })})`);
+    await visible(page, "[data-consent-revoke]").scrollIntoViewIfNeeded();
+    await visible(page, "[data-consent-revoke]").click();
+    await page.waitForTimeout(500);
+    const before = hits.length;
+    await Promise.all([page.waitForEvent("load"), bannerButton(page, "reject")]);
+    await page.waitForTimeout(2000);
+    await page.mouse.wheel(0, 2500);
+    await page.waitForTimeout(9000);
+    const st = await page.evaluate(() => ({
+      gtag: typeof (window as unknown as { gtag?: unknown }).gtag,
+      banner: !!document.querySelector('[role="dialog"] button'),
+      stored: localStorage.getItem("fitmesh_cookie_consent"),
+    }));
+    const cookies = (await ctx.cookies()).map((c) => c.name);
+    await page.close({ runBeforeUnload: true });
+    await new Promise((r) => setTimeout(r, 800));
+    const later = hits.slice(before).filter((h) => !h.blocked);
+    check(later.length === 0, `${tag} QU: ${later.length} richieste Google dopo il rifiuto con lo storage pieno (${later.map((h) => h.host + h.path).join(", ")})`);
+    check(st.gtag === "undefined", `${tag} QU: dopo la ricarica gtag e' ancora definito (il vecchio «accetto» ha riacceso GA)`);
+    check(st.stored === null && st.banner, `${tag} QU: la scelta vecchia e' ancora nello storage (${st.stored?.slice(0, 40)}) o il banner non e' tornato`);
+    check(!cookies.some((c) => c.startsWith("_ga")), `${tag} QU: cookie _ga ancora presenti dopo il rifiuto`);
+    check(errors.length === 0, `${tag} QU: errori console ${errors.join(" | ")}`);
+  });
+
+  // Ricarica interrotta dopo la revoca (come uno Stop: ERR_ABORTED). La CSP
+  // temporanea non si toglie con la meta, quindi il documento resterebbe sotto
+  // script-src 'none' col tag definito: la ricarica deve ripetersi da sola.
+  await flow("RA", async (ctx) => {
+    const page = await ctx.newPage();
+    const hits: Hit[] = [];
+    const errors: string[] = [];
+    watch(page, hits, errors);
+    await page.goto(`${BASE_URL}/it`, { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    await bannerButton(page, "accept");
+    await page.waitForTimeout(3500);
+    await visible(page, "[data-consent-revoke]").scrollIntoViewIfNeeded();
+    await visible(page, "[data-consent-revoke]").click();
+    await page.waitForTimeout(500);
+    let aborted = 0;
+    await page.route(
+      (u) => u.origin === new URL(BASE_URL).origin && u.pathname === "/it",
+      (route) => {
+        if (route.request().resourceType() === "document" && aborted < 1) {
+          aborted++;
+          return route.abort("aborted");
+        }
+        return route.fallback();
+      },
+    );
+    const before = hits.length;
+    await bannerButton(page, "reject");
+    await page.waitForTimeout(2000);
+    const stuck = await page.evaluate(() => ({
+      csp: document.querySelectorAll('meta[http-equiv="Content-Security-Policy"]').length,
+      gtag: typeof (window as unknown as { gtag?: unknown }).gtag,
+    }));
+    check(aborted === 1 && stuck.csp === 1 && stuck.gtag === "function", `${tag} RA: il controllo non ha prodotto una ricarica interrotta (${JSON.stringify({ aborted, ...stuck })})`);
+    let retried = true;
+    try {
+      await page.waitForEvent("load", { timeout: 20_000 });
+    } catch {
+      retried = false;
+    }
+    await page.waitForTimeout(2000);
+    const after = await page.evaluate(() => ({
+      gtag: typeof (window as unknown as { gtag?: unknown }).gtag,
+      csp: document.querySelectorAll('meta[http-equiv="Content-Security-Policy"]').length,
+      banner: !!document.querySelector('[role="dialog"] button'),
+    })).catch(() => ({ gtag: "errore", csp: -1, banner: true }));
+    await page.mouse.wheel(0, 2500);
+    await page.waitForTimeout(8000);
+    const cookies = (await ctx.cookies()).map((c) => c.name);
+    await page.close({ runBeforeUnload: true });
+    await new Promise((r) => setTimeout(r, 800));
+    const later = hits.slice(before).filter((h) => !h.blocked);
+    check(retried, `${tag} RA: dopo la ricarica interrotta la pagina non si e' ricaricata da sola (resta sotto la CSP temporanea)`);
+    check(after.gtag === "undefined" && after.csp === 0, `${tag} RA: dopo il nuovo tentativo gtag o la CSP temporanea sono ancora presenti (${JSON.stringify(after)})`);
+    check(!after.banner, `${tag} RA: il banner e' ricomparso dopo un rifiuto scritto correttamente`);
+    check(later.length === 0, `${tag} RA: ${later.length} richieste Google dopo il rifiuto (${later.map((h) => h.host + h.path).join(", ")})`);
+    check(!cookies.some((c) => c.startsWith("_ga")), `${tag} RA: cookie _ga ancora presenti dopo il rifiuto`);
+    check(errors.length === 0, `${tag} RA: errori console ${errors.join(" | ")}`);
   });
 
   await flow("BF", async (ctx) => {
