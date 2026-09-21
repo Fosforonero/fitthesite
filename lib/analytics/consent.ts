@@ -88,6 +88,27 @@ export function sanitizePageLocation(href: string): string {
   return `${url.origin}${url.pathname}${query ? `?${query}` : ""}`;
 }
 
+/**
+ * Referrer da inviare come `page_referrer`. `document.referrer` puo' essere
+ * l'URL di una route esclusa: succede dopo una navigazione completa in uscita
+ * da una pagina di accesso, dell'area privata o di un invito, anche via
+ * avanti/indietro. Con un codice nel percorso o nella query arriverebbe a
+ * Google col primo `page_view`. I referrer di altri siti restano invariati
+ * (servono all'attribuzione del traffico), quelli del sito perdono la query
+ * salvo i parametri UTM.
+ */
+export function sanitizeReferrer(referrer: string): string {
+  if (!referrer) return "";
+  let url: URL;
+  try {
+    url = new URL(referrer);
+  } catch {
+    return "";
+  }
+  if (url.origin !== window.location.origin) return referrer;
+  return isAnalyticsExcludedPath(url.pathname) ? "" : sanitizePageLocation(referrer);
+}
+
 const EMAIL = /[^\s@]+@[^\s@]+\.[^\s@]+/;
 const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i;
 const LONG_NUMBER = /\d{7,}/;
@@ -241,6 +262,7 @@ export function loadAnalytics(): void {
   win.gtag("js", new Date());
   win.gtag("config", GA_MEASUREMENT_ID, {
     page_location: sanitizePageLocation(window.location.href),
+    page_referrer: sanitizeReferrer(document.referrer),
     anonymize_ip: true,
     allow_google_signals: false,
     allow_ad_personalization_signals: false,

@@ -18,6 +18,8 @@
  *  - una route con codici nell'URL (OAuth, reset, inviti, login) carica GA
  *    anche con consenso dato, o riceve un page_view dopo una navigazione
  *    client-side;
+ *  - una route con codici nell'URL compare come referrer di un page_view
+ *    dopo pagina esclusa -> link -> indietro -> avanti;
  *  - un payload contiene un indirizzo email, dati utente hashati (em=), un
  *    UUID o un parametro code/state/token;
  *  - la console registra errori (esclusi gli avvisi della CSP report-only e
@@ -306,6 +308,34 @@ async function run(engine: BrowserType, mobile: boolean) {
     check(leaked.length === 0, `${tag} P navigazione client-side verso una route esclusa: ${leaked.length} hit`);
     check(soft.state.gtag === "undefined", `${tag} P navigazione client-side verso una route esclusa: gtag ancora in memoria`);
     safePayload("P navigazione client-side", soft.hits);
+  });
+
+  // Pagina esclusa -> link client-side -> indietro -> avanti. Con l'avanti il
+  // documento si ricarica e il primo page_view puo' portare come referrer
+  // l'URL escluso: non deve arrivare a Google.
+  await flow("BF", async (ctx) => {
+    await visit(ctx, "/it", (p) => bannerButton(p, "accept"));
+    const page = await ctx.newPage();
+    const hits: Hit[] = [];
+    const errors: string[] = [];
+    watch(page, hits, errors);
+    await page.goto(`${BASE_URL}/it/auth/forgot-password`, { waitUntil: "load" });
+    await page.waitForTimeout(1500);
+    await Promise.all([page.waitForURL((u) => u.pathname === "/it"), page.locator('a[href="/it"]').first().click()]);
+    await page.waitForTimeout(3500);
+    await page.goBack({ waitUntil: "load" });
+    const gtagOnExcluded = await page.evaluate(() => typeof (window as unknown as { gtag?: unknown }).gtag);
+    await page.waitForTimeout(9000);
+    await page.goForward({ waitUntil: "load" });
+    await page.waitForTimeout(12000);
+    await page.close({ runBeforeUnload: true });
+    await new Promise((r) => setTimeout(r, 800));
+    const sent = hits.filter((h) => !h.blocked);
+    check(gtagOnExcluded === "undefined", `${tag} BF: tornando alla pagina esclusa gtag e' ancora in memoria`);
+    check(pageViews(sent).length >= 1, `${tag} BF: nessun page_view dopo l'avanti (il controllo non ha esercitato il percorso)`);
+    const leaked = sent.filter((h) => /\/auth\//.test(h.raw));
+    check(leaked.length === 0, `${tag} BF: ${leaked.length} richieste Google con l'URL della pagina esclusa (dr o dl)`);
+    check(errors.length === 0, `${tag} BF: errori console ${errors.join(" | ")}`);
   });
 }
 

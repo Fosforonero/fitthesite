@@ -13,6 +13,7 @@ import {
   pageLifecycle,
   RELOAD_CSP,
   sanitizeEventParams,
+  sanitizeReferrer,
   sanitizePageLocation,
   trackEvent,
   writeConsent,
@@ -109,6 +110,7 @@ afterEach(() => {
     delete win()[key];
   }
   pageLifecycle.reload = originalReload;
+  delete (document as unknown as Record<string, unknown>).referrer;
   window.history.pushState = originalPushState;
   window.history.replaceState = originalReplaceState;
   for (const listener of popstateListeners.splice(0)) window.removeEventListener("popstate", listener);
@@ -410,6 +412,45 @@ describe("route escluse", () => {
     rerender(<AnalyticsConsent />);
     expect(isAnalyticsActive()).toBe(true);
     expect(gaScripts()).toHaveLength(1);
+  });
+});
+
+describe("referrer", () => {
+  const setReferrer = (value: string) => Object.defineProperty(document, "referrer", { value, configurable: true });
+  const config = () => (commands("config") as [[string, string, Record<string, unknown>]])[0][2];
+  const accept = () => window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ analytics: true, ts: 1 }));
+
+  it("il referrer di una route esclusa non arriva a GA: dopo un avanti/indietro l'URL escluso sarebbe il referrer", () => {
+    for (const path of [
+      "/it/famiglia/join/CODICE-SEGRETO?x=1",
+      "/it/auth/login",
+      "/en/app/devices",
+      "/oauth/fitbit/callback?code=X&state=Y",
+      "/fr/admin/beta",
+    ]) {
+      setReferrer(`${window.location.origin}${path}`);
+      accept();
+      const { unmount } = render(<AnalyticsConsent />);
+      expect(config().page_referrer, path).toBe("");
+      expect(JSON.stringify((win().dataLayer ?? []).map((a) => Array.from(a))), path).not.toMatch(/CODICE-SEGRETO|code=X|\/auth\/|\/app\/|\/admin\//);
+      unmount();
+      document.querySelectorAll("script").forEach((el) => el.remove());
+      for (const key of ["gtag", "dataLayer", "__fitmeshAnalytics", "__fitmeshCollectGuard", "__fitmeshHistorySync", "__fitmeshReloading", DISABLE]) delete win()[key];
+    }
+  });
+
+  it("il referrer del sito perde la query salvo UTM, quello di altri siti resta invariato", () => {
+    setReferrer(`${window.location.origin}/it/integrations?ref=abc&utm_source=news`);
+    expect(sanitizeReferrer(document.referrer)).toBe(`${window.location.origin}/it/integrations?utm_source=news`);
+    expect(sanitizeReferrer("https://www.google.com/search?q=fitmesh")).toBe("https://www.google.com/search?q=fitmesh");
+    accept();
+    render(<AnalyticsConsent />);
+    expect(config().page_referrer).toBe(`${window.location.origin}/it/integrations?utm_source=news`);
+  });
+
+  it("nessun referrer o un referrer non valido non producono un valore", () => {
+    expect(sanitizeReferrer("")).toBe("");
+    expect(sanitizeReferrer("non un url")).toBe("");
   });
 });
 
