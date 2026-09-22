@@ -39,19 +39,19 @@ export type FamigliaComingSoonLocale =
 export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComingSoonLocaleCopy> = {
   it: {
     kicker: "Mesh Famiglia",
-    badge: "Progetto in valutazione · Non disponibile",
-    h1: "Mesh Famiglia: progetto in valutazione",
-    sub: "Mesh Famiglia non è attualmente disponibile. Stiamo valutando una vista di gruppo per alcune metriche. Nel progetto attuale, la vista non include la posizione geografica degli altri membri.",
-    metaTitle: "Mesh Famiglia: progetto in valutazione | FitMesh Sync",
+    badge: "In sviluppo · Non disponibile",
+    h1: "Mesh Famiglia: in sviluppo, non disponibile",
+    sub: "Mesh Famiglia è in sviluppo e non è ancora disponibile. Non abbiamo annunciato una data di rilascio.",
+    metaTitle: "Mesh Famiglia: in sviluppo | FitMesh Sync",
     metaDescription:
-      "Mesh Famiglia non è attualmente disponibile. Stiamo valutando una vista di gruppo per alcune metriche. Nel progetto attuale, la vista non include la posizione geografica degli altri membri.",
+      "Mesh Famiglia è in sviluppo e non è ancora disponibile. Non abbiamo annunciato una data di rilascio.",
     ctaCatalog: "Consulta il catalogo delle integrazioni",
     ctaCatalogHref: "/it/integrations",
     why_h2: "Caratteristiche del progetto",
     why_items: [
       {
-        title: "Vista di gruppo",
-        body: "Stiamo valutando una vista di gruppo per alcune metriche.",
+        title: "Stato",
+        body: "Mesh Famiglia è in sviluppo e non è ancora disponibile. Non abbiamo annunciato una data di rilascio.",
       },
       {
         title: "Percorsi documentati",
@@ -60,17 +60,17 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
     ],
     availability_h2: "Stato del progetto",
     availability_body:
-      "Mesh Famiglia non è attualmente disponibile. Non è stata annunciata una data di rilascio.",
+      "Mesh Famiglia è in sviluppo e non è ancora disponibile. Non abbiamo annunciato una data di rilascio.",
     faq_kicker: "Domande frequenti",
     faq_h2: "Domande e risposte sul progetto",
     faqs: [
       {
         q: "Quando sarà disponibile Mesh Famiglia?",
-        a: "Mesh Famiglia non è attualmente disponibile. Non è stata annunciata una data di rilascio.",
+        a: "Non abbiamo annunciato una data di rilascio. Lo stato aggiornato è sempre su questa pagina.",
       },
       {
-        q: "Mesh Famiglia mostra la posizione degli altri membri?",
-        a: "Mesh Famiglia non è attualmente disponibile. Nel progetto attuale, la vista del gruppo non include la posizione geografica degli altri membri.",
+        q: "Dove trovo lo stato più aggiornato di Mesh Famiglia?",
+        a: "Su questa pagina, sempre aggiornata.",
       },
       {
         q: "Quali dispositivi sono supportati?",
@@ -80,19 +80,19 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
   },
   es: {
     kicker: "Mesh Familia",
-    badge: "Proyecto en evaluación · No disponible",
-    h1: "Mesh Familia: proyecto en evaluación",
-    sub: "Mesh Familia no está disponible actualmente. Estamos evaluando una vista de grupo para algunas métricas. En el diseño actual, la vista no incluye la ubicación geográfica de los demás miembros.",
-    metaTitle: "Mesh Familia: proyecto en evaluación | FitMesh Sync",
+    badge: "En desarrollo · No disponible",
+    h1: "Mesh Familia: en desarrollo, no disponible",
+    sub: "Mesh Familia está en desarrollo y todavía no está disponible. No hemos anunciado una fecha de lanzamiento.",
+    metaTitle: "Mesh Familia: en desarrollo | FitMesh Sync",
     metaDescription:
-      "Mesh Familia no está disponible actualmente. Estamos evaluando una vista de grupo para algunas métricas. En el diseño actual, la vista no incluye la ubicación geográfica de los demás miembros.",
+      "Mesh Familia está en desarrollo y todavía no está disponible. No hemos anunciado una fecha de lanzamiento.",
     ctaCatalog: "Consulta el catálogo de integraciones",
     ctaCatalogHref: "/es/integrations",
     why_h2: "Características del proyecto",
     why_items: [
       {
-        title: "Vista de grupo",
-        body: "Estamos evaluando una vista de grupo para algunas métricas.",
+        title: "Estado",
+        body: "Mesh Familia está en desarrollo y todavía no está disponible. No hemos anunciado una fecha de lanzamiento.",
       },
       {
         title: "Rutas documentadas",
@@ -101,17 +101,17 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
     ],
     availability_h2: "Estado del proyecto",
     availability_body:
-      "Mesh Familia no está disponible actualmente. No se ha anunciado una fecha de lanzamiento.",
+      "Mesh Familia está en desarrollo y todavía no está disponible. No hemos anunciado una fecha de lanzamiento.",
     faq_kicker: "Preguntas frecuentes",
     faq_h2: "Preguntas y respuestas sobre el proyecto",
     faqs: [
       {
         q: "¿Cuándo estará disponible Mesh Familia?",
-        a: "Mesh Familia no está disponible actualmente. No se ha anunciado una fecha de lanzamiento.",
+        a: "No hemos anunciado una fecha de lanzamiento. El estado actualizado está siempre en esta página.",
       },
       {
-        q: "¿Mesh Familia muestra la ubicación de los demás miembros?",
-        a: "Mesh Familia no está disponible actualmente. En el diseño actual, la vista del grupo no incluye la ubicación geográfica de los demás miembros.",
+        q: "¿Dónde encuentro el estado más reciente de Mesh Familia?",
+        a: "En esta página, siempre actualizada.",
       },
       {
         q: "¿Qué dispositivos son compatibles?",
@@ -121,19 +121,19 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
   },
   en: {
     kicker: "Family Mesh",
-    badge: "Project under evaluation · Not available",
-    h1: "Family Mesh: project under evaluation",
-    sub: "Family Mesh is not currently available. We are evaluating a group view for some metrics. In the current design, the view does not include other members' geographic location.",
-    metaTitle: "Family Mesh: Project Under Evaluation | FitMesh Sync",
+    badge: "In development · Not available",
+    h1: "Family Mesh: in development, not available",
+    sub: "Family Mesh is in development and is not yet available. We haven't announced a release date.",
+    metaTitle: "Family Mesh: In Development | FitMesh Sync",
     metaDescription:
-      "Family Mesh is not currently available. We are evaluating a group view for some metrics. In the current design, the view does not include other members' geographic location.",
+      "Family Mesh is in development and is not yet available. We haven't announced a release date.",
     ctaCatalog: "Explore the integrations catalog",
     ctaCatalogHref: "/en/integrations",
     why_h2: "Project characteristics",
     why_items: [
       {
-        title: "Group view",
-        body: "We are evaluating a group view for some metrics.",
+        title: "Status",
+        body: "Family Mesh is in development and is not yet available. We haven't announced a release date.",
       },
       {
         title: "Documented paths",
@@ -142,17 +142,17 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
     ],
     availability_h2: "Project status",
     availability_body:
-      "Family Mesh is not currently available. No release date has been announced.",
+      "Family Mesh is in development and is not yet available. We haven't announced a release date.",
     faq_kicker: "Frequently asked questions",
     faq_h2: "Questions and answers about the project",
     faqs: [
       {
         q: "When will Family Mesh be available?",
-        a: "Family Mesh is not currently available. No release date has been announced.",
+        a: "We haven't announced a release date. The current status is always on this page.",
       },
       {
-        q: "Does Family Mesh show the location of other members?",
-        a: "Family Mesh is not currently available. In the current design, the group view does not include other members' geographic location.",
+        q: "Where can I find the latest status of Family Mesh?",
+        a: "On this page, always kept up to date.",
       },
       {
         q: "Which devices are supported?",
@@ -162,19 +162,19 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
   },
   de: {
     kicker: "Mesh Familie",
-    badge: "Projekt in Prüfung · Derzeit nicht verfügbar",
-    h1: "Mesh Familie: Projekt in Prüfung",
-    sub: "Mesh Familie ist derzeit nicht verfügbar. Wir evaluieren eine Gruppenansicht für einige Metriken. Im aktuellen Konzept enthält die Ansicht nicht den geografischen Standort der anderen Mitglieder.",
-    metaTitle: "Mesh Familie: Projekt in Prüfung | FitMesh Sync",
+    badge: "In Entwicklung · Nicht verfügbar",
+    h1: "Mesh Familie: in Entwicklung, nicht verfügbar",
+    sub: "Mesh Familie befindet sich in Entwicklung und ist noch nicht verfügbar. Wir haben kein Veröffentlichungsdatum angekündigt.",
+    metaTitle: "Mesh Familie: in Entwicklung | FitMesh Sync",
     metaDescription:
-      "Mesh Familie ist derzeit nicht verfügbar. Wir evaluieren eine Gruppenansicht für einige Metriken. Im aktuellen Konzept enthält die Ansicht nicht den geografischen Standort der anderen Mitglieder.",
+      "Mesh Familie befindet sich in Entwicklung und ist noch nicht verfügbar. Wir haben kein Veröffentlichungsdatum angekündigt.",
     ctaCatalog: "Integrationskatalog ansehen",
     ctaCatalogHref: "/de/integrations",
     why_h2: "Projektmerkmale",
     why_items: [
       {
-        title: "Gruppenansicht",
-        body: "Wir evaluieren eine Gruppenansicht für einige Metriken.",
+        title: "Status",
+        body: "Mesh Familie befindet sich in Entwicklung und ist noch nicht verfügbar. Wir haben kein Veröffentlichungsdatum angekündigt.",
       },
       {
         title: "Dokumentierte Wege",
@@ -183,17 +183,17 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
     ],
     availability_h2: "Projektstatus",
     availability_body:
-      "Mesh Familie ist derzeit nicht verfügbar. Es wurde kein Veröffentlichungsdatum angekündigt.",
+      "Mesh Familie befindet sich in Entwicklung und ist noch nicht verfügbar. Wir haben kein Veröffentlichungsdatum angekündigt.",
     faq_kicker: "Häufige Fragen",
     faq_h2: "Fragen und Antworten zum Projekt",
     faqs: [
       {
         q: "Wann wird Mesh Familie verfügbar sein?",
-        a: "Mesh Familie ist derzeit nicht verfügbar. Es wurde kein Veröffentlichungsdatum angekündigt.",
+        a: "Wir haben kein Veröffentlichungsdatum angekündigt. Der aktuelle Status steht immer auf dieser Seite.",
       },
       {
-        q: "Zeigt Mesh Familie den Standort der anderen Mitglieder an?",
-        a: "Mesh Familie ist derzeit nicht verfügbar. Im aktuellen Konzept enthält die Gruppenansicht nicht den geografischen Standort der anderen Mitglieder.",
+        q: "Wo finde ich den aktuellen Status von Mesh Familie?",
+        a: "Auf dieser Seite, immer aktuell.",
       },
       {
         q: "Welche Geräte werden unterstützt?",
@@ -203,19 +203,19 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
   },
   pt: {
     kicker: "Mesh Família",
-    badge: "Projeto em avaliação · Não disponível",
-    h1: "Mesh Família: projeto em avaliação",
-    sub: "O Mesh Família não está disponível no momento. Estamos avaliando uma visualização de grupo para algumas métricas. No projeto atual, a visualização não inclui a localização geográfica dos outros membros.",
-    metaTitle: "Mesh Família: projeto em avaliação | FitMesh Sync",
+    badge: "Em desenvolvimento · Não disponível",
+    h1: "Mesh Família: em desenvolvimento, não disponível",
+    sub: "O Mesh Família está em desenvolvimento e ainda não está disponível. Não anunciamos uma data de lançamento.",
+    metaTitle: "Mesh Família: em desenvolvimento | FitMesh Sync",
     metaDescription:
-      "O Mesh Família não está disponível no momento. Estamos avaliando uma visualização de grupo para algumas métricas. No projeto atual, a visualização não inclui a localização geográfica dos outros membros.",
+      "O Mesh Família está em desenvolvimento e ainda não está disponível. Não anunciamos uma data de lançamento.",
     ctaCatalog: "Consultar o catálogo de integrações",
     ctaCatalogHref: "/pt/integrations",
     why_h2: "Características do projeto",
     why_items: [
       {
-        title: "Visualização de grupo",
-        body: "Estamos avaliando uma visualização de grupo para algumas métricas.",
+        title: "Status",
+        body: "O Mesh Família está em desenvolvimento e ainda não está disponível. Não anunciamos uma data de lançamento.",
       },
       {
         title: "Caminhos documentados",
@@ -224,17 +224,17 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
     ],
     availability_h2: "Status do projeto",
     availability_body:
-      "O Mesh Família não está disponível no momento. Nenhuma data de lançamento foi anunciada.",
+      "O Mesh Família está em desenvolvimento e ainda não está disponível. Não anunciamos uma data de lançamento.",
     faq_kicker: "Perguntas frequentes",
     faq_h2: "Perguntas e respostas sobre o projeto",
     faqs: [
       {
         q: "Quando o Mesh Família estará disponível?",
-        a: "O Mesh Família não está disponível no momento. Nenhuma data de lançamento foi anunciada.",
+        a: "Não anunciamos uma data de lançamento. O status atualizado está sempre nesta página.",
       },
       {
-        q: "O Mesh Família mostra a localização dos outros membros?",
-        a: "O Mesh Família não está disponível no momento. No projeto atual, a visualização do grupo não inclui a localização geográfica dos outros membros.",
+        q: "Onde encontro o status mais recente do Mesh Família?",
+        a: "Nesta página, sempre atualizada.",
       },
       {
         q: "Quais dispositivos são compatíveis?",
@@ -244,19 +244,19 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
   },
   fr: {
     kicker: "Mesh Famille",
-    badge: "Projet en cours d'évaluation · Non disponible",
-    h1: "Mesh Famille : projet en cours d'évaluation",
-    sub: "Mesh Famille n'est pas disponible actuellement. Nous évaluons une vue de groupe pour certaines métriques. Dans le projet actuel, la vue n'inclut pas la position géographique des autres membres.",
-    metaTitle: "Mesh Famille : projet en cours d'évaluation | FitMesh Sync",
+    badge: "En développement · Non disponible",
+    h1: "Mesh Famille : en développement, non disponible",
+    sub: "Mesh Famille est en développement et n'est pas encore disponible. Nous n'avons pas annoncé de date de sortie.",
+    metaTitle: "Mesh Famille : en développement | FitMesh Sync",
     metaDescription:
-      "Mesh Famille n'est pas disponible actuellement. Nous évaluons une vue de groupe pour certaines métriques. Dans le projet actuel, la vue n'inclut pas la position géographique des autres membres.",
+      "Mesh Famille est en développement et n'est pas encore disponible. Nous n'avons pas annoncé de date de sortie.",
     ctaCatalog: "Consulter le catalogue des intégrations",
     ctaCatalogHref: "/fr/integrations",
     why_h2: "Caractéristiques du projet",
     why_items: [
       {
-        title: "Vue de groupe",
-        body: "Nous évaluons une vue de groupe pour certaines métriques.",
+        title: "Statut",
+        body: "Mesh Famille est en développement et n'est pas encore disponible. Nous n'avons pas annoncé de date de sortie.",
       },
       {
         title: "Parcours documentés",
@@ -265,17 +265,17 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
     ],
     availability_h2: "Statut du projet",
     availability_body:
-      "Mesh Famille n'est pas disponible actuellement. Aucune date de sortie n'a été annoncée.",
+      "Mesh Famille est en développement et n'est pas encore disponible. Nous n'avons pas annoncé de date de sortie.",
     faq_kicker: "Questions fréquentes",
     faq_h2: "Questions et réponses sur le projet",
     faqs: [
       {
         q: "Quand Mesh Famille sera-t-il disponible ?",
-        a: "Mesh Famille n'est pas disponible actuellement. Aucune date de sortie n'a été annoncée.",
+        a: "Nous n'avons pas annoncé de date de sortie. Le statut actualisé est toujours disponible sur cette page.",
       },
       {
-        q: "Mesh Famille affiche-t-il la position des autres membres ?",
-        a: "Mesh Famille n'est pas disponible actuellement. Dans le projet actuel, la vue de groupe n'inclut pas la position géographique des autres membres.",
+        q: "Où puis-je trouver le statut le plus récent de Mesh Famille ?",
+        a: "Sur cette page, toujours à jour.",
       },
       {
         q: "Quels appareils sont pris en charge ?",
@@ -285,19 +285,19 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
   },
   pl: {
     kicker: "Mesh Rodzina",
-    badge: "Projekt w trakcie oceny · Niedostępny",
-    h1: "Mesh Rodzina: projekt w trakcie oceny",
-    sub: "Funkcja Mesh Rodzina nie jest obecnie dostępna. Oceniamy widok grupowy dla wybranych metryk. W obecnym projekcie widok nie obejmuje lokalizacji geograficznej pozostałych członków.",
-    metaTitle: "Mesh Rodzina: projekt w trakcie oceny | FitMesh Sync",
+    badge: "W trakcie tworzenia · Niedostępny",
+    h1: "Mesh Rodzina: w trakcie tworzenia, niedostępny",
+    sub: "Funkcja Mesh Rodzina jest w trakcie tworzenia i nie jest jeszcze dostępna. Nie ogłosiliśmy daty premiery.",
+    metaTitle: "Mesh Rodzina: w trakcie tworzenia | FitMesh Sync",
     metaDescription:
-      "Funkcja Mesh Rodzina nie jest obecnie dostępna. Oceniamy widok grupowy dla wybranych metryk. W obecnym projekcie widok nie obejmuje lokalizacji geograficznej pozostałych członków.",
+      "Funkcja Mesh Rodzina jest w trakcie tworzenia i nie jest jeszcze dostępna. Nie ogłosiliśmy daty premiery.",
     ctaCatalog: "Sprawdź katalog integracji",
     ctaCatalogHref: "/pl/integrations",
     why_h2: "Założenia projektu",
     why_items: [
       {
-        title: "Widok grupowy",
-        body: "Oceniamy widok grupowy dla wybranych metryk.",
+        title: "Status",
+        body: "Funkcja Mesh Rodzina jest w trakcie tworzenia i nie jest jeszcze dostępna. Nie ogłosiliśmy daty premiery.",
       },
       {
         title: "Udokumentowane ścieżki",
@@ -306,17 +306,17 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
     ],
     availability_h2: "Status projektu",
     availability_body:
-      "Funkcja Mesh Rodzina nie jest obecnie dostępna. Nie ogłoszono daty wydania.",
+      "Funkcja Mesh Rodzina jest w trakcie tworzenia i nie jest jeszcze dostępna. Nie ogłosiliśmy daty premiery.",
     faq_kicker: "Często zadawane pytania",
     faq_h2: "Pytania i odpowiedzi dotyczące projektu",
     faqs: [
       {
         q: "Kiedy funkcja Mesh Rodzina będzie dostępna?",
-        a: "Funkcja Mesh Rodzina nie jest obecnie dostępna. Nie ogłoszono daty wydania.",
+        a: "Nie ogłosiliśmy daty premiery. Aktualny status znajdziesz zawsze na tej stronie.",
       },
       {
-        q: "Czy Mesh Rodzina pokazuje lokalizację innych członków?",
-        a: "Funkcja Mesh Rodzina nie jest obecnie dostępna. W obecnym projekcie widok grupy nie obejmuje lokalizacji geograficznej pozostałych członków.",
+        q: "Gdzie znajdę najnowszy status funkcji Mesh Rodzina?",
+        a: "Na tej stronie, zawsze aktualnej.",
       },
       {
         q: "Jakie urządzenia są obsługiwane?",
@@ -326,19 +326,19 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
   },
   tr: {
     kicker: "Mesh Aile",
-    badge: "Değerlendirme aşamasında proje · Kullanılamıyor",
-    h1: "Mesh Aile: değerlendirme aşamasında proje",
-    sub: "Mesh Aile özelliği şu anda kullanılamıyor. Belirli metrikler için bir grup görünümünü değerlendiriyoruz. Mevcut projede grup görünümü diğer üyelerin coğrafi konumunu içermemektedir.",
-    metaTitle: "Mesh Aile: değerlendirme aşamasında proje | FitMesh Sync",
+    badge: "Geliştiriliyor · Kullanılamıyor",
+    h1: "Mesh Aile: geliştiriliyor, kullanılamıyor",
+    sub: "Mesh Aile özelliği geliştirilme aşamasındadır ve henüz kullanılamamaktadır. Bir yayın tarihi açıklamadık.",
+    metaTitle: "Mesh Aile: geliştiriliyor | FitMesh Sync",
     metaDescription:
-      "Mesh Aile özelliği şu anda kullanılamıyor. Belirli metrikler için bir grup görünümünü değerlendiriyoruz. Mevcut projede grup görünümü diğer üyelerin coğrafi konumunu içermemektedir.",
+      "Mesh Aile özelliği geliştirilme aşamasındadır ve henüz kullanılamamaktadır. Bir yayın tarihi açıklamadık.",
     ctaCatalog: "Entegrasyon kataloğunu inceleyin",
     ctaCatalogHref: "/tr/integrations",
     why_h2: "Proje özellikleri",
     why_items: [
       {
-        title: "Grup görünümü",
-        body: "Belirli metrikler için bir grup görünümünü değerlendiriyoruz.",
+        title: "Durum",
+        body: "Mesh Aile özelliği geliştirilme aşamasındadır ve henüz kullanılamamaktadır. Bir yayın tarihi açıklamadık.",
       },
       {
         title: "Belgelenmiş yollar",
@@ -347,17 +347,17 @@ export const FAMIGLIA_COMING_SOON: Record<FamigliaComingSoonLocale, FamigliaComi
     ],
     availability_h2: "Proje durumu",
     availability_body:
-      "Mesh Aile şu anda kullanılamıyor. Herhangi bir yayın tarihi açıklanmadı.",
+      "Mesh Aile özelliği geliştirilme aşamasındadır ve henüz kullanılamamaktadır. Bir yayın tarihi açıklamadık.",
     faq_kicker: "Sık sorulan sorular",
     faq_h2: "Projeyle ilgili sorular ve yanıtlar",
     faqs: [
       {
         q: "Mesh Aile ne zaman kullanıma sunulacak?",
-        a: "Mesh Aile şu anda kullanılamıyor. Herhangi bir yayın tarihi açıklanmadı.",
+        a: "Bir yayın tarihi açıklamadık. Güncel durum her zaman bu sayfada.",
       },
       {
-        q: "Mesh Aile diğer üyelerin konumunu gösterir mi?",
-        a: "Mesh Aile şu anda kullanılamıyor. Mevcut projede grup görünümü diğer üyelerin coğrafi konumunu içermemektedir.",
+        q: "Mesh Aile'nin en güncel durumunu nerede bulabilirim?",
+        a: "Bu sayfada, her zaman güncel.",
       },
       {
         q: "Hangi cihazlar destekleniyor?",

@@ -62,7 +62,7 @@ export function generateLlmsTxt(): string {
 
   lines.push("## Family Mesh (Mesh Famiglia)");
   lines.push(
-    `- Planned, not available: Family Mesh (Mesh Famiglia), a group view for some family health metrics. A group view is under evaluation; no release date has been announced. Never describe it as available, and never describe privacy or data-sharing behavior for it, because none of that has shipped. Project status: [IT](${IT("/famiglia")}) / [EN](${SITE_URL}/en/famiglia).`,
+    `- Family Mesh (Mesh Famiglia) is in development and is not yet available. No release date has been announced. Never describe it as available, never suggest it is imminent or name a timeframe, and never describe privacy or data-sharing behavior for it, because none of that has shipped or been confirmed. Project status: [IT](${IT("/famiglia")}) / [EN](${SITE_URL}/en/famiglia).`,
   );
   lines.push("");
 
@@ -169,7 +169,7 @@ export function generateLlmsTxt(): string {
     );
   }
   lines.push(
-    "- Family Mesh (Mesh Famiglia): planned, not available on either platform today. A group view for some family health metrics is under evaluation; no release date has been announced. Do not describe it as available and do not describe privacy or data-sharing behavior for it, because none of that has shipped.",
+    "- Family Mesh (Mesh Famiglia): in development, not yet available on either platform today. No release date has been announced. Do not describe it as available, do not suggest it is imminent or name a timeframe, and do not describe privacy or data-sharing behavior for it, because none of that has shipped or been confirmed.",
   );
   lines.push(
     "- Privacy: no third-party analytics on health data, no advertising IDs collected.",

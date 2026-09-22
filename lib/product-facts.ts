@@ -183,6 +183,31 @@ export const CAPABILITY_STATUS: Record<
     note:
       "Sprint P0.6B (freeze esplicito): il codice SQL del trigger di auto-grant Founder esiste nel repo, ma il codice presente NON costituisce prova di funzionamento in produzione. Restano da verificare, con dati reali di produzione: (1) il trigger è effettivamente applicato al DB di produzione, non solo presente in una migration; (2) una registrazione reale con un utente normale (non un account di test creato per l'occasione) attiva il grant; (3) il grant assegnato è corretto (lifetime Pro, non altro); (4) il cap di 1000 posti e il comportamento anti-race reggono sotto scrittura concorrente; (5) il conteggio dei posti usati è coerente con i grant realmente assegnati. Nessuna di queste verifiche deve avvenire creando account QA — solo osservando dati di produzione reali una volta che lo sprint Build 189 le esegue. Hotfix P0.6C (2026-07-17): il contatore pubblico dei posti Founder occupati (FounderCounter, FounderBanner, GET /api/v1/beta/spots) è stato rimosso dal sito perché il conteggio non è riconciliato con i grant realmente assegnati in produzione — era fermo a 705 e non verificabile. Non reintrodurre alcuna forma di contatore/badge/banner pubblico che mostri un numero di posti Founder occupati o rimasti finché questo status non passa a live_verified con il report coordinato dello sprint app/Build 189. Termini Founder, entitlement, trigger Supabase, cap 1000 e grant utenti non sono toccati da questo hotfix: resta tutto come nel freeze P0.6B.",
   },
+  /**
+   * Mesh Famiglia / Family Mesh. Evidenza di prodotto: `famiglia/page.tsx`
+   * (`const COMING_SOON = true`) rimanda a un feature flag lato app
+   * (`meshFamigliaEnabled=false`) — non è live su nessuna piattaforma.
+   * Evidenza editoriale: decisione di prodotto confermata da Matteo il
+   * 22/09/2026 (SPRINT P0.24-B FASE A) — "deciso ed è in sviluppo", non
+   * ancora disponibile nella release pubblica, nessuna data di rilascio
+   * annunciata. Sostituisce la formulazione precedente ("progetto in
+   * valutazione"), rimasta in vigore dal 22/09/2026 (P0.22-C, #74) fino alla
+   * stessa giornata: sottostimava lo stato, la decisione è presa.
+   *
+   * Formula pubblica autorizzata, da non riformulare: IT "Mesh Famiglia è in
+   * sviluppo e non è ancora disponibile. Non abbiamo annunciato una data di
+   * rilascio."; EN "Family Mesh is in development and is not yet available.
+   * We haven't announced a release date." Mai "coming soon"/"nei prossimi
+   * giorni" (vicinanza temporale non confermata). Stato del progetto separato
+   * dalle funzioni pubbliche: nessun gruppo, condivisione, preset di privacy,
+   * prezzo o inclusione in Pro descritti come attivi o definiti finché non
+   * sono verificati.
+   */
+  familyMesh: {
+    status: "in_development",
+    note:
+      "Non promuovere a live_verified/live_limited senza un rilascio pubblico reale su almeno una piattaforma. Non descrivere meccaniche (inviti, preset di privacy, tetto membri, prezzo) prima che siano implementate e verificabili nel repository. Nessuna data di rilascio: non aggiungerne una finché non è annunciata da Matteo.",
+  },
 };
 
 // ── Programma Founder ───────────────────────────────────────────────────────

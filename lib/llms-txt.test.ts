@@ -1,18 +1,31 @@
 import { describe, expect, it } from "vitest";
 import { generateLlmsTxt } from "./llms-txt";
 import { getFamigliaComingSoon } from "./content/famiglia-coming-soon";
+import { CAPABILITY_STATUS } from "./product-facts";
 
 /**
  * P0.24-B FASE A: /llms.txt descriveva Family Mesh (Mesh Famiglia) come una
  * funzione già disponibile, con dettagli di comportamento inventati (privacy
- * per-dato, "bring-your-own-device", un caso d'uso dettagliato), mentre
- * /famiglia (getFamigliaComingSoon, COMING_SOON=true) dice correttamente che
- * il progetto è in valutazione, senza data. `tools/check-llms-consistency.ts`
- * non se ne accorgeva (verificato: verde anche sul testo vecchio, prima della
- * correzione). Questo test lega /llms.txt alla stessa fonte di verità di
- * /famiglia, non a una frase congelata.
+ * per-dato, "bring-your-own-device", un caso d'uso dettagliato).
+ * `tools/check-llms-consistency.ts` non se ne accorgeva (verificato: verde
+ * anche sul testo vecchio, prima della correzione).
+ *
+ * Decisione di prodotto confermata da Matteo il 22/09/2026: Mesh Famiglia è
+ * decisa ed è in sviluppo, non ancora disponibile, nessuna data di rilascio
+ * annunciata. Formula pubblica autorizzata (mai "coming soon"/"nei prossimi
+ * giorni", che suggeriscono una vicinanza temporale non confermata; mai
+ * "under evaluation"/"progetto in valutazione", che sottostima: la decisione
+ * è presa).
+ *
+ * Ancora indipendente: `CAPABILITY_STATUS.familyMesh` in product-facts.ts
+ * (evidenza di prodotto: il feature flag lato app citato in famiglia/page.tsx;
+ * evidenza editoriale: questo commit). I test qui sotto NON si limitano a
+ * confrontare /llms.txt con /famiglia: se le due pagine cambiassero insieme
+ * in modo errato, la terza prova (lo stato in CAPABILITY_STATUS) dovrebbe
+ * comunque cambiare per far passare il test, e quel cambio è un atto
+ * editoriale distinto e deliberato, non un effetto collaterale di una copy.
  */
-describe("llms.txt: Family Mesh non e' descritto come disponibile", () => {
+describe("llms.txt: Family Mesh e' in sviluppo, non disponibile, nessuna data", () => {
   const txt = generateLlmsTxt();
   const itCopy = getFamigliaComingSoon("it");
   const enCopy = getFamigliaComingSoon("en");
@@ -31,26 +44,42 @@ describe("llms.txt: Family Mesh non e' descritto come disponibile", () => {
     }
   });
 
-  it("ogni menzione di Family Mesh / Mesh Famiglia dice che non e' disponibile, non promette una data", () => {
-    // Solo le righe di contenuto ("- ..."): il titolo di sezione "## Family Mesh
-    // (Mesh Famiglia)" nomina la funzione senza affermare nulla sulla sua
-    // disponibilita', quindi non deve dire "not available" lui stesso.
+  it("non usa 'under evaluation'/'coming soon'/una vicinanza temporale non confermata", () => {
     const lines = txt.split("\n").filter((l) => l.startsWith("- ") && /family mesh|mesh famiglia/i.test(l));
     expect(lines.length, "nessuna menzione trovata: il test non starebbe controllando niente").toBeGreaterThan(0);
     for (const line of lines) {
-      expect(line, `riga senza "not available": ${line}`).toMatch(/not available|not currently available/i);
+      expect(line, `"under evaluation" ancora presente (sottostima: la decisione e' presa): ${line}`).not.toMatch(
+        /under evaluation/i,
+      );
+      expect(line, `una promessa di vicinanza temporale non confermata: ${line}`).not.toMatch(
+        /coming soon|in the coming days|nei prossimi giorni|shortly|soon\b/i,
+      );
+      expect(line, `riga senza "in development"/"not yet available": ${line}`).toMatch(
+        /in development.*not yet available|not yet available.*in development/i,
+      );
+      expect(line, `riga senza "no release date": ${line}`).toMatch(/no release date/i);
     }
-    // Nessuna data, nessuna promessa (EDITORIAL-CORE 4): niente mesi/trimestri/anni vicino al nome.
+    // Nessuna data o trimestre vicino al nome (EDITORIAL-CORE 4).
     expect(txt, "una data o un trimestre vicino a Family Mesh/Mesh Famiglia").not.toMatch(
-      /(?:family mesh|mesh famiglia)[^.]*\b(?:20\d{2}|q[1-4]|spring|summer|fall|winter|q[1-4]\s?20\d{2})\b/i,
+      /(?:family mesh|mesh famiglia)[^.]*\b(?:20\d{2}|q[1-4]\s?20\d{2}|spring|summer|fall|winter)\b/i,
     );
   });
 
-  it("resta agganciato alla stessa fonte di verita' di /famiglia: se quella pagina tornasse disponibile, questo test lo segnalerebbe", () => {
-    // Non duplica la copy: si limita a controllare che l'affermazione di indisponibilita'
-    // di /famiglia sia ancora quella corrente, cosi' un domani in cui la feature sblocca
-    // (COMING_SOON=false) fa fallire QUESTO controllo prima che /llms.txt possa restare indietro.
-    expect(itCopy.availability_body).toMatch(/non è attualmente disponibile/);
-    expect(enCopy.availability_body).toMatch(/not currently available/);
+  it("l'ancora indipendente (CAPABILITY_STATUS.familyMesh) non e' su uno stato live: una copy modificata da sola, senza questa voce, non basterebbe a rendere il claim vero", () => {
+    const entry = CAPABILITY_STATUS.familyMesh;
+    expect(entry, "CAPABILITY_STATUS non ha una voce familyMesh: il fact lock non ha un'ancora di prodotto").toBeDefined();
+    expect(["live_verified", "live_limited", "release_candidate"], `status corrente: ${entry?.status}`).not.toContain(
+      entry?.status,
+    );
+  });
+
+  it("resta coerente con /famiglia (stessa formula, non semplicemente 'non disponibile')", () => {
+    for (const copy of [itCopy, enCopy]) {
+      expect(copy.availability_body).not.toMatch(/under evaluation|in valutazione|valutando|evaluando|évaluons/i);
+    }
+    expect(itCopy.availability_body).toMatch(/in sviluppo/);
+    expect(itCopy.availability_body).toMatch(/non abbiamo annunciato/i);
+    expect(enCopy.availability_body).toMatch(/in development/i);
+    expect(enCopy.availability_body).toMatch(/haven'?t announced/i);
   });
 });
