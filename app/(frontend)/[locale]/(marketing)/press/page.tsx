@@ -22,7 +22,7 @@ import TrustBadges from "@/components/TrustBadges";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { PRICING } from "@/lib/pricing";
-import { PROVIDERS } from "@/lib/providers/data";
+import { LIVE_PROVIDER_COUNT } from "@/lib/product-facts";
 import { isLocaleInCopy } from "@/lib/content/page-copy-gate";
 import { founderHistoricalClause, founderHistoricalKeyFact } from "@/lib/founder/historical-note";
 
@@ -69,7 +69,7 @@ const COPY = {
       { label: "Piattaforme", value: "Android + iOS (live, incluse tutte le storefront UE)" },
       { label: "Country", value: "Italia" },
       { label: "Tecnologie", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Wearable supportati", value: `${PROVIDERS.length}+ brand via Health Connect, espandibili` },
+      { label: "Wearable supportati", value: `${LIVE_PROVIDER_COUNT}+ brand via Health Connect (Android) e Apple Health (iOS), espandibili` },
       { label: "Pricing", value: `Prova 14 giorni, poi Pro ${PRICING.fromLifetime.it} una tantum (Android ${PRICING.lifetimeAndroid.it} · iPhone ${PRICING.lifetimeIos.it}) o ${PRICING.subSixMonthsLabel.it}` },
       { label: "Posti founder", value: founderHistoricalKeyFact("it") },
       { label: "Team", value: "Indie / solo dev (Fosforonero, Matteo Pizzi)" },
@@ -154,7 +154,7 @@ const COPY = {
       { label: "Platforms", value: "Android + iOS (live, including all EU storefronts)" },
       { label: "Country", value: "Italy" },
       { label: "Tech stack", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Wearables supported", value: `${PROVIDERS.length}+ brands via Health Connect, expandable` },
+      { label: "Wearables supported", value: `${LIVE_PROVIDER_COUNT}+ brands via Health Connect (Android) and Apple Health (iOS), expandable` },
       { label: "Pricing", value: `14-day trial, then Pro ${PRICING.fromLifetime.en} one-time (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) or ${PRICING.subSixMonthsLabel.en}` },
       { label: "Founder seats", value: founderHistoricalKeyFact("en") },
       { label: "Team", value: "Indie / solo dev (Fosforonero, Matteo Pizzi)" },
@@ -239,7 +239,7 @@ const COPY = {
       { label: "Plataformas", value: "Android + iOS (disponible, incluidas todas las tiendas de la UE)" },
       { label: "País", value: "Italia" },
       { label: "Tecnologías", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Wearables compatibles", value: `Más de ${PROVIDERS.length} marcas vía Health Connect, ampliable` },
+      { label: "Wearables compatibles", value: `Más de ${LIVE_PROVIDER_COUNT} marcas vía Health Connect (Android) y Apple Health (iOS), ampliable` },
       { label: "Precio", value: `Prueba de 14 días, luego Pro ${PRICING.fromLifetime.es} pago único (Android ${PRICING.lifetimeAndroid.es} · iPhone ${PRICING.lifetimeIos.es}) o ${PRICING.subSixMonthsLabel.es}` },
       { label: "Plazas fundador", value: founderHistoricalKeyFact("es") },
       { label: "Equipo", value: "Indie / desarrollador en solitario (Fosforonero, Matteo Pizzi)" },
@@ -324,7 +324,7 @@ const COPY = {
       { label: "Plattformen", value: "Android + iOS (live, einschließlich aller EU-Storefronts)" },
       { label: "Land", value: "Italien" },
       { label: "Technologien", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Unterstützte Wearables", value: `${PROVIDERS.length}+ Marken über Health Connect, erweiterbar` },
+      { label: "Unterstützte Wearables", value: `${LIVE_PROVIDER_COUNT}+ Marken über Health Connect (Android) und Apple Health (iOS), erweiterbar` },
       { label: "Preis", value: `14 Tage testen, dann Pro ${PRICING.fromLifetime.de} einmalig (Android ${PRICING.lifetimeAndroid.de} · iPhone ${PRICING.lifetimeIos.de}) oder ${PRICING.subSixMonthsLabel.de}` },
       { label: "Gründerplätze", value: founderHistoricalKeyFact("de") },
       { label: "Team", value: "Indie / Solo-Entwickler (Fosforonero, Matteo Pizzi)" },
@@ -409,7 +409,7 @@ const COPY = {
       { label: "Plataformas", value: "Android + iOS (disponível, incluindo todas as lojas da UE)" },
       { label: "País", value: "Itália" },
       { label: "Tecnologias", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Wearables compatíveis", value: `Mais de ${PROVIDERS.length} marcas via Health Connect, expansível` },
+      { label: "Wearables compatíveis", value: `Mais de ${LIVE_PROVIDER_COUNT} marcas via Health Connect (Android) e Apple Health (iOS), expansível` },
       { label: "Preço", value: `Teste de 14 dias, depois Pro ${PRICING.fromLifetime.pt} pagamento único (Android ${PRICING.lifetimeAndroid.pt} · iPhone ${PRICING.lifetimeIos.pt}) ou ${PRICING.subSixMonthsLabel.pt}` },
       { label: "Vagas de fundador", value: founderHistoricalKeyFact("pt") },
       { label: "Equipe", value: "Indie / desenvolvedor solo (Fosforonero, Matteo Pizzi)" },
@@ -494,7 +494,7 @@ const COPY = {
       { label: "Plateformes", value: "Android + iOS (disponible, y compris dans toutes les boutiques de l'UE)" },
       { label: "Pays", value: "Italie" },
       { label: "Technologies", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Appareils compatibles", value: `Plus de ${PROVIDERS.length} marques via Health Connect, extensible` },
+      { label: "Appareils compatibles", value: `Plus de ${LIVE_PROVIDER_COUNT} marques via Health Connect (Android) et Apple Health (iOS), extensible` },
       { label: "Tarif", value: `Essai de 14 jours, puis Pro ${PRICING.fromLifetime.fr} paiement unique (Android ${PRICING.lifetimeAndroid.fr} · iPhone ${PRICING.lifetimeIos.fr}) ou ${PRICING.subSixMonthsLabel.fr}` },
       { label: "Places fondateur", value: founderHistoricalKeyFact("fr") },
       { label: "Équipe", value: "Indie / développeur solo (Fosforonero, Matteo Pizzi)" },
@@ -579,7 +579,7 @@ const COPY = {
       { label: "Platformy", value: "Android + iOS (dostepny, we wszystkich sklepach UE)" },
       { label: "Kraj", value: "Wlochy" },
       { label: "Technologie", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Obslugiwane urzadzenia", value: `Ponad ${PROVIDERS.length} marek przez Health Connect, rozszerzalne` },
+      { label: "Obslugiwane urzadzenia", value: `Ponad ${LIVE_PROVIDER_COUNT} marek przez Health Connect (Android) i Apple Health (iOS), rozszerzalne` },
       { label: "Cena", value: `14 dni próbny, potem Pro ${PRICING.fromLifetime.pl} jednorazowo (Android ${PRICING.lifetimeAndroid.pl} · iPhone ${PRICING.lifetimeIos.pl}) lub ${PRICING.subSixMonthsLabel.pl}` },
       { label: "Miejsca zalozycielskie", value: founderHistoricalKeyFact("pl") },
       { label: "Zespól", value: "Indie / jedyny programista (Fosforonero, Matteo Pizzi)" },
@@ -664,7 +664,7 @@ const COPY = {
       { label: "Platformlar", value: "Android + iOS (yayinda; AB'deki tüm magazalar dahil)" },
       { label: "Ülke", value: "Italya" },
       { label: "Teknoloji yigini", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Desteklenen giyilebilirler", value: `Health Connect üzerinden ${PROVIDERS.length}'dan fazla marka, genisletilebilir` },
+      { label: "Desteklenen giyilebilirler", value: `Health Connect (Android) ve Apple Health (iOS) üzerinden ${LIVE_PROVIDER_COUNT}'dan fazla marka, genisletilebilir` },
       { label: "Fiyatlandirma", value: `14 günlük deneme, sonra Pro ${PRICING.fromLifetime.tr} tek seferlik (Android ${PRICING.lifetimeAndroid.tr} · iPhone ${PRICING.lifetimeIos.tr}) veya ${PRICING.subSixMonthsLabel.tr}` },
       { label: "Kurucu koltuklari", value: founderHistoricalKeyFact("tr") },
       { label: "Ekip", value: "Indie / tek gelistirici (Fosforonero, Matteo Pizzi)" },
@@ -749,7 +749,7 @@ const COPY = {
       { label: "Platforms", value: "Android + iOS (live, inclusief alle winkels van de EU)" },
       { label: "Land", value: "Italië" },
       { label: "Technologie", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Ondersteunde wearables", value: `${PROVIDERS.length}+ merken via Health Connect, uitbreidbaar` },
+      { label: "Ondersteunde wearables", value: `${LIVE_PROVIDER_COUNT}+ merken via Health Connect (Android) en Apple Health (iOS), uitbreidbaar` },
       { label: "Prijs", value: `14 dagen proberen, daarna Pro ${PRICING.fromLifetime.en} eenmalig (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) of ${PRICING.subSixMonthsLabel.en}` },
       { label: "Founder-plekken", value: founderHistoricalKeyFact("nl") },
       { label: "Team", value: "Indie / solo-ontwikkelaar (Fosforonero, Matteo Pizzi)" },
@@ -835,7 +835,7 @@ const COPY = {
       { label: "プラットフォーム", value: "Android + iOS（配信中、EU域内を含む）" },
       { label: "国", value: "イタリア" },
       { label: "技術スタック", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "対応ウェアラブル", value: `Health Connect経由で${PROVIDERS.length}ブランド以上、拡張可能` },
+      { label: "対応ウェアラブル", value: `Health Connect（Android）とApple Health（iOS）経由で${LIVE_PROVIDER_COUNT}ブランド以上、拡張可能` },
       { label: "価格", value: `14日間トライアル、その後Pro ${PRICING.fromLifetime.en} 買い切り（Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}）または ${PRICING.subSixMonthsLabel.en}` },
       { label: "ファウンダー枠", value: founderHistoricalKeyFact("ja") },
       { label: "チーム", value: "インディー / ソロ開発者（Fosforonero、Matteo Pizzi）" },
@@ -921,7 +921,7 @@ const COPY = {
       { label: "플랫폼", value: "Android + iOS (출시됨; EU 지역 포함)" },
       { label: "국가", value: "이탈리아" },
       { label: "기술 스택", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "지원 웨어러블", value: `Health Connect를 통해 ${PROVIDERS.length}개 이상 브랜드, 확장 가능` },
+      { label: "지원 웨어러블", value: `Health Connect(Android)와 Apple Health(iOS)를 통해 ${LIVE_PROVIDER_COUNT}개 이상 브랜드, 확장 가능` },
       { label: "가격", value: `14일 체험판, 이후 Pro ${PRICING.fromLifetime.en} 일회성 (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) 또는 ${PRICING.subSixMonthsLabel.en}` },
       { label: "파운더 좌석", value: founderHistoricalKeyFact("ko") },
       { label: "팀", value: "인디 / 1인 개발자 (Fosforonero, Matteo Pizzi)" },
@@ -1007,7 +1007,7 @@ const COPY = {
       { label: "Plattformar", value: "Android + iOS (lanserad, inklusive samtliga butiker inom EU)" },
       { label: "Land", value: "Italien" },
       { label: "Teknikstack", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Wearables som stöds", value: `${PROVIDERS.length}+ märken via Health Connect, utbyggbart` },
+      { label: "Wearables som stöds", value: `${LIVE_PROVIDER_COUNT}+ märken via Health Connect (Android) och Apple Health (iOS), utbyggbart` },
       { label: "Prissättning", value: `14 dagars provperiod, sedan Pro ${PRICING.fromLifetime.en} som engångsköp (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) eller ${PRICING.subSixMonthsLabel.en}` },
       { label: "Grundarplatser", value: founderHistoricalKeyFact("sv") },
       { label: "Team", value: "Indie / ensam utvecklare (Fosforonero, Matteo Pizzi)" },
@@ -1092,7 +1092,7 @@ const COPY = {
       { label: "Platforme", value: "Android + iOS (live, herunder i alle EU-butikker)" },
       { label: "Land", value: "Italien" },
       { label: "Teknologi", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Understøttede wearables", value: `${PROVIDERS.length}+ mærker via Health Connect, kan udvides` },
+      { label: "Understøttede wearables", value: `${LIVE_PROVIDER_COUNT}+ mærker via Health Connect (Android) og Apple Health (iOS), kan udvides` },
       { label: "Priser", value: `14 dages prøveperiode, derefter Pro ${PRICING.fromLifetime.en} som engangskøb (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) eller ${PRICING.subSixMonthsLabel.en}` },
       { label: "Founder-pladser", value: founderHistoricalKeyFact("da") },
       { label: "Team", value: "Indie/soloudvikler (Fosforonero, Matteo Pizzi)" },
@@ -1177,7 +1177,7 @@ const COPY = {
       { label: "Plattformer", value: "Android + iOS (live, inkludert i alle EU-butikker)" },
       { label: "Land", value: "Italia" },
       { label: "Teknologi", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Støttede wearables", value: `${PROVIDERS.length}+ merker via Health Connect, med rom for flere` },
+      { label: "Støttede wearables", value: `${LIVE_PROVIDER_COUNT}+ merker via Health Connect (Android) og Apple Health (iOS), med rom for flere` },
       { label: "Priser", value: `14 dagers prøveperiode, deretter Pro ${PRICING.fromLifetime.en} engangsbeløp (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) eller ${PRICING.subSixMonthsLabel.en}` },
       { label: "Founder-plasser", value: founderHistoricalKeyFact("no") },
       { label: "Team", value: "Indie / soloutvikler (Fosforonero, Matteo Pizzi)" },
@@ -1262,7 +1262,7 @@ const COPY = {
       { label: "Alustat", value: "Android + iOS (julkaistu, mukaan lukien kaikki EU:n kaupat)" },
       { label: "Maa", value: "Italia" },
       { label: "Teknologiat", value: "Flutter · Health Connect · Supabase · Next.js" },
-      { label: "Tuetut laitteet", value: `${PROVIDERS.length}+ merkkiä Health Connectin kautta, laajennettavissa` },
+      { label: "Tuetut laitteet", value: `${LIVE_PROVIDER_COUNT}+ merkkiä Health Connectin (Android) ja Apple Healthin (iOS) kautta, laajennettavissa` },
       { label: "Hinnoittelu", value: `14 päivän kokeilu, sen jälkeen Pro ${PRICING.fromLifetime.en} kertamaksuna (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) tai ${PRICING.subSixMonthsLabel.en}` },
       { label: "Perustajapaikat", value: founderHistoricalKeyFact("fi") },
       { label: "Tiimi", value: "Indie / yksinkehittäjä (Fosforonero, Matteo Pizzi)" },
@@ -1549,7 +1549,7 @@ export default async function PressPage({
 
       {/* TRUST */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 pb-8">
-        <TrustBadges locale={lc === "it" ? "it" : "en"} />
+        <TrustBadges locale={lc} />
       </section>
 
       {/* TRADEMARK + SITEMAP NOTE */}

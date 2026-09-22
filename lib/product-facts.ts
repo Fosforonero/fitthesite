@@ -540,3 +540,16 @@ export const ROADMAP_PROVIDERS_ANDROID = PROVIDERS.filter(
 export const ROADMAP_PROVIDERS_IOS = PROVIDERS.filter(
   (p) => !LIVE_STATUSES.has(p.status) && platformsOf(p).includes("ios"),
 ).map((p) => ({ name: p.name, status: p.status as ProviderStatus }));
+
+// SPRINT P0.24-B FASE A (22/09/2026): conteggio unico, dimostrato, per il
+// badge marketing "N+ wearable supportati" (home hero, press kit). Prima
+// questi punti interpolavano `PROVIDERS.length` grezzo (17, l'INTERO
+// catalogo incluse le integrazioni non-live: 1 limited-beta + 2
+// not-available). Qui invece si deduplica per nome l'unione di
+// SUPPORTED_PROVIDERS_ANDROID e SUPPORTED_PROVIDERS_IOS (stesso filtro
+// LIVE_STATUSES sopra, già usato per JSON-LD/llms.txt): un brand come Oura
+// Ring o Colmi Ring, live su entrambe le piattaforme, conta una volta sola.
+// Deriva automaticamente dal catalogo, non è un numero scritto a mano da
+// tenere sincronizzato: cambia da solo quando cambia lo stato di un
+// provider in lib/providers/data.ts.
+export const LIVE_PROVIDER_COUNT = new Set([...SUPPORTED_PROVIDERS_ANDROID, ...SUPPORTED_PROVIDERS_IOS]).size;

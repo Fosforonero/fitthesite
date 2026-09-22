@@ -370,7 +370,7 @@ export default async function AiLanding({
 
       {/* Trust badges */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-8">
-        <TrustBadges locale={lc === "it" ? "it" : "en"} />
+        <TrustBadges locale={lc} />
       </section>
 
       {/* FAQ */}

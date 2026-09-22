@@ -17,7 +17,7 @@ import { tl, tll, type BlogPost } from "@/lib/blog/types";
 import { p } from "@/lib/pricing";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
-import { SITE_URL } from "@/lib/product-facts";
+import { SITE_URL, LIVE_PROVIDER_COUNT } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 
 /**
@@ -230,7 +230,7 @@ export default async function Home({
               </li>
               <li>
                 <p className="font-display text-2xl font-semibold text-text-primary tracking-tightest">
-                  {PROVIDERS.length}+
+                  {LIVE_PROVIDER_COUNT}+
                 </p>
                 <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
                   {tl(HOMEPAGE_COPY.wearablesSupportedLabel, lc)}
@@ -251,7 +251,7 @@ export default async function Home({
        * geografico e normativo — bollini di certificazione senza prova, non
        * piu' usati come trust marker finche' non c'e' una matrice verificata. */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 pb-8">
-        <TrustBadges locale={lc === "it" ? "it" : "en"} />
+        <TrustBadges locale={lc} />
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
@@ -594,7 +594,6 @@ export default async function Home({
       {/* ════════════════════════════════════════════════════════════════
        *  BRING YOUR OWN AI — manifesto gemello del privacy block: stessa
        *  card-glass, stesso halo, 2 colonne (pitch + link /ai | checklist).
-       *  Tagline in EN non tradotta di proposito (slogan globale).
        *  ════════════════════════════════════════════════════════════ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
         <div className="card-glass p-10 sm:p-14 relative overflow-hidden">
@@ -609,7 +608,11 @@ export default async function Home({
                 {lc === "it" ? "La tua AI, le tue regole" : lc === "es" ? "Tu IA, tus reglas" : "Your AI, your rules"}
               </p>
               <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
-                Use your favorite AI assistant with your own health data.
+                {lc === "it"
+                  ? "Usa il tuo assistente AI preferito con i tuoi dati di salute."
+                  : lc === "es"
+                  ? "Usa tu asistente de IA favorito con tus datos de salud."
+                  : "Use your favorite AI assistant with your own health data."}
               </h2>
               <p className="mt-5 text-text-secondary text-lg leading-relaxed">
                 {lc === "it"
@@ -631,7 +634,11 @@ export default async function Home({
             <ul className="grid grid-cols-1 gap-3">
               {[
                 {
-                  t: "Bring your own wearable.",
+                  t: lc === "it"
+                    ? "Porta il tuo wearable."
+                    : lc === "es"
+                    ? "Trae tu wearable."
+                    : "Bring your own wearable.",
                   d: lc === "it"
                     ? "Galaxy Watch, Wear OS, anello smart, Health Connect: colleghi quello che hai già."
                     : lc === "es"
@@ -639,7 +646,11 @@ export default async function Home({
                     : "Galaxy Watch, Wear OS, a smart ring, Health Connect: connect whatever you already own.",
                 },
                 {
-                  t: "Bring your own AI.",
+                  t: lc === "it"
+                    ? "Porta la tua AI."
+                    : lc === "es"
+                    ? "Trae tu IA."
+                    : "Bring your own AI.",
                   d: lc === "it"
                     ? "Nessun chatbot proprietario. Il riepilogo è tuo, l'assistente lo scegli tu."
                     : lc === "es"
