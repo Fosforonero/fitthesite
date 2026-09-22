@@ -6,12 +6,12 @@ import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
 import ConsentPreferencesButton from "@/components/ConsentPreferencesButton";
 
 const SITE_URL = "https://www.fitmesh.fit";
-const LAST_UPDATED_IT = "17 settembre 2026";
-const LAST_UPDATED_EN = "September 17, 2026";
-const LAST_UPDATED_ES = "17 de septiembre de 2026";
-const LAST_UPDATED_DE = "17. September 2026";
-const LAST_UPDATED_PT = "17 de setembro de 2026";
-const LAST_UPDATED_FR = "17 septembre 2026";
+const LAST_UPDATED_IT = "22 settembre 2026";
+const LAST_UPDATED_EN = "September 22, 2026";
+const LAST_UPDATED_ES = "22 de septiembre de 2026";
+const LAST_UPDATED_DE = "22. September 2026";
+const LAST_UPDATED_PT = "22 de setembro de 2026";
+const LAST_UPDATED_FR = "22 septembre 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -83,7 +83,7 @@ export default async function CookiesPage({
   return (
     <>
       <Breadcrumbs items={[{ name: "Cookie Policy", path: `/${lc}/cookies` }]} locale={lc} />
-      <LegalJsonLd locale={lc} path="/cookies" name={t.legal.cookies_title} dateModified="2026-09-17" />
+      <LegalJsonLd locale={lc} path="/cookies" name={t.legal.cookies_title} dateModified="2026-09-22" />
       <LegalPage kicker={t.legal.section} title={t.legal.cookies_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <CookiesIT /> : lc === "es" ? <CookiesES /> : lc === "de" ? <CookiesDE /> : lc === "pt" ? <CookiesPT /> : lc === "fr" ? <CookiesFR /> : <CookiesEN labels={t.cookie_banner} />}
       </LegalPage>
