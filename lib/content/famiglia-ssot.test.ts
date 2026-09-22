@@ -19,33 +19,39 @@ describe("famiglia-coming-soon SSOT", () => {
     }
   });
 
-  it("reconciles status to neutral evaluation with approved metadata titles (no coming soon, in arrivo, próximamente)", () => {
-    expect(FAMIGLIA_COMING_SOON.it.metaTitle).toBe("Mesh Famiglia: progetto in valutazione | FitMesh Sync");
-    expect(FAMIGLIA_COMING_SOON.en.metaTitle).toBe("Family Mesh: Project Under Evaluation | FitMesh Sync");
-    expect(FAMIGLIA_COMING_SOON.es.metaTitle).toBe("Mesh Familia: proyecto en evaluación | FitMesh Sync");
+  // SPRINT P0.24-B FASE A (22/09/2026): decisione di prodotto confermata da
+  // Matteo. Mesh Famiglia e' decisa ed e' in sviluppo (non piu' "in
+  // valutazione", che sottostimava: la decisione e' presa), non ancora
+  // disponibile, nessuna data di rilascio annunciata. Formula pubblica
+  // autorizzata, verbatim. Vedi CAPABILITY_STATUS.familyMesh in
+  // lib/product-facts.ts per l'ancora di prodotto.
+  it("reconciles status to 'in development' with approved metadata titles (no coming soon, in arrivo, próximamente, under evaluation)", () => {
+    expect(FAMIGLIA_COMING_SOON.it.metaTitle).toBe("Mesh Famiglia: in sviluppo | FitMesh Sync");
+    expect(FAMIGLIA_COMING_SOON.en.metaTitle).toBe("Family Mesh: In Development | FitMesh Sync");
+    expect(FAMIGLIA_COMING_SOON.es.metaTitle).toBe("Mesh Familia: en desarrollo | FitMesh Sync");
   });
 
-  it("hero sub matches approved neutral evaluation copy", () => {
+  it("hero sub matches the approved 'in development' formula", () => {
     expect(FAMIGLIA_COMING_SOON.it.sub).toBe(
-      "Mesh Famiglia non è attualmente disponibile. Stiamo valutando una vista di gruppo per alcune metriche. Nel progetto attuale, la vista non include la posizione geografica degli altri membri."
+      "Mesh Famiglia è in sviluppo e non è ancora disponibile. Non abbiamo annunciato una data di rilascio."
     );
     expect(FAMIGLIA_COMING_SOON.en.sub).toBe(
-      "Family Mesh is not currently available. We are evaluating a group view for some metrics. In the current design, the view does not include other members' geographic location."
+      "Family Mesh is in development and is not yet available. We haven't announced a release date."
     );
     expect(FAMIGLIA_COMING_SOON.es.sub).toBe(
-      "Mesh Familia no está disponible actualmente. Estamos evaluando una vista de grupo para algunas métricas. En el diseño actual, la vista no incluye la ubicación geográfica de los demás miembros."
+      "Mesh Familia está en desarrollo y todavía no está disponible. No hemos anunciado una fecha de lanzamiento."
     );
   });
 
-  it("removes internal technical evidence and uses approved availability text (no feature flag mentions)", () => {
+  it("uses the approved 'in development' availability text (no feature flag mentions)", () => {
     expect(FAMIGLIA_COMING_SOON.it.availability_body).toBe(
-      "Mesh Famiglia non è attualmente disponibile. Non è stata annunciata una data di rilascio."
+      "Mesh Famiglia è in sviluppo e non è ancora disponibile. Non abbiamo annunciato una data di rilascio."
     );
     expect(FAMIGLIA_COMING_SOON.es.availability_body).toBe(
-      "Mesh Familia no está disponible actualmente. No se ha anunciado una fecha de lanzamiento."
+      "Mesh Familia está en desarrollo y todavía no está disponible. No hemos anunciado una fecha de lanzamiento."
     );
     expect(FAMIGLIA_COMING_SOON.en.availability_body).toBe(
-      "Family Mesh is not currently available. No release date has been announced."
+      "Family Mesh is in development and is not yet available. We haven't announced a release date."
     );
   });
 
@@ -68,24 +74,23 @@ describe("famiglia-coming-soon SSOT", () => {
     );
   });
 
-  it("strictly bounds FAQ 2 to the approved location statement (no GPS coordinates, no 'senza condividere')", () => {
+  // FASE A (22/09/2026): la FAQ 2 descriveva un dettaglio di comportamento
+  // (nessuna posizione geografica condivisa) per una funzione in sviluppo,
+  // in contrasto con l'istruzione esplicita di Matteo di non descrivere
+  // meccaniche non ancora verificate. Sostituita con un rimando allo stato
+  // aggiornato, senza alcun dettaglio di funzionamento.
+  it("bounds FAQ 2 to a status pointer, no feature mechanics (no GPS coordinates, no location claim)", () => {
     // IT FAQ 2
-    expect(FAMIGLIA_COMING_SOON.it.faqs[1].q).toBe("Mesh Famiglia mostra la posizione degli altri membri?");
-    expect(FAMIGLIA_COMING_SOON.it.faqs[1].a).toBe(
-      "Mesh Famiglia non è attualmente disponibile. Nel progetto attuale, la vista del gruppo non include la posizione geografica degli altri membri."
-    );
+    expect(FAMIGLIA_COMING_SOON.it.faqs[1].q).toBe("Dove trovo lo stato più aggiornato di Mesh Famiglia?");
+    expect(FAMIGLIA_COMING_SOON.it.faqs[1].a).toBe("Su questa pagina, sempre aggiornata.");
 
     // EN FAQ 2
-    expect(FAMIGLIA_COMING_SOON.en.faqs[1].q).toBe("Does Family Mesh show the location of other members?");
-    expect(FAMIGLIA_COMING_SOON.en.faqs[1].a).toBe(
-      "Family Mesh is not currently available. In the current design, the group view does not include other members' geographic location."
-    );
+    expect(FAMIGLIA_COMING_SOON.en.faqs[1].q).toBe("Where can I find the latest status of Family Mesh?");
+    expect(FAMIGLIA_COMING_SOON.en.faqs[1].a).toBe("On this page, always kept up to date.");
 
     // ES FAQ 2
-    expect(FAMIGLIA_COMING_SOON.es.faqs[1].q).toBe("¿Mesh Familia muestra la ubicación de los demás miembros?");
-    expect(FAMIGLIA_COMING_SOON.es.faqs[1].a).toBe(
-      "Mesh Familia no está disponible actualmente. En el diseño actual, la vista del grupo no incluye la ubicación geográfica de los demás miembros."
-    );
+    expect(FAMIGLIA_COMING_SOON.es.faqs[1].q).toBe("¿Dónde encuentro el estado más reciente de Mesh Familia?");
+    expect(FAMIGLIA_COMING_SOON.es.faqs[1].a).toBe("En esta página, siempre actualizada.");
   });
 
   it("bounds FAQ 3 to neutral catalog reference with zero future predictions", () => {
@@ -108,6 +113,16 @@ describe("famiglia-coming-soon SSOT", () => {
       "in arrivo",
       "próximamente",
       "proximamente",
+      // FASE A (22/09/2026): "in evaluation"/"in valutazione" sottostima ora
+      // che la decisione e' presa (Matteo, 22/09/2026); mai reintrodurla.
+      "under evaluation",
+      "in valutazione",
+      "en evaluación",
+      "en évaluation",
+      "in prüfung",
+      "em avaliação",
+      "w trakcie oceny",
+      "değerlendirme aşamasında",
       "feature flag",
       "coordinate gps",
       "gps coordinates",

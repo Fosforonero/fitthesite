@@ -183,6 +183,31 @@ export const CAPABILITY_STATUS: Record<
     note:
       "Sprint P0.6B (freeze esplicito): il codice SQL del trigger di auto-grant Founder esiste nel repo, ma il codice presente NON costituisce prova di funzionamento in produzione. Restano da verificare, con dati reali di produzione: (1) il trigger è effettivamente applicato al DB di produzione, non solo presente in una migration; (2) una registrazione reale con un utente normale (non un account di test creato per l'occasione) attiva il grant; (3) il grant assegnato è corretto (lifetime Pro, non altro); (4) il cap di 1000 posti e il comportamento anti-race reggono sotto scrittura concorrente; (5) il conteggio dei posti usati è coerente con i grant realmente assegnati. Nessuna di queste verifiche deve avvenire creando account QA — solo osservando dati di produzione reali una volta che lo sprint Build 189 le esegue. Hotfix P0.6C (2026-07-17): il contatore pubblico dei posti Founder occupati (FounderCounter, FounderBanner, GET /api/v1/beta/spots) è stato rimosso dal sito perché il conteggio non è riconciliato con i grant realmente assegnati in produzione — era fermo a 705 e non verificabile. Non reintrodurre alcuna forma di contatore/badge/banner pubblico che mostri un numero di posti Founder occupati o rimasti finché questo status non passa a live_verified con il report coordinato dello sprint app/Build 189. Termini Founder, entitlement, trigger Supabase, cap 1000 e grant utenti non sono toccati da questo hotfix: resta tutto come nel freeze P0.6B.",
   },
+  /**
+   * Mesh Famiglia / Family Mesh. Evidenza di prodotto: `famiglia/page.tsx`
+   * (`const COMING_SOON = true`) rimanda a un feature flag lato app
+   * (`meshFamigliaEnabled=false`) — non è live su nessuna piattaforma.
+   * Evidenza editoriale: decisione di prodotto confermata da Matteo il
+   * 22/09/2026 (SPRINT P0.24-B FASE A) — "deciso ed è in sviluppo", non
+   * ancora disponibile nella release pubblica, nessuna data di rilascio
+   * annunciata. Sostituisce la formulazione precedente ("progetto in
+   * valutazione"), rimasta in vigore dal 22/09/2026 (P0.22-C, #74) fino alla
+   * stessa giornata: sottostimava lo stato, la decisione è presa.
+   *
+   * Formula pubblica autorizzata, da non riformulare: IT "Mesh Famiglia è in
+   * sviluppo e non è ancora disponibile. Non abbiamo annunciato una data di
+   * rilascio."; EN "Family Mesh is in development and is not yet available.
+   * We haven't announced a release date." Mai "coming soon"/"nei prossimi
+   * giorni" (vicinanza temporale non confermata). Stato del progetto separato
+   * dalle funzioni pubbliche: nessun gruppo, condivisione, preset di privacy,
+   * prezzo o inclusione in Pro descritti come attivi o definiti finché non
+   * sono verificati.
+   */
+  familyMesh: {
+    status: "in_development",
+    note:
+      "Non promuovere a live_verified/live_limited senza un rilascio pubblico reale su almeno una piattaforma. Non descrivere meccaniche (inviti, preset di privacy, tetto membri, prezzo) prima che siano implementate e verificabili nel repository. Nessuna data di rilascio: non aggiungerne una finché non è annunciata da Matteo.",
+  },
 };
 
 // ── Programma Founder ───────────────────────────────────────────────────────
@@ -301,105 +326,90 @@ export const APP_FEATURE_LIST_ANDROID: Record<Locale, string[]> = {
   it: [
     "Sincronizza Galaxy Watch, Wear OS e wearable Health Connect",
     "Dashboard premium per passi, battito, sonno, calorie",
-    "Mesh Famiglia — monitora salute familiari (passi, sonno, attivita)",
     "Privacy-first: zero tracker pubblicitari",
     "Offline-first: i dati restano in coda e si inviano alla prossima apertura dell'app",
   ],
   en: [
     "Sync Galaxy Watch, Wear OS, and Health Connect wearables",
     "Premium dashboard for steps, heart rate, sleep, calories",
-    "Family Mesh — monitor family health (steps, sleep, activity)",
     "Privacy-first: no ad trackers",
     "Offline-first: data queues up and syncs the next time you open the app",
   ],
   es: [
     "Sincroniza Galaxy Watch, Wear OS y wearables compatibles con Health Connect",
     "Panel premium para pasos, frecuencia cardíaca, sueño, calorías",
-    "Mesh Familiar — supervisa la salud familiar (pasos, sueño, actividad)",
     "Privacidad ante todo: sin rastreadores publicitarios",
     "Offline-first: los datos quedan en cola y se envían al abrir la app de nuevo",
   ],
   de: [
     "Synchronisiert Galaxy Watch, Wear OS und Health-Connect-Wearables",
     "Premium-Dashboard für Schritte, Herzfrequenz, Schlaf, Kalorien",
-    "Familien-Mesh — überwacht die Gesundheit der Familie (Schritte, Schlaf, Aktivität)",
     "Datenschutz zuerst: keine Werbetracker",
     "Offline-first: Daten werden zwischengespeichert und beim nächsten Öffnen der App gesendet",
   ],
   pt: [
     "Sincroniza Galaxy Watch, Wear OS e wearables compatíveis com Health Connect",
     "Painel premium para passos, frequência cardíaca, sono, calorias",
-    "Mesh Família — monitora a saúde da família (passos, sono, atividade)",
     "Privacidade em primeiro lugar: sem rastreadores publicitários",
     "Offline-first: os dados ficam em espera e são enviados na próxima abertura da app",
   ],
   fr: [
     "Synchronise Galaxy Watch, Wear OS et les wearables compatibles Health Connect",
     "Tableau de bord premium pour les pas, la fréquence cardiaque, le sommeil, les calories",
-    "Family Mesh — suivez la santé de la famille (pas, sommeil, activité)",
     "Confidentialité avant tout : aucun traceur publicitaire",
     "Offline-first : les données restent en attente et sont envoyées à la prochaine ouverture de l'app",
   ],
   pl: [
     "Synchronizuje Galaxy Watch, Wear OS i wearables zgodne z Health Connect",
     "Panel premium dla kroków, tętna, snu, kalorii",
-    "Mesh Rodzinny — monitoruje zdrowie rodziny (kroki, sen, aktywność)",
     "Prywatność przede wszystkim: brak trackerów reklamowych",
     "Offline-first: dane czekają w kolejce i wysyłają się przy następnym otwarciu aplikacji",
   ],
   tr: [
     "Galaxy Watch, Wear OS ve Health Connect uyumlu giyilebilirleri senkronize eder",
     "Adımlar, kalp atışı, uyku, kalori için premium pano",
-    "Aile Mesh — aile sağlığını izler (adımlar, uyku, aktivite)",
     "Gizlilik öncelikli: reklam izleyicisi yok",
     "Offline-first: veriler kuyrukta bekler ve uygulamayı bir sonraki açışında gönderilir",
   ],
   nl: [
     "Synchroniseert Galaxy Watch, Wear OS en Health Connect-wearables",
     "Premium dashboard voor stappen, hartslag, slaap, calorieën",
-    "Family Mesh — houd de gezondheid van het gezin in de gaten (stappen, slaap, activiteit)",
     "Privacy-first: geen advertentietrackers",
     "Offline-first: gegevens blijven in de wachtrij en worden verzonden bij de volgende keer openen van de app",
   ],
   ja: [
     "Galaxy Watch、Wear OS、Health Connect対応ウェアラブルを同期",
     "歩数、心拍数、睡眠、カロリーのプレミアムダッシュボード",
-    "Family Mesh — 家族の健康を見守る（歩数、睡眠、活動量）",
     "プライバシーファースト：広告トラッカーなし",
     "オフラインファースト：データは一時保存され、次にアプリを開いたときに送信されます",
   ],
   ko: [
     "Galaxy Watch, Wear OS 및 Health Connect 웨어러블 동기화",
     "걸음 수, 심박수, 수면, 칼로리를 위한 프리미엄 대시보드",
-    "Family Mesh — 가족 건강 모니터링 (걸음 수, 수면, 활동)",
     "개인정보 보호 최우선: 광고 트래커 없음",
     "오프라인 우선: 데이터는 대기열에 저장되었다가 앱을 다음에 열 때 전송됩니다",
   ],
   sv: [
     "Synkroniserar Galaxy Watch, Wear OS och Health Connect-wearables",
     "Premium dashboard för steg, puls, sömn, kalorier",
-    "Family Mesh — övervaka familjens hälsa (steg, sömn, aktivitet)",
     "Integritet först: inga annonsspårare",
     "Offline-first: data köas och skickas nästa gång du öppnar appen",
   ],
   da: [
     "Synkroniserer Galaxy Watch, Wear OS og Health Connect-wearables",
     "Premium dashboard til skridt, puls, søvn, kalorier",
-    "Family Mesh — hold øje med familiens sundhed (skridt, søvn, aktivitet)",
     "Privatliv først: ingen annoncetrackere",
     "Offline-first: data ligger i kø og sendes, næste gang du åbner appen",
   ],
   no: [
     "Synkroniserer Galaxy Watch, Wear OS og Health Connect-wearables",
     "Premium dashbord for skritt, puls, søvn, kalorier",
-    "Family Mesh — overvåk familiens helse (skritt, søvn, aktivitet)",
     "Personvern først: ingen annonsesporere",
     "Offline-first: data legges i kø og sendes neste gang du åpner appen",
   ],
   fi: [
     "Synkronoi Galaxy Watchin, Wear OS:n ja Health Connect -yhteensopivat puettavat laitteet",
     "Premium-koontinäyttö askelille, sykkeelle, unelle, kaloreille",
-    "Family Mesh — seuraa perheen terveyttä (askeleet, uni, aktiivisuus)",
     "Yksityisyys edellä: ei mainosseurantaa",
     "Offline-first: tiedot jonottavat ja lähtevät, kun avaat sovelluksen seuraavan kerran",
   ],
@@ -409,105 +419,90 @@ export const APP_FEATURE_LIST_IOS: Record<Locale, string[]> = {
   it: [
     "Sincronizza Apple Salute (HealthKit) e il Colmi Ring via Bluetooth diretto",
     "Dashboard premium per passi, battito, sonno, calorie",
-    "Mesh Famiglia — monitora salute familiari (passi, sonno, attivita)",
     "Privacy-first: zero tracker pubblicitari",
     "Live sull'App Store, incluse tutte le storefront UE",
   ],
   en: [
     "Sync Apple Health (HealthKit) and the Colmi Ring via direct Bluetooth",
     "Premium dashboard for steps, heart rate, sleep, calories",
-    "Family Mesh — monitor family health (steps, sleep, activity)",
     "Privacy-first: no ad trackers",
     "Live on the App Store, including all EU storefronts",
   ],
   es: [
     "Sincroniza Apple Salud (HealthKit) y el anillo Colmi por Bluetooth directo",
     "Panel premium para pasos, frecuencia cardíaca, sueño, calorías",
-    "Mesh Familiar — supervisa la salud familiar (pasos, sueño, actividad)",
     "Privacidad ante todo: sin rastreadores publicitarios",
     "Disponible en la App Store, incluidas todas las tiendas de la UE",
   ],
   de: [
     "Synchronisiert Apple Health (HealthKit) und den Colmi Ring per direktem Bluetooth",
     "Premium-Dashboard für Schritte, Herzfrequenz, Schlaf, Kalorien",
-    "Familien-Mesh — überwacht die Gesundheit der Familie (Schritte, Schlaf, Aktivität)",
     "Datenschutz zuerst: keine Werbetracker",
     "Im App Store live, einschließlich aller EU-Storefronts",
   ],
   pt: [
     "Sincroniza o Apple Saúde (HealthKit) e o anel Colmi via Bluetooth direto",
     "Painel premium para passos, frequência cardíaca, sono, calorias",
-    "Mesh Família — monitora a saúde da família (passos, sono, atividade)",
     "Privacidade em primeiro lugar: sem rastreadores publicitários",
     "Ativo na App Store, incluindo todas as lojas da UE",
   ],
   fr: [
     "Synchronise Apple Santé (HealthKit) et la bague Colmi via Bluetooth direct",
     "Tableau de bord premium pour les pas, la fréquence cardiaque, le sommeil, les calories",
-    "Family Mesh — suivez la santé de la famille (pas, sommeil, activité)",
     "Confidentialité avant tout : aucun traceur publicitaire",
     "Active sur l'App Store, y compris dans toutes les boutiques de l'UE",
   ],
   pl: [
     "Synchronizuje Apple Zdrowie (HealthKit) i pierścień Colmi przez bezpośredni Bluetooth",
     "Panel premium dla kroków, tętna, snu, kalorii",
-    "Mesh Rodzinny — monitoruje zdrowie rodziny (kroki, sen, aktywność)",
     "Prywatność przede wszystkim: brak trackerów reklamowych",
     "Dostępny w App Store, we wszystkich sklepach UE",
   ],
   tr: [
     "Apple Sağlık (HealthKit) ve Colmi Ring'i doğrudan Bluetooth ile senkronize eder",
     "Adımlar, kalp atışı, uyku, kalori için premium pano",
-    "Aile Mesh — aile sağlığını izler (adımlar, uyku, aktivite)",
     "Gizlilik öncelikli: reklam izleyicisi yok",
     "AB dahil tüm mağazalarda App Store'da yayında",
   ],
   nl: [
     "Synchroniseert Apple Gezondheid (HealthKit) en de Colmi Ring via directe Bluetooth",
     "Premium dashboard voor stappen, hartslag, slaap, calorieën",
-    "Family Mesh — houd de gezondheid van het gezin in de gaten (stappen, slaap, activiteit)",
     "Privacy-first: geen advertentietrackers",
     "Live in de App Store, inclusief alle EU-winkels",
   ],
   ja: [
     "Apple ヘルスケア（HealthKit）とColmi Ringを直接Bluetoothで同期",
     "歩数、心拍数、睡眠、カロリーのプレミアムダッシュボード",
-    "Family Mesh — 家族の健康を見守る（歩数、睡眠、活動量）",
     "プライバシーファースト：広告トラッカーなし",
     "EU域内を含む対応国のApp Storeで提供中",
   ],
   ko: [
     "Apple 건강(HealthKit)과 Colmi Ring을 직접 블루투스로 동기화",
     "걸음 수, 심박수, 수면, 칼로리를 위한 프리미엄 대시보드",
-    "Family Mesh — 가족 건강 모니터링 (걸음 수, 수면, 활동)",
     "개인정보 보호 최우선: 광고 트래커 없음",
     "EU를 포함한 App Store에 출시",
   ],
   sv: [
     "Synkroniserar Apple Hälsa (HealthKit) och Colmi Ring via direkt Bluetooth",
     "Premium dashboard för steg, puls, sömn, kalorier",
-    "Family Mesh — övervaka familjens hälsa (steg, sömn, aktivitet)",
     "Integritet först: inga annonsspårare",
     "Live i App Store, inklusive alla EU-butiker",
   ],
   da: [
     "Synkroniserer Apple Sundhed (HealthKit) og Colmi Ring via direkte Bluetooth",
     "Premium dashboard til skridt, puls, søvn, kalorier",
-    "Family Mesh — hold øje med familiens sundhed (skridt, søvn, aktivitet)",
     "Privatliv først: ingen annoncetrackere",
     "Live i App Store, inklusive alle EU-butikker",
   ],
   no: [
     "Synkroniserer Apple Helse (HealthKit) og Colmi Ring via direkte Bluetooth",
     "Premium dashbord for skritt, puls, søvn, kalorier",
-    "Family Mesh — overvåk familiens helse (skritt, søvn, aktivitet)",
     "Personvern først: ingen annonsesporere",
     "Live i App Store, inkludert alle EU-butikker",
   ],
   fi: [
     "Synkronoi Apple Terveyden (HealthKit) ja Colmi Ringin suoralla Bluetooth-yhteydellä",
     "Premium-koontinäyttö askelille, sykkeelle, unelle, kaloreille",
-    "Family Mesh — seuraa perheen terveyttä (askeleet, uni, aktiivisuus)",
     "Yksityisyys edellä: ei mainosseurantaa",
     "Käytössä App Storessa, mukaan lukien kaikki EU-kaupat",
   ],
