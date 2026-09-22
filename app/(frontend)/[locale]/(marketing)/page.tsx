@@ -17,7 +17,7 @@ import { tl, tll, type BlogPost } from "@/lib/blog/types";
 import { p } from "@/lib/pricing";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
-import { SITE_URL, LIVE_PROVIDER_COUNT } from "@/lib/product-facts";
+import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 
 /**
@@ -229,12 +229,14 @@ export default async function Home({
                 </p>
               </li>
               <li>
-                <p className="font-display text-2xl font-semibold text-text-primary tracking-tightest">
-                  {LIVE_PROVIDER_COUNT}+
-                </p>
-                <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
-                  {tl(HOMEPAGE_COPY.wearablesSupportedLabel, lc)}
-                </p>
+                <Link href={`/${lc}/integrations`} className="group inline-block">
+                  <p className="font-display text-2xl font-semibold text-text-primary tracking-tightest group-hover:text-brand-aqua transition">
+                    {tl(HOMEPAGE_COPY.seeAll, lc)}
+                  </p>
+                  <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-text-muted leading-tight">
+                    {tl(HOMEPAGE_COPY.wearablesSupportedLabel, lc)}
+                  </p>
+                </Link>
               </li>
             </ul>
           </div>

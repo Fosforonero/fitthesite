@@ -18,14 +18,44 @@ const SOURCE = readFileSync(
   "utf8",
 );
 
-describe("homepage: badge wearable usa il conteggio live, non il totale catalogo", () => {
-  it("il badge hero interpola LIVE_PROVIDER_COUNT, non piu' PROVIDERS.length", () => {
+/**
+ * RETTIFICA (22/09/2026, stesso giorno): il fix precedente sostituiva
+ * `PROVIDERS.length` (17) con `LIVE_PROVIDER_COUNT` (14) nel badge, ma non
+ * riconciliava la CATEGORIA dichiarata dal badge ("Wearable supportati")
+ * con cosa viene davvero contato: di quei 14, "Smartphone Android"
+ * (category "phone-only") e "Apple Health" (category "health-platform")
+ * non sono wearable, e filtrare per category non produce comunque un
+ * conteggio rigoroso ("Garmin Connect"/"Withings" vendono wearable veri ma
+ * hanno category fitness-platform/health-platform — vedi
+ * lib/product-facts.test.ts). Istruzione esplicita di Matteo: senza un
+ * conteggio rigoroso, il numero va tolto dalla superficie marketing, non
+ * ri-etichettato. Il badge e' ora un link a /integrations (elenco
+ * completo, per-provider, con categoria e stato reali), non un'aggregazione.
+ */
+describe("homepage: badge wearable NON fa piu' un claim numerico non qualificato, rimanda al catalogo", () => {
+  it("nessun conteggio grezzo (PROVIDERS.length) ne' un LIVE_PROVIDER_COUNT ormai rimosso", () => {
     expect(SOURCE).not.toMatch(/\{PROVIDERS\.length\}\+/);
-    expect(SOURCE).toMatch(/\{LIVE_PROVIDER_COUNT\}\+/);
+    expect(SOURCE).not.toMatch(/LIVE_PROVIDER_COUNT/);
   });
 
-  it("importa LIVE_PROVIDER_COUNT da lib/product-facts", () => {
-    expect(SOURCE).toMatch(/import\s*\{[^}]*LIVE_PROVIDER_COUNT[^}]*\}\s*from\s*"@\/lib\/product-facts"/);
+  it("nessun claim numerico 'N+' adiacente all'etichetta wearable nel sorgente", () => {
+    // Un numero letterale (es. {14}+ o "14+" scritto a mano) nelle righe
+    // intorno a wearablesSupportedLabel sarebbe la stessa classe di difetto
+    // sotto altro nome: un conteggio non riconciliato con la categoria
+    // dichiarata. Cerca per riga (non con una regex multilinea fragile
+    // sull'indentazione JSX) una finestra di poche righe intorno al
+    // riferimento all'etichetta.
+    const lines = SOURCE.split("\n");
+    const labelLineIndex = lines.findIndex((l) => l.includes("HOMEPAGE_COPY.wearablesSupportedLabel"));
+    expect(labelLineIndex, "riferimento a wearablesSupportedLabel non trovato nel sorgente").toBeGreaterThanOrEqual(0);
+    const window = lines.slice(Math.max(0, labelLineIndex - 6), labelLineIndex + 2).join("\n");
+    expect(window).not.toMatch(/\d+\+/);
+  });
+
+  it("il badge e' un link verso /integrations, non un'aggregazione", () => {
+    expect(SOURCE).toMatch(/<Link href=\{`\/\$\{lc\}\/integrations`\}[^>]*>/);
+    expect(SOURCE).toMatch(/\{tl\(HOMEPAGE_COPY\.seeAll, lc\)\}/);
+    expect(SOURCE).toMatch(/\{tl\(HOMEPAGE_COPY\.wearablesSupportedLabel, lc\)\}/);
   });
 });
 

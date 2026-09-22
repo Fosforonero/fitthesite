@@ -541,15 +541,24 @@ export const ROADMAP_PROVIDERS_IOS = PROVIDERS.filter(
   (p) => !LIVE_STATUSES.has(p.status) && platformsOf(p).includes("ios"),
 ).map((p) => ({ name: p.name, status: p.status as ProviderStatus }));
 
-// SPRINT P0.24-B FASE A (22/09/2026): conteggio unico, dimostrato, per il
-// badge marketing "N+ wearable supportati" (home hero, press kit). Prima
-// questi punti interpolavano `PROVIDERS.length` grezzo (17, l'INTERO
-// catalogo incluse le integrazioni non-live: 1 limited-beta + 2
-// not-available). Qui invece si deduplica per nome l'unione di
-// SUPPORTED_PROVIDERS_ANDROID e SUPPORTED_PROVIDERS_IOS (stesso filtro
-// LIVE_STATUSES sopra, già usato per JSON-LD/llms.txt): un brand come Oura
-// Ring o Colmi Ring, live su entrambe le piattaforme, conta una volta sola.
-// Deriva automaticamente dal catalogo, non è un numero scritto a mano da
-// tenere sincronizzato: cambia da solo quando cambia lo stato di un
-// provider in lib/providers/data.ts.
-export const LIVE_PROVIDER_COUNT = new Set([...SUPPORTED_PROVIDERS_ANDROID, ...SUPPORTED_PROVIDERS_IOS]).size;
+// SPRINT P0.24-B FASE A (22/09/2026): NESSUN conteggio "N wearable
+// supportati" qui, di proposito. Un primo tentativo introduceva
+// `LIVE_PROVIDER_COUNT` come unione deduplicata di SUPPORTED_PROVIDERS_ANDROID
+// e SUPPORTED_PROVIDERS_IOS (= 14), per correggere il badge home/press che
+// prima interpolava `PROVIDERS.length` grezzo (17, incluse 3 integrazioni
+// non-live). Corretto sul numero, ma non sulla categoria dichiarata dal
+// badge stesso ("Wearable supportati"): di quei 14, 4 non sono wearable per
+// la tassonomia `ProviderCategory` già esistente e già pubblica su
+// /integrations (categoryLabel) — "Smartphone Android" (phone-only, un
+// telefono), "Apple Health" (health-platform, un aggregatore dati, non un
+// dispositivo), "Garmin Connect" e "Withings" (fitness-platform/health-platform,
+// il brand vende wearable ma qui l'integrazione è categorizzata come
+// piattaforma). Filtrare su category === "smartwatch" || "wearable" dà 10,
+// ma quel confine è a sua volta discutibile (Garmin e Withings VENDONO
+// wearable veri) — non un conteggio rigoro, solo un'altra soglia arbitraria.
+// Istruzione esplicita di Matteo: se non esiste un conteggio rigoroso,
+// il numero va tolto dalle superfici marketing, non ri-etichettato per
+// farlo tornare. Home hero e press kit ora rimandano a /integrations
+// (elenco completo, per-provider, con stato e categoria reali) invece di
+// aggregare un numero. Vedi PROVIDERS/categoryLabel in lib/providers/data.ts
+// per l'elenco vero, e ROADMAP_PROVIDERS_ANDROID/IOS sopra per chi non è live.

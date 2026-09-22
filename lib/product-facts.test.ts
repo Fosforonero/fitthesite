@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { APP_FEATURE_LIST_ANDROID, APP_FEATURE_LIST_IOS, LIVE_PROVIDER_COUNT } from "./product-facts";
+import { APP_FEATURE_LIST_ANDROID, APP_FEATURE_LIST_IOS, SUPPORTED_PROVIDERS_ANDROID, SUPPORTED_PROVIDERS_IOS } from "./product-facts";
 import { locales } from "./i18n";
 import { PROVIDERS, type Provider } from "./providers/data";
 
@@ -17,28 +17,50 @@ import { PROVIDERS, type Provider } from "./providers/data";
  * davvero.
  */
 /**
- * P0.24-B FASE A (22/09/2026): il badge marketing "N+ wearable supportati"
- * (home hero, press kit) interpolava `PROVIDERS.length` grezzo (17, l'intero
- * catalogo incluse 3 integrazioni non-live: 1 limited-beta + 2 not-available)
- * come se fossero tutte disponibili oggi. `LIVE_PROVIDER_COUNT` sostituisce
- * quell'interpolazione con l'unione deduplicata (per nome) dei provider
- * realmente live su almeno una piattaforma, stessa fonte gia' usata per
- * JSON-LD/llms.txt (SUPPORTED_PROVIDERS_ANDROID/IOS). Il test ricalcola
- * l'unione in modo indipendente (non richiamando la stessa funzione filtrata
- * altrove) per non limitarsi a verificare che il codice sia coerente con se
- * stesso.
+ * P0.24-B FASE A (22/09/2026), RETTIFICA: un primo tentativo aveva
+ * introdotto `LIVE_PROVIDER_COUNT` (unione deduplicata dei provider live,
+ * = 14) per correggere il badge "N wearable supportati" (prima
+ * `PROVIDERS.length` grezzo, 17, incluse 3 integrazioni non-live). Corretto
+ * sul numero, ma NON sulla categoria dichiarata dal badge stesso: di quei
+ * 14, "Smartphone Android" (category "phone-only") e "Apple Health"
+ * (category "health-platform") non sono wearable per la tassonomia
+ * `ProviderCategory` già esistente e pubblica su /integrations
+ * (`categoryLabel`). Filtrare su category non basta a rendere il numero
+ * "rigoroso": "Garmin Connect" e "Withings" sono category
+ * fitness-platform/health-platform pur essendo brand che vendono wearable
+ * veri — un confine altrettanto arbitrario. Istruzione esplicita di
+ * Matteo: se non esiste un conteggio rigoroso di marchi wearable, il
+ * numero va tolto dalle superfici marketing (home hero, press kit), non
+ * ri-etichettato per farlo tornare — vedi il commento sopra
+ * SUPPORTED_PROVIDERS_ANDROID/IOS in product-facts.ts. Questi test
+ * verificano la SEMANTICA (non solo un valore numerico): (1) fissano quali
+ * provider live hanno una category non-wearable, cosi' se la
+ * categorizzazione cambia un domani, il test lo segnala esplicitamente
+ * invece di lasciare che un numero aggregato torni silenziosamente
+ * "quasi giusto"; (2) verificano che home/press non facciano piu' nessun
+ * claim numerico "N wearable/brand" non qualificato, in nessuna delle 15
+ * lingue.
  */
-describe("product-facts: LIVE_PROVIDER_COUNT e' il conteggio live deduplicato, non il totale catalogo", () => {
-  it("e' strettamente minore del totale catalogo (prova che filtra, non alias di PROVIDERS.length)", () => {
-    expect(LIVE_PROVIDER_COUNT).toBeLessThan(PROVIDERS.length);
+describe("product-facts: nessun conteggio 'wearable' aggregato senza una categoria rigorosa", () => {
+  it("fissa quali provider live NON sono category wearable/smartwatch (la ragione per cui un conteggio aggregato non e' rigoroso)", () => {
+    const liveNames = new Set([...SUPPORTED_PROVIDERS_ANDROID, ...SUPPORTED_PROVIDERS_IOS]);
+    const liveByName = new Map(PROVIDERS.filter((p: Provider) => liveNames.has(p.name)).map((p: Provider) => [p.name, p]));
+
+    const nonWearableCategories = ["health-platform", "fitness-platform", "phone-only"];
+    const nonWearableLive = [...liveByName.values()].filter((p) => nonWearableCategories.includes(p.category));
+    const nonWearableNames = nonWearableLive.map((p) => p.name).sort();
+
+    // Se questo elenco cambia (un provider "non-wearable" diventa
+    // wearable/smartwatch, o viceversa), la decisione di togliere il
+    // numero dalle superfici marketing va rivalutata: non e' piu' lo
+    // stesso confine indistinto documentato qui.
+    expect(nonWearableNames).toEqual(["Apple Health", "Garmin Connect", "Smartphone Android", "Withings"]);
   });
 
-  it("combacia con l'unione indipendente per nome dei provider live su almeno una piattaforma", () => {
-    const LIVE = new Set(["live", "live-basic", "live-bridge"]);
-    const independentUnion = new Set(
-      PROVIDERS.filter((p: Provider) => LIVE.has(p.status)).map((p: Provider) => p.name),
-    );
-    expect(LIVE_PROVIDER_COUNT).toBe(independentUnion.size);
+  it("almeno un provider live vende wearable veri pur avendo category non-wearable (il confine e' arbitrario, non rigoroso)", () => {
+    const withings = PROVIDERS.find((p: Provider) => p.name === "Withings");
+    expect(withings, "Withings non trovato nel catalogo").toBeDefined();
+    expect(withings!.category, "Withings vende smartwatch/scale reali ma qui e' category 'health-platform': filtrare per category escluderebbe un vero brand wearable, non e' un confine rigoroso").not.toBe("wearable");
   });
 });
 
