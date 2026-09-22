@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
+import { locales, type Locale, type Dictionary, getDictionary, localeAlternates } from "@/lib/i18n";
 import { LegalPage, Section, List, Callout } from "@/components/legal/LegalLayout";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { LegalJsonLd } from "@/components/seo/LegalJsonLd";
@@ -19,13 +19,13 @@ const SITE_URL = "https://www.fitmesh.fit";
  * Non lasciare una data falsa: rappresenta quando il contenuto legale è
  * davvero cambiato, non quando è stato scritto il codice.
  */
-const LEGAL_DATE_ISO = "2026-09-04";
-const LAST_UPDATED_IT = "4 settembre 2026";
-const LAST_UPDATED_EN = "September 4, 2026";
-const LAST_UPDATED_ES = "4 de septiembre de 2026";
-const LAST_UPDATED_DE = "4. September 2026";
-const LAST_UPDATED_PT = "4 de setembro de 2026";
-const LAST_UPDATED_FR = "4 septembre 2026";
+const LEGAL_DATE_ISO = "2026-09-22";
+const LAST_UPDATED_IT = "22 settembre 2026";
+const LAST_UPDATED_EN = "September 22, 2026";
+const LAST_UPDATED_ES = "22 de septiembre de 2026";
+const LAST_UPDATED_DE = "22. September 2026";
+const LAST_UPDATED_PT = "22 de setembro de 2026";
+const LAST_UPDATED_FR = "22 septembre 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -103,7 +103,7 @@ export default async function PrivacyPage({
       <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
       <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified={LEGAL_DATE_ISO} />
       <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
-        {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : lc === "de" ? <PrivacyDE /> : lc === "pt" ? <PrivacyPT /> : lc === "fr" ? <PrivacyFR /> : <PrivacyEN />}
+        {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : lc === "de" ? <PrivacyDE /> : lc === "pt" ? <PrivacyPT /> : lc === "fr" ? <PrivacyFR /> : <PrivacyEN labels={t.cookie_banner} />}
       </LegalPage>
     </>
   );
@@ -294,7 +294,7 @@ function PrivacyIT() {
           ["Google LLC (Firebase Crashlytics)", "diagnostica crash app (USA), DPA + SCC + DPF"],
           ["Google LLC (Google Sign-In, opzionale)", "autenticazione OAuth (USA), DPA + SCC + DPF"],
           ["Google LLC (Google Play Billing)", "gestione acquisti in-app, soggetto a Google Play Terms"],
-          ["Google Analytics 4 (solo sito web, opt-in)", "analytics anonimi attivati solo dopo consenso esplicito tramite cookie banner"],
+          ["Google Analytics 4 (solo sito web, opt-in)", "statistiche di utilizzo del sito, raccolte solo dopo il consenso esplicito nel banner dei cookie; la scelta si cambia da «Preferenze cookie»"],
         ]} />
         <p>
           Maggiori dettagli sui cookie del sito web nella nostra{" "}
@@ -343,7 +343,8 @@ function PrivacyIT() {
   );
 }
 
-function PrivacyEN() {
+/** Il corpo inglese e' servito anche a pl, tr, nl, ja, ko, sv, da, no, fi: il nome del pulsante viene dal dizionario della lingua della pagina. */
+function PrivacyEN({ labels }: { labels: Dictionary["cookie_banner"] }) {
   return (
     <>
       <Section title="1. Data Controller">
@@ -524,7 +525,7 @@ function PrivacyEN() {
           ["Google LLC (Firebase Crashlytics)", "app crash diagnostics (US), DPA + SCC + DPF"],
           ["Google LLC (Google Sign-In, optional)", "OAuth authentication (US), DPA + SCC + DPF"],
           ["Google LLC (Google Play Billing)", "in-app purchase handling, subject to Google Play Terms"],
-          ["Google Analytics 4 (website only, opt-in)", "anonymous analytics enabled only after explicit consent via the cookie banner"],
+          ["Google Analytics 4 (website only, opt-in)", `website usage statistics, collected only after explicit consent in the cookie banner; you can change the choice from “${labels.preferences}”`],
         ]} />
         <p>
           More website-cookie details in our{" "}
@@ -752,7 +753,7 @@ function PrivacyES() {
           ["Google LLC (Firebase Crashlytics)", "diagnóstico de fallos de la app (EE. UU.), DPA + CCT + DPF"],
           ["Google LLC (Google Sign-In, opcional)", "autenticación OAuth (EE. UU.), DPA + CCT + DPF"],
           ["Google LLC (Google Play Billing)", "gestión de compras en la app, sujeto a los Términos de Google Play"],
-          ["Google Analytics 4 (solo sitio web, opt-in)", "analítica anónima activada únicamente tras el consentimiento explícito mediante el banner de cookies"],
+          ["Google Analytics 4 (solo sitio web, opt-in)", "estadísticas de uso del sitio, que se recogen solo tras el consentimiento explícito en el banner de cookies; puedes cambiar la elección desde «Preferencias de cookies»"],
         ]} />
         <p>
           Más detalles sobre las cookies del sitio web en nuestra{" "}
@@ -986,7 +987,7 @@ function PrivacyDE() {
           ["Google LLC (Firebase Crashlytics)", "App-Absturzdiagnose (USA), DPA + SCC + DPF"],
           ["Google LLC (Google Sign-In, optional)", "OAuth-Authentifizierung (USA), DPA + SCC + DPF"],
           ["Google LLC (Google Play Billing)", "Verwaltung von In-App-Käufen, unterliegt den Google Play-Nutzungsbedingungen"],
-          ["Google Analytics 4 (nur Website, Opt-in)", "anonyme Analyse, nur nach ausdrücklicher Einwilligung über das Cookie-Banner aktiviert"],
+          ["Google Analytics 4 (nur Website, Opt-in)", "Nutzungsstatistiken der Website, die erst nach ausdrücklicher Einwilligung im Cookie-Banner erhoben werden; die Wahl lässt sich unter „Cookie-Einstellungen“ ändern"],
         ]} />
         <p>
           Weitere Details zu den Website-Cookies finden Sie in unserer{" "}
@@ -1221,7 +1222,7 @@ function PrivacyPT() {
           ["Google LLC (Firebase Crashlytics)", "diagnóstico de falhas do app (EUA), DPA + SCC + DPF"],
           ["Google LLC (Google Sign-In, opcional)", "autenticação OAuth (EUA), DPA + SCC + DPF"],
           ["Google LLC (Google Play Billing)", "gerenciamento de compras no app, sujeito aos Termos do Google Play"],
-          ["Google Analytics 4 (somente site, opt-in)", "análise anônima ativada apenas após consentimento explícito via banner de cookies"],
+          ["Google Analytics 4 (somente site, opt-in)", "estatísticas de uso do site, coletadas somente após consentimento explícito no banner de cookies; a escolha pode ser alterada em “Preferências de cookies”"],
         ]} />
         <p>
           Mais detalhes sobre os cookies do site em nossa{" "}
@@ -1455,7 +1456,7 @@ function PrivacyFR() {
           ["Google LLC (Firebase Crashlytics)", "diagnostic des plantages de l'application (États-Unis), DPA + CCT + DPF"],
           ["Google LLC (Google Sign-In, optionnel)", "authentification OAuth (États-Unis), DPA + CCT + DPF"],
           ["Google LLC (Google Play Billing)", "gestion des achats intégrés, soumis aux Conditions d'utilisation de Google Play"],
-          ["Google Analytics 4 (site web uniquement, opt-in)", "analyse anonyme activée uniquement après consentement explicite via la bannière de cookies"],
+          ["Google Analytics 4 (site web uniquement, opt-in)", "statistiques d'utilisation du site, collectées uniquement après consentement explicite dans le bandeau des cookies ; le choix peut être modifié via « Paramètres des cookies »"],
         ]} />
         <p>
           Plus de détails sur les cookies du site web dans notre{" "}

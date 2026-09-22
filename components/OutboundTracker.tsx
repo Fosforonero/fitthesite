@@ -10,12 +10,14 @@ import {
   resolveStoreLink,
   resolveCommunityLink,
 } from "@/lib/analytics/cta";
+import { isAnalyticsActive, trackEvent } from "@/lib/analytics/consent";
 
 /**
  * Traccia i click verso gli store (Google Play / App Store) come evento GA4
  * `store_click` (param `store_platform`). Listener delegato a livello documento:
  * copre i badge, le CTA dentro gli articoli e i banner, senza toccare i singoli
- * link. Rispetta il consent mode (l'evento parte solo se gtag e' attivo).
+ * link. Gli eventi partono solo dopo un consenso analytics esplicito
+ * (lib/analytics/consent.ts, P0.24-A).
  *
  * In GA4: marca `store_click` come "evento chiave" per misurare sito -> store.
  *
@@ -85,8 +87,11 @@ export default function OutboundTracker() {
       return window.location.pathname.split("/").filter(Boolean)[0] ?? "";
     }
 
-    function gtagFn(): ((...args: unknown[]) => void) | undefined {
-      return (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
+    // P0.24-A: nessun evento senza consenso analytics esplicito, nessun
+    // evento sulle route escluse, parametri filtrati da sanitizeEventParams.
+    function gtagFn(): ((command: "event", name: string, params: Record<string, unknown>) => void) | undefined {
+      if (!isAnalyticsActive()) return undefined;
+      return (_command, name, params) => trackEvent(name, params);
     }
 
     /**

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { Section } from "@/components/legal/LegalLayout";
+import ConsentPreferencesButton from "@/components/ConsentPreferencesButton";
 import Logo from "@/components/Logo";
 import { SELF_HOST_COPY, t, tl, type TwoLocale } from "@/lib/content/self-host-copy";
 
@@ -20,7 +21,7 @@ import { SELF_HOST_COPY, t, tl, type TwoLocale } from "@/lib/content/self-host-c
  * noindex (addendum pre-merge): i link servono per condividere un URL
  * language-locked, non per SEO.
  */
-export function SelfHostStatusView() {
+export function SelfHostStatusView({ consentLabels }: { consentLabels: Record<TwoLocale, string> }) {
   const [lang, setLang] = useState<TwoLocale>("en");
   const c = SELF_HOST_COPY;
 
@@ -115,6 +116,13 @@ export function SelfHostStatusView() {
           <Link href="/en/self-host" className="text-brand-aqua hover:text-brand-green underline underline-offset-4">
             English
           </Link>
+        </p>
+
+        <p className="text-sm">
+          <ConsentPreferencesButton
+            label={consentLabels[lang]}
+            className="text-brand-aqua hover:text-brand-green underline underline-offset-4"
+          />
         </p>
       </div>
     </article>

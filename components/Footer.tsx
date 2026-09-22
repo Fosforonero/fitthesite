@@ -9,6 +9,7 @@ import { famigliaLinkHref } from "@/lib/content/static-page-locales";
 import { REDDIT_URL, REDDIT_COMMUNITY_LIVE } from "@/lib/product-facts";
 import { COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
 import RedditIcon from "@/components/RedditIcon";
+import ConsentPreferencesButton from "@/components/ConsentPreferencesButton";
 
 export default function Footer({
   dict,
@@ -152,6 +153,7 @@ export default function Footer({
             <li><Link href={`/${locale}/privacy`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.privacy}</Link></li>
             <li><Link href={`/${locale}/terms`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.terms}</Link></li>
             <li><Link href={`/${locale}/cookies`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.cookies}</Link></li>
+            <li><ConsentPreferencesButton label={dict.cookie_banner.preferences} className="text-left text-text-secondary hover:text-text-primary transition" /></li>
             <li><Link href={`/${locale}/imprint`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{IMPRINT_NAV_LABEL[locale]}</Link></li>
             <li><Link href="/delete-account" prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Elimina account" : "Delete account"}</Link></li>
             <li>

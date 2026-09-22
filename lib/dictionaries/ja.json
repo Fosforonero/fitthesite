@@ -74,7 +74,8 @@
     "description": "サイトの機能に必要なCookieを使用しています。同意いただければ、製品改善のためにGoogle Analyticsも使用します。広告・プロファイリングCookieは使用しません。",
     "details_link": "詳細",
     "accept": "すべて許可",
-    "reject": "任意のCookieを拒否"
+    "reject": "任意のCookieを拒否",
+    "preferences": "Cookieの設定"
   },
   "legal": {
     "last_updated": "最終更新",

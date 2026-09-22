@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Section, List } from "@/components/legal/LegalLayout";
 import { DELETE_ACCOUNT_COPY, DELETE_ACCOUNT_EMAIL_SUBJECT } from "@/lib/content/delete-account-copy";
 import { TRADER, TRADER_ADDRESS_LINE } from "@/lib/legal/trader";
+import ConsentPreferencesButton from "@/components/ConsentPreferencesButton";
 import Logo from "@/components/Logo";
 
 /**
@@ -17,7 +18,7 @@ import Logo from "@/components/Logo";
  * `document.documentElement.lang` cosi' l'attributo resta corretto anche
  * dopo lo switch lato client.
  */
-export function DeleteAccountView() {
+export function DeleteAccountView({ consentLabels }: { consentLabels: Record<"en" | "it", string> }) {
   const [lang, setLang] = useState<"en" | "it">("en");
   const t = DELETE_ACCOUNT_COPY[lang];
 
@@ -137,6 +138,10 @@ export function DeleteAccountView() {
           <Link href={`/${lang}/support`} className="text-brand-aqua hover:text-brand-green transition">
             {t.supportLinkLabel}
           </Link>
+          <ConsentPreferencesButton
+            label={consentLabels[lang]}
+            className="text-brand-aqua hover:text-brand-green transition"
+          />
         </div>
 
         <hr className="border-divider" />

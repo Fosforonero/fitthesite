@@ -74,7 +74,8 @@
     "description": "Vi bruker strengt nødvendige cookies for at nettstedet skal fungere, og med ditt samtykke Google Analytics for å lære hvordan vi kan forbedre produktet. Ingen annonse- eller profileringscookies.",
     "details_link": "Detaljer",
     "accept": "Godta alle",
-    "reject": "Avslå valgfrie"
+    "reject": "Avslå valgfrie",
+    "preferences": "Cookie-innstillinger"
   },
   "legal": {
     "last_updated": "Sist oppdatert",
