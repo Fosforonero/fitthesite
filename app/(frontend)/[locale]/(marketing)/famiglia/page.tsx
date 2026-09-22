@@ -1287,7 +1287,7 @@ export default async function FamigliaLanding({
 
       {/* Trust badges (E-E-A-T per topic YMYL salute familiare). */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 pb-8">
-        <TrustBadges locale={lc === "it" ? "it" : "en"} />
+        <TrustBadges locale={lc} />
       </section>
 
       {/* FAQ */}
@@ -1406,11 +1406,21 @@ function ComingSoonState({
               ? "Scarica l'app per le funzioni attive"
               : lc === "es"
               ? "Descarga la app para las funciones activas"
+              : lc === "de"
+              ? "App für aktive Funktionen herunterladen"
+              : lc === "fr"
+              ? "Télécharger l'app pour les fonctionnalités actives"
+              : lc === "pt"
+              ? "Baixar o app para as funcionalidades ativas"
+              : lc === "pl"
+              ? "Pobierz aplikację z aktywnymi funkcjami"
+              : lc === "tr"
+              ? "Aktif özellikler için uygulamayı indirin"
               : "Download the app for active features"}
           </Link>
         </div>
         <div className="mt-8">
-          <TrustBadges locale={lc === "it" ? "it" : "en"} variant="compact" />
+          <TrustBadges locale={lc} variant="compact" />
         </div>
       </section>
 

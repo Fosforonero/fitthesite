@@ -55,3 +55,60 @@ describe("famiglia: HTML e JSON-LD renderizzati dicono 'in sviluppo', non 'in va
     });
   }
 });
+
+/**
+ * SPRINT P0.24-B FASE A (22/09/2026): il link CTA secondario ("Scarica
+ * l'app per le funzioni attive") restava su un ternario a 3 rami
+ * (it/es/altrimenti-inglese) scritto prima della migrazione a
+ * getFamigliaComingSoon(): per de/fr/pt/pl/tr — locale gia' tradotte e
+ * indicizzate sul resto della pagina — l'utente vedeva questo unico link in
+ * inglese in mezzo a testo tradotto. Verifica diretta sul rendering.
+ */
+describe("famiglia: link CTA secondario tradotto per tutte le locale gia' coperte da getFamigliaComingSoon", () => {
+  // Sottostringhe senza apostrofo: renderToStaticMarkup esegue l'escape HTML
+  // di JSX text content (l' → l&#x27;), quindi un confronto con l'apostrofo
+  // letterale fallirebbe per un motivo di rendering, non di traduzione.
+  const EXPECTED: Record<string, string> = {
+    it: "per le funzioni attive",
+    es: "Descarga la app para las funciones activas",
+    de: "App für aktive Funktionen herunterladen",
+    fr: "pour les fonctionnalités actives",
+    pt: "Baixar o app para as funcionalidades ativas",
+    pl: "Pobierz aplikację z aktywnymi funkcjami",
+    tr: "Aktif özellikler için uygulamayı indirin",
+  };
+
+  for (const [locale, expected] of Object.entries(EXPECTED)) {
+    it(`${locale}: mostra il link tradotto, non il fallback inglese`, async () => {
+      const html = renderToStaticMarkup(await FamigliaLanding({ params: Promise.resolve({ locale }) }));
+      expect(html, `${locale}: link CTA secondario non tradotto`).toContain(expected);
+      if (locale !== "it") {
+        expect(html, `${locale}: mostra ancora il fallback inglese invece della traduzione`).not.toContain(
+          "Download the app for active features",
+        );
+      }
+    });
+  }
+});
+
+/**
+ * TrustBadges.tsx ha traduzioni corrette per tutte le 15 locale, ma i due
+ * call-site su /famiglia forzavano `locale={lc === "it" ? "it" : "en"}`.
+ * Nessuno dei due e' verificabile via rendering: il primo (riga ~1290) e'
+ * nel ramo "pieno" morto dietro COMING_SOON=true (mai raggiunto da
+ * FamigliaLanding()); il secondo (riga ~1413, dentro ComingSoonState, il
+ * ramo davvero renderizzato) usa `variant="compact"`, che secondo
+ * components/TrustBadges.tsx mostra SOLO `madeIn`/`indie` (identici in
+ * tutte le locale per scelta di branding) e non il campo `title` che varia
+ * per locale — quindi il fix e' corretto ma il suo effetto non e' osservabile
+ * nel testo renderizzato con la copy attuale. Verifica quindi sulla sorgente,
+ * non sul rendering.
+ */
+describe("famiglia: TrustBadges non forza piu' un fallback it/en", () => {
+  it("nessun call-site passa ancora locale={lc === \"it\" ? \"it\" : \"en\"}", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const source = fs.readFileSync(path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/famiglia/page.tsx"), "utf8");
+    expect(source).not.toMatch(/TrustBadges locale=\{lc === "it" \? "it" : "en"\}/);
+  });
+});
