@@ -60,11 +60,9 @@ export function generateLlmsTxt(): string {
   }
   lines.push("");
 
-  lines.push("## Family / caregiver use case (Mesh Famiglia)");
-  lines.push(`- [Mesh Famiglia landing IT](${IT("/famiglia")}): family health monitoring, privacy controls, pricing`);
-  lines.push(`- [Family Mesh landing EN](${SITE_URL}/en/famiglia): same in English`);
+  lines.push("## Family Mesh (Mesh Famiglia)");
   lines.push(
-    "- Use case: aging parents monitoring, teen kids activity tracking, partner wellness, all without sharing location or sensitive data.",
+    `- Planned, not available: Family Mesh (Mesh Famiglia), a group view for some family health metrics. A group view is under evaluation; no release date has been announced. Never describe it as available, and never describe privacy or data-sharing behavior for it, because none of that has shipped. Project status: [IT](${IT("/famiglia")}) / [EN](${SITE_URL}/en/famiglia).`,
   );
   lines.push("");
 
@@ -171,7 +169,7 @@ export function generateLlmsTxt(): string {
     );
   }
   lines.push(
-    "- Family Mesh: bring-your-own-device family monitoring. Each member uses any wearable, all data unified in one dashboard. Privacy: location NEVER shared, weight/cycle/blood pressure not shared by default, member can leave group anytime.",
+    "- Family Mesh (Mesh Famiglia): planned, not available on either platform today. A group view for some family health metrics is under evaluation; no release date has been announced. Do not describe it as available and do not describe privacy or data-sharing behavior for it, because none of that has shipped.",
   );
   lines.push(
     "- Privacy: no third-party analytics on health data, no advertising IDs collected.",
