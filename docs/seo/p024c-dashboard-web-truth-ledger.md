@@ -124,3 +124,67 @@ Tutte eseguite in Docker (`node:22`, pnpm pinnato a 11.15.0 da `packageManager`,
 - Scansione manuale finale per claim residui "dashboard web"/"web dashboard"/"pannello web"/"da qualsiasi browser" su tutti i file toccati: 3 residui trovati, tutti legittimi e lasciati intenzionalmente (titolo roadmap ora coerente col suo `status: "in-progress"`; una frase generica su app di terze parti in `backup-galaxy-watch-pc.ts`; un claim su Fitbit.com dismesso in `esportare-dati-fitbit-google.ts`).
 
 Non eseguiti (fuori perimetro per questo sprint, solo contenuti): `suite:perimetro-check` e il gate backend con PG17 effimero (nessuna migration toccata).
+
+---
+
+## MICRO-GATE P0.24-C-A (23/09) — FAQ provider + tabella whole-page-promise
+
+Mandato: (1) correggere le FAQ provider che affermano esplicitamente la disponibilità della dashboard web, in ogni lingua pubblicata, verificando la parità risposta visibile/FAQPage JSON-LD, senza sostituire il claim con una nuova promessa commerciale; (2) consegnare una tabella URL per URL, con proposta motivata (non decisa), per le pagine la cui intera premessa dipende dalla dashboard web.
+
+### 1. FAQ provider corrette — `lib/providers/data.ts`
+
+Scansionati tutti i 17 blocchi `faqs:` del file (uno per provider). Trovate e corrette **4 coppie domanda/risposta su 3 provider**, tutte le lingue effettivamente pubblicate per ciascuna (11 lingue: it/en/es/de/pt/fr/pl/tr/nl/ja/ko — il file non copre sv/da/no/fi):
+
+| Provider | Domanda | Prima | Dopo |
+|---|---|---|---|
+| Galaxy Watch | "Posso vedere i dati del mio Galaxy Watch in una dashboard web?" | "Sì. FitMesh fornisce una dashboard di salute basata su browser..." | "No: FitMesh non ha una dashboard web. I dati... si vedono nell'app FitMesh." (domanda invariata, risposta onesta) |
+| Pixel Watch | "Posso esportare i dati del Pixel Watch in un foglio di calcolo tramite FitMesh?" | "Sì. La dashboard web di FitMesh ti consente di visualizzare **ed esportare**... come **CSV o JSON**" | "Sì. Puoi scaricare una copia completa dei tuoi dati... in formato **JSON** direttamente dall'app FitMesh..." (tolto sia il claim di visualizzazione web sia **CSV**, mai esistito) |
+| Apple Health (#1) | "Posso esportare i dati di Apple Health utilizzando FitMesh?" | "Sì. FitMesh fornisce una dashboard web dove puoi visualizzare e esportare... per intervallo di date" | Stesso trattamento: solo export **JSON** dall'app, tolto il claim di visualizzazione web e il filtro per intervallo date (mai verificato) |
+| Apple Health (#2) | "FitMesh è disponibile sia per iPhone che per Android?" | "...puoi visualizzarli su qualsiasi dispositivo **attraverso la dashboard web**" | "...li ritrovi **nell'app** su qualsiasi dispositivo tu usi" (tenuto il vero: stesso account, sync multipiattaforma) |
+
+**Verifica CSV**: prima di correggere, verificato nel codice (`ExportDataClient.tsx`, `export/page.tsx`, tutte le 15 locale) che l'unico formato di export account realmente implementato è **JSON** — nessun percorso CSV esiste. Il claim "CSV o JSON" nella FAQ Pixel Watch era quindi doppiamente falso (formato, non solo canale). Non ho aggiunto alcuna promessa nuova: l'unica cosa affermata come disponibile è l'export JSON, già verificato in P0.24-C base.
+
+**Parità risposta visibile / FAQPage JSON-LD**: verificata per costruzione, non per test aggiuntivo — `app/(frontend)/[locale]/(marketing)/sync/[provider]/page.tsx` genera sia il rendering visibile (riga ~923, `p.faqs.map(...)`, testo tramite `tl(f.q, lc)`/`tl(f.a, lc)`) sia il JSON-LD FAQPage (riga ~272, stesso `p.faqs.map(...)`, stessa funzione `tl()`) dalla stessa fonte `p.faqs`, nello stesso file. Non esiste un secondo punto dove il FAQPage potrebbe divergere dal testo visibile: correggere l'array corregge entrambi, sempre, per ogni lingua.
+
+**Scansione di completezza**: ripetuta su tutti i 17 blocchi FAQ con un pattern più ampio (`web dashboard|dashboard web|pannello web|...|any browser|from any device`). Tre FAQ apparentemente simili — Strava, Polar, Withings — usano "dashboard" senza mai "web"/"browser": descrivono la dashboard dell'app mobile reale, non toccate. Nessun altro provider ha un claim di disponibilità web nelle sue FAQ.
+
+**Lasciato fuori da questa correzione, per rispettare lo scope letterale del mandato ("le FAQ")**:
+- Il `longDesc` del Galaxy Watch (righe 261-269, tutte le 11 lingue: "...li mostra su una dashboard web personale...") ripete lo stesso claim falso ma **non è una FAQ** — è il paragrafo descrittivo della pagina. Ora la pagina Galaxy Watch è incoerente al suo interno: il `longDesc` promette ancora la dashboard web, la FAQ appena sotto lo smentisce. Segnalato, non corretto: possibile micro-gate successivo.
+- Una FAQ Galaxy Watch separata (righe 303-309, "Apri FitMesh e tocca il pulsante di sincronizzazione **nel pannello di dashboard**") descrive un pulsante di sync manuale che, per quanto verificato in questo sprint, non esiste in `AppHome` (il sync è automatico in background, nessun pulsante manuale trovato). Non è un claim di disponibilità web e non rientra nel mandato di questo micro-gate; segnalato come debito separato.
+- Le liste `seoKeywords` (es. "galaxy watch web dashboard", "pixel watch web dashboard", "apple health web dashboard") non sono FAQ: restano invariate. Ora sono in parte disallineate dal contenuto reale della pagina (keyword promette "dashboard", pagina lo smentisce) — decisione di targeting SEO, non un edit meccanico, fuori scope di questo micro-gate.
+
+### 2. Tabella whole-page-promise — proposta, nessuna decisione presa
+
+18 URL (6 articoli blog + 12 landing page `/lp/*`) la cui intera premessa dipende da una dashboard web non disponibile. Per ciascuna: URL canonico (IT = slug chiave, sempre indicizzato; EN sempre indicizzato; le altre 9 locale lo sono solo se ogni campo traducibile per quella lingua è completo e diverso dall'inglese — nessuna verifica per-locale eseguita qui, regola strutturale in `lib/blog/indexability.ts` / `lib/landing/indexability.ts`), il problema, e una proposta motivata. **Nessuna azione eseguita**: né riscrittura, né noindex, né redirect.
+
+#### Articoli blog
+
+| # | URL (IT / EN) | Problema | Proposta | Motivazione |
+|---|---|---|---|---|
+| 1 | `/it/blog/dati-pixel-watch-dashboard` · `/en/blog/pixel-watch-data-personal-dashboard` | H1, meta, TLDR, diagramma, tabella "dove lo vedi", CTA, 2 FAQ: intera tesi "vedi i dati Pixel Watch su una dashboard personale" | **Riscrittura** | Il valore informativo reale (flusso dati Pixel Watch → Google Health → Health Connect → FitMesh) sopravvive rimuovendo la sola promessa di visualizzazione web; nessun rischio di perdere il resto dell'articolo |
+| 2 | `/it/blog/esportare-dati-xiaomi-amazfit` · `/en/blog/xiaomi-amazfit-health-connect-data-dashboard` | Stesso pattern per Xiaomi/Amazfit, incluso un passo "Accedi alla dashboard web da browser" | **Riscrittura** | Stessa motivazione del #1 |
+| 3 | `/it/blog/fitmesh-vs-alternative-sync` · `/en/blog/fitmesh-sync-vs-alternatives` | L'intero framework di confronto a 4 vie posiziona FitMesh alla pari di FitnessSyncer per "avere una vera dashboard web" (tabella dedicata + FAQ); senza quel claim FitMesh scivola verso il gruppo Health Sync/Gadgetbridge (solo ponte, nessuna dashboard) | **Ritiro temporaneo (noindex)**, riscrittura da programmare | Il verdetto competitivo dell'articolo cambia sostanzialmente, non solo il testo: è una decisione di posizionamento, non un edit. Alternativa più rapida ma più rischiosa: riscrittura diretta riposizionando FitMesh nel gruppo bridge-only |
+| 4 | `/it/blog/how-to-export-apple-health-data` · `/en/blog/how-to-export-apple-health-data` | "Metodo 3: Dashboard web" è una sezione su tre nella guida all'export | **Riscrittura** (rischio basso) | Rimuovere/riscrivere un metodo su tre non compromette gli altri due (export nativo Apple + eventuale terzo metodo reale) |
+| 5 | `/it/blog/sincronizzare-withings` · `/en/blog/sync-withings-data` | Sezione autonoma "FitMesh Sync e Withings" (~600 parole) è un pitch per una dashboard web inesistente, incastonata in un articolo più ampio su Withings via Health Connect/HealthKit (quella parte resta corretta) | **Riscrittura** (rischio basso-medio) | Sezione isolabile, resto dell'articolo indipendente e già corretto |
+| 6 | `/it/blog/vedere-dati-wearable-browser-pc` · `/en/blog/view-smartwatch-data-on-pc` | Titolo e seconda metà dell'intero articolo ESISTONO per rispondere "come vedo i dati wearable nel browser" — la tabella di confronto di terze parti (FitnessSyncer, Gadgetbridge, ecc.) può avere valore informativo autonomo, ma il pitch FitMesh (CTA, albero decisionale) presuppone la funzione che non c'è | **Ritiro temporaneo (noindex)**, rivalutare riposizionamento | Il titolo stesso promette una risposta che oggi FitMesh non dà; una riscrittura "onesta" rischia di ammettere involontariamente che FitMesh non risolve il problema per cui la pagina è pensata di posizionarsi — decisione di prodotto/marketing, non solo editoriale |
+
+Nota: `lib/blog/nordic-overlay.json` ripete alcune di queste stesse pagine in danese/svedese (~60 righe su ~25 post, cifra complessiva già segnalata nel corpo principale del ledger): va corretto in lockstep con qualunque riscrittura EN/IT decisa sopra, non isolatamente.
+
+#### Landing page `/lp/*` (tutte le 12 esistenti — ogni landing page del sito ha questo problema)
+
+| # | URL (IT / EN, slug invariante per locale) | Problema | Proposta | Motivazione |
+|---|---|---|---|---|
+| 7 | `/it/lp/backup-galaxy-watch` · `/en/lp/backup-galaxy-watch` | "Backup automatico dati Galaxy Watch su una dashboard che possiedi" | **Riscrittura** | Il valore reale (backup cloud automatico senza Samsung Cloud) non dipende dalla visualizzazione web |
+| 8 | `/it/lp/fitbit-export-google` · `/en/lp/fitbit-export-google` | Keyword primaria/secondarie letteralmente "dashboard alternativa a Fitbit"; l'intent di ricerca presuppone una vista, non solo un export | **Redirect a `/sync/fitbit`** (alternativa: ritiro temporaneo) | La pagina provider Fitbit copre già lo stesso argomento con un posizionamento onesto; riscrivere qui manterrebbe comunque un mismatch tra intent di ricerca ("dashboard") e offerta reale |
+| 9 | `/it/lp/garmin-connect-pc` · `/en/lp/garmin-connect-pc` | "Dashboard alternativa accessibile da PC, oltre a Garmin Connect web" | **Redirect a `/sync/garmin`** (alternativa: ritiro temporaneo) | Stessa motivazione del #8 |
+| 10 | `/it/lp/oura-ring-sync` · `/en/lp/oura-ring-sync` | "Dashboard web per Oura Ring" | **Redirect a `/sync/oura`** (alternativa: ritiro temporaneo) | Stessa motivazione del #8 |
+| 11 | `/it/lp/polar-flow-sync` · `/en/lp/polar-flow-sync` | "Dashboard web per Polar Flow" | **Redirect a `/sync/polar`** (alternativa: ritiro temporaneo) | Stessa motivazione del #8 |
+| 12 | `/it/lp/due-telefoni` · `/en/lp/due-telefoni` | "Stessa dashboard su entrambi i telefoni", "dashboard immediatamente attiva su entrambe le piattaforme" | **Riscrittura** (rischio basso) | Il valore reale (un account, stesso dato su Android e iPhone) sopravvive riformulando "stesso account, stessi dati" invece di "stessa dashboard" |
+| 13 | `/it/lp/anello-smart-sonno` · `/en/lp/anello-smart-sonno` | "Dashboard web unificata" anello+smartwatch, focus sonno | **Riscrittura** (rischio medio) | Il merge dati anello+smartwatch è reale nell'app; la promessa centrale sopravvive riformulata come funzione app, non web |
+| 14 | `/it/lp/apple-health-export` · `/en/lp/apple-health-export` | "Dashboard web per Apple Health su iOS" | **Riscrittura** | Stesso trattamento applicato con successo alla FAQ Apple Health in questo stesso micro-gate: export JSON + visualizzazione in app |
+| 15 | `/it/lp/health-connect-dashboard` · `/en/lp/health-connect-dashboard` | Lo **slug stesso** contiene "dashboard"; keyword primaria "health connect dashboard"/"health connect web dashboard" | **Ritiro temporaneo (noindex)**, decisione su slug/redirect a parte | Una riscrittura del solo contenuto non risolve l'incoerenza slug↔realtà; cambiare lo slug è una decisione SEO/redirect esplicitamente fuori dal mandato di editing di questo sprint |
+| 16 | `/it/lp/sleep-tracking` · `/en/lp/sleep-tracking` | Un'occorrenza: "traccia il sonno da qualunque wearable Android in un'unica dashboard" | **Riscrittura** (rischio basso) | Occorrenza singola, isolata, facilmente riformulabile come funzione app |
+| 17 | `/it/lp/google-fit-alternative` · `/en/lp/google-fit-alternative` | "FitMesh è la migliore alternativa: una dashboard che legge..." | **Riscrittura** (rischio basso) | Il posizionamento "alternativa a Google Fit" non dipende dalla parola "dashboard"; riformulabile come "l'app che legge i tuoi dati Health Connect" |
+| 18 | `/it/lp/colmi-ring-sync` · `/en/lp/colmi-ring-sync` | "Dashboard web unificata" anello Colmi + smartwatch | **Riscrittura** (rischio medio) | Stessa motivazione del #13: connessione BLE diretta e merge dati sono reali nell'app |
+
+**Come leggere le proposte**: "Riscrittura" = il valore/argomento centrale della pagina sopravvive rimuovendo la sola promessa web, editing di contenuto normale. "Ritiro temporaneo (noindex)" = il contenuto in questa forma non può diventare onesto senza una decisione di posizionamento/prodotto che va oltre l'editing (il verdetto stesso della pagina cambia). "Redirect" = esiste già una pagina più onesta sullo stesso argomento (`/sync/[provider]`) che può assorbire l'intent di ricerca. Nessuna di queste azioni è stata eseguita: sono proposte per una decisione esplicita.
