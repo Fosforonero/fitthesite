@@ -65,7 +65,7 @@ export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
     badge: "Matrice di Compatibilità Ufficiale",
     title: "Cosa legge FitMesh dal tuo dispositivo",
     subtitle:
-      "Verifica in modo trasparente quali metriche arrivano nella dashboard FitMesh in base al tuo smartwatch o anello e al tuo telefono. Nessuna compatibilità universale promessa.",
+      "Verifica in modo trasparente quali metriche FitMesh può leggere in base al tuo smartwatch o anello e al tuo telefono. Nessuna compatibilità universale promessa.",
     filterOsLabel: "Sistema Operativo Telefono",
     filterFamilyLabel: "Famiglia Dispositivo",
     allOs: "Tutti i telefoni",
@@ -107,7 +107,7 @@ export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
     badge: "Official Compatibility Matrix",
     title: "What FitMesh Reads from Your Device",
     subtitle:
-      "Transparently check which metrics arrive on your FitMesh dashboard based on your wearable and phone. No false universal compatibility promises.",
+      "Transparently check which metrics FitMesh can read based on your wearable and phone. No false universal compatibility promises.",
     filterOsLabel: "Phone Operating System",
     filterFamilyLabel: "Device Family",
     allOs: "All phones",
@@ -148,7 +148,7 @@ export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
     badge: "Offizielle Kompatibilitätsmatrix",
     title: "Was FitMesh von deinem Gerät ausliest",
     subtitle:
-      "Überprüfe transparent, welche Messwerte je nach Wearable und Smartphone in deinem FitMesh-Dashboard ankommen. Keine universellen Scheingarantien.",
+      "Überprüfe transparent, welche Messwerte FitMesh je nach Wearable und Smartphone auslesen kann. Keine universellen Scheingarantien.",
     filterOsLabel: "Smartphone-Betriebssystem",
     filterFamilyLabel: "Gerätefamilie",
     allOs: "Alle Telefone",
@@ -190,7 +190,7 @@ export const UI_COPY: Record<SupportedMatrixLocale, MatrixUiCopy> = {
     badge: "Matrice de Compatibilité Officielle",
     title: "Ce que FitMesh lit depuis votre appareil",
     subtitle:
-      "Vérifiez en toute transparence quelles métriques parviennent à votre tableau de bord selon votre montre ou bague et votre téléphone. Aucune promesse universelle infondée.",
+      "Vérifiez en toute transparence quelles métriques FitMesh peut lire selon votre montre ou bague et votre téléphone. Aucune promesse universelle infondée.",
     filterOsLabel: "Système d'exploitation du téléphone",
     filterFamilyLabel: "Famille d'appareil",
     allOs: "Tous les téléphones",

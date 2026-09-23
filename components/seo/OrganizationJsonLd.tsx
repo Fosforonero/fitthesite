@@ -40,7 +40,7 @@ export function organizationJsonLdData(locale: Locale) {
     "@type": "Organization",
     "@id": `${SITE_URL}#organization`,
     name: PRODUCT_NAME,
-    alternateName: ["FitMesh", "FitMesh Sync Health Dashboard"],
+    alternateName: ["FitMesh"],
     legalName: TRADER.legalName,
     url: SITE_URL,
     description: ORG_DESCRIPTIONS[locale] ?? ORG_DESCRIPTIONS.en,

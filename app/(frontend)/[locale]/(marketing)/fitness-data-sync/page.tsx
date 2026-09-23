@@ -402,16 +402,16 @@ const LOOP_RULES: LocalizedList = {
   ],
 };
 const PLATFORM_TITLE: Localized = {
-  it: "Android, iPhone e la dashboard web",
-  en: "Android, iPhone, and the web dashboard",
-  es: "Android, iPhone y el panel web",
-  de: "Android, iPhone und das Web-Dashboard",
+  it: "Android e iPhone",
+  en: "Android and iPhone",
+  es: "Android y iPhone",
+  de: "Android und iPhone",
 };
 const PLATFORM_BODY_1: Localized = {
-  it: "Su Android, FitMesh legge da Health Connect, alimentato da qualsiasi app companion tu abbia già installato. Su iPhone, FitMesh legge da Apple Health e può anche connettersi direttamente all'anello Colmi via Bluetooth, senza bisogno di Apple Health come intermediario per quel dispositivo specifico. La dashboard stessa è disponibile sul web oltre che sulle app mobile, così puoi controllare i tuoi dati senza aprire il telefono.",
-  en: "On Android, FitMesh reads from Health Connect, which is fed by whatever companion apps you already have installed. On iPhone, FitMesh reads from Apple Health and can also connect directly to the Colmi ring over Bluetooth, without needing Apple Health as an intermediary for that specific device. The dashboard itself is available on the web in addition to the mobile apps, so you can check your data without opening your phone.",
-  es: "En Android, FitMesh lee desde Health Connect, alimentado por las apps complementarias que ya tengas instaladas. En iPhone, FitMesh lee desde Apple Health y también puede conectarse directamente al anillo Colmi por Bluetooth, sin necesitar Apple Health como intermediario para ese dispositivo específico. El panel en sí está disponible en la web además de en las apps móviles, para que puedas consultar tus datos sin abrir el teléfono.",
-  de: "Auf Android liest FitMesh aus Health Connect, das von den bereits installierten Companion-Apps gespeist wird. Auf dem iPhone liest FitMesh aus Apple Health und kann sich auch direkt über Bluetooth mit dem Colmi-Ring verbinden, ohne Apple Health als Vermittler für dieses spezifische Gerät zu benötigen. Das Dashboard selbst ist zusätzlich zu den mobilen Apps auch im Web verfügbar, sodass du deine Daten prüfen kannst, ohne dein Telefon zu öffnen.",
+  it: "Su Android, FitMesh legge da Health Connect, alimentato da qualsiasi app companion tu abbia già installato. Su iPhone, FitMesh legge da Apple Health e può anche connettersi direttamente all'anello Colmi via Bluetooth, senza bisogno di Apple Health come intermediario per quel dispositivo specifico.",
+  en: "On Android, FitMesh reads from Health Connect, which is fed by whatever companion apps you already have installed. On iPhone, FitMesh reads from Apple Health and can also connect directly to the Colmi ring over Bluetooth, without needing Apple Health as an intermediary for that specific device.",
+  es: "En Android, FitMesh lee desde Health Connect, alimentado por las apps complementarias que ya tengas instaladas. En iPhone, FitMesh lee desde Apple Health y también puede conectarse directamente al anillo Colmi por Bluetooth, sin necesitar Apple Health como intermediario para ese dispositivo específico.",
+  de: "Auf Android liest FitMesh aus Health Connect, das von den bereits installierten Companion-Apps gespeist wird. Auf dem iPhone liest FitMesh aus Apple Health und kann sich auch direkt über Bluetooth mit dem Colmi-Ring verbinden, ohne Apple Health als Vermittler für dieses spezifische Gerät zu benötigen.",
 };
 const PLATFORM_BODY_2: Localized = {
   it: "Anche il write-back si comporta diversamente per piattaforma. Su Android, attivare il write-back di Health Connect esporta una volta in quel momento; non continua a esportare automaticamente man mano che arrivano nuovi dati, devi disattivare e riattivare l'interruttore per ri-esportare. Su iOS, una volta attivato il write-back di Apple Health, FitMesh ri-esporta dopo ogni sync riuscito.",
