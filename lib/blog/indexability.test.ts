@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { BLOG_POSTS } from "./data";
 import { isBlogVariantIndexable, isPostLocaleComplete } from "./indexability";
 import { filterBlogContentForLocale } from "./locale-filter";
+import type { BlogPost, BlogQA } from "./types";
 
 /**
  * P1.3M — test di regressione FOCALIZZATO su `health-connect-vs-samsung-health`
@@ -58,7 +59,7 @@ describe("fitmesh-sync-disponibile-google-play: assenza markdown nelle FAQ (P1.2
     expect(rawPost).toBeDefined();
     const nordicOverlay = (await import("./nordic-overlay.json")).default;
     const { applyNordicOverlay } = await import("./nordic-overlay");
-    const post = JSON.parse(JSON.stringify(rawPost!));
+    const post = JSON.parse(JSON.stringify(rawPost!)) as BlogPost;
     applyNordicOverlay(post, nordicOverlay as any);
 
     const indexableLocales = [
