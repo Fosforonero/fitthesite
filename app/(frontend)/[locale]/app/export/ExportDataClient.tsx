@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { EXPORT_TABLES, scopeToOwner } from '@/lib/privacy/export-scope';
 import { createClient } from '@/lib/supabase/client';
 
 type T = {
@@ -13,24 +14,6 @@ type T = {
   doneBody: string;
   errorTitle: string;
 };
-
-// Tabelle di proprietà dell'utente: la RLS restituisce solo le sue righe,
-// quindi un select('*') è già scoped. Quelle che non esistono/non leggibili
-// vengono semplicemente saltate (incluse come errore non bloccante).
-const TABLES = [
-  'profiles',
-  'privacy_consents',
-  'user_settings',
-  'devices',
-  'fitness_metrics',
-  'workouts',
-  'caregiver_links',
-  'group_members',
-  'b2c_subscriptions',
-  'challenge_participants',
-  'challenge_scores',
-  'user_roles',
-] as const;
 
 type Phase = 'idle' | 'working' | 'done' | 'error';
 
@@ -60,9 +43,16 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       };
       const data = bundle.data as Record<string, unknown>;
 
-      for (const table of TABLES) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data: rows, error } = await (supabase.from(table) as any).select('*');
+      for (const table of EXPORT_TABLES) {
+        // La RLS dice cosa l'utente PUO' leggere, non cosa e' suo: admin, membri di
+        // gruppo e co-partecipanti a una sfida leggono anche righe altrui. Ogni
+        // query e' quindi filtrata sul proprietario (lib/privacy/export-scope.ts).
+        const { data: rows, error } = await scopeToOwner(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          (supabase.from(table) as any).select('*'),
+          table,
+          user.id,
+        );
         data[table] = error ? { error: error.message } : rows;
       }
 
