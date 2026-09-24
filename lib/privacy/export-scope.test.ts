@@ -5,7 +5,9 @@ import { describe, expect, it } from 'vitest';
 
 import {
   EXPORT_OWNER_SCOPE,
+  EXPORT_TABLE_COLUMNS,
   EXPORT_TABLES,
+  getExportColumns,
   scopeToOwner,
   type OwnerFilterable,
 } from './export-scope';
@@ -71,6 +73,25 @@ describe('export-scope: ambito delle righe esportate', () => {
       if ('column' in s) expect(s.column, table).toBe(atteso);
       else expect([...s.anyOf], table).toEqual(atteso);
     }
+  });
+
+  it('ogni tabella esportata ha una whitelist esplicita di colonne senza wildcard', () => {
+    expect(Object.keys(EXPORT_TABLE_COLUMNS).sort()).toEqual([...EXPORT_TABLES].sort());
+    for (const table of EXPORT_TABLES) {
+      const cols = EXPORT_TABLE_COLUMNS[table];
+      expect(cols.length, `${table} ha zero colonne dichiarate`).toBeGreaterThan(0);
+      for (const col of cols) {
+        expect(col).not.toContain('*');
+        expect(col).toMatch(/^[a-z0-9_]+$/);
+      }
+      expect(getExportColumns(table)).toBe(cols.join(','));
+    }
+  });
+
+  it('scoping caregiver vs dati sanitari: solo caregiver_links usa anyOf, fitness_metrics e workouts restano ancorati a user_id', () => {
+    expect(EXPORT_OWNER_SCOPE.caregiver_links).toEqual({ anyOf: ['caregiver_id', 'subject_id'] });
+    expect(EXPORT_OWNER_SCOPE.fitness_metrics).toEqual({ column: 'user_id' });
+    expect(EXPORT_OWNER_SCOPE.workouts).toEqual({ column: 'user_id' });
   });
 
   it('una colonna sola: applica eq(colonna, utente)', () => {
