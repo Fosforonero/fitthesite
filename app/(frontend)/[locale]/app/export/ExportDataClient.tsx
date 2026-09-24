@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { EXPORT_TABLES, scopeToOwner } from '@/lib/privacy/export-scope';
+import { EXPORT_TABLES, getExportColumns, scopeToOwner } from '@/lib/privacy/export-scope';
 import { createClient } from '@/lib/supabase/client';
 
 type T = {
@@ -28,9 +28,10 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       const supabase = createClient();
       const {
         data: { user },
+        error: authError,
       } = await supabase.auth.getUser();
-      if (!user) {
-        setErr('Not authenticated');
+      if (authError || !user?.id) {
+        setErr(t.errorTitle);
         setPhase('error');
         return;
       }
@@ -46,17 +47,38 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       for (const table of EXPORT_TABLES) {
         // La RLS dice cosa l'utente PUO' leggere, non cosa e' suo: admin, membri di
         // gruppo e co-partecipanti a una sfida leggono anche righe altrui. Ogni
-        // query e' quindi filtrata sul proprietario (lib/privacy/export-scope.ts).
+        // query e' filtrata sul proprietario e su una whitelist esplicita di colonne
+        // (lib/privacy/export-scope.ts), senza mai usare select('*').
+        const columns = getExportColumns(table);
         const { data: rows, error } = await scopeToOwner(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (supabase.from(table) as any).select('*'),
+          (supabase.from(table) as any).select(columns),
           table,
           user.id,
         );
-        data[table] = error ? { error: error.message } : rows;
+
+        // FAIL-CLOSED: se una sola tabella fallisce o non restituisce un array,
+        // l'intero export viene interrotto immediatamente. Nessun file parziale
+        // viene generato o scaricato, nessun timestamp di completamento viene
+        // scritto, e nessun dettaglio tecnico del database viene esposto.
+        if (error || !Array.isArray(rows)) {
+          setErr(t.errorTitle);
+          setPhase('error');
+          return;
+        }
+
+        data[table] = rows;
       }
 
-      // Marca export richiesto + completato + audit (best-effort).
+      // Verifica di completezza prima del timbro e del download: tutte le 12
+      // tabelle devono essere state estratte con successo.
+      if (Object.keys(data).length !== EXPORT_TABLES.length) {
+        setErr(t.errorTitle);
+        setPhase('error');
+        return;
+      }
+
+      // Marca export richiesto + completato + audit solo dopo esito positivo completo.
       const now = new Date().toISOString();
       await supabase
         .from('privacy_consents')
@@ -68,7 +90,7 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         .from('audit_logs')
         .insert({ user_id: user.id, action: 'data_exported', detail: { method: 'web_ui' } } as never);
 
-      // Download del file JSON.
+      // Download del file JSON completo.
       const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
@@ -80,8 +102,10 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       URL.revokeObjectURL(url);
 
       setPhase('done');
-    } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+    } catch (_e) {
+      // In caso di eccezione inattesa, non esporre mai stack trace o dettagli
+      // tecnici dell'infrastruttura/database.
+      setErr(t.errorTitle);
       setPhase('error');
     }
   };
@@ -109,7 +133,7 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
 
       {phase === 'error' && (
         <p role="alert" className="mt-3 text-sm text-error">
-          {t.errorTitle}: {err}
+          {err ?? t.errorTitle}
         </p>
       )}
     </section>
