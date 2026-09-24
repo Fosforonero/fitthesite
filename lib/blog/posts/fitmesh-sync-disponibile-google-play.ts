@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: "fitmesh-sync-disponibile-google-play",
   category: "news",
   publishedAt: "2026-06-14",
-  updatedAt: "2026-06-14",
+  updatedAt: "2026-09-24",
   ldType: "BlogPosting",
   readMinutes: 3,
   primaryKeyword: {
@@ -416,6 +416,10 @@ export const post: BlogPost = {
         nl: "Download FitMesh Sync voor Android en iPhone",
         ja: "AndroidとiPhoneでFitMesh Syncをダウンロード",
         ko: "Android 및 iPhone용 FitMesh Sync 다운로드",
+        sv: "Ladda ner FitMesh Sync för Android och iPhone",
+        da: "Download FitMesh Sync til Android og iPhone",
+        no: "Last ned FitMesh Sync for Android og iPhone",
+        fi: "Lataa FitMesh Sync Androidille ja iPhonelle",
       },
       body: {
         it: "L'app è disponibile su Google Play e su App Store. Collega smartwatch e anello, crea il tuo account e vedi i dati dei tuoi dispositivi uniti in un unico posto.",
@@ -429,62 +433,71 @@ export const post: BlogPost = {
         nl: "De app is beschikbaar in Google Play en de App Store. Koppel je smartwatch en slimme ring, maak je account aan en bekijk de gegevens van je apparaten op één plek.",
         ja: "アプリはGoogle PlayおよびApp Storeで入手できます。スマートウォッチとリングを接続し、アカウントを作成して、デバイスのデータを1か所でまとめて確認しましょう。",
         ko: "앱은 Google Play와 App Store에서 다운로드할 수 있습니다. 스마트워치와 링을 연결하고, 계정을 만들어 기기들의 데이터를 한곳에서 확인하세요.",
+        sv: "Appen finns tillgänglig på Google Play och App Store. Anslut din smartklocka och ring, skapa ditt konto och se dina enheters data samlade på ett ställe.",
+        da: "Appen er tilgængelig på Google Play og App Store. Tilslut dit smartwatch og din ring, opret din konto og se dine enheders data samlet ét sted.",
+        no: "Appen er tilgjengelig på Google Play og App Store. Koble til smartklokken og ringen din, opprett kontoen din og se enhetsdataene dine samlet på ett sted.",
+        fi: "Sovellus on saatavilla Google Playssa ja App Storessa. Yhdistä älykellosi ja sormuksesi, luo tili ja näe laitteidesi tiedot yhdessä paikassa.",
       },
       benefits: {
         it: [
           "Disponibile su Google Play e App Store",
           "Unisci più smartwatch e smart ring compatibili",
-          "Nessuna pubblicità e nessuna rivendita dei tuoi dati",
         ],
         en: [
           "Available on Google Play and the App Store",
           "Combine multiple compatible smartwatches and rings",
-          "No ads and never resold to third parties",
         ],
         es: [
           "Disponible en Google Play y App Store",
           "Combina varios smartwatches y anillos inteligentes compatibles",
-          "Sin publicidad y sin ceder tus datos a terceros",
         ],
         de: [
           "Auf Google Play und im App Store verfügbar",
           "Kombiniere mehrere kompatible Smartwatches und Ringe",
-          "Keine Werbung und keine Weitergabe deiner Daten",
         ],
         pt: [
           "Disponível no Google Play e na App Store",
           "Combine vários smartwatches e anéis inteligentes compatíveis",
-          "Sem anúncios e sem revenda dos seus dados",
         ],
         fr: [
           "Disponible sur Google Play et l'App Store",
           "Combinez plusieurs montres et bagues connectées compatibles",
-          "Aucune publicité et aucune revente de vos données",
         ],
         pl: [
           "Dostępne w Google Play i App Store",
           "Połącz wiele kompatybilnych smartwatchy i pierścieni",
-          "Bez reklam i bez odsprzedaży Twoich danych",
         ],
         tr: [
           "Google Play ve App Store'da mevcut",
           "Birden fazla uyumlu akıllı saat ve yüzüğü birleştirin",
-          "Reklam yok ve verileriniz asla satılmaz",
         ],
         nl: [
           "Beschikbaar in Google Play en de App Store",
           "Combineer meerdere compatibele smartwatches en ringen",
-          "Geen advertenties en geen verkoop van je gegevens",
         ],
         ja: [
           "Google PlayとApp Storeの両方で利用可能",
           "対応するスマートウォッチとスマートリングを統合",
-          "広告なし・第三者へのデータ販売なし",
         ],
         ko: [
           "Google Play 및 App Store에서 모두 이용 가능",
           "호환되는 여러 스마트워치와 스마트 링 통합",
-          "광고 없음 및 제3자 데이터 판매 없음",
+        ],
+        sv: [
+          "Tillgänglig på Google Play och App Store",
+          "Kombinera flera kompatibla smartklockor och ringar",
+        ],
+        da: [
+          "Tilgængelig på Google Play og App Store",
+          "Kombiner flere kompatible smartwatches og ringe",
+        ],
+        no: [
+          "Tilgjengelig på Google Play og App Store",
+          "Kombiner flere kompatible smartklokker og ringer",
+        ],
+        fi: [
+          "Saatavilla Google Playssa ja App Storessa",
+          "Yhdistä useita yhteensopivia älykelloja ja -sormuksia",
         ],
       },
       secondaryLabel: {
@@ -499,6 +512,10 @@ export const post: BlogPost = {
         nl: "Bekijk alle integraties",
         ja: "すべての連携を見る",
         ko: "모든 연동 보기",
+        sv: "Se alla integrationer",
+        da: "Se alle integrationer",
+        no: "Se alle integrasjoner",
+        fi: "Katso kaikki integraatiot",
       },
       secondaryHref: {
         it: "/it/integrations",
