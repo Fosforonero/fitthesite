@@ -6,6 +6,10 @@ export const post: BlogPost = {
   publishedAt: "2026-06-20",
   updatedAt: "2026-06-20",
   readMinutes: 8,
+  coverAlt: {
+    it: "Due smartwatch vicino a una pista di corsa con linee luminose stilizzate",
+    en: "Two smartwatches beside a running track with stylized glowing lines",
+  },
   hero: {
     kicker: {
         it: "Confronto",

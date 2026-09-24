@@ -6,6 +6,10 @@ export const post: BlogPost = {
   publishedAt: "2026-06-20",
   updatedAt: "2026-06-20",
   readMinutes: 9,
+  coverAlt: {
+    it: "Anello smart e smartwatch sul comodino accanto a un letto",
+    en: "Smart ring and smartwatch on a bedside table beside a bed",
+  },
   hero: {
     kicker: {
         it: "Confronto",

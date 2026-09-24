@@ -13,6 +13,10 @@ export const post: BlogPost = {
   publishedAt: "2026-06-16",
   updatedAt: "2026-06-16",
   readMinutes: 10,
+  coverAlt: {
+    it: "Anello smart con sensori interni visibili accanto a uno smartphone",
+    en: "Smart ring with visible inner sensors beside a smartphone",
+  },
   hero: {
     kicker: {
       it: "Guida",

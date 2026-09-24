@@ -13,6 +13,10 @@ export const post: BlogPost = {
   updatedAt: "2026-06-13",
   ldType: "BlogPosting",
   readMinutes: 7,
+  coverAlt: {
+    it: "Tre anelli smart di colori diversi su un piano di pietra chiara",
+    en: "Three smart rings in different colors on a light stone surface",
+  },
   hero: {
     kicker: {
       it: "Guida all'acquisto",
