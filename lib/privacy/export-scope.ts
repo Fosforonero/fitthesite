@@ -8,7 +8,7 @@
  * leggere». Le due cose coincidono per un utente senza relazioni e divergono
  * per chi ne ha:
  *  - un admin legge profili, dispositivi (con token FCM), abbonamenti
- *    (`raw_payload`) e ruoli (`note`) di TUTTI gli utenti (policy `is_admin()`);
+ *    (`raw_payload`) e ruoli (`note`, `granted_by`) di TUTTI gli utenti (policy `is_admin()`);
  *  - un membro di un gruppo legge le righe `fitness_metrics` dei co-membri (la
  *    condivisione e' per riga: colonne di glicemia e pressione comprese) e le
  *    loro `group_members` (`share_settings`, `display_name`);
@@ -19,42 +19,55 @@
  * NOTA SULLA SEPARAZIONE DELLE RESPONSABILITA' (RLS vs CONTENIMENTO CLIENT)
  * --------------------------------------------------------------------------
  * La visibilita' cross-utente consentita dalla RLS (admin, gruppi, sfide) e' un
- * debito architetturale a livello di database e politiche RLS. Questa libreria
- * e il client di export costituiscono lo strato di contenimento applicativo di
- * difesa in profondita': garantiscono che l'operazione di export art. 20 estragga
- * unicamente le righe e le colonne legittimamente pertinenti all'account richiedente,
- * indipendentemente dai permessi di lettura concessi dalla RLS nel contesto del DB.
+ * debito architetturale preesistente a livello di database e politiche RLS.
+ * Questa PR NON e' una correzione delle policy RLS del database.
+ * Questa libreria e il client di export costituiscono lo strato di contenimento
+ * applicativo di difesa in profondita': garantiscono che l'operazione di export
+ * art. 20 estragga unicamente le righe e le colonne legittimamente pertinenti
+ * all'account richiedente, indipendentemente dalle letture che la RLS lascerebbe
+ * aperte a livello di database.
  *
- * TRATTAMENTO DELLE RELAZIONI CAREGIVER NELL'EXPORT WEB (GDPR ART. 15 / 20)
- * -------------------------------------------------------------------------
- * Un legame di cura coinvolge due soggetti: `caregiver_id` e `subject_id`.
+ * RICONCILIAZIONE DELLE COLONNE CON IL MANDATO DI PRIVACY (GDPR ART. 15 / 20)
+ * ----------------------------------------------------------------------------
+ * Ogni colonna esportata e' sottoposta a vaglio di pertinenza e minimizzazione:
  *
- * 1. Per la tabella `caregiver_links`:
- *    La relazione in sé appartiene a entrambi i contraenti:
- *    - Se l'utente e' il caregiver (`caregiver_id = userId`), il record rappresenta
- *      le autorizzazioni che gli sono state conferite per assistere un familiare.
- *    - Se l'utente e' il soggetto (`subject_id = userId`), il record rappresenta
- *      la delega concessa da lui al caregiver.
- *    In entrambi i casi la riga e' parte integrante delle impostazioni e consensi
- *    dell'utente richiedente, quindi viene inclusa se `caregiver_id = userId OR subject_id = userId`.
+ * 1. `devices.fcm_token` e `devices.fcm_token_updated_at`:
+ *    ESCLUSI. Il token Firebase Cloud Messaging e' un segreto tecnico effimero
+ *    di sessione push. Non e' un dato personale portabile dell'utente; la sua
+ *    esportazione esporrebbe un vettore di inoltro notifiche push a terzi.
  *
- * 2. Per i dati biometrici e sanitari (`fitness_metrics`, `workouts`, etc.):
- *    I dati sanitari appartengono ESCLUSIVAMENTE al soggetto cui si riferiscono (`user_id = userId`).
- *    Anche se la RLS del database consentisse a un caregiver di visualizzare i dati del
- *    soggetto (quando autorizzato da `caregiver_links` e `privacy_consents.caregiver_share`),
- *    l'export web «I miei dati» non deve MAI esportare i dati sanitari del soggetto
- *    all'interno del dump personale del caregiver.
- *    L'export art. 20 riguarda esclusivamente la portabilita' dei dati dell'utente
- *    richiedente, non una funzione di copia massiva di dati di terzi.
- *    Di conseguenza, tutte le tabelle biometriche/personali rimangono rigidamente
- *    ancorate a `user_id = userId`.
+ * 2. `devices.device_fingerprint`:
+ *    ESCLUSO. Hash hardware calcolato per la deduplica tecnica dell'accoppiamento
+ *    dispositivi; non costituisce dato dell'utente ai fini della portabilita' art. 20
+ *    e la sua esportazione favorirebbe il tracciamento incrociato dell'hardware.
  *
- * PROIEZIONE ESPLICITA DI COLONNE (NESSUN SELECT '*')
- * ---------------------------------------------------
- * Nessuna query usa `select('*')`: ogni tabella dichiara una whitelist rigorosa
- * di colonne contrattualmente definite per l'export GDPR art. 20. Nuove colonne
- * interne, token di servizio o campi tecnici aggiunti allo schema non entrano
- * nell'export senza essere stati esplicitamente verificati e inseriti qui.
+ * 3. `b2c_subscriptions.raw_payload`:
+ *    ESCLUSO. Payload JSON grezzo degli store (Apple StoreKit JWS / Google Play),
+ *    contenente purchaseToken e token crittografici di ricevuta. I dati portabili
+ *    (prodotto, data di scadenza, stato, rinnovo) sono gia' inclusi nelle colonne
+ *    dedicate; il raw payload espone token di transazione sensibili.
+ *
+ * 4. `user_roles.granted_by`:
+ *    ESCLUSO. UUID dell'amministratore che ha assegnato il ruolo. E' un dato
+ *    personale di un dipendente/terzo (art. 20 comma 4 GDPR: non deve ledere
+ *    i diritti altrui), non appartiene all'utente destinatario del ruolo.
+ *
+ * 5. `user_roles.note`:
+ *    ESCLUSO. Campo di annotazione interna amministrativa o di supporto aziendale,
+ *    non fa parte dei dati forniti o generati dall'utente per la portabilita'.
+ *
+ * 6. Identificativi controparte in `caregiver_links` (`caregiver_id`, `subject_id`):
+ *    Un legame di cura coinvolge due soggetti distinti. L'utente ha diritto
+ *    a conoscere le deleghe attive, le date e i permessi conferiti (`permissions`,
+ *    `granted_at`, `expires_at`, `revoked_at`). L'inclusione o l'esclusione
+ *    dell'UUID in chiaro della controparte richiede approvazione esplicita per
+ *    bilanciare la verificabilita' della relazione con la tutela dei dati di terzi
+ *    (art. 20 c. 4 GDPR).
+ *
+ * 7. Segregazione dati biometrici (`fitness_metrics`, `workouts`):
+ *    I dati biometrici appartengono ESCLUSIVAMENTE al soggetto (`user_id = userId`).
+ *    Anche se un caregiver puo' visualizzare metriche nell'app, il suo export
+ *    personale NON deve mai includere dati sanitari di terzi.
  */
 
 export const EXPORT_TABLES = [
@@ -76,6 +89,8 @@ export type ExportTable = (typeof EXPORT_TABLES)[number];
 
 /**
  * Colonne esplicite da proiettare per ogni tabella (nessun `select('*')`).
+ * Riconciliate escludendo segreti infrastrutturali (FCM), hash hardware (fingerprint),
+ * ricevute grezze degli store (raw_payload) e dati di audit interni (granted_by, note).
  */
 export const EXPORT_TABLE_COLUMNS: Record<ExportTable, readonly string[]> = {
   profiles: [
@@ -121,7 +136,6 @@ export const EXPORT_TABLE_COLUMNS: Record<ExportTable, readonly string[]> = {
   devices: [
     'id',
     'user_id',
-    'device_fingerprint',
     'device_name',
     'device_brand',
     'source_type',
@@ -132,8 +146,6 @@ export const EXPORT_TABLE_COLUMNS: Record<ExportTable, readonly string[]> = {
     'revoked_at',
     'revoked_by',
     'revoked_reason',
-    'fcm_token',
-    'fcm_token_updated_at',
     'first_sync_state',
     'first_sync_state_updated_at',
     'first_sync_at',
@@ -236,7 +248,6 @@ export const EXPORT_TABLE_COLUMNS: Record<ExportTable, readonly string[]> = {
     'auto_renewing',
     'state',
     'last_notification_at',
-    'raw_payload',
     'created_at',
     'updated_at',
   ],
@@ -258,11 +269,28 @@ export const EXPORT_TABLE_COLUMNS: Record<ExportTable, readonly string[]> = {
     'user_id',
     'role',
     'granted_at',
-    'granted_by',
-    'note',
     'expires_at',
     'review_email_sent_at',
   ],
+};
+
+/**
+ * Colonna di ordinamento deterministico per ciascuna tabella durante la paginazione.
+ * Garantisce che i blocchi di paginazione non subiscano salti o duplicazioni.
+ */
+export const EXPORT_TABLE_ORDER: Record<ExportTable, string> = {
+  profiles: 'id',
+  privacy_consents: 'user_id',
+  user_settings: 'user_id',
+  devices: 'id',
+  fitness_metrics: 'id',
+  workouts: 'id',
+  caregiver_links: 'granted_at',
+  group_members: 'joined_at',
+  b2c_subscriptions: 'created_at',
+  challenge_participants: 'joined_at',
+  challenge_scores: 'updated_at',
+  user_roles: 'granted_at',
 };
 
 /**

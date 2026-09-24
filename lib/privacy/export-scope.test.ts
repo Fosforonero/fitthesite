@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import {
   EXPORT_OWNER_SCOPE,
   EXPORT_TABLE_COLUMNS,
+  EXPORT_TABLE_ORDER,
   EXPORT_TABLES,
   getExportColumns,
   scopeToOwner,
@@ -22,6 +23,14 @@ class Recorder implements OwnerFilterable<Recorder> {
   }
   or(filters: string) {
     this.calls.push(`or(${filters})`);
+    return this;
+  }
+  order(column: string, options: { ascending: boolean }) {
+    this.calls.push(`order(${column},${options.ascending})`);
+    return this;
+  }
+  range(from: number, to: number) {
+    this.calls.push(`range(${from},${to})`);
     return this;
   }
 }
@@ -85,6 +94,32 @@ describe('export-scope: ambito delle righe esportate', () => {
         expect(col).toMatch(/^[a-z0-9_]+$/);
       }
       expect(getExportColumns(table)).toBe(cols.join(','));
+    }
+  });
+
+  it('esclusione rigorosa di segreti di infrastruttura, fingerprint hardware e audit interno', () => {
+    // fcm_token e fingerprint hardware non sono dati personali portabili
+    expect(EXPORT_TABLE_COLUMNS.devices).not.toContain('fcm_token');
+    expect(EXPORT_TABLE_COLUMNS.devices).not.toContain('fcm_token_updated_at');
+    expect(EXPORT_TABLE_COLUMNS.devices).not.toContain('device_fingerprint');
+
+    // raw_payload (ricevute store grezze con purchase tokens) non deve essere esportato
+    expect(EXPORT_TABLE_COLUMNS.b2c_subscriptions).not.toContain('raw_payload');
+
+    // granted_by e note (audit interno e note aziendali) non devono essere esportati
+    expect(EXPORT_TABLE_COLUMNS.user_roles).not.toContain('granted_by');
+    expect(EXPORT_TABLE_COLUMNS.user_roles).not.toContain('note');
+  });
+
+  it('ogni tabella ha una colonna di ordinamento deterministico inclusa nella proiezione', () => {
+    expect(Object.keys(EXPORT_TABLE_ORDER).sort()).toEqual([...EXPORT_TABLES].sort());
+    for (const table of EXPORT_TABLES) {
+      const orderCol = EXPORT_TABLE_ORDER[table];
+      expect(orderCol, `${table} ha un orderCol vuoto`).toBeTruthy();
+      expect(
+        EXPORT_TABLE_COLUMNS[table],
+        `${orderCol} di ${table} deve essere inclusa nelle colonne proiettate`,
+      ).toContain(orderCol);
     }
   });
 
