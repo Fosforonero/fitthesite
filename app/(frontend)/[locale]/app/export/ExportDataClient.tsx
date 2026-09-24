@@ -6,6 +6,9 @@ import {
   EXPORT_TABLE_ORDER,
   EXPORT_TABLES,
   getExportColumns,
+  getTableRowKey,
+  RawCaregiverLink,
+  sanitizeCaregiverLink,
   scopeToOwner,
 } from '@/lib/privacy/export-scope';
 import { createClient } from '@/lib/supabase/client';
@@ -67,15 +70,17 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         }
 
         const columns = getExportColumns(table);
-        const orderCol = EXPORT_TABLE_ORDER[table];
+        const orderCols = EXPORT_TABLE_ORDER[table];
         let from = 0;
         let hasMore = true;
-        const tableRows: unknown[] = [];
+        const tableRows: Record<string, unknown>[] = [];
+        const seenKeys = new Set<string>();
+        let expectedCount: number | null = null;
 
-        // Paginazione deterministica con blocco da 1.000 righe per superare
-        // il limite max-rows di PostgREST e garantire l'anti-troncamento.
+        // Paginazione deterministica con ordine totale e blocco da 1.000 righe per superare
+        // il limite max-rows di PostgREST e garantire l'anti-troncamento e l'assenza di duplicati.
         while (hasMore) {
-          // Se la paginazione richiede più chiamate, riverifica la sessione
+          // Se la paginazione richiede piu' chiamate, riverifica la sessione
           if (from > 0) {
             const {
               data: { user: loopUser },
@@ -89,14 +94,19 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
           }
 
           const to = from + PAGE_SIZE - 1;
-          const query = scopeToOwner(
+          let query = scopeToOwner(
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (supabase.from(table) as any).select(columns, { count: 'exact' }),
             table,
             exportUserId,
-          )
-            .order(orderCol, { ascending: true })
-            .range(from, to);
+          );
+
+          // Applicazione ordine totale su tutte le colonne della chiave
+          for (const col of orderCols) {
+            query = query.order(col, { ascending: true });
+          }
+
+          query = query.range(from, to);
 
           const { data: pageRows, count, error } = await query;
 
@@ -109,27 +119,67 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
             return;
           }
 
-          tableRows.push(...pageRows);
+          // FAIL-CLOSED: count nullo o non numerico interrompe immediatamente.
+          if (typeof count !== 'number') {
+            setErr(t.errorTitle);
+            setPhase('error');
+            return;
+          }
 
-          if (typeof count === 'number') {
-            if (tableRows.length >= count) {
-              hasMore = false;
-            } else if (pageRows.length === 0) {
-              // Troncamento inatteso: il conteggio totale dichiarato è maggiore delle righe restituite
+          if (expectedCount === null) {
+            expectedCount = count;
+          } else if (expectedCount !== count) {
+            // Incoerenza di conteggio tra pagine successive (mutazione concorrente)
+            setErr(t.errorTitle);
+            setPhase('error');
+            return;
+          }
+
+          for (const row of pageRows) {
+            const rowObj = row as Record<string, unknown>;
+            const rowKey = getTableRowKey(table, rowObj);
+            if (seenKeys.has(rowKey)) {
+              // Duplicato rilevato durante la paginazione: ordine non deterministico!
               setErr(t.errorTitle);
               setPhase('error');
               return;
             }
-          } else {
-            if (pageRows.length < PAGE_SIZE) {
-              hasMore = false;
-            }
+            seenKeys.add(rowKey);
+            tableRows.push(rowObj);
+          }
+
+          if (tableRows.length >= expectedCount) {
+            hasMore = false;
+          } else if (pageRows.length === 0) {
+            // Troncamento inatteso: il conteggio totale dichiarato e' maggiore delle righe restituite
+            setErr(t.errorTitle);
+            setPhase('error');
+            return;
           }
 
           from += PAGE_SIZE;
         }
 
-        data[table] = tableRows;
+        // FAIL-CLOSED: Corrispondenza esatta fra conteggio e righe uniche
+        if (
+          expectedCount === null ||
+          tableRows.length !== expectedCount ||
+          seenKeys.size !== expectedCount
+        ) {
+          setErr(t.errorTitle);
+          setPhase('error');
+          return;
+        }
+
+        // Trattamento caregiver_links: Opzione B (GDPR art. 20 c. 4).
+        // Gli identificativi della controparte vengono rimossi prima di popolare il bundle.
+        if (table === 'caregiver_links') {
+          data[table] = (tableRows as unknown as RawCaregiverLink[]).map((r) =>
+            sanitizeCaregiverLink(r, exportUserId),
+          );
+        } else {
+          data[table] = tableRows;
+        }
       }
 
       // Verifica di completezza prima del timbro e del download: tutte le 12
@@ -140,8 +190,36 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         return;
       }
 
-      // Scrittura timbro di richiesta e completamento con verifica di errore
+      // Pre-scrittura session check: sessione ancora integra prima delle mutazioni
+      const {
+        data: { user: preWriteUser },
+        error: preWriteSessionErr,
+      } = await supabase.auth.getUser();
+      if (preWriteSessionErr || !preWriteUser?.id || preWriteUser.id !== exportUserId) {
+        setErr(t.errorTitle);
+        setPhase('error');
+        return;
+      }
+
+      // Scrittura audit log PRIMA del timbro completato:
+      // Se l'audit fallisce, data_export_completed_at NON viene mai scritto
+      // nel database, evitando di lasciare un falso completato.
       const now = new Date().toISOString();
+      const { error: auditErr } = await supabase
+        .from('audit_logs')
+        .insert({
+          user_id: exportUserId,
+          action: 'data_exported',
+          detail: { method: 'web_ui' },
+        } as never);
+      if (auditErr) {
+        // Fallimento scrittura log di audit: interrompi senza timbro completato ne' download
+        setErr(t.errorTitle);
+        setPhase('error');
+        return;
+      }
+
+      // Scrittura timbro di richiesta e completamento SOLO DOPO che l'audit ha avuto successo.
       const { error: consentErr } = await supabase
         .from('privacy_consents')
         .upsert(
@@ -159,22 +237,18 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         return;
       }
 
-      // Scrittura audit log con verifica di errore
-      const { error: auditErr } = await supabase
-        .from('audit_logs')
-        .insert({
-          user_id: exportUserId,
-          action: 'data_exported',
-          detail: { method: 'web_ui' },
-        } as never);
-      if (auditErr) {
-        // Fallimento scrittura log di audit: interrompi senza scaricare il file
+      // Riverifica della sessione PRIMA della consegna del file (download)
+      const {
+        data: { user: deliveryUser },
+        error: deliverySessionErr,
+      } = await supabase.auth.getUser();
+      if (deliverySessionErr || !deliveryUser?.id || deliveryUser.id !== exportUserId) {
         setErr(t.errorTitle);
         setPhase('error');
         return;
       }
 
-      // Download del file JSON completo solo dopo che tutte le scritture sono riuscite.
+      // Download del file JSON completo solo dopo che tutte le verifiche e scritture sono riuscite.
       const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');

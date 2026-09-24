@@ -37,7 +37,7 @@ type Recorder = {
   columns?: string;
   countOpt?: string;
   filters: string[];
-  order?: { column: string; ascending: boolean };
+  orders: Array<{ column: string; ascending: boolean }>;
   ranges: Array<{ from: number; to: number }>;
 };
 
@@ -56,7 +56,7 @@ let newUserIdOnChange: string | null = null;
 
 let tableErrorOverride: Record<string, { message: string }> = {};
 let tableDataOverride: Record<string, Row[]> = {};
-let tableTotalCountOverride: Record<string, number> = {};
+let tableTotalCountOverride: Record<string, number | null> = {};
 let consentUpsertError: { message: string } | null = null;
 let auditInsertError: { message: string } | null = null;
 
@@ -83,7 +83,7 @@ function makeSupabase() {
     from(table: string) {
       let rec = recorded.find((r) => r.table === table);
       if (!rec) {
-        rec = { table, filters: [], ranges: [] };
+        rec = { table, filters: [], orders: [], ranges: [] };
         recorded.push(rec);
       }
       const filters: Array<(r: Row) => boolean> = [];
@@ -107,7 +107,7 @@ function makeSupabase() {
           return builder;
         },
         order: (col: string, options: { ascending: boolean }) => {
-          rec!.order = { column: col, ascending: options.ascending };
+          rec!.orders.push({ column: col, ascending: options.ascending });
           return builder;
         },
         range: (from: number, to: number) => {
@@ -224,33 +224,62 @@ describe('ExportDataClient: ambito e proprietario', () => {
       expect(rec!.filters.join(' ')).toContain(ME);
       expect(rec!.columns).toBe(getExportColumns(table));
       expect(rec!.columns).not.toContain('*');
-      expect(rec!.order?.column).toBe(EXPORT_TABLE_ORDER[table]);
-      expect(rec!.order?.ascending).toBe(true);
+      expect(rec!.orders).toEqual(
+        EXPORT_TABLE_ORDER[table].map((col) => ({ column: col, ascending: true })),
+      );
       expect(rec!.ranges.length).toBeGreaterThan(0);
     }
   });
 
-  it('non scrive nel file nessuna riga altrui, su nessuna tabella', async () => {
+  it('non scrive nel file nessuna riga altrui, su nessuna tabella e applica Opzione B per caregiver', async () => {
     const bundle = await runExport();
     for (const table of EXPORT_TABLES) {
-      const rows = bundle.data[table];
+      const rows = bundle.data[table] as Row[];
       expect(Array.isArray(rows), `${table} non e' un array`).toBe(true);
       expect(rows.length, `${table}: righe proprie attese`).toBe(table === 'caregiver_links' ? 2 : 1);
-      for (const r of rows) {
-        expect(r.marker, `${table}: riga altrui nel file`).toBe('MIA');
+      if (table !== 'caregiver_links') {
+        for (const r of rows) {
+          expect(r.marker, `${table}: riga altrui nel file`).toBe('MIA');
+        }
       }
     }
+    // Opzione B per caregiver_links: gli identificativi di terzi e della controparte non appaiono nel bundle
+    expect(JSON.stringify(bundle)).not.toContain(COUNTERPARTY);
     expect(JSON.stringify(bundle)).not.toContain(OTHER);
+    expect(bundle.data.caregiver_links).toEqual([
+      {
+        relationship_role: 'caregiver',
+        permissions: null,
+        granted_at: null,
+        expires_at: null,
+        revoked_at: null,
+      },
+      {
+        relationship_role: 'subject',
+        permissions: null,
+        granted_at: null,
+        expires_at: null,
+        revoked_at: null,
+      },
+    ]);
   });
 
-  it('il flusso completo scrive timbro, audit e avvia il download del JSON', async () => {
+  it('il flusso completo scrive audit PRIMA del timbro completato e avvia il download del JSON', async () => {
     await runExport();
-    const timbro = writes.find((w) => w.table === 'privacy_consents' && w.op === 'upsert');
+    const auditIndex = writes.findIndex((w) => w.table === 'audit_logs' && w.op === 'insert');
+    const timbroIndex = writes.findIndex((w) => w.table === 'privacy_consents' && w.op === 'upsert');
+
+    expect(auditIndex).toBeGreaterThanOrEqual(0);
+    expect(timbroIndex).toBeGreaterThan(auditIndex);
+
+    const timbro = writes[timbroIndex];
     expect(timbro?.payload).toMatchObject({ user_id: ME });
     expect(timbro?.payload).toHaveProperty('data_export_requested_at');
     expect(timbro?.payload).toHaveProperty('data_export_completed_at');
-    const audit = writes.find((w) => w.table === 'audit_logs' && w.op === 'insert');
+
+    const audit = writes[auditIndex];
     expect(audit?.payload).toMatchObject({ user_id: ME, action: 'data_exported' });
+
     expect(URL.createObjectURL).toHaveBeenCalledTimes(1);
     expect(downloads).toHaveLength(1);
     expect(downloads[0]).toMatch(/^fitmesh-data-export-\d{4}-\d{2}-\d{2}\.json$/);
@@ -258,11 +287,14 @@ describe('ExportDataClient: ambito e proprietario', () => {
 });
 
 describe('ExportDataClient: paginazione deterministica con oltre 1.000 righe proprie', () => {
-  it('estrae oltre 1.000 righe proprie senza troncamenti paginando con blocchi deterministici', async () => {
+  it('estrae oltre 1.000 righe su tabella con PK singola aventi timestamp identici, senza duplicati ne\' ID mancanti', async () => {
     const TOTAL_METRICS = 1250;
     const syntheticMetrics: Row[] = Array.from({ length: TOTAL_METRICS }, (_, i) => ({
       id: `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`,
       user_id: ME,
+      window_start_ms: 1000000,
+      window_end_ms: 2000000,
+      collected_at_ms: 3000000,
       steps: 100 + i,
       marker: 'MIA',
     }));
@@ -283,13 +315,84 @@ describe('ExportDataClient: paginazione deterministica con oltre 1.000 righe pro
       { from: 0, to: 999 },
       { from: 1000, to: 1999 },
     ]);
-    expect(rec!.order?.column).toBe('id');
-    expect(rec!.order?.ascending).toBe(true);
+    expect(rec!.orders).toEqual([
+      { column: 'id', ascending: true },
+      { column: 'id', ascending: true },
+    ]);
 
-    const metricsExported = bundle.data.fitness_metrics;
+    const metricsExported = bundle.data.fitness_metrics as Row[];
     expect(metricsExported.length).toBe(TOTAL_METRICS);
-    expect(metricsExported[0].steps).toBe(100);
-    expect(metricsExported[TOTAL_METRICS - 1].steps).toBe(100 + TOTAL_METRICS - 1);
+    const ids = new Set(metricsExported.map((m) => m.id));
+    expect(ids.size).toBe(TOTAL_METRICS);
+    expect(metricsExported[0].id).toBe('00000000-0000-4000-8000-000000000000');
+    expect(metricsExported[TOTAL_METRICS - 1].id).toBe(
+      `00000000-0000-4000-8000-${String(TOTAL_METRICS - 1).padStart(12, '0')}`,
+    );
+  });
+
+  it('estrae oltre 1.000 righe su tabella con PK composta (group_members) aventi timestamp identici, senza duplicati ne\' ID mancanti', async () => {
+    const TOTAL_MEMBERSHIPS = 1200;
+    const SAME_TIMESTAMP = '2026-05-01T12:00:00.000Z';
+    const syntheticGroupMembers: Row[] = Array.from({ length: TOTAL_MEMBERSHIPS }, (_, i) => ({
+      group_id: `grp-00000000-0000-4000-8000-${String(i).padStart(12, '0')}`,
+      user_id: ME,
+      role: 'member',
+      joined_at: SAME_TIMESTAMP,
+      marker: 'MIA',
+    }));
+
+    tableDataOverride = {
+      group_members: syntheticGroupMembers,
+    };
+    tableTotalCountOverride = {
+      group_members: TOTAL_MEMBERSHIPS,
+    };
+
+    const bundle = await runExport();
+
+    const rec = recorded.find((r) => r.table === 'group_members');
+    expect(rec).toBeDefined();
+    expect(rec!.ranges).toEqual([
+      { from: 0, to: 999 },
+      { from: 1000, to: 1999 },
+    ]);
+    expect(rec!.orders).toEqual([
+      { column: 'group_id', ascending: true },
+      { column: 'user_id', ascending: true },
+      { column: 'group_id', ascending: true },
+      { column: 'user_id', ascending: true },
+    ]);
+
+    const membersExported = bundle.data.group_members as Row[];
+    expect(membersExported.length).toBe(TOTAL_MEMBERSHIPS);
+    const groupIds = new Set(membersExported.map((m) => m.group_id));
+    expect(groupIds.size).toBe(TOTAL_MEMBERSHIPS);
+    for (let i = 0; i < TOTAL_MEMBERSHIPS; i++) {
+      const expectedId = `grp-00000000-0000-4000-8000-${String(i).padStart(12, '0')}`;
+      expect(groupIds.has(expectedId), `ID mancante: ${expectedId}`).toBe(true);
+    }
+  });
+
+  it('fail-closed immediato con count nullo da Supabase / PostgREST', async () => {
+    tableTotalCountOverride = {
+      fitness_metrics: null,
+    };
+
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
+
+    expect(downloads).toHaveLength(0);
+    expect(blobParts).toHaveLength(0);
+
+    const timbro = writes.find(
+      (w) => w.table === 'privacy_consents' && 'data_export_completed_at' in w.payload,
+    );
+    expect(timbro).toBeUndefined();
+    const audit = writes.find((w) => w.table === 'audit_logs');
+    expect(audit).toBeUndefined();
   });
 
   it('anti-troncamento: se il server restituisce meno righe del totale dichiarato, fail-closed immediato', async () => {
@@ -321,6 +424,60 @@ describe('ExportDataClient: paginazione deterministica con oltre 1.000 righe pro
       (w) => w.table === 'privacy_consents' && 'data_export_completed_at' in w.payload,
     );
     expect(timbro).toBeUndefined();
+  });
+
+  it('fail-closed immediato se una riga duplicata si presenta durante la paginazione', async () => {
+    const dupId = '00000000-0000-4000-8000-000000000000';
+    const rowsPage1: Row[] = Array.from({ length: 1000 }, (_, i) => ({
+      id: `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`,
+      user_id: ME,
+      marker: 'MIA',
+    }));
+    const rowsPage2: Row[] = [
+      { id: dupId, user_id: ME, marker: 'MIA' }, // Duplicato!
+      ...Array.from({ length: 99 }, (_, i) => ({
+        id: `00000000-0000-4000-8000-${String(1000 + i).padStart(12, '0')}`,
+        user_id: ME,
+        marker: 'MIA',
+      })),
+    ];
+
+    tableDataOverride = {
+      fitness_metrics: [...rowsPage1, ...rowsPage2],
+    };
+    tableTotalCountOverride = {
+      fitness_metrics: 1100,
+    };
+
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
+    expect(downloads).toHaveLength(0);
+    expect(writes.find((w) => w.table === 'privacy_consents')).toBeUndefined();
+  });
+
+  it('richiede corrispondenza esatta fra conteggio e righe uniche: abortisce se mismatch', async () => {
+    const rows: Row[] = Array.from({ length: 1004 }, (_, i) => ({
+      id: `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`,
+      user_id: ME,
+      marker: 'MIA',
+    }));
+
+    tableDataOverride = {
+      fitness_metrics: rows,
+    };
+    tableTotalCountOverride = {
+      fitness_metrics: 1005,
+    };
+
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
+    expect(downloads).toHaveLength(0);
   });
 });
 
@@ -356,6 +513,19 @@ describe('ExportDataClient: verifiche di sessione e scritture di audit', () => {
     expect(downloads).toHaveLength(0);
   });
 
+  it('riverifica la sessione prima della consegna: se l\'utente scade prima del download, consegna bloccata', async () => {
+    // Session check pre-delivery e' la 15esima chiamata a getUser
+    changeUserOnCallIndex = 15;
+    newUserIdOnChange = null;
+
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
+    expect(downloads).toHaveLength(0);
+  });
+
   it('fail-closed se la scrittura del timbro di completamento (privacy_consents) fallisce', async () => {
     consentUpsertError = { message: 'DB connection failure during consent update' };
 
@@ -368,7 +538,7 @@ describe('ExportDataClient: verifiche di sessione e scritture di audit', () => {
     expect(downloads).toHaveLength(0);
   });
 
-  it('fail-closed se la scrittura del log di audit fallisce', async () => {
+  it('risoluzione sequenza audit/completed_at: se la scrittura audit fallisce, data_export_completed_at NON viene mai scritto', async () => {
     auditInsertError = { message: 'Audit insert failure' };
 
     render(<ExportDataClient locale="it" t={T} />);
@@ -378,6 +548,12 @@ describe('ExportDataClient: verifiche di sessione e scritture di audit', () => {
     expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
     // Nessun download se l'audit ha fallito
     expect(downloads).toHaveLength(0);
+
+    // Nessun falso "completato" in privacy_consents!
+    const timbro = writes.find(
+      (w) => w.table === 'privacy_consents' && 'data_export_completed_at' in w.payload,
+    );
+    expect(timbro, 'data_export_completed_at non deve mai essere scritto se audit fallisce').toBeUndefined();
   });
 });
 
