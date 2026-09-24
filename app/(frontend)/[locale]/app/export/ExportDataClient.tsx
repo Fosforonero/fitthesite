@@ -2,7 +2,12 @@
 
 import { useState } from 'react';
 
-import { EXPORT_TABLES, getExportColumns, scopeToOwner } from '@/lib/privacy/export-scope';
+import {
+  EXPORT_TABLE_ORDER,
+  EXPORT_TABLES,
+  getExportColumns,
+  scopeToOwner,
+} from '@/lib/privacy/export-scope';
 import { createClient } from '@/lib/supabase/client';
 
 type T = {
@@ -16,6 +21,8 @@ type T = {
 };
 
 type Phase = 'idle' | 'working' | 'done' | 'error';
+
+const PAGE_SIZE = 1000;
 
 export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
   const [phase, setPhase] = useState<Phase>('idle');
@@ -36,38 +43,93 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         return;
       }
 
+      const exportUserId = user.id;
+
       const bundle: Record<string, unknown> = {
         generated_at: new Date().toISOString(),
-        account: { id: user.id, email: user.email },
+        account: { id: exportUserId, email: user.email },
         format: 'FitMesh Sync data export (GDPR art. 20) v1',
         data: {},
       };
       const data = bundle.data as Record<string, unknown>;
 
       for (const table of EXPORT_TABLES) {
-        // La RLS dice cosa l'utente PUO' leggere, non cosa e' suo: admin, membri di
-        // gruppo e co-partecipanti a una sfida leggono anche righe altrui. Ogni
-        // query e' filtrata sul proprietario e su una whitelist esplicita di colonne
-        // (lib/privacy/export-scope.ts), senza mai usare select('*').
-        const columns = getExportColumns(table);
-        const { data: rows, error } = await scopeToOwner(
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (supabase.from(table) as any).select(columns),
-          table,
-          user.id,
-        );
-
-        // FAIL-CLOSED: se una sola tabella fallisce o non restituisce un array,
-        // l'intero export viene interrotto immediatamente. Nessun file parziale
-        // viene generato o scaricato, nessun timestamp di completamento viene
-        // scritto, e nessun dettaglio tecnico del database viene esposto.
-        if (error || !Array.isArray(rows)) {
+        // Verifica cambio di sessione durante l'export: se l'utente scade o cambia
+        // mid-flight, interrompi immediatamente (nessun dato esportato sotto sessione mista).
+        const {
+          data: { user: currentUser },
+          error: sessionErr,
+        } = await supabase.auth.getUser();
+        if (sessionErr || !currentUser?.id || currentUser.id !== exportUserId) {
           setErr(t.errorTitle);
           setPhase('error');
           return;
         }
 
-        data[table] = rows;
+        const columns = getExportColumns(table);
+        const orderCol = EXPORT_TABLE_ORDER[table];
+        let from = 0;
+        let hasMore = true;
+        const tableRows: unknown[] = [];
+
+        // Paginazione deterministica con blocco da 1.000 righe per superare
+        // il limite max-rows di PostgREST e garantire l'anti-troncamento.
+        while (hasMore) {
+          // Se la paginazione richiede più chiamate, riverifica la sessione
+          if (from > 0) {
+            const {
+              data: { user: loopUser },
+              error: loopSessionErr,
+            } = await supabase.auth.getUser();
+            if (loopSessionErr || !loopUser?.id || loopUser.id !== exportUserId) {
+              setErr(t.errorTitle);
+              setPhase('error');
+              return;
+            }
+          }
+
+          const to = from + PAGE_SIZE - 1;
+          const query = scopeToOwner(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (supabase.from(table) as any).select(columns, { count: 'exact' }),
+            table,
+            exportUserId,
+          )
+            .order(orderCol, { ascending: true })
+            .range(from, to);
+
+          const { data: pageRows, count, error } = await query;
+
+          // FAIL-CLOSED: qualsiasi errore o valore non-array interrompe l'export immediatamente.
+          // Nessun file parziale viene generato o scaricato, nessun timestamp di completamento viene
+          // scritto, e nessun dettaglio tecnico del database viene esposto.
+          if (error || !Array.isArray(pageRows)) {
+            setErr(t.errorTitle);
+            setPhase('error');
+            return;
+          }
+
+          tableRows.push(...pageRows);
+
+          if (typeof count === 'number') {
+            if (tableRows.length >= count) {
+              hasMore = false;
+            } else if (pageRows.length === 0) {
+              // Troncamento inatteso: il conteggio totale dichiarato è maggiore delle righe restituite
+              setErr(t.errorTitle);
+              setPhase('error');
+              return;
+            }
+          } else {
+            if (pageRows.length < PAGE_SIZE) {
+              hasMore = false;
+            }
+          }
+
+          from += PAGE_SIZE;
+        }
+
+        data[table] = tableRows;
       }
 
       // Verifica di completezza prima del timbro e del download: tutte le 12
@@ -78,19 +140,41 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         return;
       }
 
-      // Marca export richiesto + completato + audit solo dopo esito positivo completo.
+      // Scrittura timbro di richiesta e completamento con verifica di errore
       const now = new Date().toISOString();
-      await supabase
+      const { error: consentErr } = await supabase
         .from('privacy_consents')
         .upsert(
-          { user_id: user.id, data_export_requested_at: now, data_export_completed_at: now } as never,
+          {
+            user_id: exportUserId,
+            data_export_requested_at: now,
+            data_export_completed_at: now,
+          } as never,
           { onConflict: 'user_id' },
         );
-      await supabase
-        .from('audit_logs')
-        .insert({ user_id: user.id, action: 'data_exported', detail: { method: 'web_ui' } } as never);
+      if (consentErr) {
+        // Fallimento scrittura consensi: interrompi senza scaricare il file
+        setErr(t.errorTitle);
+        setPhase('error');
+        return;
+      }
 
-      // Download del file JSON completo.
+      // Scrittura audit log con verifica di errore
+      const { error: auditErr } = await supabase
+        .from('audit_logs')
+        .insert({
+          user_id: exportUserId,
+          action: 'data_exported',
+          detail: { method: 'web_ui' },
+        } as never);
+      if (auditErr) {
+        // Fallimento scrittura log di audit: interrompi senza scaricare il file
+        setErr(t.errorTitle);
+        setPhase('error');
+        return;
+      }
+
+      // Download del file JSON completo solo dopo che tutte le scritture sono riuscite.
       const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
