@@ -7012,104 +7012,92 @@
       "da": "FitMesh Sync er nu på Google Play"
     },
     "hero.subtitle": {
-      "sv": "Från och med idag kan du ladda ner appen och se data från alla dina enheter på en och samma översiktssida. iPhone-versionen släpps om några dagar.",
-      "da": "Fra i dag kan du downloade appen og se dataene fra alle dine enheder samlet på ét oversigtspanel. iPhone-versionen kommer om et par dage."
+      "sv": "Från och med idag kan du ladda ner appen och se data från alla dina enheter i en samlad översikt. Appen finns redan tillgänglig även för iPhone, inklusive alla EU-länder.",
+      "da": "Fra i dag kan du downloade appen og se dataene fra alle dine enheder i ét samlet dashboard. Appen er allerede tilgængelig også til iPhone, inklusive alle EU-lande."
     },
     "metaDescription": {
-      "sv": "FitMesh Sync finns nu på Google Play: samla data från din smartklocka och din ring i en enda översikt, där dina uppgifter lagras på servrar i Europa. iPhone-versionen släpps om några dagar.",
-      "da": "FitMesh Sync er nu på Google Play: Saml data fra dit smartwatch og din ring i ét enkelt kontrolpanel, hvor dine data opbevares på servere i Europa. iPhone-versionen kommer om et par dage."
+      "sv": "FitMesh Sync finns nu på Google Play: samla data från din smartklocka och din ring i en samlad översikt. iOS-appen finns redan tillgänglig, inklusive alla EU-länder.",
+      "da": "FitMesh Sync er nu på Google Play: saml data fra dit smartwatch og din ring i ét samlet kontrolpanel. iOS-appen er allerede tilgængelig, inklusive alle EU-lande."
     },
     "primaryKeyword": {
       "sv": "FitMesh Sync på Google Play",
       "da": "FitMesh Sync på Google Play"
     },
     "body.0.text": {
-      "sv": "Nu är den här: FitMesh Sync finns officiellt tillgänglig på Google Play. Du kan ladda ner den till vilken Android-telefon som helst och börja se data från din smartklocka, ring och andra enheter – allt på ett och samma ställe.",
-      "da": "Nu er den her: FitMesh Sync er officielt tilgængelig på Google Play. Du kan downloade den på enhver Android-telefon og begynde at se data fra dit smartwatch, din ring og andre enheder samlet ét sted."
+      "sv": "Nu är den här: FitMesh Sync finns officiellt tillgänglig på Google Play. Du kan ladda ner den till kompatibla Android-telefoner och börja se data från din smartklocka, ring och andra enheter, allt på ett och samma ställe.",
+      "da": "Nu er den her: FitMesh Sync er officielt tilgængelig på Google Play. Du kan downloade den på kompatible Android-telefoner og begynde at se data fra dit smartwatch, din ring og andre enheder samlet ét sted."
     },
     "body.1.text": {
       "sv": "Vad FitMesh Sync gör",
       "da": "Hvad FitMesh Sync gør"
     },
     "body.2.text": {
-      "sv": "Varje märke lagrar dina data i sin egen app. Om du har en Galaxy Watch, en smart ring och kanske ett armband från en annan tillverkare, hamnar du i en situation där du måste hoppa mellan olika appar. FitMesh Sync samlar allt i en överskådlig översikt: steg, sömn, puls, återhämtning och trender över tid – utformad för att vara lätt att avläsa i vardagen.",
-      "da": "Hvert mærke gemmer dine data i sin egen app. Hvis du har en Galaxy Watch, en smart ring og måske et armbånd fra en anden producent, ender du med at skifte frem og tilbage mellem de forskellige apps. FitMesh Sync samler det hele i ét overskueligt dashboard: skridt, søvn, puls, restitution og tendenser over tid – designet til at være let at aflæse i hverdagen."
+      "sv": "Varje märke lagrar dina data i sin egen app. Om du har en Galaxy Watch, en smart ring och kanske ett armband från en annan tillverkare, hamnar du i en situation där du måste hoppa mellan olika appar. FitMesh Sync samlar allt i en överskådlig översikt: steg, sömn, puls, återhämtning och trender över tid, utformad för att vara lätt att avläsa i vardagen.",
+      "da": "Hvert mærke gemmer dine data i sin egen app. Hvis du har en Galaxy Watch, en smart ring og måske et armbånd fra en anden producent, ender du med at skifte frem og tilbage mellem de forskellige apps. FitMesh Sync samler det hele i ét overskueligt dashboard: skridt, søvn, puls, restitution og tendenser over tid, designet til at være let at aflæse i hverdagen."
     },
     "body.3.text": {
       "sv": "Fler enheter, en enda översikt",
       "da": "Flere enheder, ét samlet overblik"
     },
     "body.4.text": {
-      "sv": "Om du bär flera enheter samtidigt sammanställer FitMesh Sync data från dem utan att räkna samma steg två gånger och visar alltid det mest fullständiga värdet. När en enhet laddas tar en annan över under den tiden utan avbrott. Vi har förklarat allt detta, med exempel för varje kombination, i guiden [flera smartklockor samtidigt utan dubbla data](/en/blog/piu-smartwatch-insieme-dati-doppi).",
-      "da": "Hvis du bærer flere enheder på samme tid, samler FitMesh Sync dataene fra dem uden at tælle de samme skridt to gange og viser dig altid det mest komplette tal. Når en enhed oplades, overtager en anden enheden uden huller i dataene. Vi har forklaret det hele med eksempler for hver kombination i vejledningen [flere smartwatches på samme tid uden dobbelte data](/en/blog/piu-smartwatch-insieme-dati-doppi)."
+      "sv": "Om du bär flera enheter slår FitMesh Sync inte bara ihop data eller väljer det högsta talet: för att begränsa dubbelräknade steg väljer det källa utifrån intern konsekvens och timtäckning för den dagen. När en enhet laddas kan en annan enhet täcka det tidsfönstret. Kriterier och begränsningar förklaras i guiden [flera smartklockor samtidigt utan dubbla data](/en/blog/piu-smartwatch-insieme-dati-doppi).",
+      "da": "Hvis du bærer flere enheder, lægger FitMesh Sync ikke bare data sammen eller vælger det højeste tal: for at begrænse dobbelttalte skridt vælger det kilde baseret på intern konsistens og timedækning for den pågældende dag. Når en enhed oplades, kan en anden bærbar enhed dække det tidsrum. Kriterier og begrænsninger forklares i vejledningen [flere smartwatches på samme tid uden dobbelte data](/en/blog/piu-smartwatch-insieme-dati-doppi)."
     },
     "body.5.text": {
-      "sv": "Dina uppgifter förblir dina",
-      "da": "Dine data forbliver dine"
+      "sv": "Hantering av dina uppgifter och integritet",
+      "da": "Håndtering af dine data og privatliv"
     },
     "body.6.text": {
-      "sv": "Hälsodata hör till de mest personliga uppgifterna du har. Därför lagras de på servrar i Europa, där endast du har tillgång till dem via ditt konto – utan reklam och utan att de någonsin säljs vidare till tredje part. Du hittar all information på sidan [integritet](/en/privacy).",
-      "da": "Sundhedsdata er blandt de mest personlige oplysninger, du har. Derfor opbevares de på servere i Europa, hvor kun du har adgang til dem via din konto – uden reklamer og uden at de nogensinde videresælges til tredjeparter. Du kan finde alle detaljerne på siden [privatlivspolitik](/en/privacy)."
+      "sv": "Hälsorelaterade uppgifter kräver transparens och noggrannhet. Information om insamling, lagring, säkerhet samt hur du begär radering via ditt konto finns i vår [integritetspolicy](/en/privacy).",
+      "da": "Sundhedsrelaterede oplysninger kræver gennemsigtighed og omhu. Oplysninger om indsamling, opbevaring, sikkerhed samt hvordan du anmoder om sletning via din konto findes i vores [privatlivspolitik](/en/privacy)."
     },
     "body.7.title": {
-      "sv": "Lifetime Pro gratis för de första 1 000 grundarna",
-      "da": "Lifetime Pro gratis til de første 1.000 grundlæggere"
+      "sv": "Historiskt grundarinitiativ (registreringar fram till 31 juli 2026)",
+      "da": "Historisk grundlæggerinitiativ (registreringer indtil 31. juli 2026)"
     },
     "body.7.body": {
-      "sv": "De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis. [Ladda ner FitMesh och prova gratis](/sv#download).",
-      "da": "De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis. [Download FitMesh og prøv gratis](/da#download)."
+      "sv": "Rätten till grundarstatus var begränsad till de första 1 000 kontona som registrerades senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen. Nya anmälningar är stängda och de som redan fått grundarstatus behåller sina förmåner. Konton som skapats från och med den 1 augusti 2026 får en 14 dagars gratis Pro-provperiod, följt av ett abonnemang eller engångsköp. De fullständiga historiska villkoren finns dokumenterade på sidan [Founder](/sv/beta).",
+      "da": "Berettigelse til grundlæggerstatus var begrænset til de første 1.000 konti, der blev registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding. Nye tilmeldinger er lukkede, og de, der allerede har opnået grundlæggerstatus, beholder deres fordele. Konti oprettet fra den 1. august 2026 modtager en 14-dages gratis Pro-prøveperiode, efterfulgt af et abonnement eller engangskøb. De fulde historiske betingelser findes dokumenteret på siden [Founder](/da/beta)."
     },
     "body.8.text": {
-      "sv": "iPhone-versionen släpps om några dagar",
-      "da": "iPhone-versionen kommer om et par dage"
+      "sv": "iPhone-appen är redan tillgänglig",
+      "da": "iPhone-appen er allerede tilgængelig"
     },
     "body.9.text": {
       "sv": "FitMesh Sync finns nu även på iPhone: iOS-versionen är live på App Store, inklusive alla 27 EU-länder. Läs mer om lanseringen här: [FitMesh Sync kommer till iPhone](/en/blog/fitmesh-arriva-su-iphone).",
       "da": "FitMesh Sync findes nu også til iPhone: iOS-versionen er live på App Store, inklusive alle 27 EU-lande. Læs mere om lanceringen her: [FitMesh Sync kommer til iPhone](/en/blog/fitmesh-arriva-su-iphone)."
-    },
-    "body.10.title": {
-      "sv": "Ladda ner den nu på Google Play",
-      "da": "Download den nu på Google Play"
-    },
-    "body.10.body": {
-      "sv": "Koppla ihop din klocka och din ring, skapa ett konto och få en samlad översikt över din dag på ett och samma ställe. Det tar bara några minuter.",
-      "da": "Forbind dit ur og din ring, opret en konto, og se din dag samlet ét sted. Det tager kun et par minutter."
-    },
-    "body.10.ctaLabel": {
-      "sv": "Köp den på Google Play",
-      "da": "Få det her Google Play"
     },
     "faq.0.q": {
       "sv": "Hur mycket kostar FitMesh Sync?",
       "da": "Hvor meget koster FitMesh Sync?"
     },
     "faq.0.a": {
-      "sv": "Du kan testa alla Pro-funktioner gratis i 14 dagar. Därefter väljer du mellan ett lättabonnemang var sjätte månad eller en livstidslicens till lanseringspris. De första 1 000 grundarna, bland de konton som registrerats senast den 31 juli 2026 med en verklig första synkronisering inom 14 dagar efter registreringen, fick livstids-Pro gratis.",
-      "da": "Du kan prøve alle Pro-funktionerne gratis i 14 dage. Derefter kan du vælge mellem et let abonnement hvert halve år eller en livstidsadgang til lanceringsprisen. De første 1.000 grundlæggere, blandt de konti, der er registreret senest den 31. juli 2026 med en reel første synkronisering inden for 14 dage efter tilmelding, fik livstids-Pro gratis."
+      "sv": "Du kan testa alla Pro-funktioner gratis i 14 dagar. Därefter väljer du mellan ett halvårsabonnemang eller en engångslicens för livstid. (Den historiska grundarkampanjen var begränsad till högst 1 000 konton som registrerades senast 31 juli 2026 med en första synkronisering inom 14 dagar; anmälningar är stängda).",
+      "da": "Du kan prøve alle Pro-funktionerne gratis i 14 dage. Derefter kan du vælge mellem et halvårligt abonnement eller et engangskøb på livstid. (Den historiske grundlæggerkampagne var begrænset til højst 1.000 konti registreret senest 31. juli 2026 med en første synkronisering inden for 14 dage; tilmeldinger er lukkede)."
     },
     "faq.1.q": {
       "sv": "Vilka enheter är kompatibla?",
       "da": "Hvilke enheder er kompatible?"
     },
     "faq.1.a": {
-      "sv": "Alla enheter som är kompatibla med Health Connect på Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, smarta ringar och många fler. För Samsung Galaxy Watch finns det även en direktlänk till Samsung Health.",
-      "da": "Alle enheder, der fungerer med Health Connect på Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, smartringe og mange flere. For Samsung Galaxy Watch er der også en direkte forbindelse til Samsung Health."
+      "sv": "Enheter som stöds av Health Connect på Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, smarta ringar och många fler. För Samsung Galaxy Watch finns det även en direktlänk till Samsung Health.",
+      "da": "Enheder, der understøtter Health Connect på Android: Galaxy Watch, Google Pixel Watch, Fitbit, Garmin, Polar, Mi Band, smartringe og mange flere. For Samsung Galaxy Watch er der også en direkte forbindelse til Samsung Health."
     },
     "faq.2.q": {
-      "sv": "När kommer den till iPhone?",
-      "da": "Hvornår kommer den til iPhone?"
+      "sv": "Finns den även för iPhone?",
+      "da": "Er den også tilgængelig til iPhone?"
     },
     "faq.2.a": {
-      "sv": "iOS-versionen släpps inom några dagar. Grundarna fick förtur till den första iPhone-versionen.",
-      "da": "iOS-versionen kommer inden for få dage. Grundlæggerne fik fortrinsret til den første iPhone-version."
+      "sv": "Ja: iOS-appen finns tillgänglig på App Store, inklusive alla EU-länder. De som erhöll grundarstatus under den initiala lanseringsfasen behåller sina livstids Pro-förmåner även på iPhone.",
+      "da": "Ja: iOS-appen er tilgængelig i App Store, inklusive alle EU-lande. De, der opnåede grundlæggerstatus i den oprindelige lanceringsfase, beholder deres livstids Pro-fordele også på iPhone."
     },
     "faq.3.q": {
       "sv": "Var lagras mina uppgifter?",
       "da": "Hvor gemmes mine data?"
     },
     "faq.3.a": {
-      "sv": "På servrar i Europa, som endast du har tillgång till via ditt konto. Uppgifterna säljs eller delas aldrig med tredje part, och du kan radera dem när du vill.",
-      "da": "På servere i Europa, som kun du har adgang til via din konto. De sælges eller videregives aldrig til tredjeparter, og du kan slette dem, når du vil."
+      "sv": "Information om lagring, säkerhet och kontohantering finns i vår [integritetspolicy](/en/privacy), där även processen för att begära radering av data beskrivs.",
+      "da": "Oplysninger om opbevaring, sikkerhed og kontoadministration findes i vores [privatlivspolitik](/en/privacy), hvor processen for at anmode om sletning af data også er beskrevet."
     },
     "secondaryKeywords": {
       "sv": [
@@ -7129,16 +7117,16 @@
     },
     "tldr": {
       "sv": [
-        "FitMesh Sync finns nu tillgängligt på Google Play för alla Android-telefoner.",
+        "FitMesh Sync finns nu tillgängligt på Google Play för kompatibla Android-telefoner.",
         "Samla din klocka, ring och andra enheter på en och samma översiktssida, utan att behöva växla mellan olika appar.",
-        "Dina uppgifter lagras på servrar i Europa, utan reklam och utan vidareförsäljning till tredje part.",
-        "Första 1 000 kontona (registrerade senast 2026-07-31, verklig första synk inom 14 dagar): livstids-Pro gratis. iPhone-versionen släpps om några dagar."
+        "Information om hantering, lagring och radering av data finns i vår integritetspolicy.",
+        "Rätten till grundarstatus var begränsad till de första 1 000 kontona som registrerades senast 31 juli 2026 med en första synkronisering inom 14 dagar (anmälningar stängda). Appen finns redan tillgänglig även för iPhone, inklusive alla EU-länder."
       ],
       "da": [
-        "FitMesh Sync er nu tilgængelig på Google Play til alle Android-telefoner.",
+        "FitMesh Sync er nu tilgængelig på Google Play til kompatible Android-telefoner.",
         "Saml dit ur, din ring og andre enheder i ét kontrolpanel, uden at skulle skifte mellem apps.",
-        "Dine data opbevares på servere i Europa, uden reklamer og uden videresalg til tredjeparter.",
-        "Første 1.000 konti (registreret senest 31-07-2026, reel første synk inden for 14 dage): livstids-Pro gratis. iPhone-versionen kommer om et par dage."
+        "Oplysninger om håndtering, opbevaring og sletning af data findes i vores privatlivspolitik.",
+        "Berettigelse til grundlæggerstatus var begrænset til de første 1.000 konti, der blev registreret senest 31. juli 2026 med en første synkronisering inden for 14 dage (tilmeldinger lukkede). Appen er allerede tilgængelig også til iPhone, inklusive alle EU-lande."
       ]
     }
   },
