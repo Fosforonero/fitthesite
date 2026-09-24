@@ -6,6 +6,13 @@ export const post: BlogPost = {
   publishedAt: "2026-09-24",
   updatedAt: "2026-09-24",
   readMinutes: 7,
+  coverAlt: {
+    it: "Smartwatch circolare su un comodino in legno accanto a una lampada accesa con onde astratte sul quadrante",
+    en: "Circular smartwatch resting on a wooden nightstand beside a warm lamp with abstract sleep waves on its display",
+    de: "Runde Smartwatch auf einem Nachttisch aus Holz neben einer warmen Lampe mit dezenten Schlafwellen auf dem Display",
+    fr: "Montre connectée circulaire posée sur une table de chevet en bois près d'une lampe allumée avec des ondes abstraites sur l'écran",
+    es: "Smartwatch circular sobre una mesita de noche de madera junto a una lámpara encendida con ondas abstractas en la pantalla",
+  },
   seoTitle: {
     it: "Galaxy Watch, sonno e Health Connect: guida",
     en: "Galaxy Watch Sleep Tracking & Health Connect Guide",

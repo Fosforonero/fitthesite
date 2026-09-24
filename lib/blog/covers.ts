@@ -32,7 +32,8 @@ export type CoverType =
   | "googleHealthSync"
   | "apiMigration"
   | "stepsChart"
-  | "appleHealthConnected";
+  | "appleHealthConnected"
+  | "galaxyWatchSleep";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -107,6 +108,9 @@ export const COVER_FILE: Record<CoverType, string> = {
   // connesso a smartwatch/anello/fascia via linee luminose) — nessun testo,
   // nessun logo Apple, non uno screenshot iOS reale.
   appleHealthConnected: "apple-health-connected-devices.webp",
+  // SPRINT P1.26 (24/09/2026): cover dedicata per sonno Galaxy Watch
+  // (smartwatch circolare su comodino, display con onde luminose astratte)
+  galaxyWatchSleep: "galaxy-watch-sleep-health-connect.webp",
 };
 
 /**
@@ -238,7 +242,7 @@ export const POST_COVER: Record<string, CoverType> = {
   // commento su appleHealthConnected in COVER_FILE sopra.
   "nuova-apple-health-rende-inutili-altre-app": "appleHealthConnected",
   // SPRINT P1.26 (24/09/2026): guida Galaxy Watch, sonno e Health Connect
-  "galaxy-watch-sleep-tracking-health-connect": "sleep",
+  "galaxy-watch-sleep-tracking-health-connect": "galaxyWatchSleep",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */
