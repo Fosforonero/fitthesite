@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { BLOG_POSTS } from "./data";
 import { isBlogVariantIndexable, isPostLocaleComplete } from "./indexability";
 import { filterBlogContentForLocale } from "./locale-filter";
+import type { BlogPost, BlogQA } from "./types";
 
 /**
  * P1.3M — test di regressione FOCALIZZATO su `health-connect-vs-samsung-health`
@@ -46,6 +47,37 @@ describe("health-connect-vs-samsung-health: regressione locale P1.3M", () => {
       for (const f of visibleFaq) {
         expect((f.q as Record<string, string | undefined>)[lc]).toBeDefined();
         expect((f.a as Record<string, string | undefined>)[lc]).toBeDefined();
+      }
+    }
+  });
+});
+
+describe("fitmesh-sync-disponibile-google-play: assenza markdown nelle FAQ (P1.25-A)", () => {
+  const rawPost = BLOG_POSTS.find((p) => p.slug === "fitmesh-sync-disponibile-google-play");
+
+  it("nessuna FAQ (domanda o risposta) contiene sintassi markdown di link [testo](url) in nessuna delle 13 lingue indicizzabili", async () => {
+    expect(rawPost).toBeDefined();
+    const nordicOverlay = (await import("./nordic-overlay.json")).default;
+    const { applyNordicOverlay } = await import("./nordic-overlay");
+    const post = JSON.parse(JSON.stringify(rawPost!)) as BlogPost;
+    applyNordicOverlay(post, nordicOverlay as any);
+
+    const indexableLocales = [
+      "it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da",
+    ] as const;
+
+    const markdownLinkPattern = /\[([^\]]+)\]\(([^)]+)\)/;
+
+    for (const lc of indexableLocales) {
+      const visibleFaq = filterBlogContentForLocale(post.faq ?? [], lc);
+      expect(visibleFaq.length, `locale ${lc} deve avere almeno una FAQ`).toBeGreaterThan(0);
+
+      for (const faqItem of visibleFaq) {
+        const q = (faqItem.q as Record<string, string | undefined>)[lc] ?? "";
+        const a = (faqItem.a as Record<string, string | undefined>)[lc] ?? "";
+
+        expect(q, `[${lc}] FAQ domanda non deve contenere markdown link: "${q}"`).not.toMatch(markdownLinkPattern);
+        expect(a, `[${lc}] FAQ risposta non deve contenere markdown link: "${a}"`).not.toMatch(markdownLinkPattern);
       }
     }
   });
