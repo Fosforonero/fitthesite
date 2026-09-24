@@ -27,6 +27,25 @@ class Recorder implements OwnerFilterable<Recorder> {
 const recorder = () => new Recorder();
 
 describe('export-scope: ambito delle righe esportate', () => {
+  it('le tabelle esportate sono esattamente queste dodici (toglierne una restringe il file art. 20)', () => {
+    // Elenco scritto a mano, indipendente dal modulo: gli altri controlli iterano
+    // EXPORT_TABLES e non si accorgerebbero di una tabella tolta.
+    expect([...EXPORT_TABLES]).toEqual([
+      'profiles',
+      'privacy_consents',
+      'user_settings',
+      'devices',
+      'fitness_metrics',
+      'workouts',
+      'caregiver_links',
+      'group_members',
+      'b2c_subscriptions',
+      'challenge_participants',
+      'challenge_scores',
+      'user_roles',
+    ]);
+  });
+
   it('ogni tabella esportata ha un proprietario dichiarato, e viceversa', () => {
     expect(Object.keys(EXPORT_OWNER_SCOPE).sort()).toEqual([...EXPORT_TABLES].sort());
   });

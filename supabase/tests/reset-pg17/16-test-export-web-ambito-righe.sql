@@ -20,7 +20,8 @@
 -- prova due cose e una terza fa da controllo:
 --   1. CONTROLLO POSITIVO: senza filtro la sonda VEDE righe altrui (se non le
 --      vedesse, il verde del punto 2 non misurerebbe niente);
---   2. col filtro proprietario, per OGNI attore e OGNI tabella, zero righe altrui;
+--   2. col filtro proprietario, per OGNI attore e OGNI tabella, il risultato e'
+--      esattamente l'insieme delle righe proprie (nessuna propria persa);
 --   3. l'elenco tabella -> colonna proprietario qui sotto deve coincidere con
 --      EXPORT_OWNER_SCOPE (lib/privacy/export-scope.test.ts lo verifica).
 --
@@ -46,7 +47,7 @@ do $$
 declare
   v_passati int := 0;
   a record; v_modo text;
-  v_own text; v_q text; v_tot int; v_alt int;
+  v_own text; v_q text; v_tot int; v_alt int; v_veri int;
   v_visti_admin int; v_visti_gruppo int;
   v_non_misurate text[] := '{}';
   tabelle constant text[][] := array[
@@ -124,7 +125,7 @@ begin
     insert into public.challenge_scores (challenge_id, user_id, score)
       select 'ee300000-0000-4000-8000-000000000001', a2.id, 100 from ex_attori a2 where a2.n in ('frank','gina');
 
-    create temp table ex_res(attore text, tabella text, modo text, totale int, altrui int, errore text);
+    create temp table ex_res(attore text, tabella text, modo text, totale int, altrui int, veri int, errore text);
 
     -- ── la sonda: la stessa query del client, come `authenticated` con il JWT dell'attore ──
     for a in select * from ex_attori order by n loop
@@ -134,6 +135,8 @@ begin
             format('(%1$s = %3$L::uuid or %2$s = %3$L::uuid)',
                    split_part(tabelle[i][2], '|', 1), split_part(tabelle[i][2], '|', 2), a.id)
           else format('%s = %L::uuid', tabelle[i][2], a.id) end;
+        -- la VERITA': quante righe sono davvero dell'attore, lette senza RLS (come superutente)
+        execute format('select count(*) from public.%I where %s', tabelle[i][1], v_own) into v_veri;
         foreach v_modo in array array['senza_filtro','con_filtro_proprietario'] loop
           v_q := format('select count(*), count(*) filter (where not (%s)) from public.%I %s',
                         v_own, tabelle[i][1],
@@ -144,9 +147,9 @@ begin
                                json_build_object('sub', a.id, 'role', 'authenticated')::text, true);
             execute v_q into v_tot, v_alt;
             execute 'reset role';
-            insert into ex_res values (a.n, tabelle[i][1], v_modo, v_tot, v_alt, null);
+            insert into ex_res values (a.n, tabelle[i][1], v_modo, v_tot, v_alt, v_veri, null);
           exception when others then
-            insert into ex_res values (a.n, tabelle[i][1], v_modo, -1, 0, sqlstate || ': ' || sqlerrm);
+            insert into ex_res values (a.n, tabelle[i][1], v_modo, -1, 0, v_veri, sqlstate || ': ' || sqlerrm);
           end;
         end loop;
       end loop;
@@ -175,15 +178,21 @@ begin
     v_passati := v_passati + 1;
     raise notice '2a PASSA  alice e zed (nessuna relazione) non vedono righe altrui, nemmeno senza filtro';
 
-    -- ── 2b. col filtro proprietario: zero righe altrui, ovunque ─────────────
-    if exists (select 1 from ex_res where modo = 'con_filtro_proprietario' and altrui > 0) then
-      raise exception '2b FALLISCE  col filtro proprietario restano righe altrui: %',
-        (select string_agg(attore || '/' || tabella || '=' || altrui, ', ')
-           from ex_res where modo = 'con_filtro_proprietario' and altrui > 0);
+    -- ── 2b. col filtro proprietario: esattamente le righe proprie ───────────
+    -- «Nessuna altrui» vale per costruzione del predicato (conta e filtra con la
+    -- stessa condizione): la prova e' il controllo 1, che mostra cosa entra SENZA
+    -- filtro. Qui si prova l'altra meta': col filtro non si perde nessuna riga
+    -- propria, cioe' quanto restituito coincide con la verita' letta senza RLS.
+    if exists (select 1 from ex_res where modo = 'con_filtro_proprietario' and totale <> -1
+                 and (altrui > 0 or totale <> veri)) then
+      raise exception '2b FALLISCE  col filtro proprietario il risultato non coincide con le righe proprie: %',
+        (select string_agg(attore || '/' || tabella || ' restituite=' || totale || ' proprie=' || veri || ' altrui=' || altrui, ', ')
+           from ex_res where modo = 'con_filtro_proprietario' and totale <> -1 and (altrui > 0 or totale <> veri));
     end if;
     v_passati := v_passati + 1;
-    raise notice '2b PASSA  col filtro proprietario: zero righe altrui su % combinazioni attore x tabella',
-      (select count(*) from ex_res where modo = 'con_filtro_proprietario');
+    raise notice '2b PASSA  col filtro proprietario: restituite esattamente le righe proprie su % combinazioni attore x tabella (% con almeno una riga)',
+      (select count(*) from ex_res where modo = 'con_filtro_proprietario' and totale <> -1),
+      (select count(*) from ex_res where modo = 'con_filtro_proprietario' and totale > 0);
 
     -- ── 2c. nessun errore, salvo la ricorsione nota sulle due tabelle delle sfide ──
     if exists (select 1 from ex_res where totale = -1
