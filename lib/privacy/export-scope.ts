@@ -57,12 +57,17 @@
  *    non fa parte dei dati forniti o generati dall'utente per la portabilita'.
  *
  * 6. Identificativi controparte in `caregiver_links` (`caregiver_id`, `subject_id`):
- *    Un legame di cura coinvolge due soggetti distinti. L'utente ha diritto
- *    a conoscere le deleghe attive, le date e i permessi conferiti (`permissions`,
- *    `granted_at`, `expires_at`, `revoked_at`). L'inclusione o l'esclusione
- *    dell'UUID in chiaro della controparte richiede approvazione esplicita per
- *    bilanciare la verificabilita' della relazione con la tutela dei dati di terzi
- *    (art. 20 c. 4 GDPR).
+ *    ESCLUSI DALL'EXPORT FINALE (OPZIONE B, GDPR ART. 20 C. 4).
+ *    Un legame di cura coinvolge due soggetti distinti. L'art. 20 c. 4 GDPR stabilisce
+ *    che il diritto alla portabilita' non deve ledere i diritti e le liberta' altrui.
+ *    L'UUID della controparte (sia esso il caregiver o il soggetto assistito) e' un dato
+ *    personale di terzi che non deve essere esportato in chiaro nel pacchetto JSON.
+ *    In conformita' all'Opzione B:
+ *     - la query Supabase include entrambe le colonne per verificare il ruolo dell'utente
+ *       e per ordinare in modo totale deterministico;
+ *     - prima del bundle finale, `sanitizeCaregiverLink` rimuove `caregiver_id` e
+ *       `subject_id` ed espone unicamente: `relationship_role` ('caregiver' o 'subject'),
+ *       `permissions`, `granted_at`, `expires_at`, `revoked_at`.
  *
  * 7. Segregazione dati biometrici (`fitness_metrics`, `workouts`):
  *    I dati biometrici appartengono ESCLUSIVAMENTE al soggetto (`user_id = userId`).
@@ -275,23 +280,73 @@ export const EXPORT_TABLE_COLUMNS: Record<ExportTable, readonly string[]> = {
 };
 
 /**
- * Colonna di ordinamento deterministico per ciascuna tabella durante la paginazione.
- * Garantisce che i blocchi di paginazione non subiscano salti o duplicazioni.
+ * Colonne di ordinamento totale deterministico per ciascuna tabella durante la paginazione.
+ * L'ordinamento e' basato sulle chiavi primarie (singole o composte), garantendo un ordine
+ * totale matematico senza ambiguita' o pareggi, anche in presenza di timestamp identici.
  */
-export const EXPORT_TABLE_ORDER: Record<ExportTable, string> = {
-  profiles: 'id',
-  privacy_consents: 'user_id',
-  user_settings: 'user_id',
-  devices: 'id',
-  fitness_metrics: 'id',
-  workouts: 'id',
-  caregiver_links: 'granted_at',
-  group_members: 'joined_at',
-  b2c_subscriptions: 'created_at',
-  challenge_participants: 'joined_at',
-  challenge_scores: 'updated_at',
-  user_roles: 'granted_at',
+export const EXPORT_TABLE_ORDER: Record<ExportTable, readonly string[]> = {
+  profiles: ['id'],
+  privacy_consents: ['user_id'],
+  user_settings: ['user_id'],
+  devices: ['id'],
+  fitness_metrics: ['id'],
+  workouts: ['id'],
+  caregiver_links: ['caregiver_id', 'subject_id'],
+  group_members: ['group_id', 'user_id'],
+  b2c_subscriptions: ['user_id'],
+  challenge_participants: ['challenge_id', 'user_id'],
+  challenge_scores: ['challenge_id', 'user_id'],
+  user_roles: ['user_id', 'role'],
 };
+
+export const EXPORT_TABLE_TOTAL_ORDER = EXPORT_TABLE_ORDER;
+
+/**
+ * Calcola la chiave univoca della riga per una tabella a partire dalle sue colonne di ordine totale.
+ * Utilizzato per verificare l'unicita' delle righe ed evitare duplicati o salti durante la paginazione.
+ */
+export function getTableRowKey(table: ExportTable, row: Record<string, unknown>): string {
+  const cols = EXPORT_TABLE_ORDER[table];
+  return cols.map((c) => String(row[c] ?? '')).join(':');
+}
+
+export interface RawCaregiverLink {
+  caregiver_id: string;
+  subject_id: string;
+  permissions?: unknown;
+  granted_at?: string | null;
+  expires_at?: string | null;
+  revoked_at?: string | null;
+  [key: string]: unknown;
+}
+
+export interface SanitizedCaregiverLink {
+  relationship_role: 'caregiver' | 'subject';
+  permissions: unknown;
+  granted_at: string | null;
+  expires_at: string | null;
+  revoked_at: string | null;
+}
+
+/**
+ * Applica l'Opzione B per caregiver_links secondo GDPR Art. 20 c. 4.
+ * Esclude rigorosamente gli UUID della controparte (terzi) dal pacchetto
+ * esportato, preservando il ruolo dell'utente ('caregiver' o 'subject'),
+ * i permessi e le date di conferimento/revoca/scadenza.
+ */
+export function sanitizeCaregiverLink(
+  row: RawCaregiverLink,
+  userId: string,
+): SanitizedCaregiverLink {
+  const isCaregiver = row.caregiver_id === userId;
+  return {
+    relationship_role: isCaregiver ? 'caregiver' : 'subject',
+    permissions: row.permissions ?? null,
+    granted_at: (row.granted_at as string | null) ?? null,
+    expires_at: (row.expires_at as string | null) ?? null,
+    revoked_at: (row.revoked_at as string | null) ?? null,
+  };
+}
 
 /**
  * Restituisce le colonne separate da virgola per la clausola `.select(...)` di PostgREST.

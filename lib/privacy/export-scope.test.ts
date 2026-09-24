@@ -9,6 +9,8 @@ import {
   EXPORT_TABLE_ORDER,
   EXPORT_TABLES,
   getExportColumns,
+  getTableRowKey,
+  sanitizeCaregiverLink,
   scopeToOwner,
   type OwnerFilterable,
 } from './export-scope';
@@ -111,16 +113,84 @@ describe('export-scope: ambito delle righe esportate', () => {
     expect(EXPORT_TABLE_COLUMNS.user_roles).not.toContain('note');
   });
 
-  it('ogni tabella ha una colonna di ordinamento deterministico inclusa nella proiezione', () => {
+  it('ogni tabella ha colonne di ordinamento totale deterministico incluse nella proiezione', () => {
     expect(Object.keys(EXPORT_TABLE_ORDER).sort()).toEqual([...EXPORT_TABLES].sort());
     for (const table of EXPORT_TABLES) {
-      const orderCol = EXPORT_TABLE_ORDER[table];
-      expect(orderCol, `${table} ha un orderCol vuoto`).toBeTruthy();
-      expect(
-        EXPORT_TABLE_COLUMNS[table],
-        `${orderCol} di ${table} deve essere inclusa nelle colonne proiettate`,
-      ).toContain(orderCol);
+      const orderCols = EXPORT_TABLE_ORDER[table];
+      expect(orderCols.length, `${table} ha orderCols vuoto`).toBeGreaterThan(0);
+      for (const col of orderCols) {
+        expect(
+          EXPORT_TABLE_COLUMNS[table],
+          `${col} di ${table} deve essere inclusa nelle colonne proiettate`,
+        ).toContain(col);
+      }
     }
+  });
+
+  it('getTableRowKey calcola chiavi univoche composte da tutte le colonne di ordinamento totale', () => {
+    expect(getTableRowKey('fitness_metrics', { id: 'fm-123', steps: 500 })).toBe('fm-123');
+    expect(
+      getTableRowKey('caregiver_links', {
+        caregiver_id: 'cg-1',
+        subject_id: 'sub-2',
+        permissions: ['read'],
+      }),
+    ).toBe('cg-1:sub-2');
+    expect(
+      getTableRowKey('group_members', {
+        group_id: 'grp-42',
+        user_id: 'usr-99',
+        role: 'member',
+      }),
+    ).toBe('grp-42:usr-99');
+    expect(
+      getTableRowKey('user_roles', {
+        user_id: 'usr-99',
+        role: 'pro',
+      }),
+    ).toBe('usr-99:pro');
+  });
+
+  it('sanitizeCaregiverLink (Opzione B): esclude gli UUID della controparte secondo GDPR Art. 20 c. 4', () => {
+    const rawAsCaregiver = {
+      caregiver_id: UID,
+      subject_id: '20000000-0000-4000-8000-000000000099',
+      permissions: ['read_metrics', 'receive_alerts'],
+      granted_at: '2026-01-01T00:00:00Z',
+      expires_at: '2027-01-01T00:00:00Z',
+      revoked_at: null,
+    };
+    const sanitizedAsCaregiver = sanitizeCaregiverLink(rawAsCaregiver, UID);
+    expect(sanitizedAsCaregiver).toEqual({
+      relationship_role: 'caregiver',
+      permissions: ['read_metrics', 'receive_alerts'],
+      granted_at: '2026-01-01T00:00:00Z',
+      expires_at: '2027-01-01T00:00:00Z',
+      revoked_at: null,
+    });
+    // Nessun UUID di terzi nel risultato
+    expect(JSON.stringify(sanitizedAsCaregiver)).not.toContain('20000000-0000-4000-8000-000000000099');
+    expect(JSON.stringify(sanitizedAsCaregiver)).not.toContain(UID);
+
+    const rawAsSubject = {
+      caregiver_id: '30000000-0000-4000-8000-000000000077',
+      subject_id: UID,
+      permissions: ['read_metrics'],
+      granted_at: '2026-02-01T00:00:00Z',
+      expires_at: null,
+      revoked_at: '2026-03-01T00:00:00Z',
+    };
+    const sanitizedAsSubject = sanitizeCaregiverLink(rawAsSubject, UID);
+    expect(sanitizedAsSubject).toEqual({
+      relationship_role: 'subject',
+      permissions: ['read_metrics'],
+      granted_at: '2026-02-01T00:00:00Z',
+      expires_at: null,
+      revoked_at: '2026-03-01T00:00:00Z',
+    });
+    // Nessun UUID di terzi nel risultato
+    expect(JSON.stringify(sanitizedAsSubject)).not.toContain('30000000-0000-4000-8000-000000000077');
+    expect(JSON.stringify(sanitizedAsSubject)).not.toContain(UID);
   });
 
   it('scoping caregiver vs dati sanitari: solo caregiver_links usa anyOf, fitness_metrics e workouts restano ancorati a user_id', () => {
