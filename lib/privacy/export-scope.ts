@@ -12,11 +12,14 @@
  *  - un membro di un gruppo legge le righe `fitness_metrics` dei co-membri (la
  *    condivisione e' per riga: colonne di glicemia e pressione comprese) e le
  *    loro `group_members` (`share_settings`, `display_name`);
- *  - un co-partecipante a una sfida legge partecipazioni e punteggi altrui.
+ *  - le policy delle sfide consentono a un co-partecipante di leggere
+ *    partecipazioni e punteggi altrui (dal testo delle migration; NON misurato
+ *    a runtime: nel database ricostruito rispondono con «infinite recursion»).
  * Un `select('*')` senza filtro consegna tutto questo dentro un file che si
  * presenta come «i tuoi dati» (GDPR art. 15/20) e che l'utente puo' inoltrare.
  *
- * Verificato con dati sintetici su un PG17 ricostruito dalle migration:
+ * Verificato con dati sintetici su un PG17 ricostruito dalle migration (admin e
+ * membri di gruppo; caregiver e sfide non riproducibili li'):
  * supabase/tests/reset-pg17/16-test-export-web-ambito-righe.sql.
  *
  * L'export nell'app Flutter filtra gia' per `user_id`
