@@ -156,6 +156,9 @@ export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   // meccanismo — sourcing puntuale su fonti Apple/HealthKit in inglese,
   // non ancora esteso alle altre locale.
   "nuova-apple-health-rende-inutili-altre-app",
+  // SPRINT P1.26 (24/09/2026): pubblicazione iniziale it/en/de/fr/es,
+  // redirect 307 verso /en/ per le restanti 10 lingue incomplete.
+  "galaxy-watch-sleep-tracking-health-connect",
 ]);
 
 /**

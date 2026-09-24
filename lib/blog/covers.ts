@@ -237,6 +237,8 @@ export const POST_COVER: Record<string, CoverType> = {
   // SPRINT P1.21 (11/09/2026): cover dedicata consegnata da Matteo, vedi
   // commento su appleHealthConnected in COVER_FILE sopra.
   "nuova-apple-health-rende-inutili-altre-app": "appleHealthConnected",
+  // SPRINT P1.26 (24/09/2026): guida Galaxy Watch, sonno e Health Connect
+  "galaxy-watch-sleep-tracking-health-connect": "sleep",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */
