@@ -262,7 +262,12 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // statica: la baseline era rimasta indietro di una pagina, non un
 // regresso di questo sprint (verificato: `git diff origin/main --name-status`
 // di questo sprint non aggiunge ne' rimuove nessun page.tsx/route.ts).
-const DYNAMIC_ROUTES_BASELINE = 59;
+// 59 -> 60 (24/09/2026, WEB-DASHBOARD-FOUNDATION, di proposito): nuova
+// /[locale]/app/dashboard, force-dynamic per costruzione (dati di un utente,
+// verdetto chiesto a ogni richiesta). Risponde 404 finche'
+// FITMESH_WEB_DASHBOARD non vale 1. Verificato col build: nessun HTML
+// prerenderizzato per /*/app/dashboard.
+const DYNAMIC_ROUTES_BASELINE = 60;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {
