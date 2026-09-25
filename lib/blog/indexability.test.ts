@@ -227,11 +227,20 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     expect(str).toContain('"integrazione diretta fitmesh"');
     expect(str).toContain('"direct fitmesh integration"');
     expect(str).toContain('"non supportata direttamente"');
-    expect(str).toContain('"not directly supported"');
+    // 5. Assenza assoluto "non supporta la scrittura diretta" (distinzione percorso ufficiale non documentato vs no direct fitmesh)
+    expect(str).not.toContain("non supporta la scrittura diretta");
+    expect(str).not.toContain("does not support direct writing");
+    expect(str).not.toContain("no admite la escritura directa");
+    expect(str).not.toContain("unterstützt kein direktes schreiben");
+    expect(str).not.toContain("não suporta a escrita direta");
+    expect(str).not.toContain("ne prend pas en charge l'écriture directe");
+    expect(str).not.toContain("nie obsługuje bezpośredniego zapisu");
   });
 
   it("nordic overlay per i 3 post non re-introduce claim non verificati in SV/DA", async () => {
     const nordicOverlay = (await import("./nordic-overlay.json")).default as Record<string, Record<string, any>>;
+    const { applyNordicOverlay } = await import("./nordic-overlay");
+    const { locales } = await import("@/lib/i18n");
 
     for (const slug of ["guida-sync-wearable-2026", "colmi-ring-fitmesh", "huawei-health-health-connect-sincronizzazione"]) {
       const entry = nordicOverlay[slug];
@@ -256,6 +265,44 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
       expect(str).not.toContain("amerikanske sanktioner");
       expect(str).not.toContain("strukturell begränsning i hms");
       expect(str).not.toContain("strukturel begrænsning i hms");
+      expect(str).not.toContain("huawei health stöder inte direkt skrivning");
+      expect(str).not.toContain("huawei health understøtter ikke direkte skrivning");
+      expect(str).not.toContain("huawei health skriver inte direkt");
+      expect(str).not.toContain("huawei health skriver ikke direkte");
+
+      // Verifica HTML/FAQPage e structured data su tutte le varianti indicizzabili (incluso overlay)
+      const rawPost = BLOG_POSTS.find((p) => p.slug === slug);
+      expect(rawPost).toBeDefined();
+      const postWithOverlay = JSON.parse(JSON.stringify(rawPost!)) as BlogPost;
+      applyNordicOverlay(postWithOverlay, nordicOverlay as any);
+
+      for (const lc of locales) {
+        if (!isBlogVariantIndexable(postWithOverlay, lc)) continue;
+        const visibleFaq = filterBlogContentForLocale(postWithOverlay.faq ?? [], lc);
+        if (visibleFaq.length > 0) {
+          const faqPageLd = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: visibleFaq.map((f) => ({
+              "@type": "Question",
+              name: (f.q as Record<string, string | undefined>)[lc] ?? "",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: (f.a as Record<string, string | undefined>)[lc] ?? "",
+              },
+            })),
+          };
+          expect(faqPageLd.mainEntity.length).toBeGreaterThan(0);
+          for (const item of faqPageLd.mainEntity) {
+            expect(item.name.trim().length).toBeGreaterThan(0);
+            expect(item.acceptedAnswer.text.trim().length).toBeGreaterThan(0);
+            const itemStr = (item.name + " " + item.acceptedAnswer.text).toLowerCase();
+            expect(itemStr).not.toContain("non supporta la scrittura diretta");
+            expect(itemStr).not.toContain("hanno ottenuto il pro a vita");
+            expect(itemStr).not.toContain("ottengono il pro a vita");
+          }
+        }
+      }
     }
 
     const hwEntry = JSON.stringify(nordicOverlay["huawei-health-health-connect-sincronizzazione"]).toLowerCase();
