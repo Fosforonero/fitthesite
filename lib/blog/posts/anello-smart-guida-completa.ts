@@ -25,6 +25,8 @@ export const post: BlogPost = {
     nl: "Slimme ring met zichtbare interne sensoren naast een smartphone",
     ja: "スマートフォンの横に置かれた、内側センサーが見えるスマートリング",
     ko: "스마트폰 옆에 놓인 안쪽 센서가 보이는 스마트 링",
+    sv: "Smart ring med synliga inre sensorer bredvid en smartphone",
+    da: "Smart ring med synlige indre sensorer ved siden af en smartphone",
   },
   hero: {
     kicker: {

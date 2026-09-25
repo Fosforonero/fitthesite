@@ -25,6 +25,8 @@ export const post: BlogPost = {
     nl: "Drie slimme ringen in verschillende kleuren op een licht stenen oppervlak",
     ja: "明るい石の表面に置かれた異なる色の3つのスマートリング",
     ko: "밝은 석재 표면 위에 놓인 서로 다른 색상의 스마트 링 3개",
+    sv: "Tre smarta ringar i olika färger på en ljus stenyta",
+    da: "Tre smart rings i forskellige farver på en lys stenoverflade",
   },
   hero: {
     kicker: {
