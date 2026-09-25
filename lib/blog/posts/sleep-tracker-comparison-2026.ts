@@ -18,6 +18,8 @@ export const post: BlogPost = {
     nl: "Slimme ring en smartwatch op een nachtkastje naast een bed",
     ja: "ベッド脇のナイトテーブルに置かれたスマートリングとスマートウォッチ",
     ko: "침대 옆 협탁 위에 놓인 스마트 링과 스마트워치",
+    sv: "Smart ring och smartklocka på ett sängbord bredvid en säng",
+    da: "Smart ring og smartwatch på et natbord ved siden af en seng",
   },
   hero: {
     kicker: {

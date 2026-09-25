@@ -83,7 +83,7 @@ describe("fitmesh-sync-disponibile-google-play: assenza markdown nelle FAQ (P1.2
   });
 });
 
-describe("diversificazione cover P1.26-IMG-A: alt text dedicato per le 6 nuove cover", () => {
+describe("diversificazione cover P1.26-IMG-A/B: alt text dedicato per le 6 nuove cover (incluso overlay nordico)", () => {
   const targetSlugs = [
     "anello-smart-guida-completa",
     "migliori-anelli-economici",
@@ -93,22 +93,27 @@ describe("diversificazione cover P1.26-IMG-A: alt text dedicato per le 6 nuove c
     "piu-smartwatch-insieme-dati-doppi",
   ] as const;
 
-  it("ogni variante indicizzabile dei 6 post ha un coverAlt esplicito che non ricade sull'H1 (hero.title)", async () => {
+  it("ogni variante indicizzabile dei 6 post (56 complessive con overlay nordico) ha un coverAlt esplicito che non ricade sull'H1 (hero.title)", async () => {
     const { coverAlt } = await import("./covers");
     const { tl } = await import("./types");
     const { locales } = await import("@/lib/i18n");
+    const nordicOverlay = (await import("./nordic-overlay.json")).default;
+    const { applyNordicOverlay } = await import("./nordic-overlay");
 
     let totalCheckedVariants = 0;
 
     for (const slug of targetSlugs) {
-      const post = BLOG_POSTS.find((p) => p.slug === slug);
-      expect(post, `post ${slug} deve esistere in BLOG_POSTS`).toBeDefined();
+      const rawPost = BLOG_POSTS.find((p) => p.slug === slug);
+      expect(rawPost, `post ${slug} deve esistere in BLOG_POSTS`).toBeDefined();
+
+      const post = JSON.parse(JSON.stringify(rawPost!)) as BlogPost;
+      applyNordicOverlay(post, nordicOverlay as any);
 
       for (const lc of locales) {
-        if (!isBlogVariantIndexable(post!, lc)) continue;
+        if (!isBlogVariantIndexable(post, lc)) continue;
 
         totalCheckedVariants++;
-        const explicitAlt = post!.coverAlt?.[lc];
+        const explicitAlt = post.coverAlt?.[lc];
         expect(
           explicitAlt,
           `[${slug}][${lc}] coverAlt esplicito mancante per variante indicizzabile`,
@@ -118,8 +123,8 @@ describe("diversificazione cover P1.26-IMG-A: alt text dedicato per le 6 nuove c
           `[${slug}][${lc}] coverAlt non deve essere vuoto`,
         ).toBeGreaterThan(0);
 
-        const renderedAlt = coverAlt(post!, lc);
-        const h1 = tl(post!.hero.title, lc);
+        const renderedAlt = coverAlt(post, lc);
+        const h1 = tl(post.hero.title, lc);
 
         expect(
           renderedAlt,
@@ -129,7 +134,7 @@ describe("diversificazione cover P1.26-IMG-A: alt text dedicato per le 6 nuove c
       }
     }
 
-    // 4 post con 11 varianti indicizzabili (44) + 2 post con 2 varianti indicizzabili (4) = 48
-    expect(totalCheckedVariants).toBe(48);
+    // 4 post con 13 varianti indicizzabili (52) + 2 post con 2 varianti indicizzabili (4) = 56
+    expect(totalCheckedVariants).toBe(56);
   });
 });

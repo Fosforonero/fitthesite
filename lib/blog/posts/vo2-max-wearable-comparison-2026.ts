@@ -18,6 +18,8 @@ export const post: BlogPost = {
     nl: "Twee smartwatches naast een atletiekbaan met gestileerde lichtlijnen",
     ja: "スタイライズされた光のラインとともにランニングトラックの脇に置かれた2つのスマートウォッチ",
     ko: "양식화된 빛의 선과 함께 달리기 트랙 옆에 놓인 두 개의 스마트워치",
+    sv: "Två smartklockor bredvid en löparbana med stiliserade ljuslinjer",
+    da: "To smartwatches ved siden af en løbebane med stiliserede lyslinjer",
   },
   hero: {
     kicker: {

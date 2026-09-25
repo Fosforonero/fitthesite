@@ -26,11 +26,12 @@ were generated at 1672 x 941, visually inspected, then converted with a
 center crop to 1200 x 675 WebP at quality 80 with metadata stripped.
 
 The existing cover map is the single source for the visible image and the
-`BlogPosting.image` URL. In P1.26-IMG-A, alternative text was completed for all
-indexable locales across all six posts:
-- 4 posts with 11 indexable locales (`anello-smart-guida-completa`, `migliori-anelli-economici`, `sleep-tracker-comparison-2026`, `vo2-max-wearable-comparison-2026`) have explicit alt text across all 11 locales (it, en, es, de, pt, fr, pl, tr, nl, ja, ko), totaling 36 newly added translations.
+`BlogPosting.image` URL. In P1.26-IMG-A and P1.26-IMG-B, alternative text was completed for all
+indexable locales across all six posts, accounting for the nordic overlay:
+- 4 posts with 13 indexable locales (`anello-smart-guida-completa`, `migliori-anelli-economici`, `sleep-tracker-comparison-2026`, `vo2-max-wearable-comparison-2026`) have explicit alt text across all 13 indexable locales (it, en, es, de, pt, fr, pl, tr, nl, ja, ko, sv, da). In P1.26-IMG-B, the 8 missing SV and DA alternative texts were added. NO and FI remain excluded (noindex/incomplete content).
 - 2 posts with 2 indexable locales (`anello-vs-smartwatch`, `piu-smartwatch-insieme-dati-doppi`) have explicit alt text in it and en.
-Review classification: `AGENT_EDITORIALLY_REVIEWED` (not NATIVE_REVIEWED). The sitewide
+- Total indexable variants across the six posts: 56 (4 x 13 + 2 x 2).
+Review classification: `AGENT_EDITORIALLY_REVIEWED` (not NATIVE_REVIEWED). JA/KO and SV/DA texts are agent-reviewed translations describing the visual scene; a subsequent editorial quality pass is planned for the body copy of older localized pillars. The sitewide
 `opengraph-image.tsx` template still generates generic social cards; it was
 not changed in this image-only batch. No additional image sitemap or schema
 type was added, since the images are already in HTML and `BlogPosting`.
@@ -39,7 +40,7 @@ Validation: visual inspection of all six crops; each asset is a simple VP8
 WebP, one frame, no alpha or extended metadata, 1200 x 675; the existing
 cover-map guardrail passed with 70 explicit post mappings, 31 present image
 files, and no byte-identical duplicates. Automated test in `lib/blog/indexability.test.ts`
-verifies that every indexable variant of these six posts has an explicit `coverAlt`
-that never falls back to the H1 (`hero.title`). Typecheck, governance, suite
-perimeter and a clean production build passed. Live HTTP checks
+applies the nordic overlay to post clones and verifies that every one of the 56
+indexable variants has an explicit `coverAlt` that never falls back to the H1 (`hero.title`).
+Typecheck, governance, suite perimeter and a clean production build passed. Live HTTP checks
 remain pending until a separately authorized release.
