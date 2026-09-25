@@ -3,8 +3,8 @@ import type { BlogPost } from "../types";
 export const post: BlogPost = {
   slug: "galaxy-watch-sleep-tracking-health-connect",
   category: "guides",
-  publishedAt: "2026-09-24",
-  updatedAt: "2026-09-24",
+  publishedAt: "2026-09-25",
+  updatedAt: "2026-09-25",
   readMinutes: 7,
   coverAlt: {
     it: "Smartwatch circolare su un comodino in legno accanto a una lampada accesa con onde astratte sul quadrante",
