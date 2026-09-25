@@ -5440,8 +5440,8 @@
       "da": "Hvorfor kan nogle apps ikke se mine data, selvom Health Connect virker?"
     },
     "faq.4.a": {
-      "sv": "Det finns tre vanliga orsaker. För det första: appen har inte behörighet för just den datatypen (kontrollera i Health Connect → Appbehörigheter). För det andra: Samsung Health (eller tillhörande app) skriver inte till Health Connect för den datan (kontrollera inställningarna i Samsung Health → Inställningar → Health Connect). För det tredje: de data du letar efter är historiska och är äldre än behörigheten. Health Connect synkroniserar inte tidigare data retroaktivt.",
-      "da": "Der er tre almindelige årsager. For det første: Appen har ikke tilladelse til den pågældende datatype (tjek under Health Connect → App-tilladelser). For det andet: Samsung Health (eller ledsagerappen) skriver ikke til Health Connect for disse data (kontroller indstillingerne i Samsung Health → Indstillinger → Health Connect). For det tredje: De data, du leder efter, er historiske og stammer fra før godkendelsen. Health Connect synkroniserer ikke tidligere data med tilbagevirkende kraft."
+      "sv": "Det finns tre vanliga orsaker. För det första: appen saknar behörighet för den specifika datatypen (kontrollera i Health Connect → Appbehörigheter). För det andra: den tillhörande appen skriver inte dessa data till Health Connect (kontrollera inställningarna i Samsung Health → Inställningar → Health Connect). För det tredje: de eftersökta uppgifterna är äldre än 30 dagar före det första godkännandet, eller så förde källappen inte över sin tidigare historik till Health Connect.",
+      "da": "Der er tre almindelige årsager. For det første: Appen mangler tilladelse til den pågældende datatype (tjek under Health Connect → App-tilladelser). For det andet: Ledsagerappen overfører ikke disse data til Health Connect (kontroller indstillingerne i Samsung Health → Indstillinger → Health Connect). For det tredje: De søgte data er ældre end 30 dage før den første godkendelse, eller kildeappen har ikke overført sin tidligere historik til Health Connect."
     },
     "secondaryKeywords": {
       "sv": [
@@ -5463,15 +5463,15 @@
       "sv": [
         "Health Connect är en lokal databas på enheten: uppgifterna skickas inte vidare till Google via HC i sig. Integriteten beror på de appar som läser data från HC.",
         "Det vanliga flödet är: Watch-sensorer → mobilappen (Samsung Health, Fitbit) → Health Connect → appar från tredje part. Varje steg kräver uttryckliga behörigheter.",
-        "Garmin skriver inte direkt till Health Connect: appar som vill ha Garmin-data måste integreras med Garmin Connect API separat.",
-        "Health Connect synkroniseras inte retroaktivt: data som är äldre än godkännandet sparas endast i den ursprungliga kompanjonappen.",
+        "Garmin-integreringen på Android beror på Garmin Connect-appen eller särskilda API:er: inte alla mätvärden synkroniseras automatiskt till Health Connect.",
+        "Health Connect tillåter vanligtvis nyligen godkända appar att läsa data upp till 30 dagar före det första godkännandet (om de registrerats av källan); äldre historik kräver särskilda behörigheter.",
         "Det vanligaste synkroniseringsproblemet beror inte på ett hårdvarufel: det handlar om en saknad behörighet i Health Connect. Kontrollera där först."
       ],
       "da": [
         "Health Connect er en lokal database på enheden: Dataene sendes ikke videre til Google via HC selv. Beskyttelsen af personoplysninger afhænger af de apps, der læser data fra HC.",
         "Den typiske proces er: Ur-sensorer → ledsagerapp (Samsung Health, Fitbit) → Health Connect → tredjepartsapps. Hvert trin kræver udtrykkelige tilladelser.",
-        "Garmin skriver ikke direkte til Health Connect: Apps, der ønsker Garmin-data, skal integreres med Garmin Connect API separat.",
-        "Health Connect synkroniseres ikke med tilbagevirkende kraft: data fra før godkendelsen forbliver kun i den oprindelige ledsagerapp.",
+        "Garmin-integration på Android afhænger af Garmin Connect-appen eller særlige API'er: Ikke alle målinger overføres automatisk til Health Connect.",
+        "Health Connect tillader normalt nye apps at læse data op til 30 dage før den første godkendelse (hvis de er skrevet af kilden); ældre historik kræver særlige tilladelser.",
         "Det mest almindelige synkroniseringsproblem skyldes ikke en hardwarefejl: det er en manglende tilladelse i Health Connect. Tjek det først."
       ]
     },
@@ -5581,17 +5581,17 @@
     },
     "body.19.items": {
       "sv": [
-        "**Synkroniseras inte retroaktivt**: Health Connect kan endast läsa data som har skrivits efter att behörigheten beviljades. Om du godkänner en app idag kommer den inte att kunna se dina steg från för tre år sedan: de finns endast kvar i databasen Samsung Health (eller Fitbit, osv.).",
+        "**Standardmässigt historiskt fönster på 30 dagar**: Health Connect tillåter nya appar att läsa data upp till 30 dagar före det första godkännandet, förutsatt att tillhörande app har skrivit dem. Äldre data kräver en särskild historikbehörighet.",
         "**Detta är ingen molnbackup**: om du tappar bort din telefon eller återställer den till fabriksinställningarna går data i Health Connect förlorade. Säkerhetskopieringen beror på vilken app som har lagrat data (t.ex. har Samsung Health en egen separat molnbackup).",
         "**Inga visualiseringar**: inga diagram, inga trender, inga veckorapporter. För att visualisera data behöver du appar från tredje part som hämtar data från HC.",
-        "**Stöder inte alla märken på samma sätt**: Garmin, Polar (via app), Suunto och vissa andra skriver inte direkt till Health Connect. Deras åtkomstpunkt är ett separat OAuth-API som varje app måste integrera separat.",
+        "**Varierande tillverkarstöd**: varumärken som Garmin eller Polar beror på inställningarna i sin tillhörande app eller externa API:er, och vissa mätvärden exporteras inte till Health Connect.",
         "**Ersätter inte mobilappen**: du kan inte enbart använda Health Connect för att hålla synkroniseringen med klockan igång. Samsung Health (eller Fitbit, eller Galaxy Wearable) måste vara installerad och aktiv."
       ],
       "da": [
-        "**Synkroniserer ikke tilbagevirkende**: Health Connect kan kun læse data, der er gemt efter, at tilladelsen blev givet. Hvis du giver en app tilladelse i dag, vil den ikke kunne se dine skridt fra for tre år siden: de findes kun i Samsung Health-databasen (eller Fitbit osv.).",
+        "**Standard 30-dages historisk vindue**: Som standard tillader Health Connect nye apps at læse data op til 30 dage før den første tilladelse, forudsat at ledsagerappen har registreret dem. Ældre data kræver en særskilt historiktilladelse.",
         "**Dette er ikke en cloud-backup**: Hvis du mister din telefon eller nulstiller den til fabriksindstillingerne, går dataene i Health Connect tabt. Backup afhænger af den app, der har gemt dataene (f.eks. har Samsung Health sin egen separate cloud-backup).",
         "**Understøtter ikke visualiseringer**: ingen diagrammer, ingen tendenser, ingen ugentlige oversigter. For at visualisere data skal du bruge tredjepartsapps, der henter data fra HC.",
-        "**Understøtter ikke alle mærker på samme måde**: Garmin, Polar (via app), Suunto og nogle andre kan ikke skrive data direkte til Health Connect. Deres adgangspunkt er et separat OAuth-API, som hver app skal integrere individuelt.",
+        "**Varierende producentunderstøttelse**: Mærker som Garmin eller Polar afhænger af ledsagerappens indstillinger eller eksterne API'er, og visse målinger eksporteres ikke til Health Connect.",
         "**Er ikke en erstatning for ledsagerappen**: Du kan ikke nøjes med at bruge Health Connect for at holde synkroniseringen med uret i gang. Samsung Health (eller Fitbit eller Galaxy Wearable) skal fortsat være installeret og aktiv."
       ]
     },
@@ -5599,27 +5599,27 @@
       "sv": [
         "**Behörighet beviljas inte**: öppna Health Connect → Appbehörigheter → leta reda på den app som inte tar emot data → kontrollera att de relevanta behörighetstyperna är aktiverade för både läsning och skrivning.",
         "**Samsung Health skriver inte till HC**: i Samsung Health → Inställningar → Datahantering → Health Connect, kontrollera att synkronisering är aktiverad och att de datatyper du behöver är markerade.",
-        "**Saknade historiska data**: HC är utformat så att det inte synkroniserar data retroaktivt. Om du just har installerat en app och historiska data saknas kan du överväga att exportera dem manuellt från den ursprungliga tillhörande appen."
+        "**Data äldre än 30 dagar**: standardåtkomst till historik omfattar maximalt 30 dagar före det första godkännandet, under förutsättning att källappen tidigare har skrivit dessa data till Health Connect."
       ],
       "da": [
         "**Tilladelse ikke givet**: Åbn Health Connect → App-tilladelser → find den app, der ikke modtager data → kontroller, at de relevante typer er aktiveret for både læsning og skrivning.",
         "**Samsung Health skriver ikke til HC**: Gå til Samsung Health → Indstillinger → Datahåndtering → Health Connect, og kontroller, at synkronisering er aktiveret, og at de datatyper, du har brug for, er markeret.",
-        "**Manglende historiske data**: HC er udformet således, at den ikke synkroniserer data med tilbagevirkende kraft. Hvis du netop har installeret en app, og der mangler historiske data, kan du overveje at eksportere dem manuelt fra den oprindelige ledsagerapp."
+        "**Data ældre end 30 dage**: Standardadgang til historik dækker maksimalt 30 dage før den første godkendelse, forudsat at kildeappen tidligere har overført disse data til Health Connect."
       ]
     },
     "body.28.items": {
       "sv": [
         "Health Connect är en lokal databas på enheten: uppgifterna skickas inte vidare till Google via HC i sig. Integriteten beror på de appar som läser data från HC, inte på HC i sig.",
         "Det vanliga flödet är: Watch-sensorer → mobilappen (Samsung Health, Fitbit) → Health Connect → appar från tredje part. Varje steg kräver uttryckliga behörigheter.",
-        "Garmin skriver inte direkt till Health Connect: appar som vill ha Garmin-data måste integreras med Garmin Connect API separat.",
-        "Health Connect synkroniseras inte retroaktivt: data som är äldre än godkännandet sparas endast i den ursprungliga kompanjonappen.",
+        "Garmin-integreringen på Android beror på Garmin Connect-appen eller särskilda API:er: inte alla mätvärden synkroniseras automatiskt till Health Connect.",
+        "Åtkomst till historik är som standard begränsad till 30 dagar före det första godkännandet, såvida inte ytterligare historikbehörigheter har beviljats.",
         "Det vanligaste synkroniseringsproblemet beror inte på ett hårdvarufel: det handlar om en saknad behörighet i Health Connect. Kontrollera där först."
       ],
       "da": [
         "Health Connect er en lokal database på enheden: Dataene sendes ikke videre til Google via HC selv. Beskyttelsen af personoplysninger afhænger af de apps, der læser data fra HC, ikke af HC selv.",
         "Den typiske proces er: Ur-sensorer → ledsagerapp (Samsung Health, Fitbit) → Health Connect → tredjepartsapps. Hvert trin kræver udtrykkelige tilladelser.",
-        "Garmin skriver ikke direkte til Health Connect: Apps, der ønsker Garmin-data, skal integreres med Garmin Connect API separat.",
-        "Health Connect synkroniseres ikke med tilbagevirkende kraft: data fra før godkendelsen forbliver kun i den oprindelige ledsagerapp.",
+        "Garmin-integration på Android afhænger af Garmin Connect-appen eller særlige API'er: Ikke alle målinger overføres automatisk til Health Connect.",
+        "Adgang til historik er som standard begrænset til 30 dage før den første tilladelse, medmindre der er givet yderligere historiktilladelser.",
         "Det mest almindelige synkroniseringsproblem skyldes ikke en hardwarefejl: det er en manglende tilladelse i Health Connect. Tjek det først."
       ]
     }
