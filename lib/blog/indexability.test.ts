@@ -235,6 +235,24 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     expect(str).not.toContain("não suporta a escrita direta");
     expect(str).not.toContain("ne prend pas en charge l'écriture directe");
     expect(str).not.toContain("nie obsługuje bezpośredniego zapisu");
+
+    // 6. Assenza "ledger di compatibilità" / "compatibility ledger" dal copy pubblico
+    expect(str).not.toContain("ledger di compatibilità");
+    expect(str).not.toContain("compatibility ledger");
+    expect(str).not.toContain("registro de compatibilidad");
+    expect(str).not.toContain("kompatibilitäts-ledger");
+    expect(str).not.toContain("registo de compatibilidade");
+    expect(str).not.toContain("registre de compatibilité");
+    expect(str).not.toContain("rejestrze zgodności");
+    expect(str).not.toContain("uyumluluk kayıtları");
+    expect(str).not.toContain("compatibiliteitsregister");
+    expect(str).not.toContain("互換性台帳");
+    expect(str).not.toContain("호환성 대장");
+
+    // 7. Presenza fonti verificate con data
+    expect(str).toContain("25 settembre 2026");
+    expect(str).toContain("https://consumer.huawei.com/en/support/");
+    expect(str).toContain("https://developer.android.com/health-and-fitness/health-connect");
   });
 
   it("nordic overlay per i 3 post non re-introduce claim non verificati in SV/DA", async () => {
@@ -312,5 +330,7 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     expect(hwEntry).toContain('"understøttes ikke direkte"');
     expect(hwEntry).not.toContain('"fitmesh stöd (planerat)"');
     expect(hwEntry).not.toContain('"fitmesh support (planlagt)"');
+    expect(hwEntry).not.toContain("kompatibilitetsregistret");
+    expect(hwEntry).not.toContain("ledger");
   });
 });
