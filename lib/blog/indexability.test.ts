@@ -82,3 +82,54 @@ describe("fitmesh-sync-disponibile-google-play: assenza markdown nelle FAQ (P1.2
     }
   });
 });
+
+describe("diversificazione cover P1.26-IMG-A: alt text dedicato per le 6 nuove cover", () => {
+  const targetSlugs = [
+    "anello-smart-guida-completa",
+    "migliori-anelli-economici",
+    "sleep-tracker-comparison-2026",
+    "vo2-max-wearable-comparison-2026",
+    "anello-vs-smartwatch",
+    "piu-smartwatch-insieme-dati-doppi",
+  ] as const;
+
+  it("ogni variante indicizzabile dei 6 post ha un coverAlt esplicito che non ricade sull'H1 (hero.title)", async () => {
+    const { coverAlt } = await import("./covers");
+    const { tl } = await import("./types");
+    const { locales } = await import("@/lib/i18n");
+
+    let totalCheckedVariants = 0;
+
+    for (const slug of targetSlugs) {
+      const post = BLOG_POSTS.find((p) => p.slug === slug);
+      expect(post, `post ${slug} deve esistere in BLOG_POSTS`).toBeDefined();
+
+      for (const lc of locales) {
+        if (!isBlogVariantIndexable(post!, lc)) continue;
+
+        totalCheckedVariants++;
+        const explicitAlt = post!.coverAlt?.[lc];
+        expect(
+          explicitAlt,
+          `[${slug}][${lc}] coverAlt esplicito mancante per variante indicizzabile`,
+        ).toBeDefined();
+        expect(
+          explicitAlt!.trim().length,
+          `[${slug}][${lc}] coverAlt non deve essere vuoto`,
+        ).toBeGreaterThan(0);
+
+        const renderedAlt = coverAlt(post!, lc);
+        const h1 = tl(post!.hero.title, lc);
+
+        expect(
+          renderedAlt,
+          `[${slug}][${lc}] coverAlt (${renderedAlt}) non deve ricadere su H1/hero.title (${h1})`,
+        ).not.toBe(h1);
+        expect(renderedAlt).toBe(explicitAlt);
+      }
+    }
+
+    // 4 post con 11 varianti indicizzabili (44) + 2 post con 2 varianti indicizzabili (4) = 48
+    expect(totalCheckedVariants).toBe(48);
+  });
+});

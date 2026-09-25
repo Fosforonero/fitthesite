@@ -9,6 +9,15 @@ export const post: BlogPost = {
   coverAlt: {
     it: "Anello smart e smartwatch sul comodino accanto a un letto",
     en: "Smart ring and smartwatch on a bedside table beside a bed",
+    es: "Anillo inteligente y smartwatch sobre una mesita de noche junto a una cama",
+    de: "Smarter Ring und Smartwatch auf einem Nachttisch neben einem Bett",
+    pt: "Anel inteligente e smartwatch em uma mesa de cabeceira ao lado da cama",
+    fr: "Bague connectée et montre connectée sur une table de chevet près d'un lit",
+    pl: "Inteligentny pierścień i smartwatch na stoliku nocnym obok łóżka",
+    tr: "Bir yatağın yanındaki komodinin üzerinde akıllı yüzük ve akıllı saat",
+    nl: "Slimme ring en smartwatch op een nachtkastje naast een bed",
+    ja: "ベッド脇のナイトテーブルに置かれたスマートリングとスマートウォッチ",
+    ko: "침대 옆 협탁 위에 놓인 스마트 링과 스마트워치",
   },
   hero: {
     kicker: {
