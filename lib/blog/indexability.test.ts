@@ -155,9 +155,27 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     expect(str).not.toContain("dashboard web inclusa");
     expect(str).not.toContain("web dashboard included");
 
-    // 3. Oura non deve essere categorizzato come non scrivente su HC
+    // 3. Assenza pretesa "evita i conflitti di configurazione più comuni"
+    expect(str).not.toContain("evita i conflitti di configurazione più comuni");
+    expect(str).not.toContain("avoids the most common setup conflicts");
+
+    // 4. Oura non deve essere categorizzato come non scrivente su HC ed esplicita Gen2 vs Gen3/Ring 4
     expect(str).not.toContain("oura e huawei no: richiedono oauth");
     expect(str).not.toContain("oura and huawei don't: they require oauth");
+    expect(str).toContain("gen2 senza abbonamento; gen3 e ring 4 con membership attiva");
+    expect(str).toContain("oura cloud api v2 (api esterna; non integrata direttamente in fitmesh)");
+
+    // 5. Huawei: nessun percorso ufficiale documentato e nessuna integrazione diretta FitMesh
+    expect(str).not.toContain("huawei watch (con hms)");
+    expect(str).not.toContain("huawei watch (with hms)");
+    expect(str).toContain("nessun percorso ufficiale health connect (bridge terzi da valutare)");
+    expect(str).toContain("huawei health kit (non integrato direttamente in fitmesh)");
+
+    // 6. Founder CTA allineata alla regola storica SSOT senza conteggi non verificati
+    expect(str).not.toContain("hanno ottenuto il pro a vita");
+    expect(str).not.toContain("ottengono il pro a vita");
+    expect(str).toContain("l'idoneità founder era riservata a un massimo di 1.000 account registrati entro il 31 luglio 2026 con prima sincronizzazione reale entro 14 giorni dalla registrazione");
+    expect(str).toContain("fitmesh sync è disponibile per android e ios");
   });
 
   it("colmi-ring-fitmesh descrive la priorità di sorgente e non dichiara Founder attivo", () => {
@@ -170,10 +188,12 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     expect(str).not.toContain("eliminates double counting");
     expect(str).not.toContain("la fusione multi-device: niente doppi conteggi");
 
-    // 2. CTA Founder al passato storico
+    // 2. CTA Founder al passato storico SSOT senza claim non verificati e con riconoscimento iOS
     expect(str).not.toContain("i primi 1.000 account");
     expect(str).not.toContain("ottengono il pro a vita");
-    expect(str).toContain("hanno ottenuto il pro a vita");
+    expect(str).not.toContain("hanno ottenuto il pro a vita");
+    expect(str).toContain("l'idoneità founder era riservata a un massimo di 1.000 account registrati entro il 31 luglio 2026 con prima sincronizzazione reale entro 14 giorni dalla registrazione");
+    expect(str).toContain("fitmesh sync è disponibile per android e ios");
   });
 
   it("huawei-health-health-connect-sincronizzazione non promette supporto nativo FitMesh", () => {
@@ -187,9 +207,27 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     expect(str).not.toContain("fitmesh sta portando il supporto nativo");
     expect(str).not.toContain("fitmesh is building a native integration");
 
-    // 2. Tabella non deve dichiarare Sì per FitMesh
+    // 2. Assenza spiegazioni causali HMS/GMS e sanzioni USA 2019
+    expect(str).not.toContain("sanzioni usa del 2019");
+    expect(str).not.toContain("2019 us sanctions");
+    expect(str).not.toContain("limite strutturale dell'ecosistema hms");
+    expect(str).not.toContain("structural limitation of the hms ecosystem");
+    expect(str).not.toContain("hms e gms sono ecosistemi separati");
+    expect(str).not.toContain("hms and gms are separate ecosystems");
+
+    // 3. Assenza formule "l'unica soluzione" / "l'unico modo"
+    expect(str).not.toContain("l'unica soluzione conosciuta finora");
+    expect(str).not.toContain("the only known workaround so far");
+    expect(str).not.toContain("l'unico modo per trasferire parzialmente");
+    expect(str).not.toContain("the only way to transfer data partially");
+
+    // 4. Tabella: colonna esplicita e "Non supportata direttamente"
     expect(str).not.toContain('"supporto fitmesh (pianificato)"');
     expect(str).not.toContain('"fitmesh support (planned)"');
+    expect(str).toContain('"integrazione diretta fitmesh"');
+    expect(str).toContain('"direct fitmesh integration"');
+    expect(str).toContain('"non supportata direttamente"');
+    expect(str).toContain('"not directly supported"');
   });
 
   it("nordic overlay per i 3 post non re-introduce claim non verificati in SV/DA", async () => {
@@ -208,6 +246,24 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
       expect(str).not.toContain("fitmesh-løsningen: indbygget integration med huawei health kit");
       expect(str).not.toContain("fitmesh håller på att utveckla en inbyggd integration");
       expect(str).not.toContain("fitmesh er i gang med at udvikle en indbygget integration");
+      expect(str).not.toContain("fick livstids-pro");
+      expect(str).not.toContain("fik livstids-pro");
+      expect(str).not.toContain("fikk livstids pro");
+      expect(str).not.toContain("saivat elinikäisen pro");
+      expect(str).not.toContain("den enda kända lösningen");
+      expect(str).not.toContain("den eneste kendte løsning");
+      expect(str).not.toContain("amerikanska sanktionerna");
+      expect(str).not.toContain("amerikanske sanktioner");
+      expect(str).not.toContain("strukturell begränsning i hms");
+      expect(str).not.toContain("strukturel begrænsning i hms");
     }
+
+    const hwEntry = JSON.stringify(nordicOverlay["huawei-health-health-connect-sincronizzazione"]).toLowerCase();
+    expect(hwEntry).toContain('"direkt fitmesh-integration"');
+    expect(hwEntry).toContain('"direkte fitmesh-integration"');
+    expect(hwEntry).toContain('"stöds inte direkt"');
+    expect(hwEntry).toContain('"understøttes ikke direkte"');
+    expect(hwEntry).not.toContain('"fitmesh stöd (planerat)"');
+    expect(hwEntry).not.toContain('"fitmesh support (planlagt)"');
   });
 });
