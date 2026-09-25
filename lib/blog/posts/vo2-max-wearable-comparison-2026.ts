@@ -6,6 +6,19 @@ export const post: BlogPost = {
   publishedAt: "2026-06-20",
   updatedAt: "2026-06-20",
   readMinutes: 8,
+  coverAlt: {
+    it: "Due smartwatch vicino a una pista di corsa con linee luminose stilizzate",
+    en: "Two smartwatches beside a running track with stylized glowing lines",
+    es: "Dos smartwatches junto a una pista de atletismo con líneas luminosas estilizadas",
+    de: "Zwei Smartwatches neben einer Laufbahn mit stilisierten Leuchtlinien",
+    pt: "Dois smartwatches ao lado de uma pista de corrida com linhas luminosas estilizadas",
+    fr: "Deux montres connectées près d'une piste d'athlétisme avec des lignes lumineuses stylisées",
+    pl: "Dwa smartwatche przy bieżni lekkoatletycznej ze stylizowanymi świetlnymi liniami",
+    tr: "Stilize ışık çizgileriyle bir koşu pistinin yanında duran iki akıllı saat",
+    nl: "Twee smartwatches naast een atletiekbaan met gestileerde lichtlijnen",
+    ja: "スタイライズされた光のラインとともにランニングトラックの脇に置かれた2つのスマートウォッチ",
+    ko: "양식화된 빛의 선과 함께 달리기 트랙 옆에 놓인 두 개의 스마트워치",
+  },
   hero: {
     kicker: {
         it: "Confronto",

@@ -15,6 +15,10 @@ export const post: BlogPost = {
   updatedAt: "2026-07-13",
   pillar: true,
   readMinutes: 13,
+  coverAlt: {
+    it: "Due smartwatch con linee luminose dirette verso un punto centrale",
+    en: "Two smartwatches with glowing lines leading toward a central point",
+  },
   primaryKeyword: {
     it: "Health Connect passi e allenamenti duplicati", en: "Health Connect duplicate steps and workouts",
   },

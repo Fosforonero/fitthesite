@@ -33,7 +33,13 @@ export type CoverType =
   | "apiMigration"
   | "stepsChart"
   | "appleHealthConnected"
-  | "galaxyWatchSleep";
+  | "galaxyWatchSleep"
+  | "ringVsWatch"
+  | "sleepTrackerComparison"
+  | "vo2MaxComparison"
+  | "smartRingGuide"
+  | "budgetSmartRings"
+  | "multipleWatchDuplicates";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -111,6 +117,12 @@ export const COVER_FILE: Record<CoverType, string> = {
   // SPRINT P1.26 (24/09/2026): cover dedicata per sonno Galaxy Watch
   // (smartwatch circolare su comodino, display con onde luminose astratte)
   galaxyWatchSleep: "galaxy-watch-sleep-health-connect.webp",
+  ringVsWatch: "ring-vs-smartwatch.webp",
+  sleepTrackerComparison: "sleep-tracker-comparison.webp",
+  vo2MaxComparison: "vo2-max-wearable-comparison.webp",
+  smartRingGuide: "smart-ring-complete-guide.webp",
+  budgetSmartRings: "budget-smart-rings.webp",
+  multipleWatchDuplicates: "multiple-smartwatches-duplicate-data.webp",
 };
 
 /**
@@ -139,25 +151,25 @@ export const POST_COVER: Record<string, CoverType> = {
   "huawei-health-health-connect-sincronizzazione": "sync",
   "garmin-body-battery-health-connect": "troubleshooting",
   "polar-health-connect-sync": "sync",
-  "sleep-tracker-comparison-2026": "compare",
+  "sleep-tracker-comparison-2026": "sleepTrackerComparison",
   "garmin-samsung-health-sync-guide": "sync",
   "galaxy-ring-android-health-connect": "ring",
-  "vo2-max-wearable-comparison-2026": "compare",
+  "vo2-max-wearable-comparison-2026": "vo2MaxComparison",
   "oura-ring-health-connect-android": "ring",
   "esportare-dati-xiaomi-amazfit": "export",
   "sincronizzare-withings": "sync",
   // P1.8C (2026-08-25): cover dedicata (Pixel Watch reale, non lo smartwatch
   // rugged generico di "dashboard") — vedi nota sul gate marchio in COVER_FILE.
   "dati-pixel-watch-dashboard": "pixelWatch",
-  "anello-smart-guida-completa": "ring",
+  "anello-smart-guida-completa": "smartRingGuide",
   // P1.8C (2026-08-25): cover dedicata (google-fit-api-migration.webp) al
   // posto della generica "sync" — il tema del post e' la migrazione API, non
   // un generico "sincronizzazione dispositivi".
   "google-fit-api-dismissione-2026": "apiMigration",
   "novita-fonte-del-dato": "news",
   "fitmesh-sync-disponibile-google-play": "news",
-  "anello-vs-smartwatch": "compare",
-  "migliori-anelli-economici": "compare",
+  "anello-vs-smartwatch": "ringVsWatch",
+  "migliori-anelli-economici": "budgetSmartRings",
   "tracciare-sonno-anello": "sleep",
   "colmi-r02-setup": "ring",
   "sync-them-all": "multidevice",
@@ -168,7 +180,7 @@ export const POST_COVER: Record<string, CoverType> = {
   // Apple Salute, winner della consolidazione cannibalizzazione P1.8S.
   "dati-anello-smart-apple-salute": "appleTogether",
   "novita-anello-colmi-sonno": "sleep",
-  "piu-smartwatch-insieme-dati-doppi": "multidevice",
+  "piu-smartwatch-insieme-dati-doppi": "multipleWatchDuplicates",
   "novita-dashboard-multi-device": "dashboard",
   "fitbit-data-not-syncing-android": "troubleshooting",
   "best-health-data-sync-app-android": "compare",

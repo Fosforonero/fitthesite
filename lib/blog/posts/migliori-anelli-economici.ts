@@ -13,6 +13,19 @@ export const post: BlogPost = {
   updatedAt: "2026-06-13",
   ldType: "BlogPosting",
   readMinutes: 7,
+  coverAlt: {
+    it: "Tre anelli smart di colori diversi su un piano di pietra chiara",
+    en: "Three smart rings in different colors on a light stone surface",
+    es: "Tres anillos inteligentes de diferentes colores sobre una superficie de piedra clara",
+    de: "Drei smarte Ringe in verschiedenen Farben auf einer hellen Steinoberfläche",
+    pt: "Três anéis inteligentes de cores diferentes sobre uma superfície de pedra clara",
+    fr: "Trois bagues connectées de couleurs différentes posées sur une surface en pierre claire",
+    pl: "Trzy inteligentne pierścienie w różnych kolorach na jasnej kamiennej powierzchni",
+    tr: "Açık renkli taş zemin üzerinde farklı renklerde üç akıllı yüzük",
+    nl: "Drie slimme ringen in verschillende kleuren op een licht stenen oppervlak",
+    ja: "明るい石の表面に置かれた異なる色の3つのスマートリング",
+    ko: "밝은 석재 표면 위에 놓인 서로 다른 색상의 스마트 링 3개",
+  },
   hero: {
     kicker: {
       it: "Guida all'acquisto",

@@ -16,6 +16,10 @@ export const post: BlogPost = {
   publishedAt: "2026-06-13",
   updatedAt: "2026-07-20",
   readMinutes: 9,
+  coverAlt: {
+    it: "Anello smart e smartwatch scuri affiancati su un piano di pietra",
+    en: "Dark smart ring and smartwatch side by side on a stone surface",
+  },
   hero: {
     kicker: { it: "Confronto", en: "Comparison" },
     title: {
