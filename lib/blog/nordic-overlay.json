@@ -570,20 +570,20 @@
       "da": "Huawei Health og Health Connect: Findes der en officiel synkronisering? (2026)"
     },
     "hero.subtitle": {
-      "sv": "Huawei ingår inte i ekosystemet för Google Mobile Services, vilket innebär att data från din Huawei-smartklocka inte automatiskt överförs till Health Connect. Här är vad som fungerar idag och vad som kommer snart.",
-      "da": "Huawei er ikke en del af Google Mobile Services-økosystemet, så dataene fra dit Huawei-smartur overføres ikke automatisk til Health Connect. Her kan du se, hvad der fungerer i dag, og hvad der kommer snart."
+      "sv": "Huawei ingår inte i ekosystemet för Google Mobile Services, vilket innebär att data från din Huawei-smartklocka inte automatiskt överförs till Health Connect. Här är vad som fungerar idag och vilka de nuvarande begränsningarna är.",
+      "da": "Huawei er ikke en del af Google Mobile Services-økosystemet, så dataene fra dit Huawei-smartur overføres ikke automatisk til Health Connect. Her kan du se, hvad der fungerer i dag, og hvad de aktuelle begrænsninger er."
     },
     "metaDescription": {
-      "sv": "Huawei Health skriver inte direkt till Health Connect: här förklarar vi varför, hur tredjeparts-broappar fungerar idag och hur FitMesh Sync läser av dina Huawei-data direkt från Huawei Health Kit-molnet, på vilken Android-enhet som helst, utan att Health Connect behövs.",
-      "da": "Huawei Health skriver ikke direkte til Health Connect: Her kan du læse, hvorfor det er sådan, hvordan tredjeparts-bridge-apps fungerer i dag, og hvordan FitMesh Sync henter dine Huawei-data direkte fra Huawei Health Kit-skyen på enhver Android-enhed – uden behov for Health Connect."
+      "sv": "Huawei Health skriver inte direkt till Health Connect: här förklarar vi varför, hur tredjeparts-broappar fungerar idag och vilka begränsningarna är för att överföra fitnessdata på Android.",
+      "da": "Huawei Health skriver ikke direkte til Health Connect: Her kan du læse, hvorfor det er sådan, hvordan tredjeparts-bridge-apps fungerer i dag, og hvad begrænsningerne er for dataoverførsel på Android."
     },
     "primaryKeyword": {
       "sv": "Huawei Health, Health Connect, Android, officiell",
       "da": "Huawei Health, Health Connect, Android, officiel"
     },
     "body.0.text": {
-      "sv": "Om du år 2026 har en smartklocka från Huawei – oavsett om det är en Watch GT4, en Watch 4 Pro eller en Band 9 – har du kanske märkt att dina data inte visas i Health Connect. Det är inte ett fel: det är en strukturell begränsning i HMS-ekosystemet (Huawei Mobile Services), som är separat från GMS (Google Mobile Services). Huawei Health, Huaweis egen app, skriver inte till Health Connect eftersom den inte har integrerat Googles API. Det här inlägget förklarar den aktuella situationen, de alternativ som finns idag och vart FitMesh är på väg.",
-      "da": "Hvis du i 2026 har et Huawei-smartur – uanset om det er et Watch GT4, et Watch 4 Pro eller et Band 9 – har du måske bemærket, at dine data ikke vises i Health Connect. Det er ikke en fejl: Det er en strukturel begrænsning i HMS-økosystemet (Huawei Mobile Services), som er adskilt fra GMS (Google Mobile Services). Huawei Health, den indbyggede Huawei-app, skriver ikke til Health Connect, fordi den ikke har integreret Googles API. Dette indlæg forklarer den aktuelle situation, de muligheder, der findes i dag, og hvor FitMesh er på vej hen."
+      "sv": "Om du år 2026 har en smartklocka från Huawei – oavsett om det är en Watch GT4, en Watch 4 Pro eller en Band 9 – har du antagligen märkt att dina data inte visas i Health Connect. Det är inget fel: det är en strukturell begränsning i HMS-ekosystemet (Huawei Mobile Services), som är skilt från GMS (Google Mobile Services). Huawei Health, Huaweis egen app, skriver inte till Health Connect eftersom den inte har integrerat Googles API. Den här artikeln förklarar det aktuella läget, vilka alternativ som finns idag och de strukturella begränsningarna mellan plattformarna.",
+      "da": "Hvis du i 2026 har et Huawei-smartwatch – hvad enten det er et Watch GT4, et Watch 4 Pro eller et Band 9 – har du sandsynligvis bemærket, at dine data ikke vises i Health Connect. Det er ikke en fejl: Det er en strukturel begrænsning i HMS-økosystemet (Huawei Mobile Services), som er adskilt fra GMS (Google Mobile Services). Huawei Health, Huaweis officielle app, skriver ikke til Health Connect, fordi den ikke har integreret Googles API. Denne artikel forklarer den aktuelle situation, hvilke muligheder der findes i dag, og de strukturelle begrænsninger mellem platformene."
     },
     "body.1.text": {
       "sv": "Problemet: Huawei och Google har ingen kontakt med varandra",
@@ -602,28 +602,28 @@
       "da": "I 2026 er mulighederne for dem, der ønsker at overføre Huawei-data til Health Connect, begrænsede. Den eneste kendte løsning indtil videre har været en tredjeparts-bro-app, der fungerer som mellemled mellem Huawei Health og Health Connect. Disse apps fungerer, men de har visse begrænsninger: De kræver udvidede rettigheder, synkroniseringen foregår manuelt eller halvautomatisk, og dækningen af datatyper er ikke fuldstændig. Der findes ingen officiel, indbygget integration fra Huawei."
     },
     "body.5.text": {
-      "sv": "Lösningen FitMesh: inbyggd integration med Huawei Health Kit",
-      "da": "FitMesh-løsningen: Indbygget integration med Huawei Health Kit"
+      "sv": "Varför det inte finns någon inbyggd synkronisering med Health Connect",
+      "da": "Hvorfor der ikke findes en indbygget synkronisering med Health Connect"
     },
     "body.6.text": {
-      "sv": "FitMesh håller på att utveckla en inbyggd integration som hämtar dina hälso- och träningsdata från Huawei direkt från Huawei Health Kit-molnet. Det innebär att den fungerar på alla Android-enheter, utan att Health Connect krävs. När integrationen lanseras kommer FitMesh att hämta dina data direkt från Huaweis moln och visa dem i din samlade översiktspanel. Datatyper som ingår i den planerade integrationen: steg, sömn, hjärtfrekvens, SpO2, kalorier.",
-      "da": "FitMesh er i gang med at udvikle en indbygget integration, der henter dine sundheds- og fitnessdata fra Huawei direkte fra Huawei Health Kit-skyen. Det betyder, at den fungerer på alle Android-enheder uden behov for Health Connect. Når integrationen går i luften, vil FitMesh hente dine data direkte fra Huaweis cloud og vise dem i dit samlede kontrolpanel. Datatyper, der er omfattet af den planlagte integration: skridt, søvn, puls, SpO2, kalorier."
+      "sv": "Huawei Health stöder inte direkt skrivning till Health Connect och FitMesh har ingen direkt integration med Huaweis tjänster. Ekosystemet Huawei Mobile Services (HMS) hanterar hälsodata via proprietära protokoll. Utan integration på operativsystemnivå kan data från Huawei-enheter (som steg, sömn, puls, SpO2 och kalorier) inte överföras direkt till Health Connect eller FitMesh utan mellanhänder.",
+      "da": "Huawei Health understøtter ikke direkte skrivning til Health Connect, og FitMesh har ingen direkte integration med Huaweis tjenester. Huawei Mobile Services (HMS)-økosystemet håndterer sundhedsdata via proprietære protokoller. Uden integration på styresystemniveau kan data fra Huawei-enheder (som skridt, søvn, puls, SpO2 og kalorier) ikke overføres direkte til Health Connect eller FitMesh uden mellemliggende led."
     },
     "body.8.text": {
-      "sv": "Status för Huawei-integrationen",
-      "da": "Status for Huawei-integrationen"
+      "sv": "Status för integrationen och framtidsutsikter",
+      "da": "Status for integrationen og fremtidsudsigter"
     },
     "body.9.text": {
-      "sv": "Den inbyggda Huawei-integrationen är under aktiv utveckling och är ännu inte tillgänglig. När den är klar kommer den med en uppdatering av FitMesh-appen, tillsammans med versionsinformationen som beskriver hur den fungerar.",
-      "da": "Den indbyggede Huawei-integration er under aktiv udvikling og er endnu ikke tilgængelig. Når den er klar, kommer den med en opdatering af FitMesh-appen sammen med de udgivelsesnoter, der beskriver, hvordan den fungerer."
+      "sv": "För närvarande finns det ingen direkt inbyggd integration mellan Huawei och FitMesh eller Health Connect. För att samla Huawei-data på Android måste användare förlita sig på manuella exportprocedurer eller inofficiella tredjeparts-broappar, med deras respektive begränsningar gällande stabilitet och integritet.",
+      "da": "I øjeblikket findes der ingen direkte indbygget integration mellem Huawei og FitMesh eller Health Connect. For at samle Huawei-data på Android skal brugere stole på manuelle eksportprocedurer eller uofficielle tredjeparts-bro-apps, med de tilhørende begrænsninger for stabilitet og privatliv."
     },
     "body.10.title": {
-      "sv": "Har du en Huawei-enhet? Huawei-integrationen i FitMesh är på väg",
-      "da": "Har du en Huawei-enhed? Huawei-integrationen i FitMesh er på vej"
+      "sv": "Letar du efter en synkroniseringsapp för Android?",
+      "da": "Leder du efter en synkroniseringsapp til Android?"
     },
     "body.10.body": {
-      "sv": "Vi håller på att utveckla en inbyggd integration som hämtar dina Huawei-data direkt från Huawei Health Kit-molnet, utan att du behöver Health Connect. Under tiden kan du ladda ner FitMesh och prova den synkronisering som redan finns.",
-      "da": "Vi er i gang med at udvikle en indbygget integration, der henter dine Huawei-data direkte fra Huawei Health Kit-skyen, uden brug af Health Connect. I mellemtiden kan du downloade FitMesh og prøve den synkronisering, der allerede er tilgængelig."
+      "sv": "FitMesh synkroniserar data från kompatibla bärbara enheter till Health Connect och samlar dina träningsdata på Android. Upptäck källor som stöds direkt i appen.",
+      "da": "FitMesh synkroniserer data fra kompatible wearables til Health Connect og samler dine fitnessmålinger på Android. Se understøttede kilder direkte i appen."
     },
     "body.10.ctaLabel": {
       "sv": "Ladda ner FitMesh och prova gratis",
@@ -634,32 +634,32 @@
       "da": "Skriver Huawei Health til Health Connect?"
     },
     "faq.0.a": {
-      "sv": "Nej. År 2026 har Huawei Health ingen inbyggd integration med Health Connect. HMS och GMS är separata ekosystem. För att överföra dina data behöver du för närvarande en tredjepartsapp som fungerar som en brygga. FitMeshs inbyggda Huawei-stöd, som läser dina data direkt från Huawei Health Kit-molnet på vilken Android-enhet som helst utan att Health Connect krävs, är under utveckling och är ännu inte tillgängligt.",
-      "da": "Nej. I 2026 har Huawei Health ikke indbygget integration med Health Connect. HMS og GMS er separate økosystemer. For at overføre dine data skal du i øjeblikket bruge en tredjeparts-bro-app. FitMeshs indbyggede Huawei-understøttelse, som henter dine data direkte fra Huawei Health Kit-skyen på enhver Android-enhed uden behov for Health Connect, er under udvikling og endnu ikke tilgængelig."
+      "sv": "Nej. År 2026 har Huawei Health ingen inbyggd integration med Health Connect eller FitMesh. HMS och GMS är separata ekosystem. För att överföra data idag krävs manuella procedurer eller tredjepartsappar som fungerar som bryggor, med respektive begränsningar.",
+      "da": "Nej. I 2026 har Huawei Health ingen indbygget integration med Health Connect eller FitMesh. HMS og GMS er separate økosystemer. Overførsel af data kræver i dag manuelle procedurer eller tredjeparts-bro-apps, med de respektive begrænsninger."
     },
     "faq.1.q": {
       "sv": "Kan jag synkronisera data från Huawei Health till Health Connect idag?",
       "da": "Kan jeg synkronisere data fra Huawei Health med Health Connect i dag?"
     },
     "faq.1.a": {
-      "sv": "Ja, tredjepartsappar kan koppla samman Huawei Health med Health Connect. De fungerar, men det är ingen inbyggd lösning: synkroniseringen sker vanligtvis manuellt eller med jämna mellanrum, och alla datatyper stöds inte. FitMesh utvecklar ett direkt alternativ som läser av dina Huawei-data direkt från Huawei Health Kit-molnet, utan att någon brygga eller Health Connect behövs.",
-      "da": "Ja, tredjeparts-bro-apps kan forbinde Huawei Health til Health Connect. De fungerer, men de er ikke en integreret løsning: Synkroniseringen foregår typisk manuelt eller med jævne mellemrum, og ikke alle datatyper understøttes. FitMesh er ved at udvikle et direkte alternativ, der henter dine Huawei-data direkte fra Huawei Health Kit-skyen, uden at der er behov for en bro-app eller Health Connect."
+      "sv": "Ja, det finns tredjepartsappar som försöker koppla samman Huawei Health med Health Connect. De fungerar som inofficiella mellanhänder: synkroniseringen sker ofta manuellt eller periodiskt, och inte alla datatyper (som kontinuerlig puls eller SpO2) överförs tillförlitligt.",
+      "da": "Ja, der findes tredjeparts-bro-apps, der forsøger at forbinde Huawei Health med Health Connect. De fungerer som uofficielle mellemmænd: synkroniseringen er ofte manuel eller periodisk, og ikke alle datatyper (såsom kontinuerlig puls eller SpO2) overføres pålideligt."
     },
     "faq.2.q": {
-      "sv": "När kommer Huawei-supporten att finnas tillgänglig i FitMesh?",
-      "da": "Hvornår bliver Huawei-support tilgængelig i FitMesh?"
+      "sv": "Har FitMesh direkt stöd för Huawei Health?",
+      "da": "Understøtter FitMesh Huawei Health direkte?"
     },
     "faq.2.a": {
-      "sv": "FitMeshs inbyggda Huawei-integration, som hämtar data direkt från Huawei Health Kit-molnet, är under aktiv utveckling och är ännu inte tillgänglig. Det finns ännu inget specifikt datum: uppdateringen aviseras i versionsinformationen för FitMesh-appen. [Ladda ner FitMesh](/sv#download) för att få uppdateringen när den släpps.",
-      "da": "FitMeshs indbyggede Huawei-integration, som henter data direkte fra Huawei Health Kit-skyen, er under aktiv udvikling og endnu ikke tilgængelig. Der er endnu ingen konkret dato: opdateringen bliver annonceret i udgivelsesnoterne for FitMesh-appen. [Download FitMesh](/da#download) for at få opdateringen, når den udkommer."
+      "sv": "Nej. FitMesh har ingen direkt integration med Huawei Health eller Huawei Health Kit. Appen integreras med källor som är kompatibla med Health Connect på Android. Huawei-enheter kan inte kommunicera direkt med FitMesh utan externa mellansteg.",
+      "da": "Nej. FitMesh har ingen direkte integration med Huawei Health eller Huawei Health Kit. Appen integreres med kilder, der er kompatible med Health Connect på Android. Huawei-enheder kan ikke kommunikere direkte med FitMesh uden eksterne mellemtrin."
     },
     "faq.3.q": {
       "sv": "Kan man komma åt Huaweis data via Health Connect?",
       "da": "Kan man få adgang til Huawei-data via Health Connect?"
     },
     "faq.3.a": {
-      "sv": "Inte som standard. Om du använder en Huawei-enhet med Android och GMS installerat (vilket är fallet med vissa basmodeller) kan du eventuellt ställa in en partiell synkronisering med hjälp av en tredjepartsapp som fungerar som brygga. Men enheter som endast har HMS (som Watch GT) kan inte kommunicera med Health Connect utan en specifik brygga. FitMesh:s kommande Huawei-integration kringgår detta helt genom att läsa dina data direkt från Huawei Health Kit-molnet.",
-      "da": "Ikke som standard. Hvis du bruger en Huawei-enhed med Android og GMS installeret (som det er tilfældet med nogle basismodeller), kan du muligvis konfigurere en delvis synkronisering ved hjælp af en tredjeparts-bro-app. Men enheder, der kun understøtter HMS (som f.eks. Watch GT), kommunikerer ikke med Health Connect uden en eksplicit bro. FitMeshs kommende Huawei-integration omgår dette fuldstændigt ved at hente dine data direkte fra Huawei Health Kit-skyen."
+      "sv": "Inte som standard. Huawei Health har inte integrerat Health Connect API. Det enda sättet att delvis överföra data på Android är via tredjeparts-bryggor eller manuell export, eftersom HMS-ekosystemet inte kommunicerar med Googles tjänster från grunden.",
+      "da": "Ikke som standard. Huawei Health integrerer ikke Health Connect-API'er. Den eneste måde at overføre data delvist på Android er via bro-apps eller manuel eksport, da HMS-økosystemet som standard ikke kommunikerer med Google-tjenester."
     },
     "secondaryKeywords": {
       "sv": [
@@ -677,14 +677,14 @@
     },
     "tldr": {
       "sv": [
-        "Huawei Health skriver inte direkt till Health Connect. Detta är en strukturell begränsning i HMS-ekosystemet, som är skilt från GMS.",
-        "Den enda tillgängliga lösningen just nu är en tredjepartsapp som fungerar som en brygga. FitMesh arbetar med att utveckla direkt åtkomst till molnet via Huawei Health Kit för en inbyggd lösning, som kommer snart.",
-        "Den inbyggda Huawei-integrationen är under utveckling och är ännu inte tillgänglig: när den är klar kommer den med en uppdatering av FitMesh-appen"
+        "Huawei Health skriver inte direkt till Health Connect: detta är en strukturell begränsning i HMS-ekosystemet, som är skilt från GMS.",
+        "Den enda partiella lösningen just nu är en tredjepartsapp eller manuell export; FitMesh har ingen direkt integration med Huaweis tjänster.",
+        "Utan officiell integration på operativsystemnivå medför synkronisering av Huawei-data till Android-aggregatörer objektiva begränsningar."
       ],
       "da": [
-        "Huawei Health skriver ikke direkte til Health Connect. Dette er en strukturel begrænsning i HMS-økosystemet, som er adskilt fra GMS.",
-        "Den eneste løsning, der er tilgængelig i dag, er en tredjeparts-bro-app. FitMesh er i gang med at udvikle direkte adgang til skyen via Huawei Health Kit som en indbygget løsning, der snart kommer.",
-        "Den indbyggede Huawei-integration er under udvikling og endnu ikke tilgængelig: når den er klar, kommer den med en opdatering af FitMesh-appen"
+        "Huawei Health skriver ikke direkte til Health Connect: dette er en strukturel begrænsning i HMS-økosystemet, som er adskilt fra GMS.",
+        "Den eneste delvise løsning i dag er en tredjeparts-bro-app eller manuel eksport; FitMesh har ingen direkte integration med Huaweis tjenester.",
+        "Uden officiel integration på styresystemniveau indebærer synkronisering af Huawei-data til Android-aggregatorer objektive begrænsninger."
       ]
     },
     "body.7.headers": {
@@ -8166,10 +8166,10 @@
       "no": "FitMesh Sync kobler seg til Colmi R02/R03 direkte over Bluetooth, uten å gå via produsentens app. Health Connect er ikke involvert (ringens BLE-protokoll bruker ikke Androids standardlag for helsedata). Appen laster ned data i partier når ringen er i nærheten, behandler dem og mater dem inn i det samme dashbordet der dataene fra Galaxy Watch, Pixel Watch, Garmin eller Amazfit allerede ligger."
     },
     "body.12.text": {
-      "sv": "Sammanställning av data från flera enheter: ingen dubbelräkning",
-      "da": "Sammenkobling af flere enheder: ingen dobbelttælling",
-      "fi": "Monilaitefuusio: ei kaksinkertaista laskentaa",
-      "no": "Fusjon av flere enheter: ingen dobbelttelling"
+      "sv": "Sammanställning av data från flera enheter: källprioritering och tidsfönster",
+      "da": "Samling af data fra flere enheder: kildeprioritering og tidsvinduer",
+      "fi": "Monilaitedatan yhdistäminen: lähdepriorisointi ja aikaikkunat",
+      "no": "Sammenslåing av data fra flere enheter: kildeprioritering og tidsvinduer"
     },
     "body.13.text": {
       "sv": "Det verkliga värdet ligger inte bara i att ”se data”, utan i att på ett intelligent sätt sammanfoga information från olika källor. En typisk konfiguration för någon som använder både en ring och en smartklocka ser ut så här: ringen på natten (bättre sömn utan smartklockan på), klockan under dagen (GPS, träning, aviseringar). Problemet med denna konfiguration, om den hanteras manuellt, är dubbelräkning: om båda enheterna registrerar steg under samma tidsperiod ger summeringen felaktiga siffror.",
@@ -8381,28 +8381,28 @@
       "sv": [
         "Colmi R02/R03 och OEM-kloner ansluts till FitMesh via direkt Bluetooth, ingen tillverkarapp krävs.",
         "Mätvärden: steg, sträcka, kalorier, puls, vilopuls, SpO2, HRV, stress (0–100) och sömn med olika faser.",
-        "Ringen är sömnspecialisten: den mäter sömnen på natten, medan smartklockan mäter den under dagen. Genom att sammanfoga data från flera enheter undviks dubbelräkning.",
+        "Ringen är sömnspecialisten: den mäter sömnen på natten, medan smartklockan mäter den under dagen. Vid användning av flera enheter fördelar FitMesh mätningarna via källprioritering och tidsfönster.",
         "Färgkodad batteriindikator, realistisk uppskattning av drifttid och aviseringar vid 100 %/50 %/25 %.",
         "Uppgifterna lagras på ditt FitMesh-konto inom EU, inte på tillverkarens servrar."
       ],
       "da": [
         "Colmi R02/R03 og OEM-kloner opretter forbindelse til FitMesh via direkte Bluetooth – der kræves ingen app fra producenten.",
         "Målinger: skridt, distance, kalorier, puls, hvilepuls, SpO2, HRV, stress (0-100) og søvn med søvnfaser.",
-        "Ringen er søvnspecialisten: den vinder om natten, mens smarturet vinder om dagen. Sammenkoblingen af flere enheder forhindrer dobbelttælling.",
+        "Ringen er søvnspecialisten: den måler om natten, mens smarturet måler om dagen. Ved brug af flere enheder fordeler FitMesh målingerne via kildeprioritering og tidsvinduer.",
         "Farvekodet batteriindikator, realistisk skøn over driftstid og notifikationer ved 100 %/50 %/25 %.",
         "Dataene opbevares på din FitMesh-konto i EU og ikke på producentens servere."
       ],
       "fi": [
         "Colmi R02/R03 ja OEM-kloonit yhdistyvät FitMeshiin suoran Bluetoothin kautta, valmistajan sovellusta ei tarvita.",
         "Luetut mittarit: askeleet, matka, kalorit, syke, leposyke, SpO2, HRV, stressi (0-100) ja uni vaiheineen.",
-        "Sormus on unen erikoisosaaja: se voittaa yöllä, älykello voittaa päivällä. Monilaitefuusio poistaa kaksinkertaisen laskennan.",
+        "Sormus on unen erikoisosaaja: se mittaa yöllä, älykello päivällä. Monilaitekäytössä FitMesh sovittaa mittaukset lähdepriorisoinnin ja aikaikkunoiden avulla.",
         "Värikoodattu akkuilmaisin, todellinen käyttöaika-arvio ja ilmoitukset 100 %/50 %/25 %.",
         "Tiedot pysyvät FitMesh-tililläsi EU:ssa, eivät valmistajan palvelimilla."
       ],
       "no": [
         "Colmi R02/R03 og OEM-kloner kobler seg til FitMesh over direkte Bluetooth, ingen produsentapp kreves.",
         "Målinger som leses: skritt, distanse, kalorier, puls, hvilepuls, SpO2, HRV, stress (0-100) og søvn med faser.",
-        "Ringen er søvnspesialisten: den vinner gjennom natten, smartklokken vinner om dagen. Fusjon av flere enheter fjerner dobbelttelling.",
+        "Ringen er søvnspesialisten: den måler om natten, smartklokken om dagen. Ved bruk av flere enheter avstemmer FitMesh målingene via kildeprioritering og tidsvinduer.",
         "Fargekodet batteriindikator, reelt driftstidsestimat og varsler ved 100 %/50 %/25 %.",
         "Dataene forblir på FitMesh-kontoen din i EU, ikke på produsentens servere."
       ]
@@ -8655,7 +8655,7 @@
         "Mätvärden: steg, sträcka, kalorier, puls, vilopuls, SpO2, HRV, stress (0–100), batteri. Sömnanalys kommer snart.",
         "Batteriindikatorn är färgkodad (grön >50 %, gul 20–49 %, röd <20 %) med en uppskattning av drifttiden baserad på faktisk förbrukning samt aviseringar vid full laddning, 50 % och 25 %.",
         "Stresspoängen 0–100 är ett exklusivt mått för Ring som smartklockor inte visar via Health Connect.",
-        "Genom att sammanfoga data från flera enheter (ring på natten, smartklocka på dagen) undviks dubbelräkning och allt samlas i en enda översiktspanel.",
+        "Genom att sammanfoga data från flera enheter (ring på natten, smartklocka på dagen) tillämpas källprioritering och tidsfönster för att samla informationen i en översiktspanel.",
         "Uppgifterna skickas till ditt FitMesh-konto inom EU, inte till ringtillverkarens servrar."
       ],
       "da": [
@@ -8663,7 +8663,7 @@
         "Visede målinger: skridt, afstand, kalorier, puls, hvilepuls, SpO2, HRV, stress (0-100), batteri. Søvnfaser kommer snart.",
         "Batteriindikatoren er farvekodet (grøn >50 %, gul 20–49 %, rød <20 %) med et estimat af drifttiden baseret på det faktiske strømforbrug samt notifikationer ved fuld opladning, 50 % og 25 %.",
         "Stress-scoren 0-100 er en eksklusiv måleparameter for ringen, som smartwatches ikke viser via Health Connect.",
-        "Sammenkobling af flere enheder (ring om natten, smartwatch om dagen) undgår dobbelttælling og samler alt i ét samlet overblik.",
+        "Ved at samle data fra flere enheder (ring om natten, smartwatch om dagen) anvendes kildeprioritering og tidsvinduer til at samle overblikket i et samlet panel.",
         "Dataene sendes til din FitMesh-konto i EU, ikke til ringproducentens servere."
       ],
       "fi": [
@@ -8671,7 +8671,7 @@
         "Luetut mittarit: askeleet, matka, kalorit, syke, leposyke, SpO2, HRV, stressi (0-100), akku. Univaiheet tulossa pian.",
         "Akkuilmaisin on värikoodattu (vihreä >50 %, keltainen 20-49 %, punainen <20 %) todelliseen kulutukseen perustuvalla käyttöaika-arviolla ja ilmoituksilla täydellä latauksella, 50 %:ssa ja 25 %:ssa.",
         "0-100 stressipisteet ovat sormuksen yksinomainen mittari, jota älykellot eivät tarjoa Health Connectin kautta.",
-        "Monilaitefuusio (sormus yöllä, älykello päivällä) poistaa kaksinkertaisen laskennan ja yhdistää kaiken yhteen koontinäyttöön.",
+        "Monilaitedatan yhdistämisessä (sormus yöllä, älykello päivällä) sovelletaan lähdepriorisointia ja aikaikkunoita tiedon kokoamiseksi yhteen koontinäyttöön.",
         "Tiedot menevät FitMesh-tilillesi EU:ssa, eivät sormuksen valmistajan palvelimille."
       ],
       "no": [
@@ -8679,7 +8679,7 @@
         "Målinger som leses: skritt, distanse, kalorier, puls, hvilepuls, SpO2, HRV, stress (0-100), batteri. Søvnfaser kommer snart.",
         "Batteriindikatoren er fargekodet (grønn >50 %, gul 20-49 %, rød <20 %) med driftstidsestimat basert på reelt forbruk og varsler ved full lading, 50 % og 25 %.",
         "Stresscoren 0-100 er en eksklusiv ringmåling som smartklokker ikke eksponerer via Health Connect.",
-        "Fusjon av flere enheter (ring gjennom natten, smartklokke om dagen) fjerner dobbelttelling og samler alt i ett dashbord.",
+        "Ved å slå sammen data fra flere enheter (ring om natten, smartklokke om dagen) brukes kildeprioritering og tidsvinduer for å samle alt i ett dashbord.",
         "Dataene går til FitMesh-kontoen din i EU, ikke til ringprodusentens servere."
       ]
     }
@@ -10454,10 +10454,10 @@
       "no": "synkronisere smartklokke dashbord"
     },
     "body.0.text": {
-      "sv": "År 2026 är den enda praktiska regeln för att undvika att slösa tid på synkronisering av bärbara enheter enkel: välj dataförbindelsen före själva enheten. Tre standarder existerar parallellt (Health Connect, officiella OAuth-metoder, manuell export), tio varumärken marknadsför var och en sin egen molntjänst, och att förstå vilken väg man ska välja löser 90 % av problemen redan innan man ens öppnar en app.",
-      "da": "I 2026 er den ene praktiske regel til at undgå at spilde tid på wearable-synkronisering simpel: vælg datakanalen før dimsen. Tre standarder eksisterer side om side (Health Connect, officielle OAuth-flows, manuel eksport), ti mærker skubber hver deres egen sky, og at forstå hvilken vej du skal bruge løser 90% af problemerne, før du overhovedet åbner en app.",
-      "fi": "Vuonna 2026 se yksi käytännön sääntö, jolla vältät ajanhukan puettavien laitteiden synkronoinnissa, on yksinkertainen: valitse datan kulkuväylä ennen laitetta. Kolme standardia elää rinnakkain (Health Connect, viralliset OAuth-rajapinnat, manuaalinen vienti), kymmenen merkkiä työntää kukin omaa pilveään, ja sen ymmärtäminen, mitä reittiä käyttää, ratkaisee 90 % ongelmista jo ennen kuin avaat sovelluksen.",
-      "no": "I 2026 er den ene praktiske regelen for å slippe å kaste bort tid på synkronisering av wearables enkel: velg datakanalen før dingsen. Tre standarder eksisterer side om side (Health Connect, offisielle OAuth-integrasjoner, manuell eksport), ti merker skyver hver sin egen sky, og det å forstå hvilken vei du skal bruke løser 90 % av problemene før du i det hele tatt åpner en app."
+      "sv": "År 2026 är den enda praktiska regeln för att undvika att slösa tid på synkronisering av bärbara enheter enkel: välj dataförbindelsen före själva enheten. Tre standarder existerar parallellt (Health Connect, officiella OAuth-metoder, manuell export), tio varumärken marknadsför var och en sin egen molntjänst, och att förstå vilken väg man ska välja ger en tydlig grund redan innan man öppnar en app.",
+      "da": "I 2026 er den ene praktiske regel til at undgå at spilde tid på wearable-synkronisering simpel: vælg datakanalen før dimsen. Tre standarder eksisterer side om side (Health Connect, officielle OAuth-flows, manuel eksport), ti mærker skubber hver deres egen sky, og at forstå hvilken vej du skal bruge giver et klart overblik, før du overhovedet åbner en app.",
+      "fi": "Vuonna 2026 se yksi käytännön sääntö, jolla vältät ajanhukan puettavien laitteiden synkronoinnissa, on yksinkertainen: valitse datan kulkuväylä ennen laitetta. Kolme standardia elää rinnakkain (Health Connect, viralliset OAuth-rajapinnat, manuaalinen vienti), kymmenen merkkiä työntää kukin omaa pilveään, ja oikean reitin tunteminen selkiyttää kokonaisuuden jo ennen sovelluksen avaamista.",
+      "no": "I 2026 er den ene praktiske regelen for å slippe å kaste bort tid på synkronisering av wearables enkel: velg datakanalen før dingsen. Tre standarder eksisterer side om side (Health Connect, offisielle OAuth-integrasjoner, manuell eksport), ti merker skyver hver sin egen sky, og det å forstå hvilken vei du skal bruke gir en tydelig oversikt før du i det hele tatt åpner en app."
     },
     "body.1.text": {
       "sv": "Den här guiden är en ärlig utgångspunkt: den förklarar de verkliga tekniska standarderna (Health Connect, officiella OAuth-API:er, manuell export), hur de största tillverkarna agerar idag, vad som gör skillnad för dem som faktiskt vill ha tillgång till sina egna data, och hur man jämför synkroniseringslösningar utan att låta sig luras av marknadsföringsfloskler.",
@@ -10797,31 +10797,31 @@
     },
     "tldr": {
       "sv": [
-        "Den praktiska regeln för 2026: välj datakanalen innan du väljer enheten. Det löser 90 % av problemen redan innan du öppnar en app.",
+        "Den praktiska regeln för 2026: välj datakanalen innan du väljer enheten. Det ger en tydlig grund redan innan man öppnar en app.",
         "Tre konkreta sätt att hämta ut data: Health Connect (på enheten, Android), officiella OAuth-API:er (fullständig tillgång till egna data, kräver godkännande), manuell export (långsam men garanterad enligt GDPR artikel 20).",
         "Health Connect är inte Google Fit: Google Fit fasades ut i juni 2025, Health Connect är den enhetliga Android-standarden och används uteslutande på enheten.",
-        "Samsung, Fitbit, Garmin, Polar och Withings skriver till Health Connect; Oura och Huawei kräver OAuth eller är slutna ekosystem.",
+        "Samsung, Fitbit, Garmin, Polar, Withings och Oura (på Android med aktivt medlemskap) skriver till Health Connect; Huawei Health saknar inbyggd integration och kräver tredjeparts-bryggor.",
         "När det gäller hälsodata är den enda affärsmodellen med samstämmiga incitament ”betalmodell, inga annonser, inga spårare”: gratisappar finansieras ofta genom att sälja aggregerade data."
       ],
       "da": [
-        "Den praktiske regel for 2026: vælg datakanalen før dimsen. Den løser 90% af problemerne, før du åbner en app.",
+        "Den praktiske regel for 2026: Vælg datakanalen før dimsen. Det giver et klart overblik, før du overhovedet åbner en app.",
         "Tre reelle måder at få data ud på: Health Connect (on-device, Android), officielle OAuth-API'er (fulde proprietære data, kræver godkendelse), manuel eksport (langsom, men garanteret af GDPR art. 20).",
         "Health Connect er ikke Google Fit: Google Fit blev udfaset i juni 2025, Health Connect er den samlede Android-standard og udelukkende on-device.",
-        "Samsung, Fitbit, Garmin, Polar og Withings skriver til Health Connect; Oura og Huawei kræver OAuth eller er lukkede økosystemer.",
+        "Samsung, Fitbit, Garmin, Polar, Withings og Oura (på Android med aktivt medlemskab) skriver til Health Connect; Huawei Health mangler indbygget integration og kræver tredjeparts-broer.",
         "For sundhedsdata er den eneste forretningsmodel med afstemte incitamenter 'betalt, ingen reklamer, ingen trackere': gratis apps tjener ofte penge ved at sælge aggregerede data."
       ],
       "fi": [
-        "Vuoden 2026 käytännön sääntö: valitse datan kulkuväylä ennen laitetta. Se ratkaisee 90 % ongelmista ennen kuin avaat sovelluksen.",
+        "Vuoden 2026 käytännön sääntö: valitse datan kulkuväylä ennen laitetta. Oikea valinta selkiyttää kokonaisuuden ennen kuin avaat sovelluksen.",
         "Kolme todellista tapaa saada data ulos: Health Connect (laitteella, Android), viralliset OAuth-rajapinnat (täysi valmistajakohtainen data, vaatii hyväksynnän), manuaalinen vienti (hidas mutta GDPR-artiklan 20 takaama).",
         "Health Connect ei ole Google Fit: Google Fit poistettiin käytöstä kesäkuussa 2025, Health Connect on yhtenäinen Android-standardi ja toimii tiukasti laitteella.",
-        "Samsung, Fitbit, Garmin, Polar ja Withings kirjoittavat Health Connect -palveluun; Oura ja Huawei vaativat OAuth-yhteyden tai ovat suljettuja ekosysteemejä.",
+        "Samsung, Fitbit, Garmin, Polar, Withings ja Oura (Androidilla aktiivisella jäsenyydellä) kirjoittavat Health Connectiin; Huawei Healthilta puuttuu natiivi integraatio ja se vaatii kolmannen osapuolen siltoja.",
         "Terveysdatalle ainoa liiketoimintamalli, jonka kannustimet ovat linjassa, on 'maksullinen, ei mainoksia, ei seurantaa': ilmaiset sovellukset ansaitsevat usein myymällä koostettua dataa."
       ],
       "no": [
-        "Den praktiske regelen for 2026: velg datakanalen før dingsen. Den løser 90 % av problemene før du åpner en app.",
+        "Den praktiske regelen for 2026: velg datakanalen før dingsen. Det gir en tydelig oversikt før du åpner en app.",
         "Tre reelle måter å få data ut: Health Connect (på enheten, Android), offisielle OAuth-API-er (alle proprietære data, krever godkjenning), manuell eksport (treg, men garantert av GDPR art. 20).",
         "Health Connect er ikke Google Fit: Google Fit ble avviklet i juni 2025, Health Connect er den samlede Android-standarden og utelukkende på enheten.",
-        "Samsung, Fitbit, Garmin, Polar og Withings skriver til Health Connect; Oura og Huawei krever OAuth eller er lukkede økosystemer.",
+        "Samsung, Fitbit, Garmin, Polar, Withings og Oura (på Android med aktivt medlemskap) skriver til Health Connect; Huawei Health mangler naturlig integrasjon og krever tredjeparts-broer.",
         "For helsedata er den eneste forretningsmodellen med sammenfallende insentiver 'betalt, ingen reklame, ingen sporere': gratisapper tjener ofte penger på å selge aggregerte data."
       ]
     },
@@ -11049,28 +11049,28 @@
     },
     "body.19.rows.5": {
       "sv": [
-        "Oura Ring",
-        "Nej (ingen inbyggd Android HC-app)",
+        "Oura Ring (Gen3 / Ring 4)",
+        "Ja (via officiell Android-app med aktivt medlemskap)",
         "Oura Cloud API v2",
         "Ja, från appen/webben"
       ],
       "da": [
-        "Oura Ring",
-        "Nej (ingen indbygget Android-HC-app)",
+        "Oura Ring (Gen3 / Ring 4)",
+        "Ja (via officiel Android-app med aktivt medlemskab)",
         "Oura Cloud API v2",
-        "Ja, fra app/web"
+        "Ja, fra appen/nettet"
       ],
       "fi": [
-        "Oura Ring",
-        "Ei (ei natiivia Android-HC-sovellusta)",
+        "Oura Ring (Gen3 / Ring 4)",
+        "Kyllä (virallisen Android-sovelluksen ja aktiivisen jäsenyyden kautta)",
         "Oura Cloud API v2",
         "Kyllä, sovelluksesta/verkosta"
       ],
       "no": [
-        "Oura Ring",
-        "Nei (ingen naturlig Android-HC-app)",
+        "Oura Ring (Gen3 / Ring 4)",
+        "Ja (via offisiell Android-app med aktivt medlemskap)",
         "Oura Cloud API v2",
-        "Ja, fra app/web"
+        "Ja, fra appen/nettet"
       ]
     },
     "body.19.rows.6": {
@@ -11347,28 +11347,28 @@
       "sv": [
         "Det finns tre konkreta sätt att hämta data från en bärbar enhet: Health Connect (direkt från enheten, ingen konfiguration, Android), officiella OAuth-API:er (fullständig tillgång till proprietära data, kräver godkännande), manuell export (långsamt men rättsligt garanterat enligt GDPR artikel 20).",
         "Health Connect är inte Google Fit: Google Fit fasades ut i juni 2025, Health Connect är den enhetliga Android-standarden och används uteslutande på enheten.",
-        "Samsung, Fitbit, Garmin, Polar och Withings skriver till Health Connect. Oura och Huawei gör det inte: de kräver OAuth eller är slutna ekosystem.",
+        "Samsung, Fitbit, Garmin, Polar, Withings och Oura (med aktivt medlemskap) skriver till Health Connect. Huawei gör det inte nativt och kräver bryggappar eller manuell export.",
         "Innan du köper en bärbar enhet bör du göra följande test: sök på ”[enhetens namn] Health Connect” på Google. Om det inte finns någon officiell guide från tillverkaren innebär det att du låser dig till ett slutet ekosystem.",
         "När det gäller hälsodata är den enda affärsmodellen med samstämmiga incitament ”betalmodell, inga annonser, inga spårare”: gratisappar finansieras nästan alltid genom försäljning av aggregerade data."
       ],
       "da": [
         "Der er tre reelle måder at få data ud af en wearable på: Health Connect (on-device, ingen opsætning, Android), officielle OAuth-API'er (fulde proprietære data, kræver godkendelse), manuel eksport (langsom, men juridisk garanteret af GDPR art. 20).",
         "Health Connect er ikke Google Fit: Google Fit blev udfaset i juni 2025, Health Connect er den samlede Android-standard og udelukkende on-device.",
-        "Samsung, Fitbit, Garmin, Polar og Withings skriver til Health Connect. Det gør Oura og Huawei ikke: de kræver OAuth eller er lukkede økosystemer.",
+        "Samsung, Fitbit, Garmin, Polar, Withings og Oura (med aktivt medlemskab) skriver til Health Connect. Huawei gør det ikke nativt og kræver bro-apps eller manuel eksport.",
         "Før du køber en wearable, så lav testen: søg efter '[enhedsnavn] Health Connect' på Google. Hvis der ikke findes en officiel producentguide, låser du dig fast i et lukket økosystem.",
         "For sundhedsdata er den eneste forretningsmodel med afstemte incitamenter 'betalt, ingen reklamer, ingen trackere': gratis apps tjener næsten altid penge ved at sælge aggregerede data."
       ],
       "fi": [
         "Puettavasta laitteesta saa datan ulos kolmella todellisella tavalla: Health Connect (laitteella, ei käyttöönottoa, Android), viralliset OAuth-rajapinnat (täysi valmistajakohtainen data, vaatii hyväksynnän), manuaalinen vienti (hidas mutta GDPR-artiklan 20 laillisesti takaama).",
         "Health Connect ei ole Google Fit: Google Fit poistettiin käytöstä kesäkuussa 2025, Health Connect on yhtenäinen Android-standardi ja toimii tiukasti laitteella.",
-        "Samsung, Fitbit, Garmin, Polar ja Withings kirjoittavat Health Connect -palveluun. Oura ja Huawei eivät: ne vaativat OAuth-yhteyden tai ovat suljettuja ekosysteemejä.",
+        "Samsung, Fitbit, Garmin, Polar, Withings ja Oura (aktiivisella jäsenyydellä) kirjoittavat Health Connectiin. Huawei ei tee sitä natiivisti ja vaatii siltasovelluksia tai manuaalisen viennin.",
         "Ennen puettavan laitteen ostamista tee testi: hae '[laitteen nimi] Health Connect' Googlesta. Jos valmistajan virallista ohjetta ei ole, olet lukittautumassa suljettuun ekosysteemiin.",
         "Terveysdatalle ainoa liiketoimintamalli, jonka kannustimet ovat linjassa, on 'maksullinen, ei mainoksia, ei seurantaa': ilmaiset sovellukset ansaitsevat lähes aina myymällä koostettua dataa."
       ],
       "no": [
         "Det finnes tre reelle måter å få data ut av en wearable: Health Connect (på enheten, null oppsett, Android), offisielle OAuth-API-er (alle proprietære data, krever godkjenning), manuell eksport (treg, men juridisk garantert av GDPR art. 20).",
         "Health Connect er ikke Google Fit: Google Fit ble avviklet i juni 2025, Health Connect er den samlede Android-standarden og utelukkende på enheten.",
-        "Samsung, Fitbit, Garmin, Polar og Withings skriver til Health Connect. Oura og Huawei gjør det ikke: de krever OAuth eller er lukkede økosystemer.",
+        "Samsung, Fitbit, Garmin, Polar, Withings og Oura (med aktivt medlemskap) skriver til Health Connect. Huawei gjør det ikke naturlig og krever bro-apper eller manuell eksport.",
         "Før du kjøper en wearable, kjør testen: søk '[enhetsnavn] Health Connect' på Google. Finnes det ingen offisiell produsentguide, låser du deg inn i et lukket økosystem.",
         "For helsedata er den eneste forretningsmodellen med sammenfallende insentiver 'betalt, ingen reklame, ingen sporere': gratisapper tjener nesten alltid penger på å selge aggregerte data."
       ]

@@ -138,3 +138,76 @@ describe("diversificazione cover P1.26-IMG-A/B: alt text dedicato per le 6 nuove
     expect(totalCheckedVariants).toBe(56);
   });
 });
+
+describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () => {
+  it("guida-sync-wearable-2026 non contiene claim non verificati", () => {
+    const post = BLOG_POSTS.find((p) => p.slug === "guida-sync-wearable-2026");
+    expect(post).toBeDefined();
+    const str = JSON.stringify(post).toLowerCase();
+
+    // 1. Assenza metrica non verificata "90% dei problemi"
+    expect(str).not.toContain("90% dei problemi");
+    expect(str).not.toContain("90% of problems");
+    expect(str).not.toContain("90 % der probleme");
+    expect(str).not.toContain("90% de los problemas");
+
+    // 2. Assenza promessa dashboard web nella guida sync
+    expect(str).not.toContain("dashboard web inclusa");
+    expect(str).not.toContain("web dashboard included");
+
+    // 3. Oura non deve essere categorizzato come non scrivente su HC
+    expect(str).not.toContain("oura e huawei no: richiedono oauth");
+    expect(str).not.toContain("oura and huawei don't: they require oauth");
+  });
+
+  it("colmi-ring-fitmesh descrive la priorità di sorgente e non dichiara Founder attivo", () => {
+    const post = BLOG_POSTS.find((p) => p.slug === "colmi-ring-fitmesh");
+    expect(post).toBeDefined();
+    const str = JSON.stringify(post).toLowerCase();
+
+    // 1. Assenza claim assoluto di fusione ed eliminazione doppi conteggi
+    expect(str).not.toContain("elimina i doppi conteggi");
+    expect(str).not.toContain("eliminates double counting");
+    expect(str).not.toContain("la fusione multi-device: niente doppi conteggi");
+
+    // 2. CTA Founder al passato storico
+    expect(str).not.toContain("i primi 1.000 account");
+    expect(str).not.toContain("ottengono il pro a vita");
+    expect(str).toContain("hanno ottenuto il pro a vita");
+  });
+
+  it("huawei-health-health-connect-sincronizzazione non promette supporto nativo FitMesh", () => {
+    const post = BLOG_POSTS.find((p) => p.slug === "huawei-health-health-connect-sincronizzazione");
+    expect(post).toBeDefined();
+    const str = JSON.stringify(post).toLowerCase();
+
+    // 1. Assenza promesse di integrazione nativa o cloud FitMesh
+    expect(str).not.toContain("la soluzione fitmesh: integrazione nativa huawei health kit");
+    expect(str).not.toContain("the fitmesh solution: native huawei health kit integration");
+    expect(str).not.toContain("fitmesh sta portando il supporto nativo");
+    expect(str).not.toContain("fitmesh is building a native integration");
+
+    // 2. Tabella non deve dichiarare Sì per FitMesh
+    expect(str).not.toContain('"supporto fitmesh (pianificato)"');
+    expect(str).not.toContain('"fitmesh support (planned)"');
+  });
+
+  it("nordic overlay per i 3 post non re-introduce claim non verificati in SV/DA", async () => {
+    const nordicOverlay = (await import("./nordic-overlay.json")).default as Record<string, Record<string, any>>;
+
+    for (const slug of ["guida-sync-wearable-2026", "colmi-ring-fitmesh", "huawei-health-health-connect-sincronizzazione"]) {
+      const entry = nordicOverlay[slug];
+      expect(entry, `Overlay per ${slug} deve esistere`).toBeDefined();
+      const str = JSON.stringify(entry).toLowerCase();
+
+      expect(str).not.toContain("90 % av problemen");
+      expect(str).not.toContain("90% af problemerne");
+      expect(str).not.toContain("ingen dubbelräkning");
+      expect(str).not.toContain("ingen dobbelttælling");
+      expect(str).not.toContain("lösningen fitmesh: inbyggd integration med huawei health kit");
+      expect(str).not.toContain("fitmesh-løsningen: indbygget integration med huawei health kit");
+      expect(str).not.toContain("fitmesh håller på att utveckla en inbyggd integration");
+      expect(str).not.toContain("fitmesh er i gang med at udvikle en indbygget integration");
+    }
+  });
+});
