@@ -614,16 +614,16 @@
       "da": "Status for integrationen og fremtidsudsigter"
     },
     "body.9.text": {
-      "sv": "Källor och verifiering av integrationer (konsulterade den 25 september 2026): Huaweis officiella supportinstruktioner och utvecklardokumentationen för Android Health Connect beskriver för närvarande inga officiella direkta synkroniseringskopplingar mellan de två plattformarna. Detta innebär inte att framtida integration är teoretiskt omöjlig, utan speglar den nuvarande arkitekturen: FitMesh källkod innehåller ingen proprietär koppling till Huaweis tjänster, utan fokuserar på leverantörer som erbjuder dokumenterade standard-API:er. För att samla Huawei-data på Android krävs manuella exportprocedurer eller tredjeparts-bryggor som utvärderas från fall till fall, med tillhörande begränsningar för stabilitet och integritet.",
-      "da": "Kilder og verifikation af integrationer (konsulteret den 25. september 2026): Huaweis officielle supportinstruktioner og udviklerdokumentationen til Android Health Connect beskriver i øjeblikket ingen officielle direkte synkroniseringsforbindelser mellem de to platforme. Dette betyder ikke, at fremtidig integration er teoretisk umulig, men afspejler den nuværende arkitektur: FitMeshs kildekode indeholder ingen proprietær forbindelse til Huaweis tjenester, men fokuserer på udbydere, der tilbyder dokumenterede standard-API'er. For at samle Huawei-data på Android kræves manuelle eksportprocedurer eller tredjeparts-broer vurderet fra sag til sag, med tilhørende begrænsninger for stabilitet og privatliv."
+      "sv": "Status för integrationsverifiering (25 september 2026): för närvarande finns det ingen officiell dokumenterad sökväg för att synkronisera Huawei Health direkt med Health Connect, och FitMesh källkod innehåller ingen proprietär koppling till Huaweis tjänster. Detta konstaterande beskriver den nuvarande tekniska tillgängligheten utan att hävda att framtida integrationer är omöjliga. För att samla Huawei-data på Android måste tredjeparts-bryggor eller manuella exportprocedurer utvärderas från fall till fall, med tillhörande begränsningar för stabilitet och integritet.",
+      "da": "Status for integrationsverifikation (25. september 2026): i øjeblikket er der ingen officiel dokumenteret sti til direkte synkronisering mellem Huawei Health og Health Connect, og FitMeshs kildekode indeholder ingen proprietær forbindelse til Huaweis tjenester. Denne konstatering beskriver den aktuelle tekniske tilgængelighed uden at påstå, at fremtidige integrationer er umulige. For at samle Huawei-data på Android skal tredjeparts-broer eller manuelle eksportprocedurer vurderes fra sag til sag, med de tilhørende begrænsninger for stabilitet og privatliv."
     },
     "body.10.title": {
       "sv": "Letar du efter en synkroniseringsapp för Android?",
       "da": "Leder du efter en synkroniseringsapp til Android?"
     },
     "body.10.body": {
-      "sv": "FitMesh synkroniserar data från kompatibla bärbara enheter till Health Connect och samlar dina träningsdata på Android. Upptäck källor som stöds direkt i appen.",
-      "da": "FitMesh synkroniserer data fra kompatible wearables til Health Connect og samler dine fitnessmålinger på Android. Se understøttede kilder direkte i appen."
+      "sv": "FitMesh samlar dina träningsdata på Android genom att läsa data från Health Connect och direkt kompatibla källor. Upptäck enheter som stöds direkt i appen.",
+      "da": "FitMesh samler dine fitnessmålinger på Android ved at læse data fra Health Connect og direkte understøttede kilder. Se kompatible enheder direkte i appen."
     },
     "body.10.ctaLabel": {
       "sv": "Ladda ner FitMesh och prova gratis",

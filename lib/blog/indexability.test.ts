@@ -249,10 +249,16 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     expect(str).not.toContain("互換性台帳");
     expect(str).not.toContain("호환성 대장");
 
-    // 7. Presenza fonti verificate con data
+    // 7. Presenza data di verifica e assenza link generici presentati come prova
     expect(str).toContain("25 settembre 2026");
-    expect(str).toContain("https://consumer.huawei.com/en/support/");
-    expect(str).toContain("https://developer.android.com/health-and-fitness/health-connect");
+    expect(str).not.toContain("https://consumer.huawei.com/en/support/");
+    expect(str).not.toContain("https://developer.android.com/health-and-fitness/health-connect");
+
+    // 8. Flusso dati CTA: FitMesh legge da Health Connect, non invia genericamente dati a Health Connect
+    expect(str).not.toContain("sincronizza i dati dei wearable compatibili con health connect");
+    expect(str).not.toContain("syncs data from compatible wearables into health connect");
+    expect(str).toContain("leggendo da health connect");
+    expect(str).toContain("reading data from health connect");
   });
 
   it("nordic overlay per i 3 post non re-introduce claim non verificati in SV/DA", async () => {
@@ -332,5 +338,9 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     expect(hwEntry).not.toContain('"fitmesh support (planlagt)"');
     expect(hwEntry).not.toContain("kompatibilitetsregistret");
     expect(hwEntry).not.toContain("ledger");
+    expect(hwEntry).not.toContain("synkroniserar data från kompatibla bärbara enheter till health connect");
+    expect(hwEntry).not.toContain("synkroniserer data fra kompatible wearables til health connect");
+    expect(hwEntry).toContain("läsa data från health connect");
+    expect(hwEntry).toContain("læse data fra health connect");
   });
 });
