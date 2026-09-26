@@ -18,7 +18,7 @@ Technical and visual update only: no article rewriting, no SEO title or meta des
 
 ### Cover 1: Huawei Health Path (`huawei-health-path.webp`) — PASS
 - **Visual evaluation**: Overhead perspective of an indie developer's workbench with an unbranded round smartwatch on the left, an unbranded phone with dark/blank display on the right, and an open paper notebook showing two separate, disconnected hand-drawn pencil paths and an empty checkbox.
-- **Visual truth**: No direct connecting beam or arrow between devices, no implication of an available direct integration, no logos/trademarks, no fake app UI. Fully compliant with product reality.
+- **Visual truth**: The illustration strictly depicts two separate, unconnected path fragments on paper, with no direct connecting beam, arrow or link between the devices, and no fake application UI. It reflects the documented path described in the article: in instructions provided by Huawei no official direct route to Health Connect is documented, nor does FitMesh code have a direct Huawei connector, leaving data transfer on Android to be evaluated case-by-case via third-party bridge apps or manual exports. No absolute claims regarding vendor platforms are asserted.
 - **Alt text**: 13 localized `coverAlt` entries added across all indexable locales (it, en, es, de, pt, fr, pl, tr, nl, ja, ko, sv, da).
 
 ### Cover 2: Galaxy Watch Steps Troubleshooting (`galaxy-watch-steps-troubleshooting.webp`) — PASS
@@ -42,3 +42,9 @@ Technical and visual update only: no article rewriting, no SEO title or meta des
 - `tools/check-p18s-informative-alt.ts`: PASS (0 empty alts without aria-hidden).
 - `tools/check-perimetro-suite.ts`: PASS (62 files, 1211 tests).
 - `next build`: PASS (clean production build, all 26 localized HTML pages verified with updated cover image and localized alt attributes).
+
+## 4. Social Card Audit & Targeted Alignment Proposal
+
+- **Audit of current state**: The `og:image` and `twitter:image` tags in the HTML point to `https://www.fitmesh.fit/[locale]/blog/[slug]/opengraph-image-...` (a 1200x630 dynamic PNG rendered by `app/(frontend)/[locale]/(marketing)/blog/[slug]/opengraph-image.tsx`). This generator renders a dark branded canvas with gradient `#0B1023`, title, category badge, and reading time. It does NOT display the editorial WebP cover illustration.
+- **Distinction**: The editorial WebP cover (1200x675) is embedded solely in the page body `<img>` element (with localized `coverAlt`) and in the JSON-LD `BlogPosting.image` field. The mere presence of the existing Satori `og:image` tag cannot and must not be referred to as "OG updated".
+- **Targeted alignment proposal**: Without modifying the global `opengraph-image.tsx` template (which serves 68 other articles), `generateMetadata` in `app/(frontend)/[locale]/(marketing)/blog/[slug]/page.tsx` can specify `openGraph.images: [{ url: `${SITE_URL}${coverSrc(post)}`, width: COVER_W, height: COVER_H, alt: coverAlt(post, lc) }]` and `twitter.images` for targeted slugs. In Next.js App Router, explicitly declaring `openGraph.images` in page metadata takes precedence over the co-located `opengraph-image.tsx` route, seamlessly delivering the editorial cover as the social preview on supported crawlers.
