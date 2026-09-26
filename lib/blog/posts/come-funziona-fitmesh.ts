@@ -54,7 +54,7 @@ export const post: BlogPost = {
       es: "FitMesh Sync lee los datos de tus wearables, incluido el anillo Colmi por Bluetooth, los unifica priorizando la fuente más coherente y los muestra en un único panel de la app. Así funciona, pantalla a pantalla.",
       de: "FitMesh Sync liest die Daten deiner Wearables, darunter den Colmi-Ring über Bluetooth, führt sie über Quellenpriorisierung zusammen und zeigt sie in einem Dashboard in der App. So funktioniert es, Bildschirm für Bildschirm.",
       pt: "O FitMesh Sync lê os dados dos seus wearables, incluindo o anel Colmi por Bluetooth, une tudo priorizando a fonte mais coerente e mostra em um único painel no app. Veja como funciona, tela por tela.",
-      fr: "FitMesh Sync lit les données de vos wearables, y compris la bague Colmi via Bluetooth, les fusionne en retenant la source la più cohérente et les affiche dans un tableau de bord dans l'app. Voici comment ça marche, écran par écran.",
+      fr: "FitMesh Sync lit les données de vos wearables, y compris la bague Colmi via Bluetooth, les fusionne en retenant la source la plus cohérente et les affiche dans un tableau de bord dans l'app. Voici comment ça marche, écran par écran.",
     },
   },
   metaDescription: {
@@ -374,8 +374,8 @@ export const post: BlogPost = {
           en: ["Apple Watch (iPhone)", "Apple HealthKit", "Steps, heart rate, sleep, workouts"],
         },
         {
-          it: ["Provider esterni (Strava; Oura condizionale)", "API OAuth per Strava; bridge Health Connect / Apple Salute per Oura (se abilitato dall'utente nell'app Oura; API diretta non live). Integrazione Suunto non verificata / non disponibile nella release pubblica", "Allenamenti per Strava; metriche di sonno e prontezza per Oura se esportate nel bridge di sistema"],
-          en: ["External providers (Strava; conditional Oura)", "OAuth API for Strava; Health Connect / Apple Health bridge for Oura (if enabled by user in Oura app; direct API not live). Suunto integration unverified / unavailable in public release", "Workouts for Strava; sleep and readiness metrics for Oura if exported to system bridge"],
+          it: ["Provider esterni (Strava; Oura condizionale)", "API OAuth per Strava; bridge Health Connect / Apple Salute per Oura (se abilitato dall'utente nell'app Oura; API diretta non live). Integrazione Suunto non verificata / non disponibile nella release pubblica", "Allenamenti per Strava; metriche di sonno per Oura se esportate nel bridge di sistema"],
+          en: ["External providers (Strava; conditional Oura)", "OAuth API for Strava; Health Connect / Apple Health bridge for Oura (if enabled by user in Oura app; direct API not live). Suunto integration unverified / unavailable in public release", "Workouts for Strava; sleep metrics for Oura if exported to system bridge"],
         },
       ],
     },
