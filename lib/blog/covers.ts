@@ -41,7 +41,10 @@ export type CoverType =
   | "budgetSmartRings"
   | "multipleWatchDuplicates"
   | "huaweiPath"
-  | "galaxyWatchTroubleshooting";
+  | "galaxyWatchTroubleshooting"
+  | "healthConnectOverview"
+  | "colmiRingFitmesh"
+  | "changeSmartwatch";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -74,7 +77,7 @@ export const COVER_FILE: Record<CoverType, string> = {
   // consegnato insieme a questi ("pillar fitmesh.webp") e' risultato
   // BYTE-IDENTICO a zona2.webp (stesso SHA-256) ed e' stato scartato:
   // mai copiato, rinominato, ne' referenziato qui o altrove.
-  healthconnect: "health-connect-sync-troubleshooting.webp",
+  healthconnect: "health-connect-not-syncing.webp",
   zone2: "zone-2-different-devices.webp",
   circadian: "sleep-score-circadian-rhythm.webp",
   // P1.8S/P1.8S-IMG (2026-08-06): 3 cover consegnate da Matteo, forense +
@@ -128,6 +131,10 @@ export const COVER_FILE: Record<CoverType, string> = {
   // SPRINT PM P1.29-IMG (2026-09-26): cover dedicate per percorso Huawei Health e troubleshooting Galaxy Watch.
   huaweiPath: "huawei-health-path.webp",
   galaxyWatchTroubleshooting: "galaxy-watch-steps-troubleshooting.webp",
+  // ADDENDUM PM P1.29-IMG-C (2026-09-26): cover dedicate round 2 (Health Connect pillar, Colmi ring, cambio smartwatch).
+  healthConnectOverview: "how-health-connect-works.webp",
+  colmiRingFitmesh: "colmi-ring-fitmesh.webp",
+  changeSmartwatch: "change-smartwatch.webp",
 };
 
 /**
@@ -178,7 +185,7 @@ export const POST_COVER: Record<string, CoverType> = {
   "tracciare-sonno-anello": "sleep",
   "colmi-r02-setup": "ring",
   "sync-them-all": "multidevice",
-  "colmi-ring-fitmesh": "ring",
+  "colmi-ring-fitmesh": "colmiRingFitmesh",
   "fitmesh-arriva-su-iphone": "platform",
   // P1.8S-IMG FASE 9 (2026-08-06): cover dedicata (fitmesh-apple-health-
   // together.webp) al posto della generica "ring" — pagina bridge
@@ -190,16 +197,14 @@ export const POST_COVER: Record<string, CoverType> = {
   "fitbit-data-not-syncing-android": "troubleshooting",
   "best-health-data-sync-app-android": "compare",
   "smartwatch-estate-2026": "multidevice",
-  // P1.5C: prima usava "troubleshooting" (gear.webp, condivisa con altri 3
-  // post). Ora cover dedicata: il post ha appena avuto il micro-fix CTR DE
-  // (P1.5B Fase A) e merita un'immagine propria invece di quella generica.
+  // P1.5C / P1.29-IMG-C: cover dedicata per troubleshooting sincronizzazione Health Connect.
   "health-connect-not-syncing": "healthconnect",
   "how-to-export-apple-health-data": "export",
   "smartwatch-per-anziani-guida": "compare",
   "esportare-dati-garmin": "export",
   "sync-samsung-health-google-fit": "sync",
   "best-smartwatch-for-elderly": "compare",
-  "come-funziona-health-connect": "sync",
+  "come-funziona-health-connect": "healthConnectOverview",
   "hrv-cose-significato-valori": "metrics",
   "passi-non-si-sincronizzano-galaxy-watch": "galaxyWatchTroubleshooting",
   "guida-sync-wearable-2026": "sync",
@@ -212,7 +217,7 @@ export const POST_COVER: Record<string, CoverType> = {
   "gdpr-dati-fitness-smartwatch": "privacy",
   "fitmesh-gratis-prezzo-founder": "dashboard",
   "anello-colmi-r02-affidabile": "ring",
-  "cambiare-smartwatch-senza-perdere-dati": "multidevice",
+  "cambiare-smartwatch-senza-perdere-dati": "changeSmartwatch",
   // P1.8S-IMG FASE 9 (2026-08-06): cover dedicata (how-fitmesh-works.webp)
   // al posto della generica "dashboard" — il pillar del prodotto merita
   // un'immagine propria dopo la revisione contenuto reale P1.5B Fase C.

@@ -11,6 +11,10 @@ import { join } from "node:path";
 const DEDICATED_SOCIAL_IMAGES: Record<string, string> = {
   "huawei-health-health-connect-sincronizzazione": "huawei-health-path.png",
   "passi-non-si-sincronizzano-galaxy-watch": "galaxy-watch-steps-troubleshooting.png",
+  "health-connect-not-syncing": "health-connect-not-syncing.png",
+  "come-funziona-health-connect": "how-health-connect-works.png",
+  "colmi-ring-fitmesh": "colmi-ring-fitmesh.png",
+  "cambiare-smartwatch-senza-perdere-dati": "change-smartwatch.png",
 };
 
 export const alt = "FitMesh Blog";

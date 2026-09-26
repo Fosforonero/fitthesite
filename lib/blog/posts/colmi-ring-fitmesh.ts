@@ -1304,6 +1304,23 @@ export const post: BlogPost = {
       },
     },
   ],
+  // ADDENDUM PM P1.29-IMG-C (2026-09-26): coverAlt descrittivo dell'illustrazione editoriale
+  // (mano aperta con anello smart scuro accanto a smartphone a schermo spento con linea tratteggiata),
+  // coerente con la visual truth, privo di marchi o loghi protetti, non foto/screenshot.
+  // Copre le 11 varianti effettivamente indicizzabili.
+  coverAlt: {
+    it: "Illustrazione di una mano aperta che regge un anello smart scuro accanto a uno smartphone con schermo spento e una linea punteggiata che ne suggerisce la vicinanza.",
+    en: "Illustration of an open hand holding a dark smart ring beside a smartphone with screen off, with a subtle dotted line suggesting local proximity.",
+    es: "Ilustración de una mano abierta sosteniendo un anillo inteligente oscuro junto a un smartphone con la pantalla apagada y una línea punteada que sugiere proximidad local.",
+    de: "Illustration einer geöffneten Hand, die einen dunklen Smart Ring neben einem Smartphone mit ausgeschaltetem Bildschirm hält, verbunden durch eine dezente gepunktete Linie für lokale Nähe.",
+    pt: "Ilustração de uma mão aberta segurando um anel inteligente escuro ao lado de um smartphone com tela desligada e uma linha pontilhada sugerindo proximidade local.",
+    fr: "Illustration d'une main ouverte tenant une bague connectée sombre à côté d'un smartphone à l'écran éteint, avec une ligne pointillée suggérant une proximité locale.",
+    pl: "Ilustracja otwartej dłoni trzymającej ciemny inteligentny pierścień obok smartfona z wyłączonym ekranem i kropkowanej linii sugerującej bliskość lokalną.",
+    tr: "Avuç içinde tutulan koyu renkli bir akıllı yüzük, ekranı kapalı bir akıllı telefon ve yerel yakınlığı gösteren kesikli çizim içeren bir illüstrasyon.",
+    nl: "Illustratie van een open hand die een donkere slimme ring vasthoudt naast een smartphone met het scherm uit, met een subtiele stippellijn die lokale nabijheid suggereert.",
+    ja: "手のひらに載せられたダークカラーのスマートリングと画面が消えたスマートフォン、近接性を示す点線が描かれたデスクのイラスト。",
+    ko: "손바닥 위에 놓인 다크 스마트 링과 화면이 꺼진 스마트폰, 근접 연결을 나타내는 점선이 그려진 데스크 일러스트.",
+  },
   related: [
     "anello-smart-guida-completa",
     "tracciare-sonno-anello",

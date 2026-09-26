@@ -1690,6 +1690,23 @@ export const post: BlogPost = {
   // e 6 le URL sopra sono gia' citate inline nel corpo (verificato dal
   // guardrail check-p16-visible-sources.ts): sourcesRenderedInline=true
   // evita la sezione "Fonti" automatica duplicata.
+  // ADDENDUM PM P1.29-IMG-C (2026-09-26): coverAlt descrittivo dell'illustrazione editoriale
+  // (smartphone con sfondo paesaggistico e smartwatch circolare accanto a un taccuino con sequenza interrotta),
+  // coerente con la visual truth, privo di marchi o loghi protetti, non foto/screenshot.
+  // Copre le 11 varianti effettivamente indicizzabili (incluso overlay nordico sv/da).
+  coverAlt: {
+    it: "Illustrazione di uno smartphone con sfondo paesaggistico e uno smartwatch circolare accanto a un taccuino aperto con una sequenza a punti interrotta, caselle di controllo e una matita.",
+    en: "Illustration of a smartphone with a landscape wallpaper and a round smartwatch beside an open notebook showing an interrupted dotted sequence, checkboxes, and a pencil.",
+    es: "Ilustración de un smartphone con fondo de pantalla de paisaje y un smartwatch redondo junto a un cuaderno abierto con una secuencia punteada interrumpida, casillas de verificación y un lápiz.",
+    de: "Illustration eines Smartphones mit Landschaftshintergrund und einer runden Smartwatch neben einem geöffneten Notizbuch mit einer unterbrochenen Punktesequenz, Kontrollkästchen und einem Bleistift.",
+    pt: "Ilustração de um smartphone com papel de parede de paisagem e um smartwatch redondo ao lado de um caderno aberto com uma sequência pontilhada interrompida, caixas de seleção e um lápis.",
+    fr: "Illustration d'un smartphone avec fond d'écran de paysage et d'une montre connectée ronde à côté d'un carnet ouvert montrant une séquence en pointillés interrompue, des cases à cocher et un crayon.",
+    pl: "Ilustracja smartfona z tapetą krajobrazową i okrągłego smartwatcha obok otwartego notatnika z przerwaną sekwencją kropek, polami wyboru i ołówkiem.",
+    nl: "Illustratie van een smartphone met landschapsachtergrond en een ronde smartwatch naast een open notitieboek met een onderbroken stippenreeks, selectievakjes en een potlood.",
+    ja: "風景の壁紙が表示されたスマートフォンと丸型スマートウォッチ、途切れた点線の手順とチェックボックスが描かれたノートと鉛筆のイラスト。",
+    sv: "Illustration av en smartphone med landskapsbakgrund och en rund smartklocka bredvid en öppen anteckningsbok med en avbruten punktsekvens, kryssrutor och en penna.",
+    da: "Illustration af en smartphone med landskabsbaggrund og et rundt smartwatch ved siden af en åben notesbog med en afbrudt priksekvens, afkrydsningsfelter og en blyant.",
+  },
   sources: [
     "https://developer.android.com/health-and-fitness/guides/health-connect/develop/get-started",
     "https://developer.samsung.com/health/health-connect-faq.html",

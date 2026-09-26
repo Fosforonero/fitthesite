@@ -387,4 +387,88 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
       expect(fs.existsSync(path.join(socialDir, "galaxy-watch-steps-troubleshooting.png"))).toBe(true);
     });
   });
+
+  describe("P1.29-IMG-C: cover editoriali e anteprime social Round 2", () => {
+    it("verifica cover WebP, alt text su tutte le varianti indicizzabili e asset social 1200x630 dedicati", async () => {
+      const { coverAlt, coverSrc } = await import("./covers");
+      const { tl } = await import("./types");
+      const { locales } = await import("@/lib/i18n");
+      const fs = await import("node:fs");
+      const path = await import("node:path");
+
+      const round2Slugs = [
+        "health-connect-not-syncing",
+        "come-funziona-health-connect",
+        "colmi-ring-fitmesh",
+        "cambiare-smartwatch-senza-perdere-dati",
+      ] as const;
+
+      const expectedSocialMap: Record<string, string> = {
+        "health-connect-not-syncing": "health-connect-not-syncing.png",
+        "come-funziona-health-connect": "how-health-connect-works.png",
+        "colmi-ring-fitmesh": "colmi-ring-fitmesh.png",
+        "cambiare-smartwatch-senza-perdere-dati": "change-smartwatch.png",
+      };
+
+      const expectedCoverMap: Record<string, string> = {
+        "health-connect-not-syncing": "health-connect-not-syncing.webp",
+        "come-funziona-health-connect": "how-health-connect-works.webp",
+        "colmi-ring-fitmesh": "colmi-ring-fitmesh.webp",
+        "cambiare-smartwatch-senza-perdere-dati": "change-smartwatch.webp",
+      };
+
+      const socialDir = path.join(process.cwd(), "public", "blog", "social");
+      const coversDir = path.join(process.cwd(), "public", "blog", "covers");
+
+      for (const slug of round2Slugs) {
+        const post = BLOG_POSTS.find((p) => p.slug === slug);
+        expect(post, `post ${slug} deve esistere`).toBeDefined();
+
+        // Verifica che la cover assegnata coincida con l'asset dedicato
+        const src = coverSrc(post!);
+        expect(src).toBe(`/blog/covers/${expectedCoverMap[slug]}`);
+        expect(fs.existsSync(path.join(coversDir, expectedCoverMap[slug]))).toBe(true);
+
+        // Verifica asset social dedicato
+        expect(fs.existsSync(path.join(socialDir, expectedSocialMap[slug]))).toBe(true);
+
+        // Verifica coverAlt per tutte le lingue indicizzabili
+        let indexableCount = 0;
+        for (const lc of locales) {
+          if (!isBlogVariantIndexable(post!, lc)) continue;
+          indexableCount++;
+          const alt = post!.coverAlt?.[lc];
+          expect(alt, `[${slug}][${lc}] coverAlt mancante`).toBeDefined();
+          expect(alt!.trim().length).toBeGreaterThan(0);
+          const rendered = coverAlt(post!, lc);
+          expect(rendered).toBe(alt);
+          expect(rendered).not.toBe(tl(post!.hero.title, lc));
+        }
+        expect(indexableCount).toBeGreaterThan(0);
+      }
+
+      // Verifica specifica assenza della cover ritirata
+      expect(fs.existsSync(path.join(coversDir, "health-connect-sync-troubleshooting.webp"))).toBe(false);
+
+      // Distinzione visiva e assenza di "telefono spento" in polacco (PL) per post pertinenti
+      const hcPost = BLOG_POSTS.find((p) => p.slug === "health-connect-not-syncing")!;
+      expect(hcPost.coverAlt?.pl).toContain("z tapetą krajobrazową");
+      expect(hcPost.coverAlt?.pl).not.toContain("wyłączonego smartfona");
+
+      const colmiPost = BLOG_POSTS.find((p) => p.slug === "colmi-ring-fitmesh")!;
+      expect(colmiPost.coverAlt?.pl).toContain("z wyłączonym ekranem");
+      expect(colmiPost.coverAlt?.pl).not.toContain("wyłączonego smartfona");
+
+      // Verifica fedeltà visiva per cambiare-smartwatch-senza-perdere-dati (P1.29-IMG-C-A)
+      const switchPost = BLOG_POSTS.find((p) => p.slug === "cambiare-smartwatch-senza-perdere-dati")!;
+      expect(switchPost.coverAlt?.it).toContain("due orologi da polso");
+      expect(switchPost.coverAlt?.it).toContain("diario");
+      expect(switchPost.coverAlt?.it).not.toContain("anello");
+      expect(switchPost.coverAlt?.it).not.toContain("continuità");
+      expect(switchPost.coverAlt?.en).toContain("two wristwatches");
+      expect(switchPost.coverAlt?.en).toContain("journal");
+      expect(switchPost.coverAlt?.en).not.toContain("ring");
+      expect(switchPost.coverAlt?.en).not.toContain("continuity");
+    });
+  });
 });
