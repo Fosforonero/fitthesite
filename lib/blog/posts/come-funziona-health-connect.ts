@@ -1314,6 +1314,25 @@ export const post: BlogPost = {
       },
     },
   ],
+  // ADDENDUM PM P1.29-IMG-C (2026-09-26): coverAlt descrittivo dell'illustrazione editoriale
+  // (organizer in legno con smartphone a schermo spento e schede con scarpa, luna e orologio),
+  // coerente con la visual truth, privo di marchi o loghi protetti, non foto/screenshot.
+  // Copre tutte le 13 varianti effettivamente indicizzabili (incluso overlay nordico sv/da).
+  coverAlt: {
+    it: "Illustrazione di un organizer da scrivania in legno con uno smartphone a schermo spento al centro e schede di carta con disegni di una scarpa, una luna e un orologio.",
+    en: "Illustration of a wooden desk organizer tray with a blank-screen smartphone in the center and paper cards showing drawings of a shoe, a crescent moon, and a watch.",
+    es: "Ilustración de un organizador de escritorio de madera con un smartphone con pantalla apagada en el centro y tarjetas de papel con dibujos de una zapatilla, una luna y un reloj.",
+    de: "Illustration eines hölzernen Schreibtisch-Organizers mit einem Smartphone mit ausgeschaltetem Bildschirm in der Mitte und Papierkarten mit Zeichnungen eines Schuhs, eines Mondes und einer Uhr.",
+    pt: "Ilustração de um organizador de mesa de madeira com um smartphone com tela desligada no centro e cartões de papel com desenhos de um tênis, uma lua e um relógio.",
+    fr: "Illustration d'un organiseur de bureau en bois avec un smartphone à l'écran éteint au centre et des fiches en papier illustrant une chaussure, une lune et une montre.",
+    pl: "Ilustracja drewnianego przybornika na biurko ze smartfonem z wyłączonym ekranem pośrodku oraz papierowymi kartami z rysunkami buta, księżyca i zegarka.",
+    tr: "Ahşap bir masa düzenleyicinin ortasında ekranı kapalı bir akıllı telefon ve ayakkabı, hilal ile saat çizimleri bulunan kâğıt kartlar içeren bir illüstrasyon.",
+    nl: "Illustratie van een houten bureau-organizer met een smartphone met het scherm uit in het midden en papieren kaarten met tekeningen van een schoen, een maan en een horloge.",
+    ja: "画面が消えたスマートフォンを中心に、靴、三日月、時計が描かれた紙カードが整理された木製トレイのイラスト。",
+    ko: "화면이 꺼진 스마트폰을 중심으로 신발, 초승달, 시계가 그려진 종이 카드가 정리된 원목 데스크 트레이 일러스트.",
+    sv: "Illustration av en skrivbordsbricka i trä med en smartphone med släckt skärm i mitten och papperskort med teckningar av en sko, en måne och en klocka.",
+    da: "Illustration af en skrivebordsbakke i træ med en smartphone med slukket skærm i midten og papirkort med tegninger af en sko, en måne og et ur.",
+  },
   related: [
     "health-connect-vs-samsung-health",
     "guida-sync-wearable-2026",

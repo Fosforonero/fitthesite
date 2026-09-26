@@ -648,6 +648,18 @@ export const post: BlogPost = {
       },
     },
   ],
+  // MICRO-GATE P1.29-IMG-C-A (2026-09-26): coverAlt descrittivo della scena visibile
+  // (due orologi da polso su scrivania in legno accanto a un diario aperto e una matita),
+  // coerente con la visual truth, privo di marchi, senza attribuire continuità o connessioni non raffigurate.
+  // Copre le 6 varianti effettivamente indicizzabili.
+  coverAlt: {
+    it: "Illustrazione di due orologi da polso posati su una scrivania in legno accanto a un diario aperto e una matita.",
+    en: "Illustration of two wristwatches resting on a wooden desk beside an open journal and a pencil.",
+    es: "Ilustración de dos relojes de pulsera sobre un escritorio de madera junto a un diario abierto y un lápiz.",
+    de: "Illustration von zwei Armbanduhren auf einem Holzschreibtisch neben einem geöffneten Tagebuch und einem Bleistift.",
+    pt: "Ilustração de dois relógios de pulso sobre uma mesa de madeira ao lado de um diário aberto e um lápis.",
+    fr: "Illustration de deux montres-bracelets posées sur un bureau en bois à côté d'un carnet ouvert et d'un crayon.",
+  },
   related: [
     "scegliere-smartwatch-dati-2026",
     "piu-smartwatch-insieme-dati-doppi",
