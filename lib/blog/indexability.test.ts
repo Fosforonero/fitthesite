@@ -343,4 +343,48 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     expect(hwEntry).toContain("läsa data från health connect");
     expect(hwEntry).toContain("læse data fra health connect");
   });
+
+  describe("P1.29-IMG: cover editoriali e anteprime social per Huawei Health e Galaxy Watch", () => {
+    it("verifica alt text (distinzione schermo vs telefono spento) e asset anteprime social 1200x630 per i due articoli della PR", async () => {
+      const { coverAlt } = await import("./covers");
+      const { tl } = await import("./types");
+      const { locales } = await import("@/lib/i18n");
+      const fs = await import("node:fs");
+      const path = await import("node:path");
+
+      const p129Slugs = [
+        "huawei-health-health-connect-sincronizzazione",
+        "passi-non-si-sincronizzano-galaxy-watch",
+      ] as const;
+
+      for (const slug of p129Slugs) {
+        const post = BLOG_POSTS.find((p) => p.slug === slug);
+        expect(post, `post ${slug} deve esistere`).toBeDefined();
+
+        for (const lc of locales) {
+          if (!isBlogVariantIndexable(post!, lc)) continue;
+          const alt = post!.coverAlt?.[lc];
+          expect(alt, `[${slug}][${lc}] coverAlt mancante`).toBeDefined();
+          expect(alt!.trim().length).toBeGreaterThan(0);
+          const rendered = coverAlt(post!, lc);
+          expect(rendered).toBe(alt);
+          expect(rendered).not.toBe(tl(post!.hero.title, lc));
+        }
+      }
+
+      // Verifica specifica distinzione schermo spento vs telefono spento in polacco (PL)
+      const galaxyPost = BLOG_POSTS.find((p) => p.slug === "passi-non-si-sincronizzano-galaxy-watch")!;
+      expect(galaxyPost.coverAlt?.pl).toContain("z wyłączonym ekranem");
+      expect(galaxyPost.coverAlt?.pl).not.toContain("wyłączonego smartfona");
+
+      const huaweiPost = BLOG_POSTS.find((p) => p.slug === "huawei-health-health-connect-sincronizzazione")!;
+      expect(huaweiPost.coverAlt?.pl).toContain("z wyłączonym ekranem");
+      expect(huaweiPost.coverAlt?.pl).not.toContain("wyłączonego smartfona");
+
+      // Verifica esistenza degli asset social dedicati
+      const socialDir = path.join(process.cwd(), "public", "blog", "social");
+      expect(fs.existsSync(path.join(socialDir, "huawei-health-path.png"))).toBe(true);
+      expect(fs.existsSync(path.join(socialDir, "galaxy-watch-steps-troubleshooting.png"))).toBe(true);
+    });
+  });
 });
