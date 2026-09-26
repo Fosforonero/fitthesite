@@ -105,6 +105,7 @@ export const CONTENT_CLUSTERS = {
   smartRingHealthConnect: "smart_ring_health_connect",
   fitmeshVsAlternatives: "fitmesh_vs_alternatives",
   multiDeviceDedup: "multi_device_dedup",
+  general: "general",
 } as const;
 
 export type ContentCluster = (typeof CONTENT_CLUSTERS)[keyof typeof CONTENT_CLUSTERS];

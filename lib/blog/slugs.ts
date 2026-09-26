@@ -789,6 +789,18 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "galaxy-watch-ultra2-watch9-health-connect",
     ko: "galaxy-watch-ultra2-watch9-health-connect",
   },
+  "galaxy-watch-sleep-tracking-health-connect": {
+    en: "galaxy-watch-sleep-tracking-health-connect",
+    es: "galaxy-watch-sleep-tracking-health-connect",
+    de: "galaxy-watch-sleep-tracking-health-connect",
+    pt: "galaxy-watch-sleep-tracking-health-connect",
+    fr: "galaxy-watch-sleep-tracking-health-connect",
+    pl: "galaxy-watch-sleep-tracking-health-connect",
+    tr: "galaxy-watch-sleep-tracking-health-connect",
+    nl: "galaxy-watch-sleep-tracking-health-connect",
+    ja: "galaxy-watch-sleep-tracking-health-connect",
+    ko: "galaxy-watch-sleep-tracking-health-connect",
+  },
   // P1.4B: pubblicazione solo it/en (REDIRECT_INCOMPLETE_LOCALE_SLUGS, stesso
   // meccanismo di galaxy-watch-ultra2-watch9-health-connect sopra). Le altre
   // 10 locale riusano lo slug EN (mai renderizzato: la pagina va in 307 verso

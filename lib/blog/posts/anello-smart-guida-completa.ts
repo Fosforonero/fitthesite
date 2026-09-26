@@ -13,6 +13,21 @@ export const post: BlogPost = {
   publishedAt: "2026-06-16",
   updatedAt: "2026-06-16",
   readMinutes: 10,
+  coverAlt: {
+    it: "Anello smart con sensori interni visibili accanto a uno smartphone",
+    en: "Smart ring with visible inner sensors beside a smartphone",
+    es: "Anillo inteligente con sensores internos visibles junto a un smartphone",
+    de: "Smarter Ring mit sichtbaren Innensensoren neben einem Smartphone",
+    pt: "Anel inteligente com sensores internos visíveis ao lado de um smartphone",
+    fr: "Bague connectée avec capteurs internes visibles posée à côté d'un smartphone",
+    pl: "Inteligentny pierścień z widocznymi wewnętrznymi czujnikami obok smartfona",
+    tr: "Bir akıllı telefonun yanında iç sensörleri görünen akıllı yüzük",
+    nl: "Slimme ring met zichtbare interne sensoren naast een smartphone",
+    ja: "スマートフォンの横に置かれた、内側センサーが見えるスマートリング",
+    ko: "스마트폰 옆에 놓인 안쪽 센서가 보이는 스마트 링",
+    sv: "Smart ring med synliga inre sensorer bredvid en smartphone",
+    da: "Smart ring med synlige indre sensorer ved siden af en smartphone",
+  },
   hero: {
     kicker: {
       it: "Guida",

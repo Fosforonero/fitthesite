@@ -13,6 +13,7 @@
 
 import type { BlogPost, BlogCategory } from "./types";
 import { post as stepsTotalVsHourlyChart } from "./posts/steps-total-vs-hourly-chart";
+import { post as galaxyWatchSleepTrackingHealthConnect } from "./posts/galaxy-watch-sleep-tracking-health-connect";
 import { post as novitaPassiPiuAffidabili } from "./posts/novita-passi-piu-affidabili";
 import { post as novitaGiorniPassati } from "./posts/novita-giorni-passati";
 import { post as nuovaAppleHealthRendeInutiliAltreApp } from "./posts/nuova-apple-health-rende-inutili-altre-app";
@@ -207,6 +208,7 @@ const RAW_POSTS: BlogPost[] = [
   novitaPassiPiuAffidabili,
   novitaGiorniPassati,
   nuovaAppleHealthRendeInutiliAltreApp,
+  galaxyWatchSleepTrackingHealthConnect,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */
