@@ -39,7 +39,9 @@ export type CoverType =
   | "vo2MaxComparison"
   | "smartRingGuide"
   | "budgetSmartRings"
-  | "multipleWatchDuplicates";
+  | "multipleWatchDuplicates"
+  | "huaweiPath"
+  | "galaxyWatchTroubleshooting";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -123,6 +125,9 @@ export const COVER_FILE: Record<CoverType, string> = {
   smartRingGuide: "smart-ring-complete-guide.webp",
   budgetSmartRings: "budget-smart-rings.webp",
   multipleWatchDuplicates: "multiple-smartwatches-duplicate-data.webp",
+  // SPRINT PM P1.29-IMG (2026-09-26): cover dedicate per percorso Huawei Health e troubleshooting Galaxy Watch.
+  huaweiPath: "huawei-health-path.webp",
+  galaxyWatchTroubleshooting: "galaxy-watch-steps-troubleshooting.webp",
 };
 
 /**
@@ -148,7 +153,7 @@ export const POST_COVER: Record<string, CoverType> = {
   // restano invariati per vincolo esplicito dello sprint (post appena
   // riscritto in P1.8B/PR #57).
   "google-health-google-fit": "googleHealthSync",
-  "huawei-health-health-connect-sincronizzazione": "sync",
+  "huawei-health-health-connect-sincronizzazione": "huaweiPath",
   "garmin-body-battery-health-connect": "troubleshooting",
   "polar-health-connect-sync": "sync",
   "sleep-tracker-comparison-2026": "sleepTrackerComparison",
@@ -196,7 +201,7 @@ export const POST_COVER: Record<string, CoverType> = {
   "best-smartwatch-for-elderly": "compare",
   "come-funziona-health-connect": "sync",
   "hrv-cose-significato-valori": "metrics",
-  "passi-non-si-sincronizzano-galaxy-watch": "troubleshooting",
+  "passi-non-si-sincronizzano-galaxy-watch": "galaxyWatchTroubleshooting",
   "guida-sync-wearable-2026": "sync",
   "scegliere-smartwatch-dati-2026": "compare",
   "health-connect-vs-samsung-health": "compare",

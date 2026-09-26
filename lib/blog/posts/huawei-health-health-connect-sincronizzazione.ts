@@ -606,6 +606,25 @@ export const post: BlogPost = {
       },
     },
   ],
+  // SPRINT PM P1.29-IMG (2026-09-26): coverAlt descrittivo dell'illustrazione editoriale
+  // (smartwatch e telefono con schermo spento, taccuino con percorsi separati e non collegati),
+  // coerente con la visual truth, privo di keyword stuffing, non foto/screenshot.
+  // Copre tutte le 13 varianti indicizzabili (incluso overlay nordico sv/da).
+  coverAlt: {
+    it: "Illustrazione di uno smartwatch rotondo e uno smartphone con schermo spento accanto a un taccuino con percorsi separati e non collegati disegnati a matita.",
+    en: "Illustration of a round smartwatch and a smartphone with screen off beside an open notebook showing two separate, disconnected hand-drawn paths.",
+    es: "Ilustración de un smartwatch redondo y un smartphone con la pantalla apagada junto a un cuaderno con rutas separadas y desconectadas dibujadas a lápiz.",
+    de: "Illustration einer runden Smartwatch und eines ausgeschalteten Smartphones neben einem Notizbuch mit zwei getrennten, nicht verbundenen gezeichneten Pfaden.",
+    pt: "Ilustração de um smartwatch redondo e um smartphone com tela desligada ao lado de um caderno com trajetos separados e não conectados desenhados a lápis.",
+    fr: "Illustration d'une montre connectée ronde et d'un smartphone à l'écran éteint à côté d'un carnet montrant deux tracés séparés et non reliés dessinés au crayon.",
+    pl: "Ilustracja okrągłego smartwatcha i smartfona z wyłączonym ekranem obok notatnika z dwoma oddzielnymi, niepołączonymi trasami narysowanymi ołówkiem.",
+    tr: "Yuvarlak bir akıllı saat, ekranı kapalı bir akıllı telefon ve açık bir defterde kurşun kalemle çizilmiş iki ayrı, bağlantısız rota çizimi.",
+    nl: "Illustratie van een ronde smartwatch en een smartphone met het scherm uit naast een notitieboek met twee afzonderlijke, niet-verbonden getekende paden.",
+    ja: "丸型スマートウォッチと画面が消えたスマートフォン、鉛筆で描かれた接続されていない2つの経路を示すノートのイラスト。",
+    ko: "원형 스마트워치와 화면이 꺼진 스마트폰, 연필로 그려진 연결되지 않은 두 개의 경로를 보여주는 공책 일러스트.",
+    sv: "Illustration av en rund smartklocka och en smartphone med släckt skärm bredvid en anteckningsbok med två separata, icke anslutna ritade vägar.",
+    da: "Illustration af et rundt smartwatch og en smartphone med slukket skærm ved siden af en notesbog med to separate, ikke-forbundne tegnede ruter.",
+  },
   related: [
     "alternative-app-sync-wearable-2026",
     "come-funziona-health-connect",
