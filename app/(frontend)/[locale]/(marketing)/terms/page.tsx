@@ -146,8 +146,8 @@ function TermsIT() {
         <p>
           FitMesh Sync è un'applicazione che legge dati di salute dal tuo dispositivo Android
           (tramite Health Connect, Samsung Health Data SDK) e li sincronizza sul backend cloud
-          gestito da FitMesh (Supabase, infrastruttura UE), permettendoti di visualizzarli in una
-          dashboard web personale.
+          gestito da FitMesh (Supabase, infrastruttura UE), permettendoti di visualizzarli
+          nell'app mobile.
         </p>
       </Section>
 
@@ -188,7 +188,7 @@ function TermsIT() {
 
       <Section title="5. Account e dati">
         <p>
-          Per usare la dashboard e sincronizzare i tuoi dati serve un account: accedi con un link via
+          Per usare l'area account web e sincronizzare i tuoi dati serve un account: accedi con un link via
           email o con Google (autenticazione gestita da Supabase Auth). L'app sul telefono si collega
           al tuo account tramite un codice di pairing; a ogni dispositivo è associato un identificativo
           univoco (Device ID) usato per distinguere le sorgenti dei dati.
@@ -357,8 +357,8 @@ function TermsEN() {
         <p>
           FitMesh Sync is an application that reads health data from your Android device (via
           Health Connect, Samsung Health Data SDK) and syncs it to FitMesh's managed cloud
-          backend (Supabase, EU infrastructure), allowing you to view it on a personal web
-          dashboard.
+          backend (Supabase, EU infrastructure), allowing you to view it in the FitMesh mobile
+          app.
         </p>
       </Section>
 
@@ -398,7 +398,7 @@ function TermsEN() {
 
       <Section title="5. Account and data">
         <p>
-          Using the dashboard and syncing your data requires an account: you sign in with an email
+          Using the web account area and syncing your data requires an account: you sign in with an email
           link or with Google (authentication handled by Supabase Auth). The phone app connects to
           your account through a pairing code; each device gets a unique identifier (Device ID) used
           to tell data sources apart.
@@ -565,7 +565,7 @@ function TermsES() {
           FitMesh Sync es una aplicación que lee datos de salud de tu dispositivo Android (a través
           de Health Connect y el Samsung Health Data SDK) y los sincroniza con el backend en la
           nube gestionado por FitMesh (Supabase, infraestructura en la UE), permitiéndote
-          consultarlos en un panel web personal.
+          consultarlos en la app móvil.
         </p>
       </Section>
 
@@ -608,7 +608,7 @@ function TermsES() {
 
       <Section title="5. Cuenta y datos">
         <p>
-          Para usar el panel y sincronizar tus datos necesitas una cuenta: inicias sesión con un
+          Para usar el área de cuenta web y sincronizar tus datos necesitas una cuenta: inicias sesión con un
           enlace por email o con Google (autenticación gestionada por Supabase Auth). La app del
           teléfono se conecta a tu cuenta mediante un código de emparejamiento; cada dispositivo
           tiene un identificador único (Device ID) que sirve para distinguir las fuentes de datos.
@@ -779,8 +779,8 @@ function TermsDE() {
         <p>
           FitMesh Sync ist eine Anwendung, die Gesundheitsdaten von deinem Android-Gerät ausliest
           (über Health Connect, Samsung Health Data SDK) und sie mit dem von FitMesh verwalteten
-          Cloud-Backend (Supabase, EU-Infrastruktur) synchronisiert, sodass du sie in einem
-          persönlichen Web-Dashboard einsehen kannst.
+          Cloud-Backend (Supabase, EU-Infrastruktur) synchronisiert, sodass du sie in der
+          mobilen App einsehen kannst.
         </p>
       </Section>
 
@@ -822,7 +822,7 @@ function TermsDE() {
 
       <Section title="5. Konto und Daten">
         <p>
-          Für die Nutzung des Dashboards und die Synchronisierung deiner Daten ist ein Konto
+          Für die Nutzung des Web-Kontobereichs und die Synchronisierung deiner Daten ist ein Konto
           erforderlich: Du meldest dich mit einem E-Mail-Link oder mit Google an
           (Authentifizierung über Supabase Auth). Die Telefon-App verbindet sich über einen
           Kopplungscode mit deinem Konto; jedem Gerät wird eine eindeutige Kennung (Device ID)
@@ -996,7 +996,7 @@ function TermsPT() {
           FitMesh Sync é um aplicativo que lê dados de saúde do seu dispositivo Android (por meio
           do Health Connect e do Samsung Health Data SDK) e os sincroniza com o backend em nuvem
           gerenciado pela FitMesh (Supabase, infraestrutura na UE), permitindo que você os
-          visualize em um painel web pessoal.
+          visualize no aplicativo móvel.
         </p>
       </Section>
 
@@ -1039,7 +1039,7 @@ function TermsPT() {
 
       <Section title="5. Conta e dados">
         <p>
-          Para usar o painel e sincronizar seus dados, é necessária uma conta: você entra com um
+          Para usar a área de conta web e sincronizar seus dados, é necessária uma conta: você entra com um
           link por e-mail ou com o Google (autenticação gerenciada pelo Supabase Auth). O
           aplicativo no celular se conecta à sua conta por meio de um código de emparelhamento;
           cada dispositivo possui um identificador único (Device ID) usado para distinguir as
@@ -1210,7 +1210,7 @@ function TermsFR() {
           FitMesh Sync est une application qui lit les données de santé de votre appareil Android
           (via Health Connect et le Samsung Health Data SDK) et les synchronise avec le backend
           cloud géré par FitMesh (Supabase, infrastructure UE), vous permettant de les consulter
-          dans un tableau de bord web personnel.
+          dans l'application mobile.
         </p>
       </Section>
 
@@ -1252,7 +1252,7 @@ function TermsFR() {
 
       <Section title="5. Compte et données">
         <p>
-          Pour utiliser le tableau de bord et synchroniser vos données, un compte est nécessaire :
+          Pour utiliser l'espace compte web et synchroniser vos données, un compte est nécessaire :
           vous vous connectez avec un lien par e-mail ou avec Google (authentification gérée par
           Supabase Auth). L'application sur le téléphone se connecte à votre compte via un code
           d'appairage ; chaque appareil reçoit un identifiant unique (Device ID) permettant de
