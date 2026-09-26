@@ -648,6 +648,18 @@ export const post: BlogPost = {
       },
     },
   ],
+  // ADDENDUM PM P1.29-IMG-C (2026-09-26): coverAlt descrittivo dell'illustrazione editoriale
+  // (linea del tempo su scrivania con diversi dispositivi indossabili e note di progetto),
+  // coerente con la visual truth, privo di marchi o loghi protetti, non foto/screenshot.
+  // Copre le 6 varianti effettivamente indicizzabili.
+  coverAlt: {
+    it: "Illustrazione di una linea del tempo su una scrivania che collega diversi dispositivi indossabili e note di progetto, a rappresentare la continuità dello storico nel passaggio tra modelli diversi.",
+    en: "Illustration of a timeline across a desk connecting different wearable devices and project notes, representing data continuity when switching between devices.",
+    es: "Ilustración de una línea de tiempo sobre un escritorio que conecta varios dispositivos corporales y notas de proyecto, representando la continuidad del historial al cambiar de dispositivo.",
+    de: "Illustration einer Zeitachse auf einem Schreibtisch, die verschiedene Wearables und Projektnotizen verbindet und die Kontinuität des Verlaufs beim Gerätewechsel darstellt.",
+    pt: "Ilustração de uma linha do tempo sobre uma mesa conectando diferentes dispositivos vestíveis e notas de projeto, representando a continuidade do histórico ao trocar de dispositivo.",
+    fr: "Illustration d'une frise chronologique sur un bureau reliant différents appareils connectés et des notes de projet, représentant la continuité de l'historique lors d'un changement d'appareil.",
+  },
   related: [
     "scegliere-smartwatch-dati-2026",
     "piu-smartwatch-insieme-dati-doppi",
