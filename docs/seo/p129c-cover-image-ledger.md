@@ -22,9 +22,9 @@ All dimensions and SHA-256 checksums in this ledger are computed directly on the
 
 ### Proposal in EDITORIAL HOLD (Out of PR Scope)
 
-| Proposal File | Target Article | Current Post Cover | Status | Bytes | SHA-256 | Reason |
-| --- | --- | --- | --- | ---: | --- | --- |
-| `recovery-metrics-nonclinical-concept.webp` | `metriche-recupero-hrv-sonno-frequenza-cardiaca` | `recovery.webp` (`sleep` / `recovery`) | **GATE FAILED (EDITORIAL HOLD)** | 120,390 | `73cb32125b6d4ec825b2849ab15dddde57c3ca4675e94707b2d45552afa4236d` | Held until article copy and non-clinical health claims are formally reconciled in a separate task. Strictly excluded from the PR and from `public/`. |
+| Target Post Slug | Source Proposal File | Destination Cover File | Current Post Cover | Status | Bytes | SHA-256 | Reason |
+| --- | --- | --- | --- | --- | ---: | --- | --- |
+| `metriche-recupero-hrv-sonno-frequenza-cardiaca` | `recovery-metrics-nonclinical-concept.webp` | — | `hearth.webp` (`metrics`) | **GATE FAILED (EDITORIAL HOLD)** | 120,390 | `73cb32125b6d4ec825b2849ab15dddde57c3ca4675e94707b2d45552afa4236d` | Held until article copy and non-clinical health claims are formally reconciled in a separate task. Strictly excluded from the PR and from `public/`. |
 
 ### Retired Cover Asset (from origin/main)
 
@@ -39,7 +39,7 @@ All dimensions and SHA-256 checksums in this ledger are computed directly on the
 | `health-connect-not-syncing.webp` | `public/blog/social/health-connect-not-syncing.png` | `health-connect-not-syncing` | Crop top -30px, bottom -15px. Preserves smartphone with landscape wallpaper, circular smartwatch, open notebook with broken sequence and checkboxes, and pencil. | 1,155,284 | `d6cb73c36d0b4b217b50e8557b3ceb7b0d50491edb25767042dd26a60efff9c5` |
 | `how-health-connect-works.webp` | `public/blog/social/how-health-connect-works.png` | `come-funziona-health-connect` | Center crop top -22px, bottom -23px. Preserves wooden desk tray, smartphone with black screen, hand-drawn paper cards (shoe, crescent moon, watch drawn on paper), and pen. | 1,048,517 | `bfe79c4189e33081d540366e3c93b1d29ddeaf9caf7933b2094c6baf851702e6` |
 | `colmi-ring-fitmesh.webp` | `public/blog/social/colmi-ring-fitmesh.png` | `colmi-ring-fitmesh` | Crop top -30px, bottom -15px. Preserves hand holding dark smart ring, smartphone with screen off, and delicate dotted line indicating local BLE proximity. | 1,078,174 | `02f8cf64b2ecf9bf492cdf4d9976452fc99c6fe5d86477b37acc4d7db3a7a846` |
-| `change-smartwatch.webp` | `public/blog/social/change-smartwatch.png` | `cambiare-smartwatch-senza-perdere-dati` | Crop top -30px, bottom -15px. Preserves wooden desk surface, two wristwatches, open journal with ribbon bookmark, and pencil without clipping. | 1,167,254 | `79a9ae30d13837984a3d9eeddaf85bc17ff865bf1013eccec01595527b3a35b0` |
+| `change-smartwatch.webp` | `public/blog/social/change-smartwatch.png` | `cambiare-smartwatch-senza-perdere-dati` | Crop top -30px, bottom -15px. Preserves wooden desk surface, two watches (one round and one rectangular), journal with dotted line and small drawings, and pencil without clipping. | 1,167,254 | `79a9ae30d13837984a3d9eeddaf85bc17ff865bf1013eccec01595527b3a35b0` |
 
 ---
 
@@ -61,11 +61,12 @@ All dimensions and SHA-256 checksums in this ledger are computed directly on the
 - **Alt text**: 11 localized `coverAlt` entries added across all indexable locales (it, en, es, de, pt, fr, pl, tr, nl, ja, ko). Accurately distinguishes screen off (`ekran wyłączony` / `z wyłączonym ekranem` in Polish) rather than claiming the phone is turned off.
 
 ### Cover 4: Change Smartwatch Without Losing Data (`change-smartwatch.webp`) — PASS
-- **Visual evaluation**: Overhead view of a wooden desk with two wristwatches (a dark round smartwatch and an analogue/classic watch with dial and leather strap) laid beside an open journal/notebook and a pencil. There is NO smart ring, NO charts or diagrams, and NO project notes.
-- **Visual truth**: Depicts two wristwatches resting on a wooden desk next to an open journal. Does NOT show or guarantee automated continuity of data history, nor does it display a physical or wireless connection between the two devices. Zero trademarks or brand logos.
-- **Alt text**: 6 localized `coverAlt` entries added across all indexable locales (it, en, es, de, pt, fr). Strictly rewritten to describe only the visible scene (two wristwatches on a wooden desk next to an open journal and pencil) without attributing data continuity or inter-device connections.
+- **Visual evaluation**: Due orologi, uno rotondo e uno rettangolare, accanto a un diario con linea punteggiata e piccoli disegni su una scrivania in legno, con una matita.
+- **Visual truth**: Raffigura due orologi (uno rotondo e uno rettangolare) accanto a un diario con linea punteggiata e piccoli disegni. Zero marchi commerciali o loghi protetti.
+- **Alt text**: 6 localized `coverAlt` entries added across all indexable locales (it, en, es, de, pt, fr). Strictly describes the visible scene without attributing guaranteed data continuity or inter-device connections.
 
 ### Cover 5: Recovery Metrics (`recovery-metrics-nonclinical-concept.webp`) — GATE FAILED (EDITORIAL HOLD)
+- **Current post cover**: `hearth.webp` (`metrics`).
 - **Mandate condition**: Explicitly held until text reconciles non-clinical claim and visual truth.
 - **Decision**: Strictly kept in EDITORIAL HOLD. Asset not ingested into `public/blog/covers/` or `lib/blog/covers.ts` to prevent orphan violations and avoid breaking the editorial lock until text reconciliation is completed in a dedicated task.
 
