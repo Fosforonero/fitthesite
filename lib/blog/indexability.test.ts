@@ -458,6 +458,17 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
       const colmiPost = BLOG_POSTS.find((p) => p.slug === "colmi-ring-fitmesh")!;
       expect(colmiPost.coverAlt?.pl).toContain("z wyłączonym ekranem");
       expect(colmiPost.coverAlt?.pl).not.toContain("wyłączonego smartfona");
+
+      // Verifica fedeltà visiva per cambiare-smartwatch-senza-perdere-dati (P1.29-IMG-C-A)
+      const switchPost = BLOG_POSTS.find((p) => p.slug === "cambiare-smartwatch-senza-perdere-dati")!;
+      expect(switchPost.coverAlt?.it).toContain("due orologi da polso");
+      expect(switchPost.coverAlt?.it).toContain("diario");
+      expect(switchPost.coverAlt?.it).not.toContain("anello");
+      expect(switchPost.coverAlt?.it).not.toContain("continuità");
+      expect(switchPost.coverAlt?.en).toContain("two wristwatches");
+      expect(switchPost.coverAlt?.en).toContain("journal");
+      expect(switchPost.coverAlt?.en).not.toContain("ring");
+      expect(switchPost.coverAlt?.en).not.toContain("continuity");
     });
   });
 });

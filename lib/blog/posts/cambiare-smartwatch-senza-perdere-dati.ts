@@ -648,17 +648,17 @@ export const post: BlogPost = {
       },
     },
   ],
-  // ADDENDUM PM P1.29-IMG-C (2026-09-26): coverAlt descrittivo dell'illustrazione editoriale
-  // (linea del tempo su scrivania con diversi dispositivi indossabili e note di progetto),
-  // coerente con la visual truth, privo di marchi o loghi protetti, non foto/screenshot.
+  // MICRO-GATE P1.29-IMG-C-A (2026-09-26): coverAlt descrittivo della scena visibile
+  // (due orologi da polso su scrivania in legno accanto a un diario aperto e una matita),
+  // coerente con la visual truth, privo di marchi, senza attribuire continuità o connessioni non raffigurate.
   // Copre le 6 varianti effettivamente indicizzabili.
   coverAlt: {
-    it: "Illustrazione di una linea del tempo su una scrivania che collega diversi dispositivi indossabili e note di progetto, a rappresentare la continuità dello storico nel passaggio tra modelli diversi.",
-    en: "Illustration of a timeline across a desk connecting different wearable devices and project notes, representing data continuity when switching between devices.",
-    es: "Ilustración de una línea de tiempo sobre un escritorio que conecta varios dispositivos corporales y notas de proyecto, representando la continuidad del historial al cambiar de dispositivo.",
-    de: "Illustration einer Zeitachse auf einem Schreibtisch, die verschiedene Wearables und Projektnotizen verbindet und die Kontinuität des Verlaufs beim Gerätewechsel darstellt.",
-    pt: "Ilustração de uma linha do tempo sobre uma mesa conectando diferentes dispositivos vestíveis e notas de projeto, representando a continuidade do histórico ao trocar de dispositivo.",
-    fr: "Illustration d'une frise chronologique sur un bureau reliant différents appareils connectés et des notes de projet, représentant la continuité de l'historique lors d'un changement d'appareil.",
+    it: "Illustrazione di due orologi da polso posati su una scrivania in legno accanto a un diario aperto e una matita.",
+    en: "Illustration of two wristwatches resting on a wooden desk beside an open journal and a pencil.",
+    es: "Ilustración de dos relojes de pulsera sobre un escritorio de madera junto a un diario abierto y un lápiz.",
+    de: "Illustration von zwei Armbanduhren auf einem Holzschreibtisch neben einem geöffneten Tagebuch und einem Bleistift.",
+    pt: "Ilustração de dois relógios de pulso sobre uma mesa de madeira ao lado de um diário aberto e um lápis.",
+    fr: "Illustration de deux montres-bracelets posées sur un bureau en bois à côté d'un carnet ouvert et d'un crayon.",
   },
   related: [
     "scegliere-smartwatch-dati-2026",
