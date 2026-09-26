@@ -1448,7 +1448,7 @@ export const post: BlogPost = {
     de: "Illustration einer runden Smartwatch mit seitlichen Tasten und eines Smartphones mit ausgeschaltetem Bildschirm neben einem Notizbuch mit einem Pfad aus Punkten, Pfeilen und Kontrollkästchen.",
     pt: "Ilustração de um smartwatch redondo com botões laterais e um smartphone com tela desligada ao lado de um caderno com um roteiro de pontos, setas e caixas de seleção.",
     fr: "Illustration d'une montre connectée ronde avec boutons latéraux et d'un smartphone à l'écran éteint à côté d'un carnet montrant un parcours de points, de flèches et de cases à cocher.",
-    pl: "Ilustracja okrągłego smartwatcha z przyciskami bocznymi i wyłączonego smartfona obok notatnika ze ścieżką złożoną z punktów, strzałek i pól wyboru.",
+    pl: "Ilustracja okrągłego smartwatcha z przyciskami bocznymi i smartfona z wyłączonym ekranem obok notatnika ze ścieżką złożoną z punktów, strzałek i pól wyboru.",
     tr: "Yan düğmeli yuvarlak bir akıllı saat, ekranı kapalı bir akıllı telefon ve açık bir defterde noktalar, oklar ve onay kutularından oluşan bir sorun giderme çizimi.",
     nl: "Illustratie van een ronde smartwatch met zijknoppen en een smartphone met het scherm uit naast een notitieboek met een route van stippen, pijlen en selectievakjes.",
     ja: "サイドボタン付きの丸型スマートウォッチと画面が消えたスマートフォン、点と矢印とチェックボックスで描かれた手順を示すノートのイラスト。",

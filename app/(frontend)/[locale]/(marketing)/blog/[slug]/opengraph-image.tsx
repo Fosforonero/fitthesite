@@ -5,6 +5,14 @@ import { getBlogSlugs } from "@/lib/blog/payload-source";
 import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
 import { resolveBlogPost } from "@/lib/blog/resolve";
 
+import { readFileSync, existsSync } from "node:fs";
+import { join } from "node:path";
+
+const DEDICATED_SOCIAL_IMAGES: Record<string, string> = {
+  "huawei-health-health-connect-sincronizzazione": "huawei-health-path.png",
+  "passi-non-si-sincronizzano-galaxy-watch": "galaxy-watch-steps-troubleshooting.png",
+};
+
 export const alt = "FitMesh Blog";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
@@ -39,6 +47,19 @@ export default async function OGBlogPost({
 
   if (!post) {
     return new ImageResponse(<div style={{ background: "#050816", width: "100%", height: "100%" }} />, { ...size });
+  }
+
+  const socialFileName = DEDICATED_SOCIAL_IMAGES[post.slug];
+  if (socialFileName) {
+    const filePath = join(process.cwd(), "public", "blog", "social", socialFileName);
+    if (existsSync(filePath)) {
+      const buffer = readFileSync(filePath);
+      return new Response(buffer, {
+        headers: {
+          "Content-Type": "image/png",
+        },
+      });
+    }
   }
 
   const title = tl(post.hero.title, lc);
