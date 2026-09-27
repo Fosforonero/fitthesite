@@ -761,6 +761,26 @@ export const post: BlogPost = {
       },
     },
   ],
+  // SPRINT PM P1.29-IMG-D (2026-09-27): coverAlt descrittivo della cover editoriale
+  // dedicata (illustrazione ad acquerello, nessun marchio, nessun dato leggibile).
+  // Fonte: it. Derivate: le altre lingue, scritte dalla fonte it senza passare
+  // dall'inglese. Controllo: AGENT_EDITORIALLY_REVIEWED, nessuna revisione
+  // madrelingua. Copre solo le 13 varianti indicizzabili (incluse sv/da dell'overlay nordico).
+  coverAlt: {
+    it: "Illustrazione ad acquerello di una persona seduta a terra che, dopo un allenamento in casa, guarda il braccialetto fitness al polso e uno smartphone con lo schermo spento, accanto a un tappetino arrotolato, una borraccia e scarpe da corsa.",
+    en: "Watercolor illustration of a person sitting on the floor after a home workout, looking at the fitness band on their wrist and a phone with its screen off, next to a rolled-up mat, a water bottle and running shoes.",
+    es: "Ilustración en acuarela de una persona sentada en el suelo después de entrenar en casa, mirando la pulsera de actividad en la muñeca y un móvil con la pantalla apagada, junto a una esterilla enrollada, una botella de agua y zapatillas de running.",
+    de: "Aquarellillustration einer Person, die nach einem Training zu Hause auf dem Boden sitzt und auf das Fitnessarmband am Handgelenk und ein Smartphone mit ausgeschaltetem Bildschirm schaut, neben einer zusammengerollten Matte, einer Trinkflasche und Laufschuhen.",
+    pt: "Ilustração em aquarela de uma pessoa sentada no chão depois de um treino em casa, olhando para a pulseira fitness no pulso e para um celular com a tela apagada, ao lado de um tapete de ioga enrolado, uma garrafa de água e tênis de corrida.",
+    fr: "Illustration à l'aquarelle d'une personne assise par terre après une séance de sport à la maison, qui regarde le bracelet d'activité au poignet et un téléphone à l'écran éteint, à côté d'un tapis roulé, d'une gourde et de chaussures de course.",
+    pl: "Akwarelowa ilustracja osoby siedzącej na podłodze po treningu w domu, która patrzy na opaskę fitness na nadgarstku i telefon z wyłączonym ekranem; obok zwinięta mata, bidon i buty do biegania.",
+    tr: "Evde antrenmandan sonra yere oturmuş, bileğindeki fitness bilekliğine ve ekranı kapalı telefonuna bakan bir kişiyi; yanında rulo mat, su matarası ve koşu ayakkabılarını gösteren suluboya illüstrasyon.",
+    nl: "Aquarelillustratie van iemand die na een training thuis op de vloer zit en naar de fitnessband om de pols en een telefoon met uitgeschakeld scherm kijkt, naast een opgerolde mat, een drinkfles en hardloopschoenen.",
+    ja: "自宅でのトレーニング後に床に座り、手首のフィットネスバンドと画面の消えたスマートフォンを見ている人と、丸めたマット、水筒、ランニングシューズを描いた水彩イラスト。",
+    ko: "홈 트레이닝 후 바닥에 앉아 손목의 피트니스 밴드와 화면이 꺼진 휴대폰을 바라보는 사람과 말아 둔 매트, 물병, 러닝화를 그린 수채화 일러스트.",
+    sv: "Akvarellillustration av en person som sitter på golvet efter ett träningspass hemma och tittar på aktivitetsarmbandet runt handleden och en telefon med släckt skärm, bredvid en ihoprullad matta, en vattenflaska och löparskor.",
+    da: "Akvarelillustration af en person, der sidder på gulvet efter en træning derhjemme og kigger på aktivitetsarmbåndet om håndleddet og en telefon med slukket skærm, ved siden af en sammenrullet måtte, en drikkedunk og løbesko.",
+  },
   related: [
     "come-funziona-health-connect",
     "health-connect-not-syncing",
