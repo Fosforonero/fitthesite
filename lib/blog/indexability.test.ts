@@ -99,7 +99,7 @@ describe("P1.29-IMG-E: cover dedicate round 5 (solo i due post che superano la f
         expect(explicitAlt, `[${slug}][${lc}] coverAlt mancante`).toBeDefined();
         expect(coverAlt(post, lc)).toBe(explicitAlt);
         expect(explicitAlt).not.toBe(tl(post.hero.title, lc));
-        expect(explicitAlt!).not.toMatch(/—/);
+        expect(explicitAlt!).not.toMatch(/\u2014/);
         expect(explicitAlt!).not.toMatch(/garmin|fitbit|samsung|galaxy|apple|iphone|android|health connect|google/i);
       }
     }
