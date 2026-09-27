@@ -230,6 +230,15 @@ export const post: BlogPost = {
     "https://pubmed.ncbi.nlm.nih.gov/2748771/",
     "https://aasm.org/clinical-resources/scoring-manual/",
   ],
+  // SPRINT PM P1.29-IMG-E (2026-09-27): coverAlt descrittivo della cover editoriale
+  // dedicata (illustrazione ad acquerello, nessun marchio, nessun dato leggibile).
+  // Fonte: it. Derivate: le altre lingue, scritte dalla fonte it senza passare
+  // dall'inglese. Controllo: AGENT_EDITORIALLY_REVIEWED, nessuna revisione
+  // madrelingua. Copre solo le 2 varianti indicizzabili (it, en).
+  coverAlt: {
+    it: "Illustrazione ad acquerello di una donna che, seduta sul bordo del letto disfatto, apre le tende all'alba su una città con un fiume e un ponte; sul comodino una tazza e un libro, su una panca scarpe da corsa e una giacca piegata.",
+    en: "Watercolor illustration of a woman sitting on the edge of an unmade bed and opening the curtains at dawn onto a city with a river and a bridge; a mug and a book on the bedside table, running shoes and a folded jacket on a bench.",
+  },
   related: [
     "hrv-cose-significato-valori",
     "metriche-recupero-hrv-sonno-frequenza-cardiaca",
