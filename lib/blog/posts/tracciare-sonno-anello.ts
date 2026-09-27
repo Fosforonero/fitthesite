@@ -1317,12 +1317,12 @@ export const post: BlogPost = {
   // dall'inglese. Controllo: AGENT_EDITORIALLY_REVIEWED, nessuna revisione
   // madrelingua. Copre solo le 13 varianti indicizzabili (incluse sv/da dell'overlay nordico).
   coverAlt: {
-    it: "Illustrazione ad acquerello di una donna seduta accanto al letto disfatto che si stiracchia al mattino con un anello al dito, con un bicchiere d'acqua e un quaderno sul comodino e scarpe da corsa sul tappeto.",
+    it: "Illustrazione ad acquerello di una donna che si stiracchia al mattino, seduta accanto al letto disfatto, con un anello al dito; sul comodino un bicchiere d'acqua e un quaderno, sul tappeto scarpe da corsa.",
     en: "Watercolor illustration of a woman sitting beside an unmade bed, stretching in the morning with a ring on her finger, a glass of water and a notebook on the bedside table and running shoes on the rug.",
-    es: "Ilustración en acuarela de una mujer sentada junto a la cama deshecha que se estira por la mañana con un anillo en el dedo, con un vaso de agua y un cuaderno en la mesilla y zapatillas de running sobre la alfombra.",
+    es: "Ilustración en acuarela de una mujer que se estira por la mañana, sentada junto a la cama deshecha, con un anillo en el dedo; en la mesilla, un vaso de agua y un cuaderno, y sobre la alfombra, zapatillas de running.",
     de: "Aquarellillustration einer Frau, die am Morgen neben dem ungemachten Bett sitzt und sich streckt, mit einem Ring am Finger, einem Glas Wasser und einem Notizbuch auf dem Nachttisch und Laufschuhen auf dem Teppich.",
     pt: "Ilustração em aquarela de uma mulher sentada ao lado da cama desfeita, se alongando de manhã com um anel no dedo, com um copo de água e um caderno na mesa de cabeceira e tênis de corrida no tapete.",
-    fr: "Illustration à l'aquarelle d'une femme assise près d'un lit défait qui s'étire le matin, une bague au doigt, avec un verre d'eau et un carnet sur la table de chevet et des chaussures de course sur le tapis.",
+    fr: "Illustration à l'aquarelle d'une femme qui s'étire le matin, assise près d'un lit défait, une bague au doigt, avec un verre d'eau et un carnet sur la table de chevet et des chaussures de course sur le tapis.",
     pl: "Akwarelowa ilustracja kobiety siedzącej przy niezasłanym łóżku, która przeciąga się rano z pierścionkiem na palcu; na szafce nocnej szklanka wody i notes, na dywanie buty do biegania.",
     tr: "Sabah dağınık yatağın yanında oturup gerinen, parmağında yüzük olan bir kadını; komodinde bir bardak su ve defter, halıda koşu ayakkabılarını gösteren suluboya illüstrasyon.",
     nl: "Aquarelillustratie van een vrouw die 's ochtends naast een onopgemaakt bed zit en zich uitrekt, met een ring aan haar vinger, een glas water en een notitieboek op het nachtkastje en hardloopschoenen op het kleed.",

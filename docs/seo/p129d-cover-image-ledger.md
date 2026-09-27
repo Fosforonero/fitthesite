@@ -53,6 +53,27 @@ Nessuna immagine contiene testo leggibile, numeri, loghi o misure cliniche.
 - Controllo applicato: `AGENT_EDITORIALLY_REVIEWED`. Nessuna revisione
   madrelingua: non è `NATIVE_REVIEWED`.
 
+## Revisione editoriale (EDITORIAL-REVIEW, 27/09)
+
+Prima passata di un revisore indipendente (agente, non madrelingua): FAIL, 30 finding.
+
+- Corretti (EDITORIAL-CORE 2, fatti non conformi all'immagine): 13 alt di
+  `da-android-a-iphone-dati-fitness` dicevano "panchina", gli oggetti stanno su un
+  tavolo di legno; 12 alt di `health-connect-vs-samsung-health` dicevano "telefono
+  spento", l'immagine mostra lo schermo spento.
+- Corretti anche i punti linguistici segnalati come domande aperte: relative
+  ambigue in it/es/fr (`tracciare-sonno-anello`, `fitbit-data-not-syncing-android`),
+  es "en la muñeca" e fr "au poignet" fedeli alla fonte, "quaderno" al posto di
+  "taccuino" per coerenza tra i cinque post, foglia e foglio distinti in fr e nl,
+  virgole in ja e ko, de "zusammengerollten".
+- Aperti (TRANSLATIONS 6): nessuna revisione madrelingua registrata. Il controllo
+  resta `AGENT_EDITORIALLY_REVIEWED`; serve una revisione con nome e data per ogni
+  lingua, prima di poterlo dichiarare `NATIVE_REVIEWED`.
+- Fuori da questa PR (testo già pubblicato, non toccato): em dash negli H1
+  pl/tr/nl/ja/ko di `esportare-dati-garmin`; forma europea "os teus dados" nell'H1
+  pt di `da-android-a-iphone-dati-fitness`, mentre il pt del sito è pt-BR.
+  Segnalati all'audit.
+
 ## Dati strutturati, OG, sitemap
 
 - `BlogPosting.image.url` deriva da `coverSrc()` con URL assoluto
