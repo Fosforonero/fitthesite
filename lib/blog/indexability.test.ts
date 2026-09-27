@@ -139,6 +139,62 @@ describe("diversificazione cover P1.26-IMG-A/B: alt text dedicato per le 6 nuove
   });
 });
 
+describe("P1.29-IMG-D: cover dedicate round 3 per cinque post (incluso overlay nordico)", () => {
+  const EXPECTED: Record<string, { type: string; file: string }> = {
+    "esportare-dati-garmin": { type: "garminActivityExport", file: "garmin-activity-export-editorial.webp" },
+    "fitbit-data-not-syncing-android": { type: "fitbitSyncTroubleshooting", file: "fitbit-sync-troubleshooting-editorial.webp" },
+    "health-connect-vs-samsung-health": { type: "healthConnectVsSamsungHealth", file: "health-connect-vs-samsung-health-editorial.webp" },
+    "da-android-a-iphone-dati-fitness": { type: "androidToIphoneData", file: "android-to-iphone-fitness-data-editorial.webp" },
+    "tracciare-sonno-anello": { type: "smartRingSleepRecovery", file: "smart-ring-sleep-recovery-editorial.webp" },
+  };
+
+  it("mappatura univoca, alt su tutte e sole le varianti indicizzabili (64), senza H1, marchi o em dash", async () => {
+    const { coverAlt, coverSrc, COVER_FILE, POST_COVER } = await import("./covers");
+    const { tl } = await import("./types");
+    const { locales } = await import("@/lib/i18n");
+    const nordicOverlay = (await import("./nordic-overlay.json")).default;
+    const { applyNordicOverlay } = await import("./nordic-overlay");
+
+    // Ogni post punta al proprio tipo, e nessun altro post usa quei tipi.
+    for (const [slug, { type, file }] of Object.entries(EXPECTED)) {
+      expect(POST_COVER[slug], `[${slug}] tipo cover`).toBe(type);
+      expect(COVER_FILE[type as keyof typeof COVER_FILE], `[${slug}] file cover`).toBe(file);
+      const others = Object.entries(POST_COVER).filter(([s, t]) => t === type && s !== slug);
+      expect(others, `[${slug}] il tipo ${type} non deve essere condiviso`).toEqual([]);
+    }
+
+    let totalCheckedVariants = 0;
+    for (const slug of Object.keys(EXPECTED)) {
+      const rawPost = BLOG_POSTS.find((p) => p.slug === slug);
+      expect(rawPost, `post ${slug} deve esistere in BLOG_POSTS`).toBeDefined();
+      expect(coverSrc(rawPost!)).toBe(`/blog/covers/${EXPECTED[slug].file}`);
+
+      const post = JSON.parse(JSON.stringify(rawPost!)) as BlogPost;
+      applyNordicOverlay(post, nordicOverlay as any);
+
+      for (const lc of locales) {
+        const explicitAlt = post.coverAlt?.[lc];
+        if (!isBlogVariantIndexable(post, lc)) {
+          expect(explicitAlt, `[${slug}][${lc}] variante non indicizzabile: nessun coverAlt`).toBeUndefined();
+          continue;
+        }
+        totalCheckedVariants++;
+        expect(explicitAlt, `[${slug}][${lc}] coverAlt mancante`).toBeDefined();
+        expect(coverAlt(post, lc)).toBe(explicitAlt);
+        expect(explicitAlt).not.toBe(tl(post.hero.title, lc));
+        expect(explicitAlt!, `[${slug}][${lc}] em dash`).not.toMatch(/\u2014/);
+        // Le illustrazioni non mostrano marchi: l'alt non deve attribuirne.
+        expect(explicitAlt!, `[${slug}][${lc}] marchio nell'alt`).not.toMatch(
+          /garmin|fitbit|samsung|galaxy|apple|iphone|android|health connect|google/i,
+        );
+      }
+    }
+
+    // 4 post con 13 varianti indicizzabili + health-connect-vs-samsung-health con 12 = 64
+    expect(totalCheckedVariants).toBe(64);
+  });
+});
+
 describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () => {
   it("guida-sync-wearable-2026 non contiene claim non verificati", () => {
     const post = BLOG_POSTS.find((p) => p.slug === "guida-sync-wearable-2026");

@@ -1603,6 +1603,25 @@ export const post: BlogPost = {
       },
     },
   ],
+  // SPRINT PM P1.29-IMG-D (2026-09-27): coverAlt descrittivo della cover editoriale
+  // dedicata (illustrazione ad acquerello, nessun marchio, nessun dato leggibile).
+  // Fonte: it. Derivate: le altre lingue, scritte dalla fonte it senza passare
+  // dall'inglese. Controllo: AGENT_EDITORIALLY_REVIEWED, nessuna revisione
+  // madrelingua. Copre solo le 12 varianti indicizzabili (incluse sv/da dell'overlay nordico).
+  coverAlt: {
+    it: "Illustrazione ad acquerello di un taccuino aperto con due fogli dipinti affiancati, uno con una figura che corre e l'altro con una foglia e delle onde, tra un orologio sportivo, uno smartphone spento e scarpe da corsa accanto a una pista di atletica.",
+    en: "Watercolor illustration of an open notebook with two painted sheets side by side, one showing a running figure and the other a leaf and waves, among a sports watch, a switched-off phone and running shoes beside an athletics track.",
+    es: "Ilustración en acuarela de un cuaderno abierto con dos láminas pintadas una junto a otra, una con una figura corriendo y otra con una hoja vegetal y ondas, entre un reloj deportivo, un móvil apagado y zapatillas de running junto a una pista de atletismo.",
+    de: "Aquarellillustration eines aufgeschlagenen Notizbuchs mit zwei gemalten Einlegeblättern nebeneinander, eines mit einer laufenden Figur, das andere mit einem Pflanzenblatt und Wellen, zwischen Sportuhr, ausgeschaltetem Smartphone und Laufschuhen an einer Laufbahn.",
+    pt: "Ilustração em aquarela de um caderno aberto com duas folhas pintadas lado a lado, uma com uma figura correndo e outra com uma folha de planta e ondas, entre um relógio esportivo, um celular desligado e tênis de corrida ao lado de uma pista de atletismo.",
+    fr: "Illustration à l'aquarelle d'un carnet ouvert avec deux feuillets peints côte à côte, l'un avec une silhouette qui court, l'autre avec une feuille et des vagues, entre une montre de sport, un téléphone éteint et des chaussures de course au bord d'une piste d'athlétisme.",
+    pl: "Akwarelowa ilustracja otwartego notesu z dwiema namalowanymi kartkami obok siebie, na jednej biegnąca postać, na drugiej liść i fale; wokół zegarek sportowy, wyłączony telefon i buty do biegania przy bieżni lekkoatletycznej.",
+    tr: "Atletizm pisti kenarında spor saat, kapalı bir telefon ve koşu ayakkabıları arasında, birinde koşan bir figür, diğerinde yaprak ve dalgalar bulunan yan yana iki boyalı sayfayla açık bir defteri gösteren suluboya illüstrasyon.",
+    nl: "Aquarelillustratie van een open notitieboek met twee beschilderde vellen naast elkaar, het ene met een rennende figuur en het andere met een blad en golven, tussen een sporthorloge, een uitgeschakelde telefoon en hardloopschoenen naast een atletiekbaan.",
+    ja: "陸上トラックのそばで、走る人物を描いた紙と葉と波を描いた紙を並べて挟んだ開いたノートを、スポーツウォッチ、電源の切れたスマートフォン、ランニングシューズとともに描いた水彩イラスト。",
+    ko: "육상 트랙 옆에서 달리는 사람과 나뭇잎과 물결이 각각 그려진 두 장의 종이를 나란히 끼운 펼친 노트와 스포츠 시계, 꺼진 휴대폰, 러닝화를 그린 수채화 일러스트.",
+    sv: "Akvarellillustration av en uppslagen anteckningsbok med två målade blad sida vid sida, ett med en springande figur och ett med ett löv och vågor, bland en sportklocka, en avstängd telefon och löparskor vid en löparbana.",
+  },
   related: [
     "fitmesh-samsung-health-usarli-insieme",
     "galaxy-watch-ultra2-watch9-health-connect",

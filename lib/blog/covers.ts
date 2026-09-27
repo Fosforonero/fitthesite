@@ -25,6 +25,11 @@ export type CoverType =
   | "healthconnect"
   | "zone2"
   | "circadian"
+  | "garminActivityExport"
+  | "fitbitSyncTroubleshooting"
+  | "healthConnectVsSamsungHealth"
+  | "androidToIphoneData"
+  | "smartRingSleepRecovery"
   | "fitmeshOverview"
   | "samsungTogether"
   | "appleTogether"
@@ -60,6 +65,15 @@ export const COVER_FILE: Record<CoverType, string> = {
   troubleshooting: "gear.webp",
   export: "data-sync.webp",
   news: "news.webp",
+  // SPRINT PM P1.29-IMG-D (2026-09-27, round 3): cover dedicate a cinque post
+  // che usavano cover condivise (export, troubleshooting, compare, platform,
+  // sleep). File nuovi, nessuna cover condivisa sovrascritta. SHA-256 e
+  // verifica di pertinenza in docs/seo/p129d-cover-image-ledger.md.
+  garminActivityExport: "garmin-activity-export-editorial.webp",
+  fitbitSyncTroubleshooting: "fitbit-sync-troubleshooting-editorial.webp",
+  healthConnectVsSamsungHealth: "health-connect-vs-samsung-health-editorial.webp",
+  androidToIphoneData: "android-to-iphone-fitness-data-editorial.webp",
+  smartRingSleepRecovery: "smart-ring-sleep-recovery-editorial.webp",
   // P1.3N-C: cover originale dedicata (watch -> hub dati), NON riusata da
   // altri post. Illustrazione FitMesh generata esternamente (2026-07-21):
   // smartwatch rugged generico, nessun logo Samsung, nessuna copia esatta
@@ -144,7 +158,7 @@ export const POST_COVER: Record<string, CoverType> = {
   // health-connect-vs-samsung-health (che resta su "compare").
   "fitmesh-samsung-health-usarli-insieme": "samsungTogether",
   "scrivere-dati-android-su-apple-salute": "platform",
-  "da-android-a-iphone-dati-fitness": "platform",
+  "da-android-a-iphone-dati-fitness": "androidToIphoneData",
   "anello-orologio-scenari-reali": "ring",
   "novita-fitmesh-su-app-store": "news",
   // P1.8C (2026-08-25): cover dedicata (google-health-multi-source-sync.webp)
@@ -175,7 +189,7 @@ export const POST_COVER: Record<string, CoverType> = {
   "fitmesh-sync-disponibile-google-play": "news",
   "anello-vs-smartwatch": "ringVsWatch",
   "migliori-anelli-economici": "budgetSmartRings",
-  "tracciare-sonno-anello": "sleep",
+  "tracciare-sonno-anello": "smartRingSleepRecovery",
   "colmi-r02-setup": "ring",
   "sync-them-all": "multidevice",
   "colmi-ring-fitmesh": "ring",
@@ -187,7 +201,7 @@ export const POST_COVER: Record<string, CoverType> = {
   "novita-anello-colmi-sonno": "sleep",
   "piu-smartwatch-insieme-dati-doppi": "multipleWatchDuplicates",
   "novita-dashboard-multi-device": "dashboard",
-  "fitbit-data-not-syncing-android": "troubleshooting",
+  "fitbit-data-not-syncing-android": "fitbitSyncTroubleshooting",
   "best-health-data-sync-app-android": "compare",
   "smartwatch-estate-2026": "multidevice",
   // P1.5C: prima usava "troubleshooting" (gear.webp, condivisa con altri 3
@@ -196,7 +210,7 @@ export const POST_COVER: Record<string, CoverType> = {
   "health-connect-not-syncing": "healthconnect",
   "how-to-export-apple-health-data": "export",
   "smartwatch-per-anziani-guida": "compare",
-  "esportare-dati-garmin": "export",
+  "esportare-dati-garmin": "garminActivityExport",
   "sync-samsung-health-google-fit": "sync",
   "best-smartwatch-for-elderly": "compare",
   "come-funziona-health-connect": "sync",
@@ -204,7 +218,7 @@ export const POST_COVER: Record<string, CoverType> = {
   "passi-non-si-sincronizzano-galaxy-watch": "galaxyWatchTroubleshooting",
   "guida-sync-wearable-2026": "sync",
   "scegliere-smartwatch-dati-2026": "compare",
-  "health-connect-vs-samsung-health": "compare",
+  "health-connect-vs-samsung-health": "healthConnectVsSamsungHealth",
   "backup-galaxy-watch-pc": "export",
   "esportare-dati-fitbit-google": "export",
   "vedere-dati-wearable-browser-pc": "dashboard",

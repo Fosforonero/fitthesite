@@ -618,6 +618,26 @@ export const post: BlogPost = {
   // P1.8S (2026-08-06): "scrivere-dati-android-su-apple-salute" consolidata
   // (redirect 308) su "dati-anello-smart-apple-salute" — decisione editoriale
   // di Matteo dopo audit cannibalizzazione, vedi next.config.mjs.
+  // SPRINT PM P1.29-IMG-D (2026-09-27): coverAlt descrittivo della cover editoriale
+  // dedicata (illustrazione ad acquerello, nessun marchio, nessun dato leggibile).
+  // Fonte: it. Derivate: le altre lingue, scritte dalla fonte it senza passare
+  // dall'inglese. Controllo: AGENT_EDITORIALLY_REVIEWED, nessuna revisione
+  // madrelingua. Copre solo le 13 varianti indicizzabili (incluse sv/da dell'overlay nordico).
+  coverAlt: {
+    it: "Illustrazione ad acquerello di due smartphone con lo schermo spento appoggiati su un quaderno aperto e di una mano che tiene una busta di carta, con casco da bici, borraccia e orologio sportivo su una panchina in un parco lungo il fiume.",
+    en: "Watercolor illustration of two phones with their screens off resting on an open notebook and a hand holding a paper envelope, with a bike helmet, a water bottle and a sports watch on a bench in a riverside park.",
+    es: "Ilustración en acuarela de dos móviles con la pantalla apagada sobre un cuaderno abierto y una mano que sostiene un sobre de papel, con un casco de bici, una botella de agua y un reloj deportivo en un banco de un parque junto al río.",
+    de: "Aquarellillustration von zwei Smartphones mit ausgeschaltetem Bildschirm auf einem aufgeschlagenen Notizbuch und einer Hand, die einen Papierumschlag hält, dazu Fahrradhelm, Trinkflasche und Sportuhr auf einer Bank in einem Park am Fluss.",
+    pt: "Ilustração em aquarela de dois celulares com a tela apagada sobre um caderno aberto e uma mão segurando um envelope de papel, com capacete de bicicleta, garrafa de água e relógio esportivo em um banco de um parque à beira do rio.",
+    fr: "Illustration à l'aquarelle de deux téléphones à l'écran éteint posés sur un carnet ouvert et d'une main tenant une enveloppe en papier, avec un casque de vélo, une gourde et une montre de sport sur un banc dans un parc au bord de la rivière.",
+    pl: "Akwarelowa ilustracja dwóch telefonów z wyłączonymi ekranami na otwartym notesie i dłoni trzymającej papierową kopertę; obok kask rowerowy, bidon i zegarek sportowy na ławce w parku nad rzeką.",
+    tr: "Nehir kenarındaki bir parkta bankın üzerinde açık bir defterde duran ekranı kapalı iki telefonu ve kâğıt zarf tutan bir eli; yanında bisiklet kaskı, su matarası ve spor saati gösteren suluboya illüstrasyon.",
+    nl: "Aquarelillustratie van twee telefoons met uitgeschakeld scherm op een open notitieboek en een hand die een papieren envelop vasthoudt, met een fietshelm, een drinkfles en een sporthorloge op een bankje in een park aan de rivier.",
+    ja: "川沿いの公園のベンチで、開いたノートの上に置かれた画面の消えた2台のスマートフォンと紙の封筒を持つ手、自転車用ヘルメット、水筒、スポーツウォッチを描いた水彩イラスト。",
+    ko: "강변 공원 벤치에서 펼친 노트 위에 놓인 화면이 꺼진 휴대폰 두 대와 종이 봉투를 든 손, 자전거 헬멧, 물병, 스포츠 시계를 그린 수채화 일러스트.",
+    sv: "Akvarellillustration av två telefoner med släckta skärmar på en uppslagen anteckningsbok och en hand som håller ett papperskuvert, med cykelhjälm, vattenflaska och sportklocka på en bänk i en park vid floden.",
+    da: "Akvarelillustration af to telefoner med slukket skærm på en opslået notesbog og en hånd, der holder en papirkuvert, med cykelhjelm, drikkedunk og sportsur på en bænk i en park ved floden.",
+  },
   related: ["dati-anello-smart-apple-salute", "fitmesh-arriva-su-iphone", "how-to-export-apple-health-data"],
   brandsMentioned: ["Apple", "Samsung", "Garmin", "Fitbit", "Colmi"],
 };

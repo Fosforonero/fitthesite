@@ -1196,6 +1196,26 @@ export const post: BlogPost = {
       },
     },
   ],
+  // SPRINT PM P1.29-IMG-D (2026-09-27): coverAlt descrittivo della cover editoriale
+  // dedicata (illustrazione ad acquerello, nessun marchio, nessun dato leggibile).
+  // Fonte: it. Derivate: le altre lingue, scritte dalla fonte it senza passare
+  // dall'inglese. Controllo: AGENT_EDITORIALLY_REVIEWED, nessuna revisione
+  // madrelingua. Copre solo le 13 varianti indicizzabili (incluse sv/da dell'overlay nordico).
+  coverAlt: {
+    it: "Illustrazione ad acquerello di scarpe da trail infangate, una borraccia e un orologio sportivo senza marchio su un tavolo di legno, mentre due mani riordinano schede bianche in una scatola d'archivio al tramonto.",
+    en: "Watercolor illustration of muddy trail shoes, a water bottle and an unbranded sports watch on a wooden table, while two hands sort blank cards into an archive box at sunset.",
+    es: "Ilustración en acuarela de unas zapatillas de trail embarradas, una botella de agua y un reloj deportivo sin marca sobre una mesa de madera, mientras dos manos ordenan fichas en blanco en una caja de archivo al atardecer.",
+    de: "Aquarellillustration mit schlammigen Trailschuhen, einer Trinkflasche und einer Sportuhr ohne Markenlogo auf einem Holztisch, während zwei Hände bei Sonnenuntergang leere Karteikarten in eine Archivbox sortieren.",
+    pt: "Ilustração em aquarela de tênis de trilha enlameados, uma garrafa de água e um relógio esportivo sem marca sobre uma mesa de madeira, enquanto duas mãos organizam fichas em branco em uma caixa de arquivo ao pôr do sol.",
+    fr: "Illustration à l'aquarelle de chaussures de trail boueuses, d'une gourde et d'une montre de sport sans marque sur une table en bois, tandis que deux mains rangent des fiches vierges dans une boîte d'archives au coucher du soleil.",
+    pl: "Akwarelowa ilustracja zabłoconych butów trailowych, bidonu i zegarka sportowego bez logo na drewnianym stole; dwie dłonie układają puste karty w pudełku archiwalnym o zachodzie słońca.",
+    tr: "Gün batımında ahşap bir masada çamurlu arazi koşu ayakkabıları, bir su matarası ve markasız bir spor saat ile arşiv kutusuna boş kartlar yerleştiren iki eli gösteren suluboya illüstrasyon.",
+    nl: "Aquarelillustratie van modderige trailschoenen, een drinkfles en een sporthorloge zonder merk op een houten tafel, terwijl twee handen bij zonsondergang lege kaarten in een archiefdoos ordenen.",
+    ja: "夕暮れの木のテーブルに泥のついたトレイルランニングシューズ、水筒、ブランドのないスポーツウォッチが置かれ、両手が白紙のカードを保管箱に整理している水彩イラスト。",
+    ko: "해 질 녘 나무 테이블 위의 진흙 묻은 트레일 러닝화, 물병, 브랜드 없는 스포츠 시계와 빈 카드를 보관 상자에 정리하는 두 손을 그린 수채화 일러스트.",
+    sv: "Akvarellillustration av leriga trailskor, en vattenflaska och en sportklocka utan märke på ett träbord, medan två händer sorterar tomma kort i en arkivlåda i solnedgången.",
+    da: "Akvarelillustration af mudrede trailsko, en drikkedunk og et sportsur uden mærke på et træbord, mens to hænder sorterer tomme kort i en arkivkasse i solnedgangen.",
+  },
   related: [
     "guida-sync-wearable-2026",
     "esportare-dati-fitbit-google",
