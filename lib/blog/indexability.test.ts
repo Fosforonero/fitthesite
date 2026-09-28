@@ -52,6 +52,61 @@ describe("health-connect-vs-samsung-health: regressione locale P1.3M", () => {
   });
 });
 
+describe("P1.29-IMG-E: cover dedicate round 5 (solo i due post che superano la fact review)", () => {
+  const EXPECTED: Record<string, { type: string; file: string; locales: string[] }> = {
+    "efficienza-del-sonno-formula-calcolo": { type: "sleepEfficiencyMorning", file: "sleep-efficiency-morning.webp", locales: ["it", "en"] },
+    "novita-passi-piu-affidabili": { type: "dailyStepsCityWalk", file: "daily-steps-city-walk.webp", locales: ["it", "en", "de", "fr"] },
+  };
+  // Post del round 5 bloccati dalla fact review: la cover resta quella di prima.
+  const BLOCKED: Record<string, string> = {
+    "fitmesh-sync-disponibile-google-play": "news",
+    "anello-orologio-scenari-reali": "ring",
+    "novita-fonte-del-dato": "news",
+  };
+
+  it("mappatura univoca, alt su tutte e sole le varianti indicizzabili, post bloccati invariati", async () => {
+    const { coverAlt, coverSrc, COVER_FILE, POST_COVER } = await import("./covers");
+    const { tl } = await import("./types");
+    const { locales } = await import("@/lib/i18n");
+    const nordicOverlay = (await import("./nordic-overlay.json")).default;
+    const { applyNordicOverlay } = await import("./nordic-overlay");
+
+    for (const [slug, cover] of Object.entries(BLOCKED)) {
+      expect(POST_COVER[slug], `[${slug}] bloccato: cover invariata`).toBe(cover);
+    }
+
+    let checked = 0;
+    for (const [slug, { type, file, locales: expectedLocales }] of Object.entries(EXPECTED)) {
+      expect(POST_COVER[slug], `[${slug}] tipo cover`).toBe(type);
+      expect(COVER_FILE[type as keyof typeof COVER_FILE]).toBe(file);
+      expect(Object.entries(POST_COVER).filter(([s, t]) => t === type && s !== slug)).toEqual([]);
+
+      const rawPost = BLOG_POSTS.find((p) => p.slug === slug);
+      expect(rawPost, `post ${slug}`).toBeDefined();
+      expect(coverSrc(rawPost!)).toBe(`/blog/covers/${file}`);
+      const post = JSON.parse(JSON.stringify(rawPost!)) as BlogPost;
+      applyNordicOverlay(post, nordicOverlay as any);
+
+      const indexable = locales.filter((lc) => isBlogVariantIndexable(post, lc));
+      expect(indexable, `[${slug}] varianti indicizzabili`).toEqual(expectedLocales);
+      for (const lc of locales) {
+        const explicitAlt = post.coverAlt?.[lc];
+        if (!indexable.includes(lc)) {
+          expect(explicitAlt, `[${slug}][${lc}] nessun coverAlt fuori dalle varianti indicizzabili`).toBeUndefined();
+          continue;
+        }
+        checked++;
+        expect(explicitAlt, `[${slug}][${lc}] coverAlt mancante`).toBeDefined();
+        expect(coverAlt(post, lc)).toBe(explicitAlt);
+        expect(explicitAlt).not.toBe(tl(post.hero.title, lc));
+        expect(explicitAlt!).not.toMatch(/\u2014/);
+        expect(explicitAlt!).not.toMatch(/garmin|fitbit|samsung|galaxy|apple|iphone|android|health connect|google/i);
+      }
+    }
+    expect(checked).toBe(6);
+  });
+});
+
 describe("fitmesh-sync-disponibile-google-play: assenza markdown nelle FAQ (P1.25-A)", () => {
   const rawPost = BLOG_POSTS.find((p) => p.slug === "fitmesh-sync-disponibile-google-play");
 

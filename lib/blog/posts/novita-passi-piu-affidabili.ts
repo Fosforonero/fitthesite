@@ -165,5 +165,16 @@ export const post: BlogPost = {
       },
     },
   ],
+  // SPRINT PM P1.29-IMG-E (2026-09-27): coverAlt descrittivo della cover editoriale
+  // dedicata (illustrazione ad acquerello, nessun marchio, nessun dato leggibile).
+  // Fonte: it. Derivate: le altre lingue, scritte dalla fonte it senza passare
+  // dall'inglese. Controllo: AGENT_EDITORIALLY_REVIEWED, nessuna revisione
+  // madrelingua. Copre solo le 4 varianti indicizzabili (it, en, de, fr).
+  coverAlt: {
+    it: "Illustrazione ad acquerello di un uomo anziano che porta a spasso il cane su un ponte lastricato bagnato dalla pioggia, con coppola, sciarpa e un orologio al polso, tra passanti e un ciclista; sullo sfondo foglie d'autunno e una città storica.",
+    en: "Watercolor illustration of an older man in a flat cap and scarf, with a watch on his wrist, walking his dog across a rain-wet cobbled bridge among pedestrians and a cyclist, with autumn leaves and a historic city in the background.",
+    de: "Aquarellillustration eines älteren Mannes mit Schiebermütze, Schal und Armbanduhr, der seinen Hund über eine regennasse gepflasterte Brücke führt, zwischen Passanten und einem Radfahrer, mit Herbstlaub und einer historischen Stadt im Hintergrund.",
+    fr: "Illustration à l'aquarelle d'un homme âgé en casquette et écharpe, une montre au poignet, qui promène son chien sur un pont pavé mouillé par la pluie, parmi des passants et un cycliste, avec des feuilles d'automne et une ville historique en arrière-plan.",
+  },
   related: ["steps-total-vs-hourly-chart", "come-funziona-fitmesh"],
 };

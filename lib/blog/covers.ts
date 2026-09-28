@@ -19,6 +19,8 @@ export type CoverType =
   | "compare"
   | "dashboard"
   | "metrics"
+  | "sleepEfficiencyMorning"
+  | "dailyStepsCityWalk"
   | "troubleshooting"
   | "export"
   | "watch"
@@ -57,6 +59,12 @@ export const COVER_FILE: Record<CoverType, string> = {
   platform: "smartphones.webp",
   dashboard: "dashboard.webp",
   metrics: "hearth.webp",
+  // SPRINT PM P1.29-IMG-E (2026-09-27, round 5): cover dedicate ai soli due post che
+  // hanno superato la fact review (efficienza del sonno, passi più affidabili).
+  // File nuovi, nessuna cover condivisa sovrascritta. Dettaglio e post bloccati in
+  // docs/seo/p129e-cover-image-ledger.md.
+  sleepEfficiencyMorning: "sleep-efficiency-morning.webp",
+  dailyStepsCityWalk: "daily-steps-city-walk.webp",
   troubleshooting: "gear.webp",
   export: "data-sync.webp",
   news: "news.webp",
@@ -217,7 +225,7 @@ export const POST_COVER: Record<string, CoverType> = {
   // al posto della generica "dashboard" — il pillar del prodotto merita
   // un'immagine propria dopo la revisione contenuto reale P1.5B Fase C.
   "come-funziona-fitmesh": "fitmeshOverview",
-  "efficienza-del-sonno-formula-calcolo": "sleep",
+  "efficienza-del-sonno-formula-calcolo": "sleepEfficiencyMorning",
   "metriche-recupero-hrv-sonno-frequenza-cardiaca": "metrics",
   "galaxy-watch-ultra2-watch9-health-connect": "watch",
 
@@ -248,7 +256,7 @@ export const POST_COVER: Record<string, CoverType> = {
   // MICRO-GATE PR#66-B (08/09/2026): voce /novita gemella dello stesso
   // argomento — riusa la stessa cover reale invece di un placeholder, nessun
   // nuovo asset immagine disponibile per questo containment.
-  "novita-passi-piu-affidabili": "stepsChart",
+  "novita-passi-piu-affidabili": "dailyStepsCityWalk",
   // SPRINT novità 3.10.0/191 (10/09/2026): nessun asset dedicato al tema
   // "navigazione giorni passati" disponibile — riuso l'illustrazione
   // astratta generica "dashboard" (chiave esistente, già usata da altri
