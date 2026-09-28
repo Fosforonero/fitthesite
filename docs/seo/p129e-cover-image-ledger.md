@@ -52,3 +52,20 @@ a vista a piena risoluzione e a 360 px).
 Voci nuove in `covers.ts` inserite lontano dai blocchi di #90 e #91; test in un punto diverso del
 file. Conflitto atteso solo su `tools/perimetro-suite.conf` (tutte e tre portano `test` da 1212 a
 1213): chi fa merge dopo aggiorna il numero.
+
+## Revisione editoriale degli alt (28/09/2026)
+
+- I 6 alt indicizzabili riletti contro le due immagini (anche ritagli ingranditi) e nella pagina
+  servita dalla build di produzione del ramo: tutti fedeli alla scena, naturali, senza calchi,
+  parole chiave, marchi o funzioni non visibili. Nessuna correzione: testo invariato.
+- Lingue servite oltre a quelle indicizzabili: per i passi ja, ko, sv e da rispondono 307 verso
+  `/en/blog/more-reliable-steps-update`; per l'efficienza del sonno le varianti non indicizzabili
+  (fra cui ja, ko, sv, da) sono `noindex, follow` con testo inglese di ripiego e alt uguale al
+  titolo inglese. È il ripiego storico di `coverAlt()`, già presente in produzione su altre cover
+  dedicate; cambiarlo tocca tutti i post e resta fuori da questo ramo.
+- HTML, JSON-LD e OG sulle 6 URL: stato 200, img e alt attesi, `BlogPosting.image` assoluto
+  1200 × 675, canonical corretto, nessun `noindex`, `og:image` sulla card generata. La card Twitter
+  (`summary_large_image` senza immagine esplicita) è invariata rispetto alla produzione. Rispetto
+  alla produzione cambiano esattamente 2 post.
+- Controllo: `AGENT_EDITORIALLY_REVIEWED`, revisore non madrelingua. `NATIVE_REVIEWED` non
+  dichiarato: la revisione madrelingua resta aperta.
