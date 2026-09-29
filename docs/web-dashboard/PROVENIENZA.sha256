@@ -1,0 +1,80 @@
+# Provenienza dei file copiati dal prototipo fitthesite-web-dashboard-ui (ramo feat/web-dashboard-ui-prototype, HEAD 7fc1521)
+# Formato: sha256  origine  percorso  esito. Il worktree originale non è stato modificato. Screenshot e docs esclusi.
+94592f8d392120fdc18dc9ac7aadbdfb9fb739596b65ea842e018316696298fc  commit 7fc1521  app/(frontend)/[locale]/dashboard-preview/[screen]/page.tsx  nuovo
+66d734a71744b2d8d4363a917892edbef1e00fb170db6dc992994efe4bffd601  commit 7fc1521  app/(frontend)/[locale]/dashboard-preview/layout.tsx  nuovo
+58180ecd6845829ceb7cbd981600110eba67f058dd96e0c679e5d5295c9fc14f  commit 7fc1521  app/(frontend)/[locale]/dashboard-preview/page.tsx  nuovo
+67fb4cf5236e9717e254e3acb8dca148eb01b2e199986302b7029fcab97add15  commit 7fc1521  components/web-dashboard/Gates.tsx  nuovo
+120d1834163f3fbc076eaae3b12e39897bb3d99de6dfcb1f2927dc6fd07bf19a  commit 7fc1521  components/web-dashboard/Icon.tsx  nuovo
+17acda3871b32b49373259dfb9257053f26d95154704f7b9d5d8d162ab87b4ad  commit 7fc1521  components/web-dashboard/Shell.tsx  nuovo
+170527cb98110700e50ce8c06feb6a3c5ce2b7cc69f36973732c60d431c63a9b  commit 7fc1521  components/web-dashboard/chart-kit.tsx  nuovo
+39c7211fe6d544efcaff3d2557c5aed378f8cf86a85ce8a9ed9e8553f2cbe500  commit 7fc1521  components/web-dashboard/primitives.tsx  nuovo
+2e6e916cb4a1859a92332a4636c25ffae9348baceaff63d1bd1c168a8ced4ff0  commit 7fc1521  components/web-dashboard/screen-types.ts  nuovo
+ce7edcfbaa15758e149b991c85222717ece32d985875b8b14761f2612ca3320b  working tree non committata  components/web-dashboard/screens/ActivityScreen.copy.ts  nuovo
+98c1296eccd55cc73de996aa5c8aa99d785847185d822d7e26121d239a576c90  working tree non committata  components/web-dashboard/screens/ActivityScreen.test.tsx  nuovo
+b04f86adaa39ea58d779cb5e9e480ac11911e9818610a5db652a79fdfa803753  commit 7fc1521  components/web-dashboard/screens/ActivityScreen.tsx  nuovo
+140dc79df44049218ba3450ec1fe2fa330b016fbfcad644b9eee4a96e970b6a1  working tree non committata  components/web-dashboard/screens/HeartScreen.copy.ts  nuovo
+b7ad4ade822ae1aba1d71ba13d49836d9208a3735ce8129da1d991f1259507dd  working tree non committata  components/web-dashboard/screens/HeartScreen.test.tsx  nuovo
+b5a872449ef3e6b06c951b314b28075084e69e490b322983ca52027bbaa90030  commit 7fc1521  components/web-dashboard/screens/HeartScreen.tsx  nuovo
+0b0b74ac16dba64c2dcca2faaa082a42830e773bea265e0efd5b96ed08775020  working tree non committata  components/web-dashboard/screens/OverviewScreen.copy.ts  nuovo
+d3339b17ebe1abfc244f2a659af85bca5dddab412543f4705731964cf85fedf5  working tree non committata  components/web-dashboard/screens/OverviewScreen.test.tsx  nuovo
+32d639643016b459b2260bb2dc83a42d5adc54099625f801f8877e92a5028482  commit 7fc1521  components/web-dashboard/screens/OverviewScreen.tsx  nuovo
+0b261dc1717148ad81ffd0dbd658f76039eabc0dd757ce26b0f9439437676624  working tree non committata  components/web-dashboard/screens/SleepScreen.copy.ts  nuovo
+45062d998b71b400e384114f77d2926dad9d97146367ce1f6ab1427fac96c964  working tree non committata  components/web-dashboard/screens/SleepScreen.test.tsx  nuovo
+37bec0d64d2edb3a0a9c8a9eef220b43b4c62db497934d229581457e9ff06d22  commit 7fc1521  components/web-dashboard/screens/SleepScreen.tsx  nuovo
+7a8e3346f4279bf3561a56181b5afb56122c65ccc59c913c1cf24d8c5a12a0cb  working tree non committata  components/web-dashboard/screens/SourcesScreen.copy.ts  nuovo
+b5c36a8a97d92a472362bc74fb2a789c11e21c982e81fa66425015321cac79da  working tree non committata  components/web-dashboard/screens/SourcesScreen.test.tsx  nuovo
+babdb7f69a5b4a3d5198f540900015830fc6e7c0d89dda2d0957b83a0be5640b  commit 7fc1521  components/web-dashboard/screens/SourcesScreen.tsx  nuovo
+2b29d90d5c6bf267f1277438b4de3d7307820e00158a1f00b5834ea9b70c49d1  working tree non committata  components/web-dashboard/screens/TrendsScreen.copy.ts  nuovo
+373bc0da1aba54ee4466f70e01bf6f5b9198c3a692f61cf48cf2d95853d799cb  commit 7fc1521  components/web-dashboard/screens/TrendsScreen.tsx  nuovo
+851ab1c2d9c17a4a79101826b4f47c74671accbce87c45920180671104dafe84  working tree non committata  components/web-dashboard/screens/WorkoutsScreen.copy.ts  nuovo
+7155899d2a091b9b069017f1b08438f92417320376bb9038ac717d42617b9512  working tree non committata  components/web-dashboard/screens/WorkoutsScreen.test.tsx  nuovo
+0e917931247ccbfb5454a0fa9799b174454223bae44fc29e502aa859b30fc4f3  commit 7fc1521  components/web-dashboard/screens/WorkoutsScreen.tsx  nuovo
+ab9ef55f16199f1d5a24c2b66610dbe7d623a94f14d9c009a20de5a78c53bd5f  working tree non committata  components/web-dashboard/screens/activity/GoalRing.tsx  nuovo
+5276788216cd7b8dd4b813418c0a98c3425f087155eeeb2dc18ffae107bbe8d5  working tree non committata  components/web-dashboard/screens/activity/HourlyCard.tsx  nuovo
+fae8e9c25d98bd81398aee7f400c4ee1da2f332c20653765250f6c22cd4a7dbc  working tree non committata  components/web-dashboard/screens/activity/WeekCard.tsx  nuovo
+51952305db4e303e7d1603808dea3d628c816a1ee7c2bd18313afb20d59136f8  working tree non committata  components/web-dashboard/screens/activity/derive.ts  nuovo
+810dc97401a74ab5cc015517d8ed2f6b080fe834d4b6be9b7f5bd6ced3a12341  working tree non committata  components/web-dashboard/screens/activity/parts.tsx  nuovo
+8b787c13587ee1151f635329077f3ce1c8852b08a202bcc19288cb7861061b67  working tree non committata  components/web-dashboard/screens/heart/HeartChart.tsx  nuovo
+92aea38b2ce431fbd19ff24d30d3b5092c142a5020ae547e336ffcdebd9511de  working tree non committata  components/web-dashboard/screens/heart/HeartTables.tsx  nuovo
+0571281f0be69f44dba94a420b8be5b7563c4067f11ca3886d2a03d8ec8be34e  working tree non committata  components/web-dashboard/screens/heart/layout.ts  nuovo
+b9d8b85795f43afc2acf10777d24d121a7fad638334d97ebfe3370c1ac9a0ebb  working tree non committata  components/web-dashboard/screens/heart/series.ts  nuovo
+4863904046cfacbea63e3a91aef28eb5f563ea36ea6ffc688e9c4a1ac130c3e8  working tree non committata  components/web-dashboard/screens/overview/HourlyStrip.tsx  nuovo
+c7f7ea989daf65a6f915e2dbbafa7af35cb9ddb88335d43c7bbcebc7f7d234bb  working tree non committata  components/web-dashboard/screens/overview/KpiGrid.tsx  nuovo
+406516bf30135cd1bca076fc9634a001225c6aa29c5f22be1315c57555fde0df  working tree non committata  components/web-dashboard/screens/overview/MissingCard.tsx  nuovo
+7d7cc5b4fb7bafa91590a82585c5328ff88a818ab6dd07f5b47ab254d020950c  working tree non committata  components/web-dashboard/screens/overview/SleepSummary.tsx  nuovo
+5558416750f3e3442c9845180d4c8405b78eaec38db1a9e868d1ed00e9493e8d  working tree non committata  components/web-dashboard/screens/overview/SourcesCard.tsx  nuovo
+30da5489d32530f0728f371d174cbb4da3734b7620f57a12772e073d5cadbca7  working tree non committata  components/web-dashboard/screens/overview/WeekCard.tsx  nuovo
+fecbf6f6e01f9c3ac43f7769736481ea2947dc72ba6c4a3ca78be0e6a424d2e7  working tree non committata  components/web-dashboard/screens/overview/derive.ts  nuovo
+35aabab3fb1f090967dc99e14690d6bfc95f0543927abe20144739ac878a8e4c  working tree non committata  components/web-dashboard/screens/overview/parts.tsx  nuovo
+2c72b31f654815468ffb5aae56cf6a4ebf4bfd89cd0180e0b9833608858da57f  commit 7fc1521  components/web-dashboard/screens/registry.ts  nuovo
+d7c29dbed5438f314a0962551f737a5a8c34630213a6376988d14fe150988d4d  working tree non committata  components/web-dashboard/screens/sleep/Hypnogram.tsx  nuovo
+00187c5347551e2317346e36a658af4d18e8321ac3741d94cc799b2732b88472  working tree non committata  components/web-dashboard/screens/sleep/NightsChart.tsx  nuovo
+b0b1e3141281a2a062ded2ec5eda78b68c985ea8bf351ae46b7c48d8d9b9b831  working tree non committata  components/web-dashboard/screens/sleep/StageTiles.tsx  nuovo
+00c7c08590a3fa7e944eb3a321548e83314c505b6fb21064521f8b4f39daac37  working tree non committata  components/web-dashboard/screens/sleep/helpers.ts  nuovo
+fcfff5b6208cc6d4344729dd626c16bc02c778813b7f5c9098aba4cc49474ccd  working tree non committata  components/web-dashboard/screens/sources/History.tsx  nuovo
+e9c2b102c72f7925e9547af30fe750223fda5c093ed8dde2102f8682038348e2  working tree non committata  components/web-dashboard/screens/sources/SourceCards.tsx  nuovo
+0d55cc581514afa6e9ccfe3e1d8e0666df1e749821bc3e84846a66f376a77ae3  working tree non committata  components/web-dashboard/screens/sources/StatusCard.tsx  nuovo
+8b61cceba7d68a8b6f5a3bfbf47ffed38240a532cc8d6cd475e8e946207d3107  working tree non committata  components/web-dashboard/screens/sources/helpers.ts  nuovo
+49f084f3bc24d3051fda4372a70bd5b79cfa41e5c3dc2ddd48f5452bf8042e28  commit 7fc1521  components/web-dashboard/screens/test-utils.tsx  nuovo
+79a600b22d1a11e144637066faebe85e5f5425c127945a5a8b2f900d4d288a12  working tree non committata  components/web-dashboard/screens/trends/TrendCard.tsx  nuovo
+b23404db59e1cc7b69039f3dfe7ea84f51ea9b854ea1365c7168f42957a05846  working tree non committata  components/web-dashboard/screens/trends/TrendChart.tsx  nuovo
+c94e3fc5cfe964f131e444b23ecff64ce7ea0724fe13274f422f4c1b5129d074  working tree non committata  components/web-dashboard/screens/trends/derive.ts  nuovo
+94cc9e0e9bf7297494a50650d5081b9c6a6b3c3a2708590c9a1dbcbca139409b  working tree non committata  components/web-dashboard/screens/trends/layout.ts  nuovo
+ed190d487e81b0f3ae0115dc50baf860c701c0b6fa4a9d57ec895c60487f6cde  working tree non committata  components/web-dashboard/screens/workouts/SessionList.tsx  nuovo
+4ea30f3842080f4aedd08832ae225f6befc79ebeff713284958f04a14414df40  working tree non committata  components/web-dashboard/screens/workouts/TypeIcon.tsx  nuovo
+028cda92d0f64b9cd1d4b5b60a60316944f6768d86fb79724a232511de2e09c1  working tree non committata  components/web-dashboard/screens/workouts/WeekStrip.tsx  nuovo
+0bf5931c16175098ad6dffa7e398c4d6c8cb9477e055ce74e4498234840b6c19  working tree non committata  components/web-dashboard/screens/workouts/derive.ts  nuovo
+2ec8081aafbcec00a5f9d8ed625916b4cba599556bcfd85eaec99dbb30131a09  commit 7fc1521  lib/web-dashboard/access.test.ts  nuovo
+d1a3f83eb5fda1e221473b516b0f014d7062fa8e5fb50a3505504b18a189a0f3  commit 7fc1521  lib/web-dashboard/access.ts  nuovo
+e484316c6e4d8bc0f71c4fb4544810cb053d76a4317f81ea347cabf196614085  commit 7fc1521  lib/web-dashboard/copy.ts  nuovo
+172e3138f8f7af047567e0edf7fe83beca6f0bb88a481687829976e8031db13d  commit 7fc1521  lib/web-dashboard/flag.test.ts  nuovo
+32695d8d7692345377de98ce32b7f944ee85dac906ec22707a59a9285cf99605  commit 7fc1521  lib/web-dashboard/flag.ts  nuovo
+5daa64e6711025975c65949c2e0e6edce99b9117239d4b90625f2e7c4e517a81  commit 7fc1521  lib/web-dashboard/format.ts  nuovo
+efc0ceea7cef2f9bd2b0dab0235e86c510e81e7d042b581c15b2bd1f576f8e52  commit 7fc1521  lib/web-dashboard/measure.test.ts  nuovo
+b40aef4f250228cdc366437a7ceeb487dbe80a03e1cd0536916295ba5dbb3a5a  commit 7fc1521  lib/web-dashboard/measure.ts  nuovo
+9046264d7181d183654013e444b9ffcd860f3911e61ec52560c90096b1204d50  commit 7fc1521  lib/web-dashboard/model.ts  nuovo
+26a0350b083bb970fd86506ab701bf1bbb5f21a9156fb7b3ba295e8fbf6516ea  commit 7fc1521  lib/web-dashboard/params.test.ts  nuovo
+36005cbed109f803c736fc3f2e281b7e848d43b3db29016726bb31ca00477073  commit 7fc1521  lib/web-dashboard/params.ts  nuovo
+f46b4f01b748574b89e27fbbe1c9274d851bab3b178926fe9719deced8f96020  commit 7fc1521  lib/web-dashboard/synthetic.test.ts  nuovo
+42bd09d91657c63de277daced4cfd7357d8558f27d320b8fb11e45e85bdd3ca9  commit 7fc1521  lib/web-dashboard/synthetic.ts  nuovo
+bf086db61a6c765e53bca5fec4872ba7d57339120d9e4fdb0d956d70f9890d38  commit 7fc1521  tools/web-dashboard-shots.sh  nuovo
