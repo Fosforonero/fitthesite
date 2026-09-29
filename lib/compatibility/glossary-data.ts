@@ -16,10 +16,10 @@ export const ESSENTIAL_GLOSSARY: readonly GlossaryTerm[] = [
       fr: "Synchronisation",
     },
     definition: {
-      it: "Il processo di allineamento e trasferimento periodico dei dati tra il dispositivo indossabile, l'app dello smartphone e il server cloud di FitMesh per l'aggiornamento della dashboard.",
-      en: "The process of periodically aligning and transferring data between your wearable, smartphone app, and the FitMesh cloud server to update your dashboard.",
-      de: "Der Prozess des regelmäßigen Abgleichs und der Übertragung von Daten zwischen Wearable, Smartphone-App und dem FitMesh-Cloud-Server zur Aktualisierung des Dashboards.",
-      fr: "Le processus d'alignement et de transfert périodique des données entre votre appareil connecté, l'application mobile et le serveur cloud FitMesh pour mettre à jour votre tableau de bord.",
+      it: "Il processo di allineamento e trasferimento periodico dei dati tra il dispositivo indossabile, l'app dello smartphone e il server cloud di FitMesh per l'aggiornamento della dashboard nell'app.",
+      en: "The process of periodically aligning and transferring data between your wearable, smartphone app, and the FitMesh cloud server to update the dashboard in the app.",
+      de: "Der Prozess des regelmäßigen Abgleichs und der Übertragung von Daten zwischen Wearable, Smartphone-App und dem FitMesh-Cloud-Server zur Aktualisierung des Dashboards in der App.",
+      fr: "Le processus d'alignement et de transfert périodique des données entre votre appareil connecté, l'application mobile et le serveur cloud FitMesh pour mettre à jour le tableau de bord dans l'application.",
     },
   },
   {

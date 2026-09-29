@@ -1080,8 +1080,8 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Le transfert de données s'effectue via le protocole Bluetooth Low Energy (BLE) directement entre la bague et l'application FitMesh.",
       },
       stepD: {
-        it: "FitMesh Android (release 3.10.0+191) scarica i bucket temporali nativi dall'anello via BLE, applica la pipeline di decodifica e sincronizza le metriche con il backend cloud FitMesh per la dashboard web personale.",
-        en: "FitMesh Android (release 3.10.0+191) downloads native temporal buckets from the ring via BLE, applies the decoding pipeline, and syncs metrics with the FitMesh cloud backend for your personal web dashboard.",
+        it: "FitMesh Android (release 3.10.0+191) scarica i bucket temporali nativi dall'anello via BLE, applica la pipeline di decodifica e sincronizza le metriche con il backend cloud FitMesh per la dashboard personale.",
+        en: "FitMesh Android (release 3.10.0+191) downloads native temporal buckets from the ring via BLE, applies the decoding pipeline, and syncs metrics with the FitMesh cloud backend for your personal dashboard.",
         de: "FitMesh Android (Release 3.10.0+191) lädt native Zeit-Buckets über BLE herunter, führt die Dekodierung aus und synchronisiert die Werte mit dem FitMesh-Cloud-Backend für das Dashboard.",
         fr: "FitMesh Android (version 3.10.0+191) télécharge les tranches temporelles via BLE, applique le décodage et synchronise les données avec le backend cloud FitMesh pour votre tableau de bord.",
       },

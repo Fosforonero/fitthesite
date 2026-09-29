@@ -517,8 +517,8 @@ export const HRV_TOOL_CONTENT: HrvToolContent = {
     en: "Want to see your device's HRV alongside the rest of your data?",
   },
   ctaBody: {
-    it: "FitMesh Sync non importa gli intervalli RR grezzi (la maggior parte di Health Connect/Apple Health espone solo il valore HRV già calcolato dal dispositivo, non la serie battito-per-battito): questo calcolatore resta uno strumento indipendente. Se vuoi vedere l'HRV riportato dal tuo wearable insieme a battito, sonno e altre metriche in un'unica dashboard, ecco come funziona FitMesh Sync.",
-    en: "FitMesh Sync does not import raw RR intervals (most of Health Connect/Apple Health only exposes the HRV value already computed by the device, not the beat-by-beat series): this calculator remains an independent tool. If you want to see the HRV reported by your wearable alongside heart rate, sleep, and other metrics in one dashboard, here's how FitMesh Sync works.",
+    it: "FitMesh Sync non importa gli intervalli RR grezzi (la maggior parte di Health Connect/Apple Health espone solo il valore HRV già calcolato dal dispositivo, non la serie battito-per-battito): questo calcolatore resta uno strumento indipendente. Se vuoi vedere l'HRV riportato dal tuo wearable insieme a battito, sonno e altre metriche in un'unica app, ecco come funziona FitMesh Sync.",
+    en: "FitMesh Sync does not import raw RR intervals (most of Health Connect/Apple Health only exposes the HRV value already computed by the device, not the beat-by-beat series): this calculator remains an independent tool. If you want to see the HRV reported by your wearable alongside heart rate, sleep, and other metrics in one app, here's how FitMesh Sync works.",
   },
   ctaLabel: { it: "Scopri come funziona la sincronizzazione", en: "See how sync works" },
   relatedToolsHeading: { it: "Altri strumenti FitMesh Labs", en: "Other FitMesh Labs tools" },

@@ -341,8 +341,8 @@ export const SLEEP_EFFICIENCY_TOOL_CONTENT: SleepEfficiencyToolContent = {
   copiedLabel: { it: "Copiato", en: "Copied" },
   ctaHeading: { it: "Vuoi tracciare l'efficienza del sonno ogni notte, in automatico?", en: "Want to track sleep efficiency every night, automatically?" },
   ctaBody: {
-    it: "FitMesh Sync sincronizza il sonno rilevato dal tuo anello o smartwatch in una dashboard personale - nessun inserimento manuale ogni mattina.",
-    en: "FitMesh Sync syncs the sleep detected by your ring or smartwatch into a personal dashboard - no manual entry every morning.",
+    it: "FitMesh Sync sincronizza il sonno rilevato dal tuo anello o smartwatch nell'app mobile - nessun inserimento manuale ogni mattina.",
+    en: "FitMesh Sync syncs the sleep detected by your ring or smartwatch into the FitMesh app - no manual entry every morning.",
   },
   ctaLabel: { it: "Scopri FitMesh Sync", en: "Discover FitMesh Sync" },
   relatedToolsHeading: { it: "Altri strumenti FitMesh Labs", en: "Other FitMesh Labs tools" },

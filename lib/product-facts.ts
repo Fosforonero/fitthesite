@@ -263,21 +263,21 @@ export function appOffers(platform: "android" | "ios") {
 
 // ── Descrizioni Organization (piattaforma-neutre) ───────────────────────────
 export const ORG_DESCRIPTIONS: Record<Locale, string> = {
-  it: "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard personale privacy-first, su Android (Health Connect) e iPhone (Apple Salute).",
-  en: "FitMesh Sync mirrors your smartwatch data to a privacy-first personal dashboard, on Android (Health Connect) and iPhone (Apple Health).",
-  es: "FitMesh Sync sincroniza los datos de tu smartwatch en un panel personal centrado en la privacidad, en Android (Health Connect) y iPhone (Apple Salud).",
-  de: "FitMesh Sync synchronisiert deine Smartwatch-Daten mit einem datenschutzorientierten persönlichen Dashboard, auf Android (Health Connect) und iPhone (Apple Health).",
-  pt: "O FitMesh Sync sincroniza os dados do seu smartwatch com um painel pessoal focado na privacidade, no Android (Health Connect) e no iPhone (Apple Saúde).",
-  fr: "FitMesh Sync synchronise les données de votre montre connectée avec un tableau de bord personnel axé sur la confidentialité, sur Android (Health Connect) et iPhone (Apple Santé).",
-  pl: "FitMesh Sync synchronizuje dane Twojego smartwatcha z osobistym panelem, który stawia prywatność na pierwszym miejscu, na Androidzie (Health Connect) i iPhonie (Apple Zdrowie).",
-  tr: "FitMesh Sync, akıllı saatinizin verilerini gizlilik öncelikli kişisel bir panele, Android'de (Health Connect) ve iPhone'da (Apple Sağlık) yansıtır.",
-  nl: "FitMesh Sync spiegelt de data van je smartwatch naar een privacy-first persoonlijk dashboard, op Android (Health Connect) en iPhone (Apple Gezondheid).",
-  ja: "FitMesh Syncは、スマートウォッチのデータをプライバシーファーストな個人ダッシュボードに、Android（Health Connect）とiPhone（Apple ヘルスケア）の両方で同期します。",
-  ko: "FitMesh Sync는 스마트워치 데이터를 개인정보 보호를 최우선으로 하는 개인 대시보드에 Android(Health Connect)와 iPhone(Apple 건강) 모두에서 동기화합니다.",
-  sv: "FitMesh Sync speglar din smartklockas data till en integritetsfokuserad personlig dashboard, på Android (Health Connect) och iPhone (Apple Hälsa).",
-  da: "FitMesh Sync spejler dit smartwatchs data til et privatlivsfokuseret personligt dashboard, på Android (Health Connect) og iPhone (Apple Sundhed).",
-  no: "FitMesh Sync speiler smartklokkens data til et personvernfokusert personlig dashbord, på Android (Health Connect) og iPhone (Apple Helse).",
-  fi: "FitMesh Sync peilaa älykellosi tiedot henkilökohtaiseen koontinäyttöön. Yksityisyys edellä, Androidilla (Health Connect) ja iPhonella (Apple Terveys).",
+  it: "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard personale privacy-first nell'app, su Android (Health Connect) e iPhone (Apple Salute).",
+  en: "FitMesh Sync mirrors your smartwatch data to a privacy-first personal dashboard in the app, on Android (Health Connect) and iPhone (Apple Health).",
+  es: "FitMesh Sync sincroniza los datos de tu smartwatch en un panel personal de la app centrado en la privacidad, en Android (Health Connect) y iPhone (Apple Salud).",
+  de: "FitMesh Sync synchronisiert deine Smartwatch-Daten mit einem datenschutzorientierten persönlichen Dashboard in der App, auf Android (Health Connect) und iPhone (Apple Health).",
+  pt: "O FitMesh Sync sincroniza os dados do seu smartwatch com um painel pessoal da app focado na privacidade, no Android (Health Connect) e no iPhone (Apple Saúde).",
+  fr: "FitMesh Sync synchronise les données de votre montre connectée avec un tableau de bord personnel de l'app axé sur la confidentialité, sur Android (Health Connect) et iPhone (Apple Santé).",
+  pl: "FitMesh Sync synchronizuje dane Twojego smartwatcha z osobistym panelem w aplikacji, który stawia prywatność na pierwszym miejscu, na Androidzie (Health Connect) i iPhonie (Apple Zdrowie).",
+  tr: "FitMesh Sync, akıllı saatinizin verilerini uygulamadaki gizlilik öncelikli kişisel bir panele, Android'de (Health Connect) ve iPhone'da (Apple Sağlık) yansıtır.",
+  nl: "FitMesh Sync spiegelt de data van je smartwatch naar een privacy-first persoonlijk dashboard in de app, op Android (Health Connect) en iPhone (Apple Gezondheid).",
+  ja: "FitMesh Syncは、スマートウォッチのデータをプライバシーファーストなアプリ内の個人ダッシュボードに、Android（Health Connect）とiPhone（Apple ヘルスケア）の両方で同期します。",
+  ko: "FitMesh Sync는 스마트워치 데이터를 개인정보 보호를 최우선으로 하는 앱 내 개인 대시보드에 Android(Health Connect)와 iPhone(Apple 건강) 모두에서 동기화합니다.",
+  sv: "FitMesh Sync speglar din smartklockas data till en integritetsfokuserad personlig dashboard i appen, på Android (Health Connect) och iPhone (Apple Hälsa).",
+  da: "FitMesh Sync spejler dit smartwatchs data til et privatlivsfokuseret personligt dashboard i appen, på Android (Health Connect) og iPhone (Apple Sundhed).",
+  no: "FitMesh Sync speiler smartklokkens data til et personvernfokusert personlig dashbord i appen, på Android (Health Connect) og iPhone (Apple Helse).",
+  fi: "FitMesh Sync peilaa älykellosi tiedot henkilökohtaiseen koontinäyttöön sovelluksessa. Yksityisyys edellä, Androidilla (Health Connect) ja iPhonella (Apple Terveys).",
 };
 
 // ── Descrizioni + feature MobileApplication, SEPARATE per piattaforma ──────
