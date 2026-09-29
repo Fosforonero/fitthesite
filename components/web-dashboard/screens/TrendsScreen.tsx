@@ -76,8 +76,8 @@ export function TrendsScreen({ data, lc, ui, copy, params, href }: ScreenProps) 
   const from = anyDays[0]?.date ?? data.date;
   const to = anyDays[anyDays.length - 1]?.date ?? data.date;
 
-  // Nessuna fonte: tutte e quattro le serie sono vuote per lo stesso motivo. Una sola spiegazione, con il link per collegarla.
-  const noSource = prepared.every((p) => p.stats.withData === 0 && p.stats.dominantReason === 'no_source');
+  // Nessuna fonte: tutte le serie sono vuote per lo stesso motivo. Una sola spiegazione, con il link per collegarla.
+  const noSource = prepared.every((p) => p.stats.withData === 0 && p.stats.dominantReason === 'no_data_received');
 
   return (
     <div className="space-y-6" data-screen="trends">
@@ -116,7 +116,7 @@ export function TrendsScreen({ data, lc, ui, copy, params, href }: ScreenProps) 
   );
 }
 
-/** Scheletro: il selettore e la stessa griglia, con quattro blocchi alti come le schede reali. */
+/** Scheletro: il selettore e la stessa griglia, con un blocco alto come ogni scheda reale. */
 export function TrendsLoading() {
   return (
     <div className="space-y-6" data-screen-loading="trends">

@@ -1,5 +1,5 @@
 /**
- * Griglia dei quattro grafici, condivisa dalla schermata e dallo scheletro:
+ * Griglia dei grafici, condivisa dalla schermata e dallo scheletro:
  * cosi' il caricamento occupa esattamente le stesse celle.
  *
  * Una colonna fino a 1279 px (il grafico a 90 giorni ha bisogno di larghezza:

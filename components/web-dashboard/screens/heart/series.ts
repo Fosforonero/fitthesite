@@ -240,6 +240,8 @@ export type WorkoutOverlay =
 
 export function workoutOverlay(sessions: Measure<Workout[]>, date: string, nowMinute: number | null): WorkoutOverlay {
   if (sessions.kind === 'absent') return { kind: 'absent', reason: sessions.reason };
+  // Nessuna riga non e' «nessun allenamento»: senza righe il server non prova nulla.
+  if (sessions.value.length === 0) return { kind: 'absent', reason: 'no_samples' };
   const windows: WorkoutWindow[] = [];
   for (const w of sessions.value) {
     // un allenamento di un altro giorno non sta su questo asse

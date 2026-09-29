@@ -2,41 +2,42 @@ import { SkeletonBlock } from '../primitives';
 import type { ScreenProps } from '../screen-types';
 
 import { sourcesCopy } from './SourcesScreen.copy';
-import { HistoryCard } from './sources/History';
 import { SourcesSection } from './sources/SourceCards';
 import { StatusCard } from './sources/StatusCard';
-import { isStaleAge, syncAge } from './sources/helpers';
 
 /**
- * Sorgenti e sync: da dove arrivano i dati e come sono andati gli ultimi sync.
+ * Sorgenti dei dati: da dove arrivano i dati e quando e' arrivato l'ultimo dato di ognuna.
  *
- * Tre blocchi, dall'alto: (1) lo stato dell'ultimo sync, con il motivo in parole
- * semplici e cosa puo' fare la persona; (2) una scheda per sorgente, con i tipi
- * di dato che fornisce e quale sorgente vince per ciascuno; (3) la cronologia.
+ * Due blocchi, dall'alto: (1) l'ultimo dato ricevuto e cosa puo' fare la persona;
+ * (2) una scheda per sorgente, con l'ultimo dato ricevuto, i tipi di dato che
+ * fornisce e quale sorgente vince per ciascuno.
  *
+ * Il server conosce QUANDO e' arrivato l'ULTIMO dato di una sorgente (`received_at`
+ * e' sovrascritto a ogni invio), non come e' andato ogni sync sul telefono e non
+ * ha una cronologia delle ricezioni: nessun esito, nessuna durata, nessun conteggio
+ * di sync, nessun elenco di ricezioni passate. Per questo la schermata non si chiama
+ * «sync» e non ha una cronologia.
  * Il web NON puo' avviare un sync: qui non c'e' nessun pulsante che finga di farlo,
- * si dice di aprire l'app. E i tre stati non si confondono:
- *  - misurato (anche 0): un conteggio a zero e' un dato («0 non riusciti»);
- *  - assente: nessun sync, durata non registrata, tipo non fornito o senza permesso
- *    sono trattini e riquadri tratteggiati con il loro motivo, mai «0»;
+ * si dice di aprire l'app. Gli stati descrivono la COPERTURA del dato e non si confondono:
+ *  - misurato (anche 0): un valore a zero e' un dato;
+ *  - assente: nessun dato ricevuto, tipo non fornito dalla fonte sono
+ *    trattini e riquadri tratteggiati con il loro motivo, mai «0»;
  *  - vecchio: oltre 48 ore l'eta' diventa il fatto principale e si dice che cio' che
  *    viene dopo non e' arrivato (non e' zero).
  */
 export function SourcesScreen({ data, lc, ui, copy }: ScreenProps) {
   const c = sourcesCopy(ui);
   const hasSources = data.sources.length > 0;
-  const staleSince = isStaleAge(syncAge(data.sync)) ? data.sync.lastSyncAt : null;
 
   return (
     <div className="space-y-8">
-      <StatusCard sync={data.sync} hasSources={hasSources} c={c} copy={copy} ui={ui} />
+      <StatusCard receipt={data.receipt} hasSources={hasSources} c={c} copy={copy} ui={ui} />
       <SourcesSection rows={data.sources} lc={lc} c={c} copy={copy} ui={ui} />
-      <HistoryCard log={data.syncLog} staleSince={staleSince} c={c} copy={copy} ui={ui} />
     </div>
   );
 }
 
-/** Scheletro: stessa griglia e stessi ingombri della schermata vera (stato del sync, due sorgenti, cronologia). */
+/** Scheletro: stessa griglia e stessi ingombri della schermata vera (ultimo dato ricevuto, due sorgenti). */
 export function SourcesLoading() {
   return (
     <div className="space-y-8">
@@ -49,7 +50,6 @@ export function SourcesLoading() {
           <SkeletonBlock className="h-[520px] sm:h-[330px] lg:h-[260px]" />
         </div>
       </div>
-      <SkeletonBlock className="h-[900px] sm:h-[560px]" />
     </div>
   );
 }

@@ -13,18 +13,18 @@ describe('zero misurato, parziale, assente', () => {
   it('l\'assente non diventa mai 0', () => {
     const p = presentNumber(absent('no_samples'));
     expect(p).toEqual({ state: 'absent', reason: 'no_samples' });
-    expect(numberOrNull(absent('read_error'))).toBeNull();
+    expect(numberOrNull(absent('source_lacks_type'))).toBeNull();
   });
 
   it('il parziale porta valore e copertura, e resta parziale anche a zero', () => {
-    const p = presentNumber(partial(3200, 0.79, 'device_off'));
-    expect(p).toMatchObject({ state: 'partial', value: 3200, coverage: 0.79, note: 'device_off' });
+    const p = presentNumber(partial(3200, 0.79, 'incomplete_coverage'));
+    expect(p).toMatchObject({ state: 'partial', value: 3200, coverage: 0.79, note: 'incomplete_coverage' });
     expect(presentNumber(partial(0, 0.3, 'window_open'))).toMatchObject({ state: 'partial', isZero: true });
   });
 
   it('la copertura e\' limitata a 0..1', () => {
-    expect(partial(1, 3, 'device_off')).toMatchObject({ coverage: 1 });
-    expect(partial(1, -1, 'device_off')).toMatchObject({ coverage: 0 });
+    expect(partial(1, 3, 'incomplete_coverage')).toMatchObject({ coverage: 1 });
+    expect(partial(1, -1, 'incomplete_coverage')).toMatchObject({ coverage: 0 });
   });
 });
 
@@ -39,11 +39,11 @@ describe('sumMeasures', () => {
   });
 
   it('un parziale rende parziale il totale', () => {
-    expect(sumMeasures([value(10), partial(4, 0.5, 'sync_incomplete')])).toMatchObject({ kind: 'partial', value: 14, coverage: 0.5 });
+    expect(sumMeasures([value(10), partial(4, 0.5, 'incomplete_coverage')])).toMatchObject({ kind: 'partial', value: 14, coverage: 0.5 });
   });
 
   it('tutti assenti: assente, non 0', () => {
-    expect(sumMeasures([absent('no_source'), absent('no_source')])).toEqual({ kind: 'absent', reason: 'no_source' });
+    expect(sumMeasures([absent('no_data_received'), absent('no_data_received')])).toEqual({ kind: 'absent', reason: 'no_data_received' });
     expect(sumMeasures([])).toMatchObject({ kind: 'absent' });
   });
 });
@@ -53,6 +53,6 @@ describe('meanOfPresent', () => {
     expect(meanOfPresent([value(10), absent('no_samples'), value(0)])).toBe(5);
   });
   it('null se non c\'e\' niente', () => {
-    expect(meanOfPresent([absent('no_source')])).toBeNull();
+    expect(meanOfPresent([absent('no_data_received')])).toBeNull();
   });
 });

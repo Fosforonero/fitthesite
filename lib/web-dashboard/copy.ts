@@ -19,7 +19,8 @@ export interface SharedCopy {
   nav: Record<ScreenKey, string>;
   navAria: string;
   date: { prev: string; next: string; today: string; yesterday: string; pick: string };
-  sync: { label: string; never: string; ok: string; partial: string; error: string; detail: string };
+  /** Il server sa quando e' arrivato l'ultimo dato, non come e' andato ogni sync: solo «ultimo dato ricevuto». */
+  received: { label: string; never: string; detail: string };
   measure: {
     noData: string;
     zeroMeasured: string;
@@ -49,8 +50,6 @@ export interface SharedCopy {
       body: Record<'trial' | 'expired' | 'none', string>;
       whoTitle: string;
       whoItems: string[];
-      cta: string;
-      ctaNote: string;
       alwaysTitle: string;
       alwaysBody: string;
       settings: string;
@@ -72,16 +71,13 @@ const IT: SharedCopy = {
     heart: 'Cuore',
     workouts: 'Allenamenti',
     trends: 'Trend',
-    sources: 'Sorgenti e sync',
+    sources: 'Sorgenti dei dati',
   },
   navAria: 'Sezioni della dashboard',
   date: { prev: 'Giorno precedente', next: 'Giorno successivo', today: 'Oggi', yesterday: 'Ieri', pick: 'Giorno' },
-  sync: {
-    label: 'Ultimo sync',
-    never: 'Nessun sync',
-    ok: 'Sync riuscito',
-    partial: 'Sync parziale',
-    error: 'Sync non riuscito',
+  received: {
+    label: 'Ultimo dato ricevuto',
+    never: 'Nessun dato ricevuto',
     detail: 'Dettagli',
   },
   measure: {
@@ -89,17 +85,14 @@ const IT: SharedCopy = {
     zeroMeasured: 'Zero misurato',
     partialLabel: 'Parziale',
     absent: {
-      no_source: 'Nessuna fonte collegata',
+      no_data_received: 'Nessun dato ricevuto',
       not_synced_yet: 'Non ancora sincronizzato',
-      permission_missing: 'Permesso non concesso',
       source_lacks_type: 'Non fornito dalla fonte',
       no_samples: 'Nessun campione',
       not_yet: 'Non ancora trascorso',
-      read_error: 'Lettura non riuscita',
     },
     partial: {
-      device_off: 'Orologio non collegato per una parte del periodo',
-      sync_incomplete: 'Sync incompleto',
+      incomplete_coverage: 'Dati incompleti',
       window_open: 'Giornata in corso',
     },
   },
@@ -110,9 +103,9 @@ const IT: SharedCopy = {
     errorBody: 'Non è stato possibile leggere i dati di questo giorno. Non significa che non ci siano dati.',
     retry: 'Riprova',
     emptyTitle: 'Nessun dato ancora',
-    emptyBody: 'Nessuna sorgente è collegata a questo account. Collega un dispositivo dall’app FitMesh e sincronizza.',
+    emptyBody: 'Non è arrivato nessun dato per questo account. Apri l’app FitMesh, controlla che un dispositivo sia collegato e sincronizza.',
     staleTitle: 'Dati non aggiornati',
-    staleBody: 'L’ultimo sync risale a diversi giorni fa. Quello che segue non è ancora arrivato: non è zero.',
+    staleBody: 'L’ultimo dato ricevuto risale a diversi giorni fa. Quello che segue non è ancora arrivato: non è zero.',
     partialTitle: 'Dati parziali',
     partialBody: 'Alcuni dati mancano o coprono solo una parte del periodo. I totali sono indicati come parziali.',
   },
@@ -151,19 +144,17 @@ const IT: SharedCopy = {
     },
     paywall: {
       title: {
-        trial: 'La dashboard richiede un abbonamento o Lifetime',
-        expired: 'La dashboard richiede un abbonamento o Lifetime',
-        none: 'La dashboard richiede un abbonamento o Lifetime',
+        trial: 'La prova gratuita non comprende la dashboard web',
+        expired: 'La dashboard web richiede un titolo Pro valido',
+        none: 'La dashboard web richiede un titolo Pro valido',
       },
       body: {
-        trial: 'La prova copre l’app. La dashboard su web è inclusa con un abbonamento valido o con Lifetime.',
-        expired: 'La tua prova è terminata. La dashboard su web è inclusa con un abbonamento valido o con Lifetime.',
-        none: 'Non risulta un abbonamento o un Lifetime su questo account. La dashboard su web li richiede.',
+        trial: 'La prova gratuita vale per l’app FitMesh e non comprende la dashboard web. La dashboard web richiede un abbonamento attivo, Pro a vita o un altro titolo Pro valido.',
+        expired: 'Per questo account non risulta un titolo Pro valido. Se hai rinnovato o acquistato da poco, apri l’app FitMesh, vai nella schermata Pro e tocca «Ripristina acquisti», poi ricarica questa pagina.',
+        none: 'La dashboard web richiede un abbonamento attivo, Pro a vita o un altro titolo Pro valido, sullo stesso account con cui hai effettuato l’accesso. Se hai acquistato con un altro account FitMesh, esci ed entra con quello. Se hai acquistato da poco, nell’app tocca «Ripristina acquisti» nella schermata Pro, poi ricarica questa pagina.',
       },
       whoTitle: 'Chi accede alla dashboard',
-      whoItems: ['Abbonamento valido', 'Lifetime acquistato', 'Lifetime concesso o Founder'],
-      cta: 'Vedi le opzioni',
-      ctaNote: 'Anteprima: il pulsante non è collegato alla fatturazione.',
+      whoItems: ['Abbonamento attivo', 'Pro a vita (Lifetime) acquistato', 'Founder', 'Tester con accesso Pro valido', 'Ogni altro titolo Pro valido su questo account, esclusa la prova gratuita'],
       alwaysTitle: 'Sempre a tua disposizione',
       alwaysBody: 'Queste aree non dipendono dall’abbonamento.',
       settings: 'Impostazioni',
@@ -192,16 +183,13 @@ const EN: SharedCopy = {
     heart: 'Heart',
     workouts: 'Workouts',
     trends: 'Trends',
-    sources: 'Sources and sync',
+    sources: 'Data sources',
   },
   navAria: 'Dashboard sections',
   date: { prev: 'Previous day', next: 'Next day', today: 'Today', yesterday: 'Yesterday', pick: 'Day' },
-  sync: {
-    label: 'Last sync',
-    never: 'No sync yet',
-    ok: 'Sync complete',
-    partial: 'Partial sync',
-    error: 'Sync failed',
+  received: {
+    label: 'Last data received',
+    never: 'No data received',
     detail: 'Details',
   },
   measure: {
@@ -209,17 +197,14 @@ const EN: SharedCopy = {
     zeroMeasured: 'Measured zero',
     partialLabel: 'Partial',
     absent: {
-      no_source: 'No source connected',
+      no_data_received: 'No data received',
       not_synced_yet: 'Not synced yet',
-      permission_missing: 'Permission not granted',
       source_lacks_type: 'Not provided by the source',
       no_samples: 'No samples',
       not_yet: 'Not yet elapsed',
-      read_error: 'Read failed',
     },
     partial: {
-      device_off: 'Watch not connected for part of the period',
-      sync_incomplete: 'Incomplete sync',
+      incomplete_coverage: 'Incomplete data',
       window_open: 'Day in progress',
     },
   },
@@ -230,9 +215,9 @@ const EN: SharedCopy = {
     errorBody: 'We could not read this day. That does not mean there is no data.',
     retry: 'Try again',
     emptyTitle: 'No data yet',
-    emptyBody: 'No source is connected to this account. Connect a device from the FitMesh app and sync.',
+    emptyBody: 'No data has arrived for this account. Open the FitMesh app, check that a device is connected and sync.',
     staleTitle: 'Data is not up to date',
-    staleBody: 'The last sync was several days ago. What comes after it has not arrived yet: it is not zero.',
+    staleBody: 'The last data received is several days old. What comes after it has not arrived yet: it is not zero.',
     partialTitle: 'Partial data',
     partialBody: 'Some data is missing or covers only part of the period. Totals are marked as partial.',
   },
@@ -271,19 +256,17 @@ const EN: SharedCopy = {
     },
     paywall: {
       title: {
-        trial: 'The dashboard needs a subscription or Lifetime',
-        expired: 'The dashboard needs a subscription or Lifetime',
-        none: 'The dashboard needs a subscription or Lifetime',
+        trial: 'The free trial does not include the web dashboard',
+        expired: 'The web dashboard needs a valid Pro entitlement',
+        none: 'The web dashboard needs a valid Pro entitlement',
       },
       body: {
-        trial: 'The trial covers the app. The web dashboard is included with a valid subscription or with Lifetime.',
-        expired: 'Your trial has ended. The web dashboard is included with a valid subscription or with Lifetime.',
-        none: 'This account has no subscription or Lifetime. The web dashboard requires one.',
+        trial: 'The free trial covers the FitMesh app and does not include the web dashboard. The web dashboard requires an active subscription, lifetime Pro or another valid Pro entitlement.',
+        expired: 'This account has no valid Pro entitlement. If you renewed or bought recently, open the FitMesh app, go to the Pro screen and tap “Restore purchases”, then reload this page.',
+        none: 'The web dashboard requires an active subscription, lifetime Pro or another valid Pro entitlement, on the same account you are signed in with. If you bought with another FitMesh account, sign out and sign in with that one. If you bought recently, tap “Restore purchases” on the Pro screen in the app, then reload this page.',
       },
       whoTitle: 'Who gets the dashboard',
-      whoItems: ['A valid subscription', 'A purchased Lifetime', 'A granted Lifetime or Founder'],
-      cta: 'See the options',
-      ctaNote: 'Preview: the button is not connected to billing.',
+      whoItems: ['An active subscription', 'A purchased lifetime Pro (Lifetime)', 'Founder', 'A tester with valid Pro access', 'Any other valid Pro entitlement on this account, except the free trial'],
       alwaysTitle: 'Always available to you',
       alwaysBody: 'These areas do not depend on a subscription.',
       settings: 'Settings',

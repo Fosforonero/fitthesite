@@ -2,7 +2,7 @@
  * Copy della schermata Trend. IT e EN; ogni altra lingua usa l'EN.
  *
  * Le parole sono quelle dell'app (v3.10.0+191: navTrend, trendPeriod7/30/90,
- * statLabelSteps, statLabelSleep, vitalsRestingHr, goalActiveMinutes,
+ * statLabelSteps, statLabelSleep, vitalsRestingHr,
  * weekComparisonNoData «Dati insufficienti per il confronto», dashboardNoData).
  * Cio' che e' gia' in lib/web-dashboard/copy.ts (motivi di assenza, note del
  * parziale, legenda, «Zero misurato», unita') NON si ripete qui: lo legge la
@@ -85,14 +85,13 @@ const IT: TrendsCopy = {
 
   noSource: {
     title: 'Servono giorni sincronizzati',
-    body: 'I trend si costruiscono con i giorni che la fonte ha sincronizzato. Nessuna fonte è collegata, quindi qui non c’è nulla da mostrare.',
+    body: 'I trend si costruiscono con i giorni ricevuti. Non è arrivato nessun dato, quindi qui non c’è nulla da mostrare.',
     link: 'Collega un dispositivo',
   },
   metrics: {
     steps: { title: 'Passi', perDay: 'Passi al giorno' },
     sleepMinutes: { title: 'Sonno', perDay: 'Ore di sonno per notte' },
     restingHr: { title: 'Battito a riposo', perDay: 'Battito a riposo al giorno', axisNote: 'L’asse non parte da zero.' },
-    activeMinutes: { title: 'Minuti attivi', perDay: 'Minuti attivi al giorno' },
   },
   openDetail: 'Apri',
 
@@ -124,13 +123,11 @@ const IT: TrendsCopy = {
         n === 0 ? 'non ce n’è nessuno' : n === 1 ? 'ce n’è uno' : `ce ne sono ${n}`
       }.`,
     body: {
-      no_source: 'Nessuna fonte è collegata: non c’è nulla da tracciare.',
+      no_data_received: 'Non è arrivato nessun dato: non c’è nulla da tracciare.',
       not_synced_yet: 'La fonte è collegata ma il sync non ha consegnato questi giorni. Non sono giorni a zero.',
-      permission_missing: 'La lettura di questo dato non è autorizzata. I giorni restano senza valore, non a zero.',
       source_lacks_type: 'La fonte non fornisce questo dato. I giorni restano senza valore, non a zero.',
       no_samples: 'La fonte non ha consegnato campioni in questi giorni. Non sono giorni a zero.',
       not_yet: 'Questi giorni non sono ancora trascorsi.',
-      read_error: 'La lettura non è riuscita. Non significa che non ci siano dati.',
     },
     present: 'Giorni con dato',
   },
@@ -158,14 +155,13 @@ const EN: TrendsCopy = {
 
   noSource: {
     title: 'Trends need synced days',
-    body: 'Trends are built from the days your source has synced. No source is connected, so there is nothing to show here.',
+    body: 'Trends are built from the days received. No data has arrived, so there is nothing to show here.',
     link: 'Connect a device',
   },
   metrics: {
     steps: { title: 'Steps', perDay: 'Steps per day' },
     sleepMinutes: { title: 'Sleep', perDay: 'Hours of sleep per night' },
     restingHr: { title: 'Resting heart rate', perDay: 'Resting heart rate per day', axisNote: 'The axis does not start at zero.' },
-    activeMinutes: { title: 'Active minutes', perDay: 'Active minutes per day' },
   },
   openDetail: 'Open',
 
@@ -197,13 +193,11 @@ const EN: TrendsCopy = {
         n === 0 ? 'are none' : n === 1 ? 'is one' : `are ${n}`
       }.`,
     body: {
-      no_source: 'No source is connected: there is nothing to track.',
+      no_data_received: 'No data has arrived: there is nothing to track.',
       not_synced_yet: 'The source is connected but the sync has not delivered these days. They are not zero days.',
-      permission_missing: 'Reading this data is not permitted. The days have no value, they are not zero.',
       source_lacks_type: 'The source does not provide this data. The days have no value, they are not zero.',
       no_samples: 'The source delivered no samples for these days. They are not zero days.',
       not_yet: 'These days have not elapsed yet.',
-      read_error: 'The read failed. That does not mean there is no data.',
     },
     present: 'Days with data',
   },

@@ -210,10 +210,9 @@ export function lineAxis(min: number, max: number): Axis {
   return { lo, hi, ticks };
 }
 
-export const STEP_CANDIDATES: Record<'steps' | 'sleepMinutes' | 'activeMinutes', readonly number[]> = {
+export const STEP_CANDIDATES: Record<'steps' | 'sleepMinutes', readonly number[]> = {
   steps: [1000, 2000, 2500, 5000, 10000, 20000, 25000, 50000, 100000],
   sleepMinutes: [60, 120, 180, 240, 360, 480, 720],
-  activeMinutes: [5, 10, 20, 25, 50, 100, 200],
 };
 
 /** Indici delle etichette dell'asse x: tutti a 7 giorni, altrimenti gli estremi e qualche tacca intermedia. */

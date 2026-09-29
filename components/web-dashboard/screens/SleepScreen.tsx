@@ -97,7 +97,7 @@ function AbsentNight({
           <p className="font-display text-base font-semibold text-text-primary">{c.night.absentTitle}</p>
           <p className="mt-1 text-sm text-text-secondary">{c.absentBody[reason]}</p>
           <p className="mt-2 text-sm text-text-secondary">{c.night.notZero}</p>
-          {reason === 'no_source' ? (
+          {reason === 'no_data_received' ? (
             <a
               href={`/${lc}/app/devices`}
               className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-pill border border-divider px-4 py-2 text-sm font-semibold text-text-primary hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua"

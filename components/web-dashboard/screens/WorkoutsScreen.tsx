@@ -6,30 +6,30 @@ import type { ScreenProps } from '../screen-types';
 import { workoutsCopy, type WorkoutsCopy } from './WorkoutsScreen.copy';
 import { SessionList } from './workouts/SessionList';
 import { WeekStrip } from './workouts/WeekStrip';
-import { activeMinutesWeek, durationParts, listState, summarize, type Coverage } from './workouts/derive';
+import { durationParts, listState, summarize, workoutsWeek, type Coverage } from './workouts/derive';
 
 /**
  * Gli allenamenti del giorno.
  *
- * Zero, parziale e assente restano tre cose diverse in ogni blocco:
+ * Zero, parziale e assente restano cose diverse in ogni blocco:
  *  - riepilogo: `MeasureValue` (cifra, cifra con copertura, trattino + motivo).
- *    Se l'elenco e' vuoto MISURATO, sessioni / minuti / kcal valgono zero e lo
- *    dicono; se l'elenco e' ASSENTE nessuno dei tre scrive una cifra;
- *  - elenco: tre casi con frasi e forma diverse (sessioni, zero misurato,
- *    assente + motivo);
- *  - settimana: tacca sulla base, righe ambra, riquadro tratteggiato
+ *    Se l'elenco e' ASSENTE nessuno dei tre scrive una cifra. Non esiste
+ *    «zero allenamenti» misurato: senza righe il server non prova nulla;
+ *  - elenco: due casi con frasi e forma diverse (sessioni, assente + motivo);
+ *  - settimana: durata e numero di allenamenti per giorno, derivati dalle sole
+ *    righe di `workouts`; tacca sulla base, righe ambra, riquadro tratteggiato
  *    (vedi chart-kit.tsx).
  * Solo componenti server: l'interazione e' fatta di link costruiti con `href()`.
  */
 export function WorkoutsScreen({ data, lc, ui, copy, href }: ScreenProps) {
   const t = workoutsCopy(ui);
   const state = listState(data.workouts.sessions);
-  const week = activeMinutesWeek(data);
+  const week = workoutsWeek(data.workouts, data.date);
 
   return (
     <div className="space-y-6" data-screen="workouts">
       <Summary data={data} lc={lc} copy={copy} t={t} />
-      <SessionList state={state} lc={lc} copy={copy} t={t} retryHref={href('workouts')} />
+      <SessionList state={state} lc={lc} copy={copy} t={t} />
       <WeekStrip days={week} lc={lc} copy={copy} t={t} href={(date) => href('workouts', { day: date })} />
     </div>
   );

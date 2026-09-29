@@ -6,15 +6,36 @@
  *
  * Scenari (vedi ScenarioKey):
  *  - ok       giornata completa, tutte le fonti in ordine
- *  - partial  il dato c'e' ma incompleto: orologio spento per alcune ore, fasi
- *             del sonno non fornite, allenamenti non autorizzati, buchi nei trend
- *  - zeros    zero MISURATO accanto a dato ASSENTE (0 piani, 0 minuti attivi,
- *             «nessun allenamento» contro «notte senza dati»)
- *  - stale    ultimo sync di tre giorni fa: cio' che viene dopo e' assente
- *  - empty    nessuna fonte collegata
+ *  - partial  il dato c'e' ma incompleto: la finestra ricevuta finisce alle 13:00
+ *             (`incomplete_coverage`), allenamenti senza righe, buchi nei trend
+ *  - zeros    zero MISURATO su una colonna della whitelist (0 passi, 0 metri di
+ *             distanza) accanto a dato ASSENTE (notte senza dati, una sessione
+ *             senza durata). Mai «zero allenamenti»: senza righe il giorno e'
+ *             assente, non zero. Mai zero per piani o per ore da `intraday_steps`
+ *             (fuori whitelist).
+ *  - stale    ultimo dato ricevuto tre giorni fa: cio' che viene dopo e' assente
+ *  - empty    nessun dato ricevuto
  *  - error    il caricamento fallisce
  *  - loading  scheletro
+ *
+ * Limiti dichiarati (cio' che il server NON puo' provare, vedi lib/dashboard/letture-titolare.ts):
+ *  - un parziale nasce solo da una finestra corta (`window_start_ms`, `window_end_ms`) o da righe
+ *    senza il campo: mai da un buco interno ne' dalla copertura di una serie intraday;
+ *  - il server non distingue «la fonte non fornisce il tipo» da «nessun dato»: un giorno senza
+ *    righe e' `no_samples`, mai `source_lacks_type`. Gli usi di `source_lacks_type` rimasti qui
+ *    (fasi del sonno, HRV, piani, distanza di una sessione, `not_provided` nello scenario partial
+ *    della schermata Fonti) sono NON DIMOSTRABILI dal server: servono solo a mostrare il
+ *    componente e dipendono dalla decisione aperta sulla whitelist (fasi, HRV e piani sono fuori);
+ *  - fonte vincente e genere del dispositivo non hanno una colonna sul server: sono solo sintetici.
  */
+import { TZ } from './format';
+import {
+  absentReasonForDay,
+  workoutRowsOf,
+  workoutsSessions,
+  workoutsWeekFromRows,
+  type DayContext,
+} from './from-rows';
 import { absent, partial, value, type Measure } from './measure';
 import type {
   ActivityDay,
@@ -28,13 +49,13 @@ import type {
   SleepStage,
   SourceRef,
   SourceRow,
-  SyncLogEntry,
-  SyncStatus,
+  ReceiptStatus,
   TrendMetric,
   TrendPoint,
   TrendSeries,
   Workout,
   WorkoutsDay,
+  WorkoutsWeekDay,
 } from './model';
 
 /** «Ora» dell'anteprima: fissa, cosi' nulla dipende dall'orologio di chi guarda. */
@@ -42,8 +63,9 @@ export const SYNTHETIC_NOW = '2026-09-24T09:40:00+02:00';
 export const SYNTHETIC_TODAY = '2026-09-24';
 /** Giorno mostrato di default: ieri, una giornata completa. */
 export const DEFAULT_DAY = '2026-09-23';
-const LAST_SYNC_OK = '2026-09-24T09:28:00+02:00';
-const LAST_SYNC_STALE = '2026-09-21T18:05:00+02:00';
+const LAST_RECEIVED_OK = '2026-09-24T09:28:00+02:00';
+const LAST_RECEIVED_STALE = '2026-09-21T18:05:00+02:00';
+const LAST_RECEIVED_STALE_DAY = '2026-09-21';
 
 export const WATCH: SourceRef = { id: 'galaxy-watch', label: 'Galaxy Watch', kind: 'watch', via: 'health_connect' };
 export const PHONE: SourceRef = { id: 'phone', label: 'Telefono', kind: 'phone', via: 'health_connect' };
@@ -94,6 +116,9 @@ const round = (n: number) => Math.round(n);
 const HOUR_WEIGHT = [0, 0, 0, 0, 0, 0.2, 1.2, 3.5, 5.5, 3.2, 2.4, 2.8, 4.6, 3.4, 2.2, 2.4, 3.0, 4.6, 5.4, 3.6, 2.2, 1.0, 0.3, 0];
 
 // ── attivita' ───────────────────────────────────────────────────────────────
+/** Scenario partial: la finestra ricevuta finisce a quest'ora (13:00), poi non e' arrivato nulla. */
+const PARTIAL_WINDOW_END_HOUR = 13;
+
 function buildActivity(date: string, sc: ScenarioKey): ActivityDay {
   const r = rng(`activity:${date}`);
   const target = round(between(r, 6200, 11800));
@@ -104,13 +129,11 @@ function buildActivity(date: string, sc: ScenarioKey): ActivityDay {
   const hours: Measure<number>[] = HOUR_WEIGHT.map((w, h) => {
     if (isToday && h > nowHour) return absent('not_yet');
     if (isToday && h === nowHour) return partial(round((w / totalWeight) * target * 0.6), 0.67, 'window_open');
-    // 0 misurato: l'orologio e' al polso e non ha contato passi
     return value(round((w / totalWeight) * target * between(r, 0.85, 1.15)));
   });
 
   let steps: Measure<number> = value(hours.reduce((s, m) => s + (m.kind === 'absent' ? 0 : m.value), 0));
   let distanceKm: Measure<number> = value(Number((((steps as { value: number }).value) * 0.00074).toFixed(1)));
-  let activeMinutes: Measure<number> = value(round(between(r, 24, 78)));
   let floors: Measure<number> = value(round(between(r, 3, 14)));
   let caloriesActive: Measure<number> = value(round(between(r, 260, 620)));
 
@@ -118,40 +141,39 @@ function buildActivity(date: string, sc: ScenarioKey): ActivityDay {
     const sofar = (steps as { value: number }).value;
     steps = partial(sofar, 10 / 24, 'window_open');
     distanceKm = partial(Number((sofar * 0.00074).toFixed(1)), 10 / 24, 'window_open');
-    activeMinutes = partial(round(between(r, 8, 26)), 10 / 24, 'window_open');
     floors = partial(round(between(r, 1, 5)), 10 / 24, 'window_open');
     caloriesActive = partial(round(between(r, 90, 220)), 10 / 24, 'window_open');
   }
 
   if (sc === 'partial') {
-    // orologio spento dalle 13 alle 18: nessun campione, non zero passi
-    for (let h = 13; h <= 17; h++) hours[h] = absent('no_samples');
-    const seen = hours.reduce((s, m) => s + (m.kind === 'absent' ? 0 : m.kind === 'partial' ? m.value : m.value), 0);
-    steps = partial(seen, 19 / 24, 'device_off');
-    distanceKm = partial(Number((seen * 0.00074).toFixed(1)), 19 / 24, 'device_off');
-    activeMinutes = partial(round(between(r, 18, 46)), 19 / 24, 'device_off');
-    floors = absent('source_lacks_type');
-    caloriesActive = partial(round(between(r, 200, 420)), 19 / 24, 'device_off');
+    // La finestra ricevuta finisce alle 13:00 (finestra CORTA: e' cio' che il server vede in
+    // `window_start_ms`/`window_end_ms`). Le ore dopo la fine della finestra non sono arrivate:
+    // assenti, non zero passi.
+    for (let h = PARTIAL_WINDOW_END_HOUR; h < 24; h++) hours[h] = absent('no_samples');
+    const seen = hours.reduce((s, m) => s + (m.kind === 'absent' ? 0 : m.value), 0);
+    const cover = PARTIAL_WINDOW_END_HOUR / 24;
+    steps = partial(seen, cover, 'incomplete_coverage');
+    distanceKm = partial(Number((seen * 0.00074).toFixed(1)), cover, 'incomplete_coverage');
+    floors = absent('no_samples');
+    caloriesActive = partial(round(between(r, 120, 260)), cover, 'incomplete_coverage');
   }
 
   if (sc === 'zeros') {
-    // giornata sedentaria ma con l'orologio al polso: zeri veri, e una fascia senza campioni
-    for (let h = 0; h < 24; h++) hours[h] = value(HOUR_WEIGHT[h] > 3 ? round(HOUR_WEIGHT[h] * 90) : 0);
-    hours[15] = absent('no_samples');
-    hours[16] = absent('no_samples');
-    steps = value(hours.reduce((s, m) => s + (m.kind === 'absent' ? 0 : m.value), 0));
-    distanceKm = value(Number((((steps as { value: number }).value) * 0.00074).toFixed(1)));
-    activeMinutes = value(0);
-    floors = value(0);
+    // Lo zero misurato sta su colonne della whitelist (`steps`, `distance_meters`): una riga esiste
+    // e dice 0. Le ore vengono da `intraday_steps` (fuori whitelist): nessuna ora e' uno zero
+    // misurato, e i piani (`floors_climbed`, fuori whitelist) non sono un dato qui.
+    for (let h = 0; h < 24; h++) hours[h] = absent('no_samples');
+    steps = value(0);
+    distanceKm = value(0);
+    floors = absent('no_samples');
     caloriesActive = value(round(between(r, 90, 140)));
   }
 
   if (sc === 'stale' || sc === 'empty') {
-    const reason = sc === 'empty' ? 'no_source' : 'not_synced_yet';
+    const reason = sc === 'empty' ? 'no_data_received' : 'not_synced_yet';
     for (let h = 0; h < 24; h++) hours[h] = absent(reason);
     steps = absent(reason);
     distanceKm = absent(reason);
-    activeMinutes = absent(reason);
     floors = absent(reason);
     caloriesActive = absent(reason);
   }
@@ -160,7 +182,6 @@ function buildActivity(date: string, sc: ScenarioKey): ActivityDay {
     steps,
     goalSteps: 10000,
     distanceKm,
-    activeMinutes,
     floors,
     caloriesActive,
     hourlySteps: hours,
@@ -170,9 +191,9 @@ function buildActivity(date: string, sc: ScenarioKey): ActivityDay {
 
 // ── sonno ───────────────────────────────────────────────────────────────────
 function buildSleep(date: string, sc: ScenarioKey): SleepDay {
-  if (sc === 'empty') return { night: absent('no_source') };
+  if (sc === 'empty') return { night: absent('no_data_received') };
   if (sc === 'stale') return { night: absent('not_synced_yet') };
-  if (sc === 'zeros') return { night: absent('no_samples') }; // orologio non indossato di notte
+  if (sc === 'zeros') return { night: absent('no_samples') }; // nessun campione di sonno per la notte
 
   const r = rng(`sleep:${date}`);
   const total = round(between(r, 372, 486));
@@ -224,18 +245,18 @@ function buildHeart(date: string, sc: ScenarioKey): HeartDay {
   }
 
   if (sc === 'partial') {
-    // buchi: 13:00-18:00 orologio spento, e una finestra breve senza campioni
-    for (const p of points) if ((p.minute >= 780 && p.minute < 1080) || (p.minute >= 300 && p.minute < 340)) p.bpm = null;
+    // la finestra ricevuta finisce alle 13:00: dopo, nessun campione (nessun buco interno)
+    for (const p of points) if (p.minute >= PARTIAL_WINDOW_END_HOUR * 60) p.bpm = null;
   }
   if (sc === 'zeros') {
-    for (const p of points) if (p.minute < 420) p.bpm = null; // notte non indossato
+    for (const p of points) if (p.minute < 420) p.bpm = null; // nessun campione fino alle 07:00
   }
   if (sc === 'stale' || sc === 'empty') {
     for (const p of points) p.bpm = null;
   }
   const known = points.filter((p) => p.bpm !== null).map((p) => p.bpm as number);
   const hasAny = known.length > 0;
-  const reason = sc === 'empty' ? 'no_source' : 'not_synced_yet';
+  const reason = sc === 'empty' ? 'no_data_received' : 'not_synced_yet';
 
   if (!hasAny) {
     return {
@@ -243,8 +264,9 @@ function buildHeart(date: string, sc: ScenarioKey): HeartDay {
       hrvMs: absent(reason), series: points, source: null,
     };
   }
-  const covered = known.length / points.length;
-  const mk = (n: number): Measure<number> => (covered < 1 ? partial(n, covered, 'device_off') : value(n));
+  // Il parziale nasce dalla finestra corta (scenario partial), non dalla copertura dei punti della serie intraday.
+  const cover = PARTIAL_WINDOW_END_HOUR / 24;
+  const mk = (n: number): Measure<number> => (sc === 'partial' ? partial(n, cover, 'incomplete_coverage') : value(n));
   return {
     resting: value(resting),
     average: mk(round(known.reduce((s, n) => s + n, 0) / known.length)),
@@ -257,14 +279,36 @@ function buildHeart(date: string, sc: ScenarioKey): HeartDay {
 }
 
 // ── allenamenti ─────────────────────────────────────────────────────────────
-function buildWorkouts(date: string, sc: ScenarioKey): WorkoutsDay {
-  if (sc === 'empty') return { sessions: absent('no_source') };
-  if (sc === 'stale') return { sessions: absent('not_synced_yet') };
-  if (sc === 'partial') return { sessions: absent('permission_missing') };
-  if (sc === 'zeros') return { sessions: value([]) }; // misurato: nessun allenamento
+/** «Ora» dell'anteprima come frazione del giorno: la finestra di oggi e' aperta. */
+const TODAY_FRACTION = (9 * 60 + 40) / 1440;
 
-  const r = rng(`workouts:${date}`);
-  const dow = new Date(`${date}T00:00:00Z`).getUTCDay();
+/**
+ * Cio' che il server sa per dire perche' un giorno senza righe manca: il giorno
+ * dell'ultimo `received_at` e l'ora. Non sa dire se la fonte «non fornisce il tipo»:
+ * un giorno senza righe prima dell'ultimo dato e' sempre `no_samples`.
+ */
+function dayContext(sc: ScenarioKey): DayContext {
+  return {
+    today: SYNTHETIC_TODAY,
+    todayFraction: TODAY_FRACTION,
+    lastReceivedDay: sc === 'empty' ? null : sc === 'stale' ? LAST_RECEIVED_STALE_DAY : SYNTHETIC_TODAY,
+    timeZone: TZ,
+  };
+}
+
+/**
+ * Le righe di `workouts` di un giorno. Un giorno senza allenamenti ha ZERO righe:
+ * non esiste una riga «nessun allenamento». Gli scenari che mostrano il caso
+ * difficile (una sessione da 0 minuti, una sessione senza durata) lo fanno con
+ * righe vere, come le scriverebbe il server.
+ */
+function plannedWorkouts(day: string, sc: ScenarioKey, anchor: string): Workout[] {
+  if (sc === 'empty' || sc === 'partial') return []; // nessuna riga di allenamenti
+  if (sc === 'stale' && day > LAST_RECEIVED_STALE_DAY) return [];
+  if (sc === 'zeros' && day === anchor) return [];
+
+  const r = rng(`workouts:${day}`);
+  const dow = new Date(`${day}T00:00:00Z`).getUTCDay();
   const plan: Array<{ type: Workout['type']; title: string; hour: number; dur: number; km: number | null }> = [];
   if (dow === 1 || dow === 4) plan.push({ type: 'run', title: 'Corsa', hour: 18, dur: 42, km: 7.4 });
   if (dow === 3) plan.push({ type: 'strength', title: 'Forza', hour: 19, dur: 55, km: null });
@@ -272,10 +316,10 @@ function buildWorkouts(date: string, sc: ScenarioKey): WorkoutsDay {
   if (dow === 6) plan.push({ type: 'walk', title: 'Camminata', hour: 10, dur: 71, km: 5.9 });
   if (dow === 2) plan.push({ type: 'run', title: 'Corsa facile', hour: 18, dur: 31, km: 5.1 });
   const sessions: Workout[] = plan.map((w, i) => ({
-    id: `${date}-${i}`,
+    id: `${day}-${i}`,
     type: w.type,
     title: w.title,
-    startedAt: `${date}T${String(w.hour).padStart(2, '0')}:${String(round(between(r, 0, 40))).padStart(2, '0')}:00+02:00`,
+    startedAt: `${day}T${String(w.hour).padStart(2, '0')}:${String(round(between(r, 0, 40))).padStart(2, '0')}:00+02:00`,
     durationMin: value(w.dur),
     distanceKm: w.km === null ? absent('source_lacks_type') : value(w.km),
     caloriesKcal: value(round(w.dur * between(r, 7, 10))),
@@ -283,7 +327,67 @@ function buildWorkouts(date: string, sc: ScenarioKey): WorkoutsDay {
     hrMax: value(round(between(r, 164, 182))),
     source: WATCH,
   }));
-  return { sessions: value(sessions) };
+
+  if (sc === 'zeros') {
+    if (day === addDays(anchor, -1)) {
+      // una riga di allenamento esiste ma non porta la durata (assente, oppure 0, che non e' provato
+      // dalla fonte): «durata non ricevuta», mai uno zero misurato. Il giorno ha il numero, non la durata.
+      return [
+        {
+          id: `${day}-stop`,
+          type: 'strength',
+          title: 'Forza',
+          startedAt: `${day}T19:05:00+02:00`,
+          durationMin: absent('no_samples'),
+          distanceKm: absent('source_lacks_type'),
+          caloriesKcal: value(0),
+          hrAvg: absent('no_samples'),
+          hrMax: absent('no_samples'),
+          source: WATCH,
+        },
+      ];
+    }
+    if (day === addDays(anchor, -2)) {
+      // due sessioni, una senza durata: la somma e' PARZIALE, la sessione senza durata non vale 0
+      return [
+        {
+          id: `${day}-a`,
+          type: 'run',
+          title: 'Corsa',
+          startedAt: `${day}T07:30:00+02:00`,
+          durationMin: value(38),
+          distanceKm: value(6.2),
+          caloriesKcal: value(310),
+          hrAvg: value(141),
+          hrMax: value(168),
+          source: WATCH,
+        },
+        {
+          id: `${day}-b`,
+          type: 'walk',
+          title: 'Camminata',
+          startedAt: `${day}T18:40:00+02:00`,
+          durationMin: absent('no_samples'),
+          distanceKm: absent('no_samples'),
+          caloriesKcal: absent('no_samples'),
+          hrAvg: absent('no_samples'),
+          hrMax: absent('no_samples'),
+          source: WATCH,
+        },
+      ];
+    }
+  }
+  // oggi un allenamento che comincia dopo «adesso» non e' ancora avvenuto
+  return day === SYNTHETIC_TODAY ? sessions.filter((w) => Date.parse(w.startedAt) <= Date.parse(SYNTHETIC_NOW)) : sessions;
+}
+
+function buildWorkouts(date: string, sc: ScenarioKey): WorkoutsDay {
+  const ctx = dayContext(sc);
+  const list = plannedWorkouts(date, sc, date);
+  const days = Array.from({ length: 7 }, (_, i) => addDays(date, i - 6));
+  const rows = days.flatMap((d) => workoutRowsOf(plannedWorkouts(d, sc, date)));
+  const week: WorkoutsWeekDay[] = workoutsWeekFromRows(rows, days, ctx);
+  return { sessions: workoutsSessions(list, absentReasonForDay(date, ctx)), week };
 }
 
 // ── trend ───────────────────────────────────────────────────────────────────
@@ -291,11 +395,10 @@ const TREND_BASE: Record<TrendMetric, { lo: number; hi: number }> = {
   steps: { lo: 3800, hi: 13200 },
   sleepMinutes: { lo: 330, hi: 520 },
   restingHr: { lo: 51, hi: 61 },
-  activeMinutes: { lo: 12, hi: 88 },
 };
 
 function buildTrends(date: string, sc: ScenarioKey): TrendSeries[] {
-  const metrics: TrendMetric[] = ['steps', 'sleepMinutes', 'restingHr', 'activeMinutes'];
+  const metrics: TrendMetric[] = ['steps', 'sleepMinutes', 'restingHr'];
   return metrics.map((metric) => {
     const days: TrendPoint[] = [];
     for (let i = 89; i >= 0; i--) {
@@ -306,28 +409,28 @@ function buildTrends(date: string, sc: ScenarioKey): TrendSeries[] {
       if (sc === 'partial') {
         const roll = r();
         if (roll < 0.12) m = absent('no_samples');
-        else if (metric === 'activeMinutes' && roll < 0.2) m = value(0); // zero misurato
-        else if (roll > 0.94) m = partial(round(between(r, lo, hi) * 0.55), 0.55, 'sync_incomplete');
+        else if (metric === 'steps' && roll < 0.2) m = value(0); // zero misurato
+        else if (metric === 'steps' && roll > 0.94) m = partial(round(between(r, lo, hi) * 0.55), 0.55, 'incomplete_coverage');
       }
       if (sc === 'zeros') {
         const roll = r();
-        if (metric === 'activeMinutes' && roll < 0.25) m = value(0);
+        if (metric === 'steps' && roll < 0.25) m = value(0);
         else if (roll > 0.85) m = absent('no_samples');
       }
       if (sc === 'stale') {
         if (d > '2026-09-21') m = absent('not_synced_yet');
       }
-      if (sc === 'empty') m = absent('no_source');
+      if (sc === 'empty') m = absent('no_data_received');
       days.push({ date: d, m });
     }
     return { metric, days };
   });
 }
 
-// ── fonti e sync ────────────────────────────────────────────────────────────
+// ── fonti ────────────────────────────────────────────────────────────
 function buildSources(sc: ScenarioKey): SourceRow[] {
   if (sc === 'empty') return [];
-  const lastSyncAt = sc === 'stale' ? LAST_SYNC_STALE : LAST_SYNC_OK;
+  const lastReceivedAt = sc === 'stale' ? LAST_RECEIVED_STALE : LAST_RECEIVED_OK;
   const ok = (type: SourceRow['types'][number]['type'], winning = true): SourceRow['types'][number] => ({ type, status: 'ok', winning });
   const watchTypes: SourceRow['types'] = [
     ok('steps'), ok('heart_rate'), ok('resting_heart_rate'), ok('sleep'), ok('sleep_stages'),
@@ -338,9 +441,11 @@ function buildSources(sc: ScenarioKey): SourceRow[] {
       const i = watchTypes.findIndex((x) => x.type === t);
       watchTypes[i] = { type: watchTypes[i].type, status, winning };
     };
+    // `not_provided` NON e' dimostrabile dal server (non distingue «non fornito» da «nessun dato»):
+    // resta solo per le fasi del sonno e l'HRV, gia' fuori whitelist. Gli allenamenti senza righe sono `no_data`.
     set('sleep_stages', 'not_provided');
     set('hrv', 'not_provided');
-    set('workouts', 'permission_missing');
+    set('workouts', 'no_data');
   }
   const phoneTypes: SourceRow['types'] = [
     ok('steps', false), ok('distance', false),
@@ -348,46 +453,23 @@ function buildSources(sc: ScenarioKey): SourceRow[] {
     { type: 'sleep', status: 'not_provided', winning: false },
   ];
   return [
-    { ref: WATCH, lastSyncAt, types: watchTypes },
-    { ref: PHONE, lastSyncAt, types: phoneTypes },
+    { ref: WATCH, lastReceivedAt, types: watchTypes },
+    { ref: PHONE, lastReceivedAt, types: phoneTypes },
   ];
 }
 
-function buildSync(sc: ScenarioKey): SyncStatus {
-  if (sc === 'empty') return { state: 'never', lastSyncAt: null, ageMinutes: null, problem: null };
-  if (sc === 'stale') return { state: 'error', lastSyncAt: LAST_SYNC_STALE, ageMinutes: 4295, problem: 'source_unreachable' };
-  if (sc === 'partial') return { state: 'partial', lastSyncAt: LAST_SYNC_OK, ageMinutes: 12, problem: 'partial_types' };
-  return { state: 'ok', lastSyncAt: LAST_SYNC_OK, ageMinutes: 12, problem: null };
-}
-
-function buildSyncLog(sc: ScenarioKey): SyncLogEntry[] {
-  if (sc === 'empty') return [];
-  const r = rng(`log:${sc}`);
-  const times = [
-    '2026-09-24T09:28:00+02:00', '2026-09-24T08:58:00+02:00', '2026-09-24T08:28:00+02:00', '2026-09-24T07:58:00+02:00',
-    '2026-09-23T22:04:00+02:00', '2026-09-23T21:34:00+02:00', '2026-09-23T21:04:00+02:00', '2026-09-23T20:34:00+02:00',
-  ];
-  const stale = ['2026-09-21T18:05:00+02:00', '2026-09-21T17:35:00+02:00', '2026-09-21T17:05:00+02:00', '2026-09-21T16:35:00+02:00'];
-  const list = (sc === 'stale' ? stale : times).map((at, i): SyncLogEntry => {
-    const state: SyncLogEntry['state'] = sc === 'partial' && i < 3 ? 'partial' : i === 5 && sc !== 'stale' ? 'error' : 'ok';
-    return {
-      at,
-      state,
-      durationSeconds: state === 'error' ? null : round(between(r, 6, 22)),
-      readTypes: state === 'partial' ? 6 : state === 'error' ? 0 : 9,
-      failedTypes: state === 'partial' ? 3 : state === 'error' ? 9 : 0,
-    };
-  });
-  return list;
+function buildReceipt(sc: ScenarioKey): ReceiptStatus {
+  if (sc === 'empty') return { lastReceivedAt: null, ageMinutes: null };
+  if (sc === 'stale') return { lastReceivedAt: LAST_RECEIVED_STALE, ageMinutes: 4295 };
+  return { lastReceivedAt: LAST_RECEIVED_OK, ageMinutes: 12 };
 }
 
 // ── ingresso ────────────────────────────────────────────────────────────────
 export function buildDashboardData(scenario: ScenarioKey, date: string): DashboardData {
   return {
     date,
-    sync: buildSync(scenario),
+    receipt: buildReceipt(scenario),
     sources: buildSources(scenario),
-    syncLog: buildSyncLog(scenario),
     activity: buildActivity(date, scenario),
     sleep: buildSleep(date, scenario),
     heart: buildHeart(date, scenario),

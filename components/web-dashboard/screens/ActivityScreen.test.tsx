@@ -7,7 +7,7 @@ import { activityCopy } from './ActivityScreen.copy';
 import { absentRuns, countSlots, lastSevenDays, niceTicks, toHourSlots } from './activity/derive';
 import { absent, partial, value } from '@/lib/web-dashboard/measure';
 import type { ScenarioKey } from '@/lib/web-dashboard/model';
-import { forbiddenCopyIn, measureStates, renderScreen } from './test-utils';
+import { forbiddenCopyIn, measureStates, renderScreen, screenProps } from './test-utils';
 
 afterEach(cleanup);
 
@@ -46,17 +46,34 @@ describe('ActivityScreen: rende ogni scenario in it e en', () => {
   });
 });
 
+/**
+ * La striscia oraria con uno zero misurato e un tratto assente, costruita nel test: lo scenario `zeros`
+ * non ha piu' ore a zero (le ore vengono da `intraday_steps`, fuori whitelist). Qui si prova solo come
+ * il componente rende i due stati quando il dato li contiene.
+ */
+function renderWithHours() {
+  const props = screenProps('ok');
+  const hours = props.data.activity.hourlySteps.map((m, h) => (h === 15 || h === 16 ? absent('no_samples') : m));
+  props.data = { ...props.data, activity: { ...props.data.activity, hourlySteps: hours } };
+  return { ...render(<ActivityScreen {...props} />), props };
+}
+
 describe('zero misurato e assente sono resi in modo diverso', () => {
-  it('zeros: 0 piani e 0 minuti attivi sono DATI («0» + «Zero misurato»)', () => {
+  it('zeros: 0 passi e 0 km (colonne della whitelist) sono DATI («0» + «Zero misurato»), i piani sono assenti', () => {
     const { container, props } = renderScreen(ActivityScreen, 'zeros');
-    for (const key of ['floors', 'activeMinutes']) {
-      expect(stateOf(container, `[data-metric="${key}"]`)).toBe('measured-zero');
-      const text = one(container, `[data-metric="${key}"]`).textContent ?? '';
-      expect(text).toContain('0');
-      expect(text).toContain(props.copy.measure.zeroMeasured);
+    expect(stateOf(container, '[data-hero="steps"]')).toBe('measured-zero');
+    expect(one(container, '[data-hero="steps"]').textContent).toContain(props.copy.measure.zeroMeasured);
+    expect(stateOf(container, '[data-metric="distance"]')).toBe('measured-zero');
+    const text = one(container, '[data-metric="distance"]').textContent ?? '';
+    expect(text).toContain('0');
+    expect(text).toContain(props.copy.measure.zeroMeasured);
+    // i piani non sono nella whitelist: mai uno zero misurato, in nessuno scenario
+    expect(stateOf(container, '[data-metric="floors"]')).toBe('absent');
+    for (const sc of SCENARIOS) {
+      const r = renderScreen(ActivityScreen, sc);
+      expect(stateOf(r.container, '[data-metric="floors"]'), sc).not.toBe('measured-zero');
+      cleanup();
     }
-    // i passi del giorno sono misurati e non zero
-    expect(stateOf(container, '[data-hero="steps"]')).toBe('measured');
   });
 
   it('partial: i piani assenti non stampano nessuna cifra e dicono perche', () => {
@@ -64,7 +81,7 @@ describe('zero misurato e assente sono resi in modo diverso', () => {
     const floors = one(container, '[data-metric="floors"] [data-measure-state]');
     expect(floors.getAttribute('data-measure-state')).toBe('absent');
     expect(hasDigit(floors.textContent)).toBe(false);
-    expect(floors.textContent).toContain(props.copy.measure.absent.source_lacks_type);
+    expect(floors.textContent).toContain(props.copy.measure.absent.no_samples);
   });
 
   it('nessun valore assente contiene una cifra, in nessuno scenario e in nessuna lingua', () => {
@@ -82,8 +99,8 @@ describe('zero misurato e assente sono resi in modo diverso', () => {
     }
   });
 
-  it('zeros: nel grafico orario la tacca dello zero e il riquadro dell assente sono elementi diversi', () => {
-    const { container, props } = renderScreen(ActivityScreen, 'zeros');
+  it('nel grafico orario la tacca dello zero e il riquadro dell assente sono elementi diversi', () => {
+    const { container, props } = renderWithHours();
     const hourly = one(container, '[data-chart="hourly-steps"]');
     const slots = props.data.activity.hourlySteps;
     const zeroHours = slots.filter((m) => m.kind === 'value' && m.value === 0).length;
@@ -111,8 +128,8 @@ describe('zero misurato e assente sono resi in modo diverso', () => {
     expect(hourly.querySelectorAll('polyline, path')).toHaveLength(0);
   });
 
-  it('zeros: la tabella oraria conta le ore per stato come i dati', () => {
-    const { container, props } = renderScreen(ActivityScreen, 'zeros');
+  it('la tabella oraria conta le ore per stato come i dati', () => {
+    const { container, props } = renderWithHours();
     const hourly = props.data.activity.hourlySteps;
     const rows = (s: string) => all(container, `table[data-table="hourly-steps"] tr[data-slot-state="${s}"]`).length;
     expect(rows('measured') + rows('measured-zero') + rows('partial') + rows('absent')).toBe(24);
@@ -123,18 +140,19 @@ describe('zero misurato e assente sono resi in modo diverso', () => {
   });
 
   it('il sommario per gli screen reader dice quante ore sono misurate, a zero e mancanti', () => {
-    const { container, props } = renderScreen(ActivityScreen, 'zeros');
+    const { container, props } = renderWithHours();
     const counts = countSlots(toHourSlots(props.data.activity.hourlySteps));
     const label = one(container, '[data-card="hourly-steps"] [role="img"]').getAttribute('aria-label') ?? '';
     expect(label).toContain(`${counts.measured} ore misurate`);
     expect(label).toContain(`${counts.zero} con zero passi`);
     expect(label).toContain(`${counts.absent} ore senza dato`);
     // stessa frase in inglese
-    const en = renderScreen(ActivityScreen, 'zeros', { lc: 'en' });
+    const en = renderScreen(ActivityScreen, 'partial', { lc: 'en' });
+    const countsEn = countSlots(toHourSlots(en.props.data.activity.hourlySteps));
     const labelEn = one(en.container, '[data-card="hourly-steps"] [role="img"]').getAttribute('aria-label') ?? '';
-    expect(labelEn).toContain(`${counts.measured} hours measured`);
-    expect(labelEn).toContain(`${counts.zero} at zero steps`);
-    expect(labelEn).toContain(`${counts.absent} hours with no data`);
+    expect(labelEn).toContain(`${countsEn.measured} hours measured`);
+    expect(labelEn).toContain(`${countsEn.zero} at zero steps`);
+    expect(labelEn).toContain(`${countsEn.absent} hours with no data`);
   });
 });
 
@@ -144,21 +162,21 @@ describe('dato parziale: sempre con copertura e motivo', () => {
     const hero = one(container, '[data-hero="steps"]');
     expect(stateOf(container, '[data-hero="steps"]')).toBe('partial');
     expect(hero.textContent).toContain(props.copy.measure.partialLabel);
-    expect(hero.textContent).toContain('79%');
-    expect(hero.textContent).toContain(props.copy.measure.partial.device_off);
+    expect(hero.textContent).toContain('54%');
+    expect(hero.textContent).toContain(props.copy.measure.partial.incomplete_coverage);
     expect(hero.getAttribute('data-goal-state')).toBe('partial');
     expect(one(hero, '[data-goal-ring]').getAttribute('data-goal-ring')).toBe('partial');
-    expect(one(hero, '[data-goal-caption]').textContent).toContain('calcolato sui passi registrati');
+    expect(one(hero, '[data-goal-caption]').textContent).toContain('calcolato sui passi ricevuti');
   });
 
-  it('partial: le ore senza campioni (13-17) sono un solo riquadro con il motivo scritto sotto', () => {
+  it('partial: le ore dopo la fine della finestra (13-23) sono un solo riquadro con il motivo scritto sotto', () => {
     const { container, props } = renderScreen(ActivityScreen, 'partial');
     const runs = all(container, '[data-chart="hourly-steps"] [data-chart-slot="absent"]');
     expect(runs).toHaveLength(1);
     expect(runs[0].getAttribute('data-hour-from')).toBe('13');
-    expect(runs[0].getAttribute('data-hour-to')).toBe('17');
+    expect(runs[0].getAttribute('data-hour-to')).toBe('23');
     const note = one(container, '[data-card="hourly-steps"] [data-chart-notes] [data-note="absent"]');
-    expect(note.textContent).toContain('13:00-17:59');
+    expect(note.textContent).toContain('13:00-23:59');
     expect(note.textContent).toContain(props.copy.measure.absent.no_samples);
   });
 
@@ -183,11 +201,11 @@ describe('dato assente: empty e stale', () => {
   it('empty: eroe, schede e grafici sono tutti assenti, con il motivo e senza cifre', () => {
     const { container, props } = renderScreen(ActivityScreen, 'empty');
     const states = measureStates(container);
-    // eroe + 4 schede; la media dei 7 giorni non c'e' (nessun giorno misurato)
-    expect(states).toHaveLength(5);
+    // eroe + 3 schede; la media dei 7 giorni non c'e' (nessun giorno misurato)
+    expect(states).toHaveLength(4);
     expect(new Set(states)).toEqual(new Set(['absent']));
     for (const el of all(container, '[data-measure-state="absent"]')) {
-      expect(el.textContent).toContain(props.copy.measure.absent.no_source);
+      expect(el.textContent).toContain(props.copy.measure.absent.no_data_received);
     }
     expect(one(container, '[data-hero="steps"]').getAttribute('data-goal-state')).toBe('absent');
 
@@ -305,7 +323,8 @@ describe('ActivityLoading', () => {
   it('rende solo blocchi nascosti agli screen reader, senza testo ne cifre', () => {
     const { container } = render(<ActivityLoading />);
     expect(container.textContent).toBe('');
-    expect(container.querySelectorAll('[aria-hidden="true"]').length).toBeGreaterThanOrEqual(8);
+    // eroe + 3 schede + grafico orario + sette giorni + fonte
+    expect(container.querySelectorAll('[aria-hidden="true"]').length).toBeGreaterThanOrEqual(7);
   });
 });
 

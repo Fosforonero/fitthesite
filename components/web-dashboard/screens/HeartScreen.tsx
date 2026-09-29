@@ -110,7 +110,7 @@ function StatRow({ data, lc, copy, t }: Pick<ScreenProps, 'data' | 'lc' | 'copy'
 
 function EmptyChart({ lc, copy, t, href, reason }: Pick<ScreenProps, 'lc' | 'copy' | 'href'> & { t: HeartCopy; reason: AbsentReason }) {
   const link =
-    reason === 'no_source'
+    reason === 'no_data_received'
       ? { href: `/${lc}/app/devices`, label: t.linkDevices, icon: 'plug' as const }
       : { href: href('sources'), label: copy.nav.sources, icon: 'sources' as const };
   return (
@@ -208,8 +208,6 @@ export function HeartScreen({ data, lc, ui, copy, href }: ScreenProps) {
                 <AbsentMark className="mt-0.5 shrink-0" />
                 <span>{t.workoutsHidden} {copy.measure.absent[overlay.reason]}.</span>
               </p>
-            ) : windows.length === 0 ? (
-              <p data-heart-workouts-note="none" className="text-xs text-text-muted">{t.workoutsNone}</p>
             ) : null}
             {overlay.kind === 'list' && overlay.partial ? (
               <p data-heart-workouts-note="partial" className="text-xs text-text-muted">

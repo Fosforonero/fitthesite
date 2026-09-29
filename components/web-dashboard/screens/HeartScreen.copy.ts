@@ -5,7 +5,7 @@
  * «max», «bpm», «Frequenza cardiaca», «HRV (variabilita' FC)», e la riga
  * «Solo informativo · Non diagnostico · Non sostituisce il parere medico».
  * Cio' che e' gia' in lib/web-dashboard/copy.ts (motivi di assenza, legenda,
- * «Sorgenti e sync») NON e' ripetuto qui.
+ * «Sorgenti dei dati») NON e' ripetuto qui.
  *
  * Regole: niente em dash, niente promesse di disponibilita' o di date, nessuna
  * interpretazione medica. Testi PLACEHOLDER da approvare prima di ogni uso pubblico.
@@ -39,7 +39,6 @@ export interface HeartCopy {
   /** «dalle 13:00 alle 18:00» */
   timeRange: (from: string, to: string) => string;
 
-  workoutsNone: string;
   workoutsHidden: string;
   workoutsPartial: string;
 
@@ -83,7 +82,6 @@ const IT: HeartCopy = {
   futureSentence: (time) => `Le ore dopo le ${time} non sono ancora trascorse.`,
   timeRange: (from, to) => `dalle ${from} alle ${to}`,
 
-  workoutsNone: 'Nessun allenamento registrato in questo giorno.',
   workoutsHidden: 'Allenamenti non mostrati sul grafico.',
   workoutsPartial: 'L’elenco degli allenamenti è incompleto.',
 
@@ -96,13 +94,11 @@ const IT: HeartCopy = {
 
   emptyTitle: 'Nessun campione per questo giorno',
   emptyBody: {
-    no_source: 'Nessuna sorgente è collegata a questo account, quindi non c’è una frequenza cardiaca da mostrare.',
+    no_data_received: 'Non è arrivato nessun dato per questo account, quindi non c’è una frequenza cardiaca da mostrare.',
     not_synced_yet: 'Il sync non ha ancora portato campioni per questo giorno. Non significa che la frequenza fosse zero.',
-    permission_missing: 'La lettura della frequenza cardiaca non è autorizzata, quindi non arrivano campioni.',
     source_lacks_type: 'La sorgente collegata non fornisce la frequenza cardiaca.',
     no_samples: 'La sorgente non ha consegnato campioni in questo giorno. Non significa che la frequenza fosse zero.',
     not_yet: 'La giornata non è ancora iniziata, quindi non ci sono campioni.',
-    read_error: 'La lettura non è riuscita. Non significa che non ci siano dati.',
   },
   linkDevices: 'Collega un dispositivo',
 
@@ -135,7 +131,6 @@ const EN: HeartCopy = {
   futureSentence: (time) => `Hours after ${time} have not elapsed yet.`,
   timeRange: (from, to) => `from ${from} to ${to}`,
 
-  workoutsNone: 'No workout recorded on this day.',
   workoutsHidden: 'Workouts are not shown on the chart.',
   workoutsPartial: 'The workout list is incomplete.',
 
@@ -148,13 +143,11 @@ const EN: HeartCopy = {
 
   emptyTitle: 'No samples for this day',
   emptyBody: {
-    no_source: 'No source is connected to this account, so there is no heart rate to show.',
+    no_data_received: 'No data has arrived for this account, so there is no heart rate to show.',
     not_synced_yet: 'The sync has not brought samples for this day yet. That does not mean the heart rate was zero.',
-    permission_missing: 'Reading heart rate is not authorized, so no samples arrive.',
     source_lacks_type: 'The connected source does not provide heart rate.',
     no_samples: 'The source delivered no samples on this day. That does not mean the heart rate was zero.',
     not_yet: 'The day has not started yet, so there are no samples.',
-    read_error: 'The read failed. That does not mean there is no data.',
   },
   linkDevices: 'Connect a device',
 

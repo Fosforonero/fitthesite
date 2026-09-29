@@ -100,45 +100,26 @@ function HeaderRow({ t }: { t: WorkoutsCopy }) {
   );
 }
 
-/** Caso (b): la lettura e' riuscita e non c'e' nessuna sessione. E' uno ZERO misurato: parla in positivo. */
-function MeasuredEmpty({ t }: { t: WorkoutsCopy }) {
-  return (
-    <div data-list-state="measured-empty" className="mt-4 flex items-start gap-4 rounded border border-divider bg-bg-elevated/60 p-5">
-      <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-success/15 text-success">
-        <Icon name="check" size={20} />
-      </span>
-      <div className="min-w-0">
-        <p className="font-display text-lg font-semibold text-text-primary">{t.list.measuredEmpty.title}</p>
-        <p className="mt-1 text-sm text-text-secondary">{t.list.measuredEmpty.body}</p>
-      </div>
-    </div>
-  );
-}
-
 /** Un'icona per motivo: dice a colpo d'occhio che cosa manca, senza sostituire il testo. */
 const REASON_ICON: Record<AbsentReason, IconName> = {
-  no_source: 'plug',
+  no_data_received: 'plug',
   not_synced_yet: 'clock',
-  permission_missing: 'lock',
   source_lacks_type: 'dash',
   no_samples: 'dash',
   not_yet: 'clock',
-  read_error: 'alert',
 };
 
-/** Caso (c): non sappiamo se ce ne sono stati. Riquadro tratteggiato, mai la frase dello zero. */
+/** Non sappiamo se ce ne sono stati. Riquadro tratteggiato, mai la frase dello zero. */
 function AbsentList({
   reason,
   lc,
   copy,
   t,
-  retryHref,
 }: {
   reason: AbsentReason;
   lc: string;
   copy: SharedCopy;
   t: WorkoutsCopy;
-  retryHref: string;
 }) {
   return (
     <div data-list-state="absent" data-reason={reason} className="mt-4 flex items-start gap-4 rounded border border-dashed border-text-muted/60 p-5">
@@ -152,17 +133,11 @@ function AbsentList({
           <span>{copy.measure.absent[reason]}</span>
         </p>
         <p className="mt-2 text-sm text-text-secondary">{t.list.absent.body[reason]}</p>
-        {reason === 'no_source' ? (
+        {reason === 'no_data_received' ? (
           // Rotta reale dell'area privata: qui si abbina il dispositivo.
           <a href={`/${lc}/app/devices`} className={linkCls}>
             <Icon name="plug" size={16} />
             {t.list.absent.connect}
-          </a>
-        ) : null}
-        {reason === 'read_error' ? (
-          <a href={retryHref} className={linkCls}>
-            <Icon name="sync" size={16} />
-            {copy.states.retry}
           </a>
         ) : null}
       </div>
@@ -171,30 +146,28 @@ function AbsentList({
 }
 
 /**
- * Le sessioni del giorno. Tre casi che NON si confondono:
+ * Le sessioni del giorno. Due casi che NON si confondono:
  *  - ci sono sessioni: tabella (da md) o schede impilate;
- *  - lista vuota MISURATA: «Nessun allenamento registrato per questo giorno»;
  *  - lista ASSENTE: «Non sappiamo se ci sono stati allenamenti» + il motivo.
+ * Non c'e' un terzo caso «nessun allenamento»: senza righe il server non prova che
+ * non ce ne siano stati, quindi il giorno e' assente.
  */
 export function SessionList({
   state,
   lc,
   copy,
   t,
-  retryHref,
 }: {
   state: ListState;
   lc: string;
   copy: SharedCopy;
   t: WorkoutsCopy;
-  retryHref: string;
 }) {
   return (
     <Card aria-labelledby="wk-list-title" data-card="sessions">
       <SectionLabel id="wk-list-title">{t.list.title}</SectionLabel>
 
-      {state.kind === 'measured-empty' ? <MeasuredEmpty t={t} /> : null}
-      {state.kind === 'absent' ? <AbsentList reason={state.reason} lc={lc} copy={copy} t={t} retryHref={retryHref} /> : null}
+      {state.kind === 'absent' ? <AbsentList reason={state.reason} lc={lc} copy={copy} t={t} /> : null}
 
       {state.kind === 'sessions' ? (
         <>
@@ -210,29 +183,23 @@ export function SessionList({
             </div>
           ) : null}
 
-          {state.sessions.length === 0 ? (
-            <p data-list-state="partial-empty" className="mt-4 text-sm text-text-secondary">
-              {t.list.partialEmpty}
-            </p>
-          ) : (
-            // Una tabella troppo larga scorre DENTRO la scheda: la pagina non scorre mai in orizzontale.
-            <div
-              role="region"
-              aria-label={t.list.title}
-              tabIndex={0}
-              className={`mt-4 overflow-x-auto rounded ${focusRing}`}
-              data-list-state="sessions"
-            >
-              <div className={TABLE_MIN}>
-                <HeaderRow t={t} />
-                <ol className="space-y-3 md:space-y-0">
-                  {state.sessions.map((w) => (
-                    <SessionRow key={w.id} w={w} lc={lc} copy={copy} t={t} />
-                  ))}
-                </ol>
-              </div>
+          {/* Una tabella troppo larga scorre DENTRO la scheda: la pagina non scorre mai in orizzontale. */}
+          <div
+            role="region"
+            aria-label={t.list.title}
+            tabIndex={0}
+            className={`mt-4 overflow-x-auto rounded ${focusRing}`}
+            data-list-state="sessions"
+          >
+            <div className={TABLE_MIN}>
+              <HeaderRow t={t} />
+              <ol className="space-y-3 md:space-y-0">
+                {state.sessions.map((w) => (
+                  <SessionRow key={w.id} w={w} lc={lc} copy={copy} t={t} />
+                ))}
+              </ol>
             </div>
-          )}
+          </div>
         </>
       ) : null}
     </Card>

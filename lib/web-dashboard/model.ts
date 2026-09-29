@@ -22,16 +22,16 @@ export interface SourceRef {
   via: Via;
 }
 
-export type SyncState = 'ok' | 'partial' | 'error' | 'never';
-
-export interface SyncStatus {
-  state: SyncState;
-  /** ISO 8601, `null` se non c'e' mai stato un sync. */
-  lastSyncAt: string | null;
-  /** Riferimento dell'anteprima: minuti dall'ultimo sync a «ora sintetica». */
+/**
+ * Ultimo dato ricevuto dal server. Il server conosce solo QUANDO e' arrivato un
+ * dato (`received_at`), non come e' andato il singolo sync sul telefono: nessun
+ * esito, nessun motivo, nessuna durata (decisione 26 del 29/09).
+ */
+export interface ReceiptStatus {
+  /** ISO 8601, `null` se non e' mai arrivato nessun dato. */
+  lastReceivedAt: string | null;
+  /** Riferimento dell'anteprima: minuti dall'ultimo dato ricevuto a «ora sintetica». */
   ageMinutes: number | null;
-  /** Codice motivo (non un messaggio): la copy sta nel componente. */
-  problem: null | 'permission_revoked' | 'source_unreachable' | 'upload_failed' | 'partial_types';
 }
 
 export type DataTypeKey =
@@ -45,34 +45,35 @@ export type DataTypeKey =
   | 'distance'
   | 'hrv';
 
+/**
+ * Stato di un tipo di dato per una fonte, come lo puo' sapere il server: ha
+ * ricevuto dati, non ne ha ricevuti, la fonte non fornisce il tipo. Permessi e
+ * letture fallite restano sul dispositivo: il server non li possiede, quindi non
+ * esistono ne' qui ne' nella copy.
+ */
 export interface SourceTypeStatus {
   type: DataTypeKey;
-  status: 'ok' | 'no_data' | 'permission_missing' | 'not_provided' | 'error';
+  status: 'ok' | 'no_data' | 'not_provided';
   /** Questa fonte e' quella vincente per il tipo (FitMesh ne sceglie una, non somma). */
   winning: boolean;
 }
 
 export interface SourceRow {
   ref: SourceRef;
-  lastSyncAt: string | null;
+  /** Ultimo dato ricevuto da questa fonte; `null` se non e' mai arrivato nulla. */
+  lastReceivedAt: string | null;
   types: SourceTypeStatus[];
 }
 
-export interface SyncLogEntry {
-  at: string;
-  state: SyncState;
-  durationSeconds: number | null;
-  /** Tipi di dato letti con successo / falliti in quel sync. */
-  readTypes: number;
-  failedTypes: number;
-}
+// Nessuna cronologia delle ricezioni: `fitness_metrics.received_at` e' sovrascritto a ogni
+// invio (upsert su utente, dispositivo, sorgente e giorno) e `sync_events` e' vuota e non
+// e' letta dalla dashboard. Il server sa solo QUANDO e' arrivato l'ULTIMO dato, per sorgente.
 
 // ── Passi e attivita' ───────────────────────────────────────────────────────
 export interface ActivityDay {
   steps: Measure<number>;
   goalSteps: number;
   distanceKm: Measure<number>;
-  activeMinutes: Measure<number>;
   floors: Measure<number>;
   caloriesActive: Measure<number>;
   /** 24 slot orari (00-23): misurato (anche 0), parziale o assente, mai «vuoto = 0». */
@@ -142,16 +143,32 @@ export interface Workout {
   source: SourceRef;
 }
 
+/**
+ * Un giorno del riquadro settimanale, derivato SOLO dalle righe di `workouts`
+ * (`start_ms`, `duration_min`), vedi lib/web-dashboard/from-rows.ts.
+ */
+export interface WorkoutsWeekDay {
+  /** YYYY-MM-DD, giorno locale. */
+  date: string;
+  /** Numero di allenamenti ricevuti. Mai 0: senza righe il giorno e' assente. */
+  count: Measure<number>;
+  /** Durata totale. Zero solo se una riga esistente dice `duration_min = 0`. */
+  durationMin: Measure<number>;
+}
+
 export interface WorkoutsDay {
   /**
-   * `value: []` significa «nessun allenamento oggi» (misurato). `absent` significa
-   * «non so se ce ne sono stati»: sono due frasi diverse.
+   * Il server non ha un campo che provi «ho letto e non c'erano allenamenti»: una
+   * lista vuota NON e' uno zero misurato, e' `absent` («nessun dato ricevuto»).
+   * `value` contiene sempre almeno una sessione (costruttore: `workoutsSessions`).
    */
   sessions: Measure<Workout[]>;
+  /** Gli ultimi 7 giorni che finiscono nel giorno mostrato, dal piu' vecchio. */
+  week: WorkoutsWeekDay[];
 }
 
 // ── Trend ───────────────────────────────────────────────────────────────────
-export type TrendMetric = 'steps' | 'sleepMinutes' | 'restingHr' | 'activeMinutes';
+export type TrendMetric = 'steps' | 'sleepMinutes' | 'restingHr';
 
 export interface TrendPoint {
   /** YYYY-MM-DD. */
@@ -169,9 +186,8 @@ export interface TrendSeries {
 export interface DashboardData {
   /** Giorno mostrato (YYYY-MM-DD). */
   date: string;
-  sync: SyncStatus;
+  receipt: ReceiptStatus;
   sources: SourceRow[];
-  syncLog: SyncLogEntry[];
   activity: ActivityDay;
   sleep: SleepDay;
   heart: HeartDay;

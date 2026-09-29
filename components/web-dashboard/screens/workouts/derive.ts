@@ -16,21 +16,22 @@ import {
   type Measure,
   type PartialNote,
 } from '@/lib/web-dashboard/measure';
-import type { DashboardData, Workout } from '@/lib/web-dashboard/model';
-import { addDays } from '@/lib/web-dashboard/synthetic';
+import type { Workout, WorkoutsDay } from '@/lib/web-dashboard/model';
 
 import type { WeekCounts } from '../WorkoutsScreen.copy';
 
 // ── elenco delle sessioni ───────────────────────────────────────────────────
 /**
- * Le tre affermazioni possibili sull'elenco, e non si scambiano mai:
+ * Le due affermazioni possibili sull'elenco, e non si scambiano mai:
  *  - `sessions`: ci sono sessioni (l'elenco puo' essere parziale);
- *  - `measured-empty`: la lettura e' riuscita e non c'e' nessuna sessione;
  *  - `absent`: non sappiamo se ce ne sono state.
+ *
+ * NON esiste «nessun allenamento, misurato»: il server non ha un campo che provi
+ * di aver letto e di non aver trovato nulla. Una lista vuota, da qualunque parte
+ * arrivi, e' ASSENTE («nessun campione»), mai uno zero.
  */
 export type ListState =
   | { kind: 'sessions'; sessions: Workout[]; partial: null | { coverage: number; note: PartialNote } }
-  | { kind: 'measured-empty' }
   | { kind: 'absent'; reason: AbsentReason };
 
 const startMs = (w: Workout) => {
@@ -45,11 +46,11 @@ export function sortByStart(list: readonly Workout[]): Workout[] {
 
 export function listState(sessions: Measure<Workout[]>): ListState {
   if (sessions.kind === 'absent') return { kind: 'absent', reason: sessions.reason };
+  // Nessuna riga, nessuno zero: un elenco vuoto e' assente.
+  if (sessions.value.length === 0) return { kind: 'absent', reason: 'no_samples' };
   if (sessions.kind === 'partial') {
     return { kind: 'sessions', sessions: sortByStart(sessions.value), partial: { coverage: sessions.coverage, note: sessions.note } };
   }
-  // Lista vuota MISURATA: e' uno zero, non un buco.
-  if (sessions.value.length === 0) return { kind: 'measured-empty' };
   return { kind: 'sessions', sessions: sortByStart(sessions.value), partial: null };
 }
 
@@ -87,18 +88,10 @@ export function summarize(sessions: Measure<Workout[]>): Summary {
     const a = () => absent<number>(st.reason);
     return { count: a(), duration: a(), calories: a(), durationCover: null, caloriesCover: null };
   }
-  if (st.kind === 'measured-empty') {
-    // Zero sessioni misurate: zero sessioni, zero minuti e zero kcal sono tutti dati.
-    return { count: value(0), duration: value(0), calories: value(0), durationCover: null, caloriesCover: null };
-  }
   const list = st.sessions;
   const durations = list.map((w) => w.durationMin);
   const kcals = list.map((w) => w.caloriesKcal);
-  // Elenco parziale ma vuoto: nessuna sessione nella parte letta, ma non e' uno zero pieno.
   const count = st.partial ? partial(list.length, st.partial.coverage, st.partial.note) : value(list.length);
-  if (list.length === 0) {
-    return { count, duration: inheritListCoverage(value(0), st.partial), calories: inheritListCoverage(value(0), st.partial), durationCover: null, caloriesCover: null };
-  }
   return {
     count,
     duration: inheritListCoverage(sumMeasures(durations), st.partial),
@@ -108,7 +101,7 @@ export function summarize(sessions: Measure<Workout[]>): Summary {
   };
 }
 
-// ── ultimi 7 giorni di minuti attivi ────────────────────────────────────────
+// ── ultimi 7 giorni: durata e numero di allenamenti ─────────────────────────
 export type SlotState = 'measured' | 'measured-zero' | 'partial' | 'absent';
 
 export interface WeekDay {
@@ -116,25 +109,33 @@ export interface WeekDay {
   date: string;
   index: number;
   selected: boolean;
+  /** Stato della DURATA: e' la serie disegnata. */
   state: SlotState;
   /** `null` solo per l'assente: mai 0 al posto di «manca». */
   value: number | null;
   coverage: number | null;
   note: PartialNote | null;
   reason: AbsentReason | null;
+  /** Numero di allenamenti ricevuti: `null` se il giorno non ha righe. Mai 0. */
+  count: number | null;
+  /**
+   * Il giorno HA righe (count diverso da null) ma nessuna porta una durata: la durata e'
+   * assente per «durata non ricevuta», che non e' «nessuna riga» e non si unisce ai giorni senza righe.
+   */
+  durationNotReceived: boolean;
 }
 
 /**
- * I sette giorni che finiscono nel giorno mostrato. Un giorno che la serie non
+ * I sette giorni che finiscono nel giorno mostrato, dal modello (che li ha
+ * derivati dalle sole righe di `workouts`). Un giorno che il modello non
  * contiene e' ASSENTE («nessun campione»), non zero.
  */
-export function activeMinutesWeek(data: DashboardData): WeekDay[] {
-  const series = data.trends.find((s) => s.metric === 'activeMinutes');
-  const byDate = new Map((series?.days ?? []).map((p) => [p.date, p.m] as const));
-  return Array.from({ length: 7 }, (_, i) => {
-    const date = addDays(data.date, i - 6);
-    const p = presentNumber(byDate.get(date) ?? absent('no_samples'));
-    const base = { date, index: i, selected: date === data.date };
+export function workoutsWeek(day: WorkoutsDay, selected: string): WeekDay[] {
+  return day.week.map((w, index) => {
+    const p = presentNumber(w.durationMin);
+    const c = presentNumber(w.count);
+    const count = c.state === 'absent' ? null : c.value;
+    const base = { date: w.date, index, selected: w.date === selected, count, durationNotReceived: p.state === 'absent' && count !== null };
     if (p.state === 'absent') return { ...base, state: 'absent' as const, value: null, coverage: null, note: null, reason: p.reason };
     if (p.state === 'partial') return { ...base, state: 'partial' as const, value: p.value, coverage: p.coverage, note: p.note, reason: null };
     return { ...base, state: p.state, value: p.value, coverage: null, note: null, reason: null };
@@ -151,14 +152,14 @@ export function countDays(days: readonly WeekDay[]): WeekCounts {
 }
 
 /**
- * Media dei soli giorni MISURATI (zero compresi): gli assenti non diluiscono la
- * media e i parziali non la abbassano con un totale incompleto. `null` se non
- * c'e' nessun giorno misurato.
+ * Totale dei soli giorni con durata COMPLETA (zero compresi): gli assenti non
+ * contano come zero e i parziali non abbassano il totale con una somma
+ * incompleta. `null` se non c'e' nessun giorno completo.
  */
-export function meanOfMeasuredDays(days: readonly WeekDay[]): { mean: number; n: number } | null {
+export function totalOfMeasuredDays(days: readonly WeekDay[]): { total: number; n: number } | null {
   const ok = days.filter((d) => (d.state === 'measured' || d.state === 'measured-zero') && d.value !== null);
   if (ok.length === 0) return null;
-  return { mean: ok.reduce((s, d) => s + (d.value ?? 0), 0) / ok.length, n: ok.length };
+  return { total: ok.reduce((s, d) => s + (d.value ?? 0), 0), n: ok.length };
 }
 
 export function maxOfPresent(days: readonly WeekDay[]): number {
@@ -169,20 +170,22 @@ export interface AbsentRun {
   from: number;
   to: number;
   reason: AbsentReason;
+  /** Giorni con righe ma senza durata: nota distinta («durata non ricevuta»), mai uniti ai giorni senza righe. */
+  durationNotReceived: boolean;
 }
 
 /**
  * Giorni assenti consecutivi con lo stesso motivo: si disegnano come UN
- * riquadro tratteggiato, non come sette barre a zero e non come una linea che
- * scavalca il buco.
+ * riquadro tratteggiato, non come sette barre a zero. Un giorno che ha righe ma
+ * nessuna durata non si unisce ai giorni senza righe, anche con lo stesso motivo.
  */
 export function absentRuns(days: readonly WeekDay[]): AbsentRun[] {
   const runs: AbsentRun[] = [];
   for (const d of days) {
     if (d.state !== 'absent' || d.reason === null) continue;
     const last = runs[runs.length - 1];
-    if (last && last.to === d.index - 1 && last.reason === d.reason) last.to = d.index;
-    else runs.push({ from: d.index, to: d.index, reason: d.reason });
+    if (last && last.to === d.index - 1 && last.reason === d.reason && last.durationNotReceived === d.durationNotReceived) last.to = d.index;
+    else runs.push({ from: d.index, to: d.index, reason: d.reason, durationNotReceived: d.durationNotReceived });
   }
   return runs;
 }

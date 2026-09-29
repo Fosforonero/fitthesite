@@ -5,7 +5,7 @@
  * entra nelle medie e non viene unita ai vicini. Vivono qui (e non nei
  * componenti) perche' i test possono verificarle senza passare dal DOM.
  */
-import { partial, type AbsentReason, type Measure, type PartialNote } from '@/lib/web-dashboard/measure';
+import { absent, partial, type AbsentReason, type Measure, type PartialNote } from '@/lib/web-dashboard/measure';
 import type { DashboardData, TrendMetric, TrendPoint } from '@/lib/web-dashboard/model';
 
 import type { MissingMetric } from '../OverviewScreen.copy';
@@ -173,8 +173,6 @@ export interface MissingItem {
   count?: number;
   /** Copertura 0..1 (solo parziali). */
   coverage?: number;
-  /** Lo zero misurato di una lista vuota («nessun allenamento»). */
-  none?: boolean;
 }
 
 export interface MissingGroup {
@@ -218,7 +216,6 @@ export function collectMissing(data: DashboardData): MissingGroup[] {
   const a = data.activity;
   any('steps', a.steps);
   any('distance', a.distanceKm);
-  any('activeMinutes', a.activeMinutes);
   any('floors', a.floors);
   any('caloriesActive', a.caloriesActive);
 
@@ -250,10 +247,11 @@ export function collectMissing(data: DashboardData): MissingGroup[] {
   any('hrv', h.hrvMs);
 
   const sessions = data.workouts.sessions;
+  // una lista vuota non e' uno zero misurato: e' assente
   if (sessions.kind === 'absent' || sessions.kind === 'partial') {
     any('workouts', sessions);
   } else if (sessions.value.length === 0) {
-    put('zero', { kind: 'zero' }, { metric: 'workouts', none: true });
+    any('workouts', absent('no_samples'));
   }
 
   return [...groups.values()].sort((x, y) => KIND_ORDER[x.kind] - KIND_ORDER[y.kind]);

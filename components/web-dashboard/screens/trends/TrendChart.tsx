@@ -5,7 +5,7 @@ import { CHART } from '../../primitives';
 import { absentRuns, labelIndexes, lineSegments, type Axis, type Run, type Slot } from './derive';
 
 /**
- * Grafico di una serie di giorni: barre (passi, sonno, minuti attivi) oppure
+ * Grafico di una serie di giorni: barre (passi, sonno) oppure
  * linea a tratti (battito a riposo).
  *
  * Perche' un SVG con coordinate in PERCENTUALE e altezza in pixel: cosi' non c'e'

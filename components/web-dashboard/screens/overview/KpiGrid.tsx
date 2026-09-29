@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { fmtInt, fmtMinutes, fmtPercent, fmtTime } from '@/lib/web-dashboard/format';
-import { partial, presentNumber, sumMeasures, value, type Measure } from '@/lib/web-dashboard/measure';
+import { absent, partial, presentNumber, sumMeasures, value, type Measure } from '@/lib/web-dashboard/measure';
 
 import { Icon } from '../../Icon';
 import { CHART, MeasureValue, MetricTile, SectionLabel } from '../../primitives';
@@ -70,31 +70,26 @@ function WorkoutsTile({ ctx }: { ctx: OverviewCtx }) {
   const sessions = data.workouts.sessions;
   const link = href('workouts');
 
-  // «non so se ce ne sono stati» (assente) e' un'altra frase da «nessuno» (lista vuota misurata)
-  if (sessions.kind === 'absent') {
+  // «non so se ce ne sono stati»: non esiste «nessuno» misurato, senza righe il giorno e' assente
+  if (sessions.kind === 'absent' || sessions.value.length === 0) {
     return (
       <MetricTile label={oc.tiles.workouts} dot={CHART.info} icon="workouts" href={link}>
-        <MeasureValue m={sessions} locale={ui} copy={copy} />
+        <MeasureValue m={sessions.kind === 'absent' ? sessions : absent('no_samples')} locale={ui} copy={copy} />
       </MetricTile>
     );
   }
 
   const list = sessions.value;
   const count: Measure<number> = sessions.kind === 'partial' ? partial(list.length, sessions.coverage, sessions.note) : value(list.length);
-  let footer: ReactNode;
-  if (list.length === 0) {
-    footer = <p className="text-text-secondary">{oc.workoutsTile.none}</p>;
-  } else {
-    const total = sumMeasures(list.map((w) => w.durationMin));
-    footer =
-      total.kind === 'absent' ? (
-        <p className="text-text-secondary">{oc.workoutsTile.durationUnknown}</p>
-      ) : (
-        <p className="text-text-secondary">
-          {total.kind === 'partial' ? oc.workoutsTile.totalDurationPartial(fmtMinutes(total.value, ui)) : oc.workoutsTile.totalDuration(fmtMinutes(total.value, ui))}
-        </p>
-      );
-  }
+  const total = sumMeasures(list.map((w) => w.durationMin));
+  const footer: ReactNode =
+    total.kind === 'absent' ? (
+      <p className="text-text-secondary">{oc.workoutsTile.durationUnknown}</p>
+    ) : (
+      <p className="text-text-secondary">
+        {total.kind === 'partial' ? oc.workoutsTile.totalDurationPartial(fmtMinutes(total.value, ui)) : oc.workoutsTile.totalDuration(fmtMinutes(total.value, ui))}
+      </p>
+    );
   return (
     <MetricTile label={oc.tiles.workouts} dot={CHART.info} icon="workouts" href={link} footer={footer}>
       <MeasureValue m={count} unit={list.length === 1 ? oc.workoutsTile.singular : oc.workoutsTile.plural} locale={ui} copy={copy} />

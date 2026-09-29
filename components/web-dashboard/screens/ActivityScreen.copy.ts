@@ -2,10 +2,10 @@
  * Copy della schermata «Passi e attivita'». IT e EN; ogni altra lingua usa l'EN.
  *
  * Le parole sono quelle dell'app (v3.10.0+191: statLabelSteps, vitalsFloors,
- * goalActiveMinutes, vitalsActiveCalories, period7, stepsHourlyLegendPerHour,
+ * vitalsActiveCalories, period7, stepsHourlyLegendPerHour,
  * intradayGoalReached, sourceSectionTitle). Cio' che e' gia' in
  * lib/web-dashboard/copy.ts (motivi di assenza, note del parziale, legenda,
- * «Zero misurato», «Ultimo sync») NON si ripete qui: lo legge la schermata.
+ * «Zero misurato», «Ultimo dato ricevuto») NON si ripete qui: lo legge la schermata.
  *
  * Regole: niente em dash, niente promesse ne' date di disponibilita', niente
  * linguaggio promozionale. Testo PLACEHOLDER da approvare prima di ogni uso
@@ -42,7 +42,6 @@ export interface ActivityCopy {
   tiles: {
     aria: string;
     distance: string;
-    activeMinutes: string;
     floors: string;
     caloriesActive: string;
   };
@@ -91,8 +90,7 @@ const IT: ActivityCopy = {
     goalOf: (pct, goal) => `${pct} dell’obiettivo di ${goal} passi`,
     goalPartial: {
       window_open: (pct, goal) => `${pct} dell’obiettivo di ${goal} passi, con la giornata ancora in corso`,
-      device_off: (pct, goal) => `${pct} dell’obiettivo di ${goal} passi, calcolato sui passi registrati`,
-      sync_incomplete: (pct, goal) => `${pct} dell’obiettivo di ${goal} passi, calcolato sui passi ricevuti`,
+      incomplete_coverage: (pct, goal) => `${pct} dell’obiettivo di ${goal} passi, calcolato sui passi ricevuti`,
     },
     goalMet: 'Obiettivo passi raggiunto',
     remaining: (n) => `Mancano ${n} passi`,
@@ -101,7 +99,6 @@ const IT: ActivityCopy = {
   tiles: {
     aria: 'Altre misure del giorno',
     distance: 'Distanza',
-    activeMinutes: 'Minuti attivi',
     floors: 'Piani saliti',
     caloriesActive: 'Calorie attive',
   },
@@ -167,8 +164,7 @@ const EN: ActivityCopy = {
     goalOf: (pct, goal) => `${pct} of the ${goal} steps goal`,
     goalPartial: {
       window_open: (pct, goal) => `${pct} of the ${goal} steps goal, with the day still in progress`,
-      device_off: (pct, goal) => `${pct} of the ${goal} steps goal, calculated on the steps recorded`,
-      sync_incomplete: (pct, goal) => `${pct} of the ${goal} steps goal, calculated on the steps received`,
+      incomplete_coverage: (pct, goal) => `${pct} of the ${goal} steps goal, calculated on the steps received`,
     },
     goalMet: 'Steps goal reached',
     remaining: (n) => `${n} steps to go`,
@@ -177,7 +173,6 @@ const EN: ActivityCopy = {
   tiles: {
     aria: 'Other measures for the day',
     distance: 'Distance',
-    activeMinutes: 'Active minutes',
     floors: 'Floors climbed',
     caloriesActive: 'Active calories',
   },

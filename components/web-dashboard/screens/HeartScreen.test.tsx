@@ -6,7 +6,7 @@ import type { HeartPoint, ScenarioKey } from '@/lib/web-dashboard/model';
 
 import { HeartLoading, HeartScreen } from './HeartScreen';
 import { STAT_GRID } from './heart/layout';
-import { analyzeSeries, hourRows, niceAxis } from './heart/series';
+import { analyzeSeries, hourRows, niceAxis, workoutOverlay } from './heart/series';
 import { forbiddenCopyIn, measureStates, renderScreen, screenProps } from './test-utils';
 
 const SCENARIOS: ScenarioKey[] = ['ok', 'partial', 'zeros', 'stale', 'empty'];
@@ -19,6 +19,18 @@ function segmentXs(container: HTMLElement): number[] {
     for (const m of d.matchAll(/[ML]?(-?\d+(?:\.\d+)?) (-?\d+(?:\.\d+)?)/g)) xs.push(Number(m[1]));
   }
   return xs;
+}
+
+/**
+ * Una serie con due buchi INTERNI (05:00-05:40 e 13:00-18:00), costruita nel test. Il componente sa
+ * spezzare la linea a ogni buco; lo scenario `partial` non ne produce (il server non vede i buchi interni:
+ * conosce solo la finestra ricevuta, e la serie intraday e' fuori whitelist).
+ */
+function renderWithHoles() {
+  const props = screenProps('ok');
+  const series = props.data.heart.series.map((p) => ((p.minute >= 300 && p.minute < 340) || (p.minute >= 780 && p.minute < 1080) ? { ...p, bpm: null } : p));
+  props.data = { ...props.data, heart: { ...props.data.heart, series } };
+  return { ...render(<HeartScreen {...props} />), props };
 }
 
 const tile = (container: HTMLElement, key: string) => container.querySelector(`[data-heart-tile="${key}"]`) as HTMLElement;
@@ -85,10 +97,10 @@ describe('HeartScreen: zero, parziale e assente sono tre cose diverse', () => {
     expect(zeroEl.textContent).toContain(base.copy.measure.zeroMeasured);
     zero.unmount();
 
-    const gone = render(<HeartScreen {...base} data={{ ...base.data, heart: { ...base.data.heart, hrvMs: absent('permission_missing') } }} />);
+    const gone = render(<HeartScreen {...base} data={{ ...base.data, heart: { ...base.data.heart, hrvMs: absent('source_lacks_type') } }} />);
     const goneEl = tile(gone.container, 'hrv').querySelector('[data-measure-state]') as HTMLElement;
     expect(goneEl.getAttribute('data-measure-state')).toBe('absent');
-    expect(goneEl.textContent).toContain(base.copy.measure.absent.permission_missing);
+    expect(goneEl.textContent).toContain(base.copy.measure.absent.source_lacks_type);
     expect(goneEl.textContent).not.toMatch(/\d/);
     expect(goneEl.textContent).not.toContain(base.copy.measure.zeroMeasured);
   });
@@ -96,13 +108,21 @@ describe('HeartScreen: zero, parziale e assente sono tre cose diverse', () => {
   it('un valore parziale con zero come cifra resta parziale, non diventa zero misurato', () => {
     const base = screenProps('ok');
     const { container } = render(
-      <HeartScreen {...base} data={{ ...base.data, heart: { ...base.data.heart, hrvMs: partial(0, 0.4, 'device_off') } }} />,
+      <HeartScreen {...base} data={{ ...base.data, heart: { ...base.data.heart, hrvMs: partial(0, 0.4, 'incomplete_coverage') } }} />,
     );
     expect(tile(container, 'hrv').querySelector('[data-measure-state]')?.getAttribute('data-measure-state')).toBe('partial');
   });
 
-  it('parziale: la linea si spezza a ogni buco, i buchi sono bande tratteggiate e nessuna coordinata cade dentro un buco', () => {
+  it('scenario partial: la finestra finisce alle 13:00, un solo tratto assente in coda e un solo segmento, nessun buco interno', () => {
     const { container } = renderScreen(HeartScreen, 'partial');
+    const bands = [...container.querySelectorAll('[data-heart-chart] [data-slot-state="absent"]')] as HTMLElement[];
+    expect(bands.map((b) => [b.dataset.from, b.dataset.to])).toEqual([['13:00', '24:00']]);
+    expect(container.querySelectorAll('path[data-slot-state="measured"]')).toHaveLength(1);
+    for (const x of segmentXs(container)) expect(x).toBeLessThan(780);
+  });
+
+  it('con buchi interni: la linea si spezza a ogni buco, i buchi sono bande tratteggiate e nessuna coordinata cade dentro un buco', () => {
+    const { container } = renderWithHoles();
     const bands = [...container.querySelectorAll('[data-heart-chart] [data-slot-state="absent"]')] as HTMLElement[];
     expect(bands.map((b) => [b.dataset.from, b.dataset.to])).toEqual([
       ['05:00', '05:40'],
@@ -136,7 +156,7 @@ describe('HeartScreen: zero, parziale e assente sono tre cose diverse', () => {
   });
 
   it('la copertura dice quanti campioni ci sono davvero, senza contare i buchi come zeri', () => {
-    const { container, props } = renderScreen(HeartScreen, 'partial');
+    const { container, props } = renderWithHoles();
     const known = props.data.heart.series.filter((p) => p.bpm !== null).length;
     const cov = container.querySelector('[data-heart-coverage]') as HTMLElement;
     expect(cov.textContent).toContain(`Campioni: ${known} su 144`);
@@ -144,7 +164,7 @@ describe('HeartScreen: zero, parziale e assente sono tre cose diverse', () => {
     expect(cov.querySelectorAll('[data-coverage-run="gap"]')).toHaveLength(2);
   });
 
-  it('gli allenamenti misurati sono bande e stanno nella tabella con il titolo; non autorizzati: si dice perche’', () => {
+  it('gli allenamenti misurati sono bande e stanno nella tabella con il titolo; non forniti dalla fonte: si dice perche’', () => {
     const ok = renderScreen(HeartScreen, 'ok');
     expect(ok.container.querySelectorAll('[data-heart-workout]').length).toBe(ok.props.data.workouts.sessions.kind === 'value' ? ok.props.data.workouts.sessions.value.length : -1);
     expect(ok.container.querySelector('[data-heart-table="workouts"]')?.textContent).toContain('Forza');
@@ -153,15 +173,31 @@ describe('HeartScreen: zero, parziale e assente sono tre cose diverse', () => {
     const partialRun = renderScreen(HeartScreen, 'partial');
     expect(partialRun.container.querySelectorAll('[data-heart-workout]')).toHaveLength(0);
     const note = partialRun.container.querySelector('[data-heart-workouts-note="absent"]') as HTMLElement;
-    expect(note.textContent).toContain(partialRun.props.copy.measure.absent.permission_missing);
+    // il server non distingue «non fornito» da «nessun dato»: nessuna riga di allenamenti e' «nessun campione»
+    expect(note.textContent).toContain(partialRun.props.copy.measure.absent.no_samples);
+    expect(note.textContent).not.toContain(partialRun.props.copy.measure.absent.source_lacks_type);
     partialRun.unmount();
 
+    // «zeros»: nessuna riga di allenamenti nel giorno. Non e' «nessun allenamento»: e' assente, con il motivo.
     const zeros = renderScreen(HeartScreen, 'zeros');
-    expect(zeros.container.querySelector('[data-heart-workouts-note="none"]')).not.toBeNull();
+    expect(zeros.container.querySelector('[data-heart-workouts-note="none"]')).toBeNull();
+    const zeroNote = zeros.container.querySelector('[data-heart-workouts-note="absent"]') as HTMLElement;
+    expect(zeroNote.textContent).toContain(zeros.props.copy.measure.absent.no_samples);
+  });
+
+  it('una lista di allenamenti vuota costruita a mano non e «nessun allenamento»: e assente, e nel grafico non c e nessuna frase dello zero', () => {
+    expect(workoutOverlay(value([]), '2026-09-23', null)).toEqual({ kind: 'absent', reason: 'no_samples' });
+    expect(workoutOverlay(partial([], 0.5, 'window_open'), '2026-09-23', null)).toEqual({ kind: 'absent', reason: 'no_samples' });
+    const props = screenProps('ok');
+    const forged = { ...props.data, workouts: { sessions: value([]), week: props.data.workouts.week } };
+    const { container } = render(<HeartScreen {...props} data={forged} />);
+    expect(container.querySelector('[data-heart-workouts-note="absent"]')).not.toBeNull();
+    expect(container.querySelector('[data-heart-workouts-note="none"]')).toBeNull();
+    expect(container.textContent).not.toMatch(/Nessun allenamento registrato/);
   });
 
   it('la tabella per ora distingue ora misurata, ora parziale e ora senza campioni (senza cifre)', () => {
-    const { container, props } = renderScreen(HeartScreen, 'partial');
+    const { container, props } = renderWithHoles();
     const rows = [...container.querySelectorAll('[data-heart-table="hours"] tbody tr')] as HTMLElement[];
     expect(rows).toHaveLength(24);
     const state = (h: number) => rows[h].getAttribute('data-slot-state');
@@ -180,9 +216,9 @@ describe('HeartScreen: nessun campione', () => {
     const { container, props } = renderScreen(HeartScreen, 'empty');
     const card = container.querySelector('[data-heart-empty]') as HTMLElement;
     expect(card).not.toBeNull();
-    expect(card.getAttribute('data-absent-reason')).toBe('no_source');
+    expect(card.getAttribute('data-absent-reason')).toBe('no_data_received');
     expect(card.className).toContain('border-dashed');
-    expect(card.textContent).toContain(props.copy.measure.absent.no_source);
+    expect(card.textContent).toContain(props.copy.measure.absent.no_data_received);
     expect(card.querySelector('a')?.getAttribute('href')).toBe('/it/app/devices');
     expect(container.querySelector('[data-heart-chart]')).toBeNull();
     expect(container.querySelector('path[data-slot-state="measured"]')).toBeNull();
@@ -196,7 +232,7 @@ describe('HeartScreen: nessun campione', () => {
     expect(container.querySelector('[data-heart-empty] a')?.getAttribute('href')).toBe('/en/app/devices');
   });
 
-  it('stale: nessuna linea piatta, il motivo e’ "non ancora sincronizzato" e il link porta a sorgenti e sync', () => {
+  it('stale: nessuna linea piatta, il motivo e’ "non ancora sincronizzato" e il link porta alle sorgenti dei dati', () => {
     const { container, props } = renderScreen(HeartScreen, 'stale');
     const card = container.querySelector('[data-heart-empty]') as HTMLElement;
     expect(card.getAttribute('data-absent-reason')).toBe('not_synced_yet');

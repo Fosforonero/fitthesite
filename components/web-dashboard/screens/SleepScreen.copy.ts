@@ -134,17 +134,14 @@ const IT: SleepCopy = {
     countAbsent: '{n} senza dato',
   },
   absentBody: {
-    no_source:
-      'Nessun dispositivo è collegato a questo account, quindi non c’è una notte da mostrare. Collega un orologio, un anello o un telefono dall’app FitMesh e sincronizza.',
+    no_data_received:
+      'Non è arrivato nessun dato per questo account, quindi non c’è una notte da mostrare. Apri l’app FitMesh, controlla che un dispositivo sia collegato e sincronizza.',
     not_synced_yet:
       'La fonte è collegata, ma la notte che finisce in questo giorno non è ancora arrivata. Non significa che tu non abbia dormito.',
-    permission_missing:
-      'FitMesh non ha il permesso di leggere il sonno da questa fonte. Il permesso si gestisce nelle impostazioni della fonte.',
     source_lacks_type: 'La fonte collegata non registra il sonno.',
     no_samples:
       'La fonte è collegata, ma per questa notte non ha consegnato dati di sonno. Indossa il dispositivo anche di notte perché registri il sonno.',
     not_yet: 'Questa notte non è ancora terminata, quindi non c’è una durata da mostrare.',
-    read_error: 'Non è stato possibile leggere il sonno di questa notte. Non significa che non ci siano dati.',
   },
   devicesLink: 'Collega un dispositivo',
 };
@@ -203,17 +200,14 @@ const EN: SleepCopy = {
     countAbsent: '{n} without data',
   },
   absentBody: {
-    no_source:
-      'No device is connected to this account, so there is no night to show. Connect a watch, a ring or a phone from the FitMesh app and sync.',
+    no_data_received:
+      'No data has arrived for this account, so there is no night to show. Open the FitMesh app, check that a device is connected and sync.',
     not_synced_yet:
       'The source is connected, but the night ending on this day has not arrived yet. It does not mean you did not sleep.',
-    permission_missing:
-      'FitMesh does not have permission to read sleep from this source. Permission is managed in the source’s settings.',
     source_lacks_type: 'The connected source does not record sleep.',
     no_samples:
       'The source is connected, but it delivered no sleep data for this night. Wear the device at night too so it records sleep.',
     not_yet: 'This night is not over yet, so there is no duration to show.',
-    read_error: 'We could not read sleep for this night. It does not mean there is no data.',
   },
   devicesLink: 'Connect a device',
 };

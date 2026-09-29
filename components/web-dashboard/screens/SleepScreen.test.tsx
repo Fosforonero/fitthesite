@@ -52,7 +52,7 @@ describe('SleepScreen: rende ogni scenario in it e en', () => {
 
   it('una lingua senza copy propria (de) usa l\'inglese e il suo prefisso nei link', () => {
     const { container } = renderScreen(SleepScreen, 'empty', { lc: 'de' });
-    expect(container.textContent).toContain('No device is connected');
+    expect(container.textContent).toContain('No data has arrived for this account');
     expect(container.querySelector('a[href="/de/app/devices"]')).not.toBeNull();
   });
 
@@ -154,7 +154,7 @@ describe('caso (b): totale noto, fasi assenti (source_lacks_type)', () => {
   });
 
   it('tutti i motivi possibili per le fasi assenti producono il riquadro, mai un grafico', () => {
-    const reasons: AbsentReason[] = ['no_source', 'not_synced_yet', 'permission_missing', 'source_lacks_type', 'no_samples', 'not_yet', 'read_error'];
+    const reasons: AbsentReason[] = ['no_data_received', 'not_synced_yet', 'source_lacks_type', 'no_samples', 'not_yet'];
     for (const r of reasons) {
       const { container, unmount } = renderWith('ok', (d) => {
         const n = nightOf(d);
@@ -180,7 +180,7 @@ describe('caso (c): notte assente', () => {
   const reasons: Array<[ScenarioKey, AbsentReason]> = [
     ['zeros', 'no_samples'],
     ['stale', 'not_synced_yet'],
-    ['empty', 'no_source'],
+    ['empty', 'no_data_received'],
   ];
 
   for (const [scenario, reason] of reasons) {
@@ -245,8 +245,8 @@ describe('caso (c): notte assente', () => {
     const nights = container.querySelector('[data-slot="nights"]')!;
     expect(nights.getAttribute('data-slot-state')).toBe('absent');
     expect(nights.querySelectorAll('svg rect[data-night]').length).toBe(0);
-    expect(nights.querySelector('[data-absent-reason="no_source"]')).not.toBeNull();
-    expect(nights.textContent).toContain('Nessuna fonte collegata');
+    expect(nights.querySelector('[data-absent-reason="no_data_received"]')).not.toBeNull();
+    expect(nights.textContent).toContain('Nessun dato ricevuto');
     // la media non e' 0: e' "non disponibile"
     const avg = nights.querySelector('[data-slot="nights-average"] [data-measure-state="absent"]')!;
     expect(avg.textContent).toContain('Media non disponibile');
@@ -262,7 +262,7 @@ describe('caso (c): notte assente', () => {
   });
 
   it('ogni motivo di assenza ha la sua spiegazione (it e en), senza digit e senza em dash', () => {
-    const reasons: AbsentReason[] = ['no_source', 'not_synced_yet', 'permission_missing', 'source_lacks_type', 'no_samples', 'not_yet', 'read_error'];
+    const reasons: AbsentReason[] = ['no_data_received', 'not_synced_yet', 'source_lacks_type', 'no_samples', 'not_yet'];
     for (const lc of ['it', 'en']) {
       const c = sleepCopy(lc === 'it' ? 'it' : 'en');
       for (const r of reasons) {
@@ -301,7 +301,7 @@ describe('zero misurato, parziale e assente sono tre cose diverse', () => {
     const { container } = renderWith('ok', (d) => {
       const days = sleepMinutesDays(d);
       days[days.length - 2].m = value(0); // 22 set: zero misurato
-      days[days.length - 3].m = partial(200, 0.5, 'device_off'); // 21 set: parziale
+      days[days.length - 3].m = partial(200, 0.5, 'incomplete_coverage'); // 21 set: parziale
       days[days.length - 4].m = absent('no_samples'); // 20 set: assente
     });
     const el = (date: string) => container.querySelector(`svg [data-night="${date}"]`)!;
@@ -348,7 +348,7 @@ describe('zero misurato, parziale e assente sono tre cose diverse', () => {
       last7[1].m = value(420);
       last7[2].m = value(420);
       last7[3].m = absent('no_samples');
-      last7[4].m = partial(60, 0.2, 'sync_incomplete');
+      last7[4].m = partial(60, 0.2, 'incomplete_coverage');
       last7[5].m = value(420);
     });
     const avg = container.querySelector('[data-slot="nights-average"]')!;
@@ -359,22 +359,22 @@ describe('zero misurato, parziale e assente sono tre cose diverse', () => {
   it('notte parziale: chip con copertura e motivo nell\'intestazione e barra parziale nella settimana', () => {
     const { container, props } = renderWith('ok', (d) => {
       const n = nightOf(d);
-      d.sleep.night = partial(n.value, 0.6, 'device_off');
+      d.sleep.night = partial(n.value, 0.6, 'incomplete_coverage');
     });
     const header = container.querySelector('[data-slot="night"]')!;
     expect(header.getAttribute('data-slot-state')).toBe('partial');
     expect(header.textContent).toContain('Parziale 60%');
-    expect(header.textContent).toContain(props.copy.measure.partial.device_off);
+    expect(header.textContent).toContain(props.copy.measure.partial.incomplete_coverage);
     expect(container.querySelector(`svg [data-night="${DAY}"]`)!.getAttribute('data-slot-state')).toBe('partial');
   });
 
   it('totale della notte assente ma notte presente: trattino e motivo, mai "0 h"', () => {
     const { container } = renderWith('ok', (d) => {
-      nightOf(d).value.totalMinutes = absent('read_error');
+      nightOf(d).value.totalMinutes = absent('no_samples');
     });
     const header = container.querySelector('[data-slot="night"]')!;
     const totalCell = header.querySelector('dd [data-measure-state="absent"]')!;
-    expect(totalCell.textContent).toContain('Lettura non riuscita');
+    expect(totalCell.textContent).toContain('Nessun campione');
     expect(totalCell.textContent).not.toMatch(digits);
     expect(container.textContent).not.toMatch(/0 h 00/);
     // l'ipnogramma si disegna lo stesso, sulla durata ricavata da orari e blocchi
@@ -399,10 +399,10 @@ describe('zero misurato, parziale e assente sono tre cose diverse', () => {
       const n = nightOf(d);
       const stages = n.value.stages;
       if (stages.kind !== 'value') throw new Error('serve stages misurato');
-      n.value.stages = partial(stages.value, 0.7, 'sync_incomplete');
+      n.value.stages = partial(stages.value, 0.7, 'incomplete_coverage');
       const sm = n.value.stageMinutes;
       if (sm.kind !== 'value') throw new Error('serve stageMinutes misurato');
-      n.value.stageMinutes = partial(sm.value, 0.7, 'sync_incomplete');
+      n.value.stageMinutes = partial(sm.value, 0.7, 'incomplete_coverage');
     });
     const hyp = container.querySelector('[data-slot="hypnogram"]')!;
     expect(hyp.getAttribute('data-slot-state')).toBe('measured');
@@ -448,7 +448,7 @@ describe('funzioni pure', () => {
   it('nightSlotState separa i quattro stati; nightsAxisTop tiene sempre dentro le 7 h', () => {
     expect(nightSlotState(value(0))).toBe('measured-zero');
     expect(nightSlotState(value(1))).toBe('measured');
-    expect(nightSlotState(partial(0, 0.5, 'device_off'))).toBe('partial');
+    expect(nightSlotState(partial(0, 0.5, 'incomplete_coverage'))).toBe('partial');
     expect(nightSlotState(absent('no_samples'))).toBe('absent');
     expect(nightsAxisTop(0)).toBe(540);
     expect(nightsAxisTop(500)).toBe(540);

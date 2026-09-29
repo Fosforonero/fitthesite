@@ -2,18 +2,19 @@ import { cleanup, render } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
 
 import { absent, partial, value, type AbsentReason, type Measure } from '@/lib/web-dashboard/measure';
-import type { ScenarioKey, Workout } from '@/lib/web-dashboard/model';
+import type { ScenarioKey, Workout, WorkoutsDay, WorkoutsWeekDay } from '@/lib/web-dashboard/model';
+import { FORBIDDEN_SYNC_NAMES } from '@/lib/web-dashboard/regression-patterns';
 import { WATCH } from '@/lib/web-dashboard/synthetic';
 import { WorkoutsLoading, WorkoutsScreen } from './WorkoutsScreen';
 import { workoutsCopy } from './WorkoutsScreen.copy';
-import { absentRuns, activeMinutesWeek, countDays, listState, meanOfMeasuredDays, summarize } from './workouts/derive';
+import { absentRuns, countDays, listState, summarize, totalOfMeasuredDays, workoutsWeek } from './workouts/derive';
 import { forbiddenCopyIn, renderScreen, screenProps } from './test-utils';
 
 afterEach(cleanup);
 
 const SCENARIOS: ScenarioKey[] = ['ok', 'partial', 'zeros', 'stale', 'empty'];
 const LOCALES = ['it', 'en'] as const;
-const REASONS: AbsentReason[] = ['no_source', 'not_synced_yet', 'permission_missing', 'source_lacks_type', 'no_samples', 'not_yet', 'read_error'];
+const REASONS: AbsentReason[] = ['no_data_received', 'not_synced_yet', 'source_lacks_type', 'no_samples', 'not_yet'];
 
 const all = (c: HTMLElement, sel: string) => [...c.querySelectorAll<HTMLElement>(sel)];
 const one = (c: HTMLElement, sel: string) => {
@@ -44,7 +45,7 @@ const mk = (over: Partial<Workout> = {}): Workout => ({
 /** Schermata con un elenco di sessioni deciso dal test (il generatore non produce ogni combinazione). */
 function renderWith(sessions: Measure<Workout[]>, opts: { lc?: string; day?: string } = {}) {
   const props = screenProps('ok', opts);
-  const data = { ...props.data, workouts: { sessions } };
+  const data = { ...props.data, workouts: { sessions, week: props.data.workouts.week } };
   const view = render(<WorkoutsScreen {...props} data={data} />);
   return { ...view, props: { ...props, data } };
 }
@@ -60,8 +61,8 @@ describe('WorkoutsScreen: rende ogni scenario in it e en', () => {
         expect(container.textContent ?? '').not.toMatch(/\bAI\b|intelligen|—/i);
         // l'h1 e' della shell: qui solo h2
         expect(container.querySelectorAll('h1')).toHaveLength(0);
-        expect(container.querySelectorAll('h2').length).toBeGreaterThanOrEqual(3);
-        // una sola delle tre affermazioni sull'elenco alla volta
+        expect(container.querySelectorAll('h2').length).toBeGreaterThanOrEqual(2);
+        // una sola delle due affermazioni sull'elenco alla volta
         const kinds = all(container, '[data-list-state]').map((n) => n.getAttribute('data-list-state'));
         expect(kinds).toHaveLength(1);
       });
@@ -90,7 +91,7 @@ describe('WorkoutsScreen: rende ogni scenario in it e en', () => {
   });
 });
 
-describe('le tre situazioni dell elenco non si scambiano', () => {
+describe('le due situazioni dell elenco non si scambiano: mai «nessun allenamento» misurato', () => {
   it('ok: ci sono sessioni, con i campi per riga', () => {
     const { container } = renderScreen(WorkoutsScreen, 'ok', { day: RUN_DAY });
     expect(one(container, '[data-list-state]').getAttribute('data-list-state')).toBe('sessions');
@@ -101,54 +102,74 @@ describe('le tre situazioni dell elenco non si scambiano', () => {
     expect(stateOf(container, '[data-metric="sessions"]')).toBe('measured');
   });
 
-  it('(b) zeros: lista vuota MISURATA, frase positiva e nessun «non sappiamo»', () => {
+  it('zeros: nessuna riga nel giorno NON e «nessun allenamento»: e assente (nessun campione), senza cifre e senza la frase dello zero', () => {
     const { container, props } = renderScreen(WorkoutsScreen, 'zeros');
-    expect(props.data.workouts.sessions).toEqual({ kind: 'value', value: [] });
+    expect(props.data.workouts.sessions).toEqual({ kind: 'absent', reason: 'no_samples' });
     const box = one(container, '[data-list-state]');
-    expect(box.getAttribute('data-list-state')).toBe('measured-empty');
-    expect(box.textContent).toContain('Nessun allenamento registrato per questo giorno');
-    expect(container.textContent).not.toMatch(/Non sappiamo/);
+    expect(box.getAttribute('data-list-state')).toBe('absent');
+    expect(box.getAttribute('data-reason')).toBe('no_samples');
+    expect(box.textContent).toContain('Non sappiamo se ci sono stati allenamenti');
+    expect(container.textContent).not.toMatch(/Nessun allenamento registrato|zero allenamenti/i);
     expect(container.querySelector('[data-session]')).toBeNull();
-    // il riepilogo dice zero: e' un DATO
     for (const key of ['sessions', 'duration', 'calories']) {
-      expect(stateOf(container, `[data-metric="${key}"]`)).toBe('measured-zero');
-      const text = one(container, `[data-metric="${key}"]`).textContent ?? '';
-      expect(text).toContain('0');
-      expect(text).toContain(props.copy.measure.zeroMeasured);
+      const el = one(container, `[data-metric="${key}"] [data-measure-state]`);
+      expect(el.getAttribute('data-measure-state')).toBe('absent');
+      expect(hasDigit(el.textContent)).toBe(false);
+      expect(one(container, `[data-metric="${key}"]`).textContent).not.toContain(props.copy.measure.zeroMeasured);
     }
   });
 
-  it('(b) la stessa frase in inglese', () => {
+  it('la stessa cosa in inglese', () => {
     const { container } = renderScreen(WorkoutsScreen, 'zeros', { lc: 'en' });
-    expect(container.textContent).toContain('No workouts recorded for this day');
-    expect(container.textContent).not.toMatch(/We do not know/);
+    expect(container.textContent).toContain('We do not know whether there were any workouts');
+    expect(container.textContent).not.toMatch(/No workouts recorded|zero workouts/i);
   });
 
-  it('(b) lista vuota misurata anche in ok (una domenica senza allenamento)', () => {
+  it('una domenica senza allenamento, anche in ok, e assente e non uno zero', () => {
     const { container } = renderScreen(WorkoutsScreen, 'ok', { day: SUNDAY });
-    expect(one(container, '[data-list-state]').getAttribute('data-list-state')).toBe('measured-empty');
+    const box = one(container, '[data-list-state]');
+    expect(box.getAttribute('data-list-state')).toBe('absent');
+    expect(box.getAttribute('data-reason')).toBe('no_samples');
+    expect(container.querySelector('[data-list-state="measured-empty"]')).toBeNull();
   });
 
-  it('(c) partial: lista ASSENTE (permesso), niente frase dello zero e riepilogo senza cifre', () => {
+  it('una lista vuota costruita a mano (value([]) o partial([])) non diventa mai uno zero: e assente', () => {
+    for (const forged of [value([] as Workout[]), partial([] as Workout[], 0.5, 'incomplete_coverage')]) {
+      const { container, props } = renderWith(forged);
+      const box = one(container, '[data-list-state]');
+      expect(box.getAttribute('data-list-state')).toBe('absent');
+      expect(box.getAttribute('data-reason')).toBe('no_samples');
+      expect(container.textContent).not.toMatch(/Nessun allenamento registrato/);
+      for (const key of ['sessions', 'duration', 'calories']) {
+        const el = one(container, `[data-metric="${key}"] [data-measure-state]`);
+        expect(el.getAttribute('data-measure-state')).toBe('absent');
+        expect(hasDigit(el.textContent)).toBe(false);
+      }
+      expect(props.copy.measure.zeroMeasured).toBeTruthy();
+      cleanup();
+    }
+  });
+
+  it('partial: lista ASSENTE per «nessun campione» (il server non sa se la fonte non fornisce gli allenamenti), niente frase dello zero e riepilogo senza cifre', () => {
     const { container, props } = renderScreen(WorkoutsScreen, 'partial');
     const box = one(container, '[data-list-state]');
     expect(box.getAttribute('data-list-state')).toBe('absent');
-    expect(box.getAttribute('data-reason')).toBe('permission_missing');
+    expect(box.getAttribute('data-reason')).toBe('no_samples');
     expect(box.textContent).toContain('Non sappiamo se ci sono stati allenamenti');
-    expect(box.textContent).toContain(props.copy.measure.absent.permission_missing);
-    // una frase semplice: il permesso si concede nell'app FitMesh
-    expect(box.textContent).toContain('dall’app FitMesh');
+    expect(box.textContent).toContain(props.copy.measure.absent.no_samples);
+    expect(box.textContent).not.toContain(props.copy.measure.absent.source_lacks_type);
+    expect(box.textContent).not.toContain('non fornisce gli allenamenti');
     expect(container.textContent).not.toMatch(/Nessun allenamento registrato/);
     expect(container.querySelector('[data-session]')).toBeNull();
     for (const key of ['sessions', 'duration', 'calories']) {
       const tile = one(container, `[data-metric="${key}"] [data-measure-state]`);
       expect(tile.getAttribute('data-measure-state')).toBe('absent');
       expect(hasDigit(tile.textContent)).toBe(false);
-      expect(tile.textContent).toContain(props.copy.measure.absent.permission_missing);
+      expect(tile.textContent).toContain(props.copy.measure.absent.no_samples);
     }
   });
 
-  it('(c) ogni motivo di assenza: «non sappiamo», mai la frase dello zero, mai una cifra nel riepilogo', () => {
+  it('ogni motivo di assenza: «non sappiamo», mai la frase dello zero, mai una cifra nel riepilogo', () => {
     for (const reason of REASONS) {
       for (const lc of LOCALES) {
         const { container, props } = renderWith(absent(reason), { lc });
@@ -168,20 +189,20 @@ describe('le tre situazioni dell elenco non si scambiano', () => {
     }
   });
 
-  it('(c) il collegamento al dispositivo c e solo per «nessuna fonte»; il tentativo solo per la lettura fallita', () => {
+  it('il collegamento al dispositivo c e solo per «nessuna fonte»; nessun altro link (il server non sa di letture fallite: niente «Riprova»)', () => {
     for (const reason of REASONS) {
       const { container } = renderWith(absent(reason));
       const devices = container.querySelector('a[href="/it/app/devices"]');
-      expect(devices !== null).toBe(reason === 'no_source');
+      expect(devices !== null).toBe(reason === 'no_data_received');
       const retry = all(container, '[data-list-state="absent"] a').filter((a) => a.getAttribute('href') !== '/it/app/devices');
-      expect(retry.length > 0).toBe(reason === 'read_error');
+      expect(retry, reason).toHaveLength(0);
       cleanup();
     }
   });
 
   it('empty e stale: assente con il proprio motivo', () => {
     const empty = renderScreen(WorkoutsScreen, 'empty');
-    expect(one(empty.container, '[data-list-state]').getAttribute('data-reason')).toBe('no_source');
+    expect(one(empty.container, '[data-list-state]').getAttribute('data-reason')).toBe('no_data_received');
     expect(one(empty.container, 'a[href="/it/app/devices"]').textContent).toContain('Collega un dispositivo');
     cleanup();
     const stale = renderScreen(WorkoutsScreen, 'stale');
@@ -204,7 +225,7 @@ describe('zero, parziale e assente dentro una sessione', () => {
 
   it('un campo misurato a zero, uno parziale e uno assente nella stessa sessione restano tre cose diverse', () => {
     const { container, props } = renderWith(
-      value([mk({ hrMax: value(0), distanceKm: partial(3.2, 0.5, 'device_off'), caloriesKcal: absent('no_samples') })]),
+      value([mk({ hrMax: value(0), distanceKm: partial(3.2, 0.5, 'incomplete_coverage'), caloriesKcal: absent('no_samples') })]),
     );
     const row = one(container, '[data-session]');
     // zero misurato: «0» e «Zero misurato»
@@ -216,7 +237,7 @@ describe('zero, parziale e assente dentro una sessione', () => {
     const distance = one(row, '[data-cell="distance"]').textContent ?? '';
     expect(distance).toContain('3,2');
     expect(distance).toContain('50%');
-    expect(distance).toContain(props.copy.measure.partial.device_off);
+    expect(distance).toContain(props.copy.measure.partial.incomplete_coverage);
     // assente: nessuna cifra
     expect(stateOf(row, '[data-cell="calories"]')).toBe('absent');
     expect(hasDigit(one(row, '[data-cell="calories"]').textContent)).toBe(false);
@@ -249,20 +270,12 @@ describe('zero, parziale e assente dentro una sessione', () => {
   });
 
   it('elenco PARZIALE: si dice, e nessun totale e pieno', () => {
-    const { container, props } = renderWith(partial([mk()], 0.6, 'sync_incomplete'));
+    const { container, props } = renderWith(partial([mk()], 0.6, 'incomplete_coverage'));
     const box = one(container, '[data-list-state="partial"]');
     expect(box.textContent).toContain('60%');
-    expect(box.textContent).toContain(props.copy.measure.partial.sync_incomplete);
+    expect(box.textContent).toContain(props.copy.measure.partial.incomplete_coverage);
     expect(container.querySelector('[data-list-state="sessions"]')).not.toBeNull();
     for (const key of ['sessions', 'duration', 'calories']) expect(stateOf(container, `[data-metric="${key}"]`)).toBe('partial');
-  });
-
-  it('elenco parziale e VUOTO: non e la frase dello zero', () => {
-    const { container } = renderWith(partial([], 0.5, 'device_off'));
-    expect(container.querySelector('[data-list-state="partial-empty"]')).not.toBeNull();
-    expect(container.querySelector('[data-list-state="measured-empty"]')).toBeNull();
-    expect(container.textContent).not.toMatch(/Nessun allenamento registrato/);
-    expect(stateOf(container, '[data-metric="sessions"]')).toBe('partial');
   });
 
   it('le sessioni escono in ordine di orario, non nell ordine di arrivo', () => {
@@ -279,7 +292,7 @@ describe('zero, parziale e assente dentro una sessione', () => {
         for (const el of all(container, '[data-measure-state="absent"]')) expect(hasDigit(el.textContent)).toBe(false);
         for (const cell of all(container, 'tr[data-slot-state="absent"] [data-cell="minutes"]')) {
           expect(hasDigit(cell.textContent)).toBe(false);
-          expect(cell.textContent).toMatch(/Nessun dato|No data/);
+          expect(cell.textContent).toMatch(/Nessun dato|No data|Durata non ricevuta|Duration not received/);
         }
         cleanup();
       }
@@ -287,144 +300,211 @@ describe('zero, parziale e assente dentro una sessione', () => {
   });
 });
 
-describe('minuti attivi degli ultimi 7 giorni: zero, parziale e assente', () => {
-  it('zeros: la tacca dello zero e il riquadro dell assente sono elementi diversi', () => {
-    const { container, props } = renderScreen(WorkoutsScreen, 'zeros');
-    const chart = one(container, '[data-chart="week-active-minutes"]');
-    const days = activeMinutesWeek(props.data);
-    const counts = countDays(days);
-    expect(counts.zero).toBeGreaterThan(0);
-    expect(counts.absent).toBeGreaterThan(0);
+describe('riquadro «Durata degli allenamenti, ultimi 7 giorni»: derivato dalle sole righe di workouts', () => {
+  const card = (c: HTMLElement) => one(c, '[data-card="week-workout-duration"]');
+  const slot = (c: HTMLElement, date: string) => one(card(c), `svg [data-chart-slot][data-date="${date}"]`);
+  const row = (c: HTMLElement, date: string) => one(card(c), `[data-table="week-workout-duration"] tr[data-date="${date}"]`);
 
-    const ticks = all(chart, '[data-bar="tick"]');
-    expect(ticks).toHaveLength(counts.zero);
-    for (const tick of ticks) {
-      expect(tick.getAttribute('height')).toBe('3');
-      // la tacca vale zero ed e' un dato: sopra c'e' la cifra «0»
-      expect(tick.closest('[data-slot-state]')?.getAttribute('data-slot-state')).toBe('measured-zero');
-      expect(tick.closest('g')?.querySelector('text')?.textContent).toBe('0');
-    }
-
-    const boxes = all(chart, 'g[data-slot-state="absent"]');
-    expect(boxes.length).toBeGreaterThan(0);
-    for (const box of boxes) {
-      // assente: nessuna barra, nessuna cifra, contorno tratteggiato
-      expect(box.querySelector('[data-bar]')).toBeNull();
-      expect(box.querySelector('rect')?.getAttribute('stroke-dasharray')).toBeTruthy();
-      expect(box.querySelector('text')?.textContent ?? '').not.toMatch(/\d/);
-    }
-    // nessuna linea che scavalca un buco
-    expect(chart.querySelector('polyline, path[d^="M"][data-line]')).toBeNull();
+  it('ok: sette giorni, un riquadro tratteggiato per la domenica senza righe, barre per gli altri, conteggio per giorno', () => {
+    const { container, props } = renderScreen(WorkoutsScreen, 'ok');
+    const days = all(card(container), '[data-week-days] li');
+    expect(days).toHaveLength(7);
+    expect(days.map((li) => li.getAttribute('data-day'))).toEqual(props.data.workouts.week.map((w) => w.date));
+    // domenica 20/09: nessuna riga, quindi ASSENTE (mai una barra a zero)
+    expect(days[3].getAttribute('data-day')).toBe('2026-09-20');
+    expect(days[3].getAttribute('data-slot-state')).toBe('absent');
+    const gap = one(card(container), 'svg [data-chart-slot="absent"]');
+    expect(gap.getAttribute('data-day-from')).toBe('2026-09-20');
+    expect(gap.getAttribute('data-reason')).toBe('no_samples');
+    expect(card(container).querySelector('svg [data-chart-slot][data-date="2026-09-20"]')).toBeNull();
+    // il mercoledi' 23/09 e' misurato: una sessione da 55 minuti
+    expect(slot(container, '2026-09-23').getAttribute('data-chart-slot')).toBe('measured');
+    expect(row(container, '2026-09-23').textContent).toContain('1 allenamento');
+    expect(row(container, '2026-09-23').textContent).toContain('55 min');
+    // il conteggio esiste solo dove ci sono righe
+    expect(row(container, '2026-09-20').textContent).toContain(props.copy.measure.noData);
+    expect(hasDigit(one(row(container, '2026-09-20'), '[data-cell="count"]').textContent)).toBe(false);
+    expect(hasDigit(one(row(container, '2026-09-20'), '[data-cell="minutes"]').textContent)).toBe(false);
   });
 
-  it('ogni giorno ha in elenco lo stesso stato della sua misura', () => {
-    for (const sc of SCENARIOS) {
-      const { container, props } = renderScreen(WorkoutsScreen, sc);
-      const days = activeMinutesWeek(props.data);
-      const items = all(container, '[data-week-days] li[data-day]');
-      expect(items).toHaveLength(7);
-      days.forEach((d, i) => {
-        expect(items[i].getAttribute('data-day')).toBe(d.date);
-        expect(items[i].getAttribute('data-slot-state')).toBe(d.state);
-      });
+  it('la scheda si chiama «Durata degli allenamenti» e non usa nessun nome vietato (attivita\' oraria, esiti di sync), in italiano e in inglese', () => {
+    for (const lc of LOCALES) {
+      const { container } = renderScreen(WorkoutsScreen, 'ok', { lc });
+      const title = one(card(container), '#wk-week-title').textContent;
+      expect(title).toBe(lc === 'it' ? 'Durata degli allenamenti, ultimi 7 giorni' : 'Workout duration, last 7 days');
+      const text = card(container).textContent ?? '';
+      expect(FORBIDDEN_SYNC_NAMES.filter(({ re }) => re.test(text)).map(({ name }) => name)).toEqual([]);
       cleanup();
     }
   });
 
-  it('il giorno assente non diventa 0 nella tabella e dice il motivo', () => {
+  it('zeros: misurato, parziale, «durata non ricevuta» e «nessun campione» in un solo riquadro, ciascuno con il proprio segno e la propria frase; nessuno zero di durata', () => {
     const { container, props } = renderScreen(WorkoutsScreen, 'zeros');
-    const rows = all(container, 'table[data-table="week-active-minutes"] tr[data-slot-state="absent"]');
-    expect(rows.length).toBeGreaterThan(0);
-    for (const row of rows) {
-      expect(one(row, '[data-cell="minutes"]').textContent).toContain(props.copy.measure.noData);
-      expect(hasDigit(one(row, '[data-cell="minutes"]').textContent)).toBe(false);
-      expect(one(row, '[data-cell="state"]').textContent).toContain(props.copy.measure.absent.no_samples);
-    }
-    const zero = one(container, 'table[data-table="week-active-minutes"] tr[data-slot-state="measured-zero"]');
-    expect(one(zero, '[data-cell="minutes"]').textContent).toContain('0');
-    expect(one(zero, '[data-cell="state"]').textContent).toContain(props.copy.measure.zeroMeasured);
+    const wk = props.data.workouts.week;
+    // 22/09: una riga di allenamento senza durata (o con 0, che non e provato dalla fonte): il conteggio c'e',
+    // la durata e ASSENTE per «durata non ricevuta», mai una tacca a zero e mai unita ai giorni senza righe
+    expect(card(container).querySelector('[data-chart-slot="measured-zero"]')).toBeNull();
+    expect(card(container).textContent).not.toContain(props.copy.measure.zeroMeasured);
+    expect(row(container, '2026-09-22').getAttribute('data-slot-state')).toBe('absent');
+    expect(row(container, '2026-09-22').textContent).toContain('1 allenamento');
+    expect(row(container, '2026-09-22').textContent).toContain(workoutsCopy('it').week.durationNotReceived);
+    expect(one(row(container, '2026-09-22'), '[data-cell="minutes"]').textContent).toContain(workoutsCopy('it').week.durationNotReceived);
+    const runs = all(card(container), 'svg [data-chart-slot="absent"]');
+    expect(runs.map((r) => [r.getAttribute('data-day-from'), r.getAttribute('data-day-to'), r.getAttribute('data-duration-not-received')])).toEqual([
+      ['2026-09-20', '2026-09-20', 'false'],
+      ['2026-09-22', '2026-09-22', 'true'],
+      ['2026-09-23', '2026-09-23', 'false'],
+    ]);
+    expect(one(card(container), '[data-week-notes]').textContent).toContain(workoutsCopy('it').week.durationNotReceived);
+    // 21/09: due sessioni, una senza durata: PARZIALE, e la sessione senza durata non vale 0
+    expect(slot(container, '2026-09-21').getAttribute('data-chart-slot')).toBe('partial');
+    expect(row(container, '2026-09-21').textContent).toContain('2 allenamenti');
+    expect(row(container, '2026-09-21').textContent).toContain('38 min');
+    expect(row(container, '2026-09-21').textContent).toContain('50%');
+    // 23/09 (giorno mostrato): nessuna riga, ASSENTE con il motivo
+    expect(row(container, '2026-09-23').getAttribute('data-slot-state')).toBe('absent');
+    expect(row(container, '2026-09-23').textContent).toContain(props.copy.measure.absent.no_samples);
+    // e un giorno misurato normale
+    expect(slot(container, '2026-09-19').getAttribute('data-chart-slot')).toBe('measured');
+    // la legenda nomina solo gli stati che ci sono: misurato, parziale, assente (nessuno zero)
+    expect(countDays(workoutsWeek({ ...props.data.workouts, week: wk }, props.data.date))).toMatchObject({ zero: 0, partial: 1 });
+    const legend = card(container).textContent ?? '';
+    for (const label of [props.copy.legend.measured, props.copy.legend.partial, props.copy.legend.absent]) expect(legend).toContain(label);
   });
 
-  it('empty: sette giorni assenti con lo stesso motivo sono UN riquadro, con il motivo scritto', () => {
-    const { container, props } = renderScreen(WorkoutsScreen, 'empty');
-    const boxes = all(container, '[data-chart="week-active-minutes"] g[data-slot-state="absent"]');
-    expect(boxes).toHaveLength(1);
-    expect(boxes[0].getAttribute('data-reason')).toBe('no_source');
-    expect(boxes[0].textContent).toContain(props.copy.measure.absent.no_source);
-    expect(container.querySelector('[data-chart="week-active-minutes"] [data-bar]')).toBeNull();
-    expect(one(container, '[data-week-average]').textContent).toContain('Nessun giorno misurato');
+  it('partial: nessuna riga di allenamenti, sette assenti con lo stesso motivo («nessun campione») in UN riquadro, nessuna cifra', () => {
+    const { container, props } = renderScreen(WorkoutsScreen, 'partial');
+    const runs = all(card(container), 'svg [data-chart-slot="absent"]');
+    expect(runs).toHaveLength(1);
+    expect(runs[0].getAttribute('data-reason')).toBe('no_samples');
+    expect(runs[0].getAttribute('data-duration-not-received')).toBe('false');
+    expect(runs[0].getAttribute('data-day-from')).toBe('2026-09-17');
+    expect(runs[0].getAttribute('data-day-to')).toBe('2026-09-23');
+    expect(card(container).querySelector('[data-bar]')).toBeNull();
+    expect(one(card(container), '[data-week-total]').textContent).toContain(workoutsCopy('it').week.totalNone);
+    expect(card(container).textContent).toContain(props.copy.measure.absent.no_samples);
+    expect(card(container).textContent).not.toContain(props.copy.measure.absent.source_lacks_type);
+    for (const cell of all(card(container), '[data-cell="count"], [data-cell="minutes"]')) expect(hasDigit(cell.textContent)).toBe(false);
   });
 
-  it('stale: gli ultimi giorni sono assenti «non ancora sincronizzato», gli altri sono misurati', () => {
+  it('stale: prima dell ultimo dato ricevuto ci sono le righe, dopo il riquadro dice «non ancora sincronizzato» (non zero)', () => {
     const { container, props } = renderScreen(WorkoutsScreen, 'stale');
-    const days = activeMinutesWeek(props.data);
-    expect(days.filter((d) => d.state === 'absent').map((d) => d.date)).toEqual(['2026-09-22', '2026-09-23']);
-    const note = one(container, '[data-week-notes]');
-    expect(note.textContent).toContain(props.copy.measure.absent.not_synced_yet);
-    expect(all(container, '[data-chart="week-active-minutes"] [data-bar="fill"]')).toHaveLength(5);
+    const gap = one(card(container), 'svg [data-chart-slot="absent"][data-reason="not_synced_yet"]');
+    expect(gap.getAttribute('data-day-from')).toBe('2026-09-22');
+    expect(gap.getAttribute('data-day-to')).toBe('2026-09-23');
+    expect(slot(container, '2026-09-21').getAttribute('data-chart-slot')).toBe('measured');
+    expect(row(container, '2026-09-23').textContent).toContain(props.copy.measure.absent.not_synced_yet);
   });
 
-  it('i giorni sono link che tengono lo stato dell anteprima; il giorno mostrato no', () => {
-    const { container } = renderScreen(WorkoutsScreen, 'zeros');
-    const links = all(container, '[data-week-days] a');
+  it('empty: nessuna fonte, sette assenti, nessuna cifra', () => {
+    const { container, props } = renderScreen(WorkoutsScreen, 'empty');
+    const runs = all(card(container), 'svg [data-chart-slot="absent"]');
+    expect(runs).toHaveLength(1);
+    expect(runs[0].getAttribute('data-reason')).toBe('no_data_received');
+    expect(card(container).textContent).toContain(props.copy.measure.absent.no_data_received);
+    expect(all(card(container), '[data-week-days] [data-day-count]').map((n) => hasDigit(n.textContent))).toEqual(Array(7).fill(false));
+  });
+
+  it('i giorni sono link a quel giorno, tranne quello mostrato', () => {
+    const { container, props } = renderScreen(WorkoutsScreen, 'ok');
+    const links = all(card(container), '[data-week-days] a');
     expect(links).toHaveLength(6);
-    for (const a of links) {
-      const href = a.getAttribute('href') ?? '';
-      expect(href).toContain('/it/dashboard-preview/workouts');
-      expect(href).toContain('state=zeros');
-      expect(href).toMatch(/day=2026-09-1[7-9]|day=2026-09-2[0-2]/);
+    expect(links[0].getAttribute('href')).toBe(props.href('workouts', { day: '2026-09-17' }));
+    expect(one(card(container), '[data-week-days] [aria-current="date"]').closest('li')?.getAttribute('data-day')).toBe('2026-09-23');
+  });
+
+  it('il totale conta solo i giorni con durata completa: gli assenti non sono zeri e i parziali non lo abbassano', () => {
+    const wd = (date: string, count: WorkoutsWeekDay['count'], durationMin: WorkoutsWeekDay['durationMin']): WorkoutsWeekDay => ({ date, count, durationMin });
+    const day: WorkoutsDay = {
+      sessions: absent('no_samples'),
+      week: [
+        wd('2026-09-17', value(1), value(40)),
+        wd('2026-09-18', value(1), value(0)),
+        wd('2026-09-19', value(2), partial(30, 0.5, 'incomplete_coverage')),
+        wd('2026-09-20', absent('no_samples'), absent('no_samples')),
+        wd('2026-09-21', absent('no_samples'), absent('no_samples')),
+        wd('2026-09-22', value(1), absent('no_samples')),
+        wd('2026-09-23', absent('no_samples'), absent('no_samples')),
+      ],
+    };
+    const days = workoutsWeek(day, '2026-09-23');
+    expect(totalOfMeasuredDays(days)).toEqual({ total: 40, n: 2 });
+    expect(countDays(days)).toEqual({ measured: 2, zero: 1, partial: 1, absent: 4 });
+    // il giorno con una riga ma senza durata: conteggio 1, durata assente (non 0)
+    expect(days[5]).toMatchObject({ state: 'absent', value: null, count: 1, reason: 'no_samples' });
+    // i giorni senza righe non hanno un conteggio
+    expect(days[3]).toMatchObject({ state: 'absent', value: null, count: null });
+    expect(days[5].durationNotReceived).toBe(true);
+    expect(days[3].durationNotReceived).toBe(false);
+    // giorni senza righe consecutivi con lo stesso motivo sono UN tratto, non barre a zero; il giorno con righe ma senza
+    // durata resta un tratto a parte («durata non ricevuta»), anche se il motivo e lo stesso dei vicini
+    expect(absentRuns(days)).toEqual([
+      { from: 3, to: 4, reason: 'no_samples', durationNotReceived: false },
+      { from: 5, to: 5, reason: 'no_samples', durationNotReceived: true },
+      { from: 6, to: 6, reason: 'no_samples', durationNotReceived: false },
+    ]);
+    expect(totalOfMeasuredDays(workoutsWeek({ ...day, week: day.week.map((w) => ({ ...w, durationMin: absent('no_samples') })) }, '2026-09-23'))).toBeNull();
+  });
+});
+
+describe('absentRuns: «durata non ricevuta» non si unisce a «nessuna riga»', () => {
+  const wd = (date: string, count: WorkoutsWeekDay['count'], durationMin: WorkoutsWeekDay['durationMin']): WorkoutsWeekDay => ({ date, count, durationMin });
+  const dates = ['2026-09-17', '2026-09-18', '2026-09-19', '2026-09-20', '2026-09-21', '2026-09-22', '2026-09-23'];
+
+  it('due giorni adiacenti con lo stesso motivo restano due tratti se uno ha righe (count diverso da null) e l altro no', () => {
+    const week = dates.map((date, i) =>
+      i === 2 ? wd(date, value(1), absent('no_samples')) : i === 3 ? wd(date, absent('no_samples'), absent('no_samples')) : wd(date, value(1), value(30)),
+    );
+    const runs = absentRuns(workoutsWeek({ sessions: absent('no_samples'), week }, '2026-09-23'));
+    expect(runs).toEqual([
+      { from: 2, to: 2, reason: 'no_samples', durationNotReceived: true },
+      { from: 3, to: 3, reason: 'no_samples', durationNotReceived: false },
+    ]);
+  });
+
+  it('due giorni adiacenti con righe ma senza durata si uniscono fra loro, con la nota «durata non ricevuta»', () => {
+    const week = dates.map((date, i) => (i === 4 || i === 5 ? wd(date, value(1), absent('no_samples')) : wd(date, value(1), value(30))));
+    expect(absentRuns(workoutsWeek({ sessions: absent('no_samples'), week }, '2026-09-23'))).toEqual([
+      { from: 4, to: 5, reason: 'no_samples', durationNotReceived: true },
+    ]);
+  });
+
+  it('la scheda scrive «Durata non ricevuta» (it/en) per quel giorno e «Nessun campione» per i giorni senza righe', () => {
+    for (const lc of ['it', 'en', 'de'] as const) {
+      const props = screenProps('ok', { lc });
+      const week = props.data.workouts.week.map((w, i) =>
+        i === 4 ? { ...w, count: value(1), durationMin: absent<number>('no_samples') } : i === 5 ? { ...w, count: absent<number>('no_samples'), durationMin: absent<number>('no_samples') } : w,
+      );
+      const data = { ...props.data, workouts: { ...props.data.workouts, week } };
+      const { container } = render(<WorkoutsScreen {...props} data={data} />);
+      const notes = one(container, '[data-week-notes]').textContent ?? '';
+      const text = workoutsCopy(lc === 'it' ? 'it' : 'en').week.durationNotReceived;
+      expect(notes).toContain(text);
+      expect(notes).toContain(props.copy.measure.absent.no_samples);
+      expect(text).toBe(lc === 'it' ? 'Durata non ricevuta' : 'Duration not received');
+      cleanup();
     }
-    expect(one(container, '[data-week-days] [aria-current="date"]').textContent).toContain('23');
-  });
-
-  it('il grafico ha il riassunto per gli screen reader e la tabella alternativa dentro details', () => {
-    const { container } = renderScreen(WorkoutsScreen, 'zeros');
-    const img = one(container, '[data-chart="week-active-minutes"] [role="img"]');
-    expect(img.getAttribute('aria-label')).toMatch(/giorni misurati/);
-    expect(img.getAttribute('aria-label')).toMatch(/zero misurato/);
-    expect(one(container, 'details table[data-table="week-active-minutes"]')).toBeTruthy();
-    // niente elementi focalizzabili dentro l'immagine del grafico
-    expect(img.querySelector('a, button, input')).toBeNull();
-  });
-
-  it('la media e dei soli giorni MISURATI (zero compresi), non diluita dagli assenti', () => {
-    const { props } = renderScreen(WorkoutsScreen, 'zeros');
-    const days = activeMinutesWeek(props.data);
-    const measured = days.filter((d) => d.state === 'measured' || d.state === 'measured-zero');
-    const expected = measured.reduce((s, d) => s + (d.value ?? 0), 0) / measured.length;
-    expect(meanOfMeasuredDays(days)).toEqual({ mean: expected, n: measured.length });
-    expect(measured.length).toBeLessThan(7);
   });
 });
 
 describe('derive: regole pure', () => {
-  it('listState distingue vuoto misurato, assente e con sessioni', () => {
-    expect(listState(value([])).kind).toBe('measured-empty');
-    expect(listState(absent('read_error'))).toEqual({ kind: 'absent', reason: 'read_error' });
+  it('listState: assente, con sessioni, e la lista vuota e assente (mai «vuoto misurato»)', () => {
+    expect(listState(value([])).kind).toBe('absent');
+    expect(listState(value([]))).toEqual({ kind: 'absent', reason: 'no_samples' });
+    expect(listState(partial([], 0.5, 'window_open'))).toEqual({ kind: 'absent', reason: 'no_samples' });
+    expect(listState(absent('no_samples'))).toEqual({ kind: 'absent', reason: 'no_samples' });
     expect(listState(value([mk()])).kind).toBe('sessions');
-    const p = listState(partial([mk()], 0.4, 'device_off'));
-    expect(p.kind === 'sessions' && p.partial).toEqual({ coverage: 0.4, note: 'device_off' });
+    const p = listState(partial([mk()], 0.4, 'incomplete_coverage'));
+    expect(p.kind === 'sessions' && p.partial).toEqual({ coverage: 0.4, note: 'incomplete_coverage' });
   });
 
-  it('summarize: assente non e mai 0, vuoto misurato e 0', () => {
+  it('summarize: assente non e mai 0, e una lista vuota non e 0 sessioni, 0 minuti, 0 kcal', () => {
     for (const reason of REASONS) {
       const s = summarize(absent(reason));
       for (const m of [s.count, s.duration, s.calories]) expect(m).toEqual({ kind: 'absent', reason });
     }
     const z = summarize(value([]));
-    for (const m of [z.count, z.duration, z.calories]) expect(m).toEqual({ kind: 'value', value: 0 });
-  });
-
-  it('absentRuns unisce solo i giorni consecutivi con lo stesso motivo', () => {
-    const base = { date: '', selected: false, value: null, coverage: null, note: null } as const;
-    const st = (index: number, reason: AbsentReason | null) =>
-      reason ? { ...base, index, state: 'absent' as const, reason } : { ...base, index, state: 'measured' as const, value: 5, reason: null };
-    const runs = absentRuns([st(0, 'no_samples'), st(1, 'no_samples'), st(2, null), st(3, 'no_samples'), st(4, 'not_synced_yet'), st(5, 'not_synced_yet'), st(6, null)]);
-    expect(runs).toEqual([
-      { from: 0, to: 1, reason: 'no_samples' },
-      { from: 3, to: 3, reason: 'no_samples' },
-      { from: 4, to: 5, reason: 'not_synced_yet' },
-    ]);
+    for (const m of [z.count, z.duration, z.calories]) expect(m).toEqual({ kind: 'absent', reason: 'no_samples' });
   });
 
   it('la copy non ha em dash ne parole di disponibilita in nessuna lingua', () => {
@@ -432,7 +512,6 @@ describe('derive: regole pure', () => {
       const t = workoutsCopy(l);
       const text = JSON.stringify(t, (_k, v) => (typeof v === 'function' ? v(1, 2) : v));
       expect(text).not.toMatch(/—|coming soon|prossimamente|a breve|in arrivo|\bAI\b/i);
-      expect(t.week.summary({ measured: 1, zero: 1, partial: 0, absent: 0 })).not.toMatch(/—/);
     }
   });
 });

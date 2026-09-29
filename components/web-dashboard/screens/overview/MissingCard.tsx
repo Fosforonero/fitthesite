@@ -9,7 +9,6 @@ import type { OverviewCtx } from './parts';
 function pillLabel(item: MissingItem, ctx: OverviewCtx): string {
   const { ui, oc } = ctx;
   const label = oc.missing.metrics[item.metric];
-  if (item.none) return oc.missing.none(label);
   if (item.count !== undefined) return oc.missing.hours(label, item.count);
   if (item.coverage !== undefined) return `${label} ${fmtPercent(item.coverage, ui)}`;
   return label;

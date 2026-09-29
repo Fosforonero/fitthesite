@@ -1,11 +1,11 @@
 import type { SharedCopy } from '@/lib/web-dashboard/copy';
 import { fmtDayShort, fmtInt, fmtPercent, fmtWeekdayShort } from '@/lib/web-dashboard/format';
-import { value as measured } from '@/lib/web-dashboard/measure';
+import { value as measured, type AbsentReason } from '@/lib/web-dashboard/measure';
 
 import { PatternDefs, StateLegend, niceMax } from '../../chart-kit';
 import { AbsentMark, CHART, Card, MeasureValue, SectionLabel } from '../../primitives';
 import type { WorkoutsCopy } from '../WorkoutsScreen.copy';
-import { absentRuns, countDays, maxOfPresent, meanOfMeasuredDays, type WeekDay } from './derive';
+import { absentRuns, countDays, maxOfPresent, totalOfMeasuredDays, type WeekDay } from './derive';
 
 const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua';
 
@@ -16,35 +16,42 @@ const HEIGHT = BASE + 4;
 const COL = 100 / 7;
 /** Un tratto assente scrive il motivo dentro il riquadro solo se e' largo abbastanza per leggerlo. */
 const RUN_LABEL_MIN = 5;
-/** Serie del grafico: come il riquadro «Minuti attivi» della schermata Passi e attivita'. */
+/** Serie del grafico: la durata totale degli allenamenti del giorno. */
 const COLOR = CHART.resting;
 
 const pc = (n: number) => `${Number(n.toFixed(3))}%`;
 
-function stateText(d: WeekDay, copy: SharedCopy, lc: string): string {
-  if (d.state === 'absent') return `${copy.measure.noData}: ${copy.measure.absent[d.reason ?? 'no_samples']}`;
+/** Il motivo scritto di un giorno o di un tratto assente: «durata non ricevuta» se ci sono righe, altrimenti il motivo condiviso. */
+function absentText(item: { reason: AbsentReason | null; durationNotReceived: boolean }, copy: SharedCopy, t: WorkoutsCopy): string {
+  return item.durationNotReceived ? t.week.durationNotReceived : copy.measure.absent[item.reason ?? 'no_samples'];
+}
+
+function stateText(d: WeekDay, copy: SharedCopy, t: WorkoutsCopy, lc: string): string {
+  if (d.state === 'absent') return `${copy.measure.noData}: ${absentText(d, copy, t)}`;
   if (d.state === 'measured-zero') return copy.measure.zeroMeasured;
   if (d.state === 'partial') return `${copy.measure.partialLabel} ${fmtPercent(d.coverage ?? 0, lc)}${d.note ? `: ${copy.measure.partial[d.note]}` : ''}`;
   return copy.legend.measured;
 }
 
 /**
- * Contesto della settimana: i minuti attivi degli ultimi 7 giorni. NON dice in
- * quali giorni ci sono stati allenamenti (il modello non lo sa): e' l'unico
- * contesto che i dati permettono, e la copy lo dichiara.
+ * La durata degli allenamenti degli ultimi 7 giorni, con il numero di
+ * allenamenti per giorno. Tutto deriva dalle sole righe di `workouts`
+ * (`start_ms`, `duration_min`): non e' una misura di attivita' e non dice nulla
+ * sui giorni senza righe.
  *
- * Stesso linguaggio dei tre stati di chart-kit.tsx:
+ * Stesso linguaggio dei quattro stati di chart-kit.tsx:
  *  - misurato: barra piena;
- *  - zero misurato: tacca sulla base con la cifra «0» (il dato c'e', vale zero);
- *  - parziale: righe ambra;
+ *  - zero misurato: tacca sulla base con la cifra «0» (una riga esistente dice 0 minuti);
+ *  - parziale: righe ambra (una sessione del giorno senza durata, o giornata aperta);
  *  - assente: riquadro tratteggiato, senza barra e senza cifra, unito ai vicini
- *    con lo stesso motivo. Nessuna linea scavalca un buco.
+ *    con lo stesso motivo. Un giorno senza righe e' SEMPRE assente, mai zero.
+ *    Nessuna linea scavalca un buco.
  * I giorni sono link (44 px) FUORI dall'immagine del grafico: dentro un
  * role="img" gli elementi sono presentazionali e non devono essere focalizzabili.
  */
 export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: string; copy: SharedCopy; t: WorkoutsCopy; href: (date: string) => string }) {
   const counts = countDays(days);
-  const mean = meanOfMeasuredDays(days);
+  const total = totalOfMeasuredDays(days);
   const top = niceMax(maxOfPresent(days));
   const y = (v: number) => BASE - (v / top) * PLOT_H;
   const runs = absentRuns(days);
@@ -64,7 +71,7 @@ export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: st
       order: r.from,
       kind: 'absent' as const,
       label: r.from === r.to ? dayLabel(days[r.from]) : `${fmtDayShort(days[r.from].date, lc)} - ${fmtDayShort(days[r.to].date, lc)}`,
-      text: copy.measure.absent[r.reason],
+      text: absentText(r, copy, t),
     })),
     ...days
       .filter((d) => d.state === 'partial')
@@ -78,26 +85,26 @@ export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: st
   ].sort((a, b) => a.order - b.order);
 
   return (
-    <Card aria-labelledby="wk-week-title" data-card="week-active-minutes">
+    <Card aria-labelledby="wk-week-title" data-card="week-workout-duration">
       <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
         <div className="min-w-0 max-w-prose">
           <SectionLabel id="wk-week-title">{t.week.title}</SectionLabel>
           <p className="mt-1 text-sm text-text-secondary">{t.week.subtitle}</p>
         </div>
-        <div data-week-average className="min-w-[8rem]">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">{t.week.average}</p>
-          {mean ? (
+        <div data-week-total className="min-w-[8rem]">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">{t.week.total}</p>
+          {total ? (
             <>
-              <MeasureValue m={measured(Math.round(mean.mean))} unit={copy.units.min} locale={lc} copy={copy} size="md" />
-              <p className="mt-0.5 text-xs text-text-muted">{t.week.averageOver(mean.n)}</p>
+              <MeasureValue m={measured(Math.round(total.total))} unit={copy.units.min} locale={lc} copy={copy} size="md" />
+              <p className="mt-0.5 text-xs text-text-muted">{t.week.totalOver(total.n)}</p>
             </>
           ) : (
-            <p className="mt-1 text-xs text-text-muted">{t.week.averageNone}</p>
+            <p className="mt-1 text-xs text-text-muted">{t.week.totalNone}</p>
           )}
         </div>
       </div>
 
-      <figure className="mt-4" role="group" aria-describedby="wk-week-summary" data-chart="week-active-minutes">
+      <figure className="mt-4" role="group" aria-describedby="wk-week-summary" data-chart="week-workout-duration">
         <div role="img" aria-label={summary}>
           <svg width="100%" height={HEIGHT} focusable="false" className="block w-full overflow-visible">
             <PatternDefs prefix="wk-week" color={COLOR} />
@@ -114,8 +121,8 @@ export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: st
             {runs.map((r) => {
               const len = r.to - r.from + 1;
               return (
-                <g key={`run${r.from}`} data-chart-slot="absent" data-slot-state="absent" data-day-from={days[r.from].date} data-day-to={days[r.to].date} data-reason={r.reason}>
-                  <title>{`${dayLabel(days[r.from])}${len > 1 ? ` - ${dayLabel(days[r.to])}` : ''}: ${copy.measure.absent[r.reason]}`}</title>
+                <g key={`run${r.from}`} data-chart-slot="absent" data-slot-state="absent" data-day-from={days[r.from].date} data-day-to={days[r.to].date} data-reason={r.reason} data-duration-not-received={r.durationNotReceived ? 'true' : 'false'}>
+                  <title>{`${dayLabel(days[r.from])}${len > 1 ? ` - ${dayLabel(days[r.to])}` : ''}: ${absentText(r, copy, t)}`}</title>
                   <rect
                     x={pc(r.from * COL + COL * 0.1)}
                     width={pc(len * COL - COL * 0.2)}
@@ -130,7 +137,7 @@ export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: st
                   />
                   {len >= RUN_LABEL_MIN ? (
                     <text x={pc((r.from + len / 2) * COL)} y={TOP + PLOT_H / 2 + 4} textAnchor="middle" fontSize="12" className="fill-text-secondary">
-                      {copy.measure.absent[r.reason]}
+                      {absentText(r, copy, t)}
                     </text>
                   ) : null}
                 </g>
@@ -145,7 +152,7 @@ export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: st
               const h = isTick ? 3 : Math.max(6, BASE - y(d.value));
               return (
                 <g key={d.date} data-chart-slot={d.state} data-slot-state={d.state} data-date={d.date} opacity={d.selected ? 1 : 0.78}>
-                  <title>{`${dayLabel(d)}: ${fmtInt(d.value, lc)} ${copy.units.min}${d.state === 'partial' ? `, ${copy.measure.partialLabel} ${fmtPercent(d.coverage ?? 0, lc)}` : isTick ? `, ${copy.measure.zeroMeasured}` : ''}`}</title>
+                  <title>{`${dayLabel(d)}: ${fmtInt(d.value, lc)} ${copy.units.min}${d.count !== null ? `, ${t.week.countOf(d.count)}` : ''}${d.state === 'partial' ? `, ${copy.measure.partialLabel} ${fmtPercent(d.coverage ?? 0, lc)}` : isTick ? `, ${copy.measure.zeroMeasured}` : ''}`}</title>
                   <rect
                     data-bar={isTick ? 'tick' : d.state === 'partial' ? 'partial' : 'fill'}
                     x={x}
@@ -172,15 +179,17 @@ export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: st
 
       <ol aria-label={t.week.daysAria} className="mt-1 grid grid-cols-7" data-week-days>
         {days.map((d) => {
-          const spoken = d.state === 'absent' ? copy.measure.noData : d.state === 'measured-zero' ? copy.measure.zeroMeasured : `${fmtInt(d.value ?? 0, lc)} ${copy.units.min}${d.state === 'partial' ? `, ${copy.measure.partialLabel}` : ''}`;
+          const duration = d.state === 'absent' ? (d.durationNotReceived ? t.week.durationNotReceived : copy.measure.noData) : d.state === 'measured-zero' ? `${fmtInt(0, lc)} ${copy.units.min}, ${copy.measure.zeroMeasured}` : `${fmtInt(d.value ?? 0, lc)} ${copy.units.min}${d.state === 'partial' ? `, ${copy.measure.partialLabel}` : ''}`;
+          const spoken = d.count !== null ? `${t.week.countOf(d.count)}, ${duration}` : duration;
           const inner = (
             <>
               <span className="text-[11px] uppercase tracking-wide text-text-muted">{fmtWeekdayShort(d.date, lc)}</span>
               <span className={`text-sm tabular-nums ${d.selected ? 'font-semibold text-text-primary' : 'font-medium text-text-secondary'}`}>{Number(d.date.slice(8, 10))}</span>
+              <span aria-hidden="true" data-day-count className="text-[11px] tabular-nums text-text-muted">{d.count !== null ? `${d.count}×` : '\u00a0'}</span>
               <span className="sr-only">{`, ${spoken}`}</span>
             </>
           );
-          const cls = 'flex min-h-[44px] flex-col items-center justify-center rounded';
+          const cls = 'flex min-h-[56px] flex-col items-center justify-center rounded';
           return (
             <li key={d.date} data-day={d.date} data-slot-state={d.state}>
               {d.selected ? (
@@ -229,12 +238,13 @@ export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: st
       <details className="mt-3 group">
         <summary className={`cursor-pointer rounded text-xs text-text-muted hover:text-text-secondary ${focusRing}`}>{t.week.tableLabel}</summary>
         <div className="mt-2 overflow-x-auto">
-          <table className="w-full min-w-[320px] border-collapse text-left text-xs" data-table="week-active-minutes">
+          <table className="w-full min-w-[320px] border-collapse text-left text-xs" data-table="week-workout-duration">
             <caption className="sr-only">{t.week.tableCaption}</caption>
             <thead>
               <tr className="border-b border-divider text-text-muted">
                 <th scope="col" className="py-2 pr-4 font-semibold">{t.week.colDay}</th>
-                <th scope="col" className="py-2 pr-4 font-semibold">{t.week.colMinutes}</th>
+                <th scope="col" className="py-2 pr-4 font-semibold">{t.week.colCount}</th>
+                <th scope="col" className="py-2 pr-4 font-semibold">{t.week.colDuration}</th>
                 <th scope="col" className="py-2 font-semibold">{t.week.colState}</th>
               </tr>
             </thead>
@@ -242,17 +252,27 @@ export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: st
               {days.map((d) => (
                 <tr key={d.date} data-slot-state={d.state} data-date={d.date} aria-current={d.selected ? 'date' : undefined} className="border-b border-divider/60 last:border-b-0">
                   <th scope="row" className="py-2 pr-4 font-medium text-text-primary">{dayLabel(d)}</th>
-                  <td data-cell="minutes" className="py-2 pr-4 tabular-nums text-text-primary">
-                    {d.state === 'absent' ? (
+                  <td data-cell="count" className="py-2 pr-4 tabular-nums text-text-primary">
+                    {d.count === null ? (
                       <span className="inline-flex items-center gap-2 text-text-muted">
                         <AbsentMark />
                         <span>{copy.measure.noData}</span>
                       </span>
                     ) : (
+                      t.week.countOf(d.count)
+                    )}
+                  </td>
+                  <td data-cell="minutes" className="py-2 pr-4 tabular-nums text-text-primary">
+                    {d.state === 'absent' ? (
+                      <span className="inline-flex items-center gap-2 text-text-muted">
+                        <AbsentMark />
+                        <span>{d.durationNotReceived ? t.week.durationNotReceived : copy.measure.noData}</span>
+                      </span>
+                    ) : (
                       `${fmtInt(d.value ?? 0, lc)} ${copy.units.min}`
                     )}
                   </td>
-                  <td data-cell="state" className="py-2 text-text-secondary">{stateText(d, copy, lc)}</td>
+                  <td data-cell="state" className="py-2 text-text-secondary">{stateText(d, copy, t, lc)}</td>
                 </tr>
               ))}
             </tbody>

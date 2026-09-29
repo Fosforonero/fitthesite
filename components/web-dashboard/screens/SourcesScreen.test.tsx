@@ -1,12 +1,13 @@
-import { render } from '@testing-library/react';
+import { cleanup, render } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
 import { fmtDateTime } from '@/lib/web-dashboard/format';
-import type { DashboardData, ScenarioKey, SourceRow, SourceTypeStatus, SyncStatus } from '@/lib/web-dashboard/model';
+import { FORBIDDEN_SYNC_NAMES } from '@/lib/web-dashboard/regression-patterns';
+import type { DashboardData, ScenarioKey, SourceRow, SourceTypeStatus } from '@/lib/web-dashboard/model';
 
 import { SourcesLoading, SourcesScreen } from './SourcesScreen';
 import { fill, sourcesCopy } from './SourcesScreen.copy';
-import { forbiddenCopyIn, measureStates, renderScreen, screenProps } from './test-utils';
+import { forbiddenCopyIn, renderScreen, screenProps } from './test-utils';
 
 const SCENARIOS: ScenarioKey[] = ['ok', 'partial', 'zeros', 'stale', 'empty'];
 const IT = sourcesCopy('it');
@@ -34,8 +35,8 @@ describe('SourcesScreen: rende ogni scenario in it e en', () => {
         expect(container.firstElementChild).not.toBeNull();
         expect(forbiddenCopyIn(container)).toEqual([]);
         expect(container.querySelector('h1')).toBeNull();
-        // stato del sync, sorgenti, cronologia
-        expect(container.querySelectorAll('h2').length).toBe(3);
+        // ultimo dato ricevuto e sorgenti: nessuna cronologia delle ricezioni
+        expect(container.querySelectorAll('h2').length).toBe(2);
         // il web non puo' avviare un sync: nessun pulsante, modulo o campo che lo finga
         expect(container.querySelectorAll('button, form, input, select, textarea').length).toBe(0);
         for (const a of qa(container, 'a')) expect(a.textContent).not.toMatch(/sincronizza ora|sync now/i);
@@ -63,128 +64,101 @@ describe('SourcesScreen: rende ogni scenario in it e en', () => {
   });
 });
 
-describe('stato del sync (intestazione)', () => {
-  it('ok: eta grande e data esatta, nessun problema, nessuna azione richiesta', () => {
+describe('ultimo dato ricevuto (intestazione)', () => {
+  it('ok: eta grande e data esatta, nessun esito di sync, nessuna azione richiesta', () => {
     const { container, props } = renderScreen(SourcesScreen, 'ok');
-    const card = q(container, '[data-slot="sync-status"]');
-    expect(card.getAttribute('data-sync-state')).toBe('ok');
+    const card = q(container, '[data-slot="received-status"]');
     expect(card.getAttribute('data-stale')).toBe('false');
-    expect(q(card, '[data-slot="sync-state-label"]').textContent).toBe(props.copy.sync.ok);
+    expect(q(container, '[data-slot="received-status"] h2').textContent).toBe(IT.status.title);
 
-    const age = q(card, '[data-slot="sync-age"]');
+    const age = q(card, '[data-slot="received-age"]');
     expect(age.getAttribute('data-slot-state')).toBe('measured');
     expect(age.textContent).toContain('12 minuti fa');
-    expect(age.textContent).toContain(fmtDateTime(props.data.sync.lastSyncAt as string, 'it'));
+    expect(age.textContent).toContain(fmtDateTime(props.data.receipt.lastReceivedAt as string, 'it'));
 
-    expect(q(card, '[data-slot="sync-problem"]').getAttribute('data-problem')).toBe('none');
-    expect(q(card, '[data-slot="sync-problem"]').textContent).toBe(IT.status.okBody);
-    expect(card.querySelector('[data-slot="sync-actions"]')).toBeNull();
+    // dice cosa sa il server: quando e' arrivato un dato, non come e' andato ogni sync
+    expect(q(card, '[data-slot="received-about"]').textContent).toBe(IT.status.scope);
+    expect(card.querySelector('[data-slot="received-actions"]')).toBeNull();
     expect(card.querySelector('[data-slot="stale-note"]')).toBeNull();
     // il web non sincronizza: e' scritto, non nascosto
     expect(q(card, '[data-slot="web-note"]').textContent).toContain(IT.status.webNote);
   });
 
-  it('partial: il codice motivo diventa parole semplici e dice cosa fare nell app', () => {
+  it('partial: i tipi non letti stanno nelle sorgenti, l intestazione non dichiara nessun esito', () => {
     const { container } = renderScreen(SourcesScreen, 'partial');
-    const card = q(container, '[data-slot="sync-status"]');
-    expect(card.getAttribute('data-sync-state')).toBe('partial');
-    expect(q(card, '[data-slot="sync-problem"]').getAttribute('data-problem')).toBe('partial_types');
-    expect(q(card, '[data-slot="sync-problem"]').textContent).toBe(IT.status.problem.partial_types);
-    expect(qa(card, '[data-slot="sync-actions"] li').map((li) => li.getAttribute('data-action'))).toEqual(['check_types', 'open_sync']);
-    expect(q(card, '[data-slot="sync-actions"]').textContent).toContain('Sincronizza ora');
-    // porta ai tipi di dato piu' sotto, non a un sync
-    expect(q(card, 'a[href="#sources-list-title"]')).not.toBeNull();
+    const card = q(container, '[data-slot="received-status"]');
+    expect(card.getAttribute('data-stale')).toBe('false');
+    expect(q(card, '[data-slot="received-about"]').textContent).toBe(IT.status.scope);
+    expect(card.querySelector('[data-slot="received-actions"]')).toBeNull();
+    // la copertura parziale e nei riquadri dei tipi, non in un esito del sync
+    expect(qa(container, '[data-slot="source-type"][data-slot-state="absent"]').length).toBeGreaterThan(0);
   });
 
   it('stale: l eta e il fatto principale e dice che il dopo non e arrivato, non e zero', () => {
     const { container, props } = renderScreen(SourcesScreen, 'stale');
-    const card = q(container, '[data-slot="sync-status"]');
-    expect(card.getAttribute('data-sync-state')).toBe('error');
+    const card = q(container, '[data-slot="received-status"]');
     expect(card.getAttribute('data-stale')).toBe('true');
 
-    const age = q(card, '[data-slot="sync-age"]');
+    const age = q(card, '[data-slot="received-age"]');
     expect(age.getAttribute('data-slot-state')).toBe('stale');
     const big = q(age, 'p');
     expect(big.textContent).toBe('3 giorni fa');
     expect(big.className).toContain('text-warning');
     expect(big.textContent).not.toMatch(/\b0\b/);
     expect(q(age, '[data-slot="stale-note"]').textContent).toBe(IT.status.staleNote);
-    expect(age.textContent).toContain(fmtDateTime(props.data.sync.lastSyncAt as string, 'it'));
+    expect(age.textContent).toContain(fmtDateTime(props.data.receipt.lastReceivedAt as string, 'it'));
 
-    expect(q(card, '[data-slot="sync-problem"]').getAttribute('data-problem')).toBe('source_unreachable');
-    expect(qa(card, '[data-slot="sync-actions"] li').map((li) => li.getAttribute('data-action'))).toEqual(['check_source', 'open_sync']);
+    expect(qa(card, '[data-slot="received-actions"] li').map((li) => li.getAttribute('data-action'))).toEqual(['open_sync']);
   });
 
-  it('empty: nessun sync e mai avvenuto, quindi nessuna data e nessun 0: trattino e motivo', () => {
+  it('empty: nessun dato e mai arrivato, quindi nessuna data e nessun 0: trattino e motivo', () => {
     const { container, props } = renderScreen(SourcesScreen, 'empty');
-    const card = q(container, '[data-slot="sync-status"]');
-    expect(card.getAttribute('data-sync-state')).toBe('never');
-    expect(q(card, '[data-slot="sync-state-label"]').textContent).toBe(props.copy.sync.never);
+    const card = q(container, '[data-slot="received-status"]');
 
-    const age = q(card, '[data-slot="sync-age"]');
+    const age = q(card, '[data-slot="received-age"]');
     expect(age.getAttribute('data-slot-state')).toBe('absent');
-    expect(age.getAttribute('data-absent-reason')).toBe('no_source');
-    expect(age.textContent).toContain(props.copy.measure.absent.no_source);
+    expect(age.getAttribute('data-absent-reason')).toBe('no_data_received');
+    expect(age.textContent).toContain(props.copy.measure.absent.no_data_received);
     expect(age.textContent).not.toMatch(digits);
     expect(age.querySelector('svg')).not.toBeNull(); // AbsentMark
-    expect(qa(card, '[data-slot="sync-actions"] li').map((li) => li.getAttribute('data-action'))).toEqual(['connect_device']);
-    // niente rimando ai tipi di dato: non ce ne sono
-    expect(card.querySelector('a[href="#sources-list-title"]')).toBeNull();
+    expect(q(card, '[data-slot="received-about"]').textContent).toBe(IT.status.never);
+    expect(qa(card, '[data-slot="received-actions"] li').map((li) => li.getAttribute('data-action'))).toEqual(['connect_device']);
   });
 
-  it('mai sincronizzato ma con sorgenti collegate: il motivo cambia (non ancora sincronizzato) e si dice di aprire l app', () => {
+  it('mai ricevuto: il server conosce le sorgenti solo dalle righe, quindi non esiste un ramo «sorgenti collegate ma nessun dato»', () => {
     const ok = screenProps('ok').data;
     const { container, props } = renderWith('empty', (d) => {
       d.sources = ok.sources;
     });
-    const age = q(container, '[data-slot="sync-age"]');
-    expect(age.getAttribute('data-absent-reason')).toBe('not_synced_yet');
-    expect(age.textContent).toContain(props.copy.measure.absent.not_synced_yet);
-    expect(q(container, '[data-slot="sync-problem"]').textContent).toBe(IT.status.neverWithSources);
-    expect(qa(container, '[data-slot="sync-actions"] li').map((li) => li.getAttribute('data-action'))).toEqual(['open_sync']);
+    const age = q(container, '[data-slot="received-age"]');
+    // anche con un elenco di sorgenti in mano, senza una sola ricezione il motivo e uno solo
+    expect(age.getAttribute('data-absent-reason')).toBe('no_data_received');
+    expect(age.textContent).toContain(props.copy.measure.absent.no_data_received);
+    expect(q(container, '[data-slot="received-about"]').textContent).toBe(IT.status.never);
+    expect(q(container, '[data-slot="received-about"]').textContent).not.toMatch(/collegat/);
+    expect(Object.keys(IT.status).filter((k) => /never/i.test(k))).toEqual(['never']);
+    expect(Object.keys(EN.status).filter((k) => /never/i.test(k))).toEqual(['never']);
+    expect(qa(container, '[data-slot="received-actions"] li').map((li) => li.getAttribute('data-action'))).toEqual(['open_sync']);
   });
 
-  it('ognuno dei quattro codici motivo ha la sua frase e le sue azioni', () => {
-    const expected: Record<NonNullable<SyncStatus['problem']>, string[]> = {
-      permission_revoked: ['grant_permissions', 'open_sync'],
-      source_unreachable: ['check_source', 'open_sync'],
-      upload_failed: ['check_connection', 'open_sync'],
-      partial_types: ['check_types', 'open_sync'],
-    };
-    for (const code of Object.keys(expected) as Array<keyof typeof expected>) {
-      for (const [lc, c] of [['it', IT], ['en', EN]] as const) {
-        const { container, unmount } = renderWith('ok', (d) => {
-          d.sync = { ...d.sync, state: 'error', problem: code };
-        }, { lc });
-        const p = q(container, '[data-slot="sync-problem"]');
-        expect(p.getAttribute('data-problem')).toBe(code);
-        expect(p.textContent).toBe(c.status.problem[code]);
-        expect(qa(container, '[data-slot="sync-actions"] li').map((li) => li.getAttribute('data-action'))).toEqual(expected[code]);
-        unmount();
-      }
-    }
-  });
-
-  it('errore senza codice motivo: frase generica, mai una causa inventata', () => {
-    const { container } = renderWith('ok', (d) => {
-      d.sync = { ...d.sync, state: 'error', problem: null };
-    });
-    const p = q(container, '[data-slot="sync-problem"]');
-    expect(p.getAttribute('data-problem')).toBe('none');
-    expect(p.textContent).toBe(IT.status.problemGeneric.error);
+  it('in inglese le stesse frasi, senza esito di sync', () => {
+    const { container } = renderScreen(SourcesScreen, 'stale', { lc: 'en' });
+    expect(q(container, '[data-slot="received-status"] h2').textContent).toBe(EN.status.title);
+    expect(q(container, '[data-slot="stale-note"]').textContent).toBe(EN.status.staleNote);
+    expect(q(container, '[data-slot="received-age"] p').textContent).toBe('3 days ago');
   });
 
   it('senza eta dichiarata la calcola dalla data; senza data ne eta resta un trattino, mai 0 minuti fa', () => {
     const a = renderWith('ok', (d) => {
-      d.sync = { ...d.sync, ageMinutes: null };
+      d.receipt = { ...d.receipt, ageMinutes: null };
     });
-    expect(q(a.container, '[data-slot="sync-age"]').textContent).toContain('12 minuti fa');
+    expect(q(a.container, '[data-slot="received-age"]').textContent).toContain('12 minuti fa');
     a.unmount();
 
     const b = renderWith('ok', (d) => {
-      d.sync = { ...d.sync, ageMinutes: null, lastSyncAt: null };
+      d.receipt = { ...d.receipt, ageMinutes: null, lastReceivedAt: null };
     });
-    const age = q(b.container, '[data-slot="sync-age"]');
+    const age = q(b.container, '[data-slot="received-age"]');
     expect(age.getAttribute('data-slot-state')).toBe('absent');
     expect(age.textContent).not.toMatch(/minut|\d/);
   });
@@ -192,15 +166,15 @@ describe('stato del sync (intestazione)', () => {
   it('oltre 48 ore e vecchio, sotto no: la soglia e quella dell app', () => {
     const at = (minutes: number) =>
       renderWith('ok', (d) => {
-        d.sync = { ...d.sync, ageMinutes: minutes };
+        d.receipt = { ...d.receipt, ageMinutes: minutes };
       });
     const fresh = at(47 * 60);
-    expect(q(fresh.container, '[data-slot="sync-status"]').getAttribute('data-stale')).toBe('false');
-    expect(fresh.container.querySelector('[data-slot="log-gap"]')).toBeNull();
+    expect(q(fresh.container, '[data-slot="received-status"]').getAttribute('data-stale')).toBe('false');
+    expect(fresh.container.querySelector('[data-slot="stale-note"]')).toBeNull();
     fresh.unmount();
     const old = at(49 * 60);
-    expect(q(old.container, '[data-slot="sync-status"]').getAttribute('data-stale')).toBe('true');
-    expect(q(old.container, '[data-slot="log-gap"]')).not.toBeNull();
+    expect(q(old.container, '[data-slot="received-status"]').getAttribute('data-stale')).toBe('true');
+    expect(q(old.container, '[data-slot="stale-note"]')).not.toBeNull();
   });
 });
 
@@ -218,9 +192,16 @@ describe('sorgenti', () => {
       expect(card.textContent).toContain(IT.sources.via[row.ref.via]);
       expect(qa(card, '[data-slot="source-type"]').length).toBe(row.types.length);
       expect(qa(card, '[data-slot="winning-marker"]').length).toBe(row.types.filter((t) => t.winning).length);
-      // tutto letto: nessun riquadro assente
-      expect(qa(card, '[data-slot-state="absent"]').length).toBe(0);
+      // un riquadro e' assente se e solo se la sorgente non lo ha letto (stato diverso da «ok»):
+      // il telefono non fornisce frequenza cardiaca e sonno, e questo e' un dato vero, non un difetto
+      expect(qa(card, '[data-slot-state="absent"]').length).toBe(row.types.filter((t) => t.status !== 'ok').length);
+      expect(qa(card, '[data-slot-state="measured"][data-slot="source-type"]').length).toBe(row.types.filter((t) => t.status === 'ok').length);
     });
+    // l'orologio legge tutto: nessun riquadro assente; il telefono ne ha esattamente due, con il motivo giusto
+    expect(qa(cards[0], '[data-slot-state="absent"]').length).toBe(0);
+    const phoneAbsent = qa(cards[1], '[data-slot-state="absent"]');
+    expect(phoneAbsent.map((n) => n.getAttribute('data-type')).sort()).toEqual(['heart_rate', 'sleep']);
+    phoneAbsent.forEach((n) => expect(n.getAttribute('data-absent-reason')).toBe('source_lacks_type'));
     expect(q(cards[0], '[data-slot="win-summary"]').textContent).toBe(fill(IT.sources.wins, { n: 9, total: 9 }));
     expect(q(cards[1], '[data-slot="win-summary"]').textContent).toBe(IT.sources.winsNone);
   });
@@ -248,10 +229,10 @@ describe('sorgenti', () => {
     expect(q(watchSteps, '[data-slot="winning-marker"]').textContent).toBe(IT.sources.winning);
   });
 
-  it('partial: permesso mancante e non fornito sono assenti (tratteggiati, con il motivo), non letti', () => {
+  it('partial: i tipi senza dato sono assenti (tratteggiati, con il motivo), non letti; gli allenamenti sono «nessun dato», non «non forniti»', () => {
     const { container, props } = renderScreen(SourcesScreen, 'partial');
     const cases: Array<[string, string, string]> = [
-      ['workouts', 'permission_missing', props.copy.measure.absent.permission_missing],
+      ['workouts', 'no_data', props.copy.measure.noData],
       ['sleep_stages', 'not_provided', props.copy.measure.absent.source_lacks_type],
       ['hrv', 'not_provided', props.copy.measure.absent.source_lacks_type],
     ];
@@ -272,23 +253,21 @@ describe('sorgenti', () => {
     expect(q(container, '[data-source="galaxy-watch"] [data-slot="win-summary"]').textContent).toBe(fill(IT.sources.wins, { n: 6, total: 9 }));
   });
 
-  it('i cinque stati di un tipo si distinguono e nessuno stampa una cifra', () => {
-    const statuses: SourceTypeStatus['status'][] = ['ok', 'no_data', 'permission_missing', 'not_provided', 'error'];
+  it('i tre stati di un tipo che il server conosce si distinguono e nessuno stampa una cifra', () => {
+    const statuses: SourceTypeStatus['status'][] = ['ok', 'no_data', 'not_provided'];
     const { container, props } = renderWith('ok', (d) => {
       d.sources = [
         {
           ref: d.sources[0].ref,
-          lastSyncAt: d.sources[0].lastSyncAt,
-          types: statuses.map((status, i) => ({ type: (['steps', 'heart_rate', 'sleep', 'workouts', 'calories'] as const)[i], status, winning: status === 'ok' })),
+          lastReceivedAt: d.sources[0].lastReceivedAt,
+          types: statuses.map((status, i) => ({ type: (['steps', 'heart_rate', 'sleep'] as const)[i], status, winning: status === 'ok' })),
         },
       ];
     });
     const labels: Record<SourceTypeStatus['status'], string> = {
       ok: IT.sources.statusOk,
       no_data: props.copy.measure.noData,
-      permission_missing: props.copy.measure.absent.permission_missing,
       not_provided: props.copy.measure.absent.source_lacks_type,
-      error: props.copy.measure.absent.read_error,
     };
     const tiles = qa(container, '[data-slot="source-type"]');
     expect(tiles.map((t) => t.getAttribute('data-status'))).toEqual(statuses);
@@ -297,7 +276,7 @@ describe('sorgenti', () => {
       expect(t.getAttribute('data-slot-state')).toBe(statuses[i] === 'ok' ? 'measured' : 'absent');
       if (statuses[i] !== 'ok') expect(t.textContent).not.toMatch(digits);
     });
-    expect(tiles.filter((t) => t.className.includes('border-dashed')).length).toBe(4);
+    expect(tiles.filter((t) => t.className.includes('border-dashed')).length).toBe(2);
   });
 
   it('una sorgente senza tipi elencati e un riquadro assente, non «zero tipi»', () => {
@@ -313,21 +292,21 @@ describe('sorgenti', () => {
     expect(container.querySelector('[data-slot="win-summary"]')).toBeNull();
   });
 
-  it('una sorgente mai sincronizzata mostra un trattino e il motivo, non una data ne 0 minuti fa', () => {
+  it('una sorgente da cui non e mai arrivato nulla mostra un trattino e il motivo, non una data ne 0 minuti fa', () => {
     const { container, props } = renderWith('ok', (d) => {
-      d.sources[1] = { ...d.sources[1], lastSyncAt: null } as SourceRow;
+      d.sources[1] = { ...d.sources[1], lastReceivedAt: null } as SourceRow;
     });
-    const dd = q(container, '[data-source="phone"] [data-slot="source-last-sync"]');
+    const dd = q(container, '[data-source="phone"] [data-slot="source-last-received"]');
     expect(dd.getAttribute('data-slot-state')).toBe('absent');
     expect(dd.textContent).toContain(props.copy.measure.absent.not_synced_yet);
     expect(dd.textContent).not.toMatch(digits);
     // l'altra sorgente resta misurata
-    expect(q(container, '[data-source="galaxy-watch"] [data-slot="source-last-sync"]').getAttribute('data-slot-state')).toBe('measured');
+    expect(q(container, '[data-source="galaxy-watch"] [data-slot="source-last-received"]').getAttribute('data-slot-state')).toBe('measured');
   });
 
-  it('stale: l ultimo sync di ogni sorgente e vecchio, con la sua eta', () => {
+  it('stale: l ultimo dato ricevuto da ogni sorgente e vecchio, con la sua eta', () => {
     const { container } = renderScreen(SourcesScreen, 'stale');
-    for (const dd of qa(container, '[data-slot="source-last-sync"]')) {
+    for (const dd of qa(container, '[data-slot="source-last-received"]')) {
       expect(dd.getAttribute('data-slot-state')).toBe('stale');
       expect(dd.textContent).toMatch(/3 gg fa/);
     }
@@ -338,7 +317,7 @@ describe('sorgenti', () => {
     expect(container.querySelectorAll('[data-slot="source-card"]').length).toBe(0);
     const empty = q(container, '[data-slot="sources-empty"]');
     expect(empty.getAttribute('data-slot-state')).toBe('absent');
-    expect(empty.getAttribute('data-absent-reason')).toBe('no_source');
+    expect(empty.getAttribute('data-absent-reason')).toBe('no_data_received');
     expect(empty.textContent).toContain(IT.sources.empty.title);
     for (const step of IT.sources.empty.steps) expect(empty.textContent).toContain(step);
     expect(empty.textContent).not.toMatch(digits);
@@ -349,107 +328,48 @@ describe('sorgenti', () => {
   });
 });
 
-describe('cronologia dei sync', () => {
-  it('ok: una voce per sync, con esito, durata e conteggi', () => {
-    const { container, props } = renderScreen(SourcesScreen, 'ok');
-    const entries = qa(container, '[data-slot="log-entry"]');
-    expect(entries.length).toBe(props.data.syncLog.length);
-    expect(container.querySelector('[data-slot="log-gap"]')).toBeNull();
-
-    const first = entries[0];
-    expect(first.getAttribute('data-log-state')).toBe('ok');
-    expect(first.textContent).toContain(fmtDateTime(props.data.syncLog[0].at, 'it'));
-    expect(first.textContent).toContain(props.copy.sync.ok);
-    expect(first.textContent).toContain(`${props.data.syncLog[0].durationSeconds} s`);
-    expect(first.textContent).toContain('9 tipi letti, 0 non riusciti');
-    // «0 non riusciti» e un dato misurato, con la sua semantica
-    expect(q(first, '[data-count="failed"]').getAttribute('data-measure-state')).toBe('measured-zero');
-    expect(q(first, '[data-count="read"]').getAttribute('data-measure-state')).toBe('measured');
-  });
-
-  it('un sync fallito: durata non registrata (assente, senza cifra) e zero tipi letti (misurato, con cifra)', () => {
-    const { container, props } = renderScreen(SourcesScreen, 'ok');
-    const failed = qa(container, '[data-slot="log-entry"]').find((li) => li.getAttribute('data-log-state') === 'error') as HTMLElement;
-    expect(failed).toBeDefined();
-
-    const duration = q(failed, 'dd[data-measure-state="absent"]');
-    expect(duration.textContent).toContain(IT.history.durationNone);
-    expect(duration.textContent).toContain(props.copy.measure.noData);
-    expect(duration.textContent).not.toMatch(digits);
-    expect(duration.querySelector('svg')).not.toBeNull(); // AbsentMark
-
-    expect(q(failed, '[data-count="read"]').getAttribute('data-measure-state')).toBe('measured-zero');
-    expect(q(failed, '[data-count="read"]').textContent).toBe('0 tipi letti');
-    expect(q(failed, '[data-count="failed"]').getAttribute('data-measure-state')).toBe('measured');
-    expect(q(failed, '[data-count="failed"]').textContent).toBe('9 non riusciti');
-    expect(failed.textContent).toContain(props.copy.sync.error);
-  });
-
-  it('zeros: nella stessa cronologia convivono zero misurato e dato assente, e sono diversi', () => {
-    const { container } = renderScreen(SourcesScreen, 'zeros');
-    const states = measureStates(container);
-    expect(states).toContain('measured-zero');
-    expect(states).toContain('absent');
-    for (const el of qa(container, '[data-slot="sync-history"] [data-measure-state="absent"]')) expect(el.textContent).not.toMatch(digits);
-    for (const el of qa(container, '[data-slot="sync-history"] [data-measure-state="measured-zero"]')) expect(el.textContent).toMatch(/^0 /);
-  });
-
-  it('una durata di 0 secondi e un dato misurato: non si confonde con la durata non registrata', () => {
-    const { container } = renderWith('ok', (d) => {
-      d.syncLog[0].durationSeconds = 0;
-    });
-    const first = qa(container, '[data-slot="log-entry"]')[0];
-    const dd = q(first, 'dd[data-measure-state]');
-    expect(dd.getAttribute('data-measure-state')).toBe('measured-zero');
-    expect(dd.textContent).toBe('0 s');
-    expect(dd.querySelector('svg')).toBeNull();
-  });
-
-  it('singolare e plurale dei conteggi, in it e en', () => {
-    for (const [lc, c, read, failed] of [['it', IT, '1 tipo letto', '1 non riuscito'], ['en', EN, '1 type read', '1 failed']] as const) {
-      const { container, unmount } = renderWith('ok', (d) => {
-        d.syncLog[0].readTypes = 1;
-        d.syncLog[0].failedTypes = 1;
-      }, { lc });
-      const first = qa(container, '[data-slot="log-entry"]')[0];
-      expect(q(first, '[data-count="read"]').textContent).toBe(read);
-      expect(q(first, '[data-count="failed"]').textContent).toBe(failed);
-      expect(c.history.readTypes(2)).not.toBe(read);
-      unmount();
+describe('nessuna cronologia delle ricezioni: solo l ultimo dato ricevuto, per sorgente', () => {
+  // Il server sovrascrive received_at a ogni invio (upsert per utente, dispositivo, sorgente e giorno)
+  // e sync_events e vuota e non e letta dalla dashboard: un elenco di ricezioni passate sarebbe inventato.
+  it('il modello non ha un elenco di ricezioni e la schermata non ha ne titolo ne voci', () => {
+    for (const s of SCENARIOS) {
+      for (const lc of ['it', 'en'] as const) {
+        const { container, props } = renderScreen(SourcesScreen, s, { lc });
+        expect(Object.keys(props.data)).not.toContain('receipts');
+        expect(container.querySelector('[data-slot="receipt-history"], [data-slot="receipt-entry"], [data-slot="receipts-gap"], [data-slot="receipts-empty"]')).toBeNull();
+        const text = container.textContent ?? '';
+        expect(FORBIDDEN_SYNC_NAMES.filter(({ re }) => re.test(text)).map(({ name }) => name)).toEqual([]);
+        cleanup();
+      }
     }
   });
 
-  it('parte sempre dal sync piu recente, qualunque ordine arrivi dal dato', () => {
-    const { container, props } = renderWith('ok', (d) => {
-      d.syncLog.reverse();
-    });
-    const times = qa(container, '[data-slot="log-entry"] time').map((t) => t.getAttribute('datetime'));
-    const sorted = [...times].sort((a, b) => Date.parse(b as string) - Date.parse(a as string));
-    expect(times).toEqual(sorted);
-    expect(times[0]).toBe(props.data.syncLog.map((e) => e.at).sort().reverse()[0]);
+  it('ok: gli unici orari sono l ultimo dato ricevuto in testa e uno per sorgente, mai una lista', () => {
+    const { container, props } = renderScreen(SourcesScreen, 'ok');
+    const times = qa(container, 'time');
+    // uno nell'intestazione, uno per ogni sorgente
+    expect(times.length).toBe(1 + props.data.sources.length);
+    for (const row of props.data.sources) {
+      const card = q(container, `[data-source="${row.ref.id}"]`);
+      const own = qa(card, 'time');
+      expect(own).toHaveLength(1);
+      expect(own[0].getAttribute('datetime')).toBe(row.lastReceivedAt);
+      expect(own[0].textContent).toBe(fmtDateTime(row.lastReceivedAt as string, 'it'));
+    }
   });
 
-  it('empty: dice che non c e ancora una cronologia, non «0 sync»', () => {
-    const { container } = renderScreen(SourcesScreen, 'empty');
-    expect(container.querySelectorAll('[data-slot="log-entry"]').length).toBe(0);
-    const empty = q(container, '[data-slot="log-empty"]');
-    expect(empty.getAttribute('data-slot-state')).toBe('absent');
-    expect(empty.textContent).toContain(IT.history.emptyTitle);
-    expect(empty.textContent).toContain(IT.history.emptyBody);
-    const history = q(container, '[data-slot="sync-history"]');
-    expect(history.getAttribute('data-slot-state')).toBe('absent');
-    expect(history.textContent).not.toMatch(digits);
-    expect(container.textContent).not.toMatch(/\b0\s*sync/i);
-  });
-
-  it('stale: la prima riga e un vuoto tratteggiato con l ora dell ultimo sync noto', () => {
+  it('stale: l ultimo dato ricevuto resta uno solo e dice che dopo non e arrivato altro', () => {
     const { container, props } = renderScreen(SourcesScreen, 'stale');
-    const gap = q(container, '[data-slot="log-gap"]');
-    expect(gap.getAttribute('data-slot-state')).toBe('absent');
-    expect(gap.className).toContain('border-dashed');
-    expect(gap.textContent).toBe(fill(IT.history.gap, { when: fmtDateTime(props.data.sync.lastSyncAt as string, 'it') }));
-    // il vuoto sta sopra le voci
-    const list = q(container, '[data-slot="sync-history"] ul');
-    expect(gap.compareDocumentPosition(list) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(qa(container, 'time').length).toBe(1 + props.data.sources.length);
+    expect(q(container, '[data-slot="stale-note"]').textContent).toBe(IT.status.staleNote);
+  });
+
+  it('la sorgente mai vista non ha un orario: trattino e motivo, non una data inventata', () => {
+    const { container } = renderWith('ok', (d) => {
+      d.sources[1].lastReceivedAt = null;
+    });
+    const card = q(container, `[data-source="${screenProps('ok').data.sources[1].ref.id}"]`);
+    expect(qa(card, 'time')).toHaveLength(0);
+    expect(q(card, '[data-slot="source-last-received"]').getAttribute('data-slot-state')).toBe('absent');
   });
 });

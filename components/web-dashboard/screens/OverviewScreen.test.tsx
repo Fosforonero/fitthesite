@@ -71,9 +71,24 @@ describe('OverviewScreen: contratto di base', () => {
   });
 });
 
+/**
+ * La striscia oraria con uno zero misurato e un tratto assente (15:00 e 16:00), costruita nel test: lo
+ * scenario `zeros` non ha piu' ore a zero (le ore vengono da `intraday_steps`, fuori whitelist).
+ */
+function renderWithHours() {
+  const props = screenProps('ok');
+  const hours = props.data.activity.hourlySteps.map((m, h) => (h === 15 || h === 16 ? absent('no_samples') : m));
+  props.data = { ...props.data, activity: { ...props.data.activity, hourlySteps: hours } };
+  return { ...render(<OverviewScreen {...props} />), props };
+}
+
 describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () => {
-  it('zeros: un assente non stampa mai una cifra, uno zero misurato la stampa con la sua etichetta', () => {
+  it('zeros: un assente non stampa mai una cifra, uno zero misurato (passi, colonna della whitelist) la stampa con la sua etichetta', () => {
     const { container, props } = renderScreen(OverviewScreen, 'zeros');
+
+    const stepsTile = q(container, '[data-kpi="steps"]')!;
+    expect(q(stepsTile, '[data-measure-state="measured-zero"]')).not.toBeNull();
+    expect(stepsTile.textContent).toContain(props.copy.measure.zeroMeasured);
 
     // sonno assente (orologio non indossato): niente cifre, il motivo c'e'
     const sleepTile = q(container, '[data-kpi="sleep"]')!;
@@ -81,18 +96,29 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     expect(hasDigit(sleepTile.textContent)).toBe(false);
     expect(sleepTile.textContent).toContain(props.copy.measure.absent.no_samples);
 
-    // nessun allenamento MISURATO: e' "0" con «Zero misurato», non l'assenza
+    // nessuna riga di allenamenti: NON e' «zero allenamenti», e' assente (il server non prova che non ce ne siano stati)
     const workoutsTile = q(container, '[data-kpi="workouts"]')!;
-    const zero = q(workoutsTile, '[data-measure-state="measured-zero"]')!;
-    expect(zero).not.toBeNull();
-    expect(zero.textContent).toContain('0');
-    expect(zero.textContent).toContain(props.copy.measure.zeroMeasured);
-    expect(q(workoutsTile, '[data-measure-state="absent"]')).toBeNull();
-    expect(workoutsTile.textContent).toContain('Nessun allenamento registrato');
+    expect(q(workoutsTile, '[data-measure-state="measured-zero"]')).toBeNull();
+    const absentWorkouts = q(workoutsTile, '[data-measure-state="absent"]')!;
+    expect(absentWorkouts).not.toBeNull();
+    expect(hasDigit(absentWorkouts.textContent)).toBe(false);
+    expect(workoutsTile.textContent).toContain(props.copy.measure.absent.no_samples);
+    expect(workoutsTile.textContent).not.toMatch(/Nessun allenamento registrato/);
   });
 
-  it('zeros: nella striscia oraria lo zero e’ una tacca, l’assente e’ un riquadro e non ha barra', () => {
-    const { container, props } = renderScreen(OverviewScreen, 'zeros');
+  it('una lista di allenamenti vuota costruita a mano non diventa uno zero misurato nella scheda: e assente e senza cifre', () => {
+    const props = screenProps('ok');
+    const forged = { ...props.data, workouts: { sessions: value([]), week: props.data.workouts.week } };
+    const { container } = render(<OverviewScreen {...props} data={forged} />);
+    const tile = q(container, '[data-kpi="workouts"]')!;
+    expect(q(tile, '[data-measure-state="measured-zero"]')).toBeNull();
+    expect(q(tile, '[data-measure-state="absent"]')).not.toBeNull();
+    expect(hasDigit(tile.textContent)).toBe(false);
+    expect(tile.textContent).not.toMatch(/Nessun allenamento registrato/);
+  });
+
+  it('nella striscia oraria lo zero e’ una tacca, l’assente e’ un riquadro e non ha barra', () => {
+    const { container, props } = renderWithHours();
     const slots = props.data.activity.hourlySteps;
     const zeroHours = slots.filter((m) => m.kind === 'value' && m.value === 0).length;
     const absentHours = slots.filter((m) => m.kind === 'absent').length;
@@ -124,17 +150,21 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     const card = q(container, '[data-overview-card="missing"]')!;
     const absentGroup = q(card, '[data-missing-group="absent:no_samples"]')!;
     const metrics = (g: HTMLElement) => qa(g, '[data-missing-metric]').map((n) => n.getAttribute('data-missing-metric'));
-    expect(metrics(absentGroup)).toEqual(expect.arrayContaining(['sleep', 'hourlySteps']));
+    expect(metrics(absentGroup)).toEqual(expect.arrayContaining(['sleep', 'hourlySteps', 'workouts']));
     expect(absentGroup.textContent).not.toContain(props.copy.measure.zeroMeasured);
-    expect(absentGroup.textContent).toContain('2 ore');
+    expect(absentGroup.textContent).toContain('24 ore');
 
     const zeroGroup = q(card, '[data-missing-group="zero"]')!;
     expect(zeroGroup.getAttribute('data-missing-kind')).toBe('zero');
-    expect(metrics(zeroGroup)).toEqual(expect.arrayContaining(['activeMinutes', 'floors', 'workouts']));
+    expect(metrics(zeroGroup)).toEqual(expect.arrayContaining(['steps', 'distance']));
+    // i piani non sono nella whitelist: mai nel gruppo dello zero misurato, sono assenti
+    expect(metrics(zeroGroup)).not.toContain('floors');
+    expect(metrics(absentGroup)).toContain('floors');
+    // gli allenamenti senza righe sono assenti, mai nel gruppo dello zero misurato
+    expect(metrics(zeroGroup)).not.toContain('workouts');
     expect(zeroGroup.textContent).toContain(props.copy.measure.zeroMeasured);
     // nessun assente finisce nel gruppo dello zero e viceversa
     expect(metrics(zeroGroup)).not.toContain('sleep');
-    expect(metrics(absentGroup)).not.toContain('floors');
     // il conteggio «voci» non include gli zeri
     const lacking = Number(card.getAttribute('data-missing-count'));
     expect(lacking).toBe(qa(card, '[data-missing-kind="absent"] [data-missing-metric], [data-missing-kind="partial"] [data-missing-metric]').length);
@@ -156,8 +186,8 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     const m = q(tile, '[data-measure-state="partial"]')!;
     expect(m).not.toBeNull();
     expect(m.textContent).toContain(props.copy.measure.partialLabel);
-    expect(m.textContent).toContain('79%');
-    expect(m.textContent).toContain(props.copy.measure.partial.device_off);
+    expect(m.textContent).toContain('54%');
+    expect(m.textContent).toContain(props.copy.measure.partial.incomplete_coverage);
     const goal = q(tile, '[data-goal-progress="partial"]')!;
     expect(goal.textContent).toMatch(/^(Almeno|Obiettivo già raggiunto)/);
   });
@@ -172,27 +202,31 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     expect(q(card, '[data-measure-state="measured"]')!.textContent).toMatch(/h .* min/);
   });
 
-  it('partial: piani assenti e allenamenti non autorizzati non sono zeri', () => {
+  it('partial: piani e allenamenti senza dato non sono zeri, e gli allenamenti non sono «non forniti dalla fonte»', () => {
     const { container, props } = renderScreen(OverviewScreen, 'partial');
     const workouts = q(container, '[data-kpi="workouts"]')!;
     expect(q(workouts, '[data-measure-state="absent"]')).not.toBeNull();
     expect(hasDigit(workouts.textContent)).toBe(false);
-    expect(workouts.textContent).toContain(props.copy.measure.absent.permission_missing);
+    expect(workouts.textContent).toContain(props.copy.measure.absent.no_samples);
+    expect(workouts.textContent).not.toContain(props.copy.measure.absent.source_lacks_type);
 
     const card = q(container, '[data-overview-card="missing"]')!;
     const lacksType = q(card, '[data-missing-group="absent:source_lacks_type"]')!;
     const names = qa(lacksType, '[data-missing-metric]').map((n) => n.getAttribute('data-missing-metric'));
-    expect(names).toEqual(expect.arrayContaining(['floors', 'sleepStages', 'hrv']));
-    expect(q(card, '[data-missing-group="absent:permission_missing"]')).not.toBeNull();
-    expect(q(card, '[data-missing-group="partial:device_off"]')).not.toBeNull();
-    // le ore 13-17 senza campioni: un tratto solo, scritto per intero
+    expect(names).toEqual(expect.arrayContaining(['sleepStages', 'hrv']));
+    expect(names).not.toContain('workouts');
+    expect(names).not.toContain('floors');
+    const noSamples = qa(q(card, '[data-missing-group="absent:no_samples"]')!, '[data-missing-metric]').map((n) => n.getAttribute('data-missing-metric'));
+    expect(noSamples).toEqual(expect.arrayContaining(['floors', 'workouts']));
+    expect(q(card, '[data-missing-group="partial:incomplete_coverage"]')).not.toBeNull();
+    // le ore dopo la fine della finestra (13-23): un tratto solo, scritto per intero
     const run = q(container, '[data-slot-run="absent"]')!;
     expect(run.textContent).toContain('13:00');
-    expect(run.textContent).toContain('17:59');
-    expect(run.textContent).toContain('5 ore');
+    expect(run.textContent).toContain('23:59');
+    expect(run.textContent).toContain('11 ore');
   });
 
-  it('stale: passi assenti per «non ancora sincronizzato», sync in errore con motivo ed eta’', () => {
+  it('stale: passi assenti per «non ancora sincronizzato», ultimo dato ricevuto con la sua età e nessun esito di sync', () => {
     const { container, props } = renderScreen(OverviewScreen, 'stale');
     const tile = q(container, '[data-kpi="steps"]')!;
     expect(q(tile, '[data-measure-state="absent"]')).not.toBeNull();
@@ -200,10 +234,9 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     expect(q(tile, '[data-goal-progress]')).toBeNull();
 
     const sources = q(container, '[data-overview-card="sources"]')!;
-    const sync = q(sources, '[data-sync-state="error"]')!;
-    expect(sync.textContent).toContain(props.copy.sync.error);
-    expect(sync.textContent).toContain(props.copy.sync.label);
-    expect(sync.textContent).toContain('La sorgente non risponde');
+    const received = q(sources, '[data-slot="last-received"]')!;
+    expect(received.textContent).toContain(props.copy.received.label);
+    expect(received.textContent).toContain('3 gg fa');
     // senza passi non si proclama una sorgente vincitrice
     expect(q(sources, '[data-steps-source="none"]')).not.toBeNull();
     expect(sources.textContent).toContain(props.copy.measure.absent.not_synced_yet);
@@ -259,7 +292,7 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
       for (const tile of qa(container, '[data-kpi]')) {
         expect(q(tile, '[data-measure-state="absent"]'), tile.getAttribute('data-kpi') ?? '').not.toBeNull();
         expect(hasDigit(tile.textContent)).toBe(false);
-        expect(tile.textContent).toContain(props.copy.measure.absent.no_source);
+        expect(tile.textContent).toContain(props.copy.measure.absent.no_data_received);
       }
       expect(q(container, '[data-goal-progress]')).toBeNull();
       cleanup();
@@ -271,7 +304,7 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     const strip = q(container, '#ov-hourly-title')!.closest('section')!;
     const panel = q(strip, 'div[data-slot-state="absent"]')!;
     expect(panel.textContent).toContain('Nessun campione in nessuna ora');
-    expect(panel.textContent).toContain(props.copy.measure.absent.no_source);
+    expect(panel.textContent).toContain(props.copy.measure.absent.no_data_received);
     expect(hasDigit(panel.textContent)).toBe(false);
     expect(qa(strip, '[data-bar], [data-tick]')).toHaveLength(0);
 
@@ -309,7 +342,7 @@ describe('OverviewScreen: ultimi 7 giorni, buchi e zeri', () => {
     at('steps', 3).m = absent('no_samples');
     // FC a riposo: un buco in mezzo alla settimana e un parziale
     at('restingHr', 3).m = absent('no_samples');
-    at('restingHr', 5).m = partial(57, 0.5, 'sync_incomplete');
+    at('restingHr', 5).m = partial(57, 0.5, 'incomplete_coverage');
     return props;
   }
 
@@ -384,10 +417,10 @@ describe('OverviewScreen: derivazioni pure', () => {
 
   it('weekStats: la media non e’ diluita dagli assenti, ne’ gonfiata dai parziali; lo zero misurato conta', () => {
     const d = (m: Measure<number>, i: number) => ({ date: `2026-09-${10 + i}`, m });
-    const stats = weekStats([d(value(0), 0), d(value(10), 1), d(absent('no_samples'), 2), d(partial(4, 0.4, 'sync_incomplete'), 3)]);
+    const stats = weekStats([d(value(0), 0), d(value(10), 1), d(absent('no_samples'), 2), d(partial(4, 0.4, 'incomplete_coverage'), 3)]);
     expect(stats).toMatchObject({ total: 4, measured: 2, partial: 1, absent: 1, zero: 1, mean: 5, lo: 10, hi: 10 });
     expect(stats.absentReasons).toEqual(['no_samples']);
-    expect(weekStats([d(absent('no_source'), 0)]).mean).toBeNull();
+    expect(weekStats([d(absent('no_data_received'), 0)]).mean).toBeNull();
   });
 
   it('collectMissing: assenti, poi parziali, poi zeri; mai un assente fra gli zeri', () => {
@@ -398,9 +431,17 @@ describe('OverviewScreen: derivazioni pure', () => {
     expect(zero.items.map((i) => i.metric)).not.toContain('sleep');
   });
 
-  it('collectMissing: una lista di allenamenti vuota e’ uno zero misurato, non un’assenza', () => {
-    const g = collectMissing(screenProps('zeros').data).find((x) => x.kind === 'zero')!;
-    expect(g.items.find((i) => i.metric === 'workouts')?.none).toBe(true);
+  it('collectMissing: una lista di allenamenti vuota e’ un’assenza, mai uno zero misurato', () => {
+    const groups = collectMissing(screenProps('zeros').data);
+    const zero = groups.find((x) => x.kind === 'zero')!;
+    expect(zero.items.map((i) => i.metric)).not.toContain('workouts');
+    const absentGroup = groups.find((x) => x.kind === 'absent' && x.items.some((i) => i.metric === 'workouts'))!;
+    expect(absentGroup).toBeDefined();
+    // anche una lista vuota costruita a mano (value([])) non diventa uno zero
+    const forged = { ...screenProps('ok').data, workouts: { sessions: value([]), week: [] } };
+    const g = collectMissing(forged);
+    expect(g.find((x) => x.kind === 'zero')?.items.map((i) => i.metric) ?? []).not.toContain('workouts');
+    expect(g.some((x) => x.kind === 'absent' && x.items.some((i) => i.metric === 'workouts'))).toBe(true);
   });
 });
 

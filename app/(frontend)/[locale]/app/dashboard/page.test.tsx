@@ -82,6 +82,24 @@ describe('dashboard web: l interruttore e le lingue', () => {
     expect(createClient).not.toHaveBeenCalled();
   });
 
+  // Solo il valore esatto «1» accende la pagina: variabile assente, «0», «true», «yes» o con spazi la lasciano
+  // spenta (404), anche con sessione valida e verdetto concesso, e senza aprire una sessione. E' la prova di
+  // pagina dell'interruttore spento: da fuori, senza sessione, il middleware risponde 307 verso il login PRIMA
+  // che la pagina decida, quindi la prova HTTP non puo' vederlo.
+  it.each<[string, string | undefined]>([
+    ['variabile assente', undefined],
+    ['0', '0'],
+    ['true', 'true'],
+    ['yes', 'yes'],
+    ['1 con lo spazio', ' 1'],
+    ['01', '01'],
+  ])('interruttore spento (%s): 404 e nessuna sessione aperta', async (_nome, valore) => {
+    vi.stubEnv('FITMESH_WEB_DASHBOARD', valore as string);
+    await expect(rendi('it', supabaseFinto({ rpc: { data: concesso, error: null } }))).rejects.toThrow('NEXT_NOT_FOUND');
+    await expect(rendi('en', supabaseFinto({ rpc: { data: concesso, error: null } }))).rejects.toThrow('NEXT_NOT_FOUND');
+    expect(createClient).not.toHaveBeenCalled();
+  });
+
   it('una lingua senza traduzione rivista: 404, non testo di un altra lingua', async () => {
     await expect(rendi('de', supabaseFinto({ rpc: { data: concesso, error: null } }))).rejects.toThrow('NEXT_NOT_FOUND');
   });

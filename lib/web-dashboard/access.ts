@@ -1,11 +1,13 @@
 /**
  * Chi puo' vedere la dashboard web: login, paywall, verifica, accesso.
  *
- * REGOLA (mandato di Matteo, 24/09): accede chi ha un abbonamento valido
- * (periodo di grazia incluso se il backend mantiene il servizio), un Lifetime
- * acquistato o un Lifetime concesso a mano / Founder. NON accede chi e' in
- * prova, chi non ha niente, chi e' scaduto o rimborsato. Se il controllo non
- * risponde: errore e «riprova», mai un falso paywall.
+ * REGOLA (DECISIONI.md, punti 1-6 e 8): accede chi ha un titolo Pro valido nella
+ * fonte server degli entitlement: abbonamento attivo, Pro lifetime acquistato,
+ * Founder, tester con grant Pro valido, e gli altri titoli Pro validi (grant a
+ * tempo, ponte iOS, pagamento registrato a mano, grandfather, admin, account di
+ * revisione dello store). NON accede mai chi e' solo in prova gratuita, chi non ha
+ * niente, chi e' scaduto, rimborsato o revocato. Se il controllo non risponde:
+ * errore e «riprova», mai un falso paywall.
  *
  * Questo file e' la MAPPA PER LA SCHERMATA del prototipo. Il verdetto vero e'
  * server-side e unico (filone WEB-DASHBOARD-FOUNDATION): quando arriva, prende il
@@ -18,8 +20,9 @@
  *
  * L'input e' la forma del contratto entitlement v1 (docs/architecture/
  * entitlement-contract-v1.md): `entitlementKind` decide, `evaluationReason` no.
- * In questo prototipo l'istantanea e' SINTETICA: nessuna chiamata a
- * get_entitlement_status, nessun collegamento a Supabase o alla fatturazione.
+ * Il tester con grant arriva come `lifetime` (ruolo permanente) o `subscription`
+ * (ruolo a tempo). In questo prototipo l'istantanea e' SINTETICA: nessuna chiamata
+ * a get_entitlement_status, nessun collegamento a Supabase o alla fatturazione.
  */
 
 export const SUPPORTED_ENTITLEMENT_CONTRACT_VERSION = 1;
@@ -59,10 +62,11 @@ export type DashboardAccess =
 
 /**
  * Tipi di entitlement che aprono la dashboard. `trial` NON e' qui: la prova
- * copre l'app, non la dashboard web. `appReview` (account demo dello store) non
- * e' nell'elenco deciso e quindi non concede: se serve, e' una decisione a parte.
+ * gratuita copre l'app, non la dashboard web (decisione 3), nemmeno se attiva.
+ * `appReview` (account di revisione dello store) apre la dashboard: risposta di
+ * Matteo del 28/09, decisione 2.
  */
-const GRANTING_KINDS: readonly EntitlementKind[] = ['founder', 'grandfather', 'lifetime', 'subscription'];
+const GRANTING_KINDS: readonly EntitlementKind[] = ['founder', 'grandfather', 'lifetime', 'subscription', 'appReview'];
 
 export function resolveDashboardAccess(input: AccessInput): DashboardAccess {
   if (input.session === 'anonymous') return { decision: 'login' };

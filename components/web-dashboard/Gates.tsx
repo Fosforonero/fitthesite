@@ -101,10 +101,6 @@ export function PaywallGate({
               ))}
             </ul>
           </div>
-          <button type="button" disabled className="mt-7 w-full min-h-[48px] rounded-pill bg-cta-gradient px-5 py-3 text-sm font-semibold text-bg-dark opacity-70 sm:w-auto">
-            {g.cta}
-          </button>
-          <p className="mt-2 text-xs text-text-muted">{g.ctaNote}</p>
         </Card>
 
         <section aria-labelledby="always" className="mt-6">

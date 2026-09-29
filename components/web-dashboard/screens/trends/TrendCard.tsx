@@ -34,15 +34,13 @@ export interface MetricConfig {
 }
 
 /**
- * Quattro colori distinti dentro la palette di BRAND.md (sez. 10). L'ambra e'
- * riservata al «parziale», quindi le calorie non sono candidate; i minuti
- * attivi prendono il lavanda, lontano dall'acqua del sonno e dal blu dei passi.
+ * Tre colori distinti dentro la palette di BRAND.md (sez. 10). L'ambra e'
+ * riservata al «parziale», quindi le calorie non sono candidate.
  */
 export const METRICS: readonly MetricConfig[] = [
   { metric: 'steps', screen: 'activity', kind: 'bars', color: CHART.steps },
   { metric: 'sleepMinutes', screen: 'sleep', kind: 'bars', color: CHART.sleep },
   { metric: 'restingHr', screen: 'heart', kind: 'line', color: CHART.heart },
-  { metric: 'activeMinutes', screen: 'activity', kind: 'bars', color: CHART.rem },
 ];
 
 export interface Prepared {
@@ -192,7 +190,7 @@ function ChartCard({
   const n = slots.length;
   const min = stats.min as NonNullable<SeriesStats['min']>;
   const max = stats.max as NonNullable<SeriesStats['max']>;
-  const axis = cfg.kind === 'bars' ? barAxis(max.value, STEP_CANDIDATES[cfg.metric as 'steps' | 'sleepMinutes' | 'activeMinutes']) : lineAxis(min.value, max.value);
+  const axis = cfg.kind === 'bars' ? barAxis(max.value, STEP_CANDIDATES[cfg.metric as 'steps' | 'sleepMinutes']) : lineAxis(min.value, max.value);
   const id = `trend-${cfg.metric}`;
 
   const describe = (s: Slot) => `${dayLabel(s.date, ui)}: ${s.value === null ? copy.measure.noData : fmt.text(s.value)}, ${stateText(s, copy, lc)}`;

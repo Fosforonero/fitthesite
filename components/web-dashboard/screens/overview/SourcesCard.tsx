@@ -20,19 +20,18 @@ function issuesOf(row: SourceRow): Array<{ status: Issue; types: DataTypeKey[] }
 
 /**
  * «Da dove vengono i tuoi dati»: quali sorgenti hanno contribuito, quale ha
- * vinto sui passi (FitMesh ne usa una, non somma), com'e' andato l'ultimo sync.
+ * vinto sui passi (FitMesh ne usa una, non somma), quando e' arrivato l'ultimo dato.
  * Senza sorgenti diventa la spiegazione + il link alla pagina dei dispositivi
  * (rotta reale /{lc}/app/devices): e' l'unica cosa utile che si puo' fare.
  */
 export function SourcesCard({ ctx }: { ctx: OverviewCtx }) {
   const { lc, ui, copy, oc, href } = ctx;
-  const { sync, sources, activity } = ctx.data;
+  const { receipt, sources, activity } = ctx.data;
   const empty = sources.length === 0;
   const stepsAbsent = activity.steps.kind === 'absent';
   const winner = stepsAbsent ? null : activity.stepsSource;
 
-  const tone = sync.state === 'ok' ? 'success' : sync.state === 'partial' ? 'warning' : sync.state === 'error' ? 'error' : 'neutral';
-  const age = sync.ageMinutes === null ? null : fmtAge(sync.ageMinutes, ui);
+  const age = receipt.ageMinutes === null ? null : fmtAge(receipt.ageMinutes, ui);
 
   return (
     <div data-overview-card="sources" data-sources-count={sources.length}>
@@ -107,17 +106,14 @@ export function SourcesCard({ ctx }: { ctx: OverviewCtx }) {
           </>
         )}
 
-        <div data-sync-state={sync.state} className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-divider pt-4">
-          <Chip tone={tone} icon="sync">
-            {copy.sync[sync.state]}
-          </Chip>
-          {/* «Nessun sync» e' gia' nel chip: la riga dell'eta' esiste solo se un sync c'e' stato */}
-          {sync.lastSyncAt && age ? (
+        <div data-slot="last-received" className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-divider pt-4">
+          {receipt.lastReceivedAt && age ? (
             <p className="text-xs text-text-secondary">
-              {copy.sync.label}: {age} · {fmtDateTime(sync.lastSyncAt, ui)}
+              {copy.received.label}: {age} · {fmtDateTime(receipt.lastReceivedAt, ui)}
             </p>
-          ) : null}
-          {sync.problem ? <p className="w-full text-xs text-text-muted">{oc.sources.syncProblem[sync.problem]}</p> : null}
+          ) : (
+            <p className="text-xs text-text-muted">{copy.received.never}</p>
+          )}
         </div>
       </Card>
     </div>

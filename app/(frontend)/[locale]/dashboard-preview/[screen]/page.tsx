@@ -48,7 +48,7 @@ export default async function DashboardPreviewScreen({
 
   if (result.status === 'loading') {
     return (
-      <DashboardShell copy={copy} lc={lc} ui={ui} screen={screen} params={p} sync={null} title={title}>
+      <DashboardShell copy={copy} lc={lc} ui={ui} screen={screen} params={p} receipt={null} title={title}>
         <div role="status" aria-busy="true" aria-label={copy.states.loading}>
           <entry.Loading lc={lc} ui={ui} />
         </div>
@@ -58,7 +58,7 @@ export default async function DashboardPreviewScreen({
 
   if (result.status === 'error') {
     return (
-      <DashboardShell copy={copy} lc={lc} ui={ui} screen={screen} params={p} sync={null} title={title}>
+      <DashboardShell copy={copy} lc={lc} ui={ui} screen={screen} params={p} receipt={null} title={title}>
         <StateNotice tone="error" title={copy.states.errorTitle} action={{ href: href(screen), label: copy.states.retry }}>
           {copy.states.errorBody}
         </StateNotice>
@@ -77,7 +77,7 @@ export default async function DashboardPreviewScreen({
     ) : null;
 
   return (
-    <DashboardShell copy={copy} lc={lc} ui={ui} screen={screen} params={p} sync={data.sync} title={title}>
+    <DashboardShell copy={copy} lc={lc} ui={ui} screen={screen} params={p} receipt={data.receipt} title={title}>
       {notice ? <div className="mb-6">{notice}</div> : null}
       <entry.Screen data={data} lc={lc} ui={ui} copy={copy} params={p} href={href} />
     </DashboardShell>

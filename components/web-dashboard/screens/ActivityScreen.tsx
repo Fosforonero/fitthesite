@@ -92,7 +92,6 @@ function Hero({ a, lc, copy, t }: { a: ActivityDay; lc: string; copy: SharedCopy
 function SecondaryMetrics({ a, lc, copy, t }: { a: ActivityDay; lc: string; copy: SharedCopy; t: ActivityCopy }) {
   const tiles = [
     { key: 'distance', label: t.tiles.distance, dot: CHART.steps, m: a.distanceKm, unit: copy.units.km, decimals: 1 },
-    { key: 'activeMinutes', label: t.tiles.activeMinutes, dot: CHART.resting, m: a.activeMinutes, unit: copy.units.min, decimals: 0 },
     { key: 'floors', label: t.tiles.floors, dot: CHART.rem, m: a.floors, unit: copy.units.floors, decimals: 0 },
     { key: 'caloriesActive', label: t.tiles.caloriesActive, dot: CHART.info, m: a.caloriesActive, unit: copy.units.kcal, decimals: 0 },
   ] as const;
@@ -149,8 +148,8 @@ function SourceCard({ data, lc, copy, t, sourcesHref }: { data: DashboardData; l
               <span>{copy.measure.absent[stepsAbsent]}</span>
             </p>
           ) : null}
-          {row?.lastSyncAt ? (
-            <p className="mt-3 text-xs text-text-muted">{`${copy.sync.label}: ${fmtDateTime(row.lastSyncAt, lc)}`}</p>
+          {row?.lastReceivedAt ? (
+            <p className="mt-3 text-xs text-text-muted">{`${copy.received.label}: ${fmtDateTime(row.lastReceivedAt, lc)}`}</p>
           ) : null}
           <div className="mt-auto pt-4">
             <a href={sourcesHref} className={linkCls}>{copy.nav.sources}</a>
@@ -161,7 +160,7 @@ function SourceCard({ data, lc, copy, t, sourcesHref }: { data: DashboardData; l
           <div data-source-empty className="mt-4 rounded-[14px] border border-dashed border-text-muted/50 p-4">
             <p className="flex items-center gap-2 text-sm font-semibold text-text-primary">
               <Icon name="plug" size={20} className="text-text-secondary" />
-              {copy.measure.absent.no_source}
+              {copy.measure.absent.no_data_received}
             </p>
             <p className="mt-2 text-sm text-text-secondary">{t.source.noSourceBody}</p>
           </div>
@@ -180,14 +179,14 @@ function SourceCard({ data, lc, copy, t, sourcesHref }: { data: DashboardData; l
 }
 
 // ── scheletro ───────────────────────────────────────────────────────────────
-/** Stessa griglia della schermata vera: eroe + quattro schede, grafico orario, sette giorni + fonte. */
+/** Stessa griglia della schermata vera: eroe + tre schede, grafico orario, sette giorni + fonte. */
 export function ActivityLoading() {
   return (
     <div className="space-y-6" data-screen="activity-loading">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
         <SkeletonBlock className="h-[212px]" />
         <div className="grid grid-cols-1 gap-4 min-[420px]:grid-cols-2">
-          {[0, 1, 2, 3].map((i) => (
+          {[0, 1, 2].map((i) => (
             <SkeletonBlock key={i} className="h-[112px]" />
           ))}
         </div>

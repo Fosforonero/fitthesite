@@ -18,8 +18,8 @@ describe('resolveDashboardAccess', () => {
     expect(resolveDashboardAccess({ session: 'anonymous' })).toEqual({ decision: 'login' });
   });
 
-  it('accede chi ha Founder, Lifetime concesso, Lifetime acquistato o abbonamento valido', () => {
-    const kinds: EntitlementKind[] = ['founder', 'grandfather', 'lifetime', 'subscription'];
+  it('accede chi ha Founder, Lifetime concesso, Lifetime acquistato, abbonamento valido o account di revisione', () => {
+    const kinds: EntitlementKind[] = ['founder', 'grandfather', 'lifetime', 'subscription', 'appReview'];
     for (const entitlementKind of kinds) {
       const r = resolveDashboardAccess({
         session: 'verified',
@@ -42,12 +42,19 @@ describe('resolveDashboardAccess', () => {
     expect(none).toEqual({ decision: 'paywall', reason: 'none' });
   });
 
-  it('l\'account demo dello store non concede: non e\' nell\'elenco deciso', () => {
-    const r = resolveDashboardAccess({
+  it('l\'account di revisione dello store accede (DECISIONI 2), la prova non accede mai (DECISIONI 3)', () => {
+    const review = resolveDashboardAccess({
       session: 'verified',
       entitlement: { contractVersion: 1, entitlementKind: 'appReview', trialStatus: 'expired' },
     });
-    expect(r.decision).toBe('paywall');
+    expect(review).toEqual({ decision: 'granted', via: 'appReview' });
+    for (const trialStatus of ['active', 'expired'] as const) {
+      const trial = resolveDashboardAccess({
+        session: 'verified',
+        entitlement: { contractVersion: 1, entitlementKind: 'trial', trialStatus },
+      });
+      expect(trial.decision, trialStatus).toBe('paywall');
+    }
   });
 
   it('un abbonamento prevale su una prova scaduta (priorita\' gia\' risolta dal server)', () => {

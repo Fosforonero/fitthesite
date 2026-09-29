@@ -34,12 +34,12 @@ function KindIcon({ kind }: { kind: SourceKind }) {
   );
 }
 
-/** Data e ora dell'ultimo sync di una sorgente, con l'eta'. Nessun sync: trattino tratteggiato e motivo. */
+/** Data e ora dell'ultimo dato ricevuto da una sorgente, con l'eta'. Nessun dato: trattino tratteggiato e motivo. */
 function SourceLastSync({ iso, copy, ui }: { iso: string | null; copy: SharedCopy; ui: UiLocale }) {
   const age = iso ? minutesSince(iso) : null;
   if (iso === null) {
     return (
-      <dd className="mt-1.5 text-text-muted" data-slot="source-last-sync" data-slot-state="absent" data-absent-reason="not_synced_yet">
+      <dd className="mt-1.5 text-text-muted" data-slot="source-last-received" data-slot-state="absent" data-absent-reason="not_synced_yet">
         <span className="flex h-6 items-center">
           <AbsentMark />
           <span className="sr-only">{copy.measure.noData}</span>
@@ -50,7 +50,7 @@ function SourceLastSync({ iso, copy, ui }: { iso: string | null; copy: SharedCop
   }
   const stale = isStaleAge(age);
   return (
-    <dd className="mt-1.5" data-slot="source-last-sync" data-slot-state={stale ? 'stale' : 'measured'}>
+    <dd className="mt-1.5" data-slot="source-last-received" data-slot-state={stale ? 'stale' : 'measured'}>
       <span className="block font-display text-base font-semibold tabular-nums tracking-tightest text-text-primary">
         <time dateTime={iso}>{fmtDateTime(iso, ui)}</time>
       </span>
@@ -162,8 +162,8 @@ function SourceCard({
             </div>
           </div>
           <dl className="sm:text-right">
-            <dt className={labelCls}>{copy.sync.label}</dt>
-            <SourceLastSync iso={row.lastSyncAt} copy={copy} ui={ui} />
+            <dt className={labelCls}>{copy.received.label}</dt>
+            <SourceLastSync iso={row.lastReceivedAt} copy={copy} ui={ui} />
           </dl>
         </div>
 
@@ -211,7 +211,7 @@ function EmptySources({ c, lc }: { c: SourcesCopy; lc: string }) {
     <div
       data-slot="sources-empty"
       data-slot-state="absent"
-      data-absent-reason="no_source"
+      data-absent-reason="no_data_received"
       className="rounded-card border border-dashed border-text-muted/60 bg-bg-card/60 p-5 sm:p-6"
     >
       <div className="flex gap-4">

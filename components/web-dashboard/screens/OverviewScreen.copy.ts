@@ -3,24 +3,23 @@
  *
  * Le parole vengono dall'app (v3.10.0+191): «Passi», «Sonno», «FC a riposo»,
  * «Calorie attive», «Allenamenti», «Svegli/Leggero/Profondo/REM», «Piani
- * saliti», «Minuti attivi», «Da dove vengono i tuoi dati», «Sorgente
+ * saliti», «Da dove vengono i tuoi dati», «Sorgente
  * vincitrice», «Ripartizione per fase non disponibile». Le frasi di servizio
  * (cosa manca e perche') sono neutre e descrivono, non promettono.
  *
  * Non si ripete qui nulla che stia gia' in lib/web-dashboard/copy.ts: motivi di
- * assenza, note di parzialita', legenda, nomi delle schermate, stato del sync.
+ * assenza, note di parzialita', legenda, nomi delle schermate, ultimo dato ricevuto.
  * Regole: niente em dash, niente promesse di disponibilita' o di date, niente
  * linguaggio promozionale. Tutto PLACEHOLDER da approvare prima di un uso reale.
  */
 import type { UiLocale } from '@/lib/web-dashboard/format';
-import type { DataTypeKey, SleepStage, SourceKind, SourceTypeStatus, SyncStatus, Via } from '@/lib/web-dashboard/model';
+import type { DataTypeKey, SleepStage, SourceKind, SourceTypeStatus, Via } from '@/lib/web-dashboard/model';
 
 /** Le misure che la card «Cosa manca» sa nominare. */
 export type MissingMetric =
   | 'steps'
   | 'hourlySteps'
   | 'distance'
-  | 'activeMinutes'
   | 'floors'
   | 'caloriesActive'
   | 'sleep'
@@ -49,7 +48,6 @@ export interface OverviewCopy {
   workoutsTile: {
     singular: string;
     plural: string;
-    none: string;
     totalDuration: (v: string) => string;
     totalDurationPartial: (v: string) => string;
     durationUnknown: string;
@@ -99,7 +97,6 @@ export interface OverviewCopy {
     chosenNone: string;
     status: Record<Exclude<SourceTypeStatus['status'], 'ok'>, string>;
     types: Record<DataTypeKey, string>;
-    syncProblem: Record<NonNullable<SyncStatus['problem']>, string>;
     empty: { title: string; body: string; cta: string };
   };
   missing: {
@@ -111,7 +108,6 @@ export interface OverviewCopy {
     count: (n: number) => string;
     metrics: Record<MissingMetric, string>;
     hours: (label: string, n: number) => string;
-    none: (label: string) => string;
   };
 }
 
@@ -130,7 +126,6 @@ const IT: OverviewCopy = {
   workoutsTile: {
     singular: 'allenamento',
     plural: 'allenamenti',
-    none: 'Nessun allenamento registrato',
     totalDuration: (v) => `Durata totale ${v}`,
     totalDurationPartial: (v) => `Durata totale almeno ${v}, parziale`,
     durationUnknown: 'Durata: nessun dato',
@@ -186,9 +181,7 @@ const IT: OverviewCopy = {
     chosenNone: 'Non scelta per nessun tipo di dato',
     status: {
       no_data: 'Nessun dato',
-      permission_missing: 'Permesso non concesso',
       not_provided: 'Non fornito',
-      error: 'Lettura non riuscita',
     },
     types: {
       steps: 'Passi',
@@ -201,14 +194,8 @@ const IT: OverviewCopy = {
       distance: 'Distanza',
       hrv: 'HRV',
     },
-    syncProblem: {
-      permission_revoked: 'Il permesso di lettura è stato revocato',
-      source_unreachable: 'La sorgente non risponde',
-      upload_failed: 'Il caricamento non è riuscito',
-      partial_types: 'Alcuni tipi di dato non sono stati letti',
-    },
     empty: {
-      title: 'Nessuna sorgente collegata',
+      title: 'Nessun dato ricevuto dalle sorgenti',
       body: 'Qui compaiono le sorgenti che hanno consegnato dati, e quale di loro conta per i passi. Il collegamento si fa dalla pagina dei dispositivi.',
       cta: 'Collega un dispositivo',
     },
@@ -224,7 +211,6 @@ const IT: OverviewCopy = {
       steps: 'Passi',
       hourlySteps: 'Passi ora per ora',
       distance: 'Distanza',
-      activeMinutes: 'Minuti attivi',
       floors: 'Piani saliti',
       caloriesActive: 'Calorie attive',
       sleep: 'Sonno',
@@ -238,7 +224,6 @@ const IT: OverviewCopy = {
       workouts: 'Allenamenti',
     },
     hours: (label, n) => `${label}, ${n === 1 ? '1 ora' : `${n} ore`}`,
-    none: (label) => `${label}: nessuno`,
   },
 };
 
@@ -257,7 +242,6 @@ const EN: OverviewCopy = {
   workoutsTile: {
     singular: 'workout',
     plural: 'workouts',
-    none: 'No workouts recorded',
     totalDuration: (v) => `Total duration ${v}`,
     totalDurationPartial: (v) => `Total duration at least ${v}, partial`,
     durationUnknown: 'Duration: no data',
@@ -313,9 +297,7 @@ const EN: OverviewCopy = {
     chosenNone: 'Not used for any data type',
     status: {
       no_data: 'No data',
-      permission_missing: 'Permission not granted',
       not_provided: 'Not provided',
-      error: 'Read failed',
     },
     types: {
       steps: 'Steps',
@@ -328,14 +310,8 @@ const EN: OverviewCopy = {
       distance: 'Distance',
       hrv: 'HRV',
     },
-    syncProblem: {
-      permission_revoked: 'The read permission was revoked',
-      source_unreachable: 'The source does not respond',
-      upload_failed: 'The upload did not complete',
-      partial_types: 'Some data types were not read',
-    },
     empty: {
-      title: 'No source connected',
+      title: 'No data received from any source',
       body: 'This is where the sources that delivered data appear, and which one counts for steps. Connecting is done from the devices page.',
       cta: 'Connect a device',
     },
@@ -351,7 +327,6 @@ const EN: OverviewCopy = {
       steps: 'Steps',
       hourlySteps: 'Steps by hour',
       distance: 'Distance',
-      activeMinutes: 'Active minutes',
       floors: 'Floors climbed',
       caloriesActive: 'Active calories',
       sleep: 'Sleep',
@@ -365,7 +340,6 @@ const EN: OverviewCopy = {
       workouts: 'Workouts',
     },
     hours: (label, n) => `${label}, ${n === 1 ? '1 hour' : `${n} hours`}`,
-    none: (label) => `${label}: none`,
   },
 };
 

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import type { SharedCopy } from '@/lib/web-dashboard/copy';
 import { fmtAge, fmtDayLong, fmtDayShort, type UiLocale } from '@/lib/web-dashboard/format';
-import { SCENARIO_KEYS, SCREENS, type ScreenKey, type SyncStatus } from '@/lib/web-dashboard/model';
+import { SCENARIO_KEYS, SCREENS, type ReceiptStatus, type ScreenKey } from '@/lib/web-dashboard/model';
 import { previewHref, type PreviewParams } from '@/lib/web-dashboard/params';
 import { SYNTHETIC_VIEWERS } from '@/lib/web-dashboard/access';
 import { SYNTHETIC_TODAY, addDays } from '@/lib/web-dashboard/synthetic';
@@ -60,15 +60,12 @@ export function PreviewBar({ copy, lc, screen, params }: { copy: SharedCopy; lc:
   );
 }
 
-/** Chip dell'ultimo sync: stato + eta'. Porta alla schermata sorgenti. */
-export function SyncChip({ sync, copy, ui, href }: { sync: SyncStatus; copy: SharedCopy; ui: UiLocale; href: string }) {
-  const tone = sync.state === 'ok' ? 'success' : sync.state === 'partial' ? 'warning' : sync.state === 'error' ? 'error' : 'neutral';
-  const stateLabel = copy.sync[sync.state];
-  const age = sync.ageMinutes === null ? copy.sync.never : `${copy.sync.label}: ${fmtAge(sync.ageMinutes, ui)}`;
+/** Chip dell'ultimo dato ricevuto (eta'), senza alcun esito: il server non conosce l'esito dei singoli sync. Porta alla schermata sorgenti. */
+export function ReceiptChip({ receipt, copy, ui, href }: { receipt: ReceiptStatus; copy: SharedCopy; ui: UiLocale; href: string }) {
+  const label = receipt.ageMinutes === null ? copy.received.never : `${copy.received.label}: ${fmtAge(receipt.ageMinutes, ui)}`;
   return (
-    <a href={href} data-sync-state={sync.state} className={`inline-flex items-center gap-2 rounded-pill border border-divider bg-bg-card px-3 py-1.5 text-xs text-text-secondary hover:bg-white/5 ${focusRing}`}>
-      <Chip tone={tone} icon="sync">{stateLabel}</Chip>
-      <span className="text-text-muted">{age}</span>
+    <a href={href} data-slot="receipt-chip" className={`inline-flex items-center gap-2 rounded-pill border border-divider bg-bg-card px-3 py-1.5 text-xs text-text-secondary hover:bg-white/5 ${focusRing}`}>
+      <Chip tone="neutral" icon="sync">{label}</Chip>
     </a>
   );
 }
@@ -132,7 +129,7 @@ export function DashboardShell({
   ui,
   screen,
   params,
-  sync,
+  receipt,
   title,
   children,
 }: {
@@ -141,7 +138,7 @@ export function DashboardShell({
   ui: UiLocale;
   screen: ScreenKey;
   params: PreviewParams;
-  sync: SyncStatus | null;
+  receipt: ReceiptStatus | null;
   title: string;
   children: ReactNode;
 }) {
@@ -175,7 +172,7 @@ export function DashboardShell({
                 <h1 className="font-display text-display tracking-tightest font-semibold">{title}</h1>
               </div>
               <div className="flex flex-wrap items-center gap-3">
-                {sync ? <SyncChip sync={sync} copy={copy} ui={ui} href={previewHref(lc, 'sources', params)} /> : null}
+                {receipt ? <ReceiptChip receipt={receipt} copy={copy} ui={ui} href={previewHref(lc, 'sources', params)} /> : null}
               </div>
             </div>
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3">

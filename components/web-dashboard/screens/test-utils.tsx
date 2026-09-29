@@ -35,7 +35,7 @@ export function renderScreen(
 }
 
 /** Copy vietata nel prototipo: em dash, promesse di disponibilita' o di date. */
-export const FORBIDDEN_COPY = /—|coming soon|prossimamente|a breve|in arrivo|presto disponibile|launch|lancio|dal \d{1,2} (gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)/i;
+export const FORBIDDEN_COPY = /\u2014|coming soon|prossimamente|a breve|in arrivo|presto disponibile|launch|lancio|dal \d{1,2} (gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|dicembre)/i;
 
 export function forbiddenCopyIn(container: HTMLElement): string[] {
   const text = container.textContent ?? '';
