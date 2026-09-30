@@ -12,7 +12,7 @@
  */
 import { TZ } from '@/lib/web-dashboard/format';
 import { numberOrNull, type AbsentReason, type Measure, type PartialNote } from '@/lib/web-dashboard/measure';
-import type { HeartPoint, Workout } from '@/lib/web-dashboard/model';
+import type { HeartPoint, Workout, WorkoutType } from '@/lib/web-dashboard/model';
 import { SYNTHETIC_NOW, SYNTHETIC_TODAY } from '@/lib/web-dashboard/synthetic';
 
 export const BUCKET_MIN = 10;
@@ -227,7 +227,8 @@ export function hourRows(slots: readonly Slot[]): HourRow[] {
 
 export interface WorkoutWindow {
   id: string;
-  title: string;
+  /** Il tipo (colonna `type`), mai il titolo libero: non e' in whitelist. */
+  type: WorkoutType;
   startMin: number;
   /** `null` se la durata non c'e': senza durata non si disegna una finestra inventata. */
   endMin: number | null;
@@ -252,7 +253,7 @@ export function workoutOverlay(sessions: Measure<Workout[]>, date: string, nowMi
     const dur = numberOrNull(w.durationMin);
     windows.push({
       id: w.id,
-      title: w.title,
+      type: w.type,
       startMin,
       endMin: dur === null ? null : Math.min(nowMinute ?? DAY_MIN, startMin + dur),
       duration: w.durationMin,

@@ -10,7 +10,7 @@
  */
 import type { AbsentReason, PartialNote } from './measure';
 import type { UiLocale } from './format';
-import type { ScenarioKey, ScreenKey } from './model';
+import type { ScenarioKey, ScreenKey, SourceId } from './model';
 
 export interface SharedCopy {
   previewBanner: string;
@@ -21,6 +21,12 @@ export interface SharedCopy {
   date: { prev: string; next: string; today: string; yesterday: string; pick: string };
   /** Il server sa quando e' arrivato l'ultimo dato, non come e' andato ogni sync: solo «ultimo dato ricevuto». */
   received: { label: string; never: string; detail: string };
+  /**
+   * L'unico nome che una sorgente puo' avere: vocabolario CHIUSO (`sourceIdOf`, from-rows.ts). Nessun nome
+   * di dispositivo, nessun testo preso dalle righe: `other` copre tutto cio' che non e' in tabella, nomi
+   * di persona compresi. L'anello e' l'unico genere dimostrabile (`colmi_ble` lo scrive solo il suo percorso).
+   */
+  sourceNames: Record<SourceId, string>;
   measure: {
     noData: string;
     zeroMeasured: string;
@@ -42,7 +48,7 @@ export interface SharedCopy {
     partialBody: string;
   };
   preview: { scenarios: Record<ScenarioKey, string>; viewers: Record<string, string>; scenarioLabel: string; viewerLabel: string };
-  units: { steps: string; km: string; kcal: string; bpm: string; ms: string; floors: string; min: string };
+  units: { steps: string; km: string; kcal: string; bpm: string; ms: string; min: string };
   gates: {
     login: { title: string; body: string; email: string; emailPlaceholder: string; captcha: string; submit: string; note: string; forgot: string };
     paywall: {
@@ -79,6 +85,15 @@ const IT: SharedCopy = {
     label: 'Ultimo dato ricevuto',
     never: 'Nessun dato ricevuto',
     detail: 'Dettagli',
+  },
+  sourceNames: {
+    health_connect: 'Health Connect',
+    healthkit: 'Apple Salute',
+    ring: 'Anello Bluetooth',
+    strava: 'Strava',
+    oura: 'Oura',
+    suunto: 'Suunto',
+    other: 'Un’altra sorgente',
   },
   measure: {
     noData: 'Nessun dato',
@@ -130,7 +145,7 @@ const IT: SharedCopy = {
       lifetime: 'Lifetime',
     },
   },
-  units: { steps: 'passi', km: 'km', kcal: 'kcal', bpm: 'bpm', ms: 'ms', floors: 'piani', min: 'min' },
+  units: { steps: 'passi', km: 'km', kcal: 'kcal', bpm: 'bpm', ms: 'ms', min: 'min' },
   gates: {
     login: {
       title: 'Accedi a FitMesh',
@@ -192,6 +207,15 @@ const EN: SharedCopy = {
     never: 'No data received',
     detail: 'Details',
   },
+  sourceNames: {
+    health_connect: 'Health Connect',
+    healthkit: 'Apple Health',
+    ring: 'Bluetooth ring',
+    strava: 'Strava',
+    oura: 'Oura',
+    suunto: 'Suunto',
+    other: 'Another source',
+  },
   measure: {
     noData: 'No data',
     zeroMeasured: 'Measured zero',
@@ -242,7 +266,7 @@ const EN: SharedCopy = {
       lifetime: 'Lifetime',
     },
   },
-  units: { steps: 'steps', km: 'km', kcal: 'kcal', bpm: 'bpm', ms: 'ms', floors: 'floors', min: 'min' },
+  units: { steps: 'steps', km: 'km', kcal: 'kcal', bpm: 'bpm', ms: 'ms', min: 'min' },
   gates: {
     login: {
       title: 'Sign in to FitMesh',

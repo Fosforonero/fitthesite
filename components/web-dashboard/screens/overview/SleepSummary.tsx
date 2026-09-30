@@ -131,9 +131,6 @@ export function SleepSummary({ ctx }: { ctx: OverviewCtx }) {
           </p>
         ) : null}
         {stages}
-        <p className="mt-4 text-xs text-text-muted">
-          {oc.sleep.source}: {n.source.label}
-        </p>
       </Card>
     </div>
   );

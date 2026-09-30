@@ -7,6 +7,7 @@ import type { DashboardData, ScenarioKey, SleepBlock } from '@/lib/web-dashboard
 
 import { SleepLoading, SleepScreen } from './SleepScreen';
 import { sleepCopy } from './SleepScreen.copy';
+import { FORBIDDEN_SOURCE_LABELS } from '@/lib/web-dashboard/regression-patterns';
 import { fmtHM, hourTicks, layoutHypnogram, nightSlotState, nightsAxisTop } from './sleep/helpers';
 import { forbiddenCopyIn, renderScreen, screenProps } from './test-utils';
 
@@ -73,7 +74,9 @@ describe('caso (a): notte completa con fasi', () => {
     const header = container.querySelector('[data-slot="night"]')!;
     expect(header.getAttribute('data-slot-state')).toBe('measured');
     expect(header.textContent).toContain(fmtMinutes((total as { value: number }).value, 'it'));
-    expect(header.textContent).toContain('Galaxy Watch');
+    // la notte non nomina una sorgente ne un dispositivo: il server non prova quale sorgente l'ha scritta per prima
+    expect(FORBIDDEN_SOURCE_LABELS.filter(({ re }) => re.test(header.innerHTML) || re.test(header.textContent ?? '')).map(({ name }) => name)).toEqual([]);
+    expect(header.textContent).not.toMatch(/Sorgente dati|Data source/);
     expect(header.textContent).toMatch(/\d\d:\d\d/);
 
     const hyp = container.querySelector('[data-slot="hypnogram"]')!;

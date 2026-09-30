@@ -1,19 +1,15 @@
 import type { SharedCopy } from '@/lib/web-dashboard/copy';
-import { fmtDateTime, fmtInt, fmtPercent } from '@/lib/web-dashboard/format';
+import { fmtInt, fmtPercent } from '@/lib/web-dashboard/format';
 import { presentNumber } from '@/lib/web-dashboard/measure';
-import type { ActivityDay, DashboardData } from '@/lib/web-dashboard/model';
+import type { ActivityDay } from '@/lib/web-dashboard/model';
 
-import { Icon } from '../Icon';
-import { AbsentMark, CHART, Card, Chip, MeasureValue, MetricTile, SectionLabel, SkeletonBlock } from '../primitives';
+import { CHART, Card, Chip, MeasureValue, MetricTile, SectionLabel, SkeletonBlock } from '../primitives';
 import type { ScreenProps } from '../screen-types';
 import { activityCopy, type ActivityCopy } from './ActivityScreen.copy';
 import { GoalRing } from './activity/GoalRing';
 import { HourlyCard } from './activity/HourlyCard';
 import { WeekCard } from './activity/WeekCard';
 import { lastSevenDays, toHourSlots, type SlotState } from './activity/derive';
-
-const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua';
-const linkCls = `inline-flex min-h-[44px] items-center gap-2 rounded-pill border border-divider px-4 text-sm font-semibold text-text-primary hover:bg-white/5 ${focusRing}`;
 
 /**
  * Passi e attivita' del giorno.
@@ -22,7 +18,6 @@ const linkCls = `inline-flex min-h-[44px] items-center gap-2 rounded-pill border
  *  - eroe e schede: `MeasureValue` (cifra, cifra con copertura, trattino + motivo);
  *  - grafico orario e ultimi 7 giorni: barra, tacca sulla base, righe ambra,
  *    riquadro tratteggiato (vedi chart-kit.tsx);
- *  - fonte: nomina la fonte scelta oppure dice che non ce n'e'.
  * Solo componenti server: l'interazione e' fatta di link costruiti con `href()`.
  */
 export function ActivityScreen({ data, lc, ui, copy, href }: ScreenProps) {
@@ -40,10 +35,7 @@ export function ActivityScreen({ data, lc, ui, copy, href }: ScreenProps) {
 
       <HourlyCard slots={hourSlots} lc={lc} copy={copy} t={t} />
 
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-        <WeekCard days={week} goal={a.goalSteps} lc={lc} copy={copy} t={t} href={(date) => href('activity', { day: date })} />
-        <SourceCard data={data} lc={lc} copy={copy} t={t} sourcesHref={href('sources')} />
-      </div>
+      <WeekCard days={week} goal={a.goalSteps} lc={lc} copy={copy} t={t} href={(date) => href('activity', { day: date })} />
     </div>
   );
 }
@@ -89,10 +81,10 @@ function Hero({ a, lc, copy, t }: { a: ActivityDay; lc: string; copy: SharedCopy
 }
 
 // ── schede secondarie ───────────────────────────────────────────────────────
+// I piani non hanno un riquadro: `floors_climbed` e' fuori whitelist (nessuna fonte verificata).
 function SecondaryMetrics({ a, lc, copy, t }: { a: ActivityDay; lc: string; copy: SharedCopy; t: ActivityCopy }) {
   const tiles = [
     { key: 'distance', label: t.tiles.distance, dot: CHART.steps, m: a.distanceKm, unit: copy.units.km, decimals: 1 },
-    { key: 'floors', label: t.tiles.floors, dot: CHART.rem, m: a.floors, unit: copy.units.floors, decimals: 0 },
     { key: 'caloriesActive', label: t.tiles.caloriesActive, dot: CHART.info, m: a.caloriesActive, unit: copy.units.kcal, decimals: 0 },
   ] as const;
   return (
@@ -112,74 +104,8 @@ function SecondaryMetrics({ a, lc, copy, t }: { a: ActivityDay; lc: string; copy
   );
 }
 
-// ── fonte dei passi ─────────────────────────────────────────────────────────
-function SourceCard({ data, lc, copy, t, sourcesHref }: { data: DashboardData; lc: string; copy: SharedCopy; t: ActivityCopy; sourcesHref: string }) {
-  const a = data.activity;
-  const src = a.stepsSource;
-  const row = src ? data.sources.find((r) => r.ref.id === src.id) : undefined;
-  // Altre fonti che hanno passi per lo stesso giorno: FitMesh non le somma, e qui si vede.
-  const others = src ? data.sources.filter((r) => r.ref.id !== src.id && r.types.some((x) => x.type === 'steps' && x.status === 'ok')) : [];
-  const stepsAbsent = a.steps.kind === 'absent' ? a.steps.reason : null;
-
-  return (
-    <Card aria-labelledby="act-source-title" data-card="steps-source" data-source-state={src ? 'named' : 'absent'} className="flex flex-col">
-      <SectionLabel id="act-source-title">{t.source.title}</SectionLabel>
-
-      {src ? (
-        <>
-          <div className="mt-4 flex items-center gap-3">
-            <span aria-hidden="true" className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/5 text-text-secondary">
-              <Icon name="sources" size={20} />
-            </span>
-            <div className="min-w-0">
-              <p data-source-name className="font-display text-lg font-semibold text-text-primary">{src.label}</p>
-              <p className="text-sm text-text-secondary">{`${t.source.kind[src.kind]} · ${t.source.via[src.via]}`}</p>
-            </div>
-          </div>
-          <p className="mt-4 text-sm text-text-secondary">{t.source.rule}</p>
-          {others.length > 0 ? (
-            <p data-not-added className="mt-3 rounded-[14px] border border-divider bg-bg-elevated/60 p-3 text-xs text-text-secondary">
-              {t.source.notAdded(others.map((r) => r.ref.label).join(', '))}
-            </p>
-          ) : null}
-          {stepsAbsent ? (
-            <p data-source-absent className="mt-3 flex items-center gap-2 text-xs text-text-muted">
-              <AbsentMark />
-              <span>{copy.measure.absent[stepsAbsent]}</span>
-            </p>
-          ) : null}
-          {row?.lastReceivedAt ? (
-            <p className="mt-3 text-xs text-text-muted">{`${copy.received.label}: ${fmtDateTime(row.lastReceivedAt, lc)}`}</p>
-          ) : null}
-          <div className="mt-auto pt-4">
-            <a href={sourcesHref} className={linkCls}>{copy.nav.sources}</a>
-          </div>
-        </>
-      ) : (
-        <>
-          <div data-source-empty className="mt-4 rounded-[14px] border border-dashed border-text-muted/50 p-4">
-            <p className="flex items-center gap-2 text-sm font-semibold text-text-primary">
-              <Icon name="plug" size={20} className="text-text-secondary" />
-              {copy.measure.absent.no_data_received}
-            </p>
-            <p className="mt-2 text-sm text-text-secondary">{t.source.noSourceBody}</p>
-          </div>
-          <p className="mt-4 text-sm text-text-secondary">{t.source.rule}</p>
-          <div className="mt-auto pt-4">
-            {/* Rotta reale dell'area privata: qui si abbina il dispositivo. */}
-            <a href={`/${lc}/app/devices`} className={linkCls}>
-              <Icon name="plug" size={16} />
-              {t.source.connect}
-            </a>
-          </div>
-        </>
-      )}
-    </Card>
-  );
-}
-
 // ── scheletro ───────────────────────────────────────────────────────────────
-/** Stessa griglia della schermata vera: eroe + tre schede, grafico orario, sette giorni + fonte. */
+/** Stessa griglia della schermata vera: eroe + tre schede, grafico orario, sette giorni. */
 export function ActivityLoading() {
   return (
     <div className="space-y-6" data-screen="activity-loading">
@@ -192,10 +118,7 @@ export function ActivityLoading() {
         </div>
       </div>
       <SkeletonBlock className="h-[380px]" />
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-        <SkeletonBlock className="h-[380px]" />
-        <SkeletonBlock className="h-[300px]" />
-      </div>
+      <SkeletonBlock className="h-[380px]" />
     </div>
   );
 }

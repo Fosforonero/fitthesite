@@ -54,8 +54,6 @@ export interface WorkoutsCopy {
       distance: string;
       calories: string;
       hrAvg: string;
-      hrMax: string;
-      source: string;
     };
     /** Elenco incompleto (dato `partial`): le sessioni mostrate sono vere, ma potrebbero mancarne. */
     partialTitle: string;
@@ -114,11 +112,9 @@ const IT: WorkoutsCopy = {
       distance: 'Distanza',
       calories: 'Calorie',
       hrAvg: 'FC media',
-      hrMax: 'FC max',
-      source: 'Fonte',
     },
     partialTitle: 'Elenco parziale',
-    partialBody: 'Le sessioni qui sotto sono reali, ma l’elenco copre solo una parte del giorno: potrebbe mancarne qualcuna.',
+    partialBody: 'Le sessioni qui sotto sono arrivate, ma l’elenco copre solo una parte del giorno: potrebbe mancarne qualcuna.',
     absent: {
       title: 'Non sappiamo se ci sono stati allenamenti',
       body: {
@@ -178,11 +174,9 @@ const EN: WorkoutsCopy = {
       distance: 'Distance',
       calories: 'Calories',
       hrAvg: 'Avg HR',
-      hrMax: 'Max HR',
-      source: 'Source',
     },
     partialTitle: 'Partial list',
-    partialBody: 'The sessions below are real, but the list covers only part of the day: some may be missing.',
+    partialBody: 'The sessions below have arrived, but the list covers only part of the day: some may be missing.',
     absent: {
       title: 'We do not know whether there were any workouts',
       body: {

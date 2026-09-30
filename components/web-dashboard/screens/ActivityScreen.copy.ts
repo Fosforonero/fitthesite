@@ -1,9 +1,9 @@
 /**
  * Copy della schermata «Passi e attivita'». IT e EN; ogni altra lingua usa l'EN.
  *
- * Le parole sono quelle dell'app (v3.10.0+191: statLabelSteps, vitalsFloors,
+ * Le parole sono quelle dell'app (v3.10.0+191: statLabelSteps,
  * vitalsActiveCalories, period7, stepsHourlyLegendPerHour,
- * intradayGoalReached, sourceSectionTitle). Cio' che e' gia' in
+ * intradayGoalReached). Cio' che e' gia' in
  * lib/web-dashboard/copy.ts (motivi di assenza, note del parziale, legenda,
  * «Zero misurato», «Ultimo dato ricevuto») NON si ripete qui: lo legge la schermata.
  *
@@ -13,7 +13,6 @@
  */
 import type { PartialNote } from '@/lib/web-dashboard/measure';
 import type { UiLocale } from '@/lib/web-dashboard/format';
-import type { SourceKind, Via } from '@/lib/web-dashboard/model';
 
 export interface HourCounts {
   measured: number;
@@ -42,7 +41,6 @@ export interface ActivityCopy {
   tiles: {
     aria: string;
     distance: string;
-    floors: string;
     caloriesActive: string;
   };
   hourly: {
@@ -71,15 +69,6 @@ export interface ActivityCopy {
     colState: string;
     notesTitle: string;
   };
-  source: {
-    title: string;
-    rule: string;
-    via: Record<Via, string>;
-    kind: Record<SourceKind, string>;
-    notAdded: (names: string) => string;
-    noSourceBody: string;
-    connect: string;
-  };
 }
 
 const num = (n: number, one: string, many: string) => (n === 1 ? `${n} ${one}` : `${n} ${many}`);
@@ -99,7 +88,6 @@ const IT: ActivityCopy = {
   tiles: {
     aria: 'Altre misure del giorno',
     distance: 'Distanza',
-    floors: 'Piani saliti',
     caloriesActive: 'Calorie attive',
   },
   hourly: {
@@ -147,15 +135,6 @@ const IT: ActivityCopy = {
     colState: 'Stato',
     notesTitle: 'Giorni senza misura completa',
   },
-  source: {
-    title: 'Sorgente dei passi',
-    rule: 'FitMesh sceglie una sola sorgente per i passi del giorno. Non somma più sorgenti insieme.',
-    via: { health_connect: 'Health Connect', healthkit: 'Apple Salute', ble: 'Bluetooth' },
-    kind: { watch: 'Orologio', phone: 'Telefono', ring: 'Anello' },
-    notAdded: (names) => `${names}: ha passi per lo stesso giorno, ma non vengono aggiunti al totale.`,
-    noSourceBody: 'Senza un dispositivo collegato non c’è una sorgente da indicare per i passi.',
-    connect: 'Collega un dispositivo',
-  },
 };
 
 const EN: ActivityCopy = {
@@ -173,7 +152,6 @@ const EN: ActivityCopy = {
   tiles: {
     aria: 'Other measures for the day',
     distance: 'Distance',
-    floors: 'Floors climbed',
     caloriesActive: 'Active calories',
   },
   hourly: {
@@ -220,15 +198,6 @@ const EN: ActivityCopy = {
     colSteps: 'Steps',
     colState: 'State',
     notesTitle: 'Days without a complete measure',
-  },
-  source: {
-    title: 'Source of the steps',
-    rule: 'FitMesh picks one source for the steps of the day. It does not add sources together.',
-    via: { health_connect: 'Health Connect', healthkit: 'Apple Health', ble: 'Bluetooth' },
-    kind: { watch: 'Watch', phone: 'Phone', ring: 'Ring' },
-    notAdded: (names) => `${names}: has steps for the same day, but they are not added to the total.`,
-    noSourceBody: 'Without a connected device there is no source to name for the steps.',
-    connect: 'Connect a device',
   },
 };
 

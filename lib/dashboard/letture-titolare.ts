@@ -21,9 +21,24 @@
  *
  * Le liste delle colonne coincidono con quelle di
  * supabase/tests/reset-pg17/18-test-letture-dashboard-titolare.sql, che le
- * esegue come `authenticated` su un database con gruppi e admin. Restano fuori,
- * di proposito: glicemia, pressione, serie intraday, fasi del sonno, sessioni,
- * titoli e note degli allenamenti.
+ * esegue come `authenticated` su un database con gruppi e admin.
+ *
+ * ESTENSIONE del 29/09/2026 (regola di Matteo): entrano SOLO colonne la cui
+ * fonte e' verificata sul percorso di scrittura (app 191, POST /api/v1/sync,
+ * upsert_fitness_metrics_v189) e solo del titolare. Una colonna in whitelist
+ * NON rende disponibile un grafico: lo stato lo decide il modulo delle derivazioni
+ * (from-rows.ts, nel prototipo), riga per riga, e nel dubbio e' «assente».
+ *   - hrv_rmssd: scalare, ma vale solo per sorgenti non iOS (su iPhone il server la
+ *     azzera e il valore vive in hrv_sdnn): la regola sta in `hrvRmssdFromRow`.
+ *   - intraday_steps, intraday_hr, sleep_stages: JSONB pesanti (egress), quindi NON
+ *     stanno nella lista degli intervalli: si leggono un giorno per volta con
+ *     `leggiSerieDelGiorno` e la lista COLONNE_SERIE_DEL_GIORNO.
+ * Restano fuori, di proposito: glicemia, pressione, piani (somma senza dedup di
+ * origine), sleep_start_ms/sleep_end_ms (le righe vecchie sono incoerenti con gli
+ * stadi, che bastano), hrv_sdnn, intraday_calories, exercise_sessions, notes, e ogni
+ * identificativo o nome di dispositivo: source_device, source_package, hr_source_name
+ * e device_id sono testo libero che su iPhone puo' contenere il nome di una persona.
+ * Fuori anche il titolo libero degli allenamenti, la FC massima e la fonte.
  *
  * Solo lato server.
  */
@@ -35,7 +50,6 @@ export const COLONNE_METRICHE = [
   'window_start_ms',
   'window_end_ms',
   'source',
-  'source_device',
   'steps',
   'distance_meters',
   'active_calories_kcal',
@@ -43,7 +57,23 @@ export const COLONNE_METRICHE = [
   'sleep_minutes',
   'heart_rate_bpm',
   'resting_heart_rate_bpm',
+  'hrv_rmssd',
   'received_at',
+] as const;
+
+/**
+ * Le colonne dei JSONB, lette SOLO per un giorno alla volta. `source` e `steps` ci sono
+ * perche' la regola della serie oraria dei passi confronta la serie con il totale e con
+ * la sorgente della STESSA riga.
+ */
+export const COLONNE_SERIE_DEL_GIORNO = [
+  'user_id',
+  'local_day_key',
+  'source',
+  'steps',
+  'intraday_steps',
+  'intraday_hr',
+  'sleep_stages',
 ] as const;
 
 export const COLONNE_ALLENAMENTI = [
@@ -60,6 +90,7 @@ export const COLONNE_ALLENAMENTI = [
 
 type Colonna<T extends readonly string[]> = Exclude<T[number], 'user_id'>;
 export type RigaMetrica = Record<Colonna<typeof COLONNE_METRICHE>, unknown>;
+export type RigaSerie = Record<Colonna<typeof COLONNE_SERIE_DEL_GIORNO>, unknown>;
 export type RigaAllenamento = Record<Colonna<typeof COLONNE_ALLENAMENTI>, unknown>;
 
 export type Lettura<R> = {
@@ -155,6 +186,36 @@ export async function leggiMetricheDelTitolare(
         .gte('local_day_key', intervallo.daGiorno)
         .lte('local_day_key', intervallo.aGiorno)
         .order('local_day_key', { ascending: true })
+        .order('id', { ascending: true })
+        .range(da, a),
+    uid,
+    massimoPagine,
+  );
+}
+
+/**
+ * Le righe del titolare di UN giorno locale con le serie (passi orari, battito, fasi del
+ * sonno). Un giorno solo: quei JSONB pesano, e su un intervallo lungo l'egress crescerebbe
+ * senza che nessuno li mostri. Piu' righe per lo stesso giorno sono normali (una per sorgente
+ * e dispositivo): non si sommano e non si fondono qui, ogni riga si legge da sola.
+ */
+export async function leggiSerieDelGiorno(
+  client: ClientLetture,
+  accesso: AccessoConcesso,
+  giorno: string,
+  massimoPagine: number = MASSIMO_PAGINE,
+): Promise<Lettura<RigaSerie>> {
+  const uid = verificaAccesso(accesso);
+  if (!GIORNO.test(giorno)) {
+    throw new ErroreLettura('intervallo_non_valido', 'il giorno va scritto come AAAA-MM-GG');
+  }
+  return leggiPaginato<RigaSerie>(
+    (da, a) =>
+      client
+        .from('fitness_metrics')
+        .select(COLONNE_SERIE_DEL_GIORNO.join(','))
+        .eq('user_id', uid)
+        .eq('local_day_key', giorno)
         .order('id', { ascending: true })
         .range(da, a),
     uid,

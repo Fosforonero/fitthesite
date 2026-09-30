@@ -90,7 +90,7 @@ export function HeartTables({
               const p = presentNumber(w.duration);
               return (
                 <tr key={w.id} data-workout-id={w.id} className="border-b border-divider/60">
-                  <th scope="row" className="py-2 pr-4 text-left font-medium text-text-primary">{w.title}</th>
+                  <th scope="row" className="py-2 pr-4 text-left font-medium text-text-primary">{t.workoutTypes[w.type]}</th>
                   <td className={td}>{hhmm(w.startMin)}</td>
                   {p.state === 'absent' || w.endMin === null ? (
                     <td data-slot-state="absent" className="py-2 pr-4 text-text-muted">

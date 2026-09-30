@@ -97,7 +97,7 @@ export function HeartChart({
           <div
             key={w.id}
             data-heart-workout={w.id}
-            title={`${w.title}: ${t.timeRange(hhmm(w.startMin), hhmm(w.endMin as number))}`}
+            title={`${t.workoutTypes[w.type]}: ${t.timeRange(hhmm(w.startMin), hhmm(w.endMin as number))}`}
             className="absolute inset-y-0 border-t-2 border-info/70 bg-info/10"
             style={{ left: xPct(w.startMin), width: `max(3px, ${xPct((w.endMin as number) - w.startMin)})` }}
           />

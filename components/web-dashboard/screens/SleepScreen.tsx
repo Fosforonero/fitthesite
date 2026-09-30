@@ -152,7 +152,7 @@ function NightBlocks({
             </p>
           ) : null}
 
-          <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))]">
+          <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-5 lg:grid-cols-[minmax(0,1.5fr)_repeat(2,minmax(0,1fr))]">
             <div className="col-span-2 lg:col-span-1">
               <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">{c.night.total}</dt>
               <dd className="mt-2">
@@ -171,13 +171,6 @@ function NightBlocks({
               <dd className="mt-2">
                 <p className="font-display text-xl font-semibold tabular-nums tracking-tightest text-text-primary">{hh(wake)}</p>
                 <p className="mt-1 text-xs text-text-muted">{fmtDayShort(wake.date, ui)}</p>
-              </dd>
-            </div>
-            <div className="col-span-2 lg:col-span-1">
-              <dt className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">{c.night.source}</dt>
-              <dd className="mt-2">
-                <p className="font-display text-xl font-semibold tracking-tightest text-text-primary">{n.source.label}</p>
-                <p className="mt-1 text-xs text-text-muted">{c.via[n.source.via]}</p>
               </dd>
             </div>
           </dl>

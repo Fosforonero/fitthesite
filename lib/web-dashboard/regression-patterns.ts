@@ -51,6 +51,8 @@ export const SYNC_OUTCOME_AND_ACTIVE_MINUTES: ReadonlyArray<{ name: string; re: 
   { name: 'stato «Nessuna fonte collegata» / «No source connected»', re: /nessuna\s+(fonte|sorgente)\s+(e'\s+|è\s+)?collegata|no\s+source\s+(is\s+)?connected/i },
   { name: 'frase «sorgenti collegate ma non e ancora arrivato nessun dato»', re: /sorgenti\s+sono\s+collegate\s+ma|sources\s+are\s+connected\s+but/i },
   { name: 'chiave neverWithSources', re: /neverWithSources|neverNoSources/ },
+  // Stessa causa dedotta, al singolare: il server non sa se una fonte e' collegata (decisione 26).
+  { name: 'frase «La fonte e\' collegata» / «The source is connected»', re: /(fonte|sorgente)\s+(è|e'|e)\s+collegata|source\s+is\s+connected/i },
   { name: 'etichetta Lettura non riuscita / Read failed', re: /lettura\s+non\s+riuscita|read\s+failed|la\s+lettura\s+non\s+(è|e')\s+riuscita|the\s+read\s+failed/i },
 ];
 
@@ -60,6 +62,41 @@ export const SYNC_OUTCOME_AND_ACTIVE_MINUTES: ReadonlyArray<{ name: string; re: 
  * su qualunque file che lo importi.
  */
 export const FORBIDDEN_SYNC_NAMES = SYNC_OUTCOME_AND_ACTIVE_MINUTES;
+
+/**
+ * Fonte vincente e genere del dispositivo (decisione del 29/09/2026, ricerca sui dati server).
+ * Il server NON ha una colonna che dica quale sorgente «vince» per un tipo di dato (la scelta la fa l'app a
+ * lettura, con prove di provenienza e copertura) e NON sa se una sorgente e' un orologio o un telefono
+ * (`health_connect` e `healthkit` sono archivi di piattaforma). L'unico genere dimostrabile e' l'anello
+ * (`colmi_ble`), che ha un nome proprio nel vocabolario chiuso, non un «genere».
+ * Per fonte restano solo il nome del vocabolario chiuso e «Ultimo dato ricevuto».
+ *
+ * Ci stanno le CHIAVI del modello, gli attributi del DOM, le ETICHETTE visibili in it e en, e il nome di
+ * un dispositivo inventato (l'esempio dei dati sintetici). Le parole comuni («telefono» in «sul telefono»)
+ * non sono vietate: lo sono le etichette con cui il genere veniva mostrato (`'Orologio'`, `'Telefono'`).
+ */
+export const FORBIDDEN_WINNING_SOURCE_AND_DEVICE_KIND: ReadonlyArray<{ name: string; re: RegExp }> = [
+  { name: 'chiave stepsSource', re: /stepsSource/ },
+  { name: 'chiavi winning / winnersByType / wonBy / winsNone / chosenFor / chosenNone', re: /\bwinning\b|winnersByType|wonBy|winsNone|chosenFor|chosenNone|\bwins\b\s*[:(]/ },
+  { name: 'attributi data-winning / winning-marker / won-by / win-summary / steps-source / data-kind / data-via', re: /data-winning|winning-marker|won-by|win-summary|steps-source|data-steps-source|data-kind|data-via/ },
+  { name: 'tipi SourceKind, SourceTypeStatus, DataTypeKey, Via', re: /\bSourceKind\b|\bSourceTypeStatus\b|\bDataTypeKey\b|:\s*Via\b|<Via\b|Record<Via/ },
+  { name: 'stato «non fornito» per tipo (not_provided)', re: /not_provided/ },
+  { name: 'genere watch / phone / ring come valore o come chiave', re: /kind:\s*['"](watch|phone|ring)['"]|kind:\s*\{\s*watch|\.kind\[|'watch'|'phone'/ },
+  { name: 'etichette «Fonte vincente», «Winning source», «Sorgente vincitrice»', re: /fonte\s+vincente|sorgente\s+vincente|sorgente\s+vincitrice|winning\s+source|winner\b/i },
+  { name: 'etichette «Vince …» / «Won by»', re: /'Vince\s|`Vince\s|Won\s+by\b|wonBy/ },
+  { name: 'titolo «Sorgente dei passi» / «Source of the steps» / «Fonte dei passi»', re: /sorgente\s+dei\s+passi|source\s+of\s+the\s+steps|fonte\s+dei\s+passi|steps\s+source/i },
+  { name: 'regola «una sola sorgente per tipo, non si sommano»', re: /una\s+sola\s+sorgente|sorgenti\s+non\s+si\s+sommano|non\s+somma\s+pi[uù]\s+sorgenti|one\s+source\s+for\s+each|does\s+not\s+add\s+sources|sources\s+are\s+not\s+added/i },
+  { name: 'etichette di genere «Orologio», «Telefono», «Watch», «Phone», «Ring» come valori scritti', re: /['"`](Orologio|Telefono|Watch|Phone|Ring|Anello)['"`]/ },
+  { name: 'nome di dispositivo di esempio «Galaxy Watch»', re: /Galaxy\s+Watch|galaxy-watch/i },
+  { name: 'titolo libero di un allenamento (`title` fuori whitelist)', re: /\bw\.title\b|\.title\.trim\(\)|title:\s*w\.title/ },
+  { name: 'marcatore one-source (la regola «una sola sorgente» e\' stata tolta)', re: /one-source/i },
+];
+
+/**
+ * Lo stesso elenco con un nome neutro, per i test delle schermate: il nome dell'elenco sopra contiene le
+ * parole vietate e farebbe scattare la scansione su qualunque file che lo importi.
+ */
+export const FORBIDDEN_SOURCE_LABELS = FORBIDDEN_WINNING_SOURCE_AND_DEVICE_KIND;
 
 /**
  * Decisione 10: pressione e glicemia fuori dalla v1, anche solo come presenza

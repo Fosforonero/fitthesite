@@ -1,8 +1,8 @@
 /**
  * Copy propria della schermata Cuore. IT e EN; ogni altra lingua usa l'EN.
  *
- * I nomi seguono le stringhe dell'app (v3.10.0+191): «riposo», «media», «min»,
- * «max», «bpm», «Frequenza cardiaca», «HRV (variabilita' FC)», e la riga
+ * I nomi seguono le stringhe dell'app (v3.10.0+191): «riposo», «media»,
+ * «bpm», «Frequenza cardiaca», «HRV (variabilita' FC)», e la riga
  * «Solo informativo · Non diagnostico · Non sostituisce il parere medico».
  * Cio' che e' gia' in lib/web-dashboard/copy.ts (motivi di assenza, legenda,
  * «Sorgenti dei dati») NON e' ripetuto qui.
@@ -12,6 +12,7 @@
  */
 import type { AbsentReason } from '@/lib/web-dashboard/measure';
 import type { UiLocale } from '@/lib/web-dashboard/format';
+import type { WorkoutType } from '@/lib/web-dashboard/model';
 
 export interface TileCopy {
   label: string;
@@ -20,11 +21,10 @@ export interface TileCopy {
 
 export interface HeartCopy {
   statsTitle: string;
-  tiles: { resting: TileCopy; average: TileCopy; min: TileCopy; max: TileCopy; hrv: TileCopy };
+  tiles: { resting: TileCopy; average: TileCopy; hrv: TileCopy };
 
   chartTitle: string;
   chartSubtitle: string;
-  source: (label: string) => string;
   axisUnit: string;
   restingLine: (bpm: string) => string;
   legend: { resting: string; workout: string };
@@ -48,6 +48,7 @@ export interface HeartCopy {
   samplesOf: (n: number, total: number) => string;
   workoutCaption: string;
   workoutCols: { title: string; from: string; to: string };
+  workoutTypes: Record<WorkoutType, string>;
 
   emptyTitle: string;
   emptyBody: Record<AbsentReason, string>;
@@ -61,19 +62,16 @@ const IT: HeartCopy = {
   tiles: {
     resting: { label: 'Riposo', hint: 'FC a riposo' },
     average: { label: 'Media', hint: 'Media dei campioni del giorno' },
-    min: { label: 'Min', hint: 'Campione più basso' },
-    max: { label: 'Max', hint: 'Campione più alto' },
     hrv: { label: 'HRV', hint: 'Variabilità della frequenza cardiaca' },
   },
 
   chartTitle: 'Frequenza cardiaca',
-  chartSubtitle: 'Battiti al minuto, in finestre da 10 minuti sulle 24 ore.',
-  source: (label) => `Fonte: ${label}`,
+  chartSubtitle: 'Battiti al minuto sulle 24 ore: una mediana per finestra, non ogni singolo battito.',
   axisUnit: 'bpm',
   restingLine: (bpm) => `Riposo ${bpm}`,
   legend: { resting: 'Riposo', workout: 'Allenamento' },
   legendLabel: 'Legenda del grafico',
-  rangeSentence: (min, max) => `Da ${min} a ${max} bpm.`,
+  rangeSentence: (min, max) => `Le mediane vanno da ${min} a ${max} bpm.`,
 
   coverageLabel: 'Copertura',
   samplesSentence: (samples, expected, covered, of) => `Campioni: ${samples} su ${expected}. Coperte ${covered} su ${of}.`,
@@ -87,10 +85,11 @@ const IT: HeartCopy = {
 
   tableLabel: 'Tabella dei dati',
   hourCaption: 'Frequenza cardiaca per ora, in bpm',
-  cols: { hour: 'Ora', min: 'Min', avg: 'Media', max: 'Max', samples: 'Campioni' },
+  cols: { hour: 'Ora', min: 'Mediana più bassa', avg: 'Media', max: 'Mediana più alta', samples: 'Campioni' },
   samplesOf: (n, total) => `${n} di ${total}`,
   workoutCaption: 'Allenamenti del giorno',
   workoutCols: { title: 'Allenamento', from: 'Inizio', to: 'Fine' },
+  workoutTypes: { run: 'Corsa', walk: 'Camminata', cycle: 'Ciclismo', strength: 'Forza', swim: 'Nuoto', other: 'Altro' },
 
   emptyTitle: 'Nessun campione per questo giorno',
   emptyBody: {
@@ -110,19 +109,16 @@ const EN: HeartCopy = {
   tiles: {
     resting: { label: 'Resting', hint: 'Resting heart rate' },
     average: { label: 'Average', hint: 'Average of the day’s samples' },
-    min: { label: 'Min', hint: 'Lowest sample' },
-    max: { label: 'Max', hint: 'Highest sample' },
     hrv: { label: 'HRV', hint: 'Heart rate variability' },
   },
 
   chartTitle: 'Heart rate',
-  chartSubtitle: 'Beats per minute, in 10 minute windows across 24 hours.',
-  source: (label) => `Source: ${label}`,
+  chartSubtitle: 'Beats per minute across 24 hours: one median per window, not every single beat.',
   axisUnit: 'bpm',
   restingLine: (bpm) => `Resting ${bpm}`,
   legend: { resting: 'Resting', workout: 'Workout' },
   legendLabel: 'Chart legend',
-  rangeSentence: (min, max) => `From ${min} to ${max} bpm.`,
+  rangeSentence: (min, max) => `The medians range from ${min} to ${max} bpm.`,
 
   coverageLabel: 'Coverage',
   samplesSentence: (samples, expected, covered, of) => `Samples: ${samples} of ${expected}. ${covered} covered out of ${of}.`,
@@ -136,10 +132,11 @@ const EN: HeartCopy = {
 
   tableLabel: 'Data table',
   hourCaption: 'Heart rate by hour, in bpm',
-  cols: { hour: 'Hour', min: 'Min', avg: 'Average', max: 'Max', samples: 'Samples' },
+  cols: { hour: 'Hour', min: 'Lowest median', avg: 'Average', max: 'Highest median', samples: 'Samples' },
   samplesOf: (n, total) => `${n} of ${total}`,
   workoutCaption: 'Workouts of the day',
   workoutCols: { title: 'Workout', from: 'Start', to: 'End' },
+  workoutTypes: { run: 'Run', walk: 'Walk', cycle: 'Cycling', strength: 'Strength', swim: 'Swimming', other: 'Other' },
 
   emptyTitle: 'No samples for this day',
   emptyBody: {

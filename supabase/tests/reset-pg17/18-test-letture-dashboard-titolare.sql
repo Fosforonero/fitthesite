@@ -18,7 +18,10 @@
 --   2. col filtro sul proprietario, per ogni attore e ogni tabella, zero righe
 --      altrui, e le proprie righe ci sono;
 --   3. le colonne della lista esistono (la query si esegue) e la lista non
---      contiene glicemia, pressione, serie intraday o testi liberi.
+--      contiene glicemia, pressione, piani, nomi o identificativi di dispositivo,
+--      calorie intraday, sessioni o testi liberi. Le serie di un giorno (passi
+--      orari, battito, fasi del sonno) hanno una lista a parte, letta un giorno
+--      per volta; l'estensione del 29/09/2026 e' spiegata in letture-titolare.ts.
 -- La lista delle colonne qui sotto deve coincidere con quella di
 -- lib/dashboard/letture-titolare.ts: lo verifica letture-titolare.test.ts.
 --
@@ -33,15 +36,21 @@ declare
   v_passati int := 0;
   a record; v_modo text; v_q text; v_tot int; v_alt int; v_proprie int;
   v_visti_gruppo int;
-  -- COLONNE_METRICHE e COLONNE_ALLENAMENTI in lib/dashboard/letture-titolare.ts
-  colonne_metriche constant text := 'user_id,local_day_key,window_start_ms,window_end_ms,source,source_device,steps,distance_meters,active_calories_kcal,calories_kcal,sleep_minutes,heart_rate_bpm,resting_heart_rate_bpm,received_at';
+  -- COLONNE_METRICHE, COLONNE_SERIE_DEL_GIORNO e COLONNE_ALLENAMENTI in lib/dashboard/letture-titolare.ts
+  colonne_metriche constant text := 'user_id,local_day_key,window_start_ms,window_end_ms,source,steps,distance_meters,active_calories_kcal,calories_kcal,sleep_minutes,heart_rate_bpm,resting_heart_rate_bpm,hrv_rmssd,received_at';
+  colonne_serie constant text := 'user_id,local_day_key,source,steps,intraday_steps,intraday_hr,sleep_stages';
   colonne_allenamenti constant text := 'user_id,id,start_ms,end_ms,type,duration_min,distance_meters,calories_kcal,hr_avg';
+  -- Terza colonna: il filtro in piu' della lettura. Le serie si leggono SOLO per un giorno
+  -- (leggiSerieDelGiorno filtra su user_id e local_day_key): qui si esegue la stessa forma.
   tabelle constant text[][] := array[
-    array['fitness_metrics', colonne_metriche],
-    array['workouts', colonne_allenamenti]
+    array['fitness_metrics', colonne_metriche, ''],
+    array['fitness_metrics', colonne_serie, 'and local_day_key = ''2026-09-20'''],
+    array['workouts', colonne_allenamenti, '']
   ];
   vietate constant text[] := array['blood_glucose_mgdl','blood_pressure_systolic','blood_pressure_diastolic',
-    'intraday_steps','intraday_hr','intraday_calories','sleep_stages','exercise_sessions','notes','title'];
+    'intraday_calories','exercise_sessions','notes','title',
+    'floors_climbed','sleep_start_ms','sleep_end_ms','hrv_sdnn',
+    'source_device','source_package','hr_source_name','hr_source_quality','device_id','hr_max'];
   i int; v_col text;
 begin
   begin
@@ -88,7 +97,8 @@ begin
         foreach v_modo in array array['senza_filtro','con_filtro_proprietario'] loop
           v_q := format('select count(*), count(*) filter (where user_id <> %2$L::uuid), count(*) filter (where user_id = %2$L::uuid) from (select %1$s from public.%3$I %4$s) q',
                         tabelle[i][2], a.id, tabelle[i][1],
-                        case when v_modo = 'con_filtro_proprietario' then format('where user_id = %L::uuid', a.id) else '' end);
+                        case when v_modo = 'con_filtro_proprietario' then format('where user_id = %L::uuid', a.id) else 'where true' end
+                          || ' ' || tabelle[i][3]);
           execute 'set local role authenticated';
           perform set_config('request.jwt.claims',
                              json_build_object('sub', a.id, 'role', 'authenticated')::text, true);
@@ -125,12 +135,13 @@ begin
 
     -- ── 3. la lista delle colonne non porta dati che la dashboard non usa ───
     foreach v_col in array vietate loop
-      if v_col = any (string_to_array(colonne_metriche, ',')) or v_col = any (string_to_array(colonne_allenamenti, ',')) then
+      if v_col = any (string_to_array(colonne_metriche, ',')) or v_col = any (string_to_array(colonne_serie, ','))
+         or v_col = any (string_to_array(colonne_allenamenti, ',')) then
         raise exception '3 FALLISCE  la lista delle colonne contiene %', v_col;
       end if;
     end loop;
     v_passati := v_passati + 1;
-    raise notice '3 PASSA  le liste si eseguono e non contengono glicemia, pressione, serie intraday o testi liberi';
+    raise notice '3 PASSA  le liste si eseguono e non contengono glicemia, pressione, piani, nomi di dispositivo, sessioni o testi liberi';
 
     raise exception using errcode = 'P0999', message = 'ROLLBACK_INTENZIONALE';
   exception when sqlstate 'P0999' then

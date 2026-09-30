@@ -1,10 +1,10 @@
 /**
  * Copy della schermata «Sorgenti dei dati» (PROTOTIPO, dati sintetici). IT e EN;
- * ogni altra lingua usa l'EN. I nomi dei tipi di dato, delle sorgenti e dei
- * gesti nell'app sono quelli dell'app al tag v3.10.0+191 (dataTypeSteps,
- * dataTypeHeartRate, dataTypeRestingHeartRate, dataTypeHrv, dataTypeWorkout,
- * syncNow, settingsSourcePriorities, syncFreshnessNever). Dove l'app non ha
- * una stringa la frase e' neutra.
+ * ogni altra lingua usa l'EN. I gesti nell'app sono quelli dell'app al tag
+ * v3.10.0+191 (syncNow, syncFreshnessNever). Dove l'app non ha una stringa la
+ * frase e' neutra. I nomi delle sorgenti stanno in lib/web-dashboard/copy.ts
+ * (`sourceNames`, vocabolario chiuso): qui non ci sono nomi di dispositivo,
+ * ne' un elenco dei tipi di dato per sorgente, ne' una sorgente scelta per tipo.
  *
  * Cio' che esiste gia' in lib/web-dashboard/copy.ts NON si ripete qui:
  * «Ultimo dato ricevuto», «Nessun dato», i motivi di assenza («Non fornito
@@ -16,7 +16,6 @@
  * frase qui promette il contrario. Testo PLACEHOLDER da approvare (SITE-WRITING).
  */
 import type { UiLocale } from '@/lib/web-dashboard/format';
-import type { DataTypeKey, SourceKind, Via } from '@/lib/web-dashboard/model';
 
 /** Le frasi-gesto che la schermata sa comporre; quali usare lo decide il componente dallo stato. */
 export type ActionKey = 'open_sync' | 'connect_device';
@@ -38,20 +37,6 @@ export interface SourcesCopy {
   sources: {
     title: string;
     intro: string;
-    kind: Record<SourceKind, string>;
-    via: Record<Via, string>;
-    typesTitle: string;
-    /** «{label}» = nome della sorgente. */
-    typesAria: string;
-    types: Record<DataTypeKey, string>;
-    statusOk: string;
-    winning: string;
-    /** «{label}» = la sorgente che vince per quel tipo. */
-    wonBy: string;
-    /** «{n}» tipi vinti su «{total}». */
-    wins: string;
-    winsNone: string;
-    typesNone: string;
     empty: {
       title: string;
       body: string;
@@ -78,31 +63,10 @@ const IT: SourcesCopy = {
   },
   sources: {
     title: 'Sorgenti che hanno inviato dati',
-    intro: 'FitMesh usa una sola sorgente per ogni tipo di dato, la fonte vincente, e non somma le sorgenti tra loro.',
-    kind: { watch: 'Orologio', phone: 'Telefono', ring: 'Anello' },
-    via: { health_connect: 'Health Connect', healthkit: 'Apple Salute', ble: 'Bluetooth' },
-    typesTitle: 'Tipi di dato',
-    typesAria: 'Tipi di dato di {label}',
-    types: {
-      steps: 'Passi',
-      heart_rate: 'Frequenza cardiaca',
-      resting_heart_rate: 'FC a riposo',
-      sleep: 'Sonno (totale)',
-      sleep_stages: 'Fasi del sonno',
-      workouts: 'Allenamenti',
-      calories: 'Calorie',
-      distance: 'Distanza',
-      hrv: 'HRV (variabilità FC)',
-    },
-    statusOk: 'Letto',
-    winning: 'Fonte vincente',
-    wonBy: 'Vince {label}',
-    wins: 'Fonte vincente per {n} di {total} tipi',
-    winsNone: 'Non è la fonte vincente per nessun tipo',
-    typesNone: 'Per questa sorgente non risulta nessun tipo di dato.',
+    intro: 'Per ogni sorgente vedi il nome da cui arrivano i dati e quando è arrivato l’ultimo dato.',
     empty: {
       title: 'Nessun dato ricevuto dalle sorgenti',
-      body: 'Qui compariranno le sorgenti che consegnano dati a questo account, con i tipi di dato che ciascuna fornisce.',
+      body: 'Qui compariranno le sorgenti che consegnano dati a questo account, con l’ultimo dato ricevuto da ciascuna.',
       stepsTitle: 'Come collegare un dispositivo',
       steps: [
         'Apri la pagina dei dispositivi e genera un codice di abbinamento.',
@@ -130,31 +94,10 @@ const EN: SourcesCopy = {
   },
   sources: {
     title: 'Sources that sent data',
-    intro: 'FitMesh uses one source for each data type, the winning source, and does not add sources together.',
-    kind: { watch: 'Watch', phone: 'Phone', ring: 'Ring' },
-    via: { health_connect: 'Health Connect', healthkit: 'Apple Health', ble: 'Bluetooth' },
-    typesTitle: 'Data types',
-    typesAria: 'Data types of {label}',
-    types: {
-      steps: 'Steps',
-      heart_rate: 'Heart rate',
-      resting_heart_rate: 'Resting HR',
-      sleep: 'Sleep (total)',
-      sleep_stages: 'Sleep stages',
-      workouts: 'Workouts',
-      calories: 'Calories',
-      distance: 'Distance',
-      hrv: 'HRV (heart rate variability)',
-    },
-    statusOk: 'Read',
-    winning: 'Winning source',
-    wonBy: 'Won by {label}',
-    wins: 'Winning source for {n} of {total} types',
-    winsNone: 'Not the winning source for any type',
-    typesNone: 'No data type is listed for this source.',
+    intro: 'For each source you see the name the data comes from and when the last data arrived.',
     empty: {
       title: 'No data received from any source',
-      body: 'The sources that deliver data to this account will appear here, with the data types each one provides.',
+      body: 'The sources that deliver data to this account will appear here, with the last data received from each.',
       stepsTitle: 'How to connect a device',
       steps: [
         'Open the devices page and generate a pairing code.',
@@ -168,9 +111,4 @@ const EN: SourcesCopy = {
 
 export function sourcesCopy(l: UiLocale): SourcesCopy {
   return l === 'it' ? IT : EN;
-}
-
-/** Sostituisce i segnaposto {nome} di una frase. */
-export function fill(template: string, vars: Record<string, string | number>): string {
-  return template.replace(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? ''));
 }

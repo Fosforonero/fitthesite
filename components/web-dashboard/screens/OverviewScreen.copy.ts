@@ -2,8 +2,8 @@
  * Copy della Panoramica (prototipo). IT e EN; ogni altra lingua usa l'EN.
  *
  * Le parole vengono dall'app (v3.10.0+191): «Passi», «Sonno», «FC a riposo»,
- * «Calorie attive», «Allenamenti», «Svegli/Leggero/Profondo/REM», «Piani
- * saliti», «Da dove vengono i tuoi dati», «Sorgente
+ * «Calorie attive», «Allenamenti», «Svegli/Leggero/Profondo/REM»,
+ * «Da dove vengono i tuoi dati», «Sorgente
  * vincitrice», «Ripartizione per fase non disponibile». Le frasi di servizio
  * (cosa manca e perche') sono neutre e descrivono, non promettono.
  *
@@ -13,22 +13,19 @@
  * linguaggio promozionale. Tutto PLACEHOLDER da approvare prima di un uso reale.
  */
 import type { UiLocale } from '@/lib/web-dashboard/format';
-import type { DataTypeKey, SleepStage, SourceKind, SourceTypeStatus, Via } from '@/lib/web-dashboard/model';
+import type { SleepStage } from '@/lib/web-dashboard/model';
 
 /** Le misure che la card «Cosa manca» sa nominare. */
 export type MissingMetric =
   | 'steps'
   | 'hourlySteps'
   | 'distance'
-  | 'floors'
   | 'caloriesActive'
   | 'sleep'
   | 'sleepTotal'
   | 'sleepStages'
   | 'restingHr'
   | 'avgHr'
-  | 'minHr'
-  | 'maxHr'
   | 'hrv'
   | 'workouts';
 
@@ -71,7 +68,6 @@ export interface OverviewCopy {
     stagesUnavailable: string;
     stageBarLabel: (parts: string) => string;
     stages: Record<SleepStage, string>;
-    source: string;
   };
   week: {
     title: string;
@@ -88,15 +84,6 @@ export interface OverviewCopy {
   };
   sources: {
     title: string;
-    stepsFrom: string;
-    stepsNone: string;
-    oneSource: string;
-    via: Record<Via, string>;
-    kind: Record<SourceKind, string>;
-    chosenFor: (n: number) => string;
-    chosenNone: string;
-    status: Record<Exclude<SourceTypeStatus['status'], 'ok'>, string>;
-    types: Record<DataTypeKey, string>;
     empty: { title: string; body: string; cta: string };
   };
   missing: {
@@ -155,7 +142,6 @@ const IT: OverviewCopy = {
     stagesUnavailable: 'Ripartizione per fase non disponibile',
     stageBarLabel: (parts) => `Fasi del sonno: ${parts}`,
     stages: { awake: 'Svegli', light: 'Leggero', deep: 'Profondo', rem: 'REM' },
-    source: 'Sorgente',
   },
   week: {
     title: 'Ultimi 7 giorni',
@@ -172,31 +158,9 @@ const IT: OverviewCopy = {
   },
   sources: {
     title: 'Da dove vengono i tuoi dati',
-    stepsFrom: 'Sorgente vincitrice per i passi',
-    stepsNone: 'Nessuna sorgente per i passi di questo giorno',
-    oneSource: 'Per i passi conta una sola sorgente: le sorgenti non si sommano.',
-    via: { health_connect: 'Health Connect', healthkit: 'Apple Salute', ble: 'Bluetooth' },
-    kind: { watch: 'Orologio', phone: 'Telefono', ring: 'Anello' },
-    chosenFor: (n) => (n === 1 ? 'Scelta per 1 tipo di dato' : `Scelta per ${n} tipi di dato`),
-    chosenNone: 'Non scelta per nessun tipo di dato',
-    status: {
-      no_data: 'Nessun dato',
-      not_provided: 'Non fornito',
-    },
-    types: {
-      steps: 'Passi',
-      heart_rate: 'Frequenza cardiaca',
-      resting_heart_rate: 'FC a riposo',
-      sleep: 'Sonno',
-      sleep_stages: 'Fasi del sonno',
-      workouts: 'Allenamenti',
-      calories: 'Calorie attive',
-      distance: 'Distanza',
-      hrv: 'HRV',
-    },
     empty: {
       title: 'Nessun dato ricevuto dalle sorgenti',
-      body: 'Qui compaiono le sorgenti che hanno consegnato dati, e quale di loro conta per i passi. Il collegamento si fa dalla pagina dei dispositivi.',
+      body: 'Qui compaiono le sorgenti che hanno consegnato dati, con l’ultimo dato ricevuto da ciascuna. Il collegamento si fa dalla pagina dei dispositivi.',
       cta: 'Collega un dispositivo',
     },
   },
@@ -211,15 +175,12 @@ const IT: OverviewCopy = {
       steps: 'Passi',
       hourlySteps: 'Passi ora per ora',
       distance: 'Distanza',
-      floors: 'Piani saliti',
       caloriesActive: 'Calorie attive',
       sleep: 'Sonno',
       sleepTotal: 'Durata del sonno',
       sleepStages: 'Fasi del sonno',
       restingHr: 'FC a riposo',
       avgHr: 'FC media',
-      minHr: 'FC minima',
-      maxHr: 'FC massima',
       hrv: 'HRV',
       workouts: 'Allenamenti',
     },
@@ -271,7 +232,6 @@ const EN: OverviewCopy = {
     stagesUnavailable: 'Stage breakdown unavailable',
     stageBarLabel: (parts) => `Sleep stages: ${parts}`,
     stages: { awake: 'Awake', light: 'Light', deep: 'Deep', rem: 'REM' },
-    source: 'Source',
   },
   week: {
     title: 'Last 7 days',
@@ -288,31 +248,9 @@ const EN: OverviewCopy = {
   },
   sources: {
     title: 'Where your data comes from',
-    stepsFrom: 'Winning source for steps',
-    stepsNone: 'No source for the steps of this day',
-    oneSource: 'Only one source counts for steps: sources are not added together.',
-    via: { health_connect: 'Health Connect', healthkit: 'Apple Health', ble: 'Bluetooth' },
-    kind: { watch: 'Watch', phone: 'Phone', ring: 'Ring' },
-    chosenFor: (n) => (n === 1 ? 'Used for 1 data type' : `Used for ${n} data types`),
-    chosenNone: 'Not used for any data type',
-    status: {
-      no_data: 'No data',
-      not_provided: 'Not provided',
-    },
-    types: {
-      steps: 'Steps',
-      heart_rate: 'Heart rate',
-      resting_heart_rate: 'Resting HR',
-      sleep: 'Sleep',
-      sleep_stages: 'Sleep stages',
-      workouts: 'Workouts',
-      calories: 'Active calories',
-      distance: 'Distance',
-      hrv: 'HRV',
-    },
     empty: {
       title: 'No data received from any source',
-      body: 'This is where the sources that delivered data appear, and which one counts for steps. Connecting is done from the devices page.',
+      body: 'This is where the sources that delivered data appear, with the last data received from each. Connecting is done from the devices page.',
       cta: 'Connect a device',
     },
   },
@@ -327,15 +265,12 @@ const EN: OverviewCopy = {
       steps: 'Steps',
       hourlySteps: 'Steps by hour',
       distance: 'Distance',
-      floors: 'Floors climbed',
       caloriesActive: 'Active calories',
       sleep: 'Sleep',
       sleepTotal: 'Sleep duration',
       sleepStages: 'Sleep stages',
       restingHr: 'Resting HR',
       avgHr: 'Average HR',
-      minHr: 'Minimum HR',
-      maxHr: 'Maximum HR',
       hrv: 'HRV',
       workouts: 'Workouts',
     },

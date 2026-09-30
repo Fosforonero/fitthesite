@@ -6,6 +6,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import { absent, partial, value, type Measure } from '@/lib/web-dashboard/measure';
 import type { ScenarioKey } from '@/lib/web-dashboard/model';
+import { FORBIDDEN_SOURCE_LABELS } from '@/lib/web-dashboard/regression-patterns';
 import { SYNTHETIC_TODAY } from '@/lib/web-dashboard/synthetic';
 
 import { OverviewLoading, OverviewScreen } from './OverviewScreen';
@@ -157,9 +158,8 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     const zeroGroup = q(card, '[data-missing-group="zero"]')!;
     expect(zeroGroup.getAttribute('data-missing-kind')).toBe('zero');
     expect(metrics(zeroGroup)).toEqual(expect.arrayContaining(['steps', 'distance']));
-    // i piani non sono nella whitelist: mai nel gruppo dello zero misurato, sono assenti
-    expect(metrics(zeroGroup)).not.toContain('floors');
-    expect(metrics(absentGroup)).toContain('floors');
+    // i piani non sono nella whitelist: esclusi per scelta, non compaiono in nessun gruppo
+    expect(qa(card, '[data-missing-metric="floors"]')).toHaveLength(0);
     // gli allenamenti senza righe sono assenti, mai nel gruppo dello zero misurato
     expect(metrics(zeroGroup)).not.toContain('workouts');
     expect(zeroGroup.textContent).toContain(props.copy.measure.zeroMeasured);
@@ -202,7 +202,7 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     expect(q(card, '[data-measure-state="measured"]')!.textContent).toMatch(/h .* min/);
   });
 
-  it('partial: piani e allenamenti senza dato non sono zeri, e gli allenamenti non sono «non forniti dalla fonte»', () => {
+  it('partial: gli allenamenti senza dato non sono zeri, e gli allenamenti non sono «non forniti dalla fonte»', () => {
     const { container, props } = renderScreen(OverviewScreen, 'partial');
     const workouts = q(container, '[data-kpi="workouts"]')!;
     expect(q(workouts, '[data-measure-state="absent"]')).not.toBeNull();
@@ -217,7 +217,8 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     expect(names).not.toContain('workouts');
     expect(names).not.toContain('floors');
     const noSamples = qa(q(card, '[data-missing-group="absent:no_samples"]')!, '[data-missing-metric]').map((n) => n.getAttribute('data-missing-metric'));
-    expect(noSamples).toEqual(expect.arrayContaining(['floors', 'workouts']));
+    expect(noSamples).toEqual(expect.arrayContaining(['workouts']));
+    expect(noSamples).not.toContain('floors');
     expect(q(card, '[data-missing-group="partial:incomplete_coverage"]')).not.toBeNull();
     // le ore dopo la fine della finestra (13-23): un tratto solo, scritto per intero
     const run = q(container, '[data-slot-run="absent"]')!;
@@ -237,17 +238,21 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     const received = q(sources, '[data-slot="last-received"]')!;
     expect(received.textContent).toContain(props.copy.received.label);
     expect(received.textContent).toContain('3 gg fa');
-    // senza passi non si proclama una sorgente vincitrice
-    expect(q(sources, '[data-steps-source="none"]')).not.toBeNull();
-    expect(sources.textContent).toContain(props.copy.measure.absent.not_synced_yet);
+    // ogni sorgente porta solo il suo nome e l'ultimo dato ricevuto, e non c'e nessuna sorgente proclamata per i passi
+    expect(FORBIDDEN_SOURCE_LABELS.filter(({ re }) => re.test(sources.innerHTML)).map(({ name }) => name)).toEqual([]);
+    expect(qa(sources, 'li[data-source]').length).toBeGreaterThan(0);
+    for (const li of qa(sources, 'li[data-source]')) expect(li.textContent).toContain('3 gg fa');
   });
 
-  it('ok: niente manca, e lo dice con una frase positiva; le quattro fasi sono nella barra', () => {
+  it('ok: non manca niente, con una frase positiva (i piani sono esclusi per scelta e non si contano); le quattro fasi sono nella barra', () => {
     const { container, props } = renderScreen(OverviewScreen, 'ok');
     const card = q(container, '[data-overview-card="missing"]')!;
+    // i piani non hanno una fonte verificata: esclusi dalla dashboard, non «non misurati», quindi non contano
     expect(card.getAttribute('data-missing-count')).toBe('0');
+    expect(qa(card, '[data-missing-metric]')).toHaveLength(0);
     expect(q(card, '[data-missing-empty]')!.textContent).toContain('Non manca niente');
     expect(q(card, '[data-missing-group]')).toBeNull();
+    expect(card.textContent ?? '').not.toMatch(/piani|floors/i);
 
     const sleep = q(container, '[data-overview-card="sleep"]')!;
     expect(q(sleep, '[data-stage-bar]')).not.toBeNull();
@@ -259,7 +264,11 @@ describe('OverviewScreen: zero, parziale e assente sono tre cose diverse', () =>
     const steps = q(container, '[data-kpi="steps"]')!;
     expect(q(steps, '[data-goal-progress]')).not.toBeNull();
     expect(props.data.sources.length).toBeGreaterThan(0);
-    expect(q(container, '[data-steps-source="galaxy-watch"]')!.textContent).toContain('Galaxy Watch');
+    // le sorgenti: il nome del vocabolario chiuso e l'ultimo dato ricevuto, nessuna sorgente scelta e nessun genere
+    const sources = q(container, '[data-overview-card="sources"]')!;
+    expect(qa(sources, 'li[data-source]').map((li) => li.querySelector('p')?.textContent)).toEqual(['Health Connect', 'Anello Bluetooth']);
+    for (const li of qa(sources, 'li[data-source]')) expect(li.textContent).toContain(props.copy.received.label);
+    expect(FORBIDDEN_SOURCE_LABELS.filter(({ re }) => re.test(sources.innerHTML) || re.test(sources.textContent ?? '')).map(({ name }) => name)).toEqual([]);
   });
 
   it('oggi (giornata in corso): le ore future sono «non ancora trascorso», non zero passi', () => {

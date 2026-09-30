@@ -124,7 +124,7 @@ const IT: TrendsCopy = {
       }.`,
     body: {
       no_data_received: 'Non è arrivato nessun dato: non c’è nulla da tracciare.',
-      not_synced_yet: 'La fonte è collegata ma il sync non ha consegnato questi giorni. Non sono giorni a zero.',
+      not_synced_yet: 'Per questi giorni non è arrivato nessun dato. Non sono giorni a zero.',
       source_lacks_type: 'La fonte non fornisce questo dato. I giorni restano senza valore, non a zero.',
       no_samples: 'La fonte non ha consegnato campioni in questi giorni. Non sono giorni a zero.',
       not_yet: 'Questi giorni non sono ancora trascorsi.',
@@ -194,7 +194,7 @@ const EN: TrendsCopy = {
       }.`,
     body: {
       no_data_received: 'No data has arrived: there is nothing to track.',
-      not_synced_yet: 'The source is connected but the sync has not delivered these days. They are not zero days.',
+      not_synced_yet: 'No data has arrived for these days. They are not zero days.',
       source_lacks_type: 'The source does not provide this data. The days have no value, they are not zero.',
       no_samples: 'The source delivered no samples for these days. They are not zero days.',
       not_yet: 'These days have not elapsed yet.',

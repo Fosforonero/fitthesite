@@ -31,8 +31,10 @@ import {
  * ha zone e non spetta a questa schermata inventarle).
  *
  * Zero / parziale / assente, qui:
- *  - i cinque valori sono MeasureValue, ognuno col proprio stato: un min/max
+ *  - i tre valori sono MeasureValue, ognuno col proprio stato: una media
  *    parziale porta la copertura, un HRV assente dice perche' manca;
+ *  - niente Min e Max: la serie e' fatta di mediane, i suoi estremi non sono
+ *    la FC minima o massima;
  *  - nel grafico la linea si spezza a ogni finestra senza campioni e il buco
  *    e' una banda tratteggiata, mai un tratto a 0 bpm;
  *  - se non c'e' NESSUN campione, al posto del grafico c'e' una scheda
@@ -43,7 +45,7 @@ const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:o
 
 /** Motivo per cui la serie e' vuota: lo dicono i valori del giorno, non lo si indovina. */
 function emptyReason(h: HeartDay): AbsentReason {
-  for (const m of [h.average, h.min, h.max, h.resting]) if (m.kind === 'absent') return m.reason;
+  for (const m of [h.average, h.resting]) if (m.kind === 'absent') return m.reason;
   return 'no_samples';
 }
 
@@ -88,8 +90,6 @@ function StatRow({ data, lc, copy, t }: Pick<ScreenProps, 'data' | 'lc' | 'copy'
   const tiles: Record<TileKey, { m: Measure<number>; dot: string; unit: string }> = {
     resting: { m: h.resting, dot: CHART.resting, unit: copy.units.bpm },
     average: { m: h.average, dot: CHART.heart, unit: copy.units.bpm },
-    min: { m: h.min, dot: CHART.heart, unit: copy.units.bpm },
-    max: { m: h.max, dot: CHART.heart, unit: copy.units.bpm },
     hrv: { m: h.hrvMs, dot: CHART.sleep, unit: copy.units.ms },
   };
   return (
@@ -183,7 +183,6 @@ export function HeartScreen({ data, lc, ui, copy, href }: ScreenProps) {
         title={t.chartTitle}
         subtitle={t.chartSubtitle}
         summary={summary}
-        aside={h.source ? <div className="shrink-0"><Chip tone="neutral">{t.source(h.source.label)}</Chip></div> : undefined}
         tableLabel={t.tableLabel}
         table={<HeartTables lc={lc} rows={hourRows(analysis.slots)} windows={windows} copy={copy} t={t} />}
         legend={

@@ -13,7 +13,12 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import { sharedCopy } from '@/lib/web-dashboard/copy';
 import { SCENARIO_KEYS, SCREENS } from '@/lib/web-dashboard/model';
-import { FORBIDDEN_PAYWALL, FORBIDDEN_VITALS, SYNC_OUTCOME_AND_ACTIVE_MINUTES } from '@/lib/web-dashboard/regression-patterns';
+import {
+  FORBIDDEN_PAYWALL,
+  FORBIDDEN_SOURCE_LABELS,
+  FORBIDDEN_VITALS,
+  SYNC_OUTCOME_AND_ACTIVE_MINUTES,
+} from '@/lib/web-dashboard/regression-patterns';
 
 import { LoginGate, PaywallGate, VerificationGate } from './Gates';
 import { DashboardShell } from './Shell';
@@ -41,11 +46,13 @@ describe('markup reso: nessun esito di sync, nessun «minuti attivi», niente pr
           expect(html.length, `${screen}/${sc}`).toBeGreaterThan(200);
           expect(found(SYNC_OUTCOME_AND_ACTIVE_MINUTES, html, text), `${screen}/${sc}/${lc}`).toEqual([]);
           expect(found(FORBIDDEN_VITALS, html, text), `${screen}/${sc}/${lc}`).toEqual([]);
+          // fonte vincente e genere del dispositivo: il server non li sa, nessuna schermata li mostra
+          expect(found(FORBIDDEN_SOURCE_LABELS, html, text), `${screen}/${sc}/${lc}`).toEqual([]);
           unmount();
         }
         const Loading = SCREEN_REGISTRY[screen].Loading;
         const { container } = render(<Loading lc={lc} ui={screenProps('ok', { lc }).ui} />);
-        expect(found([...SYNC_OUTCOME_AND_ACTIVE_MINUTES, ...FORBIDDEN_VITALS], container.innerHTML, container.textContent ?? '')).toEqual([]);
+        expect(found([...SYNC_OUTCOME_AND_ACTIVE_MINUTES, ...FORBIDDEN_VITALS, ...FORBIDDEN_SOURCE_LABELS], container.innerHTML, container.textContent ?? '')).toEqual([]);
       });
     }
   }
@@ -59,7 +66,7 @@ describe('markup reso: nessun esito di sync, nessun «minuti attivi», niente pr
             <p>corpo</p>
           </DashboardShell>,
         );
-        expect(found([...SYNC_OUTCOME_AND_ACTIVE_MINUTES, ...FORBIDDEN_VITALS], container.innerHTML, container.textContent ?? ''), `${sc}/${lc}`).toEqual([]);
+        expect(found([...SYNC_OUTCOME_AND_ACTIVE_MINUTES, ...FORBIDDEN_VITALS, ...FORBIDDEN_SOURCE_LABELS], container.innerHTML, container.textContent ?? ''), `${sc}/${lc}`).toEqual([]);
         const chip = container.querySelector('[data-slot="receipt-chip"]');
         expect(chip, `${sc}/${lc}`).not.toBeNull();
         const label = sc === 'empty' ? props.copy.received.never : props.copy.received.label;
@@ -126,7 +133,7 @@ describe('la schermata Fonti non si chiama «sync»: il server non ha una cronol
   it('i link «vai alle sorgenti» delle altre schermate usano lo stesso nome nuovo', () => {
     for (const lc of ['it', 'en'] as const) {
       const props = screenProps('stale', { lc });
-      for (const screen of ['overview', 'activity', 'heart'] as const) {
+      for (const screen of ['overview', 'heart'] as const) {
         const { container, unmount } = render(<SCREEN_REGISTRY_SCREEN screen={screen} {...props} />);
         const links = [...container.querySelectorAll('a')].filter((a) => (a.getAttribute('href') ?? '').includes('/sources'));
         expect(links.length, `${screen}/${lc}`).toBeGreaterThan(0);
@@ -266,5 +273,47 @@ describe('paywall: testi e componenti', () => {
     const props = screenProps('ok');
     const { container } = render(<LoginGate copy={props.copy} lc="it" screen="overview" params={props.params} />);
     expect(found(FORBIDDEN_PAYWALL, container.innerHTML, container.textContent ?? '')).toEqual([]);
+  });
+});
+
+/**
+ * `source` (fitness_metrics) e `type` (workouts) sono testo libero sul server e stanno in whitelist: a valle
+ * li chiudono in un vocabolario (sourceIdOf e il tipo di allenamento). Qui si fissa che il valore grezzo non
+ * arrivi mai ne' al modello ne' all'HTML, con un nome di persona dentro.
+ */
+describe('testo libero di source e type: un nome di persona non arriva al modello ne alla pagina', () => {
+  it('source = «iPhone di Mario Rossi», type = «Corsa con Mario»', async () => {
+    const { sourcesFromRows, dedupeWorkoutRows, workoutsWeekFromRows } = await import('@/lib/web-dashboard/from-rows');
+    const base = screenProps('ok');
+    const giorni = base.data.workouts.week.map((w) => w.date);
+    const sources = sourcesFromRows([
+      { source: 'iPhone di Mario Rossi', received_at: '2026-09-24T07:00:00.000Z' },
+      { source: 'health_connect', received_at: '2026-09-24T08:00:00.000Z' },
+    ]);
+    const inizio = Date.parse(`${giorni[giorni.length - 1]}T08:00:00+02:00`);
+    const righe = [
+      { start_ms: inizio, end_ms: inizio + 1_800_000, duration_min: 30, type: 'Corsa con Mario' },
+      { start_ms: inizio + 7_200_000, end_ms: inizio + 9_000_000, duration_min: 30, type: 'run' },
+    ];
+    const week = workoutsWeekFromRows(dedupeWorkoutRows(righe), giorni, {
+      today: giorni[giorni.length - 1],
+      todayFraction: 1,
+      lastReceivedDay: giorni[giorni.length - 1],
+    });
+    const data = { ...base.data, sources, workouts: { ...base.data.workouts, week } };
+    // il modello: nessun testo della riga
+    expect(JSON.stringify({ sources, week })).not.toMatch(/Mario|Rossi|Corsa con/);
+    expect(sources.length).toBeGreaterThan(0);
+    expect(week.some((w) => w.count.kind !== 'absent')).toBe(true);
+    // la pagina: ogni schermata, in it e en
+    for (const lc of ['it', 'en'] as const) {
+      for (const screen of SCREENS) {
+        const { Screen } = SCREEN_REGISTRY[screen];
+        const props = { ...screenProps('ok', { lc }), data };
+        const { container, unmount } = render(<Screen {...props} />);
+        expect(container.innerHTML, `${screen}/${lc}`).not.toMatch(/Mario|Rossi/);
+        unmount();
+      }
+    }
   });
 });

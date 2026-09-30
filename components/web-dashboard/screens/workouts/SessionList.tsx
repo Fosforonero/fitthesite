@@ -20,8 +20,9 @@ const labelCls = 'text-[11px] font-semibold uppercase tracking-[0.16em] text-tex
  * usano la STESSA definizione, cosi' le colonne restano allineate.
  * Sotto md la stessa riga diventa una scheda impilata: un solo DOM, due layout.
  */
+// La FC massima non c'e': e' fuori dalla whitelist (COLONNE_ALLENAMENTI finisce con hr_avg).
 const COLS =
-  'md:grid-cols-[minmax(160px,2fr)_56px_104px_96px_104px_80px_80px_minmax(96px,1fr)]';
+  'md:grid-cols-[minmax(160px,2fr)_56px_104px_96px_104px_80px]';
 const TABLE_MIN = 'md:min-w-[900px]';
 
 /** Una cella con la sua etichetta: visibile nella scheda, solo per gli screen reader nella tabella (che ha l'intestazione). */
@@ -38,8 +39,8 @@ function Cell({ id, label, children, text = false }: { id: string; label: string
 function SessionRow({ w, lc, copy, t }: { w: Workout; lc: string; copy: SharedCopy; t: WorkoutsCopy }) {
   const c = t.list.cols;
   const typeLabel = t.list.types[w.type];
-  // Il titolo e' il nome che la fonte da' alla sessione; il tipo si ripete solo se dice altro.
-  const showType = w.title.trim().toLowerCase() !== typeLabel.toLowerCase();
+  // Il titolo libero di una sessione non e' in whitelist (testo scritto dall'utente o dalla fonte): si
+  // mostra solo il tipo, che viene dalla colonna `type` e si traduce con un vocabolario chiuso.
   return (
     <li
       data-session={w.id}
@@ -52,8 +53,7 @@ function SessionRow({ w, lc, copy, t }: { w: Workout; lc: string; copy: SharedCo
             <TypeIcon type={w.type} />
           </span>
           <div className="min-w-0">
-            <h3 className="font-display text-base font-semibold leading-tight text-text-primary">{w.title}</h3>
-            {showType ? <p className="mt-0.5 text-xs text-text-muted">{typeLabel}</p> : <p className="sr-only">{typeLabel}</p>}
+            <h3 className="font-display text-base font-semibold leading-tight text-text-primary">{typeLabel}</h3>
           </div>
         </div>
         <div data-cell="start" className="shrink-0 md:pt-2">
@@ -75,12 +75,6 @@ function SessionRow({ w, lc, copy, t }: { w: Workout; lc: string; copy: SharedCo
         <Cell id="hrAvg" label={c.hrAvg}>
           <MeasureValue m={w.hrAvg} unit={copy.units.bpm} locale={lc} copy={copy} size="md" />
         </Cell>
-        <Cell id="hrMax" label={c.hrMax}>
-          <MeasureValue m={w.hrMax} unit={copy.units.bpm} locale={lc} copy={copy} size="md" />
-        </Cell>
-        <Cell id="source" label={c.source} text>
-          <p className="text-sm text-text-secondary">{w.source.label}</p>
-        </Cell>
       </div>
     </li>
   );
@@ -88,7 +82,7 @@ function SessionRow({ w, lc, copy, t }: { w: Workout; lc: string; copy: SharedCo
 
 function HeaderRow({ t }: { t: WorkoutsCopy }) {
   const c = t.list.cols;
-  const cols = [c.session, c.start, c.duration, c.distance, c.calories, c.hrAvg, c.hrMax, c.source];
+  const cols = [c.session, c.start, c.duration, c.distance, c.calories, c.hrAvg];
   return (
     <div aria-hidden="true" data-list-header className={`hidden border-b border-divider px-4 pb-2 md:grid md:gap-x-3 ${COLS}`}>
       {cols.map((x) => (

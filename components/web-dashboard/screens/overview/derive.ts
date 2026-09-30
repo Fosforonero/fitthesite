@@ -216,7 +216,6 @@ export function collectMissing(data: DashboardData): MissingGroup[] {
   const a = data.activity;
   any('steps', a.steps);
   any('distance', a.distanceKm);
-  any('floors', a.floors);
   any('caloriesActive', a.caloriesActive);
 
   // ore dei passi: un'unica voce per motivo, con il numero di ore
@@ -242,8 +241,6 @@ export function collectMissing(data: DashboardData): MissingGroup[] {
   const h = data.heart;
   any('restingHr', h.resting);
   any('avgHr', h.average);
-  any('minHr', h.min);
-  any('maxHr', h.max);
   any('hrv', h.hrvMs);
 
   const sessions = data.workouts.sessions;

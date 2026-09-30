@@ -1,9 +1,7 @@
 import type { UiLocale } from '@/lib/web-dashboard/format';
-import type { AbsentReason } from '@/lib/web-dashboard/measure';
-import type { DataTypeKey, ReceiptStatus, SourceRef, SourceRow, SourceTypeStatus } from '@/lib/web-dashboard/model';
+import type { ReceiptStatus } from '@/lib/web-dashboard/model';
 import { SYNTHETIC_NOW } from '@/lib/web-dashboard/synthetic';
 
-import type { IconName } from '../../Icon';
 import type { ActionKey } from '../SourcesScreen.copy';
 
 /**
@@ -41,32 +39,6 @@ export function fmtAgeLong(minutes: number, l: UiLocale): string {
 }
 
 export const isStaleAge = (minutes: number | null): boolean => minutes !== null && minutes >= STALE_AFTER_MINUTES;
-
-type Tone = 'neutral' | 'success' | 'warning' | 'error';
-
-/**
- * Stato di un tipo di dato per una sorgente. Tutto cio' che non e' `ok` e' un
- * dato ASSENTE per quella sorgente, e parla con lo stesso vocabolario dei motivi
- * di assenza condivisi (`reason`): niente cifre, niente «0», un riquadro tratteggiato.
- * Descrive la COPERTURA del dato, non l'esito di un sync.
- */
-export const TYPE_STATUS: Record<SourceTypeStatus['status'], { tone: Tone; icon: IconName; reason: AbsentReason | null }> = {
-  ok: { tone: 'success', icon: 'check', reason: null },
-  no_data: { tone: 'neutral', icon: 'dash', reason: 'no_samples' },
-  not_provided: { tone: 'neutral', icon: 'dash', reason: 'source_lacks_type' },
-};
-
-/** Per ogni tipo, le sorgenti che vincono: FitMesh ne sceglie una, non le somma. */
-export function winnersByType(rows: readonly SourceRow[]): Map<DataTypeKey, SourceRef[]> {
-  const map = new Map<DataTypeKey, SourceRef[]>();
-  for (const row of rows) {
-    for (const t of row.types) {
-      if (!t.winning) continue;
-      map.set(t.type, [...(map.get(t.type) ?? []), row.ref]);
-    }
-  }
-  return map;
-}
 
 /**
  * Cosa puo' fare la persona. Mai un pulsante che finge di sincronizzare: il web

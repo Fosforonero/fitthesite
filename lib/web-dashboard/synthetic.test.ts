@@ -53,7 +53,8 @@ describe('dati sintetici', () => {
     const lastKnown = Math.max(...d.heart.series.filter((p) => p.bpm !== null).map((p) => p.minute));
     const firstHole = Math.min(...d.heart.series.filter((p) => p.bpm === null).map((p) => p.minute));
     expect(firstHole).toBeGreaterThan(lastKnown);
-    expect(d.activity.floors).toEqual({ kind: 'absent', reason: 'no_samples' });
+    // i piani sono fuori whitelist: il modello non ha nemmeno il campo
+    expect('floors' in d.activity).toBe(false);
     expect(d.sleep.night.kind).toBe('value');
     if (d.sleep.night.kind === 'value') {
       expect(d.sleep.night.value.totalMinutes.kind).toBe('value');
@@ -73,8 +74,7 @@ describe('dati sintetici', () => {
     const d = ready('zeros');
     expect(d.activity.steps).toEqual({ kind: 'value', value: 0 });
     expect(d.activity.distanceKm).toEqual({ kind: 'value', value: 0 });
-    // piani e ore da intraday_steps sono fuori whitelist: mai uno zero misurato
-    expect(d.activity.floors.kind).toBe('absent');
+    // le ore da intraday_steps non provano uno zero: mai uno zero misurato
     expect(d.activity.hourlySteps.every((h) => h.kind === 'absent')).toBe(true);
     // nessuna riga di allenamenti nel giorno: assente, NON value([])
     expect(d.workouts.sessions).toEqual({ kind: 'absent', reason: 'no_samples' });
@@ -107,9 +107,8 @@ describe('dati sintetici', () => {
     expect(d.receipt).toEqual({ lastReceivedAt: null, ageMinutes: null });
     expect(d.workouts.week.every((w) => w.count.kind === 'absent' && w.durationMin.kind === 'absent')).toBe(true);
     expect(d.workouts.week.map((w) => (w.durationMin as { reason: string }).reason)).toEqual(Array(7).fill('no_data_received'));
-    expect(d.activity.stepsSource).toBeNull();
     const all: Measure<unknown>[] = [
-      d.activity.steps, d.activity.distanceKm, d.activity.floors, d.activity.caloriesActive,
+      d.activity.steps, d.activity.distanceKm, d.activity.caloriesActive,
       ...d.activity.hourlySteps, d.sleep.night, d.workouts.sessions, d.heart.resting, d.heart.average,
       ...d.trends.flatMap((t) => t.days.map((p) => p.m)),
     ];
@@ -188,7 +187,6 @@ describe('dati sintetici', () => {
       const w = r.data.workouts;
       if (w.sessions.kind === 'absent') expect(w.sessions.reason, sc).not.toBe('source_lacks_type');
       for (const day of w.week) for (const m of [day.count, day.durationMin]) if (m.kind === 'absent') expect(m.reason, `${sc} ${day.date}`).not.toBe('source_lacks_type');
-      expect(r.data.sources.flatMap((s) => s.types).find((t) => t.type === 'workouts')?.status ?? 'no_data', sc).not.toBe('not_provided');
     }
   });
 

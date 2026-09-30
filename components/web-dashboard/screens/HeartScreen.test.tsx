@@ -5,6 +5,7 @@ import { absent, partial, value } from '@/lib/web-dashboard/measure';
 import type { HeartPoint, ScenarioKey } from '@/lib/web-dashboard/model';
 
 import { HeartLoading, HeartScreen } from './HeartScreen';
+import { heartCopy } from './HeartScreen.copy';
 import { STAT_GRID } from './heart/layout';
 import { analyzeSeries, hourRows, niceAxis, workoutOverlay } from './heart/series';
 import { forbiddenCopyIn, measureStates, renderScreen, screenProps } from './test-utils';
@@ -60,23 +61,23 @@ describe('HeartScreen: ogni scenario, in italiano e in inglese', () => {
     const real = renderScreen(HeartScreen, 'ok').container;
     expect(container.querySelector('.grid')?.className).toContain(STAT_GRID);
     expect(real.querySelector('.grid')?.className).toContain(STAT_GRID);
-    expect(container.querySelectorAll('.grid > *')).toHaveLength(5);
+    expect(container.querySelectorAll('.grid > *')).toHaveLength(3);
     expect((container.textContent ?? '').trim()).toBe('');
   });
 });
 
 describe('HeartScreen: zero, parziale e assente sono tre cose diverse', () => {
-  it('ok: cinque valori misurati, nessun buco nel grafico', () => {
+  it('ok: tre valori misurati, nessun buco nel grafico', () => {
     const { container } = renderScreen(HeartScreen, 'ok');
-    expect(measureStates(container)).toEqual(['measured', 'measured', 'measured', 'measured', 'measured']);
+    expect(measureStates(container)).toEqual(['measured', 'measured', 'measured']);
     expect(container.querySelectorAll('[data-heart-chart] [data-slot-state="absent"]')).toHaveLength(0);
     expect(container.querySelectorAll('path[data-slot-state="measured"]')).toHaveLength(1);
   });
 
-  it('parziale: min, max e media portano la copertura; l’HRV assente dice perche’ manca e non stampa cifre', () => {
+  it('parziale: la media porta la copertura; l’HRV assente dice perche’ manca e non stampa cifre', () => {
     const { container, props } = renderScreen(HeartScreen, 'partial');
     expect(tile(container, 'resting').querySelector('[data-measure-state]')?.getAttribute('data-measure-state')).toBe('measured');
-    for (const k of ['average', 'min', 'max']) {
+    for (const k of ['average']) {
       const el = tile(container, k).querySelector('[data-measure-state]') as HTMLElement;
       expect(el.getAttribute('data-measure-state')).toBe('partial');
       expect(el.textContent).toContain(props.copy.measure.partialLabel);
@@ -222,8 +223,8 @@ describe('HeartScreen: nessun campione', () => {
     expect(card.querySelector('a')?.getAttribute('href')).toBe('/it/app/devices');
     expect(container.querySelector('[data-heart-chart]')).toBeNull();
     expect(container.querySelector('path[data-slot-state="measured"]')).toBeNull();
-    // cinque valori, tutti assenti, nessuna cifra
-    expect(measureStates(container)).toEqual(['absent', 'absent', 'absent', 'absent', 'absent']);
+    // tre valori, tutti assenti, nessuna cifra
+    expect(measureStates(container)).toEqual(['absent', 'absent', 'absent']);
     expect(container.querySelector('[data-screen="heart"]')?.textContent).not.toMatch(/\d/);
   });
 
@@ -297,5 +298,39 @@ describe('HeartScreen: giorno in corso e serie irregolari', () => {
     expect(a.slots[0].bpm).toBe(55);
     expect(a.slots).toHaveLength(144);
     expect(a.gaps).toHaveLength(1);
+  });
+});
+
+describe('HeartScreen: niente minimo e massimo promessi come veri', () => {
+  // I dati reali sono mediane a 5 minuti (heartSeriesFromRow): il valore piu' basso e il piu' alto della serie
+  // sono estremi di mediane, non la FC minima o massima. Niente riquadri Min e Max.
+  it('nessun riquadro Min o Max, in nessuno scenario', () => {
+    for (const sc of SCENARIOS) {
+      const { container, unmount } = renderScreen(HeartScreen, sc);
+      expect(container.querySelector('[data-heart-tile="min"]'), sc).toBeNull();
+      expect(container.querySelector('[data-heart-tile="max"]'), sc).toBeNull();
+      expect([...container.querySelectorAll('[data-heart-tile]')].map((n) => n.getAttribute('data-heart-tile'))).toEqual(['resting', 'average', 'hrv']);
+      unmount();
+    }
+  });
+
+  it('la copy parla di mediane e non di campione piu basso o piu alto, in it e en', () => {
+    for (const lc of ['it', 'en'] as const) {
+      const t = heartCopy(lc);
+      expect(Object.keys(t.tiles)).toEqual(['resting', 'average', 'hrv']);
+      const text = JSON.stringify(t, (_k, v) => (typeof v === 'function' ? v('60', '120', '3', '4') : v));
+      expect(text).not.toMatch(/campione più (basso|alto)|lowest sample|highest sample/i);
+      // etichette «Min» e «Max» (maiuscole: le chiavi min e max delle colonne restano)
+      expect(text).not.toMatch(/"(Min|Max)"/);
+      expect(t.chartSubtitle).toMatch(/median/i);
+      expect(t.rangeSentence('60', '120')).toMatch(/median/i);
+      expect(t.cols.min + t.cols.max).toMatch(lc === 'it' ? /mediana/i : /median/i);
+    }
+  });
+
+  it('il modello del cuore non ha piu min e max', () => {
+    const h = screenProps('ok').data.heart;
+    expect('min' in h).toBe(false);
+    expect('max' in h).toBe(false);
   });
 });

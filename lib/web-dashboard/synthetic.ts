@@ -11,8 +11,10 @@
  *  - zeros    zero MISURATO su una colonna della whitelist (0 passi, 0 metri di
  *             distanza) accanto a dato ASSENTE (notte senza dati, una sessione
  *             senza durata). Mai «zero allenamenti»: senza righe il giorno e'
- *             assente, non zero. Mai zero per piani o per ore da `intraday_steps`
- *             (fuori whitelist).
+ *             assente, non zero. Mai zero per i piani (nessuna fonte verificata) ne'
+ *             per le ore (uno zero orario e' misurato solo col percorso samsungDiretto:
+ *             vedi `hourlyStepsFromRow`). Nota: lo zero dei contatori giornalieri e' una
+ *             regola del prototipo, non provata sulle righe reali (from-rows.ts, regola 2).
  *  - stale    ultimo dato ricevuto tre giorni fa: cio' che viene dopo e' assente
  *  - empty    nessun dato ricevuto
  *  - error    il caricamento fallisce
@@ -22,11 +24,16 @@
  *  - un parziale nasce solo da una finestra corta (`window_start_ms`, `window_end_ms`) o da righe
  *    senza il campo: mai da un buco interno ne' dalla copertura di una serie intraday;
  *  - il server non distingue «la fonte non fornisce il tipo» da «nessun dato»: un giorno senza
- *    righe e' `no_samples`, mai `source_lacks_type`. Gli usi di `source_lacks_type` rimasti qui
- *    (fasi del sonno, HRV, piani, distanza di una sessione, `not_provided` nello scenario partial
- *    della schermata Fonti) sono NON DIMOSTRABILI dal server: servono solo a mostrare il
- *    componente e dipendono dalla decisione aperta sulla whitelist (fasi, HRV e piani sono fuori);
- *  - fonte vincente e genere del dispositivo non hanno una colonna sul server: sono solo sintetici.
+ *    righe e' `no_samples`, mai `source_lacks_type`. `source_lacks_type` resta dimostrabile solo dove la
+ *    RIGA lo dice (fasi del sonno con soli `asleep`, HRV di una sorgente iOS); gli usi rimasti qui
+ *    (distanza di una sessione) servono solo a mostrare il componente;
+ *  - la sorgente scelta per un tipo di dato e il genere del dispositivo NON esistono ne' nel modello ne' nei
+ *    dati: il server non ha una colonna che li dica (la scelta la fa l'app a lettura). Restano solo il nome
+ *    di una sorgente (vocabolario chiuso) e l'ultimo dato ricevuto;
+ *  - il battito e' sintetico a finestre da 10 minuti; i dati reali sono mediane a 5 minuti (`heartSeriesFromRow`)
+ *    e minimo e massimo sarebbero estremi di mediane: da rivedere prima di collegare dati reali;
+ *  - il fuso per i minuti del giorno del battito non e' dimostrato dal server: l'ipotesi Europe/Rome di
+ *    questo prototipo non e' una prova.
  */
 import { TZ } from './format';
 import {
@@ -67,8 +74,9 @@ const LAST_RECEIVED_OK = '2026-09-24T09:28:00+02:00';
 const LAST_RECEIVED_STALE = '2026-09-21T18:05:00+02:00';
 const LAST_RECEIVED_STALE_DAY = '2026-09-21';
 
-export const WATCH: SourceRef = { id: 'galaxy-watch', label: 'Galaxy Watch', kind: 'watch', via: 'health_connect' };
-export const PHONE: SourceRef = { id: 'phone', label: 'Telefono', kind: 'phone', via: 'health_connect' };
+/** Le sorgenti sintetiche: nomi del vocabolario chiuso, mai un dispositivo (vedi model.ts, SOURCE_IDS). */
+export const HEALTH_CONNECT: SourceRef = { id: 'health_connect' };
+export const RING: SourceRef = { id: 'ring' };
 
 // ── utilita' ────────────────────────────────────────────────────────────────
 function hash(s: string): number {
@@ -134,14 +142,14 @@ function buildActivity(date: string, sc: ScenarioKey): ActivityDay {
 
   let steps: Measure<number> = value(hours.reduce((s, m) => s + (m.kind === 'absent' ? 0 : m.value), 0));
   let distanceKm: Measure<number> = value(Number((((steps as { value: number }).value) * 0.00074).toFixed(1)));
-  let floors: Measure<number> = value(round(between(r, 3, 14)));
+  // I piani (`floors_climbed`) NON hanno una fonte verificata (somma senza dedup di origine, unita' diverse
+  // fra Health Connect e HealthKit): fuori whitelist, e quindi fuori dal modello e dalla dashboard.
   let caloriesActive: Measure<number> = value(round(between(r, 260, 620)));
 
   if (isToday) {
     const sofar = (steps as { value: number }).value;
     steps = partial(sofar, 10 / 24, 'window_open');
     distanceKm = partial(Number((sofar * 0.00074).toFixed(1)), 10 / 24, 'window_open');
-    floors = partial(round(between(r, 1, 5)), 10 / 24, 'window_open');
     caloriesActive = partial(round(between(r, 90, 220)), 10 / 24, 'window_open');
   }
 
@@ -154,18 +162,16 @@ function buildActivity(date: string, sc: ScenarioKey): ActivityDay {
     const cover = PARTIAL_WINDOW_END_HOUR / 24;
     steps = partial(seen, cover, 'incomplete_coverage');
     distanceKm = partial(Number((seen * 0.00074).toFixed(1)), cover, 'incomplete_coverage');
-    floors = absent('no_samples');
     caloriesActive = partial(round(between(r, 120, 260)), cover, 'incomplete_coverage');
   }
 
   if (sc === 'zeros') {
     // Lo zero misurato sta su colonne della whitelist (`steps`, `distance_meters`): una riga esiste
     // e dice 0. Le ore vengono da `intraday_steps` (fuori whitelist): nessuna ora e' uno zero
-    // misurato, e i piani (`floors_climbed`, fuori whitelist) non sono un dato qui.
+    // misurato.
     for (let h = 0; h < 24; h++) hours[h] = absent('no_samples');
     steps = value(0);
     distanceKm = value(0);
-    floors = absent('no_samples');
     caloriesActive = value(round(between(r, 90, 140)));
   }
 
@@ -174,7 +180,6 @@ function buildActivity(date: string, sc: ScenarioKey): ActivityDay {
     for (let h = 0; h < 24; h++) hours[h] = absent(reason);
     steps = absent(reason);
     distanceKm = absent(reason);
-    floors = absent(reason);
     caloriesActive = absent(reason);
   }
 
@@ -182,10 +187,8 @@ function buildActivity(date: string, sc: ScenarioKey): ActivityDay {
     steps,
     goalSteps: 10000,
     distanceKm,
-    floors,
     caloriesActive,
     hourlySteps: hours,
-    stepsSource: sc === 'empty' ? null : WATCH,
   };
 }
 
@@ -226,7 +229,6 @@ function buildSleep(date: string, sc: ScenarioKey): SleepDay {
       totalMinutes: value(total),
       stages: noStages ? absent('source_lacks_type') : value(blocks),
       stageMinutes: noStages ? absent('source_lacks_type') : value(minutes),
-      source: WATCH,
     }),
   };
 }
@@ -260,8 +262,8 @@ function buildHeart(date: string, sc: ScenarioKey): HeartDay {
 
   if (!hasAny) {
     return {
-      resting: absent(reason), average: absent(reason), min: absent(reason), max: absent(reason),
-      hrvMs: absent(reason), series: points, source: null,
+      resting: absent(reason), average: absent(reason),
+      hrvMs: absent(reason), series: points,
     };
   }
   // Il parziale nasce dalla finestra corta (scenario partial), non dalla copertura dei punti della serie intraday.
@@ -270,11 +272,8 @@ function buildHeart(date: string, sc: ScenarioKey): HeartDay {
   return {
     resting: value(resting),
     average: mk(round(known.reduce((s, n) => s + n, 0) / known.length)),
-    min: mk(Math.min(...known)),
-    max: mk(Math.max(...known)),
     hrvMs: sc === 'partial' ? absent('source_lacks_type') : value(round(between(r, 34, 68))),
     series: points,
-    source: WATCH,
   };
 }
 
@@ -309,23 +308,20 @@ function plannedWorkouts(day: string, sc: ScenarioKey, anchor: string): Workout[
 
   const r = rng(`workouts:${day}`);
   const dow = new Date(`${day}T00:00:00Z`).getUTCDay();
-  const plan: Array<{ type: Workout['type']; title: string; hour: number; dur: number; km: number | null }> = [];
-  if (dow === 1 || dow === 4) plan.push({ type: 'run', title: 'Corsa', hour: 18, dur: 42, km: 7.4 });
-  if (dow === 3) plan.push({ type: 'strength', title: 'Forza', hour: 19, dur: 55, km: null });
-  if (dow === 5) plan.push({ type: 'cycle', title: 'Bicicletta', hour: 17, dur: 63, km: 21.8 });
-  if (dow === 6) plan.push({ type: 'walk', title: 'Camminata', hour: 10, dur: 71, km: 5.9 });
-  if (dow === 2) plan.push({ type: 'run', title: 'Corsa facile', hour: 18, dur: 31, km: 5.1 });
+  const plan: Array<{ type: Workout['type']; hour: number; dur: number; km: number | null }> = [];
+  if (dow === 1 || dow === 4) plan.push({ type: 'run', hour: 18, dur: 42, km: 7.4 });
+  if (dow === 3) plan.push({ type: 'strength', hour: 19, dur: 55, km: null });
+  if (dow === 5) plan.push({ type: 'cycle', hour: 17, dur: 63, km: 21.8 });
+  if (dow === 6) plan.push({ type: 'walk', hour: 10, dur: 71, km: 5.9 });
+  if (dow === 2) plan.push({ type: 'run', hour: 18, dur: 31, km: 5.1 });
   const sessions: Workout[] = plan.map((w, i) => ({
     id: `${day}-${i}`,
     type: w.type,
-    title: w.title,
     startedAt: `${day}T${String(w.hour).padStart(2, '0')}:${String(round(between(r, 0, 40))).padStart(2, '0')}:00+02:00`,
     durationMin: value(w.dur),
     distanceKm: w.km === null ? absent('source_lacks_type') : value(w.km),
     caloriesKcal: value(round(w.dur * between(r, 7, 10))),
     hrAvg: value(round(between(r, 128, 152))),
-    hrMax: value(round(between(r, 164, 182))),
-    source: WATCH,
   }));
 
   if (sc === 'zeros') {
@@ -336,14 +332,11 @@ function plannedWorkouts(day: string, sc: ScenarioKey, anchor: string): Workout[
         {
           id: `${day}-stop`,
           type: 'strength',
-          title: 'Forza',
           startedAt: `${day}T19:05:00+02:00`,
           durationMin: absent('no_samples'),
           distanceKm: absent('source_lacks_type'),
           caloriesKcal: value(0),
           hrAvg: absent('no_samples'),
-          hrMax: absent('no_samples'),
-          source: WATCH,
         },
       ];
     }
@@ -353,26 +346,20 @@ function plannedWorkouts(day: string, sc: ScenarioKey, anchor: string): Workout[
         {
           id: `${day}-a`,
           type: 'run',
-          title: 'Corsa',
           startedAt: `${day}T07:30:00+02:00`,
           durationMin: value(38),
           distanceKm: value(6.2),
           caloriesKcal: value(310),
           hrAvg: value(141),
-          hrMax: value(168),
-          source: WATCH,
         },
         {
           id: `${day}-b`,
           type: 'walk',
-          title: 'Camminata',
           startedAt: `${day}T18:40:00+02:00`,
           durationMin: absent('no_samples'),
           distanceKm: absent('no_samples'),
           caloriesKcal: absent('no_samples'),
           hrAvg: absent('no_samples'),
-          hrMax: absent('no_samples'),
-          source: WATCH,
         },
       ];
     }
@@ -428,33 +415,14 @@ function buildTrends(date: string, sc: ScenarioKey): TrendSeries[] {
 }
 
 // ── fonti ────────────────────────────────────────────────────────────
+// Solo l'id del vocabolario chiuso e l'ultimo dato ricevuto. Nessun elenco dei tipi per sorgente,
+// nessuna sorgente scelta per un tipo, nessun genere di dispositivo: il server non li sa (vedi model.ts).
 function buildSources(sc: ScenarioKey): SourceRow[] {
   if (sc === 'empty') return [];
   const lastReceivedAt = sc === 'stale' ? LAST_RECEIVED_STALE : LAST_RECEIVED_OK;
-  const ok = (type: SourceRow['types'][number]['type'], winning = true): SourceRow['types'][number] => ({ type, status: 'ok', winning });
-  const watchTypes: SourceRow['types'] = [
-    ok('steps'), ok('heart_rate'), ok('resting_heart_rate'), ok('sleep'), ok('sleep_stages'),
-    ok('workouts'), ok('calories'), ok('distance'), ok('hrv'),
-  ];
-  if (sc === 'partial') {
-    const set = (t: string, status: SourceRow['types'][number]['status'], winning = false) => {
-      const i = watchTypes.findIndex((x) => x.type === t);
-      watchTypes[i] = { type: watchTypes[i].type, status, winning };
-    };
-    // `not_provided` NON e' dimostrabile dal server (non distingue «non fornito» da «nessun dato»):
-    // resta solo per le fasi del sonno e l'HRV, gia' fuori whitelist. Gli allenamenti senza righe sono `no_data`.
-    set('sleep_stages', 'not_provided');
-    set('hrv', 'not_provided');
-    set('workouts', 'no_data');
-  }
-  const phoneTypes: SourceRow['types'] = [
-    ok('steps', false), ok('distance', false),
-    { type: 'heart_rate', status: 'not_provided', winning: false },
-    { type: 'sleep', status: 'not_provided', winning: false },
-  ];
   return [
-    { ref: WATCH, lastReceivedAt, types: watchTypes },
-    { ref: PHONE, lastReceivedAt, types: phoneTypes },
+    { ref: HEALTH_CONNECT, lastReceivedAt },
+    { ref: RING, lastReceivedAt },
   ];
 }
 

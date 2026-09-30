@@ -7,6 +7,7 @@ import { activityCopy } from './ActivityScreen.copy';
 import { absentRuns, countSlots, lastSevenDays, niceTicks, toHourSlots } from './activity/derive';
 import { absent, partial, value } from '@/lib/web-dashboard/measure';
 import type { ScenarioKey } from '@/lib/web-dashboard/model';
+import { FORBIDDEN_SOURCE_LABELS } from '@/lib/web-dashboard/regression-patterns';
 import { forbiddenCopyIn, measureStates, renderScreen, screenProps } from './test-utils';
 
 afterEach(cleanup);
@@ -34,15 +35,15 @@ describe('ActivityScreen: rende ogni scenario in it e en', () => {
         expect(container.textContent ?? '').not.toMatch(/\bAI\b|intelligen|\u2014/i);
         // l'h1 e' della shell: qui solo h2
         expect(container.querySelectorAll('h1')).toHaveLength(0);
-        expect(container.querySelectorAll('h2').length).toBeGreaterThanOrEqual(5);
+        expect(container.querySelectorAll('h2').length).toBeGreaterThanOrEqual(4);
       });
     }
   }
 
   it('un locale diverso da it/en usa la copy inglese e il proprio segmento di lingua nei link', () => {
-    const { container } = renderScreen(ActivityScreen, 'empty', { lc: 'de' });
-    expect(container.textContent).toContain('Connect a device');
-    expect(one(container, 'a[href$="/app/devices"]').getAttribute('href')).toBe('/de/app/devices');
+    const { container } = renderScreen(ActivityScreen, 'ok', { lc: 'de' });
+    expect(container.textContent).toContain('Last 7 days');
+    expect(container.querySelector('a[href^="/de/dashboard-preview/activity"]')).not.toBeNull();
   });
 });
 
@@ -67,21 +68,17 @@ describe('zero misurato e assente sono resi in modo diverso', () => {
     const text = one(container, '[data-metric="distance"]').textContent ?? '';
     expect(text).toContain('0');
     expect(text).toContain(props.copy.measure.zeroMeasured);
-    // i piani non sono nella whitelist: mai uno zero misurato, in nessuno scenario
-    expect(stateOf(container, '[data-metric="floors"]')).toBe('absent');
-    for (const sc of SCENARIOS) {
-      const r = renderScreen(ActivityScreen, sc);
-      expect(stateOf(r.container, '[data-metric="floors"]'), sc).not.toBe('measured-zero');
-      cleanup();
-    }
   });
 
-  it('partial: i piani assenti non stampano nessuna cifra e dicono perche', () => {
-    const { container, props } = renderScreen(ActivityScreen, 'partial');
-    const floors = one(container, '[data-metric="floors"] [data-measure-state]');
-    expect(floors.getAttribute('data-measure-state')).toBe('absent');
-    expect(hasDigit(floors.textContent)).toBe(false);
-    expect(floors.textContent).toContain(props.copy.measure.absent.no_samples);
+  it('i piani non hanno un riquadro: sono fuori whitelist, esclusi per scelta e non «non misurati»', () => {
+    for (const sc of SCENARIOS) {
+      for (const lc of LOCALES) {
+        const r = renderScreen(ActivityScreen, sc, { lc });
+        expect(r.container.querySelector('[data-metric="floors"]'), `${sc}/${lc}`).toBeNull();
+        expect(r.container.textContent ?? '', `${sc}/${lc}`).not.toMatch(/piani|floors/i);
+        cleanup();
+      }
+    }
   });
 
   it('nessun valore assente contiene una cifra, in nessuno scenario e in nessuna lingua', () => {
@@ -201,8 +198,8 @@ describe('dato assente: empty e stale', () => {
   it('empty: eroe, schede e grafici sono tutti assenti, con il motivo e senza cifre', () => {
     const { container, props } = renderScreen(ActivityScreen, 'empty');
     const states = measureStates(container);
-    // eroe + 3 schede; la media dei 7 giorni non c'e' (nessun giorno misurato)
-    expect(states).toHaveLength(4);
+    // eroe + 2 schede (i piani non hanno un riquadro); la media dei 7 giorni non c'e' (nessun giorno misurato)
+    expect(states).toHaveLength(3);
     expect(new Set(states)).toEqual(new Set(['absent']));
     for (const el of all(container, '[data-measure-state="absent"]')) {
       expect(el.textContent).toContain(props.copy.measure.absent.no_data_received);
@@ -222,22 +219,11 @@ describe('dato assente: empty e stale', () => {
     expect(one(container, '[data-week-average]').textContent).toContain(activityCopy('it').week.averageNone);
   });
 
-  it('empty: spiega la mancanza della fonte e rimanda alla rotta reale per l abbinamento', () => {
-    const { container } = renderScreen(ActivityScreen, 'empty');
-    expect(container.querySelector('[data-source-empty]')).not.toBeNull();
-    expect(container.querySelector('[data-source-name]')).toBeNull();
-    const link = one(container, 'a[href="/it/app/devices"]');
-    expect(link.className).toContain('min-h-[44px]');
-    expect(link.textContent).toContain('Collega un dispositivo');
-  });
-
-  it('stale: i passi sono assenti "non ancora sincronizzato", ma la fonte c e e si nomina', () => {
+  it('stale: i passi sono assenti "non ancora sincronizzato"', () => {
     const { container, props } = renderScreen(ActivityScreen, 'stale');
     const hero = one(container, '[data-hero="steps"] [data-measure-state]');
     expect(hero.getAttribute('data-measure-state')).toBe('absent');
     expect(hero.textContent).toContain(props.copy.measure.absent.not_synced_yet);
-    expect(one(container, '[data-source-name]').textContent).toBe('Galaxy Watch');
-    expect(one(container, '[data-source-absent]').textContent).toContain(props.copy.measure.absent.not_synced_yet);
     // due giorni recenti senza dato: un solo riquadro sui 7 giorni, gli altri restano barre
     const run = one(container, '[data-chart="week-steps"] [data-chart-slot="absent"]');
     expect(run.getAttribute('data-day-from')).toBe('2026-09-22');
@@ -246,19 +232,16 @@ describe('dato assente: empty e stale', () => {
   });
 });
 
-describe('fonte dei passi', () => {
-  it('ok: nomina la fonte scelta, dice che non somma e mostra la fonte non usata', () => {
-    const { container } = renderScreen(ActivityScreen, 'ok');
-    expect(one(container, '[data-source-name]').textContent).toBe('Galaxy Watch');
-    const card = one(container, '[data-card="steps-source"]');
-    expect(card.textContent).toContain('Non somma più sorgenti insieme');
-    expect(one(card, '[data-not-added]').textContent).toContain('Telefono');
-    expect(one(card, 'a').getAttribute('href')).toBe('/it/dashboard-preview/sources');
-  });
-
-  it('en: la regola e scritta in inglese, in parole semplici', () => {
-    const { container } = renderScreen(ActivityScreen, 'ok', { lc: 'en' });
-    expect(one(container, '[data-card="steps-source"]').textContent).toContain('It does not add sources together');
+describe('passi: la schermata non nomina nessuna sorgente', () => {
+  // Il server non sa quale sorgente «vince» per i passi del giorno e non sa se e un orologio o un telefono:
+  // nessuna scheda della fonte, in nessuno scenario, in nessuna delle due lingue.
+  it.each(['ok', 'partial', 'zeros', 'stale', 'empty'] as const)('%s: nessuna scheda di fonte, nessun nome di dispositivo, nessuna regola «una sola fonte»', (sc) => {
+    for (const lc of ['it', 'en'] as const) {
+      const { container } = renderScreen(ActivityScreen, sc, { lc });
+      expect(container.querySelector('[data-source-name], [data-source-empty], [data-source-state]'), `${sc}/${lc}`).toBeNull();
+      const hits = FORBIDDEN_SOURCE_LABELS.filter(({ re }) => re.test(container.innerHTML) || re.test(container.textContent ?? '')).map(({ name }) => name);
+      expect(hits, `${sc}/${lc}`).toEqual([]);
+    }
   });
 });
 
@@ -323,8 +306,8 @@ describe('ActivityLoading', () => {
   it('rende solo blocchi nascosti agli screen reader, senza testo ne cifre', () => {
     const { container } = render(<ActivityLoading />);
     expect(container.textContent).toBe('');
-    // eroe + 3 schede + grafico orario + sette giorni + fonte
-    expect(container.querySelectorAll('[aria-hidden="true"]').length).toBeGreaterThanOrEqual(7);
+    // eroe + 3 schede + grafico orario + sette giorni
+    expect(container.querySelectorAll('[aria-hidden="true"]').length).toBeGreaterThanOrEqual(6);
   });
 });
 

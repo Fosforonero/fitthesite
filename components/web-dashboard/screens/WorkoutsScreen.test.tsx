@@ -4,7 +4,6 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { absent, partial, value, type AbsentReason, type Measure } from '@/lib/web-dashboard/measure';
 import type { ScenarioKey, Workout, WorkoutsDay, WorkoutsWeekDay } from '@/lib/web-dashboard/model';
 import { FORBIDDEN_SYNC_NAMES } from '@/lib/web-dashboard/regression-patterns';
-import { WATCH } from '@/lib/web-dashboard/synthetic';
 import { WorkoutsLoading, WorkoutsScreen } from './WorkoutsScreen';
 import { workoutsCopy } from './WorkoutsScreen.copy';
 import { absentRuns, countDays, listState, summarize, totalOfMeasuredDays, workoutsWeek } from './workouts/derive';
@@ -31,14 +30,11 @@ const SUNDAY = '2026-09-20'; // nessun allenamento nel generatore, anche in `ok`
 const mk = (over: Partial<Workout> = {}): Workout => ({
   id: 'w1',
   type: 'run',
-  title: 'Corsa',
   startedAt: '2026-09-23T18:10:00+02:00',
   durationMin: value(40),
   distanceKm: value(7.4),
   caloriesKcal: value(320),
   hrAvg: value(140),
-  hrMax: value(170),
-  source: WATCH,
   ...over,
 });
 
@@ -220,18 +216,18 @@ describe('zero, parziale e assente dentro una sessione', () => {
     expect(hasDigit(distance.textContent)).toBe(false);
     expect(distance.textContent).not.toMatch(/km/);
     expect(distance.textContent).toContain(props.copy.measure.absent.source_lacks_type);
-    for (const cell of ['duration', 'calories', 'hrAvg', 'hrMax']) expect(stateOf(row, `[data-cell="${cell}"]`)).toBe('measured');
+    for (const cell of ['duration', 'calories', 'hrAvg']) expect(stateOf(row, `[data-cell="${cell}"]`)).toBe('measured');
   });
 
   it('un campo misurato a zero, uno parziale e uno assente nella stessa sessione restano tre cose diverse', () => {
     const { container, props } = renderWith(
-      value([mk({ hrMax: value(0), distanceKm: partial(3.2, 0.5, 'incomplete_coverage'), caloriesKcal: absent('no_samples') })]),
+      value([mk({ hrAvg: value(0), distanceKm: partial(3.2, 0.5, 'incomplete_coverage'), caloriesKcal: absent('no_samples') })]),
     );
     const row = one(container, '[data-session]');
     // zero misurato: «0» e «Zero misurato»
-    expect(stateOf(row, '[data-cell="hrMax"]')).toBe('measured-zero');
-    expect(one(row, '[data-cell="hrMax"]').textContent).toContain('0');
-    expect(one(row, '[data-cell="hrMax"]').textContent).toContain(props.copy.measure.zeroMeasured);
+    expect(stateOf(row, '[data-cell="hrAvg"]')).toBe('measured-zero');
+    expect(one(row, '[data-cell="hrAvg"]').textContent).toContain('0');
+    expect(one(row, '[data-cell="hrAvg"]').textContent).toContain(props.copy.measure.zeroMeasured);
     // parziale: cifra + copertura + motivo
     expect(stateOf(row, '[data-cell="distance"]')).toBe('partial');
     const distance = one(row, '[data-cell="distance"]').textContent ?? '';
@@ -513,5 +509,43 @@ describe('derive: regole pure', () => {
       const text = JSON.stringify(t, (_k, v) => (typeof v === 'function' ? v(1, 2) : v));
       expect(text).not.toMatch(/—|coming soon|prossimamente|a breve|in arrivo|\bAI\b/i);
     }
+  });
+});
+
+describe('la lista mostra solo colonne della whitelist degli allenamenti', () => {
+  // Ogni cella della riga porta a una colonna di COLONNE_ALLENAMENTI. Una cella nuova senza
+  // colonna in whitelist (per esempio la FC massima, fuori per scelta) fa cadere il test.
+  const CELLA_A_COLONNA: Record<string, string> = {
+    start: 'start_ms',
+    duration: 'duration_min',
+    distance: 'distance_meters',
+    calories: 'calories_kcal',
+    hrAvg: 'hr_avg',
+  };
+
+  it('ogni data-cell di ogni riga ha una colonna in whitelist, e non c e la FC massima', async () => {
+    const { COLONNE_ALLENAMENTI } = await import('@/lib/dashboard/letture-titolare');
+    const permesse = new Set<string>(COLONNE_ALLENAMENTI);
+    for (const lc of LOCALES) {
+      const { container } = renderWith(value([mk(), mk({ id: 'w2', type: 'walk' })]), { lc });
+      const celle = new Set(all(container, '[data-session] [data-cell]').map((el) => el.getAttribute('data-cell') ?? ''));
+      expect(celle.size).toBeGreaterThan(0);
+      for (const cella of celle) {
+        expect(CELLA_A_COLONNA[cella], `cella senza colonna: ${cella}`).toBeDefined();
+        expect(permesse.has(CELLA_A_COLONNA[cella])).toBe(true);
+      }
+      // anche l'intestazione: tante voci quante celle, piu' il tipo di sessione
+      expect(all(container, '[data-list-header] span')).toHaveLength(celle.size + 1);
+      expect(container.textContent ?? '').not.toMatch(/FC max|Max HR/);
+      cleanup();
+    }
+  });
+
+  it('la copy non ha piu una voce per la FC massima', () => {
+    for (const lc of LOCALES) expect(Object.keys(workoutsCopy(lc).list.cols)).not.toContain('hrMax');
+  });
+
+  it('l elenco parziale non dice che le sessioni sono reali (il prototipo e sintetico)', () => {
+    for (const lc of LOCALES) expect(workoutsCopy(lc).list.partialTitle + workoutsCopy(lc).list.partialBody).not.toMatch(/\breal[ie]?\b/i);
   });
 });
