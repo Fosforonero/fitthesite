@@ -6,7 +6,10 @@
  * (`buildDashboardResult`), l'accesso sintetico (`resolveDashboardAccess`) e la
  * lettura dei parametri dell'URL (`parsePreviewParams`).
  */
+import type { ReactElement } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+import { BackForwardGuard } from '@/components/BackForwardGuard';
 
 const NOT_FOUND = 'NEXT_NOT_FOUND';
 
@@ -111,7 +114,10 @@ describe('anteprima con la porta aperta (controprova: il test sa distinguere)', 
   it('il layout passa i figli e la schermata costruisce dati sintetici', async () => {
     setEnv(OPEN_ENV);
     const child = { marker: 'figlio' };
-    expect(DashboardPreviewLayout({ children: child as never })).toBe(child);
+    // i figli passano dentro la guardia del tasto indietro (BackForwardGuard), intatti
+    const avvolto = DashboardPreviewLayout({ children: child as never }) as unknown as ReactElement<{ children: unknown }>;
+    expect(avvolto.type).toBe(BackForwardGuard);
+    expect(avvolto.props.children).toBe(child);
     const out = await DashboardPreviewScreen(screenArgs({ as: 'subscriber' }));
     expect(out).not.toBeNull();
     expect(parsePreviewParams).toHaveBeenCalledTimes(1);

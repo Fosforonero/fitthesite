@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { getDictionary, locales, type Locale } from '@/lib/i18n';
 import FounderReviewBanner from '@/components/FounderReviewBanner';
+import { BackForwardGuard } from '@/components/BackForwardGuard';
 
 export const dynamic = 'force-dynamic';
 
@@ -80,8 +81,11 @@ export default async function AppLayout({
       </header>
 
       <main className="flex-1">
-        {isFounder && <FounderReviewBanner locale={lc} />}
-        {children}
+        {/* Tasto indietro dopo il logout: niente dati dalla bfcache, si ricarica. */}
+        <BackForwardGuard>
+          {isFounder && <FounderReviewBanner locale={lc} />}
+          {children}
+        </BackForwardGuard>
       </main>
 
       <footer className="border-t border-divider mt-12 py-6">

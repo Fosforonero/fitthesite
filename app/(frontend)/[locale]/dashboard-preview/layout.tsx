@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { BackForwardGuard } from '@/components/BackForwardGuard';
 import { isWebDashboardPrototypeEnabled } from '@/lib/web-dashboard/flag';
 
 export const dynamic = 'force-dynamic';
@@ -31,5 +32,6 @@ export function generateMetadata(): Metadata {
 
 export default function DashboardPreviewLayout({ children }: { children: React.ReactNode }) {
   if (!isWebDashboardPrototypeEnabled()) notFound();
-  return children;
+  // Tasto indietro: niente contenuto dalla bfcache, si ricarica (vedi BackForwardGuard).
+  return <BackForwardGuard>{children}</BackForwardGuard>;
 }
