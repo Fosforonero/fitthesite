@@ -3266,8 +3266,8 @@
       "da": "Vil du se dine Fitbit-data sammen med data fra dine andre enheder i én og samme app uden kompliceret konfiguration?"
     },
     "body.11.body": {
-      "sv": "FitMesh Sync integreras med Fitbit via dess officiella API och visar steg, puls, sömn och träningspass i FitMesh-appen. Inga besvär med Health Connect-behörigheter: anslutningen till Fitbit sker direkt och styrs steg för steg.",
-      "da": "FitMesh Sync integreres med Fitbit via dets officielle API og viser skridt, puls, søvn og træningspas i FitMesh-appen. Ingen besvær med Health Connect-tilladelser: Forbindelsen til Fitbit er direkte og styres trin for trin."
+      "sv": "FitMesh Sync integreras med Fitbit och visar steg, puls, sömn och träningspass i FitMesh-appen.",
+      "da": "FitMesh Sync integreres med Fitbit og viser skridt, puls, søvn og træningspas i FitMesh-appen."
     },
     "body.11.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
@@ -4384,8 +4384,8 @@
       "da": "Vil du samle Garmin træningspas i et samlet oversigtspanel?"
     },
     "body.25.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det integreras med Garmin Connect via det officiella API:et och gör dina träningspass tillgängliga i appen, utan att du behöver exportera filer manuellt varje gång.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den integreres med Garmin Connect via det officielle API og viser dine træningsprogrammer i appen, uden at du behøver at eksportere filer manuelt hver gang."
+      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det integreras med Garmin Connect och gör dina träningspass tillgängliga i appen, utan att du behöver exportera filer manuellt varje gång.",
+      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den integreres med Garmin Connect og viser dine træningsprogrammer i appen, uden at du behøver at eksportere filer manuelt hver gang."
     },
     "body.25.ctaLabel": {
       "sv": "Se Garmin integration på FitMesh →",
