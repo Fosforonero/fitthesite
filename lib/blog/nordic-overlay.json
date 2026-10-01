@@ -3684,8 +3684,8 @@
       "da": "Apple Health indsamler sundhedsdata fra flere år på din iPhone, men det kræver et par ekstra trin at se dem på en computer eller dele dem med andre. Her er alle metoderne, med den nemmeste først."
     },
     "metaDescription": {
-      "sv": "Så här exporterar du Apple Health-data till datorn eller webben år 2026: inbyggd XML-export, kostnadsfria verktyg för att läsa filen och en webbpanel för iPhone-användare. En komplett guide.",
-      "da": "Sådan eksporterer du Apple Health-data til pc eller internettet i 2026: direkte XML-eksport, gratis værktøjer til at læse filerne og et webbaseret kontrolpanel til iPhone-brugere. Komplet guide."
+      "sv": "Så här exporterar du Apple Health-data till datorn eller webben år 2026: inbyggd XML-export, kostnadsfria verktyg för att läsa filen och delning med läkaren. En komplett guide.",
+      "da": "Sådan eksporterer du Apple Health-data til pc eller internettet i 2026: direkte XML-eksport, gratis værktøjer til at læse filerne og deling med lægen. Komplet guide."
     },
     "primaryKeyword": {
       "sv": "Hur man exporterar data från Apple Health",
@@ -3728,24 +3728,24 @@
       "da": "Når man skal dele specifikke data med en læge, har Apple Health en indbygget funktion, der er enklere end den fulde XML-eksport:"
     },
     "body.11.text": {
-      "sv": "Metod 3: Webbpanelen – det smidigaste sättet (nu även på iOS)",
-      "da": "Metode 3: Web-dashboard – den mest praktiske måde (nu også på iOS)"
+      "sv": "Metod 3: Panelen i FitMesh-appen. Den personliga webbpanelen är ännu inte tillgänglig.",
+      "da": "Metode 3: Dashboard i FitMesh-appen. Det personlige webdashboard er endnu ikke tilgængeligt."
     },
     "body.12.text": {
-      "sv": "Det smidigaste alternativet (att ha Apple Health data på en webbpanel som är tillgänglig från vilken webbläsare som helst, utan att behöva exportera data manuellt varje gång) kräver en app som läser in Apple Health och synkroniserar den till molnet.",
-      "da": "Den mest praktiske løsning (hvor man har Apple Health data på et webbaseret dashboard, der kan tilgås fra enhver browser, uden at man hver gang skal eksportere dataene manuelt) kræver en app, der læser Apple Health og synkroniserer det med skyen."
+      "sv": "För att se Apple Health data utan att behöva exportera data manuellt varje gång krävs en app som läser in Apple Health och visar data i sin egen panel.",
+      "da": "For at se Apple Health data uden at skulle eksportere dataene manuelt hver gang kræves en app, der læser Apple Health og viser dem i sit eget dashboard."
     },
     "body.13.text": {
-      "sv": "FitMesh Sync för iPhone är live på App Store, inklusive alla 27 EU-länder. iPhone-appen läser in data från Apple Health (HealthKit), synkroniserar den automatiskt och visar den på samma webbpanel som redan används för Android. Extra funktion: skrivbryggan (opt-in) överför data från Android-wearables direkt till Apple Health, vilket är praktiskt om du har både en Android-enhet och en iPhone.",
-      "da": "FitMesh Sync til iPhone er live på App Store, inklusive alle 27 EU-lande. iPhone-appen læser data fra Apple Health (HealthKit), synkroniserer dem automatisk og viser dem på det samme web-dashboard, som allerede bruges til Android. Ekstra funktion: Write Bridge (tilvalg) overfører data fra Android-wearables direkte til Apple Health, hvilket er nyttigt, hvis du har både en Android-enhed og en iPhone."
+      "sv": "FitMesh Sync för iPhone är live på App Store, inklusive alla 27 EU-länder. iPhone-appen läser in data från Apple Health (HealthKit), synkroniserar den automatiskt och visar den i appen. Extra funktion: skrivbryggan (opt-in) överför data från Android-wearables direkt till Apple Health, vilket är praktiskt om du har både en Android-enhet och en iPhone.",
+      "da": "FitMesh Sync til iPhone er live på App Store, inklusive alle 27 EU-lande. iPhone-appen læser data fra Apple Health (HealthKit), synkroniserer dem automatisk og viser dem i appen. Ekstra funktion: Write Bridge (tilvalg) overfører data fra Android-wearables direkte til Apple Health, hvilket er nyttigt, hvis du har både en Android-enhed og en iPhone."
     },
     "body.14.title": {
       "sv": "Om du har både en iPhone och en Android-enhet",
       "da": "Hvis du har både en iPhone og en Android-telefon"
     },
     "body.14.body": {
-      "sv": "Många användare har en iPhone men en Android-baserad bärbar enhet (t.ex. Galaxy Watch eller en smart ring). Med FitMesh Sync Android kan du redan synkronisera dessa data till webben. iOS-versionen (nu live på App Store) lägger dessutom till en valfri skrivbro: data från Android-wearables skrivs direkt in i Apple Health, så att du kan se den i Hälso-appen på iPhone utan att behöva exportera den manuellt.",
-      "da": "Mange brugere har en iPhone, men et Android-wearable (f.eks. Galaxy Watch eller en smartring). Med FitMesh Sync Android kan du allerede synkronisere disse data til nettet. iOS-versionen (nu live på App Store) tilføjer også en valgfri skrivebro: Data fra Android-wearables skrives direkte ind i Apple Health, så du kan se dem i iPhone-appen Sundhed uden at skulle eksportere dem manuelt."
+      "sv": "Många användare har en iPhone men en Android-baserad bärbar enhet (t.ex. Galaxy Watch eller en smart ring). Med FitMesh Sync Android kan du redan se dessa data i appen. iOS-versionen (nu live på App Store) lägger dessutom till en valfri skrivbro: data från Android-wearables skrivs direkt in i Apple Health, så att du kan se den i Hälso-appen på iPhone utan att behöva exportera den manuellt.",
+      "da": "Mange brugere har en iPhone, men et Android-wearable (f.eks. Galaxy Watch eller en smartring). Med FitMesh Sync Android kan du allerede se disse data i appen. iOS-versionen (nu live på App Store) tilføjer også en valgfri skrivebro: Data fra Android-wearables skrives direkte ind i Apple Health, så du kan se dem i iPhone-appen Sundhed uden at skulle eksportere dem manuelt."
     },
     "body.15.title": {
       "sv": "Varför du bör exportera dina data nu, och inte först när du slutar använda Apple Watch",
@@ -3764,12 +3764,12 @@
       "da": "Sammenfattende"
     },
     "body.20.title": {
-      "sv": "Webbpanel för iPhone: ladda ner FitMesh Sync på App Store",
-      "da": "Web-dashboard til iPhone: Download FitMesh Sync på App Store"
+      "sv": "Panel i appen för iPhone: ladda ner FitMesh Sync på App Store",
+      "da": "Dashboard i appen til iPhone: Download FitMesh Sync på App Store"
     },
     "body.20.body": {
-      "sv": "FitMesh Sync finns nu på App Store för iPhone, inklusive alla 27 EU-länder. Appen läser in data från Apple Health och synkroniserar dem automatiskt till webben, utan att man behöver exportera dem manuellt. Ladda ner den gratis och prova den redan idag. Bonus: skrivbryggan (opt-in) överför även data från Android-wearables till Apple Health.",
-      "da": "FitMesh Sync findes nu på App Store til iPhone, inklusive alle 27 EU-lande. Appen henter data fra Apple Health og synkroniserer dem automatisk til nettet, så der er ikke behov for manuel eksport. Download den gratis, og prøv den allerede i dag. Bonus: Write Bridge (tilvalg) overfører også data fra Android-wearables til Apple Health."
+      "sv": "FitMesh Sync finns nu på App Store för iPhone, inklusive alla 27 EU-länder. Appen läser in data från Apple Health och visar dem automatiskt i appen, utan att man behöver exportera dem manuellt. Ladda ner den gratis och prova den redan idag. Bonus: skrivbryggan (opt-in) överför även data från Android-wearables till Apple Health.",
+      "da": "FitMesh Sync findes nu på App Store til iPhone, inklusive alle 27 EU-lande. Appen henter data fra Apple Health og viser dem automatisk i appen, så der er ikke behov for manuel eksport. Download den gratis, og prøv den allerede i dag. Bonus: Write Bridge (tilvalg) overfører også data fra Android-wearables til Apple Health."
     },
     "body.20.ctaLabel": {
       "sv": "Ladda ner i App Store →",
@@ -3831,14 +3831,14 @@
         "För att läsa XML-filen på en dator krävs ytterligare verktyg: Python-skript med öppen källkod eller Apple Shortcuts för specifika mätvärden.",
         "Om du vill dela specifika uppgifter med en läkare kan du använda exportfunktionen för enskilda mått direkt från diagrammet i Health: den genererar en överskådlig CSV-fil.",
         "XML-filen är okrypterad: behandla den som ett känsligt medicinskt dokument och ladda inte upp den till offentliga molntjänster.",
-        "Det smidigaste sättet är en webbaserad kontrollpanel utan manuella exportar: det krävs en app som läser in data från HealthKit och synkroniserar i bakgrunden. FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
+        "Den personliga webbpanelen är ännu inte tillgänglig. För att se data utan manuella exporter krävs en app som läser in data från HealthKit och synkroniserar i bakgrunden. FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
       ],
       "da": [
         "Den mest omfattende metode er den indbyggede XML-eksport (Sundhed → profil → Eksporter alle sundhedsdata): Den indeholder alle poster, men filen kan blive op til 2 GB stor og kan ikke læses direkte.",
         "For at kunne læse XML-filer på en pc kræves der yderligere værktøjer: open source-Python-scripts eller Apple Shortcuts til bestemte målinger.",
         "Hvis du vil dele specifikke data med en læge, kan du bruge eksportfunktionen for de enkelte målinger direkte fra diagrammet i Health: den genererer en overskuelig CSV-fil.",
         "XML-filen er ukrypteret: Behandl den som et fortroligt medicinsk dokument, og undlad at uploade den til offentlige cloudtjenester.",
-        "Den mest praktiske løsning er et webbaseret kontrolpanel uden manuelle eksportfunktioner: Det kræver en app, der henter data fra HealthKit og synkroniserer i baggrunden. FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
+        "Det personlige webdashboard er endnu ikke tilgængeligt. For at se dataene uden manuelle eksportfunktioner kræves en app, der henter data fra HealthKit og synkroniserer i baggrunden. FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
       ]
     },
     "body.3.items": {
@@ -3919,14 +3919,14 @@
         "För att läsa XML-filen på en dator krävs ytterligare verktyg: Python-skript med öppen källkod på GitHub eller Apple Shortcuts för specifika mätvärden.",
         "Om du vill dela specifika uppgifter med en läkare kan du använda exportfunktionen för enskilda mätvärden direkt från diagrammet i Health: det genererar en ren CSV-fil.",
         "XML-filen är okrypterad: behandla den som ett känsligt medicinskt dokument och ladda inte upp den till offentliga molntjänster.",
-        "Det smidigaste sättet (webbpanel utan manuella export) kräver en app som läser in data från HealthKit och synkroniserar i bakgrunden: FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
+        "Den personliga webbpanelen är ännu inte tillgänglig. För att se data utan manuella exporter krävs en app som läser in data från HealthKit och synkroniserar i bakgrunden. FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
       ],
       "da": [
         "Den mest omfattende metode er den indbyggede XML-eksport (Sundhed → profil → Eksporter alle sundhedsdata): Den indeholder alle poster med tidsstempler, men filen kan blive på 2 GB og kan ikke læses direkte.",
         "For at kunne læse XML-filer på en pc kræves der yderligere værktøjer: open source-Python-scripts på GitHub eller Apple Shortcuts til bestemte målinger.",
         "Hvis du vil dele specifikke data med en læge, skal du bruge eksportfunktionen for de enkelte målinger direkte fra diagrammet i Health: det genererer en overskuelig CSV-fil.",
         "XML-filen er ukrypteret: Behandl den som et fortroligt medicinsk dokument, og undlad at uploade den til offentlige cloud-tjenester.",
-        "Den mest praktiske løsning (webdashboard uden manuelle eksportfunktioner) kræver en app, der læser data fra HealthKit og synkroniserer i baggrunden: FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
+        "Det personlige webdashboard er endnu ikke tilgængeligt. For at se dataene uden manuelle eksportfunktioner kræves en app, der henter data fra HealthKit og synkroniserer i baggrunden. FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
       ]
     }
   },
