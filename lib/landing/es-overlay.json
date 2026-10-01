@@ -1,14 +1,14 @@
 {
   "anello-smart-sonno": {
     "hero.kicker": "Anillo Colmi + FitMesh Sync",
-    "hero.title": "Tu anillo Colmi en un panel web, sin la app del fabricante",
-    "hero.subtitle": "FitMesh Sync se conecta directamente a tu anillo Colmi por Bluetooth y recopila pasos, frecuencia cardiaca, SpO2, sueño con fases, estrés y nivel de batería. Los datos aparecen en un panel web accesible desde cualquier navegador, combinados con los datos de tu smartwatch, sin duplicados.",
+    "hero.title": "Tu anillo Colmi en la app FitMesh, sin la app del fabricante",
+    "hero.subtitle": "FitMesh Sync se conecta directamente a tu anillo Colmi por Bluetooth y recopila pasos, frecuencia cardiaca, SpO2, sueño con fases, estrés y nivel de batería. Los datos aparecen en la app, combinados con los datos de tu smartwatch, sin duplicados.",
     "hero.primaryCta.label": "Descarga FitMesh y pruébala gratis",
     "hero.secondaryCta.label": "Lee la guía completa",
-    "metaDescription": "FitMesh Sync lee tu anillo Colmi por Bluetooth: pasos, frecuencia cardiaca, SpO2, sueño con fases, estrés, batería. Panel web en Android y iPhone. Sin necesidad de la app del fabricante.",
+    "metaDescription": "FitMesh Sync lee tu anillo Colmi por Bluetooth: pasos, frecuencia cardiaca, SpO2, sueño con fases, estrés, batería. Panel en la app en Android y iPhone. Sin necesidad de la app del fabricante.",
     "primaryKeyword": "anillo inteligente colmi sueño fitmesh",
-    "body.0.text": "Los anillos Colmi ofrecen un monitoreo continuo y discreto: los llevas puestos día y noche, registrando el sueño con fases (Ligero, Profundo, REM), la frecuencia cardiaca, la saturación de oxígeno en sangre y el nivel de estrés, sin necesidad de activar nada manualmente. El problema de muchos anillos económicos es la app del fabricante: a menudo escasa, los datos quedan encerrados en ella, no hay integración con el smartwatch que usas durante el día y no existe un panel web decente.",
-    "body.1.text": "FitMesh Sync resuelve exactamente esto. En lugar de usar la app de Colmi, usas FitMesh: se conecta directamente al anillo por Bluetooth, extrae los datos, los envía a la nube de la UE y los muestra en un panel web unificado junto con tus otros wearables.",
+    "body.0.text": "Los anillos Colmi ofrecen un monitoreo continuo y discreto: los llevas puestos día y noche, registrando el sueño con fases (Ligero, Profundo, REM), la frecuencia cardiaca, la saturación de oxígeno en sangre y el nivel de estrés, sin necesidad de activar nada manualmente. El problema de muchos anillos económicos es la app del fabricante: a menudo escasa, los datos quedan encerrados en ella, no hay integración con el smartwatch que usas durante el día y no existe un panel decente.",
+    "body.1.text": "FitMesh Sync resuelve exactamente esto. En lugar de usar la app de Colmi, usas FitMesh: se conecta directamente al anillo por Bluetooth, extrae los datos, los envía a la nube de la UE y los muestra en un panel unificado en la app junto con tus otros wearables.",
     "body.2.text": "Qué lee FitMesh del anillo Colmi",
     "body.4.text": "Panel unificado: anillo + smartwatch, cero duplicados",
     "body.5.text": "Muchas personas usan el anillo por la noche (para el sueño) y el smartwatch durante el día (para el deporte y las notificaciones). FitMesh los combina en una sola vista: el sueño procede del anillo Colmi, los pasos y los entrenamientos del reloj. Cuando la misma medición llega desde dos fuentes, FitMesh aplica un mecanismo de deduplicación: el mismo paso nunca se cuenta dos veces.",
@@ -18,22 +18,22 @@
     "body.10.title": "Anillo Colmi en iPhone: ya disponible",
     "body.10.body": "La app de FitMesh para iOS ya está disponible en el App Store y admite el anillo Colmi por Bluetooth. Con una sola cuenta FitMesh, los datos del anillo son visibles en ambos teléfonos y se escriben en Apple Health (puente opcional). Descárgala ahora en el App Store.",
     "body.11.title": "¿Listo para usar tu anillo Colmi sin la app del fabricante?",
-    "body.11.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App para Android disponible ya en Play Store, panel web incluido.",
+    "body.11.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App para Android disponible ya en Play Store.",
     "body.11.ctaLabel": "Prueba FitMesh gratis →",
     "faq.0.q": "¿Necesito mantener la app de Colmi en mi teléfono?",
-    "faq.0.a": "No. FitMesh Sync se conecta directamente al anillo por Bluetooth, así que no necesitas la app del fabricante. Puedes desinstalarla si quieres. FitMesh recopila los datos de forma independiente y los envía al panel web.",
+    "faq.0.a": "No. FitMesh Sync se conecta directamente al anillo por Bluetooth, así que no necesitas la app del fabricante. Puedes desinstalarla si quieres. FitMesh recopila los datos de forma independiente y los muestra en la app.",
     "faq.1.q": "¿Qué modelos de Colmi son compatibles?",
     "faq.1.a": "FitMesh admite los modelos de Colmi más comunes que usan el protocolo Bluetooth estándar, incluidos los modelos de la serie R (R02, R06, R08, R09, R10) y otros con características similares. La compatibilidad se amplía progresivamente. Si tu modelo no aparece en la lista, descarga la app y avísanos: los modelos solicitados tienen prioridad.",
     "faq.2.q": "Si también tengo un smartwatch, ¿se contarán los pasos dos veces?",
     "faq.2.a": "No. FitMesh aplica una lógica de deduplicación: si el mismo intervalo de tiempo tiene datos tanto del anillo como del smartwatch, se usa la fuente con los mejores datos (o los más recientes), no la suma. El objetivo es un recuento preciso, no uno inflado.",
     "faq.3.q": "¿Los datos de sueño aparecen en Apple Health?",
-    "faq.3.a": "En Android, los datos se almacenan en la nube de FitMesh y se muestran en el panel web. En iPhone, la app de FitMesh para iOS escribe el sueño con fases, los pasos y la frecuencia cardiaca en Apple Health, haciéndolos visibles en la app Salud de Apple y en cualquier app que lea de Apple Health. Ya disponible en el App Store: descárgala ahora.",
+    "faq.3.a": "En Android, los datos se almacenan en la nube de FitMesh y se muestran en la app. En iPhone, la app de FitMesh para iOS escribe el sueño con fases, los pasos y la frecuencia cardiaca en Apple Health, haciéndolos visibles en la app Salud de Apple y en cualquier app que lea de Apple Health. Ya disponible en el App Store: descárgala ahora.",
     "faq.4.q": "¿Puede FitMesh hacer afirmaciones médicas sobre los datos de SpO2 o estrés?",
     "faq.4.a": "No. Los datos de SpO2 y estrés del anillo Colmi son mediciones de consumo para el seguimiento personal del bienestar, no herramientas de diagnóstico. FitMesh los muestra tal como los recibe del anillo. Para cualquier evaluación clínica, consulta a un profesional de la salud.",
     "secondaryKeywords": [
       "anillo colmi sin app del fabricante",
       "anillo inteligente pasos frecuencia cardiaca spo2 android",
-      "panel web anillo colmi",
+      "panel app anillo colmi",
       "anillo inteligente ios android misma app",
       "anillo colmi apple health"
     ],
@@ -48,7 +48,7 @@
     "body.7.items": [
       "Instala **FitMesh Sync** desde Play Store e inicia sesión con Google.",
       "Abre la sección **Anillo** en la app y mantén el anillo Colmi cerca de tu teléfono: FitMesh lo encuentra por Bluetooth y se empareja automáticamente.",
-      "Abre el **panel web** (enlace en la app o inicia sesión desde un navegador): los pasos, el sueño y la frecuencia cardiaca ya son visibles."
+      "Abre el **panel** en la app: los pasos, el sueño y la frecuencia cardiaca ya son visibles."
     ],
     "body.9.headers": [
       "Función",
@@ -71,7 +71,7 @@
       "Disponible"
     ],
     "body.9.rows.3": [
-      "Panel web (misma cuenta)",
+      "Panel en la app (misma cuenta)",
       "Disponible",
       "Disponible"
     ],
@@ -180,7 +180,7 @@
     "metaDescription": "La misma cuenta de FitMesh en Android y iPhone: un panel de salud unificado, nube en la UE, GDPR. Incluye puente con Apple Health: sueño y pasos de tu anillo inteligente en iOS, sin duplicados.",
     "primaryKeyword": "fitmesh dos teléfonos una cuenta",
     "body.0.text": "Muchas personas usan dos teléfonos: uno Android para el trabajo y un iPhone personal, o al revés. O has cambiado de sistema operativo y quieres conservar tu historial de datos de salud. O quieres que los datos de tu anillo inteligente Colmi (conectado por Bluetooth a Android) también aparezcan en el iPhone, dentro de Apple Health, sin exportaciones manuales.",
-    "body.1.text": "FitMesh Sync resuelve todo esto con una única estructura: una cuenta en la nube, dos apps (Android y iOS ya disponibles), un puente hacia Apple Health. Los datos son tuyos, accesibles desde cualquier navegador.",
+    "body.1.text": "FitMesh Sync resuelve todo esto con una única estructura: una cuenta en la nube, dos apps (Android y iOS ya disponibles), un puente hacia Apple Health. Los datos son tuyos. El panel web personal aún no está disponible.",
     "body.2.text": "Cómo funciona el multi-dispositivo",
     "body.4.text": "El puente con Apple Health (opcional en iOS)",
     "body.5.text": "El punto más solicitado: \"¿los datos de mi anillo Android aparecen en Apple Health?\". Sí, a través del puente de FitMesh. Cuando usas FitMesh en el iPhone con un anillo Colmi, la app escribe los datos en Apple Health: sueño con fases (ligero, profundo, REM), pasos, frecuencia cardiaca. Así los ves en la app Salud de Apple, en Fitness y en cualquier otra app autorizada para Apple Health.",
@@ -190,10 +190,10 @@
     "body.9.text": "Compatibilidad actual",
     "body.10.caption": "Funciones disponibles hoy (junio de 2026)",
     "body.11.title": "Empieza ya, en Android o en iPhone",
-    "body.11.body": "FitMesh ya está disponible en Google Play y en el App Store: descárgala, conecta tu anillo o wearable y el panel se activa al instante, en Android o en iPhone.",
+    "body.11.body": "FitMesh ya está disponible en Google Play y en el App Store: descárgala, conecta tu anillo o wearable y tus datos aparecen en la app, en Android o en iPhone.",
     "body.11.ctaLabel": "Descárgala ahora →",
     "faq.0.q": "¿Puedo usar FitMesh en dos teléfonos al mismo tiempo?",
-    "faq.0.a": "Sí. La misma cuenta de FitMesh funciona en Android y iPhone en paralelo. Los datos de ambos dispositivos llegan al mismo panel en la nube: no necesitas hacer nada especial, solo iniciar sesión con la misma cuenta en los dos.",
+    "faq.0.a": "Sí. La misma cuenta de FitMesh funciona en Android y iPhone en paralelo. Los datos de ambos dispositivos llegan a la misma cuenta en la nube: no necesitas hacer nada especial, solo iniciar sesión con la misma cuenta en los dos.",
     "faq.1.q": "¿Los datos de mi smartwatch Android aparecen en Apple Health?",
     "faq.1.a": "Para el anillo inteligente Colmi: sí. FitMesh iOS escribe los datos del anillo Colmi en Apple Health (sueño con fases, pasos, frecuencia cardiaca). Para los smartwatches Android que pasan por Health Connect (Galaxy Watch, Garmin, etc.): el puente directo Health Connect → Apple Health no está disponible todavía, pero está en la hoja de ruta.",
     "faq.2.q": "Si ya tengo datos en el iPhone, ¿se duplicarán con los datos de Android?",
@@ -213,7 +213,7 @@
       "panel de salud multi-dispositivo"
     ],
     "body.3.items": [
-      "**Una cuenta, dos apps**: la misma cuenta de FitMesh funciona en Android y iPhone. Sin perfiles separados ni sincronización manual: el panel web muestra los datos de la última sincronización, desde cualquier dispositivo.",
+      "**Una cuenta, dos apps**: la misma cuenta de FitMesh funciona en Android y iPhone. Sin perfiles separados ni sincronización manual: el panel de la app muestra los datos de la última sincronización, en cualquiera de los dos teléfonos.",
       "**Android: lectura nativa desde Health Connect**: en Android, FitMesh lee los datos de Health Connect: Galaxy Watch, Garmin, Pixel Watch, Fitbit y cualquier app que escriba en Health Connect. Los datos se actualizan al abrir la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería (el sistema puede retrasarlo igualmente).",
       "**iOS: lectura nativa desde Apple Health (HealthKit)**: en el iPhone, FitMesh accede a Apple Health con los permisos que elijas. Lee lo que Apple Health ya recopila: pasos del iPhone, datos del Apple Watch y cualquier app autorizada.",
       "**Anillo Colmi en ambas plataformas**: el anillo inteligente Colmi se conecta por Bluetooth a la app de FitMesh, tanto en Android como en iPhone. Los datos (sueño con fases, pasos, frecuencia cardiaca) se sincronizan con tu cuenta en la nube y, en iOS, se escriben en Apple Health.",
@@ -234,7 +234,7 @@
       "✓"
     ],
     "body.10.rows.1": [
-      "Panel web",
+      "Panel en la app",
       "✓",
       "✓"
     ],
