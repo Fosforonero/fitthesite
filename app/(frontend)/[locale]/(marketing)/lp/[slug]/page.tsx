@@ -13,7 +13,7 @@ import StoreButtonsRow from "@/components/StoreButtonsRow";
 import { locales, type Locale, ogLocale } from "@/lib/i18n";
 import { tl } from "@/lib/blog/types";
 import { LANDING_PAGES, LANDING_PAGES_BY_SLUG, type LandingPage } from "@/lib/landing/data";
-import { isLandingVariantIndexable } from "@/lib/landing/indexability";
+import { isLandingVariantIndexable, isLandingWithdrawn } from "@/lib/landing/indexability";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 
@@ -25,6 +25,9 @@ export function generateStaticParams() {
 
 /** hreflang alternates: ogni lingua indicizzabile → slug landing localizzato; x-default = IT. */
 function landingLanguages(lp: LandingPage): Record<string, string> {
+  // K3: una landing ritirata non dichiara nessuna alternativa hreflang (nemmeno
+  // x-default verso una pagina noindex).
+  if (isLandingWithdrawn(lp)) return {};
   const langs: Record<string, string> = {};
   for (const l of locales) {
     if (!isLandingVariantIndexable(lp, l)) continue;
