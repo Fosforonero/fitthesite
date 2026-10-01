@@ -2088,24 +2088,24 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Pixel Watch-data på din egen instrumentpanel: så här fungerar det med Health Connect",
-      "da": "Pixel Watch-data på dit eget kontrolpanel: Sådan fungerer det med Health Connect"
+      "sv": "Pixel Watch-data i FitMesh-appen: så här fungerar det med Health Connect",
+      "da": "Pixel Watch-data i FitMesh-appen: Sådan fungerer det med Health Connect"
     },
     "hero.subtitle": {
-      "sv": "Pixel Watch registrerar allt i Fitbit, som sedan skriver ut informationen till Health Connect. Därifrån samlar FitMesh Sync in uppgifter om steg, puls, sömn och kalorier och visar dem i en egen panel, tillsammans med de andra enheterna du använder.",
-      "da": "Pixel Watch registrerer alt i Fitbit, som derefter overfører dataene til Health Connect. Derfra samler FitMesh Sync oplysninger om skridt, puls, søvn og kalorier og viser dem i dit eget panel sammen med de andre enheder, du bruger."
+      "sv": "Pixel Watch registrerar allt i Fitbit, som sedan skriver ut informationen till Health Connect. Därifrån samlar FitMesh Sync in uppgifter om steg, puls, sömn och kalorier och visar dem i appen, tillsammans med de andra enheterna du använder.",
+      "da": "Pixel Watch registrerer alt i Fitbit, som derefter overfører dataene til Health Connect. Derfra samler FitMesh Sync oplysninger om skridt, puls, søvn og kalorier og viser dem i appen sammen med de andre enheder, du bruger."
     },
     "metaDescription": {
-      "sv": "Så här visar du data från Pixel Watch (Wear OS, Fitbit) på en personlig översiktssida via Health Connect och kombinerar den med andra enheter med hjälp av FitMesh Sync. Vad som fungerar och vilka begränsningar som faktiskt finns.",
-      "da": "Sådan vises data fra Pixel Watch (Wear OS, Fitbit) på et personligt dashboard via Health Connect og kombineres med andre enheder ved hjælp af FitMesh Sync. Hvad der fungerer, og de reelle begrænsninger."
+      "sv": "Så här visar du data från Pixel Watch (Wear OS, Fitbit) i FitMesh-appen via Health Connect och kombinerar den med andra enheter med hjälp av FitMesh Sync. Vad som fungerar och vilka begränsningar som faktiskt finns.",
+      "da": "Sådan vises data fra Pixel Watch (Wear OS, Fitbit) i FitMesh-appen via Health Connect og kombineres med andre enheder ved hjælp af FitMesh Sync. Hvad der fungerer, og de reelle begrænsninger."
     },
     "primaryKeyword": {
-      "sv": "Pixel Watch – personlig översiktssida för data",
-      "da": "Personligt kontrolpanel med data fra Pixel Watch"
+      "sv": "Pixel Watch data i FitMesh-appen",
+      "da": "Pixel Watch-data i FitMesh-appen"
     },
     "body.0.text": {
-      "sv": "Om du har en Pixel Watch följer dina hälsodata en specifik väg: enheten registrerar dem och synkroniserar dem till Fitbit (Googles hälsoapp på Pixel). Fitbit skriver sedan in dem i Health Connect, Androids centrala lagringsplats. Från Health Connect kan alla auktoriserade appar läsa dem. FitMesh Sync är en av dem: den samlar in dina mätvärden, visar dem i en webbpanel och, om du har andra enheter, sammanför dem på ett och samma ställe.",
-      "da": "Hvis du har et Pixel Watch, følger dine sundhedsdata en bestemt rute: enheden registrerer dem og synkroniserer dem til Fitbit (Googles sundhedsapp på Pixel). Fitbit overfører dem derefter til Health Connect, Androids centraliserede datalager. Fra Health Connect kan enhver autoriseret app læse dem. FitMesh Sync er en af dem: den indsamler dine målinger, viser dem i et webdashboard og, hvis du har andre enheder, samler dem ét sted."
+      "sv": "Om du har en Pixel Watch följer dina hälsodata en specifik väg: enheten registrerar dem och synkroniserar dem till Fitbit (Googles hälsoapp på Pixel). Fitbit skriver sedan in dem i Health Connect, Androids centrala lagringsplats. Från Health Connect kan alla auktoriserade appar läsa dem. FitMesh Sync är en av dem: den samlar in dina mätvärden, visar dem i appen och, om du har andra enheter, sammanför dem på ett och samma ställe. Den personliga webbpanelen är ännu inte tillgänglig.",
+      "da": "Hvis du har et Pixel Watch, følger dine sundhedsdata en bestemt rute: enheden registrerer dem og synkroniserer dem til Fitbit (Googles sundhedsapp på Pixel). Fitbit overfører dem derefter til Health Connect, Androids centraliserede datalager. Fra Health Connect kan enhver autoriseret app læse dem. FitMesh Sync er en af dem: den indsamler dine målinger, viser dem i appen og, hvis du har andre enheder, samler dem ét sted. Det personlige webdashboard er endnu ikke tilgængeligt."
     },
     "body.1.text": {
       "sv": "Hur data från Pixel Watch når Health Connect",
@@ -2120,8 +2120,8 @@
       "da": "Datavejen i korte træk"
     },
     "body.3.body": {
-      "sv": "Pixel Watch lagrar data på enheten. Appen Fitbit på Android synkroniserar dem. Fitbit skriver till Health Connect. FitMesh Sync läser från Health Connect med ditt tillstånd och visar uppgifterna i instrumentpanelen.",
-      "da": "Pixel Watch gemmer data på enheden. Appen Fitbit på Android synkroniserer dem. Fitbit skriver til Health Connect. FitMesh Sync læser fra Health Connect med din tilladelse og viser dem i kontrolpanelet."
+      "sv": "Pixel Watch lagrar data på enheten. Appen Fitbit på Android synkroniserar dem. Fitbit skriver till Health Connect. FitMesh Sync läser från Health Connect med ditt tillstånd och visar uppgifterna i appen.",
+      "da": "Pixel Watch gemmer data på enheden. Appen Fitbit på Android synkroniserer dem. Fitbit skriver til Health Connect. FitMesh Sync læser fra Health Connect med din tilladelse og viser dem i appen."
     },
     "body.4.text": {
       "sv": "Vad som fungerar idag: de tillgängliga mätvärdena",
@@ -2148,8 +2148,8 @@
       "da": "Sammenkobling af Pixel Watch med dine andre enheder"
     },
     "body.9.text": {
-      "sv": "Många använder mer än en enhet: kanske en Pixel Watch på dagen och en smart ring på natten för sömnen, eller en smartklocka under veckodagarna och en annan enhet på helgerna. Det klassiska problemet är att varje app bara visar sin egen del av informationen. FitMesh Sync löser detta: den hämtar data från Health Connect och andra auktoriserade källor och visar sedan allt i samma översiktspanel.",
-      "da": "Mange mennesker bruger mere end én enhed: måske et Pixel Watch om dagen og en smartring om natten, når de sover, eller et smartwatch i løbet af ugen og en anden enhed i weekenden. Det klassiske problem er, at hver app kun viser sine egne data. FitMesh Sync løser dette: den henter data fra Health Connect og andre autoriserede kilder og viser derefter det hele i det samme dashboard."
+      "sv": "Många använder mer än en enhet: kanske en Pixel Watch på dagen och en smart ring på natten för sömnen, eller en smartklocka under veckodagarna och en annan enhet på helgerna. Det klassiska problemet är att varje app bara visar sin egen del av informationen. FitMesh Sync löser detta: den hämtar data från Health Connect och andra auktoriserade källor och visar sedan allt i appen.",
+      "da": "Mange mennesker bruger mere end én enhed: måske et Pixel Watch om dagen og en smartring om natten, når de sover, eller et smartwatch i løbet af ugen og en anden enhed i weekenden. Det klassiske problem er, at hver app kun viser sine egne data. FitMesh Sync løser dette: den henter data fra Health Connect og andre autoriserede kilder og viser derefter det hele i appen."
     },
     "body.10.aTitle": {
       "sv": "Utan FitMesh Sync",
@@ -2168,16 +2168,16 @@
       "da": "Privatliv: Dine data forbliver dine"
     },
     "body.14.text": {
-      "sv": "FitMesh Sync läser in data från Health Connect med de uttryckliga behörigheter som du beviljar vid installationen. Tjänsten säljer inte din historik, använder den inte i reklamsyfte och delar den inte med tredje part. Kontrollpanelen tillhör dig: den finns till för att ge dig en tydlig överblick över dina data, inte för att tjäna pengar på dem.",
-      "da": "FitMesh Sync henter data fra Health Connect med de eksplicitte tilladelser, du giver ved installationen. Den sælger ikke din historik, bruger den ikke til reklame og deler den ikke med tredjeparter. Dashboardet er dit: Det er der for at give dig et klart overblik over dine data, ikke for at tjene penge på dem."
+      "sv": "FitMesh Sync läser in data från Health Connect med de uttryckliga behörigheter som du beviljar vid installationen. Tjänsten säljer inte din historik, använder den inte i reklamsyfte och delar den inte med tredje part. Appen är din: den finns till för att ge dig en tydlig överblick över dina data, inte för att tjäna pengar på dem.",
+      "da": "FitMesh Sync henter data fra Health Connect med de eksplicitte tilladelser, du giver ved installationen. Den sælger ikke din historik, bruger den ikke til reklame og deler den ikke med tredjeparter. Appen er din: Det er der for at give dig et klart overblik over dine data, ikke for at tjene penge på dem."
     },
     "body.15.title": {
-      "sv": "Vill du testa instrumentpanelen med dina Pixel Watch-data?",
-      "da": "Vil du prøve at se dine Pixel Watch-data på dashboardet?"
+      "sv": "Vill du testa appen med dina Pixel Watch-data?",
+      "da": "Vil du prøve at se dine Pixel Watch-data i appen?"
     },
     "body.15.body": {
-      "sv": "FitMesh Sync ger dig en personlig webbpanel med dina Pixel Watch-data. Om du har en Pixel Watch (eller någon annan enhet som kan skriva till Health Connect) kan du testa alla Pro-funktioner gratis i 14 dagar.",
-      "da": "FitMesh Sync giver dig et personligt web-dashboard med dine Pixel Watch-data. Hvis du har et Pixel Watch (eller en hvilken som helst enhed, der kan skrive til Health Connect), kan du prøve alle Pro-funktionerne gratis i 14 dage."
+      "sv": "FitMesh Sync visar dina Pixel Watch-data i appen. Om du har en Pixel Watch (eller någon annan enhet som kan skriva till Health Connect) kan du testa alla Pro-funktioner gratis i 14 dagar.",
+      "da": "FitMesh Sync viser dine Pixel Watch-data i appen. Hvis du har et Pixel Watch (eller en hvilken som helst enhed, der kan skrive til Health Connect), kan du prøve alle Pro-funktionerne gratis i 14 dage."
     },
     "body.15.ctaLabel": {
       "sv": "Prova FitMesh",
@@ -2204,8 +2204,8 @@
       "da": "Fungerer det, hvis jeg har både et Pixel Watch og en smart ring?"
     },
     "faq.2.a": {
-      "sv": "Ja, och det är ett av de viktigaste användningsområdena för FitMesh Sync. Om båda enheterna skriver till Health Connect (Pixel Watch via Fitbit och smartringen via sin app), läser FitMesh av båda och visar dem på samma översiktssida. De dagar då båda registrerar samma data (till exempel steg) hanterar FitMesh överlappningen för att undvika dubbletter i visningen.",
-      "da": "Ja, og det er en af de vigtigste anvendelsessituationer for FitMesh Sync. Hvis begge enheder skriver til Health Connect (Pixel Watch via Fitbit, smart-ringen via sin app), læser FitMesh begge dele og viser dem i det samme dashboard. På dage, hvor begge enheder registrerer de samme data (for eksempel skridt), håndterer FitMesh overlapningen for at undgå dubletter på skærmen."
+      "sv": "Ja, och det är ett av de viktigaste användningsområdena för FitMesh Sync. Om båda enheterna skriver till Health Connect (Pixel Watch via Fitbit och smartringen via sin app), läser FitMesh av båda och visar dem i appen. De dagar då båda registrerar samma data (till exempel steg) hanterar FitMesh överlappningen för att undvika dubbletter i visningen.",
+      "da": "Ja, og det er en af de vigtigste anvendelsessituationer for FitMesh Sync. Hvis begge enheder skriver til Health Connect (Pixel Watch via Fitbit, smart-ringen via sin app), læser FitMesh begge dele og viser dem i appen. På dage, hvor begge enheder registrerer de samme data (for eksempel skridt), håndterer FitMesh overlapningen for at undgå dubletter på skærmen."
     },
     "faq.3.q": {
       "sv": "Måste jag ha Fitbit installerat för att kunna använda FitMesh med Pixel Watch?",
@@ -2216,8 +2216,8 @@
       "da": "Ja, fordi Fitbit fungerer som bro mellem Pixel Watch og Health Connect. FitMesh Sync læser fra Health Connect, ikke direkte fra Fitbit. Så stien kræver, at Fitbit er installeret, synkroniseret med Pixel Watch, og at Health Connect har skrivetilladelser aktiveret. Når denne sti er aktiv, kan FitMesh læse dataene."
     },
     "faq.4.q": {
-      "sv": "Hur mycket historik visas på instrumentpanelen efter att jag har anslutit Pixel Watch?",
-      "da": "Hvor meget historik kan jeg se på instrumentbrættet, når jeg har tilsluttet Pixel Watch?"
+      "sv": "Hur mycket historik visas i appen efter att jag har anslutit Pixel Watch?",
+      "da": "Hvor meget historik kan jeg se i appen, når jeg har tilsluttet Pixel Watch?"
     },
     "faq.4.a": {
       "sv": "Health Connect lagrar data under en period som beror på telefonens inställningar och tillgängligt utrymme (standard är 30 dagar för de flesta datatyper, men kan ställas in på upp till 3 år). FitMesh visar allt som Health Connect har tillgängligt vid anslutningstillfället. För att se en längre historik kan du öka lagringstiden i inställningarna för Health Connect innan du ansluter FitMesh.",
@@ -2250,15 +2250,15 @@
     "tldr": {
       "sv": [
         "Pixel Watch registrerar steg, puls, sömn och kalorier till Fitbit; dessa värden sparas automatiskt i Health Connect på Android.",
-        "Från Health Connect läser FitMesh Sync in dina data och visar dem i en personlig webbpanel – ingen manuell filexport behövs.",
-        "Om du också använder en smart ring eller en annan smartklocka samlar FitMesh dem i en enda panel: allt på ett ställe.",
+        "Från Health Connect läser FitMesh Sync in dina data och visar dem i appen – ingen manuell filexport behövs.",
+        "Om du också använder en smart ring eller en annan smartklocka samlar FitMesh dem i appen: allt på ett ställe.",
         "Vad som fungerar idag: steg, puls, sömn, kalorier. En ärlig begränsning: detaljerade GPS-aktiviteter går inte att överföra Health Connect.",
         "Din historik förblir privat: FitMesh säljer inte dina uppgifter."
       ],
       "da": [
         "Pixel Watch registrerer skridt, puls, søvn og kalorier til Fitbit; disse data overføres automatisk til Health Connect på Android.",
-        "Fra Health Connect henter FitMesh Sync dine data og viser dem i et personligt web-dashboard – der er ikke behov for manuel fileksport.",
-        "Hvis du også bruger en smartring eller et andet smartwatch, samler FitMesh dem i ét panel: alt på ét sted.",
+        "Fra Health Connect henter FitMesh Sync dine data og viser dem i appen – der er ikke behov for manuel fileksport.",
+        "Hvis du også bruger en smartring eller et andet smartwatch, samler FitMesh dem i appen: alt på ét sted.",
         "Hvad der fungerer i dag: skridt, puls, søvn, kalorier. Ærlig begrænsning: detaljerede GPS-aktiviteter vises ikke Health Connect.",
         "Din historik forbliver privat: FitMesh sælger ikke dine data."
       ]
@@ -2353,13 +2353,13 @@
       "sv": [
         "Steg, puls, sömn och kalorier från alla enheter i en och samma översikt",
         "Data från Pixel Watch och smarta ringen sida vid sida på samma skärm",
-        "Historiken är tillgänglig via webbläsaren, utan att man behöver öppna andra appar",
+        "Historiken är tillgänglig i appen, utan att man behöver öppna andra appar",
         "Om data överlappar varandra (samma dag, samma typ) hanterar FitMesh dubbletter"
       ],
       "da": [
         "Skridt, puls, søvn og kalorier fra alle enheder samlet i ét overblik",
         "Data fra Pixel Watch og smart-ringen side om side på samme skærm",
-        "Historikken kan tilgås via browseren uden at skulle åbne andre apps",
+        "Historikken kan tilgås i appen uden at skulle åbne andre apps",
         "Hvis data overlapper hinanden (samme dag, samme type), håndterer FitMesh dubletter"
       ]
     },
@@ -2369,16 +2369,16 @@
         "Öppna inställningarna på din telefon och sök efter ”Health Connect”. Kontrollera att Fitbit finns med i listan över appar med skrivbehörighet.",
         "Ladda ner FitMesh Sync från Google Play Store och skapa ett konto.",
         "Vid första uppstarten ber FitMesh om behörighet att läsa data från Health Connect. Bevilja behörighet för de mätvärden du vill se: steg, puls, sömn, kalorier.",
-        "Efter att du har godkänt detta fylls din instrumentpanel med historiska data som finns tillgängliga i Health Connect.",
-        "Om du har andra enheter (en smartring, en andra smartklocka) kan du lägga till dem från samma panel: uppgifterna visas tillsammans."
+        "Efter att du har godkänt detta fylls appen med historiska data som finns tillgängliga i Health Connect.",
+        "Om du har andra enheter (en smartring, en andra smartklocka) kan du lägga till dem i appen: uppgifterna visas tillsammans."
       ],
       "da": [
         "Sørg for, at appen Fitbit på din Android-telefon er opdateret, og at Pixel Watch synkroniseres regelmæssigt.",
         "Åbn Indstillinger på din telefon, og søg efter 'Health Connect'. Kontroller, at Fitbit er på listen over apps med skriveadgang.",
         "Download FitMesh Sync fra Google Play Store, og opret din konto.",
         "Når appen startes for første gang, beder FitMesh om tilladelse til at læse data fra Health Connect. Giv tilladelse til de målinger, du gerne vil se: skridt, puls, søvn og kalorier.",
-        "Når du har godkendt adgangen, vises historiske data, der er tilgængelige i Health Connect, på dit kontrolpanel.",
-        "Hvis du har andre enheder (en smartring, et ekstra smartur), kan du tilføje dem fra det samme panel: oplysningerne vises samlet."
+        "Når du har godkendt adgangen, vises historiske data, der er tilgængelige i Health Connect, i appen.",
+        "Hvis du har andre enheder (en smartring, et ekstra smartur), kan du tilføje dem i appen: oplysningerne vises samlet."
       ]
     }
   },
