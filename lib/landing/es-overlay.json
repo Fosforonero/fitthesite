@@ -302,18 +302,18 @@
     ]
   },
   "garmin-connect-pc": {
-    "hero.kicker": "Garmin en PC",
-    "hero.title": "Garmin en un panel que controlas tú, junto a otros wearables",
-    "hero.subtitle": "Garmin Connect web funciona, pero está aislado. Si además tienes un Galaxy Watch para el día a día o un Oura para el sueño, quieres tenerlos juntos. FitMesh Sync los unifica.",
+    "hero.kicker": "Garmin en la app",
+    "hero.title": "Garmin en la app de FitMesh, junto a otros wearables",
+    "hero.subtitle": "Garmin Connect web funciona, pero está aislado. Si además tienes un Galaxy Watch para el día a día o un Oura para el sueño, quieres tenerlos juntos. FitMesh Sync los unifica. El panel web personal aún no está disponible.",
     "hero.primaryCta.label": "Descarga FitMesh y pruébala gratis",
     "hero.secondaryCta.label": "Ver integración con Garmin",
-    "metaDescription": "Panel alternativo de Garmin accesible desde PC, además de Garmin Connect web. Sincronización cruzada con Galaxy Watch, Oura, Fitbit. Configuración mediante Health Connect.",
+    "metaDescription": "Panel alternativo de Garmin en la app, además de Garmin Connect web. Sincronización cruzada con Galaxy Watch, Oura, Fitbit. Configuración mediante Health Connect.",
     "primaryKeyword": "garmin connect pc",
     "body.0.text": "Garmin Connect es uno de los mejores paneles web para wearables que siguen en pie en 2026. Para quienes solo usan Garmin es perfecto. El problema aparece cuando además tienes un Galaxy Watch (porque por la noche quieres un reloj normal), un Oura Ring (porque controlas el sueño con más detalle) o quieres que tus datos de Garmin aparezcan en una app de salud unificada. Garmin Connect está cerrado en su propio silo.",
     "body.1.text": "Qué hace FitMesh con Garmin",
     "body.3.title": "Para usuarios con varios wearables",
     "body.3.body": "¿Eres deportista con Garmin para entrenar + Galaxy Watch a diario? ¿Oura Ring por la noche + Garmin de día? FitMesh te da una vista única sin obligarte a elegir.",
-    "body.4.title": "Garmin + otros wearables, un único panel",
+    "body.4.title": "Garmin + otros wearables, un único panel en la app",
     "body.4.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. Funciona ya mediante Health Connect.",
     "body.4.ctaLabel": "Prueba FitMesh gratis →",
     "faq.0.q": "¿Veré Body Battery y Training Load?",
@@ -323,33 +323,33 @@
     "faq.2.q": "¿Sustituye a Garmin Connect?",
     "faq.2.a": "No, es complementario. Garmin Connect sigue siendo la referencia para el análisis específico de Garmin (Training Effect, Recovery Time, mapas GPS). FitMesh añade una vista multifuente para usuarios con varios wearables.",
     "secondaryKeywords": [
-      "panel garmin en navegador",
+      "panel garmin en la app",
       "alternativa a garmin connect",
       "ver datos de garmin"
     ],
     "body.2.items": [
       "Lee los datos de Garmin mediante Health Connect (pasos, FC, sueño total, calorías, distancia, entrenamientos básicos): funciona ya.",
       "Métricas propietarias: Body Battery, Training Load y tiempo de recuperación permanecen en Garmin. Una integración directa API requeriría aprobación formal en el Garmin Developer Program.",
-      "Panel web multifuente: Garmin junto a Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura cuando estén activos.",
+      "Panel multifuente en la app: Garmin junto a Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Oura cuando estén activos.",
       "Exportación CSV/JSON de los datos recopilados."
     ]
   },
   "oura-ring-sync": {
     "hero.kicker": "Oura Ring + FitMesh",
-    "hero.title": "Panel web para Oura Ring: sueño y recuperación fuera del silo de Oura",
-    "hero.subtitle": "Oura es uno de los mejores anillos inteligentes para el sueño y la recuperación, pero tus datos quedan encerrados en la app de Oura. Con FitMesh puedes verlos en la web junto a tus otros wearables.",
+    "hero.title": "Oura Ring en la app de FitMesh: sueño y recuperación fuera del silo de Oura",
+    "hero.subtitle": "Oura es uno de los mejores anillos inteligentes para el sueño y la recuperación, pero tus datos quedan encerrados en la app de Oura. Con FitMesh puedes verlos en la app junto a tus otros wearables. El panel web personal aún no está disponible.",
     "hero.primaryCta.label": "Descarga FitMesh y pruébala gratis",
     "hero.secondaryCta.label": "Ver la integración con Oura",
-    "metaDescription": "Panel web para Oura Ring: sincroniza sueño, HRV y recuperación en una plataforma que controlas tú, sin depender de la app de Oura. Configuración de Health Connect en Android.",
+    "metaDescription": "Oura Ring en la app de FitMesh: sincroniza sueño, HRV y recuperación en una plataforma que controlas tú, sin depender de la app de Oura. Configuración de Health Connect en Android.",
     "primaryKeyword": "sincronizar datos de oura ring",
     "body.0.text": "Oura Ring encanta a atletas, biohackers y a cualquiera que quiera controlar el sueño y la recuperación con discreción: sin pantalla, sin notificaciones, solo sensores. El problema clásico: los datos de Oura se quedan en la app de Oura y en la nube de Oura. Si quieres verlos en un PC, compararlos con los datos de tu Galaxy Watch o tener una copia de seguridad independiente, no hay opciones nativas sencillas.",
     "body.1.text": "Cómo funciona hoy: Oura → Health Connect → FitMesh",
     "body.2.text": "La app de Oura en Android escribe algunos datos en Health Connect: pasos, calorías, sueño (duración total y fases básicas). FitMesh lee de Health Connect al abrir la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería.",
     "body.4.text": "Configuración en 4 pasos",
     "body.6.title": "Multi-wearable: Oura y Galaxy Watch juntos",
-    "body.6.body": "Muchas personas usan Oura por la noche (para el sueño y la recuperación) y un Galaxy Watch o Garmin durante el día (para el deporte y las notificaciones). FitMesh unifica ambos en un solo panel: tus datos de sueño de Oura junto a los pasos y entrenamientos del Watch.",
+    "body.6.body": "Muchas personas usan Oura por la noche (para el sueño y la recuperación) y un Galaxy Watch o Garmin durante el día (para el deporte y las notificaciones). FitMesh unifica ambos en un solo panel de la app: tus datos de sueño de Oura junto a los pasos y entrenamientos del Watch.",
     "body.7.title": "Mantén tus datos de Oura en una plataforma que controlas tú",
-    "body.7.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App de Android y panel web. Sincronización periódica desde Oura vía Health Connect para los datos compatibles.",
+    "body.7.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App de Android. Sincronización periódica desde Oura vía Health Connect para los datos compatibles.",
     "body.7.ctaLabel": "Prueba FitMesh gratis →",
     "faq.0.q": "¿Veré el Readiness Score de Oura?",
     "faq.0.a": "No hoy: el Readiness Score no aparece en el listado oficial de exportaciones verificadas hacia Health Connect y se queda en la app Oura. La integración API directa no está activa actualmente. FitMesh lee las categorías compatibles vía Health Connect (sueño con fases, pasos y calorías).",
@@ -358,7 +358,7 @@
     "faq.2.q": "¿Necesito una suscripción a Oura para usar FitMesh?",
     "faq.2.a": "Para los modelos Gen 3 y Gen 4, se recomienda una suscripción activa a Oura Membership para procesar y sincronizar continuamente los datos compatibles con la app Oura y Health Connect.",
     "secondaryKeywords": [
-      "panel web oura ring",
+      "panel oura ring en la app",
       "exportar datos de oura",
       "oura ring sin suscripción",
       "oura ring health connect android"
@@ -371,16 +371,16 @@
       "Instala **FitMesh Sync** desde Google Play e inicia sesión con Google.",
       "Abre la **app de Oura** en Android → Ajustes → Health Connect → activa la sincronización para Sueño, Pasos, Calorías.",
       "En **Health Connect** → Permisos de apps → FitMesh Sync → concede acceso de lectura para Sueño, Pasos, Calorías, Frecuencia cardiaca.",
-      "Abre el **panel de FitMesh** en la web: ahí están tus datos de Oura junto a los de otros wearables."
+      "Abre la **app de FitMesh**: ahí están tus datos de Oura junto a los de otros wearables."
     ]
   },
   "polar-flow-sync": {
     "hero.kicker": "Polar + FitMesh",
-    "hero.title": "Panel web para Polar Flow: tus datos de Polar fuera del silo",
-    "hero.subtitle": "Polar Flow es una plataforma sólida para deportistas de resistencia, pero tus datos quedan encerrados en la nube de Polar. FitMesh los lleva a la web junto a tus otros wearables.",
+    "hero.title": "Polar Flow en la app de FitMesh: tus datos de Polar fuera del silo",
+    "hero.subtitle": "Polar Flow es una plataforma sólida para deportistas de resistencia, pero tus datos quedan encerrados en la nube de Polar. FitMesh los lleva a la app junto a tus otros wearables. El panel web personal aún no está disponible.",
     "hero.primaryCta.label": "Descarga FitMesh y pruébala gratis",
     "hero.secondaryCta.label": "Ver la integración con Polar",
-    "metaDescription": "Panel web para Polar Flow: sincroniza entrenamientos, frecuencia cardíaca y recuperación de Polar en una plataforma que controlas tú. Configuración de Health Connect en Android.",
+    "metaDescription": "Polar Flow en la app de FitMesh: sincroniza entrenamientos, frecuencia cardíaca y recuperación de Polar en una plataforma que controlas tú. Configuración de Health Connect en Android.",
     "primaryKeyword": "exportar datos de polar flow",
     "body.0.text": "Polar tiene una larga trayectoria en el deporte de resistencia: monitores de frecuencia cardíaca, GPS para ciclismo y running, análisis de carga de entrenamiento. El problema es el mismo que en muchas marcas deportivas: los datos viven solo en Polar Flow. Si además tienes un Galaxy Watch para el uso diario, o quieres reunir todos tus datos en un mismo lugar en el PC, Polar no te ayuda de forma nativa.",
     "body.1.text": "Cómo funciona hoy: Polar → Health Connect → FitMesh",
@@ -388,8 +388,8 @@
     "body.4.text": "Quién se beneficia más de esta integración",
     "body.6.title": "La API Polar Accesslink está en la hoja de ruta",
     "body.6.body": "Las métricas avanzadas de Polar (Training Load, Nightly Recharge, Recovery Pro) no pasan por Health Connect: son propietarias. La integración vía la API Polar Accesslink está en la hoja de ruta del cuarto trimestre de 2026, sujeta a la aprobación del Polar Developer Program.",
-    "body.7.title": "Tus datos de Polar en un panel que controlas tú",
-    "body.7.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App de Android y panel web. Sincronización periódica desde Polar Flow vía Health Connect (al abrir la app, o en segundo plano best-effort).",
+    "body.7.title": "Tus datos de Polar en la app de FitMesh",
+    "body.7.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App de Android. Sincronización periódica desde Polar Flow vía Health Connect (al abrir la app, o en segundo plano best-effort).",
     "body.7.ctaLabel": "Prueba FitMesh gratis →",
     "faq.0.q": "¿Qué dispositivos Polar son compatibles?",
     "faq.0.a": "Todos los dispositivos Polar compatibles con la app Polar Flow en Android: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite y modelos anteriores. El único requisito es que la sincronización se realice a través de la app Polar Flow para Android con Health Connect activado.",
@@ -399,9 +399,9 @@
     "faq.2.a": "Depende de tu uso principal. Polar es tradicionalmente fuerte en running y ciclismo con análisis cardio avanzado (zonas de FC, umbral de lactato). Garmin es más completo para deportes al aire libre con un ecosistema más amplio. Ambos se integran con FitMesh vía Health Connect, así que puedes usarlos en paralelo si tienes dispositivos de las dos marcas.",
     "secondaryKeywords": [
       "panel alternativo a polar flow",
-      "exportar datos de polar a la web",
+      "exportar datos de polar a la app",
       "polar health connect android",
-      "polar ignite vantage panel web"
+      "polar ignite vantage panel app"
     ],
     "body.3.items": [
       "**Disponible hoy vía Health Connect**: pasos, frecuencia cardíaca (media y muestras), calorías, entrenamientos (tipo, duración, FC media, kcal), sueño básico",
@@ -410,7 +410,7 @@
     "body.5.items": [
       "**Triatletas y corredores con varios dispositivos**: Polar para el entrenamiento específico, Galaxy Watch u otro para el uso diario: FitMesh los unifica.",
       "**Quienes quieren una copia de seguridad independiente de Polar**: historial de entrenamientos que no depende de las decisiones corporativas de Polar.",
-      "**Quienes analizan datos en el PC**: panel web accesible desde el navegador, sin necesidad de abrir la app de Polar en el móvil.",
+      "**Quienes quieren sus datos de Polar en la app de FitMesh**: los datos sincronizados vía Health Connect se ven en la app. El panel web personal aún no está disponible.",
       "**Quienes usan Polar sin suscripción premium**: FitMesh no requiere Polar premium para los datos vía Health Connect."
     ]
   }
