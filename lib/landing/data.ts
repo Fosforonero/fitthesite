@@ -5267,10 +5267,10 @@ const LANDING_PAGES_RAW: LandingPage[] = [
     metaDescription: {
       it: "Google Fit chiuderà le porte nel 2026. I tuoi dati di fitness sono in Health Connect. FitMesh è l'alternativa migliore: un dashboard nell'app che legge passi, sonno e allenamenti da Health Connect, senza export manuali.",
       en: "Google Fit is shutting down in 2026. Your fitness data is in Health Connect. FitMesh is the best alternative: a dashboard in the app that reads steps, sleep, and workouts from Health Connect, no manual exports.",
-      es: "FitMesh se está cerrando en 2026. Tu datos de fitness están en Health Connect. FitMesh es la mejor alternativa: un panel en la app que lee pasos, sueño y entrenamientos desde Health Connect, sin exportaciones manuales.",
+      es: "Google Fit se está cerrando en 2026. Tu datos de fitness están en Health Connect. FitMesh es la mejor alternativa: un panel en la app que lee pasos, sueño y entrenamientos desde Health Connect, sin exportaciones manuales.",
       de: "Google Fit schließt 2026 ein. Deine Fitnessdaten sind in Health Connect. FitMesh ist die beste Alternative: Ein Dashboard in der App, das Schritte, Schlaf und Trainingsdaten von Health Connect liest, ganz ohne manuelle Exporte.",
       pt: "O Google Fit vai encerrar suas operações em 2026. Seu dado de fitness está no Health Connect. O FitMesh é a melhor alternativa: um painel no app que lê passos, sono e treinos do Health Connect, sem exportações manuais.",
-      fr: "FitMesh se substituira Google Fit en 2026. Vos données de fitness sont dans Health Connect. FitMesh est la meilleure alternative : un tableau de bord de l'application qui lit les pas, le sommeil et l'entraînement directement depuis Health Connect.",
+      fr: "Google Fit se ferme en 2026. Vos données de fitness sont dans Health Connect. FitMesh est la meilleure alternative : un tableau de bord de l'application qui lit les pas, le sommeil et l'entraînement directement depuis Health Connect.",
       pl: "Google Fit zamyka się w 2026 roku. Twój zestawienie fitness znajduje się w Health Connect. FitMesh jest najlepszym alternatywą: panel sterowania w aplikacji, który czyta kroki, sen i treningi z Health Connect, bez ręcznych eksportów.",
       tr: "Google Fit 2026'da kapanacak. Sağlık Baglıyorunuzun verileriniz burada. FitMesh en iyi alternatif: Health Connect'ten adım, uyku ve egzersizleri manuel dışa aktarma olmadan okuyan uygulama içi bir panel.",
       nl: "Google Fit stopt in 2026. Je fitnessgegevens zitten in Health Connect. FitMesh is de beste alternatief: een dashboard in de app dat gegevens over stappen, slaap en trainingen van Health Connect leest, zonder handmatige exports.",
@@ -5281,7 +5281,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       kicker: {
         it: "Dopo Google Fit",
         en: "After Google Fit",
-        es: "Después de FitMesh",
+        es: "Después de Google Fit",
         de: "Nach Google Fit",
         pt: "Depois do Google Fit",
         fr: "Après Google Fit",
@@ -5294,7 +5294,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       title: {
         it: "Le migliori alternative a Google Fit nel 2026 per gli utenti Android",
         en: "The best Google Fit alternatives in 2026 for Android users",
-        es: "Las mejores alternativas a FitMesh en 2026 para usuarios Android",
+        es: "Las mejores alternativas a Google Fit en 2026 para usuarios Android",
         de: "Die besten Alternativen zu Google Fit für Android-Benutzer im Jahr 2026",
         pt: "As melhores alternativas ao Google Fit em 2026 para usuários do Android",
         fr: "Les meilleures alternatives à Google Fit en 2026 pour les utilisateurs Android",
@@ -5307,7 +5307,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       subtitle: {
         it: "Google Fit chiuderà le porte nel 2026. Google Health è la sostituzione ufficiale, ma se sincronizzi con Strava, Garmin o Samsung Health hai bisogno di un ponte. FitMesh legge Health Connect e mantiene tutto collegato.",
         en: "Google Fit is shutting down in 2026. Google Health is the official replacement, but if you sync to Strava, Garmin, or Samsung Health you need a bridge. FitMesh reads Health Connect and keeps everything connected.",
-        es: "FitMesh se está cerrando en 2026. Health Connect es el reemplazo oficial, pero si sincronizas con Strava, Garmin o Samsung Health necesitas un puente. FitMesh lee Health Connect y mantiene todo conectado.",
+        es: "Google Fit se está cerrando en 2026. Health Connect es el reemplazo oficial, pero si sincronizas con Strava, Garmin o Samsung Health necesitas un puente. FitMesh lee Health Connect y mantiene todo conectado.",
         de: "Google Fit schließt 2026 ein. Google Health ist die offizielle Ersatzlösung, aber wenn du dich bei Strava, Garmin oder Samsung Health synchronisierst, benötigst du einen Bridge-Dienst. FitMesh liest Health Connect und behält alles verbunden.",
         pt: "O Google Fit vai encerrar suas operações em 2026. O Google Health é a substituição oficial, mas se você sincronizar com Strava, Garmin ou Samsung Health, precisa de um puente. O FitMesh lê o Health Connect e mantém tudo conectado.",
         fr: "Google Fit se ferme en 2026. Google Health est la remplaçante officielle, mais si vous synchronisez avec Strava, Garmin ou Samsung Health, vous avez besoin d'un pont. FitMesh lit Health Connect et garde tout connecté.",
@@ -5397,7 +5397,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "I tuoi dati sono al sicuro: cosa succede ai dati di Google Fit",
           en: "Your data is safe: what happens to Google Fit data",
-          es: "Tus datos están seguros: ¿qué pasa con los datos de FitMesh",
+          es: "Tus datos están seguros: ¿qué pasa con los datos de Google Fit",
           de: "Deine Daten sind sicher: Was passiert mit den Google Fit-Daten",
           pt: "Seu dado está seguro: o que acontece com os dados do Google Fit",
           fr: "Vos données sont sûres : que se passe-t-il avec les données de Google Fit",
@@ -5430,7 +5430,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         text: {
           it: "Cosa cercare in una sostituzione a Google Fit",
           en: "What to look for in a Google Fit replacement",
-          es: "Qué buscar en un reemplazo de FitMesh",
+          es: "Qué buscar en un reemplazo de Google Fit",
           de: "Was du bei einer Ersatzlösung für Google Fit suchst",
           pt: "O que procurar em uma alternativa ao Google Fit",
           fr: "Quelques points à considérer pour un remplaçant Google Fit",
