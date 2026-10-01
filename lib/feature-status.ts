@@ -75,6 +75,16 @@ const MESH_SENTENCE_AGENT_REVIEWED: Record<(typeof MESH_SENTENCE_AGENT_REVIEWED_
 };
 
 /**
+ * True se la frase di stato Mesh puo' essere resa su una pagina indicizzabile
+ * in questa lingua: solo le lingue con formula approvata. Scelta reversibile in
+ * attesa della firma nominata per nl, ja, ko, sv, da, no, fi (TRANSLATIONS 6):
+ * le frasi restano nel registro, e' la pagina a non renderle.
+ */
+export function meshStatusSentenceRenderable(locale: Locale): boolean {
+  return !(MESH_SENTENCE_AGENT_REVIEWED_LOCALES as readonly string[]).includes(locale);
+}
+
+/**
  * Mesh Famiglia: in sviluppo, non disponibile, nessuna data. Le otto lingue
  * approvate sono LETTE da FAMIGLIA_COMING_SOON (una sola copia del testo).
  */

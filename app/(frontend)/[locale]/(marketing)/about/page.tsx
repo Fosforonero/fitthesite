@@ -20,7 +20,7 @@ import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
  */
 import { ABOUT_TRANSLATED_LOCALES } from "@/lib/content/static-page-locales";
 import { ABOUT_COPY } from "@/lib/content/about-copy";
-import { featureStatusSentence, isFeatureAvailable } from "@/lib/feature-status";
+import { featureStatusSentence, isFeatureAvailable, meshStatusSentenceRenderable } from "@/lib/feature-status";
 import { tl } from "@/lib/blog/types";
 import { resolveSelfHostLocale } from "@/lib/self-host/locale-redirect";
 
@@ -279,17 +279,22 @@ export default async function AboutPage({
         </div>
 
         {/* ─── Famiglia / caregiver ─── */}
-        <h2
-          id="family"
-          className="mt-16 font-display text-display font-semibold tracking-tightest text-text-primary"
-        >
-          {tl(ABOUT_COPY.familyHeading, lc)}
-        </h2>
-        <p className="mt-4 text-text-secondary leading-relaxed">
-          {isFeatureAvailable("familyMesh")
-            ? tl(ABOUT_COPY.familyBody, lc)
-            : featureStatusSentence("familyMesh", lc)}
-        </p>
+        {/* Scelta reversibile in attesa della firma nominata per nl, ja, ko, sv, da, no, fi: con la Mesh non disponibile il blocco non si rende in quelle lingue. */}
+        {(isFeatureAvailable("familyMesh") || meshStatusSentenceRenderable(lc)) && (
+          <>
+            <h2
+              id="family"
+              className="mt-16 font-display text-display font-semibold tracking-tightest text-text-primary"
+            >
+              {tl(ABOUT_COPY.familyHeading, lc)}
+            </h2>
+            <p className="mt-4 text-text-secondary leading-relaxed">
+              {isFeatureAvailable("familyMesh")
+                ? tl(ABOUT_COPY.familyBody, lc)
+                : featureStatusSentence("familyMesh", lc)}
+            </p>
+          </>
+        )}
 
         {/* ─── Chi sviluppa ─── */}
         <h2

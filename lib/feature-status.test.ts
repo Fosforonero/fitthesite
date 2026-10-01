@@ -167,6 +167,8 @@ describe("superfici: nessuna legge uno stato proprio", () => {
     const src = read("app/(frontend)/[locale]/(marketing)/about/page.tsx");
     expect(src.split("ABOUT_COPY.familyBody").length - 1).toBe(1);
     expect(src).toMatch(/isFeatureAvailable\("familyMesh"\)\s*\?\s*tl\(ABOUT_COPY\.familyBody, lc\)\s*:\s*featureStatusSentence\("familyMesh", lc\)/);
+    // le sette lingue senza firma nominata non rendono ne' titolo ne' paragrafo Mesh
+    expect(src).toMatch(/isFeatureAvailable\("familyMesh"\) \|\| meshStatusSentenceRenderable\(lc\)/);
   });
 
   it("/famiglia deriva COMING_SOON da CAPABILITY_STATUS (niente costante a mano)", () => {
