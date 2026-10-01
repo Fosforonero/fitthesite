@@ -3262,12 +3262,12 @@
       "da": "Sammenfattende"
     },
     "body.11.title": {
-      "sv": "Vill du se dina Fitbit-data i en webbaserad översiktspanel utan krånglig konfiguration?",
-      "da": "Vil du se dine Fitbit-data i et webbaseret dashboard uden kompliceret konfiguration?"
+      "sv": "Vill du se dina Fitbit-data tillsammans med data från dina andra enheter i en och samma app utan krånglig konfiguration?",
+      "da": "Vil du se dine Fitbit-data sammen med data fra dine andre enheder i én og samme app uden kompliceret konfiguration?"
     },
     "body.11.body": {
-      "sv": "FitMesh Sync integreras med Fitbit via dess officiella API och visar steg, puls, sömn och träningspass i en kontrollpanel som är tillgänglig via webbläsaren. Inga besvär med Health Connect-behörigheter: anslutningen till Fitbit sker direkt och styrs steg för steg.",
-      "da": "FitMesh Sync integreres med Fitbit via dets officielle API og viser skridt, puls, søvn og træningspas i et dashboard, der kan tilgås via en browser. Ingen besvær med Health Connect-tilladelser: Forbindelsen til Fitbit er direkte og styres trin for trin."
+      "sv": "FitMesh Sync integreras med Fitbit via dess officiella API och visar steg, puls, sömn och träningspass i FitMesh-appen. Inga besvär med Health Connect-behörigheter: anslutningen till Fitbit sker direkt och styrs steg för steg.",
+      "da": "FitMesh Sync integreres med Fitbit via dets officielle API og viser skridt, puls, søvn og træningspas i FitMesh-appen. Ingen besvær med Health Connect-tilladelser: Forbindelsen til Fitbit er direkte og styres trin for trin."
     },
     "body.11.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
@@ -4384,8 +4384,8 @@
       "da": "Vil du samle Garmin træningspas i et samlet oversigtspanel?"
     },
     "body.25.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det integreras med Garmin Connect via det officiella API:et och gör dina träningspass tillgängliga via en webbpanel som du kan nå i webbläsaren, utan att du behöver exportera filer manuellt varje gång.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den integreres med Garmin Connect via det officielle API og viser dine træningsprogrammer i et webbaseret kontrolpanel, som du kan få adgang til via en browser, uden at du behøver at eksportere filer manuelt hver gang."
+      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det integreras med Garmin Connect via det officiella API:et och gör dina träningspass tillgängliga i appen, utan att du behöver exportera filer manuellt varje gång.",
+      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den integreres med Garmin Connect via det officielle API og viser dine træningsprogrammer i appen, uden at du behøver at eksportere filer manuelt hver gang."
     },
     "body.25.ctaLabel": {
       "sv": "Se Garmin integration på FitMesh →",
@@ -5006,8 +5006,8 @@
       "da": "Vil du gerne se dit familiemedlems sundhedsdata samlet på ét enkelt oversigtspanel?"
     },
     "body.23.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i en webbpanel som är tillgänglig via webbläsaren. Detta är användbart för vårdgivare som vill ha en samlad översikt utan att behöva öppna flera appar.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i et webbaseret kontrolpanel, der kan tilgås via en browser. Det er nyttigt for plejepersonale, der ønsker et samlet overblik uden at skulle åbne flere apps."
+      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i appen. Detta är användbart för vårdgivare som vill ha en samlad översikt utan att behöva öppna flera appar.",
+      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i appen. Det er nyttigt for plejepersonale, der ønsker et samlet overblik uden at skulle åbne flere apps."
     },
     "body.23.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
@@ -5396,8 +5396,8 @@
       "da": "Vil du se alle dine Health Connect-data samlet i et enkelt dashboard?"
     },
     "body.29.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect och visar den i en överskådlig webbpanel som är tillgänglig via webbläsaren. Praktiskt om du vill analysera trender på en stor skärm eller dela data med en expert. Kompatibel med Galaxy Watch, Pixel Watch och andra Android-bärbara enheter via Health Connect.",
-      "da": "FitMesh Sync henter data fra Health Connect og viser dem i et overskueligt web-dashboard, som kan tilgås via en browser. Det er nyttigt, hvis du vil analysere tendenser på en stor skærm eller dele data med en fagperson. Kompatibel med Galaxy Watch, Pixel Watch og andre Android-wearables via Health Connect."
+      "sv": "FitMesh Sync hämtar data från Health Connect och visar den i appen. Kompatibel med Galaxy Watch, Pixel Watch och andra Android-bärbara enheter via Health Connect.",
+      "da": "FitMesh Sync henter data fra Health Connect og viser dem i appen. Kompatibel med Galaxy Watch, Pixel Watch og andre Android-wearables via Health Connect."
     },
     "body.29.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
@@ -12360,10 +12360,10 @@
       "da": "Sammenfattende"
     },
     "body.20.title": {
-      "sv": "Letar du efter en färdig webbpanel för Galaxy Watch data?"
+      "sv": "Letar du efter en färdig översiktspanel för Galaxy Watch data?"
     },
     "body.20.body": {
-      "sv": "FitMesh Sync hämtar data från Samsung Health via Health Connect och visar steg, puls, sömn och träningspass på en webbpanel som är tillgänglig via webbläsaren. Inställning via telefonen tar 30 sekunder."
+      "sv": "FitMesh Sync hämtar data från Samsung Health via Health Connect och visar steg, puls, sömn och träningspass i appen. Inställning via telefonen tar 30 sekunder."
     },
     "body.20.ctaLabel": {
       "sv": "Se Galaxy Watch på FitMesh →",
@@ -12415,7 +12415,7 @@
     },
     "body.11.items": {
       "sv": [
-        "**För webbpanelen**: FitMesh Sync läser av värden från Health Connect och visar allt i en webbapp som är tillgänglig via dator.",
+        "**För en översiktspanel**: FitMesh Sync läser av värden från Health Connect och visar allt i appen.",
         "**För teknisk export**: appar som Health Connect Toolbox (öppen källkod) genererar manuella JSON-dumpfiler.",
         "**För avancerad analys**: appar som Welltory eller Bearable läser av HC och erbjuder coaching och dagboksfunktioner."
       ]
