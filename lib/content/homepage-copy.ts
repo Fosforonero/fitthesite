@@ -32,7 +32,7 @@ export const HOMEPAGE_COPY = {
     tr: "FitMesh Sync; Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit ve diğer Android giyilebilir cihazlarınızı, gizliliği önceleyen tek bir panelde bir araya getiren uygulamadır.",
     nl: "FitMesh Sync is de app die Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit en andere Android-wearables samenbrengt in één privacyvriendelijk dashboard.",
     ja: "FitMesh Syncは、Galaxy Watch、Wear OS、Mi Band、Garmin、Fitbitなど各種Androidウェアラブルのデータをひとつにまとめ、プライバシーを守りながらダッシュボードに表示するアプリです。",
-    ko: "FitMesh Sync는 Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit 등 안드로이드 웨어러블 데이터를 하나의 대시보드에 모아, 프라이버시를 최우선으로 안전하게 보여주는 앱입니다.",
+    ko: "FitMesh Sync는 Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit 등 안드로이드 웨어러블 데이터를 하나의 대시보드에 모아, 프라이버시를 최우선으로 보여주는 앱입니다.",
     sv: "FitMesh Sync är appen som samlar Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit och andra Android-wearables i en enda integritetsfokuserad instrumentpanel.",
     da: "FitMesh Sync er appen, der samler Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit og andre Android-wearables i ét privatlivsvenligt dashboard.",
     no: "FitMesh Sync er appen som samler Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit og andre wearables for Android i ett personvernvennlig dashbord.",

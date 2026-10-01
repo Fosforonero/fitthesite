@@ -1504,14 +1504,14 @@
     "secondaryKeywords": {
       "sv": [
         "Mi Band Health Connect-synkronisering",
-        "Zepps data i appen",
+        "Zepps personliga datapanel",
         "Synkronisering av data för Amazfit GTR och GTS",
         "mi fitness – exportera data",
         "Xiaomi, bärbara enheter, hälsodata, Android"
       ],
       "da": [
         "Mi Band Health Connect-synkronisering",
-        "Zepp-data i appen",
+        "Zepp Data – personligt kontrolpanel",
         "Synkronisering af data fra Amazfit GTR og GTS",
         "mi fitness-eksportdata",
         "Xiaomi, bærbare enheder, sundhedsdata, Android"
@@ -2100,8 +2100,8 @@
       "da": "Sådan vises data fra Pixel Watch (Wear OS, Fitbit) i FitMesh-appen via Health Connect og kombineres med andre enheder ved hjælp af FitMesh Sync. Hvad der fungerer, og de reelle begrænsninger."
     },
     "primaryKeyword": {
-      "sv": "Pixel Watch data i FitMesh-appen",
-      "da": "Pixel Watch-data i FitMesh-appen"
+      "sv": "Pixel Watch – personlig översiktssida för data",
+      "da": "Personligt kontrolpanel med data fra Pixel Watch"
     },
     "body.0.text": {
       "sv": "Om du har en Pixel Watch följer dina hälsodata en specifik väg: enheten registrerar dem och synkroniserar dem till Fitbit (Googles hälsoapp på Pixel). Fitbit skriver sedan in dem i Health Connect, Androids centrala lagringsplats. Från Health Connect kan alla auktoriserade appar läsa dem. FitMesh Sync är en av dem: den samlar in dina mätvärden, visar dem i appen och, om du har andra enheter, sammanför dem på ett och samma ställe. Den personliga webbpanelen är ännu inte tillgänglig.",

@@ -27,10 +27,10 @@ export const ABOUT_COPY = {
   metaTitle: {
     it: "Cos'è FitMesh Sync: sincronizzazione dati smartwatch privacy-first",
     en: "About FitMesh Sync: Privacy-first smartwatch data sync",
-    es: "Qué es FitMesh Sync: sincronización de datos de smartwatch con privacidad total",
-    de: "Was ist FitMesh Sync: datenschutzkonforme Smartwatch-Datensynchronisierung",
-    pt: "O que é FitMesh Sync: sincronização de dados de smartwatch com privacidade total",
-    fr: "Qu'est-ce que FitMesh Sync: synchronisation des données de montre connectée axée sur la confidentialité",
+    es: "Qué es FitMesh Sync: sincronización de datos de smartwatch con la privacidad como prioridad",
+    de: "Was ist FitMesh Sync: Smartwatch-Datensynchronisierung mit Datenschutz an erster Stelle",
+    pt: "O que é FitMesh Sync: sincronização de dados de smartwatch com a privacidade em primeiro lugar",
+    fr: "Qu'est-ce que FitMesh Sync : synchronisation des données de montre connectée axée sur la confidentialité",
     pl: "Czym jest FitMesh Sync: synchronizacja danych ze smartwatcha z prywatnością na pierwszym miejscu",
     tr: "FitMesh Sync Nedir: Gizliliği önceleyen akıllı saat veri senkronizasyonu",
     nl: "Wat is FitMesh Sync: privacyvriendelijke smartwatch-datasynchronisatie",
@@ -439,7 +439,7 @@ export const ABOUT_COPY = {
   familyHeading: {
     it: "Mesh Famiglia", en: "Family Mesh", es: "Mesh Familia",
     de: "Mesh Familie", pt: "Mesh Família", fr: "Mesh Famille",
-    pl: "Family Mesh", tr: "Aile Mesh", nl: "Family Mesh",
+    pl: "Mesh Rodzina", tr: "Mesh Aile", nl: "Family Mesh",
     ja: "Family Mesh", ko: "Family Mesh", sv: "Family Mesh",
     da: "Family Mesh", no: "Family Mesh", fi: "Family Mesh",
   } satisfies Localized,

@@ -33,7 +33,7 @@
     "secondaryKeywords": [
       "anillo colmi sin app del fabricante",
       "anillo inteligente pasos frecuencia cardiaca spo2 android",
-      "panel app anillo colmi",
+      "panel web anillo colmi",
       "anillo inteligente ios android misma app",
       "anillo colmi apple health"
     ],
@@ -92,7 +92,7 @@
     "hero.subtitle": "Tus datos de Apple Watch, Garmin, Oura y todos los wearables que escriben en Apple Health, en la app de FitMesh, sin exportaciones manuales.",
     "hero.primaryCta.label": "Descárgala en el App Store",
     "metaDescription": "Apple Health en iOS: consulta pasos, sueño y frecuencia cardíaca del iPhone en la app de FitMesh. FitMesh iOS ya disponible en el App Store.",
-    "primaryKeyword": "exportar datos apple health",
+    "primaryKeyword": "exportar datos apple health web",
     "body.0.text": "Apple Health es el sistema más completo para recopilar datos de salud en el iPhone. El problema de siempre: los datos se quedan en la app, sin un panel web nativo. Puedes hacer una exportación manual en XML, pero es un archivo técnico que requiere herramientas para leerlo, y hay que repetirlo cada vez. FitMesh iOS lee los datos de Apple Health y los muestra en la app. El panel web personal aún no está disponible.",
     "body.1.text": "Cómo funciona FitMesh iOS",
     "body.3.text": "Quién se beneficia más",
@@ -108,8 +108,8 @@
     "faq.2.q": "¿Están seguros mis datos de Apple Health con FitMesh?",
     "faq.2.a": "Los datos se transmiten mediante HTTPS y se almacenan en una base de datos Postgres protegida por RLS (Row Level Security): cada usuario solo ve sus propios datos. Puedes eliminar todo de nuestros servidores en cualquier momento con 'Eliminar cuenta y datos' en la app. La política de privacidad está disponible en fitmesh.fit.",
     "secondaryKeywords": [
-      "apple health en la app",
-      "ver datos apple health",
+      "panel web apple health",
+      "ver datos apple health en pc",
       "copia de seguridad en la nube apple health",
       "app fitmesh ios iphone"
     ],
@@ -288,9 +288,9 @@
     "faq.2.q": "¿Tengo que eliminar mi cuenta de Fitbit?",
     "faq.2.a": "No. FitMesh se suma, no sustituye. La app de Fitbit y todas sus funciones actuales siguen funcionando. FitMesh solo añade tus datos en la app y la exportación.",
     "secondaryKeywords": [
-      "fitbit alternativo",
-      "ver datos de fitbit",
-      "fitbit 2026"
+      "panel fitbit alternativo",
+      "ver datos de fitbit sin la app",
+      "fitbit web 2026"
     ],
     "body.2.items": [
       "Datos de Fitbit en la app de FitMesh, en el móvil",
@@ -323,7 +323,7 @@
     "faq.2.q": "¿Sustituye a Garmin Connect?",
     "faq.2.a": "No, es complementario. Garmin Connect sigue siendo la referencia para el análisis específico de Garmin (Training Effect, Recovery Time, mapas GPS). FitMesh añade una vista multifuente para usuarios con varios wearables.",
     "secondaryKeywords": [
-      "panel garmin en la app",
+      "panel garmin en navegador",
       "alternativa a garmin connect",
       "ver datos de garmin"
     ],
@@ -358,7 +358,7 @@
     "faq.2.q": "¿Necesito una suscripción a Oura para usar FitMesh?",
     "faq.2.a": "Para los modelos Gen 3 y Gen 4, se recomienda una suscripción activa a Oura Membership para procesar y sincronizar continuamente los datos compatibles con la app Oura y Health Connect.",
     "secondaryKeywords": [
-      "panel oura ring en la app",
+      "panel web oura ring",
       "exportar datos de oura",
       "oura ring sin suscripción",
       "oura ring health connect android"
@@ -399,9 +399,9 @@
     "faq.2.a": "Depende de tu uso principal. Polar es tradicionalmente fuerte en running y ciclismo con análisis cardio avanzado (zonas de FC, umbral de lactato). Garmin es más completo para deportes al aire libre con un ecosistema más amplio. Ambos se integran con FitMesh vía Health Connect, así que puedes usarlos en paralelo si tienes dispositivos de las dos marcas.",
     "secondaryKeywords": [
       "panel alternativo a polar flow",
-      "exportar datos de polar a la app",
+      "exportar datos de polar a la web",
       "polar health connect android",
-      "polar ignite vantage panel app"
+      "polar ignite vantage panel web"
     ],
     "body.3.items": [
       "**Disponible hoy vía Health Connect**: pasos, frecuencia cardíaca (media y muestras), calorías, entrenamientos (tipo, duración, FC media, kcal), sueño básico",

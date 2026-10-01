@@ -105,11 +105,18 @@ export const FAMILY_MESH_STATUS_SENTENCE: Record<Locale, string> = {
 export const STATUS_SENTENCE_PROVENANCE = {
   familyMesh: {
     authoredLanguage: "it",
+    // Ruolo: l'italiano e' la fonte, le altre 14 lingue sono derivate dalla formula it/en.
+    role: { source: ["it"], derivative: "tutte le altre lingue" },
+    origin: "formula approvata da Matteo il 22/09/2026 (nota di CAPABILITY_STATUS.familyMesh); testo it, en, es, de, pt, fr, pl, tr in lib/content/famiglia-coming-soon.ts, nl, ja, ko, sv, da, no, fi tradotte da quella",
+    controlRecordedOn: "2026-10-01",
     approvedFormula: ["it", "en", "es", "de", "pt", "fr", "pl", "tr"],
     controlAgentReview: [...MESH_SENTENCE_AGENT_REVIEWED_LOCALES],
   },
   webDashboard: {
     authoredLanguage: "it",
+    role: { source: ["it"], derivative: "tutte le altre lingue" },
+    origin: "formula it ed en della PR #79 (043fa1b, correzioni sulla dashboard web, tradotta da agenti in 11 lingue); sv, da, no, fi nuove (01/10/2026)",
+    controlRecordedOn: "2026-10-01",
     approvedFormula: [] as string[],
     controlAgentReview: ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"],
   },

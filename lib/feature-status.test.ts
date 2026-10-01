@@ -123,6 +123,9 @@ describe("frasi di stato verificate nella lingua pubblicata", () => {
         expect(approvata !== agenti, `${k}/${lc}`).toBe(true);
       }
       expect(p.authoredLanguage).toBe("it");
+      expect(p.role.source).toEqual(["it"]);
+      expect(p.origin.length).toBeGreaterThan(30);
+      expect(p.controlRecordedOn).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     }
   });
 
@@ -179,6 +182,7 @@ describe("superfici: nessuna legge uno stato proprio", () => {
 
   it("llms.txt dichiara la dashboard web non disponibile, e la dichiara disponibile solo se lo stato lo dice", () => {
     expect(generateLlmsTxt()).toContain("The personal web dashboard is not yet available.");
+    expect(generateLlmsTxt()).not.toMatch(/family layer/i);
     CAPABILITY_STATUS.webDashboard.status = "live_verified";
     expect(generateLlmsTxt()).not.toContain("## Personal web dashboard");
   });
@@ -214,6 +218,8 @@ describe("regressione: le frasi false note non tornano nelle superfici della tra
   it("la roadmap da la dashboard web nativa come in sviluppo, non come «live»", () => {
     const src = read("app/(frontend)/[locale]/(marketing)/roadmap/page.tsx");
     expect(src).toMatch(/status: "in-progress",\s*title: \{ it: "Dashboard web nativa"/);
+    // non nella colonna «Now · In produzione / Vivo e in mano agli utenti»
+    expect(src.indexOf('title: { it: "Dashboard web nativa"')).toBeGreaterThan(src.indexOf('id: "future"'));
     expect(src).not.toMatch(/status: "live",\s*title: \{ it: "Dashboard web nativa"/);
   });
 });
