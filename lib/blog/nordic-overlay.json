@@ -12657,7 +12657,7 @@
       "sv": "Alternativ 1: appar från tredje part med webbaserade kontrollpaneler"
     },
     "body.6.text": {
-      "sv": "Det finns appar som läser av via Health Connect (Android) eller HealthKit (iOS via separat iCloud-synkronisering) och visar data på en webbpanel kopplad till ditt konto. FitMesh Sync är vår lösning: en Android-app som läser av data från Health Connect och skickar dem till backend, varefter webbpanelen blir tillgänglig från vilken webbläsare som helst med inloggning via Google eller Apple. Det finns alternativ, vissa mer inriktade på konsumenter (Welltory), andra mer tekniska (Heads Up Health)."
+      "sv": "Det finns appar som läser av via Health Connect (Android) eller HealthKit (iOS via separat iCloud-synkronisering) och visar data på en webbpanel kopplad till ditt konto. FitMesh Sync är vår lösning: en Android-app som läser av data från Health Connect och visar dem i appen. Den personliga webbpanelen är ännu inte tillgänglig. Det finns alternativ, vissa mer inriktade på konsumenter (Welltory), andra mer tekniska (Heads Up Health)."
     },
     "body.7.text": {
       "sv": "Alternativ 2: egenhemserver"
@@ -12678,17 +12678,17 @@
       "sv": "Den bästa tidpunkten för att välja rätt väg"
     },
     "body.13.body": {
-      "sv": "Om du har en Galaxy Watch eller en Pixel Watch, sluta vänta på en officiell kontrollpanel från Samsung eller Google: den kommer inte. Dessa varumärken har medvetet valt att inte satsa på webben. Tredjepartsappen via Health Connect-lösningen är mogen och stabil år 2026. Det är inte en tillfällig nödlösning: det är den rätta långsiktiga vägen för dessa ekosystem."
+      "sv": "Om du har en Galaxy Watch eller en Pixel Watch, sluta vänta på en officiell kontrollpanel från Samsung eller Google: den kommer inte. Dessa varumärken har medvetet valt att inte satsa på webben. För att se data i webbläsaren finns de tre vägarna som beskrivs ovan. FitMesh visar datan i appen. Den personliga webbpanelen är ännu inte tillgänglig."
     },
     "body.14.text": {
       "sv": "Sammanfattningsvis",
       "da": "Sammenfattende"
     },
     "body.16.title": {
-      "sv": "Letar du efter en färdig webbpanel för Galaxy/Pixel/Fitbit/Mi Band?"
+      "sv": "Letar du efter en färdig app för Galaxy/Pixel/Fitbit/Mi Band?"
     },
     "body.16.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect och visar allt i en överskådlig webbapp som kan nås från vilken stationär webbläsare som helst. Inga otydliga moln, inga annonser."
+      "sv": "FitMesh Sync hämtar data från Health Connect och visar den i appen. Den personliga webbpanelen är ännu inte tillgänglig. Inga otydliga moln, inga annonser."
     },
     "body.16.ctaLabel": {
       "sv": "Visa alla integrationer"
@@ -12723,7 +12723,7 @@
       "sv": [
         "Varumärken med en aktiv officiell webbpanel år 2026: Garmin, Polar, Withings, Oura, Whoop och Strava.",
         "Samsung Health, Apple Health, Fitbit och Xiaomi Mi Fitness har ingen webbpanel: det krävs appar från tredje part eller egen hosting.",
-        "Via Health Connect (Android): appar från tredje part, som FitMesh Sync, läser av data och visar den på webben. En välutvecklad lösning som går att installera på några minuter.",
+        "Via Health Connect (Android): appar från tredje part läser av data och visar den på webben. FitMesh Sync visar datan i appen. Den personliga webbpanelen är ännu inte tillgänglig.",
         "Via egenhostad lösning (Raspberry Pi, NAS, Grafana): fullständig kontroll och inget moln, men en brant inlärningskurva. Endast för tekniskt kunniga användare.",
         "Via Google Sheets: fungerar för aggregerade data (steg, vikt, daglig sömn) men klarar inte av högfrekventa intradagsdata."
       ]
@@ -12815,7 +12815,7 @@
     "body.12.items": {
       "sv": [
         "**Fick Garmin / Polar / Strava / Withings / Oura / Whoop?** → Officiell webbpanel, klart.",
-        "**Har du Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Apple Watch och behöver bara en översikt?** → Tredjepartsapp med webbpanel (t.ex. FitMesh).",
+        "**Har du Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Apple Watch och behöver bara en översikt?** → Tredjepartsapp med webbpanel. FitMesh visar datan i appen. Den personliga webbpanelen är ännu inte tillgänglig.",
         "**Vill du ha full kontroll och är du tekniskt kunnig?** → Egenhostad med Grafana + Takeout.",
         "**Vill du bara ha grundläggande siffror för egen analys?** → Google Sheets + regelbunden import."
       ]
@@ -12824,7 +12824,7 @@
       "sv": [
         "Varumärken med aktiva officiella webbpaneler år 2026: Garmin (connect.garmin.com), Polar (flow.polar.com), Withings, Oura, Whoop, Strava.",
         "Samsung Health, Apple Health, Fitbit och Xiaomi Mi Fitness har ingen webbpanel: det krävs appar från tredje part eller egen hosting.",
-        "Via Health Connect (Android): appar från tredje part, som FitMesh Sync, läser av data och visar dem på webben. En välutvecklad lösning som går att installera på mindre än 5 minuter.",
+        "Via Health Connect (Android): appar från tredje part läser av data och visar dem på webben. FitMesh Sync visar datan i appen. Den personliga webbpanelen är ännu inte tillgänglig.",
         "Via egenhostad lösning (Raspberry Pi, NAS, Grafana): fullständig kontroll, inget moln, men brant inlärningskurva. Rekommenderas endast för tekniskt kunniga användare.",
         "Via Google Sheets: fungerar för aggregerade data (steg, vikt, daglig sömn) men klarar inte av högfrekventa intradagsdata."
       ]
