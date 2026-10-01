@@ -10224,8 +10224,8 @@
       "da": "Alt fungerer, men vil du have et bedre kontrolpanel til Galaxy Watch data?"
     },
     "body.30.body": {
-      "sv": "När synkroniseringen fungerar kan FitMesh Sync läsa av dina Galaxy Watch-data via Health Connect och visa dem på en webbpanel, vilket är praktiskt om du vill analysera trender på en stor skärm, exportera dem eller jämföra med andra enheter. Om du även har andra bärbara enheter kan du samla data från dem på samma ställe.",
-      "da": "Når synkroniseringen fungerer, kan FitMesh Sync læse dine Galaxy Watch-data via Health Connect og vise dem på et web-dashboard, hvilket er nyttigt, hvis du vil analysere tendenser på en stor skærm, eksportere dem eller sammenligne dem med andre enheder. Hvis du også har andre wearables, kan du samle dataene fra dem alle på ét sted."
+      "sv": "När synkroniseringen fungerar kan FitMesh Sync läsa av dina Galaxy Watch-data via Health Connect och visa dem i appen, vilket är praktiskt om du vill analysera trender, exportera dem eller jämföra med andra enheter. Om du även har andra bärbara enheter kan du samla data från dem på samma ställe. Den personliga webbpanelen är ännu inte tillgänglig.",
+      "da": "Når synkroniseringen fungerer, kan FitMesh Sync læse dine Galaxy Watch-data via Health Connect og vise dem i appen, hvilket er nyttigt, hvis du vil analysere tendenser, eksportere dem eller sammenligne dem med andre enheder. Hvis du også har andre wearables, kan du samle dataene fra dem alle på ét sted. Det personlige webdashboard er endnu ikke tilgængeligt."
     },
     "body.30.ctaLabel": {
       "sv": "Se Galaxy Watch på FitMesh →",
