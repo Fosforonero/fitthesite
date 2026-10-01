@@ -3294,16 +3294,16 @@
       "da": "Min Fitbit synkroniseres med Google Fit, men ikke med Health Connect: hvorfor?"
     },
     "faq.2.a": {
-      "sv": "Vissa äldre Fitbit-modeller stöder Google Fit men inte Health Connect, på grund av firmware. Google Fit är det gamla API:et (nu utfasat); Health Connect är det nya. Om din modell inte stöder Health Connect, uppdatera firmware via Fitbit-appen och kontrollera om alternativet dyker upp. Om firmware redan är uppdaterad och alternativet inte finns där kan det hända att modellen inte stöds: i så fall är en direkt API-anslutning via Fitbit:s API (som FitMesh Sync använder) ett giltigt alternativ.",
-      "da": "Nogle ældre Fitbit-modeller understøtter Google Fit, men ikke Health Connect, på grund af firmwaren. Google Fit er den gamle API (nu udfaset); Health Connect er den nye. Hvis din model ikke understøtter Health Connect, skal du opdatere firmwaren fra Fitbit-appen og kontrollere, om indstillingen vises. Hvis firmwaren allerede er opdateret, og indstillingen ikke er der, understøttes modellen muligvis ikke: i så fald er en direkte API-forbindelse via Fitbit's API (som FitMesh Sync bruger) et gyldigt alternativ."
+      "sv": "Vissa äldre Fitbit-modeller stöder Google Fit men inte Health Connect, på grund av firmware. Google Fit är det gamla API:et (nu utfasat); Health Connect är det nya. Om din modell inte stöder Health Connect, uppdatera firmware via Fitbit-appen och kontrollera om alternativet dyker upp. Om firmware redan är uppdaterad och alternativet inte finns där kan det hända att modellen inte stöds: i så fall är en direkt API-anslutning via Fitbit:s API ett giltigt alternativ.",
+      "da": "Nogle ældre Fitbit-modeller understøtter Google Fit, men ikke Health Connect, på grund af firmwaren. Google Fit er den gamle API (nu udfaset); Health Connect er den nye. Hvis din model ikke understøtter Health Connect, skal du opdatere firmwaren fra Fitbit-appen og kontrollere, om indstillingen vises. Hvis firmwaren allerede er opdateret, og indstillingen ikke er der, understøttes modellen muligvis ikke: i så fald er en direkte API-forbindelse via Fitbit's API et gyldigt alternativ."
     },
     "faq.3.q": {
       "sv": "Måste jag ha appen Fitbit installerad för att kunna synkronisera?",
       "da": "Skal jeg have appen Fitbit installeret for at kunne synkronisere?"
     },
     "faq.3.a": {
-      "sv": "Om du använder Health Connect som kanal, ja: appen Fitbit måste vara installerad och aktiv, eftersom det är den som skriver data till Health Connect. Om du istället använder en app som ansluter direkt till Fitbit-API:et (som FitMesh Sync), ändras beroendet: i det fallet kommunicerar appen med Fitbit:s servrar via OAuth, oberoende av vilken kompletterande app som är installerad på telefonen.",
-      "da": "Hvis du bruger Health Connect som kanal, ja: appen Fitbit skal være installeret og aktiv, fordi det er den, der skriver data til Health Connect. Hvis du i stedet bruger en app, der opretter direkte forbindelse til Fitbit API'et (som f.eks. FitMesh Sync), ændres afhængigheden: i dette tilfælde kommunikerer appen med Fitbit's servere via OAuth, uafhængigt af den ledsagende app, der er installeret på telefonen."
+      "sv": "Om du använder Health Connect som kanal, ja: appen Fitbit måste vara installerad och aktiv, eftersom det är den som skriver data till Health Connect. Om du istället använder en app som ansluter direkt till Fitbit-API:et, ändras beroendet: i det fallet kommunicerar appen med Fitbit:s servrar via OAuth, oberoende av vilken kompletterande app som är installerad på telefonen.",
+      "da": "Hvis du bruger Health Connect som kanal, ja: appen Fitbit skal være installeret og aktiv, fordi det er den, der skriver data til Health Connect. Hvis du i stedet bruger en app, der opretter direkte forbindelse til Fitbit API'et, ændres afhængigheden: i dette tilfælde kommunikerer appen med Fitbit's servere via OAuth, uafhængigt af den ledsagende app, der er installeret på telefonen."
     },
     "secondaryKeywords": {
       "sv": [
@@ -5006,8 +5006,8 @@
       "da": "Vil du gerne se dit familiemedlems sundhedsdata samlet på ét enkelt oversigtspanel?"
     },
     "body.23.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i appen. Family Mesh är under utveckling och ännu inte tillgänglig. Vi har inte meddelat något lanseringsdatum.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i appen. Family Mesh er under udvikling og endnu ikke tilgængelig. Vi har ikke annonceret en udgivelsesdato."
+      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i appen.",
+      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i appen."
     },
     "body.23.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
