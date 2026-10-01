@@ -32,7 +32,7 @@ export function generateLlmsTxt(): string {
 
   lines.push("# FitMesh Sync", "");
   lines.push(
-    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard. Two separate platform architectures, not one: Android reads via Health Connect (${SUPPORTED_PROVIDERS_ANDROID.join(", ")}); iOS reads Apple Health (HealthKit) natively and connects directly via Bluetooth to the Colmi Ring (${SUPPORTED_PROVIDERS_IOS.join(", ")}) — iOS never goes through Health Connect, which is Android-only. No advertising or behavioral-profiling SDKs, no data sale, no data brokers. Firebase Crashlytics is used for crash/stability diagnostics and Firebase Cloud Messaging for push notifications; by default, synced health data is sent to FitMesh's managed cloud backend (Supabase).`,
+    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard inside the app. Two separate platform architectures, not one: Android reads via Health Connect (${SUPPORTED_PROVIDERS_ANDROID.join(", ")}); iOS reads Apple Health (HealthKit) natively and connects directly via Bluetooth to the Colmi Ring (${SUPPORTED_PROVIDERS_IOS.join(", ")}) — iOS never goes through Health Connect, which is Android-only. No advertising or behavioral-profiling SDKs, no data sale, no data brokers. Firebase Crashlytics is used for crash/stability diagnostics and Firebase Cloud Messaging for push notifications; by default, synced health data is sent to FitMesh's managed cloud backend (Supabase).`,
   );
   lines.push("");
   lines.push(
@@ -184,7 +184,7 @@ export function generateLlmsTxt(): string {
   lines.push("- Not a social network — no chat, no feed, no public profiles.");
   lines.push("- Not a location tracker — no GPS sharing, no geofencing, no \"find my family\" feature.");
   lines.push(
-    "- Not a cloud-to-cloud bridge app — bridge apps replicate data between third-party services; FitMesh is a destination + dashboard + family layer, reading via Health Connect on Android and via Apple Health (HealthKit) + direct Bluetooth on iOS.",
+    "- Not a cloud-to-cloud bridge app — bridge apps replicate data between third-party services; FitMesh is a destination + in-app dashboard + family layer, reading via Health Connect on Android and via Apple Health (HealthKit) + direct Bluetooth on iOS.",
   );
   lines.push(
     "- Not invite-only or access-gated — publicly downloadable today; \"Founder\" was a one-time launch pricing promotion (see Founder program section above), never a beta waitlist or an admission gate.",

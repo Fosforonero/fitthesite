@@ -132,15 +132,15 @@ export default async function Home({
     "@id": `${SITE_URL}/${lc}#webpage`,
     url: `${SITE_URL}/${lc}`,
     name: lc === "it"
-      ? "FitMesh Sync — Sincronizza il tuo smartwatch a una dashboard personale"
+      ? "FitMesh Sync: sincronizza il tuo smartwatch a una dashboard personale nell'app"
       : lc === "es"
-      ? "FitMesh Sync — Sincroniza tu smartwatch en un panel personal"
-      : "FitMesh Sync — Sync your smartwatch to a personal dashboard",
+      ? "FitMesh Sync: sincroniza tu smartwatch en un panel personal en la app"
+      : "FitMesh Sync: sync your smartwatch to a personal app dashboard",
     description: lc === "it"
-      ? "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in una dashboard globale privacy-first: passi, battito, sonno, recupero e trend."
+      ? "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in un'unica dashboard globale dell'app, privacy-first: passi, battito, sonno, recupero e trend."
       : lc === "es"
-      ? "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect y proveedores en la nube en un panel global centrado en la privacidad: pasos, frecuencia cardíaca, sueño, recuperación y tendencias."
-      : "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one privacy-first global dashboard: steps, heart rate, sleep, recovery and trends.",
+      ? "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect y proveedores en la nube en un único panel global de la app, centrado en la privacidad: pasos, frecuencia cardíaca, sueño, recuperación y tendencias."
+      : "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one privacy-first global app dashboard: steps, heart rate, sleep, recovery and trends.",
     inLanguage: schemaLanguage(lc),
     isPartOf: { "@id": `${SITE_URL}#website` },
     // P0.16-B: puntava a `#mobile-app` (MobileApplicationJsonLd, rimosso —

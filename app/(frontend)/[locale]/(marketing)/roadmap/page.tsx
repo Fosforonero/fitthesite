@@ -201,7 +201,7 @@ const COLUMNS: RoadmapColumn[] = [
         },
       },
       {
-        status: "live",
+        status: "in-progress",
         title: { it: "Dashboard web nativa", en: "Native web dashboard", es: "Panel web nativo", de: "Native Web-Dashboard", pt: "Painel web nativo", fr: "Tableau de bord web natif", pl: "Natywny panel webowy", tr: "Yerel web paneli", nl: "Natief webdashboard", ja: "ネイティブWebダッシュボード", ko: "네이티브 웹 대시보드", sv: "Inbyggd webbdashboard", da: "Nativt webdashboard", no: "Nativt webdashbord", fi: "Oma verkkopohjainen koontinäyttö" },
         desc: {
           it: "Vista personale con trend giornalieri e settimanali, breakdown allenamenti, fasi sonno, zone HR. Server-side rendered e privacy-first.",

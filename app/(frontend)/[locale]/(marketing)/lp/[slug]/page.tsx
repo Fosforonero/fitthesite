@@ -103,7 +103,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync è un prodotto indipendente. ${brands.join(", ")}${brands.length > 1 ? " sono marchi" : " è un marchio"} dei rispettivi proprietari. Questa pagina non implica affiliazione né sponsorizzazione.`,
     finalCtaHeading: "Pronto a iniziare?",
-    finalCtaSubheading: "Scarica FitMesh Sync sul telefono Android. La dashboard web è inclusa.",
+    finalCtaSubheading: "Scarica FitMesh Sync sul telefono Android.",
   },
   en: {
     faqHeading: "Frequently asked questions",
@@ -111,7 +111,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync is an independent product. ${brands.join(", ")} ${brands.length > 1 ? "are trademarks" : "is a trademark"} of their respective owners. This page implies no affiliation or sponsorship.`,
     finalCtaHeading: "Ready to start?",
-    finalCtaSubheading: "Download FitMesh Sync on your Android phone. The web dashboard is included.",
+    finalCtaSubheading: "Download FitMesh Sync on your Android phone.",
   },
   es: {
     faqHeading: "Preguntas frecuentes",
@@ -119,7 +119,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync es un producto independiente. ${brands.join(", ")} ${brands.length > 1 ? "son marcas registradas" : "es una marca registrada"} de sus respectivos propietarios. Esta página no implica afiliación ni patrocinio.`,
     finalCtaHeading: "¿Listo para empezar?",
-    finalCtaSubheading: "Descarga FitMesh Sync en tu teléfono Android. El panel web está incluido.",
+    finalCtaSubheading: "Descarga FitMesh Sync en tu teléfono Android.",
   },
   de: {
     faqHeading: "Häufig gestellte Fragen",
@@ -127,7 +127,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync ist ein unabhängiges Produkt. ${brands.join(", ")} ${brands.length > 1 ? "sind Marken" : "ist eine Marke"} der jeweiligen Eigentümer. Diese Seite impliziert keine Zugehörigkeit oder Unterstützung.`,
     finalCtaHeading: "Bereit loszulegen?",
-    finalCtaSubheading: "Lade FitMesh Sync auf dein Android-Telefon herunter. Das Web-Dashboard ist inklusive.",
+    finalCtaSubheading: "Lade FitMesh Sync auf dein Android-Telefon herunter.",
   },
   pt: {
     faqHeading: "Perguntas frequentes",
@@ -135,7 +135,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync é um produto independente. ${brands.join(", ")} ${brands.length > 1 ? "são marcas registradas" : "é uma marca registrada"} de seus respectivos proprietários. Esta página não implica afiliação ou patrocínio.`,
     finalCtaHeading: "Pronto para começar?",
-    finalCtaSubheading: "Baixe FitMesh Sync no seu celular Android. O painel web está incluído.",
+    finalCtaSubheading: "Baixe FitMesh Sync no seu celular Android.",
   },
   fr: {
     faqHeading: "Questions fréquentes",
@@ -143,7 +143,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync est un produit indépendant. ${brands.join(", ")} ${brands.length > 1 ? "sont des marques" : "est une marque"} de leurs propriétaires respectifs. Cette page n'implique aucune affiliation ni parrainage.`,
     finalCtaHeading: "Prêt à commencer ?",
-    finalCtaSubheading: "Téléchargez FitMesh Sync sur votre téléphone Android. Le tableau de bord web est inclus.",
+    finalCtaSubheading: "Téléchargez FitMesh Sync sur votre téléphone Android.",
   },
   pl: {
     faqHeading: "Najczęściej zadawane pytania",
@@ -151,7 +151,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync jest niezależnym produktem. ${brands.join(", ")} ${brands.length > 1 ? "to znaki towarowe" : "jest znakiem towarowym"} ich odpowiednich właścicieli. Ta strona nie sugeruje żadnej afiliacji ani sponsoringu.`,
     finalCtaHeading: "Gotowy, żeby zacząć?",
-    finalCtaSubheading: "Pobierz FitMesh Sync na swój telefon z Androidem. Panel webowy jest wliczony w cenę.",
+    finalCtaSubheading: "Pobierz FitMesh Sync na swój telefon z Androidem.",
   },
   tr: {
     faqHeading: "Sık sorulan sorular",
@@ -159,7 +159,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync bağımsız bir üründür. ${brands.join(", ")} ${brands.length > 1 ? "ilgili sahiplerinin ticari markalarıdır" : "ilgili sahibinin ticari markasıdır"}. Bu sayfa hiçbir ortaklık veya sponsorluk ilişkisi ima etmez.`,
     finalCtaHeading: "Başlamaya hazır mısın?",
-    finalCtaSubheading: "FitMesh Sync'i Android telefonuna indir. Web panosu dahildir.",
+    finalCtaSubheading: "FitMesh Sync'i Android telefonuna indir.",
   },
   nl: {
     faqHeading: "Veelgestelde vragen",
@@ -167,7 +167,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync is een onafhankelijk product. ${brands.join(", ")} ${brands.length > 1 ? "zijn handelsmerken" : "is een handelsmerk"} van hun respectieve eigenaren. Deze pagina impliceert geen affiliatie of sponsoring.`,
     finalCtaHeading: "Klaar om te beginnen?",
-    finalCtaSubheading: "Download FitMesh Sync op je Android-telefoon. Het webdashboard is inbegrepen.",
+    finalCtaSubheading: "Download FitMesh Sync op je Android-telefoon.",
   },
   ja: {
     faqHeading: "よくある質問",
@@ -175,7 +175,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Syncは独立した製品です。${brands.join("、")}は各所有者の商標です。このページはいかなる提携またはスポンサーも示唆しません。`,
     finalCtaHeading: "始める準備はできていますか？",
-    finalCtaSubheading: "AndroidスマートフォンにFitMesh Syncをダウンロードしてください。Webダッシュボードが含まれています。",
+    finalCtaSubheading: "AndroidスマートフォンにFitMesh Syncをダウンロードしてください。",
   },
   ko: {
     faqHeading: "자주 묻는 질문",
@@ -183,7 +183,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync는 독립 제품입니다. ${brands.join(", ")}은(는) 각 소유자의 상표입니다. 이 페이지는 어떠한 제휴나 후원도 암시하지 않습니다.`,
     finalCtaHeading: "시작할 준비가 됐나요?",
-    finalCtaSubheading: "Android 스마트폰에 FitMesh Sync를 다운로드하세요. 웹 대시보드가 포함되어 있습니다.",
+    finalCtaSubheading: "Android 스마트폰에 FitMesh Sync를 다운로드하세요.",
   },
   sv: {
     faqHeading: "Vanliga frågor",
@@ -191,7 +191,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync är en oberoende produkt. ${brands.join(", ")} ${brands.length > 1 ? "är varumärken" : "är ett varumärke"} som tillhör respektive ägare. Den här sidan innebär ingen anknytning eller sponsring.`,
     finalCtaHeading: "Redo att börja?",
-    finalCtaSubheading: "Ladda ned FitMesh Sync på din Android-telefon. Webbpanelen ingår.",
+    finalCtaSubheading: "Ladda ned FitMesh Sync på din Android-telefon.",
   },
   da: {
     faqHeading: "Ofte stillede spørgsmål",
@@ -199,7 +199,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync er et uafhængigt produkt. ${brands.join(", ")} ${brands.length > 1 ? "er varemærker" : "er et varemærke"} tilhørende deres respektive ejere. Denne side indebærer ingen tilknytning eller sponsorering.`,
     finalCtaHeading: "Klar til at starte?",
-    finalCtaSubheading: "Download FitMesh Sync på din Android-telefon. Webdashboardet er inkluderet.",
+    finalCtaSubheading: "Download FitMesh Sync på din Android-telefon.",
   },
   no: {
     faqHeading: "Vanlige spørsmål",
@@ -207,7 +207,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync er et uavhengig produkt. ${brands.join(", ")} ${brands.length > 1 ? "er varemerker" : "er et varemerke"} som tilhører sine respektive eiere. Denne siden innebærer ingen tilknytning eller sponsing.`,
     finalCtaHeading: "Klar til å starte?",
-    finalCtaSubheading: "Last ned FitMesh Sync på Android-telefonen din. Nettdashbordet er inkludert.",
+    finalCtaSubheading: "Last ned FitMesh Sync på Android-telefonen din.",
   },
   fi: {
     faqHeading: "Usein kysytyt kysymykset",
@@ -215,7 +215,7 @@ const I18N: Record<Locale, {
     disclaimer: (brands: string[]) =>
       `FitMesh Sync on riippumaton tuote. ${brands.join(", ")} ${brands.length > 1 ? "ovat omistajiensa tavaramerkkejä" : "on omistajansa tavaramerkki"}. Tämä sivu ei tarkoita kumppanuutta tai sponsorointia.`,
     finalCtaHeading: "Valmis aloittamaan?",
-    finalCtaSubheading: "Lataa FitMesh Sync Android-puhelimeesi. Verkkokäyttöliittymä sisältyy.",
+    finalCtaSubheading: "Lataa FitMesh Sync Android-puhelimeesi.",
   },
 };
 
