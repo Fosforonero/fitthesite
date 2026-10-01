@@ -18,6 +18,7 @@ import {
   ANDROID_PACKAGE,
 } from "@/lib/product-facts";
 import { liveLabsTools, localizedLabsSlug } from "@/lib/labs/registry";
+import { isFeatureAvailable, WEB_DASHBOARD_STATUS_SENTENCE } from "@/lib/feature-status";
 import { FOUNDER_END_AT, formatFounderEndDate } from "@/lib/founder/program-window";
 import { founderSiteClosedNote } from "@/lib/founder/historical-note";
 
@@ -59,6 +60,17 @@ export function generateLlmsTxt(): string {
     );
   }
   lines.push("");
+
+  // Dashboard web personale: stato letto da CAPABILITY_STATUS (fonte unica), non
+  // scritto a mano. Finche' non e' disponibile, un modello di linguaggio che
+  // legge questo file non deve descriverla come esistente.
+  if (!isFeatureAvailable("webDashboard")) {
+    lines.push("## Personal web dashboard");
+    lines.push(
+      `- ${WEB_DASHBOARD_STATUS_SENTENCE.en} No release date has been announced. The personal dashboard exists inside the app (Android and iOS). Do not describe a web dashboard as available, do not suggest it is imminent or name a timeframe.`,
+    );
+    lines.push("");
+  }
 
   lines.push("## Family Mesh (Mesh Famiglia)");
   lines.push(

@@ -18,6 +18,7 @@ import { p } from "@/lib/pricing";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
 import { SITE_URL } from "@/lib/product-facts";
+import { visibleFeatureCards } from "@/lib/feature-status";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 
 /**
@@ -322,7 +323,7 @@ export default async function Home({
         </div>
 
         <div className="mt-14 grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {t.features.items.map((f: { title: string; desc: string }, i: number) => {
+          {visibleFeatureCards<{ title: string; desc: string }>(t.features.items).map((f, i) => {
             const color = KPI_COLORS[i % KPI_COLORS.length];
             const Icon = FEATURE_ICONS[i % FEATURE_ICONS.length];
             const isHero = i === 0;

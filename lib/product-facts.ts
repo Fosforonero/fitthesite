@@ -208,6 +208,25 @@ export const CAPABILITY_STATUS: Record<
     note:
       "Non promuovere a live_verified/live_limited senza un rilascio pubblico reale su almeno una piattaforma. Non descrivere meccaniche (inviti, preset di privacy, tetto membri, prezzo) prima che siano implementate e verificabili nel repository. Nessuna data di rilascio: non aggiungerne una finché non è annunciata da Matteo.",
   },
+  /**
+   * Dashboard web personale dei dati salute. Evidenza di prodotto: decisa da
+   * Matteo (decisioni del 28/09/2026) e in sviluppo, non ancora disponibile,
+   * nessuna data di rilascio annunciata (PM del 01/10/2026). L'area web `/app`
+   * (dietro login) gestisce account, dispositivi, export e cancellazione e
+   * mostra segnaposto al posto delle metriche: non e' una dashboard di dati.
+   * La dashboard dell'APP mobile e' un'altra cosa e resta vera: i testi devono
+   * distinguerle con precisione.
+   *
+   * Formula pubblica: IT "La dashboard web personale non è ancora
+   * disponibile."; EN "The personal web dashboard is not yet available." (le
+   * frasi nelle 15 lingue sono in lib/feature-status.ts). Mai date, mai "in
+   * arrivo"/"coming soon".
+   */
+  webDashboard: {
+    status: "in_development",
+    note:
+      "Non promuovere a live_verified/live_limited perche' una flag (per esempio FITMESH_WEB_DASHBOARD) e' accesa o perche' esiste il prototipo. Servono TUTTE E TRE le condizioni: (1) gate tecnico reale lato server, importato dal codice di rilascio e non riletto da process.env; (2) rilascio approvato da Matteo, con data e riferimento; (3) verifica in produzione con almeno un utente Pro idoneo e accesso verificato lato server, con evidenza conservata fuori dal repository pubblico (qui solo data, numero e impronta). I test di annuncio si aggiungono quando il gate tecnico confluisce nel ramo di rilascio. Nessuna data di rilascio: non aggiungerne una finche' non e' annunciata da Matteo.",
+  },
 };
 
 // ── Programma Founder ───────────────────────────────────────────────────────

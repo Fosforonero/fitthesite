@@ -20,6 +20,7 @@ import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
  */
 import { ABOUT_TRANSLATED_LOCALES } from "@/lib/content/static-page-locales";
 import { ABOUT_COPY } from "@/lib/content/about-copy";
+import { featureStatusSentence, isFeatureAvailable } from "@/lib/feature-status";
 import { tl } from "@/lib/blog/types";
 import { resolveSelfHostLocale } from "@/lib/self-host/locale-redirect";
 
@@ -285,7 +286,9 @@ export default async function AboutPage({
           {tl(ABOUT_COPY.familyHeading, lc)}
         </h2>
         <p className="mt-4 text-text-secondary leading-relaxed">
-          {tl(ABOUT_COPY.familyBody, lc)}
+          {isFeatureAvailable("familyMesh")
+            ? tl(ABOUT_COPY.familyBody, lc)
+            : featureStatusSentence("familyMesh", lc)}
         </p>
 
         {/* ─── Chi sviluppa ─── */}
