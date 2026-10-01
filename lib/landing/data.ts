@@ -1734,43 +1734,33 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         items: {
           it: [
             "**Disponibile oggi via Health Connect**: passi, frequenza cardiaca (media e campioni), calorie, allenamenti (tipo, durata, BPM medio, kcal), sonno base",
-            "**In roadmap**: integrazione OAuth Polar Accesslink API per Training Load, Nightly Recharge, Recovery Pro, ortostasi",
           ],
           en: [
             "**Available today via Health Connect**: steps, heart rate (average and samples), calories, workouts (type, duration, average HR, kcal), basic sleep",
-            "**In roadmap**: OAuth Polar Accesslink API integration for Training Load, Nightly Recharge, Recovery Pro, orthostatic test",
           ],
           de: [
             "**Heute verfügbar via Health Connect**: Schritte, Herzfrequenz (Durchschnitt und Messungen), Kalorien, Trainings (Typ, Dauer, Durchschnittspuls, kcal), Basisschlaf",
-            "**In der Roadmap**: OAuth Polar Accesslink API-Integration für Training Load, Nightly Recharge, Recovery Pro, Orthostase-Test",
           ],
           pt: [
             "**Disponível hoje via Health Connect**: passos, frequência cardíaca (média e amostras), calorias, treinos (tipo, duração, BPM médio, kcal), sono básico",
-            "**Em roadmap**: integração OAuth da API Polar Accesslink para Training Load, Nightly Recharge, Recovery Pro, teste ortostático",
           ],
           fr: [
             "**Disponible aujourd'hui via Health Connect** : pas, fréquence cardiaque (moyenne et mesures), calories, séances d'entraînement (type, durée, FC moyenne, kcal), sommeil de base",
-            "**En feuille de route** : intégration OAuth API Polar Accesslink pour Training Load, Nightly Recharge, Recovery Pro, test orthostatique",
           ],
           pl: [
             "Dostępne dzisiaj przez Health Connect: kroki, częstotliwość serca (średnia i próby), kalorie, treningi (rodzaj, trwałość, średnio BPM, kcal), podstawowy sen",
-            "**W roadmap**: integracja OAuth Polar Accesslink API dla Wzrostu Treningowego, Nocnego Naładowania, Zwiększenia Recuperacji, Ortopesji",
           ],
           tr: [
             "**Bugün Health Connect yoluyla mevcut:** adımlar, kalp atış hızı (ortalamalar ve örnekler), kaloriler, egzersizler (türü, süresi, BPM ortalama, kcal), temel uyku",
-            "**Yönetim planında**: OAuth Polar Accesslink API'si için Entrenman Yükü, Gecersel Yenilendirmesi, Kuvvetlendirme Pro, Diklik integre edilecek.",
           ],
           nl: [
             "**Nu beschikbaar via Health Connect**: stappen, hartslag (gemiddelde en metingen), calorieen, workouts (type, duur, gemiddelde HR, kcal), basisslaap",
-            "**Op de roadmap**: OAuth Polar Accesslink API-integratie voor Training Load, Nightly Recharge, Recovery Pro, orthostatische test",
           ],
           ja: [
             "**現在 Health Connect 経由で利用可能**: 歩数、心拍数 (平均とサンプル)、カロリー、ワークアウト (種類、時間、平均心拍、kcal)、基本的な睡眠",
-            "**ロードマップ予定**: Training Load、Nightly Recharge、Recovery Pro、起立性テスト向けの OAuth Polar Accesslink API 連携",
           ],
           ko: [
             "**현재 Health Connect 로 이용 가능**: 걸음 수, 심박수 (평균 및 샘플), 칼로리, 운동 (종류, 시간, 평균 심박, kcal), 기본 수면",
-            "**로드맵 예정**: Training Load, Nightly Recharge, Recovery Pro, 기립성 검사를 위한 OAuth Polar Accesslink API 연동",
           ],
         },
       },
@@ -1858,18 +1848,6 @@ const LANDING_PAGES_RAW: LandingPage[] = [
       {
         type: "callout",
         variant: "info",
-        title: {
-          it: "Polar Accesslink API è in roadmap",
-          en: "Polar Accesslink API is in the roadmap",
-          de: "Polar Accesslink API ist in der Roadmap",
-          pt: "A API Polar Accesslink está na roadmap",
-          fr: "L'API Polar Accesslink est dans la feuille de route",
-          pl: "Dostęp do Polar API jest w planie rozwinięcia produktu",
-          tr: "KVKK Erişim Bağlantısı API'si rota üzerinde yer alıyor",
-          nl: "Polar Accesslink API staat op de roadmap",
-          ja: "Polar Accesslink API はロードマップにあります",
-          ko: "Polar Accesslink API 는 로드맵에 있습니다",
-        },
         body: {
           it: "Le metriche avanzate Polar (Training Load, Nightly Recharge, Recovery Pro) non passano via Health Connect: sono proprietarie.",
           en: "Advanced Polar metrics (Training Load, Nightly Recharge, Recovery Pro) don't pass via Health Connect: they're proprietary.",

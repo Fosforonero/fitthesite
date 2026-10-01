@@ -386,7 +386,6 @@
     "body.1.text": "Cómo funciona hoy: Polar → Health Connect → FitMesh",
     "body.2.text": "La app Polar Flow en Android sincroniza pasos, frecuencia cardíaca y entrenamientos con Health Connect. FitMesh lee de Health Connect al abrir la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería.",
     "body.4.text": "Quién se beneficia más de esta integración",
-    "body.6.title": "La API Polar Accesslink está en la hoja de ruta",
     "body.6.body": "Las métricas avanzadas de Polar (Training Load, Nightly Recharge, Recovery Pro) no pasan por Health Connect: son propietarias.",
     "body.7.title": "Tus datos de Polar en la app de FitMesh",
     "body.7.body": "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir. App de Android. Sincronización periódica desde Polar Flow vía Health Connect (al abrir la app, o en segundo plano best-effort).",
@@ -404,8 +403,7 @@
       "polar ignite vantage panel web"
     ],
     "body.3.items": [
-      "**Disponible hoy vía Health Connect**: pasos, frecuencia cardíaca (media y muestras), calorías, entrenamientos (tipo, duración, FC media, kcal), sueño básico",
-      "**En la hoja de ruta**: integración OAuth con la API Polar Accesslink para Training Load, Nightly Recharge, Recovery Pro, prueba ortostática"
+      "**Disponible hoy vía Health Connect**: pasos, frecuencia cardíaca (media y muestras), calorías, entrenamientos (tipo, duración, FC media, kcal), sueño básico"
     ],
     "body.5.items": [
       "**Triatletas y corredores con varios dispositivos**: Polar para el entrenamiento específico, Galaxy Watch u otro para el uso diario: FitMesh los unifica.",
