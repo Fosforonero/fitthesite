@@ -198,31 +198,41 @@ export const PRICING_SECTION = {
    * fosse gia' attivabile. Riusa verbatim la chiave dizionario esistente
    * app.devices.coming_soon (lib/dictionaries/<loc>.json:126, mai consumata
    * altrove nel sito, gia' su tutte e 15 le locale, gia' fra parentesi).
+   *
+   * 01/10/2026 (contenimento claim, decisione PM): la riga Mesh Famiglia e'
+   * stata TOLTA da qui. Mesh Famiglia e' in sviluppo e non disponibile
+   * (CAPABILITY_STATUS.familyMesh in lib/product-facts.ts): elencarla fra i
+   * benefici del piano a pagamento, anche con "(in arrivo)", la trasformava in
+   * un motivo per comprare una funzione che nessuno puo' usare, e "in
+   * arrivo"/"coming soon" e' comunque escluso dalla formula approvata. Quando
+   * la Mesh sara' disponibile e verificata, la riga si reintroduce a mano
+   * insieme al cambio di stato. proFeatures e trialFeatures oggi coincidono: si
+   * tengono due liste perche' le due card possono divergere.
    */
   proFeatures: {
-    it: ["Storico illimitato", "Mesh Famiglia (in arrivo)", "Export completo dei dati"],
-    en: ["Unlimited history", "Family Mesh (coming soon)", "Full data export"],
-    es: ["Historial ilimitado", "Mesh Familia (próximamente)", "Exportación completa de datos"],
-    de: ["Unbegrenzter Verlauf", "Family Mesh (demnächst verfügbar)", "Vollständiger Datenexport"],
-    pt: ["Histórico ilimitado", "Mesh Família (em breve)", "Exportação completa de dados"],
-    fr: ["Historique illimité", "Mesh Famille (bientôt disponible)", "Export complet des données"],
-    pl: ["Pełna historia", "Family Mesh (wkrótce)", "Pełny eksport danych"],
-    tr: ["Tam geçmiş", "Aile Mesh (yakında)", "Verilerin tam dışa aktarımı"],
-    nl: ["Volledige geschiedenis", "Family Mesh (binnenkort)", "Volledige export van je gegevens"],
-    ja: ["すべての履歴データ", "Family Mesh（近日公開）", "全データのエクスポート"],
-    ko: ["전체 기록 데이터", "Family Mesh(출시 예정)", "전체 데이터 내보내기"],
-    sv: ["Fullständig historik", "Family Mesh (kommer snart)", "Fullständig export av dina data"],
-    da: ["Fuld historik", "Family Mesh (kommer snart)", "Fuld eksport af dine data"],
-    no: ["Full historikk", "Family Mesh (kommer snart)", "Full eksport av dataene dine"],
-    fi: ["Täysi historia", "Family Mesh (tulossa pian)", "Kaikkien tietojesi vienti"],
+    it: ["Storico illimitato", "Export completo dei dati"],
+    en: ["Unlimited history", "Full data export"],
+    es: ["Historial ilimitado", "Exportación completa de datos"],
+    de: ["Unbegrenzter Verlauf", "Vollständiger Datenexport"],
+    pt: ["Histórico ilimitado", "Exportação completa de dados"],
+    fr: ["Historique illimité", "Export complet des données"],
+    pl: ["Pełna historia", "Pełny eksport danych"],
+    tr: ["Tam geçmiş", "Verilerin tam dışa aktarımı"],
+    nl: ["Volledige geschiedenis", "Volledige export van je gegevens"],
+    ja: ["すべての履歴データ", "全データのエクスポート"],
+    ko: ["전체 기록 데이터", "전체 데이터 내보내기"],
+    sv: ["Fullständig historik", "Fullständig export av dina data"],
+    da: ["Fuld historik", "Fuld eksport af dine data"],
+    no: ["Full historikk", "Full eksport av dataene dine"],
+    fi: ["Täysi historia", "Kaikkien tietojesi vienti"],
   } as LocalizedList,
   /**
    * Solo per la terza card (Prova 14gg): identica a `proFeatures` ma senza
    * la riga Mesh Famiglia. 31/07 (Matteo): la funzione non e' inclusa nella
    * prova, perche' non e' ancora attivabile da nessuno — quando lo sara',
    * richiedera' comunque un acquisto/abbonamento attivo, non fa parte del
-   * periodo di prova gratuito. La card "Pro" (proFeatures) la elenca ancora,
-   * marcata "(coming soon)".
+   * periodo di prova gratuito. Dal 01/10/2026 non la elenca piu' nemmeno la card
+   * "Pro" (proFeatures).
    */
   trialFeatures: {
     it: ["Storico illimitato", "Export completo dei dati"],
