@@ -266,7 +266,7 @@
   },
   "fitbit-export-google": {
     "hero.kicker": "Fitbit después de Google",
-    "hero.title": "Datos de Fitbit en la app de FitMesh, sin depender de Google",
+    "hero.title": "Datos de Fitbit en la app de FitMesh",
     "hero.subtitle": "Fitbit.com se ha retirado y Fitbit Premium te empuja a pagar por funciones que siempre tuviste. Exporta tus datos de Fitbit a la app de FitMesh, a través de Health Connect.",
     "hero.primaryCta.label": "Descarga FitMesh y pruébala gratis",
     "hero.secondaryCta.label": "Ver la integración con Fitbit",
