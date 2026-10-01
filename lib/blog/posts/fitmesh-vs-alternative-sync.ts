@@ -56,16 +56,16 @@ export const post: BlogPost = {
   tldr: {
     it: [
       "Health Sync è un traduttore puro tra piattaforme (Garmin, Fitbit, Samsung Health, Google Fit e altre): nessuna dashboard propria, elaborazione sul telefono, acquisto una tantum economico.",
-      "FitnessSyncer ha una vera dashboard web multi-fonte come FitMesh, ma i dati sono conservati su server negli Stati Uniti, non in UE.",
+      "FitnessSyncer ha una vera dashboard web multi-fonte, ma i dati sono conservati su server negli Stati Uniti, non in UE.",
       "Gadgetbridge è open-source, gratuito e non manda mai dati online per progetto (niente permesso Internet): la scelta più coerente per chi vuole zero cloud, al costo di nessuna dashboard web.",
-      "FitMesh Sync copre lo spazio intermedio: dashboard web e app, pagamento diretto invece di pubblicità o vendita dati.",
+      "FitMesh Sync copre lo spazio intermedio: dati nell'app, pagamento diretto invece di pubblicità o vendita dati. La dashboard web personale non è ancora disponibile.",
       "Non c'è una risposta valida per tutti: se vuoi zero cloud a ogni costo, Gadgetbridge resta la scelta più onesta, anche secondo noi.",
     ],
     en: [
       "Health Sync is a pure translator between platforms (Garmin, Fitbit, Samsung Health, Google Fit and more): no dashboard of its own, processing happens on the phone, cheap one-time purchase.",
-      "FitnessSyncer has a real multi-source web dashboard like FitMesh, but the data is stored on servers in the United States, not the EU.",
+      "FitnessSyncer has a real multi-source web dashboard, but the data is stored on servers in the United States, not the EU.",
       "Gadgetbridge is open-source, free, and by design never sends data online (no Internet permission at all): the most consistent choice if you want zero cloud, at the cost of no web dashboard.",
-      "FitMesh Sync sits in the middle ground: web dashboard and app, a direct price instead of ads or data sales.",
+      "FitMesh Sync sits in the middle ground: data in the app, a direct price instead of ads or data sales. The personal web dashboard is not yet available.",
       "There's no one-size-fits-all answer here: if you want zero cloud no matter what, Gadgetbridge remains the more honest choice, even by our own admission.",
     ],
   },
@@ -82,8 +82,8 @@ export const post: BlogPost = {
       variant: "info",
       title: { it: "Risposta rapida", en: "Quick answer" },
       body: {
-        it: "Health Sync traduce dati tra app senza dashboard propria. FitnessSyncer ha una dashboard web ma i dati vivono negli Stati Uniti. Gadgetbridge non manda mai nulla online, ma non ha una dashboard web. FitMesh Sync ha dashboard web e app, con un prezzo diretto invece di pubblicità o vendita dati.",
-        en: "Health Sync translates data between apps with no dashboard of its own. FitnessSyncer has a web dashboard, but the data lives in the United States. Gadgetbridge never sends anything online, but has no web dashboard. FitMesh Sync has both a web dashboard and an app, with a direct price instead of ads or data sales.",
+        it: "Health Sync traduce dati tra app senza dashboard propria. FitnessSyncer ha una dashboard web ma i dati vivono negli Stati Uniti. Gadgetbridge non manda mai nulla online, ma non ha una dashboard web. FitMesh Sync mostra i dati nell'app, con un prezzo diretto invece di pubblicità o vendita dati. La dashboard web personale non è ancora disponibile.",
+        en: "Health Sync translates data between apps with no dashboard of its own. FitnessSyncer has a web dashboard, but the data lives in the United States. Gadgetbridge never sends anything online, but has no web dashboard. FitMesh Sync shows data in the app, with a direct price instead of ads or data sales. The personal web dashboard is not yet available.",
       },
     },
     {
@@ -112,8 +112,8 @@ export const post: BlogPost = {
       type: "heading",
       level: 2,
       text: {
-        it: "FitnessSyncer: la dashboard web più simile a FitMesh, ma su server USA",
-        en: "FitnessSyncer: the web dashboard closest to FitMesh, but on US servers",
+        it: "FitnessSyncer: una dashboard web multi-fonte, ma su server USA",
+        en: "FitnessSyncer: a multi-source web dashboard, but on US servers",
       },
     },
     {
@@ -163,8 +163,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "FitMesh Sync legge i dati via Health Connect su Android o direttamente dall'anello Colmi via Bluetooth, li deduplica quando più fonti coprono lo stesso intervallo, e li mostra sia nell'app sia in una dashboard web vera, accessibile da qualsiasi browser con lo stesso account. È quindi più vicino nell'impostazione a FitnessSyncer che a Health Sync o Gadgetbridge: c'è un secondo posto dove guardare i tuoi dati, non solo un ponte tra due app. La differenza è come si paga il servizio: nessuna pubblicità nell'app, nessuna vendita dei dati a terzi. Il servizio si sostiene con un prezzo diretto (un piccolo abbonamento o uno sblocco a vita), non monetizzando i tuoi dati. I primi 1000 iscritti founder (entro il 31 luglio 2026) hanno ottenuto il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa prima di decidere. Il dettaglio del modello di prezzo è nella guida [FitMesh è gratis? Prezzo e posti founder](/it/blog/fitmesh-gratis-prezzo-founder), e il dettaglio su come trattiamo i dati è nella [Privacy Policy](/it/privacy).",
-        en: "FitMesh Sync reads data via Health Connect on Android or directly from the Colmi ring over Bluetooth, deduplicates it when multiple sources cover the same window, and shows it both in the app and in a real web dashboard, reachable from any browser with the same account. So in setup it's closer to FitnessSyncer than to Health Sync or Gadgetbridge: there's a second place to actually look at your data, not just a bridge between two apps. The difference is how the service is paid for: no ads in the app, no data sold to third parties. The service is funded by a direct price (a small subscription or a lifetime unlock), not by monetizing your data. The first 1,000 founder sign-ups (by July 31, 2026) got lifetime Pro free — that program is now closed to new sign-ups; everyone else gets a full 14-day trial before deciding. The full pricing model is in the guide [Is FitMesh free? Pricing and founder spots](/en/blog/is-fitmesh-free-pricing-founder), and the detail on how we handle data is in our [Privacy Policy](/en/privacy).",
+        it: "FitMesh Sync legge i dati via Health Connect su Android o direttamente dall'anello Colmi via Bluetooth, li deduplica quando più fonti coprono lo stesso intervallo, e li mostra nell'app. La dashboard web personale non è ancora disponibile. C'è quindi un posto dove guardare i tuoi dati, non solo un ponte tra due app. La differenza è come si paga il servizio: nessuna pubblicità nell'app, nessuna vendita dei dati a terzi. Il servizio si sostiene con un prezzo diretto (un piccolo abbonamento o uno sblocco a vita), non monetizzando i tuoi dati. I primi 1000 iscritti founder (entro il 31 luglio 2026) hanno ottenuto il Pro a vita gratis; tutti gli altri hanno 14 giorni di prova completa prima di decidere. Il dettaglio del modello di prezzo è nella guida [FitMesh è gratis? Prezzo e posti founder](/it/blog/fitmesh-gratis-prezzo-founder), e il dettaglio su come trattiamo i dati è nella [Privacy Policy](/it/privacy).",
+        en: "FitMesh Sync reads data via Health Connect on Android or directly from the Colmi ring over Bluetooth, deduplicates it when multiple sources cover the same window, and shows it in the app. The personal web dashboard is not yet available. So there is a place to actually look at your data, not just a bridge between two apps. The difference is how the service is paid for: no ads in the app, no data sold to third parties. The service is funded by a direct price (a small subscription or a lifetime unlock), not by monetizing your data. The first 1,000 founder sign-ups (by July 31, 2026) got lifetime Pro free. That program is now closed to new sign-ups; everyone else gets a full 14-day trial before deciding. The full pricing model is in the guide [Is FitMesh free? Pricing and founder spots](/en/blog/is-fitmesh-free-pricing-founder), and the detail on how we handle data is in our [Privacy Policy](/en/privacy).",
       },
     },
     {
@@ -204,8 +204,8 @@ export const post: BlogPost = {
           en: ["Gadgetbridge", "No, in-app charts only", "No cloud: no Internet permission by design", "Yes, AGPLv3", "Free (donation-based)"],
         },
         {
-          it: ["FitMesh Sync", "Sì, app + dashboard web", "Trattamento descritto nella pagina Privacy", "No, chiuso", "Abbonamento leggero o sblocco a vita; primi 1000 founder gratis a vita (entro il 31 luglio 2026)"],
-          en: ["FitMesh Sync", "Yes, app + web dashboard", "Handling described on the Privacy page", "No, closed", "Light subscription or lifetime unlock; first 1,000 founders free for life (by July 31, 2026)"],
+          it: ["FitMesh Sync", "Dati nell'app. La dashboard web personale non è ancora disponibile.","Trattamento descritto nella pagina Privacy", "No, chiuso", "Abbonamento leggero o sblocco a vita; primi 1000 founder gratis a vita (entro il 31 luglio 2026)"],
+          en: ["FitMesh Sync", "Data in the app. The personal web dashboard is not yet available.","Handling described on the Privacy page", "No, closed", "Light subscription or lifetime unlock; first 1,000 founders free for life (by July 31, 2026)"],
         },
       ],
     },
@@ -224,13 +224,13 @@ export const post: BlogPost = {
           "**Ti serve solo far parlare due ecosistemi già in uso** (es. Garmin verso Google Fit) senza volerne uno nuovo da guardare: Health Sync è la scelta più mirata ed economica.",
           "**Vuoi una dashboard web multi-fonte e non ti preoccupa dove sono ospitati i dati**: FitnessSyncer fa esattamente questo, con un piano gratuito limitato per iniziare.",
           "**Vuoi zero cloud, a ogni costo, anche rinunciando a una dashboard web e ad alcuni insight**: Gadgetbridge è la scelta più coerente e onesta delle quattro, anche secondo noi.",
-          "**Vuoi una dashboard web vera, senza pubblicità né vendita dati**: è lo spazio in cui si posiziona FitMesh Sync.",
+          "**Vuoi vedere i tuoi dati nell'app, senza pubblicità né vendita dati**: è lo spazio in cui si posiziona FitMesh Sync.",
         ],
         en: [
           "**You just need two ecosystems you already use to talk to each other** (e.g. Garmin to Google Fit) without wanting a new one to look at: Health Sync is the most targeted, cheapest choice.",
           "**You want a multi-source web dashboard and don't mind where the data is hosted**: FitnessSyncer does exactly this, with a limited free tier to start.",
           "**You want zero cloud, no matter what, even giving up a web dashboard and some insight**: Gadgetbridge is the most consistent, honest choice of the four, even by our own admission.",
-          "**You want a real web dashboard, with no ads and no data sold**: that's the space FitMesh Sync occupies.",
+          "**You want to see your data in the app, with no ads and no data sold**: that's the space FitMesh Sync occupies.",
         ],
       },
     },
@@ -248,16 +248,16 @@ export const post: BlogPost = {
         en: "If FitMesh's space sounds like the right fit",
       },
       body: {
-        it: "Nessuna delle quattro opzioni di questo confronto è sbagliata: dipende da cosa ti serve davvero. Se cerchi una dashboard web reale, prova FitMesh Sync con 14 giorni di prova completa.",
-        en: "None of the four options in this comparison is wrong: it depends on what you actually need. If you're after a real web dashboard, try FitMesh Sync with a full 14-day trial.",
+        it: "Nessuna delle quattro opzioni di questo confronto è sbagliata: dipende da cosa ti serve davvero. Se vuoi vedere i tuoi dati nell'app, prova FitMesh Sync con 14 giorni di prova completa. La dashboard web personale non è ancora disponibile.",
+        en: "None of the four options in this comparison is wrong: it depends on what you actually need. If you want to see your data in the app, try FitMesh Sync with a full 14-day trial. The personal web dashboard is not yet available.",
       },
       benefits: {
         it: [
-          "Dashboard web vera, non solo un bridge tra due app",
+          "I tuoi dati nell'app, non solo un bridge tra due app",
           "Nessuna pubblicità, nessuna vendita dei dati a terzi",
         ],
         en: [
-          "A real web dashboard, not just a bridge between two apps",
+          "Your data in the app, not just a bridge between two apps",
           "No ads, no data sold to third parties",
         ],
       },
@@ -275,15 +275,15 @@ export const post: BlogPost = {
     {
       q: { it: "FitMesh Sync sostituisce Health Sync, FitnessSyncer o Gadgetbridge?", en: "Does FitMesh Sync replace Health Sync, FitnessSyncer or Gadgetbridge?" },
       a: {
-        it: "Non necessariamente. Se ti serve solo un bridge puro tra due ecosistemi, Health Sync resta più mirato. Se vuoi zero cloud assoluto, Gadgetbridge resta la scelta più coerente. FitMesh Sync copre chi vuole una dashboard web reale.",
-        en: "Not necessarily. If all you need is a pure bridge between two ecosystems, Health Sync remains more targeted. If you want absolute zero cloud, Gadgetbridge remains the more consistent choice. FitMesh Sync serves people who want a real web dashboard.",
+        it: "Non necessariamente. Se ti serve solo un bridge puro tra due ecosistemi, Health Sync resta più mirato. Se vuoi zero cloud assoluto, Gadgetbridge resta la scelta più coerente. FitMesh Sync copre chi vuole vedere i propri dati nell'app. La dashboard web personale non è ancora disponibile.",
+        en: "Not necessarily. If all you need is a pure bridge between two ecosystems, Health Sync remains more targeted. If you want absolute zero cloud, Gadgetbridge remains the more consistent choice. FitMesh Sync serves people who want to see their data in the app. The personal web dashboard is not yet available.",
       },
     },
     {
       q: { it: "Gadgetbridge è più sicuro di FitMesh Sync?", en: "Is Gadgetbridge more secure than FitMesh Sync?" },
       a: {
-        it: "Sul piano \"zero dati inviati online\", sì: Gadgetbridge per progetto non ha il permesso Internet, quindi non può mandare nulla in rete. È il compromesso opposto: nessuna dashboard web, nessun insight aggregato nel tempo. FitMesh Sync invece invia i dati (necessariamente, per mostrarli in dashboard) ma li tratta senza venderli né usarli per pubblicità.",
-        en: "On the 'zero data sent online' axis, yes: Gadgetbridge by design has no Internet permission, so it can't send anything over the network. It's the opposite trade-off: no web dashboard, no aggregated insight over time. FitMesh Sync does send data (necessarily, to show it in a dashboard), but handles it without selling it or using it for ads.",
+        it: "Sul piano \"zero dati inviati online\", sì: Gadgetbridge per progetto non ha il permesso Internet, quindi non può mandare nulla in rete. È il compromesso opposto: nessuna dashboard web, nessun insight aggregato nel tempo. FitMesh Sync invece invia i dati ma li tratta senza venderli né usarli per pubblicità.",
+        en: "On the 'zero data sent online' axis, yes: Gadgetbridge by design has no Internet permission, so it can't send anything over the network. It's the opposite trade-off: no web dashboard, no aggregated insight over time. FitMesh Sync does send data, but handles it without selling it or using it for ads.",
       },
     },
     {
@@ -296,8 +296,8 @@ export const post: BlogPost = {
     {
       q: { it: "Quale delle quattro ha una dashboard web?", en: "Which of the four has a web dashboard?" },
       a: {
-        it: "FitnessSyncer e FitMesh Sync hanno entrambe una dashboard web multi-fonte. Health Sync elabora tutto localmente sul telefono senza dashboard propria. Gadgetbridge mostra grafici solo nell'app, senza dashboard web ufficiale.",
-        en: "FitnessSyncer and FitMesh Sync both have a multi-source web dashboard. Health Sync processes everything locally on the phone with no dashboard of its own. Gadgetbridge shows charts only in the app, with no official web dashboard.",
+        it: "FitnessSyncer ha una dashboard web multi-fonte. FitMesh Sync mostra i dati nell'app. La dashboard web personale non è ancora disponibile. Health Sync elabora tutto localmente sul telefono senza dashboard propria. Gadgetbridge mostra grafici solo nell'app, senza dashboard web ufficiale.",
+        en: "FitnessSyncer has a multi-source web dashboard. FitMesh Sync shows data in the app. The personal web dashboard is not yet available. Health Sync processes everything locally on the phone with no dashboard of its own. Gadgetbridge shows charts only in the app, with no official web dashboard.",
       },
     },
     {
