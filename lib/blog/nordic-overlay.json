@@ -1748,16 +1748,16 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Synkronisering av Withings-data: vikt, aktivitet och sömn i en översiktspanel",
-      "da": "Synkronisering af Withings-data: vægt, aktivitet og søvn i ét oversigtspanel"
+      "sv": "Synkronisering av Withings-data: vikt, aktivitet och sömn i appen FitMesh",
+      "da": "Synkronisering af Withings-data: vægt, aktivitet og søvn i FitMesh-appen"
     },
     "hero.subtitle": {
       "sv": "Withings samlar in värdefull hälsodata, men den förblir låst i Health Mate-appen. Här beskriver vi hur du kan hämta ut den, kombinera den med dina andra enheter och se allt på ett och samma ställe – med ärliga kommentarer om dess begränsningar.",
       "da": "Withings indsamler værdifulde sundhedsdata, men de forbliver låst inde i Health Mate-appen. Her kan du læse, hvordan du får dem ud, kombinerer dem med dine andre enheder og får det hele samlet ét sted – med ærlige bemærkninger om appens begrænsninger."
     },
     "metaDescription": {
-      "sv": "Så här synkroniserar du Withings data (våg, hybridklocka, sensorer) till en samlad personlig översiktssida. Praktisk guide som täcker Health Connect, HealthKit och EU:s integritetsbestämmelser.",
-      "da": "Sådan synkroniseres Withings data (vægt, hybridur, sensorer) til et samlet personligt kontrolpanel. Praktisk vejledning, der dækker Health Connect, HealthKit og EU’s databeskyttelsesregler."
+      "sv": "Så här synkroniserar du Withings data (våg, hybridklocka, sensorer) och visar dem i appen FitMesh. Praktisk guide som täcker Health Connect, HealthKit och EU:s integritetsbestämmelser.",
+      "da": "Sådan synkroniseres Withings data (vægt, hybridur, sensorer) og vises i FitMesh-appen. Praktisk vejledning, der dækker Health Connect, HealthKit og EU’s databeskyttelsesregler."
     },
     "primaryKeyword": {
       "sv": "synkronisera Withings data",
@@ -1848,8 +1848,8 @@
       "da": "FitMesh Sync og Withings: hvad man kan forvente"
     },
     "body.20.text": {
-      "sv": "FitMesh Sync läser in data från Health Connect (Android) och HealthKit (iOS) och visar dem i en webbaserad kontrollpanel som är tillgänglig från vilken webbläsare som helst, inklusive från en dator eller surfplatta, utan att du behöver öppna smartphone-appen varje gång. Om du redan har anslutit Withings till Health Connect eller HealthKit enligt stegen ovan kommer data om vikt, steg, sömn och hjärtfrekvens från Withings automatiskt att visas i instrumentpanelen tillsammans med data från andra enheter du använder.",
-      "da": "FitMesh Sync henter data fra Health Connect (Android) og HealthKit (iOS) og viser dem i et webbaseret kontrolpanel, som man kan få adgang til fra enhver browser, herunder fra en pc eller tablet, uden at man behøver at åbne smartphone-appen hver gang. Hvis du allerede har tilsluttet Withings til Health Connect eller HealthKit ved at følge trinene ovenfor, vil data om vægt, skridt, søvn og puls fra Withings automatisk blive vist i dashboardet sammen med data fra andre enheder, du bruger."
+      "sv": "FitMesh Sync läser in data från Health Connect (Android) och HealthKit (iOS) och visar dem i appens instrumentpanel. Den personliga webbpanelen är ännu inte tillgänglig. Om du redan har anslutit Withings till Health Connect eller HealthKit enligt stegen ovan kommer data om vikt, steg, sömn och hjärtfrekvens från Withings automatiskt att visas i appens instrumentpanel tillsammans med data från andra enheter du använder.",
+      "da": "FitMesh Sync henter data fra Health Connect (Android) og HealthKit (iOS) og viser dem i appens dashboard. Det personlige webdashboard er endnu ikke tilgængeligt. Hvis du allerede har tilsluttet Withings til Health Connect eller HealthKit ved at følge trinene ovenfor, vil data om vægt, skridt, søvn og puls fra Withings automatisk blive vist i appens dashboard sammen med data fra andre enheder, du bruger."
     },
     "body.21.title": {
       "sv": "Withings stöds via Health Connect och HealthKit",
@@ -1860,12 +1860,12 @@
       "da": "FitMesh Sync forbinder til Withings via standardplatforme (Health Connect på Android, HealthKit på iOS): Du behøver ikke at forbinde din Withings-konto direkte eller dele dine Health Mate-loginoplysninger. Forløbet er som følger: Withings skriver til Health Connect/HealthKit, og FitMesh Sync læser dataene derfra. Dine data forbliver altid under din kontrol."
     },
     "body.22.title": {
-      "sv": "Vill du se Withings vikt, sömn och aktivitet på en och samma översiktssida?",
-      "da": "Vil du se Withings vægt, søvn og aktivitet samlet på ét oversigtspanel?"
+      "sv": "Vill du se Withings vikt, sömn och aktivitet i appen FitMesh?",
+      "da": "Vil du se Withings vægt, søvn og aktivitet samlet i FitMesh-appen?"
     },
     "body.22.body": {
-      "sv": "FitMesh Sync samlar in data från Health Connect och HealthKit (där Withings skriver automatiskt) och sammanställer dem i en webbpanel som är tillgänglig via webbläsaren. Ingen manuell export, inga extra appar: det fungerar från det ögonblick du godkänner Health Connect för första gången. Europeiska servrar, EU:s integritetsskydd, inget abonnemang krävs för att komma igång.",
-      "da": "FitMesh Sync indsamler data fra Health Connect og HealthKit (hvor Withings skriver automatisk) og samler dem i et web-dashboard, der er tilgængeligt via browseren. Ingen manuel eksport, ingen ekstra apps: Det fungerer fra det øjeblik, du godkender Health Connect for første gang. EU-databeskyttelse, intet abonnement kræves for at komme i gang."
+      "sv": "FitMesh Sync samlar in data från Health Connect och HealthKit (där Withings skriver automatiskt) och sammanställer dem i appens instrumentpanel. Den personliga webbpanelen är ännu inte tillgänglig. Ingen manuell export, inga extra appar: det fungerar från det ögonblick du godkänner Health Connect för första gången. Europeiska servrar, EU:s integritetsskydd, inget abonnemang krävs för att komma igång.",
+      "da": "FitMesh Sync indsamler data fra Health Connect og HealthKit (hvor Withings skriver automatisk) og samler dem i appens dashboard. Det personlige webdashboard er endnu ikke tilgængeligt. Ingen manuel eksport, ingen ekstra apps: Det fungerer fra det øjeblik, du godkender Health Connect for første gang. EU-databeskyttelse, intet abonnement kræves for at komme i gang."
     },
     "body.22.ctaLabel": {
       "sv": "Ladda ner FitMesh och prova gratis",
@@ -1939,14 +1939,14 @@
       "sv": [
         "Withings synkroniserar vikt, kroppssammansättning, aktivitet och sömn till sin egen Health Mate-app: därifrån kan du samla all information på en samlad översiktssida.",
         "På Android kommer Withings data via Health Connect; på iOS via HealthKit: koppla bara Health Mate-appen till den plattform du använder.",
-        "För att få tillgång till en personlig instrumentpanel via en webbläsare behöver du en app som kan avläsa både Health Connect/HealthKit och de andra enheterna som du använder parallellt.",
+        "För att få en personlig instrumentpanel i mobilen behöver du en app som kan avläsa både Health Connect/HealthKit och de andra enheterna som du använder parallellt. Den personliga webbpanelen är ännu inte tillgänglig.",
         "Dina uppgifter tillhör dig: Withings är ett europeiskt varumärke och servrarna finns i Europa. Kontrollera var andra tjänster lagrar dina uppgifter innan du delar dem.",
         "Den största begränsningen: vissa avancerade mått på kroppssammansättning finns endast i appen Withings och överförs inte till tredje part."
       ],
       "da": [
         "Withings synkroniserer vægt, kropssammensætning, aktivitet og søvn med sin egen Health Mate-app: derfra kan du samle det hele i et samlet oversigtspanel.",
         "På Android modtages Withings-data via Health Connect; på iOS via HealthKit: Du skal blot forbinde Health Mate-appen til den platform, du bruger.",
-        "For at få et personligt kontrolpanel, som du kan få adgang til via en browser, skal du have en app, der kan aflæse både Health Connect/HealthKit og de andre enheder, du bruger sideløbende.",
+        "For at få et personligt kontrolpanel på din telefon skal du have en app, der kan aflæse både Health Connect/HealthKit og de andre enheder, du bruger sideløbende. Det personlige webdashboard er endnu ikke tilgængeligt.",
         "Dine data tilhører dig: Withings er et europæisk brand, og serverne er placeret i Europa. Tjek, hvor andre tjenester gemmer dine data, før du deler dem.",
         "Den største begrænsning: visse avancerede målinger af kropssammensætning forbliver udelukkende i Withings-appen og videregives ikke til tredjeparter."
       ]
