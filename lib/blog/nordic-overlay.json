@@ -1386,8 +1386,8 @@
       "da": "Sådan fungerer forløbet: Zepp / Mi Fitness til Health Connect til FitMesh"
     },
     "body.2.text": {
-      "sv": "Processen består av tre steg. Först synkroniserar tillverkarens app (Zepp eller Mi Fitness) den fysiska enheten och skriver de insamlade uppgifterna till Health Connect. Därefter lagrar Health Connect dem i ett lokalt arkiv på Android-telefonen. Slutligen begär FitMesh Sync läsbehörighet från Health Connect och hämtar data för att visa den i appen. På detta sätt lämnar data aldrig din telefon till obehöriga tredjepartsservrar: du behåller kontrollen.",
-      "da": "Processen består af tre trin. Først synkroniserer producentens app (Zepp eller Mi Fitness) den fysiske enhed og gemmer de indsamlede data i Health Connect. Derefter gemmer Health Connect dem i et lokalt arkiv på Android-telefonen. Til sidst anmoder FitMesh Sync om læsetilladelser fra Health Connect og henter dataene for at vise dem i appen. På denne måde forlader dataene aldrig din telefon til uautoriserede tredjepartsservere: du bevarer kontrollen."
+      "sv": "Processen består av tre steg. Först synkroniserar tillverkarens app (Zepp eller Mi Fitness) den fysiska enheten och skriver de insamlade uppgifterna till Health Connect. Därefter lagrar Health Connect dem i ett lokalt arkiv på Android-telefonen. Slutligen begär FitMesh Sync läsbehörighet från Health Connect och hämtar data för att visa den i appen.",
+      "da": "Processen består af tre trin. Først synkroniserer producentens app (Zepp eller Mi Fitness) den fysiske enhed og gemmer de indsamlede data i Health Connect. Derefter gemmer Health Connect dem i et lokalt arkiv på Android-telefonen. Til sidst anmoder FitMesh Sync om læsetilladelser fra Health Connect og henter dataene for at vise dem i appen."
     },
     "body.3.title": {
       "sv": "Krav: Android 9 eller senare med Health Connect",
@@ -1446,8 +1446,8 @@
       "da": "Vil du gerne se dine Xiaomi- og Amazfit-data i FitMesh-appen?"
     },
     "body.19.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band, Amazfit och alla andra anslutna enheter i appen. Dina data synkroniseras till ditt FitMesh-konto: FitMesh varken säljer eller delar dem med tredje part. Ladda ner FitMesh och prova det gratis.",
-      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band, Amazfit og alle andre tilsluttede enheder i appen. Dine data synkroniseres til din FitMesh-konto: FitMesh sælger dem ikke og deler dem ikke med tredjeparter. Download FitMesh, og prøv det gratis."
+      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band, Amazfit och alla andra anslutna enheter i appen. Ladda ner FitMesh och prova det gratis.",
+      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band, Amazfit og alle andre tilsluttede enheder i appen. Download FitMesh, og prøv det gratis."
     },
     "body.19.ctaLabel": {
       "sv": "Ladda ner FitMesh och prova gratis →",
@@ -5006,8 +5006,8 @@
       "da": "Vil du gerne se dit familiemedlems sundhedsdata samlet på ét enkelt oversigtspanel?"
     },
     "body.23.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i appen. Detta är användbart för vårdgivare som vill ha en samlad översikt utan att behöva öppna flera appar.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i appen. Det er nyttigt for plejepersonale, der ønsker et samlet overblik uden at skulle åbne flere apps."
+      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i appen. Family Mesh är under utveckling och ännu inte tillgänglig. Vi har inte meddelat något lanseringsdatum.",
+      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i appen. Family Mesh er under udvikling og endnu ikke tilgængelig. Vi har ikke annonceret en udgivelsesdato."
     },
     "body.23.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
