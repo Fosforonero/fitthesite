@@ -1362,16 +1362,16 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Xiaomi och Amazfit på Health Connect: data i din egen översiktspanel",
-      "da": "Xiaomi og Amazfit på Health Connect: data i dit eget kontrolpanel"
+      "sv": "Xiaomi och Amazfit på Health Connect: data i FitMesh-appen",
+      "da": "Xiaomi og Amazfit på Health Connect: data i FitMesh-appen"
     },
     "hero.subtitle": {
-      "sv": "Data från Mi Band och Amazfit förblir låsta i appen Zepp eller Mi Fitness, men med Health Connect kan du hämta ut dem, slå ihop dem med data från dina andra enheter och visa dem på din egen översiktssida. Här beskriver vi hur det går till, med ärliga begränsningar.",
-      "da": "Data fra Mi Band og Amazfit forbliver låst inde i Zepp- eller Mi Fitness-appen, men med Health Connect kan du hente dem ud, sammenflette dem med data fra dine andre enheder og se dem på dit eget kontrolpanel. Her er en vejledning, med ærlige begrænsninger."
+      "sv": "Data från Mi Band och Amazfit förblir låsta i appen Zepp eller Mi Fitness, men med Health Connect kan du hämta ut dem, slå ihop dem med data från dina andra enheter och visa dem i FitMesh-appen. Här beskriver vi hur det går till, med ärliga begränsningar.",
+      "da": "Data fra Mi Band og Amazfit forbliver låst inde i Zepp- eller Mi Fitness-appen, men med Health Connect kan du hente dem ud, sammenflette dem med data fra dine andre enheder og se dem i FitMesh-appen. Her er en vejledning, med ærlige begrænsninger."
     },
     "metaDescription": {
-      "sv": "Så här visar du data från Xiaomi, Mi Band och Amazfit i din egen översiktspanel via Health Connect. Vad som fungerar (steg, puls, sömn, kalorier) och de faktiska begränsningarna hos avancerade mätvärden.",
-      "da": "Sådan får du vist data fra Xiaomi, Mi Band og Amazfit på dit eget kontrolpanel via Health Connect. Hvad der fungerer (skridt, puls, søvn, kalorier), og de reelle begrænsninger ved avancerede målinger."
+      "sv": "Så här visar du data från Xiaomi, Mi Band och Amazfit i FitMesh-appen via Health Connect. Vad som fungerar (steg, puls, sömn, kalorier) och de faktiska begränsningarna hos avancerade mätvärden.",
+      "da": "Sådan får du vist data fra Xiaomi, Mi Band og Amazfit i FitMesh-appen via Health Connect. Hvad der fungerer (skridt, puls, søvn, kalorier), og de reelle begrænsninger ved avancerede målinger."
     },
     "primaryKeyword": {
       "sv": "exportera data från Xiaomi Amazfit till Health Connect",
@@ -1386,8 +1386,8 @@
       "da": "Sådan fungerer forløbet: Zepp / Mi Fitness til Health Connect til FitMesh"
     },
     "body.2.text": {
-      "sv": "Processen består av tre steg. Först synkroniserar tillverkarens app (Zepp eller Mi Fitness) den fysiska enheten och skriver de insamlade uppgifterna till Health Connect. Därefter lagrar Health Connect dem i ett lokalt arkiv på Android-telefonen. Slutligen begär FitMesh Sync läsbehörighet från Health Connect och hämtar data för att visa den på instrumentpanelen. På detta sätt lämnar data aldrig din telefon till obehöriga tredjepartsservrar: du behåller kontrollen.",
-      "da": "Processen består af tre trin. Først synkroniserer producentens app (Zepp eller Mi Fitness) den fysiske enhed og gemmer de indsamlede data i Health Connect. Derefter gemmer Health Connect dem i et lokalt arkiv på Android-telefonen. Til sidst anmoder FitMesh Sync om læsetilladelser fra Health Connect og henter dataene for at vise dem på kontrolpanelet. På denne måde forlader dataene aldrig din telefon til uautoriserede tredjepartsservere: du bevarer kontrollen."
+      "sv": "Processen består av tre steg. Först synkroniserar tillverkarens app (Zepp eller Mi Fitness) den fysiska enheten och skriver de insamlade uppgifterna till Health Connect. Därefter lagrar Health Connect dem i ett lokalt arkiv på Android-telefonen. Slutligen begär FitMesh Sync läsbehörighet från Health Connect och hämtar data för att visa den i appen. På detta sätt lämnar data aldrig din telefon till obehöriga tredjepartsservrar: du behåller kontrollen.",
+      "da": "Processen består af tre trin. Først synkroniserer producentens app (Zepp eller Mi Fitness) den fysiske enhed og gemmer de indsamlede data i Health Connect. Derefter gemmer Health Connect dem i et lokalt arkiv på Android-telefonen. Til sidst anmoder FitMesh Sync om læsetilladelser fra Health Connect og henter dataene for at vise dem i appen. På denne måde forlader dataene aldrig din telefon til uautoriserede tredjepartsservere: du bevarer kontrollen."
     },
     "body.3.title": {
       "sv": "Krav: Android 9 eller senare med Health Connect",
@@ -1442,12 +1442,12 @@
       "da": "Det vigtigste kriterium er ikke enhedens model, men den app, der styrer den. Hvis din bærbare enhed bruger Zepp eller Mi Fitness, og disse apps understøtter Health Connect (hvilket begge har gjort siden slutningen af 2023), overføres data, der er tilgængelige på Health Connect, også til FitMesh. Dette omfatter:"
     },
     "body.19.title": {
-      "sv": "Vill du se dina data från Xiaomi och Amazfit i din egen översiktssida?",
-      "da": "Vil du gerne se dine Xiaomi- og Amazfit-data på dit eget kontrolpanel?"
+      "sv": "Vill du se dina data från Xiaomi och Amazfit i FitMesh-appen?",
+      "da": "Vil du gerne se dine Xiaomi- og Amazfit-data i FitMesh-appen?"
     },
     "body.19.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band, Amazfit och alla andra anslutna enheter i en webbpanel som är tillgänglig via webbläsaren. Dina data sparas på din telefon: FitMesh varken säljer eller delar dem med tredje part. Ladda ner FitMesh och prova det gratis.",
-      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band, Amazfit og alle andre tilsluttede enheder i et webdashboard, der kan tilgås via en browser. Dine data forbliver på din telefon: FitMesh sælger dem ikke og deler dem ikke med tredjeparter. Download FitMesh, og prøv det gratis."
+      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band, Amazfit och alla andra anslutna enheter i appen. Dina data synkroniseras till ditt FitMesh-konto: FitMesh varken säljer eller delar dem med tredje part. Ladda ner FitMesh och prova det gratis.",
+      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band, Amazfit og alle andre tilsluttede enheder i appen. Dine data synkroniseres til din FitMesh-konto: FitMesh sælger dem ikke og deler dem ikke med tredjeparter. Download FitMesh, og prøv det gratis."
     },
     "body.19.ctaLabel": {
       "sv": "Ladda ner FitMesh och prova gratis →",
@@ -1498,20 +1498,20 @@
       "da": "Overfører FitMesh Sync mine data til en server?"
     },
     "faq.5.a": {
-      "sv": "FitMesh Sync läser in data från Health Connect lokalt på din telefon. För att skapa den webbaserade kontrollpanelen som är tillgänglig via webbläsaren bearbetas vissa aggregerade data för visning. FitMesh:s policy är att dina data inte säljs till tredje part och inte används för reklam. Du kan läsa den fullständiga integritetspolicyn på FitMesh.fit.",
-      "da": "FitMesh Sync henter data fra Health Connect lokalt på din telefon. For at generere det webbaserede dashboard, som kan tilgås via en browser, behandles visse aggregerede data med henblik på visning. FitMesh’s politik er, at dine data ikke sælges til tredjeparter og ikke anvendes til reklameformål. Du kan læse den fulde privatlivspolitik på FitMesh.fit."
+      "sv": "Ja. FitMesh Sync synkroniserar data som lästs från Health Connect till ditt konto. FitMesh:s policy är att dina data inte säljs till tredje part och inte används för reklam. Du kan läsa den fullständiga integritetspolicyn på FitMesh.fit.",
+      "da": "Ja. FitMesh Sync synkroniserer data, der er læst fra Health Connect, med din konto. FitMesh’s politik er, at dine data ikke sælges til tredjeparter og ikke anvendes til reklameformål. Du kan læse den fulde privatlivspolitik på FitMesh.fit."
     },
     "secondaryKeywords": {
       "sv": [
         "Mi Band Health Connect-synkronisering",
-        "Zepps personliga datapanel",
+        "Zepps data i appen",
         "Synkronisering av data för Amazfit GTR och GTS",
         "mi fitness – exportera data",
         "Xiaomi, bärbara enheter, hälsodata, Android"
       ],
       "da": [
         "Mi Band Health Connect-synkronisering",
-        "Zepp Data – personligt kontrolpanel",
+        "Zepp-data i appen",
         "Synkronisering af data fra Amazfit GTR og GTS",
         "mi fitness-eksportdata",
         "Xiaomi, bærbare enheder, sundhedsdata, Android"
@@ -1520,14 +1520,14 @@
     "tldr": {
       "sv": [
         "Zepp OS (Amazfit) och Mi Fitness (Xiaomi / Mi Band) överför steg, puls, sömn och kalorier till Health Connect: ingen manuell export behövs.",
-        "Från Health Connect hämtar FitMesh Sync dessa data och visar dem på din egen instrumentpanel, sammanfogade med data från dina övriga enheter.",
+        "Från Health Connect hämtar FitMesh Sync dessa data och visar dem i appen, sammanfogade med data från dina övriga enheter.",
         "Vissa avancerade mätvärden (PAI, Zepp Body Battery, detaljerad sömnanalys) finns endast i tillverkarens appar: Health Connect visar inte dessa.",
         "Funktionen fungerar endast på Android 9 eller senare med Health Connect installerat; iPhone stöder inte Health Connect.",
         "Xiaomi och Amazfit hör till de mest sålda bärbara enheterna världen över: den här guiden täcker Mi Band 7/8/9, Amazfit GTR/GTS 4/5, Band 7 Pro och liknande modeller."
       ],
       "da": [
         "Zepp OS (Amazfit) og Mi Fitness (Xiaomi / Mi Band) overfører skridt, puls, søvn og kalorier til Health Connect: der er ikke behov for manuel eksport.",
-        "Fra Health Connect henter FitMesh Sync disse data og viser dem på dit eget dashboard, sammen med data fra dine andre enheder.",
+        "Fra Health Connect henter FitMesh Sync disse data og viser dem i appen, sammen med data fra dine andre enheder.",
         "Nogle avancerede målinger (PAI, Zepp Body Battery, detaljeret søvnanalyse) findes kun i producentens apps: Health Connect viser dem ikke.",
         "Funktionen virker kun på Android 9 eller nyere med Health Connect installeret; iPhone understøtter ikke Health Connect.",
         "Xiaomi og Amazfit er blandt de bedst sælgende wearables på verdensplan: Denne guide omhandler Mi Band 7/8/9, Amazfit GTR/GTS 4/5, Band 7 Pro og lignende modeller."
@@ -1709,14 +1709,14 @@
         "När appen startas för första gången begär den Health Connect behörigheter. Följ auktoriseringsprocessen.",
         "Välj vilka kategorier du vill se: steg, puls, sömn, kalorier, sträcka och SpO2.",
         "FitMesh Sync börjar läsa in data från Health Connect, inklusive data som skrivits av Zepp och Mi Fitness.",
-        "Öppna webbpanelen i en webbläsare: där ser du alla data sammanställda per enhet och per dag."
+        "Öppna FitMesh-appen: där ser du data som lästs från Health Connect. Den personliga webbpanelen är ännu inte tillgänglig."
       ],
       "da": [
         "Installer FitMesh Sync fra Google Play Store på din Android-telefon.",
         "Når appen startes for første gang, anmoder den om Health Connect tilladelser. Følg godkendelsesprocessen.",
         "Vælg de kategorier, du vil læse: skridt, puls, søvn, kalorier, distance og SpO2.",
         "FitMesh Sync begynder at læse data fra Health Connect, herunder data, der er indlæst af Zepp og Mi Fitness.",
-        "Åbn webdashboardet i en browser: Her kan du se alle data samlet efter enhed og dag."
+        "Åbn FitMesh-appen: Her kan du se data, der er læst fra Health Connect. Det personlige webdashboard er endnu ikke tilgængeligt."
       ]
     },
     "body.18.items": {
