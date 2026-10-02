@@ -76,18 +76,23 @@ describe("homepage: sezione 'Bring Your Own AI' tradotta anche in IT/ES, non sol
     );
   });
 
-  it("l'H2 e le due card hanno traduzioni IT ed ES nel sorgente", () => {
-    expect(SOURCE).toContain("Usa il tuo assistente AI preferito con i tuoi dati di salute.");
-    expect(SOURCE).toContain("Usa tu asistente de IA favorito con tus datos de salud.");
-    expect(SOURCE).toContain("Porta il tuo wearable.");
-    expect(SOURCE).toContain("Trae tu wearable.");
-    expect(SOURCE).toContain("Porta la tua AI.");
-    expect(SOURCE).toContain("Trae tu IA.");
-  });
-
-  it("l'inglese resta come fallback esplicito per le altre locale (non rimosso, solo non piu' unico)", () => {
-    expect(SOURCE).toContain("Use your favorite AI assistant with your own health data.");
-    expect(SOURCE).toContain("Bring your own wearable.");
-    expect(SOURCE).toContain("Bring your own AI.");
+  it("S02: la sezione AI legge HOME_AI_COPY senza ripiego e non ha piu' il testo scritto in page.tsx", () => {
+    // 02/10/2026 (U-AI-01..05): il testo e' uscito da page.tsx (era it/es e
+    // inglese per le altre 12 lingue) e vive in lib/content/home-ai-copy.ts,
+    // letto con tlOwn() (nessun ripiego). Via anche l'elenco «Porta il tuo
+    // wearable» / «Porta la tua AI».
+    expect(SOURCE).toContain("HOME_AI_COPY");
+    expect(SOURCE).toContain("tlOwn(");
+    for (const old of [
+      "Use your favorite AI assistant with your own health data.",
+      "Usa il tuo assistente AI preferito con i tuoi dati di salute.",
+      "Usa tu asistente de IA favorito con tus datos de salud.",
+      "Bring your own wearable.",
+      "Bring your own AI.",
+      "Porta il tuo wearable.",
+      "Porta la tua AI.",
+    ]) {
+      expect(SOURCE).not.toContain(old);
+    }
   });
 });
