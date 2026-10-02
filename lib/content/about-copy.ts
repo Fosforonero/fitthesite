@@ -26,8 +26,8 @@ export const ABOUT_COPY = {
 
   /** <title> di /about — usato solo in generateMetadata, non renderizzato in pagina. */
   metaTitle: {
-    it: "Cos'è FitMesh Sync: sincronizzazione dati smartwatch privacy-first",
-    en: "About FitMesh Sync: Privacy-first smartwatch data sync",
+    it: "Cos'è FitMesh Sync e chi lo sviluppa",
+    en: "About FitMesh Sync: what it is and who builds it",
     es: "Qué es FitMesh Sync: sincronización de datos de smartwatch con la privacidad como prioridad",
     de: "Was ist FitMesh Sync: Smartwatch-Datensynchronisierung mit Datenschutz an erster Stelle",
     pt: "O que é FitMesh Sync: sincronização de dados de smartwatch com a privacidade em primeiro lugar",
@@ -45,8 +45,8 @@ export const ABOUT_COPY = {
 
   /** meta description di /about — usato solo in generateMetadata, non renderizzato in pagina. */
   metaDescription: {
-    it: "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard premium nell'app, tutta tua. Privacy-first.",
-    en: "FitMesh Sync mirrors your smartwatch data to a premium dashboard in the app that's all yours. Privacy-first.",
+    it: "Chi sviluppa FitMesh Sync e cosa fa: un'app per iPhone e Android che riunisce per giorno i dati di Apple Salute, Health Connect o un anello Colmi compatibile.",
+    en: "Who builds FitMesh Sync and what it does: an iPhone and Android app that combines, by day, data from Apple Health, Health Connect or a compatible Colmi ring.",
     es: "FitMesh Sync sincroniza los datos de tu smartwatch en un panel premium en la app que es solo tuyo. Privacidad total.",
     de: "FitMesh Sync überträgt deine Smartwatch-Daten auf ein Premium-Dashboard in der App, das nur dir gehört. Datenschutz zuerst.",
     pt: "FitMesh Sync sincroniza os dados do seu smartwatch em um painel premium no app que é só seu. Privacidade total.",
@@ -63,7 +63,7 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   heroTitlePrefix: {
-    it: "I dati del tuo smartwatch ", en: "Your smartwatch data ", es: "Los datos de tu smartwatch ",
+    it: "Un'app per i tuoi dati fitness, ", en: "An app for your fitness data, ", es: "Los datos de tu smartwatch ",
     de: "Deine Smartwatch-Daten ", pt: "Os dados do seu smartwatch ", fr: "Les données de votre montre connectée ",
     pl: "Dane z Twojego smartwatcha ", tr: "Akıllı saat verileriniz ", nl: "Je smartwatchgegevens ",
     ja: "スマートウォッチのデータは、", ko: "당신의 스마트워치 데이터, ", sv: "Din smartklockas data ",
@@ -71,7 +71,7 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   heroTitleAccent: {
-    it: "sotto il tuo controllo.", en: "under your control.", es: "bajo tu control.",
+    it: "su iPhone e Android.", en: "on iPhone and Android.", es: "bajo tu control.",
     de: "unter deiner Kontrolle.", pt: "sob o seu controle.", fr: "sous votre contrôle.",
     pl: "pod Twoją kontrolą.", tr: "sizin kontrolünüzde.", nl: "in eigen hand.",
     ja: "あなたの管理下に。", ko: "온전히 당신의 통제 아래에.", sv: "under din kontroll.",
@@ -79,8 +79,8 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   heroDescription: {
-    it: "FitMesh Sync riunisce in un'unica dashboard premium in-app i dati salute dei wearable Android (Galaxy Watch, Wear OS, Mi Band, e qualunque dispositivo che scriva su Health Connect) e, su iPhone, i dati di Apple Salute e degli anelli supportati via Bluetooth diretto. Nessun account social. Nessun tracker pubblicitario. Non vendiamo i tuoi dati a terzi.",
-    en: "FitMesh Sync brings health data from Android wearables (Galaxy Watch, Wear OS, Mi Band, and any device that writes to Health Connect) and, on iPhone, from Apple Health and supported rings via direct Bluetooth, into one premium in-app dashboard. No social accounts. No ad trackers. We never sell your data to third parties.",
+    it: "FitMesh Sync legge i dati che orologi, anelli e app fitness salvano in Apple Salute o in Health Connect, con il tuo permesso, e su iPhone e Android si collega via Bluetooth a un anello Colmi compatibile. Riunisce i dati per giorno, con un solo dispositivo o con più di uno. Se usi più telefoni con lo stesso account, ognuno mostra anche i dati già sincronizzati dagli altri.",
+    en: "FitMesh Sync reads the data that watches, rings and fitness apps save to Apple Health or Health Connect, with your permission, and on both iPhone and Android it connects over Bluetooth to a compatible Colmi ring. It brings the data together by day, with one device or several. If you use more than one phone with the same account, each one also shows the data the others have already synced.",
     es: "FitMesh Sync reúne en un único panel premium en la app los datos de salud de los wearables Android (Galaxy Watch, Wear OS, Mi Band y cualquier dispositivo que escriba en Health Connect) y, en iPhone, los datos de Apple Salud y de los anillos compatibles vía Bluetooth directo. Sin cuentas sociales. Sin rastreadores publicitarios. Nunca vendemos tus datos a terceros.",
     de: "FitMesh Sync bringt Gesundheitsdaten von Android-Wearables (Galaxy Watch, Wear OS, Mi Band und alle Geräte, die Daten in Health Connect schreiben) und, auf dem iPhone, von Apple Health und unterstützten Ringen per direkter Bluetooth-Verbindung in ein Premium-Dashboard in der App. Keine Social-Konten. Keine Werbe-Tracker. Wir verkaufen deine Daten niemals an Dritte.",
     pt: "FitMesh Sync reúne em um único painel premium no app os dados de saúde dos wearables Android (Galaxy Watch, Wear OS, Mi Band e qualquer dispositivo que grave dados no Health Connect) e, no iPhone, os dados do Apple Saúde e dos anéis compatíveis via Bluetooth direto. Sem contas sociais. Sem rastreadores de anúncios. Nunca vendemos seus dados a terceiros.",
@@ -105,8 +105,8 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   featuresIntro: {
-    it: "Quando apri l'app, FitMesh legge le metriche del tuo wearable: su Android tramite Health Connect, su iPhone tramite Apple Salute o via Bluetooth diretto per gli anelli supportati:",
-    en: "When you open the app, FitMesh reads your wearable's metrics: on Android via Health Connect, on iPhone via Apple Health or direct Bluetooth for supported rings:",
+    it: "FitMesh legge le metriche che autorizzi: su iPhone da Apple Salute, su Android da Health Connect e, su entrambi, via Bluetooth da un anello Colmi compatibile. Tra queste:",
+    en: "FitMesh reads the metrics you allow: on iPhone from Apple Health, on Android from Health Connect and, on both, over Bluetooth from a compatible Colmi ring. These include:",
     es: "Cuando abres la app, FitMesh lee las métricas de tu wearable: en Android mediante Health Connect, en iPhone mediante Apple Salud o vía Bluetooth directo para los anillos compatibles:",
     de: "Wenn du die App öffnest, liest FitMesh die Metriken deines Wearables: auf Android über Health Connect, auf dem iPhone über Apple Health oder per direkter Bluetooth-Verbindung für unterstützte Ringe:",
     pt: "Quando você abre o app, o FitMesh lê as métricas do seu wearable: no Android via Health Connect, no iPhone via Apple Saúde ou Bluetooth direto para os anéis compatíveis:",
@@ -208,8 +208,8 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   devicesIntro: {
-    it: "I dispositivi che sincronizzano con Health Connect (Android) o Apple Salute (iOS) sono supportati:",
-    en: "Devices that sync with Health Connect (Android) or Apple Health (iOS) are supported:",
+    it: "Funzionano i dispositivi che scrivono i propri dati in Health Connect (Android) o in Apple Salute (iOS), per i tipi di dato che FitMesh legge. Alcuni esempi:",
+    en: "Devices work when they write their data to Health Connect (Android) or Apple Health (iOS), for the data types FitMesh reads. Some examples:",
     es: "Los dispositivos que sincronizan con Health Connect (Android) o Apple Health (iOS) son compatibles:",
     de: "Geräte, die mit Health Connect (Android) oder Apple Health (iOS) synchronisieren, werden unterstützt:",
     pt: "Dispositivos que sincronizam com o Health Connect (Android) ou Apple Health (iOS) são compatíveis:",
@@ -461,8 +461,8 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   teamBody1: {
-    it: "FitMesh Sync è un progetto indipendente sviluppato da Matteo Pizzi, sviluppatore software italiano. È nato per scrivere il \"layer mancante\" tra smartwatch e dashboard personale nell'app: tante app raccolgono dati di salute, pochissime te li restituiscono in modo davvero leggibile e tuo.",
-    en: "FitMesh Sync is an independent project built by Matteo Pizzi, an Italian software developer. It started to fill the \"missing layer\" between smartwatch and the app's personal dashboard: many apps collect health data, very few hand them back to you in a way that's truly readable and yours.",
+    it: "FitMesh Sync è sviluppato da Matteo Pizzi, sviluppatore software italiano. È nato per riunire in un'app i dati che orologi, anelli e app fitness raccolgono in posti diversi.",
+    en: "FitMesh Sync is built by Matteo Pizzi, an Italian software developer. It started as a way to bring together, in one app, the data that watches, rings and fitness apps collect in different places.",
     es: "FitMesh Sync es un proyecto independiente desarrollado por Matteo Pizzi, desarrollador de software italiano. Nació para cubrir el \"eslabón perdido\" entre el smartwatch y el panel personal de la app: muchas apps recopilan datos de salud, pero muy pocas te los devuelven de una forma verdaderamente legible y tuya.",
     de: "FitMesh Sync ist ein unabhängiges Projekt von Matteo Pizzi, einem italienischen Softwareentwickler. Es entstand, um die \"fehlende Schicht\" zwischen Smartwatch und dem persönlichen Dashboard in der App zu schließen: Viele Apps sammeln Gesundheitsdaten, aber nur sehr wenige geben sie dir in einer wirklich lesbaren und für dich bestimmten Form zurück.",
     pt: "FitMesh Sync é um projeto independente desenvolvido por Matteo Pizzi, desenvolvedor de software italiano. Nasceu para preencher a \"camada que faltava\" entre o smartwatch e o painel pessoal do app: muitos apps coletam dados de saúde, mas pouquíssimos os devolvem de forma verdadeiramente legível e sua.",
@@ -479,21 +479,21 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   teamBody2: {
-    it: "Lo sviluppo è open source per le componenti che non toccano dati utente (sito, schema database, API specs). Il codice client app resta privato per ora: diventerà open source nel Q4 2026, una volta validato il modello di business.",
-    en: "Development is open source for components that don't touch user data (site, database schema, API specs). The client app code remains private for now: it will go open source in Q4 2026, once the business model is validated.",
-    es: "El desarrollo es de código abierto en los componentes que no manejan datos de usuario (sitio web, esquema de base de datos, especificaciones de API). El código de la app cliente permanece privado por ahora: pasará a ser de código abierto en el Q4 de 2026, una vez validado el modelo de negocio.",
-    de: "Die Entwicklung ist Open Source für Komponenten, die keine Nutzerdaten berühren (Website, Datenbankschema, API-Spezifikationen). Der Client-App-Code bleibt vorerst privat: Er wird im Q4 2026 Open Source, sobald das Geschäftsmodell validiert ist.",
-    pt: "O desenvolvimento é open source para os componentes que não tocam em dados do usuário (site, esquema de banco de dados, especificações de API). O código do app cliente permanece privado por enquanto: tornará-se open source no Q4 de 2026, assim que o modelo de negócio for validado.",
-    fr: "Le développement est open source pour les composants qui ne touchent pas aux données utilisateurs (site, schéma de base de données, spécifications API). Le code de l'application cliente reste privé pour l'instant: il passera en open source au Q4 2026, une fois le modèle économique validé.",
-    pl: "Rozwój jest otwarty (open source) dla komponentów, które nie dotykają danych użytkowników (strona, schemat bazy danych, specyfikacje API). Kod aplikacji klienckiej pozostaje na razie prywatny: stanie się open source w Q4 2026, gdy model biznesowy zostanie zweryfikowany.",
-    tr: "Kullanıcı verisine dokunmayan bileşenler (site, veritabanı şeması, API spesifikasyonları) açık kaynaktır. İstemci uygulama kodu şimdilik özel kalıyor: iş modeli doğrulandıktan sonra, 2026'nın 4. Çeyreğinde açık kaynağa geçecek.",
-    nl: "De ontwikkeling is open source voor onderdelen die geen gebruikersgegevens raken (website, databaseschema, API-specificaties). De code van de clientapp blijft voorlopig privé: die wordt open source in Q4 2026, zodra het verdienmodel gevalideerd is.",
-    ja: "ユーザーデータに触れないコンポーネント(サイト、データベーススキーマ、API仕様)についてはオープンソースで開発しています。クライアントアプリのコードは現時点では非公開ですが、ビジネスモデルの検証が済み次第、2026年第4四半期にオープンソース化する予定です。",
-    ko: "사용자 데이터를 다루지 않는 구성 요소(웹사이트, 데이터베이스 스키마, API 명세)는 오픈소스로 개발됩니다. 클라이언트 앱 코드는 현재는 비공개이며, 비즈니스 모델이 검증되면 2026년 4분기에 오픈소스로 전환될 예정입니다.",
-    sv: "Utvecklingen är öppen källkod för de komponenter som inte rör användardata (webbplatsen, databasschema, API-specifikationer). Klientappens kod förblir privat tills vidare: den blir öppen källkod under Q4 2026, när affärsmodellen är validerad.",
-    da: "Udviklingen er open source for de komponenter, der ikke rører brugerdata (webside, databaseskema, API-specifikationer). Selve app-koden er indtil videre privat: den bliver open source i Q4 2026, når forretningsmodellen er valideret.",
-    no: "Kildekoden er åpen for komponentene som ikke berører brukerdata (nettsiden, databaseskjemaet, API-spesifikasjonene). Selve app-koden er foreløpig privat: den blir åpen kildekode i Q4 2026, når forretningsmodellen er validert.",
-    fi: "Kehitys on avointa lähdekoodia niiden osien osalta, jotka eivät käsittele käyttäjätietoja (sivusto, tietokantaskeema, API-määritykset). Sovellusasiakkaan koodi pysyy toistaiseksi yksityisenä: se avataan avoimeksi lähdekoodiksi Q4 2026:ssa, kun liiketoimintamalli on validoitu.",
+    it: "Il codice dell'app è privato.",
+    en: "The app's code is private.",
+    es: "El código de la app cliente permanece privado.",
+    de: "Der Client-App-Code bleibt privat.",
+    pt: "O código do app cliente permanece privado.",
+    fr: "Le code de l'application cliente reste privé.",
+    pl: "Kod aplikacji klienckiej pozostaje prywatny.",
+    tr: "İstemci uygulama kodu özel kalıyor.",
+    nl: "De code van de clientapp blijft privé.",
+    ja: "クライアントアプリのコードは非公開です。",
+    ko: "클라이언트 앱 코드는 비공개입니다.",
+    sv: "Klientappens kod förblir privat.",
+    da: "Selve app-koden er privat.",
+    no: "Selve app-koden er privat.",
+    fi: "Sovellusasiakkaan koodi pysyy yksityisenä.",
   } satisfies Localized,
 
   contactPrefix: {
