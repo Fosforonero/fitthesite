@@ -118,10 +118,14 @@ export default async function Home({
     ? `/${lc}/fitness-data-sync`
     : "/en/fitness-data-sync";
 
-  // Curated subset (live + headline) for the inline ticker
+  // U-TICKER-01: sotto «Compatibile con» solo provider con accesso disponibile
+  // oggi (stati live, live-basic, live-bridge del registro): nessun provider
+  // ad accesso limitato o non disponibile, senza la condizione accanto.
+  const TICKER_STATUSES: readonly string[] = ["live", "live-basic", "live-bridge"];
+  const tickerBase = PROVIDERS.filter((pv) => TICKER_STATUSES.includes(pv.status));
   const tickerProviders = [
-    ...PROVIDERS,
-    ...PROVIDERS, // duplicate for seamless marquee
+    ...tickerBase,
+    ...tickerBase, // duplicate for seamless marquee
   ];
 
   // JSON-LD WebPage specifico per la home: linka esplicitamente l'@graph
@@ -217,7 +221,6 @@ export default async function Home({
               <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepageHero} />
             </div>
 
-            <p className="mt-5 text-xs text-text-muted">{t.hero.pricing}</p>
 
             {/* Trust strip — 3 tiny metrics inline */}
             <ul className="mt-10 grid grid-cols-2 max-w-md gap-6 text-left">
@@ -258,11 +261,51 @@ export default async function Home({
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
+       *  HOW IT WORKS — 3 step orizzontali con linea che connette
+       *  ════════════════════════════════════════════════════════════ */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
+        <div className="max-w-2xl">
+          <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
+            {tl(HOMEPAGE_COPY.howItWorksKicker, lc)}
+          </p>
+          <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
+            {tl(HOMEPAGE_COPY.howItWorksHeading, lc)}
+          </h2>
+        </div>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {tli(HOMEPAGE_COPY.steps, lc).map((s, i) => (
+            <div key={i} className="relative card-glass p-7 hover:-translate-y-0.5 transition-transform">
+              <div className="flex items-center gap-3">
+                <span
+                  className="font-display text-2xl font-bold tracking-tightest"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #7CFF5B 0%, #21E6C1 50%, #1DA1FF 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                  }}
+                >
+                  0{i + 1}
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-semibold">
+                  {tl(HOMEPAGE_COPY.stepLabel, lc)}
+                </span>
+              </div>
+              <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">{s.t}</h3>
+              <p className="mt-2 text-sm text-text-secondary leading-relaxed">{s.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════
        *  LOGO CLOUD — marquee infinito dei provider supportati.
        *  Niente loghi reali (rischio TM); usiamo i monogrammi colorati
        *  consistenti col resto del sito. Effetto "ecosistema vivo".
        *  ════════════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden border-y border-white/[0.05] bg-white/[0.015] py-8" data-reveal>
+      <section className="relative overflow-hidden border-y border-white/[0.05] bg-white/[0.015] py-8 mt-20 sm:mt-28" data-reveal>
         <p className="text-center text-[10px] uppercase tracking-[0.28em] text-text-muted font-semibold mb-6">
           {tl(HOMEPAGE_COPY.worksWithKicker, lc)}
         </p>
@@ -364,46 +407,6 @@ export default async function Home({
               </article>
             );
           })}
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════
-       *  HOW IT WORKS — 3 step orizzontali con linea che connette
-       *  ════════════════════════════════════════════════════════════ */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
-        <div className="max-w-2xl">
-          <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-            {tl(HOMEPAGE_COPY.howItWorksKicker, lc)}
-          </p>
-          <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
-            {tl(HOMEPAGE_COPY.howItWorksHeading, lc)}
-          </h2>
-        </div>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {tli(HOMEPAGE_COPY.steps, lc).map((s, i) => (
-            <div key={i} className="relative card-glass p-7 hover:-translate-y-0.5 transition-transform">
-              <div className="flex items-center gap-3">
-                <span
-                  className="font-display text-2xl font-bold tracking-tightest"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #7CFF5B 0%, #21E6C1 50%, #1DA1FF 100%)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                  }}
-                >
-                  0{i + 1}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-semibold">
-                  {tl(HOMEPAGE_COPY.stepLabel, lc)}
-                </span>
-              </div>
-              <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">{s.t}</h3>
-              <p className="mt-2 text-sm text-text-secondary leading-relaxed">{s.d}</p>
-            </div>
-          ))}
         </div>
       </section>
 
