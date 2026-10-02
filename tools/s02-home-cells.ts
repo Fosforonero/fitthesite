@@ -126,6 +126,12 @@ export interface CellDef {
   get: Getter;
   /** Dove vive la cella nel sito oggi. */
   locator: string;
+  /**
+   * La cella non ha un testo proprio: riusa quello di un'altra unita' nella
+   * stessa lingua (U-ABOUT-08 legge PRICING_SECTION.subhead = U-PRICE-03).
+   * Resta PENDENTE finche' lo e' l'unita' seguita.
+   */
+  segue?: string;
 }
 
 const JA_KO = ["ja", "ko"] as const;
@@ -164,7 +170,7 @@ export const CELLS: CellDef[] = [
   { id: "U-ABOUT-03", get: own((c) => c.about, "heroTitlePrefix"), locator: "lib/content/about-copy.ts ABOUT_COPY.heroTitlePrefix" },
   { id: "U-ABOUT-04", get: own((c) => c.about, "heroTitleAccent"), locator: "lib/content/about-copy.ts ABOUT_COPY.heroTitleAccent" },
   { id: "U-ABOUT-05", get: own((c) => c.about, "heroDescription"), locator: "lib/content/about-copy.ts ABOUT_COPY.heroDescription" },
-  { id: "U-ABOUT-08", langs: JA_KO, get: own((c) => c.about, "trialDesc"), locator: "lib/content/about-copy.ts ABOUT_COPY.trialDesc (solo ja, ko)" },
+  { id: "U-ABOUT-08", langs: JA_KO, get: own((c) => c.about, "trialDesc"), locator: "lib/content/about-copy.ts ABOUT_COPY.trialDesc (solo ja, ko)", segue: "U-PRICE-03" },
   { id: "U-ABOUT-10", get: own((c) => c.about, "featuresIntro"), locator: "lib/content/about-copy.ts ABOUT_COPY.featuresIntro" },
   { id: "U-ABOUT-11", get: own((c) => c.about, "devicesIntro"), locator: "lib/content/about-copy.ts ABOUT_COPY.devicesIntro" },
   { id: "U-ABOUT-12", get: own((c) => c.about, "pixelWatchDevice"), locator: "lib/content/about-copy.ts ABOUT_COPY.pixelWatchDevice" },

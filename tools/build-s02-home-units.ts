@@ -97,7 +97,7 @@ function main(): void {
         const v = base[def.id]?.[lc] ?? null;
         celle[lc] = { sha256: v === null ? null : sha256(v) };
       }
-      return { id: def.id, file: u.file, keyPath: u.keyPath, sito: def.locator, celle };
+      return { id: def.id, file: u.file, keyPath: u.keyPath, sito: def.locator, ...(def.segue ? { segue: def.segue } : {}), celle };
     }),
   };
 

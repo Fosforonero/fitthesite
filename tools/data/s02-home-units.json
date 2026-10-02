@@ -1526,6 +1526,7 @@
       "file": "lib/content/about-copy.ts",
       "keyPath": "ABOUT_COPY.trialDesc (non piu' resa su /about; resta interpolata in sei blocchi di lib/landing/data.ts)",
       "sito": "lib/content/about-copy.ts ABOUT_COPY.trialDesc (solo ja, ko)",
+      "segue": "U-PRICE-03",
       "celle": {
         "ja": {
           "sha256": "1416860f98e5b6370ffc2a3c9d9b18e6a3bc59526b09de1982c074824c0712b0"
