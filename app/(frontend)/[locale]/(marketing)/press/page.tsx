@@ -21,7 +21,6 @@ import { organizationCompactRef } from "@/components/seo/OrganizationJsonLd";
 import TrustBadges from "@/components/TrustBadges";
 import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { schemaLanguage } from "@/lib/seo/schema-language";
-import { PRICING } from "@/lib/pricing";
 import { isLocaleInCopy } from "@/lib/content/page-copy-gate";
 import { founderHistoricalClause, founderHistoricalKeyFact } from "@/lib/founder/historical-note";
 
@@ -69,7 +68,7 @@ const COPY = {
       { label: "Country", value: "Italia" },
       { label: "Tecnologie", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Compatibilità", value: "Stato aggiornato su fitmesh.fit/integrations" },
-      { label: "Pricing", value: `Prova 14 giorni, poi Pro ${PRICING.fromLifetime.it} una tantum (Android ${PRICING.lifetimeAndroid.it} · iPhone ${PRICING.lifetimeIos.it}) o ${PRICING.subSixMonthsLabel.it}` },
+      { label: "Pricing", value: "Prova FitMesh Pro per 14 giorni. Al termine, per continuare a usare le funzioni Pro serve un acquisto o un abbonamento." },
       { label: "Posti founder", value: founderHistoricalKeyFact("it") },
       { label: "Team", value: "Indie / solo dev (Fosforonero, Matteo Pizzi)" },
       { label: "Categoria Play Store", value: "Health & Fitness" },
@@ -103,7 +102,7 @@ const COPY = {
     storyAngles: [
       "Indie dev italiano costruisce un'alternativa europea privacy-first ai walled garden di Samsung/Apple/Google Fit",
       "Come Health Connect ha cambiato l'ecosistema wearable Android dal 2024, e cosa significa per consumer e dev",
-      `Perché ${founderHistoricalClause("it")}: un'alternativa storica all'hype da abbonamento, anche nelle app fitness`,
+      `Perché ${founderHistoricalClause("it")}`,
       "Sviluppare un'app salute in Italia: sovranità dati come differenziatore",
     ],
 
@@ -154,7 +153,7 @@ const COPY = {
       { label: "Country", value: "Italy" },
       { label: "Tech stack", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Compatibility", value: "Current status at fitmesh.fit/integrations" },
-      { label: "Pricing", value: `14-day trial, then Pro ${PRICING.fromLifetime.en} one-time (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) or ${PRICING.subSixMonthsLabel.en}` },
+      { label: "Pricing", value: "Try FitMesh Pro for 14 days. After the trial, continuing to use Pro features requires a purchase or subscription." },
       { label: "Founder seats", value: founderHistoricalKeyFact("en") },
       { label: "Team", value: "Indie / solo dev (Fosforonero, Matteo Pizzi)" },
       { label: "Play Store category", value: "Health & Fitness" },
@@ -188,7 +187,7 @@ const COPY = {
     storyAngles: [
       "Italian indie dev builds a privacy-first European alternative to Samsung/Apple/Google Fit walled gardens",
       "How Health Connect changed the Android wearable ecosystem since 2024, and what it means for consumers and devs",
-      `Why ${founderHistoricalClause("en")}: a look back at an alternative to subscription hype, even in fitness apps`,
+      `Why ${founderHistoricalClause("en")}`,
       "Building a health app in Italy: data sovereignty as a differentiator",
     ],
 
@@ -239,7 +238,7 @@ const COPY = {
       { label: "País", value: "Italia" },
       { label: "Tecnologías", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Compatibilidad", value: "Estado actualizado en fitmesh.fit/integrations" },
-      { label: "Precio", value: `Prueba de 14 días, luego Pro ${PRICING.fromLifetime.es} pago único (Android ${PRICING.lifetimeAndroid.es} · iPhone ${PRICING.lifetimeIos.es}) o ${PRICING.subSixMonthsLabel.es}` },
+      { label: "Precio", value: "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción." },
       { label: "Plazas fundador", value: founderHistoricalKeyFact("es") },
       { label: "Equipo", value: "Indie / desarrollador en solitario (Fosforonero, Matteo Pizzi)" },
       { label: "Categoría en Google Play", value: "Salud y bienestar" },
@@ -273,7 +272,7 @@ const COPY = {
     storyAngles: [
       "Un desarrollador indie italiano crea una alternativa europea con privacidad por diseño a los jardines cerrados de Samsung, Apple y Google Fit",
       "Cómo Health Connect transformó el ecosistema de wearables Android desde 2024, y qué significa para usuarios y desarrolladores",
-      `Por qué ${founderHistoricalClause("es")}: una alternativa histórica al modelo de suscripción, también en apps de salud`,
+      `Por qué ${founderHistoricalClause("es")}`,
       "Desarrollar una app de salud en Italia: soberanía de datos como diferenciador",
     ],
 
@@ -324,7 +323,7 @@ const COPY = {
       { label: "Land", value: "Italien" },
       { label: "Technologien", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Kompatibilität", value: "Aktueller Status unter fitmesh.fit/integrations" },
-      { label: "Preis", value: `14 Tage testen, dann Pro ${PRICING.fromLifetime.de} einmalig (Android ${PRICING.lifetimeAndroid.de} · iPhone ${PRICING.lifetimeIos.de}) oder ${PRICING.subSixMonthsLabel.de}` },
+      { label: "Preis", value: "Teste FitMesh Pro 14 Tage lang. Danach ist für die weitere Nutzung der Pro-Funktionen ein Kauf oder Abonnement erforderlich." },
       { label: "Gründerplätze", value: founderHistoricalKeyFact("de") },
       { label: "Team", value: "Indie / Solo-Entwickler (Fosforonero, Matteo Pizzi)" },
       { label: "Play-Store-Kategorie", value: "Gesundheit & Fitness" },
@@ -358,7 +357,7 @@ const COPY = {
     storyAngles: [
       "Italienischer Indie-Entwickler baut datenschutzorientierte europäische Alternative zu den geschlossenen Ökosystemen von Samsung, Apple und Google Fit",
       "Wie Health Connect das Android-Wearable-Ökosystem seit 2024 verändert hat und was das für Verbraucher und Entwickler bedeutet",
-      `Warum ${founderHistoricalClause("de")}: ein historischer Blick auf eine Alternative zum Abo-Modell, auch bei Fitness-Apps`,
+      `Warum ${founderHistoricalClause("de")}`,
       "Eine Gesundheits-App in Italien entwickeln: Datensouveränität als Alleinstellungsmerkmal",
     ],
 
@@ -409,7 +408,7 @@ const COPY = {
       { label: "País", value: "Itália" },
       { label: "Tecnologias", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Compatibilidade", value: "Estado atualizado em fitmesh.fit/integrations" },
-      { label: "Preço", value: `Teste de 14 dias, depois Pro ${PRICING.fromLifetime.pt} pagamento único (Android ${PRICING.lifetimeAndroid.pt} · iPhone ${PRICING.lifetimeIos.pt}) ou ${PRICING.subSixMonthsLabel.pt}` },
+      { label: "Preço", value: "Experimenta o FitMesh Pro durante 14 dias. Depois, para continuar a usar as funções Pro é necessária uma compra ou uma assinatura." },
       { label: "Vagas de fundador", value: founderHistoricalKeyFact("pt") },
       { label: "Equipe", value: "Indie / desenvolvedor solo (Fosforonero, Matteo Pizzi)" },
       { label: "Categoria no Google Play", value: "Saúde e fitness" },
@@ -443,7 +442,7 @@ const COPY = {
     storyAngles: [
       "Desenvolvedor indie italiano cria alternativa europeia com foco em privacidade aos ecossistemas fechados de Samsung, Apple e Google Fit",
       "Como o Health Connect transformou o ecossistema de wearables Android desde 2024 e o que isso significa para consumidores e desenvolvedores",
-      `Porque ${founderHistoricalClause("pt")}: uma alternativa histórica ao modelo de assinatura, mesmo em apps de saúde`,
+      `Porque ${founderHistoricalClause("pt")}`,
       "Desenvolver um app de saúde na Itália: soberania dos dados como diferencial",
     ],
 
@@ -494,7 +493,7 @@ const COPY = {
       { label: "Pays", value: "Italie" },
       { label: "Technologies", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Compatibilité", value: "État actualisé sur fitmesh.fit/integrations" },
-      { label: "Tarif", value: `Essai de 14 jours, puis Pro ${PRICING.fromLifetime.fr} paiement unique (Android ${PRICING.lifetimeAndroid.fr} · iPhone ${PRICING.lifetimeIos.fr}) ou ${PRICING.subSixMonthsLabel.fr}` },
+      { label: "Tarif", value: "Essayez FitMesh Pro pendant 14 jours. Ensuite, pour continuer à utiliser les fonctions Pro, un achat ou un abonnement est nécessaire." },
       { label: "Places fondateur", value: founderHistoricalKeyFact("fr") },
       { label: "Équipe", value: "Indie / développeur solo (Fosforonero, Matteo Pizzi)" },
       { label: "Catégorie Play Store", value: "Santé et forme physique" },
@@ -528,7 +527,7 @@ const COPY = {
     storyAngles: [
       "Un développeur indie italien crée une alternative européenne axée sur la confidentialité aux jardins fermés de Samsung, Apple et Google Fit",
       "Comment Health Connect a transformé l'écosystème des appareils connectés Android depuis 2024, et ce que cela signifie pour les consommateurs et les développeurs",
-      `Pourquoi ${founderHistoricalClause("fr")} : un regard historique sur une alternative au modèle par abonnement, y compris dans les applications de santé`,
+      `Pourquoi ${founderHistoricalClause("fr")}`,
       "Développer une application de santé en Italie : souveraineté des données comme facteur de différenciation",
     ],
 
@@ -579,7 +578,7 @@ const COPY = {
       { label: "Kraj", value: "Wlochy" },
       { label: "Technologie", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Kompatybilność", value: "Aktualny stan na fitmesh.fit/integrations" },
-      { label: "Cena", value: `14 dni próbny, potem Pro ${PRICING.fromLifetime.pl} jednorazowo (Android ${PRICING.lifetimeAndroid.pl} · iPhone ${PRICING.lifetimeIos.pl}) lub ${PRICING.subSixMonthsLabel.pl}` },
+      { label: "Cena", value: "Wypróbuj FitMesh Pro przez 14 dni. Potem, aby dalej korzystać z funkcji Pro, wymagany jest zakup lub subskrypcja." },
       { label: "Miejsca zalozycielskie", value: founderHistoricalKeyFact("pl") },
       { label: "Zespól", value: "Indie / jedyny programista (Fosforonero, Matteo Pizzi)" },
       { label: "Kategoria w Google Play", value: "Zdrowie i fitness" },
@@ -613,7 +612,7 @@ const COPY = {
     storyAngles: [
       "Wloski indie developer buduje europejska, prywatna alternatywe dla zamknietych ekosystemów Samsung/Apple/Google Fit",
       "Jak Health Connect zmienil ekosystem urzadzen Android od 2024 roku i co oznacza to dla uzytkowników i programistów",
-      `Dlaczego ${founderHistoricalClause("pl")}: historyczna alternatywa dla hype'u subskrypcyjnego, nawet w aplikacjach fitness`,
+      `Dlaczego ${founderHistoricalClause("pl")}`,
       "Tworzenie aplikacji zdrowotnej we Wloszech: suwerennosc danych jako wyróznnik",
     ],
 
@@ -664,7 +663,7 @@ const COPY = {
       { label: "Ülke", value: "Italya" },
       { label: "Teknoloji yigini", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Uyumluluk", value: "Güncel durum fitmesh.fit/integrations adresinde" },
-      { label: "Fiyatlandirma", value: `14 günlük deneme, sonra Pro ${PRICING.fromLifetime.tr} tek seferlik (Android ${PRICING.lifetimeAndroid.tr} · iPhone ${PRICING.lifetimeIos.tr}) veya ${PRICING.subSixMonthsLabel.tr}` },
+      { label: "Fiyatlandirma", value: "FitMesh Pro'yu 14 gün deneyin. Ardından Pro özelliklerini kullanmaya devam etmek için satın alma veya abonelik gerekir." },
       { label: "Kurucu koltuklari", value: founderHistoricalKeyFact("tr") },
       { label: "Ekip", value: "Indie / tek gelistirici (Fosforonero, Matteo Pizzi)" },
       { label: "Google Play kategorisi", value: "Saglik ve fitness" },
@@ -698,7 +697,7 @@ const COPY = {
     storyAngles: [
       "Italyan indie gelistirici, Samsung/Apple/Google Fit'in kapali ekosistemlerine gizlilik öncelikli Avrupa alternatifi insa ediyor",
       "Health Connect, 2024'ten bu yana Android giyilebilir ekosistemini nasil degistirdi ve bu tüketiciler ile gelistiriciler icin ne anlama geliyor",
-      `Neden ${founderHistoricalClause("tr")}: abonelik cilginligina tarihi bir alternatif, fitness uygulamalarinda bile`,
+      `Neden ${founderHistoricalClause("tr")}`,
       "Italya'da saglik uygulamasi gelistirmek: farklilik olarak veri egemenligi",
     ],
 
@@ -749,7 +748,7 @@ const COPY = {
       { label: "Land", value: "Italië" },
       { label: "Technologie", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Compatibiliteit", value: "Actuele status op fitmesh.fit/integrations" },
-      { label: "Prijs", value: `14 dagen proberen, daarna Pro ${PRICING.fromLifetime.en} eenmalig (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) of ${PRICING.subSixMonthsLabel.en}` },
+      { label: "Prijs", value: "Probeer FitMesh Pro 14 dagen. Daarna is een aankoop of abonnement nodig om de Pro-functies te blijven gebruiken." },
       { label: "Founder-plekken", value: founderHistoricalKeyFact("nl") },
       { label: "Team", value: "Indie / solo-ontwikkelaar (Fosforonero, Matteo Pizzi)" },
       { label: "Play Store-categorie", value: "Gezondheid en fitness" },
@@ -784,7 +783,7 @@ const COPY = {
       "Italiaanse indie-ontwikkelaar bouwt een privacy-first Europees alternatief voor de gesloten ecosystemen van Samsung, Apple en Google Fit",
       "Hoe Health Connect het Android-wearable-ecosysteem sinds 2024 veranderde, en wat dat betekent voor consumenten en ontwikkelaars",
       "Gezinsdeling: de gezondheidsdata van wie je dierbaar is in één dashboard zien, zonder GPS of opdringerige apps (Familie Mesh)",
-      `Waarom ${founderHistoricalClause("nl")}: een historisch alternatief voor de abonnementshype, ook in fitness-apps`,
+      `Waarom ${founderHistoricalClause("nl")}`,
       "Een gezondheidsapp bouwen in Italië: datasoevereiniteit als onderscheidend kenmerk",
     ],
 
@@ -835,7 +834,7 @@ const COPY = {
       { label: "国", value: "イタリア" },
       { label: "技術スタック", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "互換性", value: "最新状況はfitmesh.fit/integrationsで確認" },
-      { label: "価格", value: `14日間トライアル、その後Pro ${PRICING.fromLifetime.en} 買い切り（Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}）または ${PRICING.subSixMonthsLabel.en}` },
+      { label: "価格", value: "その後もPro機能を使い続けるには、購入またはサブスクリプションが必要です。" },
       { label: "ファウンダー枠", value: founderHistoricalKeyFact("ja") },
       { label: "チーム", value: "インディー / ソロ開発者（Fosforonero、Matteo Pizzi）" },
       { label: "Play Storeカテゴリ", value: "健康＆フィットネス" },
@@ -870,7 +869,7 @@ const COPY = {
       "イタリアのインディー開発者が、Samsung・Apple・Google Fitの囲い込みに対するプライバシーファーストな欧州の代替を構築",
       "Health Connectが2024年以降にAndroidウェアラブルのエコシステムをどう変えたか、そして消費者と開発者にとっての意味",
       "家族間シェア：大切な人の健康データをひとつのダッシュボードで見る、GPSや侵襲的なアプリなしで（Mesh Family）",
-      `なぜ${founderHistoricalClause("ja")}のか：フィットネスアプリにおけるサブスク偏重への歴史的な代替案`,
+      `なぜ${founderHistoricalClause("ja")}のか`,
       "イタリアで健康アプリを開発する：差別化要因としてのデータ主権",
     ],
 
@@ -921,7 +920,7 @@ const COPY = {
       { label: "국가", value: "이탈리아" },
       { label: "기술 스택", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "호환성", value: "최신 상태는 fitmesh.fit/integrations에서 확인" },
-      { label: "가격", value: `14일 체험판, 이후 Pro ${PRICING.fromLifetime.en} 일회성 (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) 또는 ${PRICING.subSixMonthsLabel.en}` },
+      { label: "가격", value: "이후에도 Pro 기능을 계속 사용하려면 구매 또는 구독이 필요합니다." },
       { label: "파운더 좌석", value: founderHistoricalKeyFact("ko") },
       { label: "팀", value: "인디 / 1인 개발자 (Fosforonero, Matteo Pizzi)" },
       { label: "Play 스토어 카테고리", value: "건강 및 피트니스" },
@@ -956,7 +955,7 @@ const COPY = {
       "이탈리아 인디 개발자가 Samsung·Apple·Google Fit의 폐쇄형 생태계에 대한 프라이버시 우선 유럽 대안을 만들다",
       "Health Connect가 2024년 이후 Android 웨어러블 생태계를 어떻게 바꿨고, 소비자와 개발자에게 무엇을 의미하는가",
       "가족 공유: 소중한 사람의 건강 데이터를 하나의 대시보드에서 확인하기, GPS나 침해적인 앱 없이 (Mesh Family)",
-      `${founderHistoricalClause("ko")} 이유: 피트니스 앱에서도 구독 과열에 대한 역사적 대안`,
+      `${founderHistoricalClause("ko")} 이유`,
       "이탈리아에서 건강 앱을 개발하기: 차별화 요소로서의 데이터 주권",
     ],
 
@@ -1007,7 +1006,7 @@ const COPY = {
       { label: "Land", value: "Italien" },
       { label: "Teknikstack", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Kompatibilitet", value: "Aktuell status på fitmesh.fit/integrations" },
-      { label: "Prissättning", value: `14 dagars provperiod, sedan Pro ${PRICING.fromLifetime.en} som engångsköp (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) eller ${PRICING.subSixMonthsLabel.en}` },
+      { label: "Prissättning", value: "Testa FitMesh Pro i 14 dagar. Därefter krävs ett köp eller en prenumeration för att fortsätta använda Pro-funktionerna." },
       { label: "Grundarplatser", value: founderHistoricalKeyFact("sv") },
       { label: "Team", value: "Indie / ensam utvecklare (Fosforonero, Matteo Pizzi)" },
       { label: "Kategori på Play Store", value: "Hälsa och fitness" },
@@ -1041,7 +1040,7 @@ const COPY = {
     storyAngles: [
       "Italiensk indieutvecklare bygger ett integritetsfokuserat europeiskt alternativ till Samsungs/Apples/Google Fits inhägnade ekosystem",
       "Hur Health Connect har förändrat Androids wearable-ekosystem sedan 2024, och vad det betyder för konsumenter och utvecklare",
-      `Varför ${founderHistoricalClause("sv")}: ett historiskt alternativ till prenumerationshypen, även i träningsappar`,
+      `Varför ${founderHistoricalClause("sv")}`,
       "Att bygga en hälsoapp i Italien: datasuveränitet som konkurrensfördel",
     ],
 
@@ -1092,7 +1091,7 @@ const COPY = {
       { label: "Land", value: "Italien" },
       { label: "Teknologi", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Kompatibilitet", value: "Aktuel status på fitmesh.fit/integrations" },
-      { label: "Priser", value: `14 dages prøveperiode, derefter Pro ${PRICING.fromLifetime.en} som engangskøb (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) eller ${PRICING.subSixMonthsLabel.en}` },
+      { label: "Priser", value: "Prøv FitMesh Pro i 14 dage. Derefter er et køb eller abonnement nødvendigt for at fortsætte med at bruge Pro-funktionerne." },
       { label: "Founder-pladser", value: founderHistoricalKeyFact("da") },
       { label: "Team", value: "Indie/soloudvikler (Fosforonero, Matteo Pizzi)" },
       { label: "Play Store-kategori", value: "Sundhed og fitness" },
@@ -1126,7 +1125,7 @@ const COPY = {
     storyAngles: [
       "Italiensk indie-udvikler bygger et privatlivsorienteret europæisk alternativ til Samsungs/Apples/Googles lukkede Fit-økosystemer",
       "Hvordan Health Connect ændrede Androids wearable-økosystem siden 2024, og hvad det betyder for forbrugere og udviklere",
-      `Hvorfor ${founderHistoricalClause("da")}: et historisk alternativ til abonnementshypen, også i fitness-apps`,
+      `Hvorfor ${founderHistoricalClause("da")}`,
       "At bygge en sundhedsapp i Italien: datasuverænitet som differentiator",
     ],
 
@@ -1177,7 +1176,7 @@ const COPY = {
       { label: "Land", value: "Italia" },
       { label: "Teknologi", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Kompatibilitet", value: "Oppdatert status på fitmesh.fit/integrations" },
-      { label: "Priser", value: `14 dagers prøveperiode, deretter Pro ${PRICING.fromLifetime.en} engangsbeløp (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) eller ${PRICING.subSixMonthsLabel.en}` },
+      { label: "Priser", value: "Prøv FitMesh Pro i 14 dager. Deretter kreves et kjøp eller abonnement for å fortsette å bruke Pro-funksjonene." },
       { label: "Founder-plasser", value: founderHistoricalKeyFact("no") },
       { label: "Team", value: "Indie / soloutvikler (Fosforonero, Matteo Pizzi)" },
       { label: "Play Store-kategori", value: "Helse og trening" },
@@ -1211,7 +1210,7 @@ const COPY = {
     storyAngles: [
       "Italiensk indie-utvikler bygger et personvernfokusert europeisk alternativ til de lukkede økosystemene til Samsung/Apple/Google Fit",
       "Hvordan Health Connect har endret Androids wearable-økosystem siden 2024, og hva det betyr for forbrukere og utviklere",
-      `Hvorfor ${founderHistoricalClause("no")}: et historisk alternativ til abonnementshypen, også i treningsapper`,
+      `Hvorfor ${founderHistoricalClause("no")}`,
       "Å bygge en helseapp i Italia: datasuverenitet som differensiator",
     ],
 
@@ -1262,7 +1261,7 @@ const COPY = {
       { label: "Maa", value: "Italia" },
       { label: "Teknologiat", value: "Flutter · Health Connect · Supabase · Next.js" },
       { label: "Yhteensopivuus", value: "Ajantasainen tila osoitteessa fitmesh.fit/integrations" },
-      { label: "Hinnoittelu", value: `14 päivän kokeilu, sen jälkeen Pro ${PRICING.fromLifetime.en} kertamaksuna (Android ${PRICING.lifetimeAndroid.en} · iPhone ${PRICING.lifetimeIos.en}) tai ${PRICING.subSixMonthsLabel.en}` },
+      { label: "Hinnoittelu", value: "Kokeile FitMesh Pro -versiota 14 päivää. Sen jälkeen tarvitaan osto tai tilaus, jotta voit jatkaa Pro-ominaisuuksien käyttöä." },
       { label: "Perustajapaikat", value: founderHistoricalKeyFact("fi") },
       { label: "Tiimi", value: "Indie / yksinkehittäjä (Fosforonero, Matteo Pizzi)" },
       { label: "Play Store -kategoria", value: "Terveys ja kuntoilu" },
@@ -1296,7 +1295,7 @@ const COPY = {
     storyAngles: [
       "Italialainen indie-kehittäjä rakentaa yksityisyyttä kunnioittavan eurooppalaisen vaihtoehdon Samsungin, Applen ja Google Fitin suljetuille ekosysteemeille",
       "Miten Health Connect muutti Androidin puettavien laitteiden ekosysteemin vuodesta 2024 lähtien – ja mitä se merkitsee kuluttajille ja kehittäjille",
-      `Miksi ${founderHistoricalClause("fi")}: historiallinen vaihtoehto tilausbuumille myös kuntoilusovelluksissa`,
+      `Miksi ${founderHistoricalClause("fi")}`,
       "Terveyssovelluksen rakentaminen Italiassa: datan suvereniteetti kilpailuetuna",
     ],
 

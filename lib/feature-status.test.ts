@@ -214,9 +214,11 @@ describe("regressione: le frasi false note non tornano nelle superfici della tra
     });
   }
 
-  it("la roadmap da la dashboard web nativa come in sviluppo, non come «live»", () => {
+  it("la roadmap da la dashboard web nativa nella colonna Future, senza chip di stato e non come «live»", () => {
     const src = read("app/(frontend)/[locale]/(marketing)/roadmap/page.tsx");
-    expect(src).toMatch(/status: "in-progress",\s*title: \{ it: "Dashboard web nativa"/);
+    // D2 A (02/10): nessun chip «In sviluppo»; solo la descrizione nella colonna Future
+    expect(src).not.toMatch(/status: "in-progress",\s*title: \{ it: "Dashboard web nativa"/);
+    expect(src).toMatch(/\{\s*title: \{ it: "Dashboard web nativa"/);
     // non nella colonna «Now · In produzione / Vivo e in mano agli utenti»
     expect(src.indexOf('title: { it: "Dashboard web nativa"')).toBeGreaterThan(src.indexOf('id: "future"'));
     expect(src).not.toMatch(/status: "live",\s*title: \{ it: "Dashboard web nativa"/);

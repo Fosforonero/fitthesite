@@ -1022,8 +1022,8 @@ export const post: BlogPost = {
         ko: "Garmin 운동을 중앙화된 대시보드로 가져오고 싶으신가요?",
       },
       body: {
-        it: "Tra le opzioni che semplificano questo c'è FitMesh Sync: legge i tuoi dati Garmin Connect tramite Health Connect (Garmin Connect scrive su Health Connect dal 2024) e porta i tuoi allenamenti nell'app, senza dover esportare file manualmente ogni volta.",
-        en: "Among the options that simplify this is FitMesh Sync: it reads your Garmin Connect data through Health Connect (Garmin Connect has written to Health Connect since 2024) and brings your workouts to the app, without having to manually export files each time.",
+        it: "Tra le opzioni che semplificano questo c'è FitMesh Sync: legge i tuoi dati Garmin Connect tramite Health Connect (Garmin Connect scrive su Health Connect dal 2024) e porta nell'app gli allenamenti di base che Garmin Connect scrive su Health Connect, senza dover esportare file manualmente ogni volta.",
+        en: "Among the options that simplify this is FitMesh Sync: it reads your Garmin Connect data through Health Connect (Garmin Connect has written to Health Connect since 2024) and brings to the app the basic workouts that Garmin Connect writes to Health Connect, without having to manually export files each time.",
         es: "Entre las opciones que simplifican esto está FitMesh Sync: lee tus datos de Garmin Connect a través de Health Connect (Garmin Connect escribe en Health Connect desde 2024) y lleva tus entrenamientos a la app, sin necesidad de exportar archivos manualmente cada vez.",
         de: "Zu den Optionen, die dies vereinfachen, gehört FitMesh Sync: Es liest deine Garmin-Connect-Daten über Health Connect (Garmin Connect schreibt seit 2024 auf Health Connect) und bringt deine Trainings in die App, ohne jedes Mal Dateien manuell exportieren zu müssen.",
         pt: "Entre as opções que simplificam isso está o FitMesh Sync: lê seus dados do Garmin Connect através do Health Connect (o Garmin Connect grava no Health Connect desde 2024) e leva seus treinos para o app, sem precisar exportar arquivos manualmente a cada vez.",

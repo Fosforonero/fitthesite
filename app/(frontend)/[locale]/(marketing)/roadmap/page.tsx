@@ -98,7 +98,8 @@ function tlr(text: LocalizedText, lc: Locale): string {
 }
 
 interface RoadmapItem {
-  status: RoadmapStatus;
+  /** Assente = nessun chip di stato (voce solo descrittiva nella colonna Future). */
+  status?: RoadmapStatus;
   title: LocalizedText;
   desc: LocalizedText;
 }
@@ -246,21 +247,21 @@ const COLUMNS: RoadmapColumn[] = [
         status: "live",
         title: { it: "Trial gratuito 14 giorni", en: "14-day free trial", es: "Prueba gratuita de 14 días", de: "14-Tage-Gratistest", pt: "Teste grátis de 14 dias", fr: "Essai gratuit de 14 jours", pl: "14-dniowy bezpłatny okres próbny", tr: "14 günlük ücretsiz deneme", nl: "Gratis proefperiode van 14 dagen", ja: "14日間無料トライアル", ko: "14일 무료 체험", sv: "14 dagars gratis provperiod", da: "14 dages gratis prøveperiode", no: "14 dagers gratis prøveperiode", fi: "14 päivän ilmainen kokeilu" },
         desc: {
-          it: "Due settimane per provare tutto senza inserire dati di pagamento. Acquisto unico da €3,99 al termine, niente subscription.",
-          en: "Two weeks to try everything without entering payment details. One-time from €3.99 after, no subscription.",
-          es: "Dos semanas para probarlo todo sin introducir datos de pago. Pago único desde €3,99 al terminar, sin suscripción.",
-          de: "Zwei Wochen, um alles auszuprobieren, ohne Zahlungsdaten anzugeben. Danach Einmalkauf ab €3,99, kein Abonnement.",
-          pt: "Duas semanas para experimentar tudo sem informar dados de pagamento. Compra única a partir de €3,99 ao final, sem assinatura.",
-          fr: "Deux semaines pour tout essayer sans saisir vos coordonnées bancaires. Achat unique à partir de €3,99 ensuite, sans abonnement.",
-          pl: "Dwa tygodnie na wypróbowanie wszystkiego bez podawania danych płatności. Jednorazowy zakup od €3,99 po zakończeniu, bez subskrypcji.",
-          tr: "Ödeme bilgisi girmeden her şeyi denemek için iki hafta. Sonrasında €3,99'dan başlayan tek seferlik satın alma, abonelik yok.",
-          nl: "Twee weken alles uitproberen zonder betalingsgegevens in te voeren. Eenmalige aankoop van €3,99 achteraf, geen abonnement.",
-          ja: "支払い情報不要で2週間すべての機能を試せます。終了後は€3,99の買い切り、サブスクリプションなし。",
-          ko: "결제 정보 입력 없이 2주 동안 모든 기능 체험. 이후 €3,99 일회성 구매, 구독 없음.",
-          sv: "Två veckor att prova allt utan att ange betalningsuppgifter. Därefter engångsbetalning från 3,99 EUR, inget abonnemang.",
-          da: "To uger til at prøve alt uden at indtaste betalingsoplysninger. Herefter engangskøb fra EUR 3,99, intet abonnement.",
-          no: "To uker til å prøve alt uten å oppgi betalingsinformasjon. Deretter et engangskjøp fra 3,99 EUR, ingen abonnement.",
-          fi: "Kaksi viikkoa aikaa kokeilla kaikkea ilman maksutietojen syöttämistä. Sen jälkeen kertamaksu alkaen 3,99 eurosta, ei tilausta.",
+          it: "Prova FitMesh Pro per 14 giorni. Al termine, per continuare a usare le funzioni Pro serve un acquisto o un abbonamento.",
+          en: "Try FitMesh Pro for 14 days. After the trial, continuing to use Pro features requires a purchase or subscription.",
+          es: "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
+          de: "Teste FitMesh Pro 14 Tage lang. Danach ist für die weitere Nutzung der Pro-Funktionen ein Kauf oder Abonnement erforderlich.",
+          pt: "Experimenta o FitMesh Pro durante 14 dias. Depois, para continuar a usar as funções Pro é necessária uma compra ou uma assinatura.",
+          fr: "Essayez FitMesh Pro pendant 14 jours. Ensuite, pour continuer à utiliser les fonctions Pro, un achat ou un abonnement est nécessaire.",
+          pl: "Wypróbuj FitMesh Pro przez 14 dni. Potem, aby dalej korzystać z funkcji Pro, wymagany jest zakup lub subskrypcja.",
+          tr: "FitMesh Pro'yu 14 gün deneyin. Ardından Pro özelliklerini kullanmaya devam etmek için satın alma veya abonelik gerekir.",
+          nl: "Probeer FitMesh Pro 14 dagen. Daarna is een aankoop of abonnement nodig om de Pro-functies te blijven gebruiken.",
+          ja: "その後もPro機能を使い続けるには、購入またはサブスクリプションが必要です。",
+          ko: "이후에도 Pro 기능을 계속 사용하려면 구매 또는 구독이 필요합니다.",
+          sv: "Testa FitMesh Pro i 14 dagar. Därefter krävs ett köp eller en prenumeration för att fortsätta använda Pro-funktionerna.",
+          da: "Prøv FitMesh Pro i 14 dage. Derefter er et køb eller abonnement nødvendigt for at fortsætte med at bruge Pro-funktionerne.",
+          no: "Prøv FitMesh Pro i 14 dager. Deretter kreves et kjøp eller abonnement for å fortsette å bruke Pro-funksjonene.",
+          fi: "Kokeile FitMesh Pro -versiota 14 päivää. Sen jälkeen tarvitaan osto tai tilaus, jotta voit jatkaa Pro-ominaisuuksien käyttöä.",
         },
       },
     ],
@@ -549,7 +550,6 @@ const COLUMNS: RoadmapColumn[] = [
     accent: "#A78BFA",
     items: [
       {
-        status: "in-progress",
         title: { it: "Dashboard web nativa", en: "Native web dashboard", es: "Panel web nativo", de: "Native Web-Dashboard", pt: "Painel web nativo", fr: "Tableau de bord web natif", pl: "Natywny panel webowy", tr: "Yerel web paneli", nl: "Natief webdashboard", ja: "ネイティブWebダッシュボード", ko: "네이티브 웹 대시보드", sv: "Inbyggd webbdashboard", da: "Nativt webdashboard", no: "Nativt webdashbord", fi: "Oma verkkopohjainen koontinäyttö" },
         desc: {
           it: "La dashboard web personale non è ancora disponibile.",
@@ -885,7 +885,7 @@ export default async function RoadmapPage({
                 {/* Item list — vertical timeline */}
                 <ul className="mt-6 space-y-4">
                   {col.items.map((it, i) => {
-                    const badge = STATUS_BADGE[it.status];
+                    const badge = it.status ? STATUS_BADGE[it.status] : null;
                     return (
                       <li
                         key={i}
@@ -895,15 +895,17 @@ export default async function RoadmapPage({
                           <h3 className="font-display text-base font-semibold text-text-primary">
                             {tlr(it.title, lc)}
                           </h3>
-                          <span
-                            className="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 rounded-pill flex-shrink-0"
-                            style={{
-                              background: `${badge.color}15`,
-                              color: badge.color,
-                            }}
-                          >
-                            {(badge as Record<string, string>)[lc] ?? badge.en}
-                          </span>
+                          {badge && (
+                            <span
+                              className="text-[10px] uppercase tracking-wider font-semibold px-2 py-1 rounded-pill flex-shrink-0"
+                              style={{
+                                background: `${badge.color}15`,
+                                color: badge.color,
+                              }}
+                            >
+                              {(badge as Record<string, string>)[lc] ?? badge.en}
+                            </span>
+                          )}
                         </div>
                         <p className="mt-2 text-sm text-text-secondary leading-relaxed">
                           {tlr(it.desc, lc)}

@@ -1446,8 +1446,8 @@
       "da": "Vil du gerne se dine Xiaomi- og Amazfit-data i FitMesh-appen?"
     },
     "body.19.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band, Amazfit och alla andra anslutna enheter i appen. Ladda ner FitMesh och prova det gratis.",
-      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band, Amazfit og alle andre tilsluttede enheder i appen. Download FitMesh, og prøv det gratis."
+      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band och Amazfit i appen. Ladda ner FitMesh och prova det gratis.",
+      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band og Amazfit i appen. Download FitMesh, og prøv det gratis."
     },
     "body.19.ctaLabel": {
       "sv": "Ladda ner FitMesh och prova gratis →",
@@ -1864,7 +1864,7 @@
       "da": "Vil du se Withings vægt, søvn og aktivitet samlet i FitMesh-appen?"
     },
     "body.22.body": {
-      "sv": "FitMesh Sync samlar in data från Health Connect och HealthKit (där Withings skriver automatiskt) och sammanställer dem i appens instrumentpanel. Den personliga webbpanelen är ännu inte tillgänglig. Ingen manuell export, inga extra appar: det fungerar från det ögonblick du godkänner Health Connect för första gången. Europeiska servrar, EU:s integritetsskydd, inget abonnemang krävs för att komma igång.",
+      "sv": "FitMesh Sync samlar in data från Health Connect och HealthKit (där Withings skriver automatiskt) och sammanställer dem i appens instrumentpanel. Den personliga webbpanelen är ännu inte tillgänglig. Ingen manuell export, inga extra appar: det fungerar från det ögonblick du godkänner Health Connect för första gången. EU:s integritetsskydd, inget abonnemang krävs för att komma igång.",
       "da": "FitMesh Sync indsamler data fra Health Connect og HealthKit (hvor Withings skriver automatisk) og samler dem i appens dashboard. Det personlige webdashboard er endnu ikke tilgængeligt. Ingen manuel eksport, ingen ekstra apps: Det fungerer fra det øjeblik, du godkender Health Connect for første gang. EU-databeskyttelse, intet abonnement kræves for at komme i gang."
     },
     "body.22.ctaLabel": {
@@ -1900,8 +1900,8 @@
       "da": "Kan jeg se Withings-data på en pc eller tablet, og ikke kun på en smartphone?"
     },
     "faq.3.a": {
-      "sv": "Appen Health Mate är främst avsedd för smartphones. På webbplatsen withings.com finns en grundläggande datavisning, men ingen avancerad översiktssida. För att se vikt, sömn och aktivitet i en fullständig webbkontrollpanel i en webbläsare måste du använda en app från tredje part som läser av data från Health Connect eller HealthKit (där Withings redan har lagrat dem) och visar dem i webbformat.",
-      "da": "Health Mate-appen er primært udviklet til smartphones. På hjemmesiden withings.com kan du se grundlæggende data, men der er ikke et avanceret kontrolpanel. For at se vægt, søvn og aktivitet i et fuldt web-dashboard i en browser skal du bruge en tredjepartsapp, der læser data fra Health Connect eller HealthKit (hvor Withings allerede har gemt dem) og viser dem i webformat."
+      "sv": "Appen Health Mate är främst avsedd för smartphones. På webbplatsen withings.com finns en grundläggande datavisning, men ingen avancerad översiktssida. För att se vikt, sömn och aktivitet i en fullständig webbkontrollpanel i en webbläsare måste du använda en app från tredje part som läser av data från Health Connect eller HealthKit (där Withings redan har lagrat dem) och visar dem i webbformat. Den personliga webbpanelen är ännu inte tillgänglig.",
+      "da": "Health Mate-appen er primært udviklet til smartphones. På hjemmesiden withings.com kan du se grundlæggende data, men der er ikke et avanceret kontrolpanel. For at se vægt, søvn og aktivitet i et fuldt web-dashboard i en browser skal du bruge en tredjepartsapp, der læser data fra Health Connect eller HealthKit (hvor Withings allerede har gemt dem) og viser dem i webformat. Det personlige webdashboard er endnu ikke tilgængeligt."
     },
     "faq.4.q": {
       "sv": "Synkroniserar Withings ScanWatch träningspass till Health Connect?",
@@ -3266,8 +3266,8 @@
       "da": "Vil du se dine Fitbit-data sammen med data fra dine andre enheder i én og samme app uden kompliceret konfiguration?"
     },
     "body.11.body": {
-      "sv": "FitMesh Sync integreras med Fitbit och visar steg, puls, sömn och träningspass i FitMesh-appen.",
-      "da": "FitMesh Sync integreres med Fitbit og viser skridt, puls, søvn og træningspas i FitMesh-appen."
+      "sv": "FitMesh Sync visar steg, puls, sömn och träningspass i FitMesh-appen.",
+      "da": "FitMesh Sync viser skridt, puls, søvn og træningspas i FitMesh-appen."
     },
     "body.11.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
@@ -4384,8 +4384,8 @@
       "da": "Vil du samle Garmin træningspas i et samlet oversigtspanel?"
     },
     "body.25.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det integreras med Garmin Connect och gör dina träningspass tillgängliga i appen, utan att du behöver exportera filer manuellt varje gång.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den integreres med Garmin Connect og viser dine træningsprogrammer i appen, uden at du behøver at eksportere filer manuelt hver gang."
+      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det gör dina träningspass tillgängliga i appen, utan att du behöver exportera filer manuellt varje gång.",
+      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den viser dine træningsprogrammer i appen, uden at du behøver at eksportere filer manuelt hver gang."
     },
     "body.25.ctaLabel": {
       "sv": "Se Garmin integration på FitMesh →",
@@ -12363,7 +12363,7 @@
       "sv": "Letar du efter en färdig översiktspanel för Galaxy Watch data?"
     },
     "body.20.body": {
-      "sv": "FitMesh Sync hämtar data från Samsung Health via Health Connect och visar steg, puls, sömn och träningspass i appen. Inställning via telefonen tar 30 sekunder."
+      "sv": "FitMesh Sync hämtar data från Samsung Health via Health Connect och visar steg, puls, sömn och träningspass i appen."
     },
     "body.20.ctaLabel": {
       "sv": "Se Galaxy Watch på FitMesh →",
@@ -12542,7 +12542,7 @@
       "sv": "Behöver du behålla Fitbit men vill ha en alternativ instrumentpanel?"
     },
     "body.19.body": {
-      "sv": "FitMesh Sync läser av Fitbit via Health Connect idag (steg, puls, sömn, kalorier, sträcka) och planerar en OAuth-integration via webb-API för avancerade data år 2026."
+      "sv": "FitMesh Sync läser av Fitbit via Health Connect idag (steg, puls, sömn, kalorier, sträcka)."
     },
     "body.19.ctaLabel": {
       "sv": "Se Fitbit på FitMesh →"

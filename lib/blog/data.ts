@@ -122,6 +122,10 @@ import { post as galaxyWatchUltra2HealthConnect } from "./posts/galaxy-watch-ult
 // Zones), pubblicati 2026-07-30, solo it/en.
 import { post as sleepScoreRegolaritaRitmoCircadiano } from "./posts/sleep-score-regolarita-ritmo-circadiano";
 import { post as percheZona2CambiaSmartwatchApp } from "./posts/perche-zona-2-cambia-smartwatch-app";
+// 01/10/2026: guida narrativa «Apple Watch, Garmin e Polar: una giornata con
+// FitMesh» (satellite del pillar prodotto). Pubblicata it/en/de/ja/fr, redirect
+// 307 verso /en/ per le altre lingue (REDIRECT_INCOMPLETE_LOCALE_SLUGS).
+import { post as fitmeshUltratletaAppleWatchGarminPolar } from "./posts/fitmesh-ultratleta-apple-watch-garmin-polar";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -209,6 +213,7 @@ const RAW_POSTS: BlogPost[] = [
   novitaGiorniPassati,
   nuovaAppleHealthRendeInutiliAltreApp,
   galaxyWatchSleepTrackingHealthConnect,
+  fitmeshUltratletaAppleWatchGarminPolar,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

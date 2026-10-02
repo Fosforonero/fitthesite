@@ -164,6 +164,10 @@ export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   // vanno in 307 verso /en/ finche' le traduzioni non vengono consegnate e
   // completate; ogni lingua smette da sola di reindirizzare quando e' completa.
   "come-funziona-fitmesh",
+  // 01/10/2026: guida ultratleta Apple Watch + Garmin + Polar, pubblicazione
+  // iniziale it/en/de/ja/fr, redirect 307 verso /en/ per le restanti 10 lingue
+  // incomplete (es/pt/pl/tr/nl/ko). Stesso meccanismo dei post sopra.
+  "fitmesh-ultratleta-apple-watch-garmin-polar",
 ]);
 
 /**

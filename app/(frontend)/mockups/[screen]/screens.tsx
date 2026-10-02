@@ -646,13 +646,6 @@ export function OnboardingMockup() {
             Ho già un account
           </div>
         </div>
-
-        <p
-          className="mt-10"
-          style={{ fontSize: "20px", color: "#7F8AA3" }}
-        >
-          da €3,99 acquisto unico · No abbonamento
-        </p>
       </div>
     </div>
   );

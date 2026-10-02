@@ -23,7 +23,7 @@
     "faq.0.q": "¿Necesito mantener la app de Colmi en mi teléfono?",
     "faq.0.a": "No. FitMesh Sync se conecta directamente al anillo por Bluetooth, así que no necesitas la app del fabricante. Puedes desinstalarla si quieres. FitMesh recopila los datos de forma independiente y los muestra en la app.",
     "faq.1.q": "¿Qué modelos de Colmi son compatibles?",
-    "faq.1.a": "FitMesh admite los modelos de Colmi más comunes que usan el protocolo Bluetooth estándar, incluidos los modelos de la serie R (R02, R06, R08, R09, R10) y otros con características similares. La compatibilidad se amplía progresivamente. Si tu modelo no aparece en la lista, descarga la app y avísanos: los modelos solicitados tienen prioridad.",
+    "faq.1.a": "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     "faq.2.q": "Si también tengo un smartwatch, ¿se contarán los pasos dos veces?",
     "faq.2.a": "No. FitMesh aplica una lógica de deduplicación: si el mismo intervalo de tiempo tiene datos tanto del anillo como del smartwatch, se usa la fuente con los mejores datos (o los más recientes), no la suma. El objetivo es un recuento preciso, no uno inflado.",
     "faq.3.q": "¿Los datos de sueño aparecen en Apple Health?",
@@ -33,7 +33,6 @@
     "secondaryKeywords": [
       "anillo colmi sin app del fabricante",
       "anillo inteligente pasos frecuencia cardiaca spo2 android",
-      "panel web anillo colmi",
       "anillo inteligente ios android misma app",
       "anillo colmi apple health"
     ],
@@ -104,11 +103,10 @@
     "faq.0.q": "¿Está disponible FitMesh en iOS?",
     "faq.0.a": "Sí. FitMesh iOS ya está disponible en el App Store para iPhone, en toda la UE. Descárgala, concede los permisos de Apple Health y tus datos aparecerán en la app en minutos.",
     "faq.1.q": "¿FitMesh iOS requiere suscripción?",
-    "faq.1.a": "Puedes probarlo todo gratis durante 14 días. Después eliges: una suscripción ligera cada 6 meses o un desbloqueo de por vida con un pago único (al precio de lanzamiento), así que la suscripción no es obligatoria. El objetivo es seguir siendo accesible: una app de salud no debería costar tanto como un servicio de streaming.",
+    "faq.1.a": "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     "faq.2.q": "¿Están seguros mis datos de Apple Health con FitMesh?",
     "faq.2.a": "Los datos se transmiten mediante HTTPS y se almacenan en una base de datos Postgres protegida por RLS (Row Level Security): cada usuario solo ve sus propios datos. Puedes eliminar todo de nuestros servidores en cualquier momento con 'Eliminar cuenta y datos' en la app. La política de privacidad está disponible en fitmesh.fit.",
     "secondaryKeywords": [
-      "panel web apple health",
       "ver datos apple health en pc",
       "copia de seguridad en la nube apple health",
       "app fitmesh ios iphone"
@@ -122,17 +120,16 @@
     "body.4.items": [
       "**Usuarios de iPhone + Apple Watch**: historial de datos en la app de FitMesh, sin usar la app Apple Health.",
       "**Multi-wearable en iPhone**: Garmin para correr + Apple Watch para el día a día, FitMesh los unifica.",
-      "**Cuidadores de familiares con iPhone**: Mesh Familia está en desarrollo y todavía no está disponible. No hemos anunciado una fecha de lanzamiento.",
       "**Quienes quieran una copia de seguridad independiente**: copia de los datos de Apple Health, no en la nube de Apple."
     ]
   },
   "backup-galaxy-watch": {
     "hero.kicker": "Copia de seguridad de Galaxy Watch",
     "hero.title": "Copia de seguridad automática de tu Galaxy Watch, fuera de Samsung Cloud",
-    "hero.subtitle": "Pasos, frecuencia cardiaca, sueño y entrenamientos de tu Galaxy Watch en la app de FitMesh. Configuración en 30 segundos con Health Connect, sin cuentas adicionales.",
+    "hero.subtitle": "Pasos, frecuencia cardiaca, sueño y entrenamientos de tu Galaxy Watch en la app de FitMesh.",
     "hero.primaryCta.label": "Descarga FitMesh y pruébala gratis",
     "hero.secondaryCta.label": "Ver todas las integraciones",
-    "metaDescription": "Copia de seguridad automática de los datos de tu Galaxy Watch en la app de FitMesh, sin Samsung Cloud. Configuración en 30 segundos con Health Connect. Privacidad ante todo.",
+    "metaDescription": "Datos de tu Galaxy Watch en la app de FitMesh, sin Samsung Cloud, con Health Connect. Privacidad ante todo.",
     "primaryKeyword": "copia de seguridad galaxy watch",
     "body.0.text": "Galaxy Watch es estupendo, Samsung Health es muy completo, pero si quieres sacar tus datos de Samsung Cloud (para archivarlos, analizarlos en el PC o comparar entre años), el camino nativo es engorroso. Abres la aplicación, vas a los ajustes, descargas la exportación, esperas el correo, lo descomprimes e importas a Excel. Cada vez, sin falta.",
     "body.1.text": "FitMesh Sync es el camino automático. Instala la aplicación Android, concede el permiso de Health Connect y, a partir de ahí, los datos de tu Galaxy Watch se muestran en la app de FitMesh. Se sincroniza cuando abres la app, y en segundo plano cada 15-30 minutos aproximadamente si desactivas la optimización de batería (el sistema puede retrasarlo igualmente).",
@@ -146,7 +143,7 @@
     "faq.0.q": "¿FitMesh Sync sustituye a Samsung Health?",
     "faq.0.a": "No, funcionan juntos. Samsung Health sigue recibiendo los datos del reloj. FitMesh lee una copia y la muestra en la app. Son complementarios.",
     "faq.1.q": "¿Qué pasa si Samsung Health no comparte todo con Health Connect?",
-    "faq.1.a": "En los teléfonos Samsung, FitMesh lee los datos directamente de Samsung Health, además de Health Connect. Esto recupera métricas que Samsung Health a menudo no transfiere a Health Connect (sobre todo frecuencia cardiaca y sueño), además de entrenamientos, peso, presión arterial, glucosa y más cuando están disponibles. Solo tienes que conceder el permiso de lectura una vez desde los ajustes de la aplicación.",
+    "faq.1.a": "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     "faq.2.q": "¿Funciona con el Galaxy Watch 4? ¿Y con modelos anteriores?",
     "faq.2.a": "Sí, con Galaxy Watch 4, 5, 6, 7 y Ultra (todos escriben en Samsung Health → Health Connect). Los modelos anteriores (Gear S3, Galaxy Watch Active) pueden funcionar si están actualizados y emparejados con una versión actual de Samsung Health, pero el soporte oficial empieza con el Watch 4.",
     "faq.3.q": "¿Puedo borrar los datos con un clic?",
@@ -195,7 +192,7 @@
     "faq.0.q": "¿Puedo usar FitMesh en dos teléfonos al mismo tiempo?",
     "faq.0.a": "Sí. La misma cuenta de FitMesh funciona en Android y iPhone en paralelo: no necesitas hacer nada especial, solo iniciar sesión con la misma cuenta en los dos.",
     "faq.1.q": "¿Los datos de mi smartwatch Android aparecen en Apple Health?",
-    "faq.1.a": "Para el anillo inteligente Colmi: sí. FitMesh iOS escribe los datos del anillo Colmi en Apple Health (sueño con fases, pasos, frecuencia cardiaca). Para los smartwatches Android que pasan por Health Connect (Galaxy Watch, Garmin, etc.): el puente directo Health Connect → Apple Health no está disponible todavía, pero está en la hoja de ruta.",
+    "faq.1.a": "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     "faq.2.q": "Si ya tengo datos en el iPhone, ¿se duplicarán con los datos de Android?",
     "faq.2.a": "No. FitMesh comprueba primero si Apple Health ya tiene esos datos. Si ya están ahí (del Apple Watch o de cualquier otra app), FitMesh no los reescribirá. Los datos del iPhone permanecen separados de los que escribe FitMesh.",
     "faq.3.q": "¿FitMesh iOS está disponible en la App Store?",
@@ -272,7 +269,7 @@
     "hero.secondaryCta.label": "Ver la integración con Fitbit",
     "metaDescription": "¿Quieres exportar y ver tus datos de Fitbit tras la adquisición de Google? En la app de FitMesh vía Health Connect, sin Fitbit Premium y con la privacidad como prioridad.",
     "primaryKeyword": "exportar datos fitbit google",
-    "body.0.text": "Tras la adquisición de Fitbit por parte de Google en 2021 y la migración obligatoria a una cuenta de Google en 2023, la experiencia de Fitbit cambió: se eliminaron los paneles web, algunas funciones pasaron a estar detrás de Premium y el acceso a los datos históricos depende cada vez más del ecosistema de Google. Si quieres seguir usando tu Fitbit con más control sobre tus datos, existe un camino sencillo: Health Connect + la app de FitMesh.",
+    "body.0.text": "Tras la adquisición de Fitbit por parte de Google en 2021 y la migración obligatoria a una cuenta de Google en 2023, la experiencia de Fitbit cambió: se eliminaron los paneles web, algunas funciones pasaron a estar detrás de Premium y el acceso a los datos históricos depende cada vez más del ecosistema de Google. Si quieres seguir usando tu Fitbit, existe un camino sencillo: Health Connect + la app de FitMesh.",
     "body.1.text": "Lo que obtienes con FitMesh Sync",
     "body.3.text": "Funciona con estos modelos de Fitbit",
     "body.4.text": "Charge 5/6, Inspire 3, Sense 2, Versa 4, Luxe y Pixel Watch (1, 2, 3): todos funcionan ya hoy gracias al puente automático app Fitbit → Health Connect.",
@@ -284,7 +281,7 @@
     "faq.0.q": "¿Veo las fases de sueño REM/Profundo/Ligero?",
     "faq.0.a": "FitMesh lee los datos de sueño que la app Fitbit escribe en Health Connect en Android. La disponibilidad de métricas como fases de sueño detalladas depende de lo que Fitbit transfiera a Health Connect; la duración total del sueño está disponible desde el primer día.",
     "faq.1.q": "¿Puede FitMesh borrar mis datos si cambio de opinión?",
-    "faq.1.a": "Sí. En la app, ve a Ajustes → Privacidad y datos → Eliminar cuenta. Qué se elimina y qué se conserva por motivos técnicos se explica en fitmesh.fit/delete-account. Los datos en la nube de Fitbit/Google y en tu dispositivo no se ven afectados (gestiónalos por separado).",
+    "faq.1.a": "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     "faq.2.q": "¿Tengo que eliminar mi cuenta de Fitbit?",
     "faq.2.a": "No. FitMesh se suma, no sustituye. La app de Fitbit y todas sus funciones actuales siguen funcionando. FitMesh solo añade tus datos en la app y la exportación.",
     "secondaryKeywords": [
@@ -297,7 +294,6 @@
       "Sincronización periódica a través de Health Connect (Fitbit app → HC → FitMesh), al abrir la app o en segundo plano best-effort",
       "Historial almacenado en nuestro backend",
       "Exportación de datos CSV/JSON cuando quieras",
-      "Sin Fitbit Premium, sin suscripción a FitMesh",
       "Alcance vía Health Connect: métricas estandarizadas (pasos, frecuencia cardíaca, duración total del sueño, calorías, distancia, entrenamientos básicos)"
     ]
   },
@@ -319,11 +315,10 @@
     "faq.0.q": "¿Veré Body Battery y Training Load?",
     "faq.0.a": "No actualmente: son métricas propietarias de Garmin no expuestas a través de Health Connect. El acceso directo mediante API requeriría aprobación formal en el Garmin Developer Program y no garantiza la exportación de todos los cálculos internos.",
     "faq.1.q": "¿Qué relojes Garmin son compatibles?",
-    "faq.1.a": "Todos los Garmin compatibles con Garmin Connect Android (desde 2018 en adelante): Forerunner, Fenix, Epix, Venu, Vivoactive, Instinct, Vivosmart, Vivofit. Comprueba que 'Sincronizar con Health Connect' esté activado en los ajustes de Garmin Connect.",
+    "faq.1.a": "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     "faq.2.q": "¿Sustituye a Garmin Connect?",
     "faq.2.a": "No, es complementario. Garmin Connect sigue siendo la referencia para el análisis específico de Garmin (Training Effect, Recovery Time, mapas GPS). FitMesh añade una vista multifuente para usuarios con varios wearables.",
     "secondaryKeywords": [
-      "panel garmin en navegador",
       "alternativa a garmin connect",
       "ver datos de garmin"
     ],
@@ -354,11 +349,10 @@
     "faq.0.q": "¿Veré el Readiness Score de Oura?",
     "faq.0.a": "No hoy: el Readiness Score no aparece en el listado oficial de exportaciones verificadas hacia Health Connect y se queda en la app Oura. La integración API directa no está activa actualmente. FitMesh lee las categorías compatibles vía Health Connect (sueño con fases, pasos y calorías).",
     "faq.1.q": "¿Funciona con Oura Ring 3 y 4?",
-    "faq.1.a": "Sí, ambas generaciones son compatibles con la sincronización a través de la app de Oura para Android. FitMesh lee las categorías que la app Oura exporta a Health Connect y que el usuario autoriza (como sueño con fases, pasos y frecuencia cardíaca). Las métricas que no figuran en el listado oficial de exportación se mantienen en la app de Oura.",
+    "faq.1.a": "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     "faq.2.q": "¿Necesito una suscripción a Oura para usar FitMesh?",
     "faq.2.a": "Para los modelos Gen 3 y Gen 4, se recomienda una suscripción activa a Oura Membership para procesar y sincronizar continuamente los datos compatibles con la app Oura y Health Connect.",
     "secondaryKeywords": [
-      "panel web oura ring",
       "exportar datos de oura",
       "oura ring sin suscripción",
       "oura ring health connect android"
@@ -393,14 +387,13 @@
     "faq.0.q": "¿Qué dispositivos Polar son compatibles?",
     "faq.0.a": "Todos los dispositivos Polar compatibles con la app Polar Flow en Android: Vantage M2, V3, Ignite 3, Pacer, Pacer Pro, Grit X2, Unite y modelos anteriores. El único requisito es que la sincronización se realice a través de la app Polar Flow para Android con Health Connect activado.",
     "faq.1.q": "¿Veré Training Load y Nightly Recharge?",
-    "faq.1.a": "Todavía no: son métricas propietarias de Polar que no se exponen a través de Health Connect. Hoy, vía Health Connect, ves la frecuencia cardíaca, los entrenamientos, los pasos y el sueño básico.",
+    "faq.1.a": "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     "faq.2.q": "¿Se solapan Polar y Garmin? ¿Cuál debería elegir?",
     "faq.2.a": "Depende de tu uso principal. Polar es tradicionalmente fuerte en running y ciclismo con análisis cardio avanzado (zonas de FC, umbral de lactato). Garmin es más completo para deportes al aire libre con un ecosistema más amplio. Ambos se integran con FitMesh vía Health Connect, así que puedes usarlos en paralelo si tienes dispositivos de las dos marcas.",
     "secondaryKeywords": [
       "panel alternativo a polar flow",
       "exportar datos de polar a la web",
-      "polar health connect android",
-      "polar ignite vantage panel web"
+      "polar health connect android"
     ],
     "body.3.items": [
       "**Disponible hoy vía Health Connect**: pasos, frecuencia cardíaca (media y muestras), calorías, entrenamientos (tipo, duración, FC media, kcal), sueño básico"

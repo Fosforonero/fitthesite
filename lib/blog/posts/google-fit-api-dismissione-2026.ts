@@ -805,8 +805,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "FitMesh Sync nasce esattamente per questo scenario: wearable multipli, dati frammentati, nessuna dashboard che li metta insieme in modo pulito. L'app legge da Health Connect e mostra i tuoi dati in un unico pannello, risolvendo i problemi più comuni di chi usa più dispositivi.",
-        en: "FitMesh Sync was built exactly for this scenario: multiple wearables, fragmented data, no dashboard that puts it all together cleanly. The app reads from Health Connect and shows your data in a single panel, solving the most common problems for people using multiple devices.",
+        it: "FitMesh Sync nasce esattamente per questo scenario: wearable multipli, dati frammentati, nessuna dashboard che li metta insieme in modo pulito. L'app legge da Health Connect e mostra i tuoi dati in un unico pannello nell'app, risolvendo i problemi più comuni di chi usa più dispositivi.",
+        en: "FitMesh Sync was built exactly for this scenario: multiple wearables, fragmented data, no dashboard that puts it all together cleanly. The app reads from Health Connect and shows your data in a single panel in the app, solving the most common problems for people using multiple devices.",
         es: "FitMesh Sync nació exactamente para este escenario: varios wearables, datos fragmentados, ningún panel que los unifique de forma clara. La app lee de Health Connect y muestra tus datos en un único panel, resolviendo los problemas más comunes de quienes usan varios dispositivos.",
         de: "FitMesh Sync wurde genau für dieses Szenario entwickelt: mehrere Wearables, fragmentierte Daten, kein Dashboard, das alles sauber zusammenführt. Die App liest aus Health Connect und zeigt deine Daten in einem einzigen Panel an und löst die häufigsten Probleme von Nutzern mehrerer Geräte.",
         pt: "O FitMesh Sync foi criado exatamente para esse cenário: vários wearables, dados fragmentados, nenhum painel que os reúna de forma limpa. O app lê do Health Connect e mostra seus dados em um único painel, resolvendo os problemas mais comuns de quem usa vários dispositivos.",
@@ -902,7 +902,7 @@ export const post: BlogPost = {
         fr: "FitMesh Sync lit vos données depuis Health Connect et les affiche dans un panneau unifié dans l'application. Pas de doublons, source des données visible. Disponible sur Google Play.",
         pl: "FitMesh Sync odczytuje Twoje dane z Health Connect i wyświetla je w ujednoliconym panelu w aplikacji. Bez duplikatów, źródło danych widoczne. Dostępne w Google Play.",
         tr: "FitMesh Sync, Health Connect'ten verilerinizi okur ve uygulamadaki birleşik bir panelde gösterir. Tekrar yok, veri kaynağı görünür. Google Play'de mevcut.",
-        nl: "FitMesh Sync leest je gegevens van Health Connect en toont ze in een unified paneel in de app. Geen duplicaten, databron zichtbaar. Beschikbaar op Google Play.",
+        nl: "FitMesh Sync leest je gegevens van Health Connect en toont ze in een samengevoegd paneel in de app. Geen duplicaten, databron zichtbaar. Beschikbaar op Google Play.",
         ja: "FitMesh Sync は Health Connect からデータを読み取り、アプリ内の統合パネルに表示します。重複なし、データソースが見える。Google Play で提供中。",
         ko: "FitMesh Sync는 Health Connect에서 데이터를 읽어 앱 내 통합 패널에 표시합니다. 중복 없음, 데이터 소스 표시. Google Play에서 사용 가능.",
       },
@@ -1230,7 +1230,7 @@ export const post: BlogPost = {
         // P1.8C: "KVKK" (legge turca privacy) sostituiva "Google Fit", vedi
         // ledger Fase 4.
         tr: "FitMesh Sync, Google Fit'in doğrudan bir yerine geçeni değildir: sensörlerden veri kaydetmez ve giyilebilir cihazlar için companion uygulama olarak çalışmaz. Health Connect'te zaten mevcut olan verileri okuyan ve bunları tekilleştirme ve kaynak görünürlüğüyle uygulamada birleşik bir panelde gösteren bir toplayıcıdır. Birden fazla giyilebilir cihazın verilerini tek bir görünümde birleştirmek istiyorsanız, FitMesh Sync tam olarak bunu yapar.",
-        nl: "FitMesh Sync is geen directe vervanging voor Google Fit: het legt geen sensorgegevens vast en fungeert niet als companion-app voor wearables. Het is een aggregator die gegevens leest die al aanwezig zijn in Health Connect en ze weergeeft in een unified paneel in de app, met deduplicatie en zichtbaarheid van de bron. Als je zoekt naar iets om gegevens van meerdere wearables in een enkele weergave samen te voegen, is FitMesh Sync daar voor.",
+        nl: "FitMesh Sync is geen directe vervanging voor Google Fit: het legt geen sensorgegevens vast en fungeert niet als companion-app voor wearables. Het is een aggregator die gegevens leest die al aanwezig zijn in Health Connect en ze weergeeft in een samengevoegd paneel in de app, met deduplicatie en zichtbaarheid van de bron. Als je zoekt naar iets om gegevens van meerdere wearables in een enkele weergave samen te voegen, is FitMesh Sync daar voor.",
         ja: "FitMesh Sync は Google Fit の直接の代替ではありません。センサーからデータを記録したり、ウェアラブルのコンパニオンアプリとして機能したりはしません。Health Connectにすでに存在するデータを読み取り、重複排除とソース表示機能を備えた、アプリ内の統合パネルに表示する集約ツールです。複数のウェアラブルのデータを1つのビューで統合したい場合、FitMesh Sync がその役割を担います。",
         ko: "FitMesh Sync는 Google Fit의 직접적인 대체물이 아닙니다. 센서에서 데이터를 기록하거나 웨어러블의 컴패니언 앱 역할을 하지 않습니다. Health Connect에 이미 있는 데이터를 읽어 중복 제거와 소스 표시 기능이 있는 앱 내 통합 패널에 표시하는 집계 도구입니다. 여러 웨어러블의 데이터를 하나의 뷰에서 통합하려는 경우, FitMesh Sync가 그 역할을 합니다.",
       },

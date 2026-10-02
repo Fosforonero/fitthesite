@@ -1083,8 +1083,8 @@ export const post: BlogPost = {
     {
       type: "cta",
       title: {
-        it: "Vuoi vedere i dati salute del tuo familiare in un'unica dashboard?",
-        en: "Want to see your family member's health data in one unified dashboard?",
+        it: "Vuoi vedere nell'app i dati salute dello smartwatch?",
+        en: "Want to see the smartwatch health data in the app?",
         es: "¿Quieres ver los datos de salud de tu familiar en un único panel?",
         de: "Möchten Sie die Gesundheitsdaten Ihres Familienmitglieds in einer einzigen Dashboard sehen?",
         pt: "Quer ver os dados de saúde do seu familiar em um único painel?",
@@ -1102,8 +1102,8 @@ export const post: BlogPost = {
         de: "Eine Option, die dies vereinfacht, ist FitMesh Sync: Es bündelt Daten von Galaxy Watch und anderen Wearables in der App. Mesh Familie befindet sich in Entwicklung und ist noch nicht verfügbar. Wir haben kein Veröffentlichungsdatum angekündigt.",
         pt: "Entre as opções que simplificam isso está o FitMesh Sync: ele agrega dados do Galaxy Watch e outros wearables no aplicativo. O Mesh Família está em desenvolvimento e ainda não está disponível. Não anunciamos uma data de lançamento.",
         fr: "Parmi les options qui simplifient cela figure FitMesh Sync: il agrège les données de Galaxy Watch et d'autres wearables dans l'application. Mesh Famille est en développement et n'est pas encore disponible. Nous n'avons pas annoncé de date de sortie.",
-        pl: "Miedzy opcjami upraszczającymi to proces znajduje się FitMesh Sync: łączy dane z Galaxy Watch oraz inne wearable w aplikacji. Funkcja Mesh Rodzina jest w trakcie tworzenia i nie jest jeszcze dostępna. Nie ogłosiliśmy daty premiery.",
-        tr: "Tra seçeneklerin bu olan FitMesh Sync: Galaxy Watch verilerini ve diğer giyilebilir cihazlar toplar ve bunları uygulamada sunar. Mesh Aile özelliği geliştirilme aşamasındadır ve henüz kullanılamamaktadır. Bir yayın tarihi açıklamadık.",
+        pl: "Wśród opcji, które to upraszczają, jest FitMesh Sync: łączy dane z Galaxy Watch i innych wearable w aplikacji. Funkcja Mesh Rodzina jest w trakcie tworzenia i nie jest jeszcze dostępna. Nie ogłosiliśmy daty premiery.",
+        tr: "Bunu basitleştiren seçenekler arasında FitMesh Sync de var: Galaxy Watch ve diğer giyilebilir cihazların verilerini uygulamada toplar. Mesh Aile özelliği geliştirilme aşamasındadır ve henüz kullanılamamaktadır. Bir yayın tarihi açıklamadık.",
         nl: "Een van de opties die dit vereenvoudigt is FitMesh Sync: het verzamelt gegevens van Galaxy Watch en andere wearables in de app.",
         ja: "これを簡素化するオプションの一つがFitMesh Syncです：Galaxy Watchやその他のウェアラブルからのデータをアプリに集約します。",
         ko: "이를 단순화하는 옵션 중 하나가 FitMesh Sync입니다: Galaxy Watch 및 기타 웨어러블의 데이터를 앱에 집계합니다.",
