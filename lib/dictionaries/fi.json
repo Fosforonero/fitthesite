@@ -29,10 +29,10 @@
       },
       {
         "title": "Kalorit & aktiviteetti",
-        "desc": "Aktiiviset ja peruskalorit, reitti, korkeus, kerrottu kerros. Kävely vihreänä, harjoitukset punaisena."
+        "desc": "Aktiiviset ja peruskalorit, korkeus, kerrottu kerros. Kävely vihreänä, harjoitukset punaisena."
       },
       {
-        "title": "Globaali monilaitteinen yhteenveto",
+        "title": "Useampi laite, yksi päivä",
         "desc": "Useita kelloja, useita palveluntarjoajia, yksi näkymä. FitMesh yhdistää lähteet, poistaa päällekkäiset tiedot ja säilyttää parhaan arvon jokaiselle mittareille."
       },
       {
@@ -46,7 +46,7 @@
   },
   "final_cta": {
     "heading": "Valmis aloittamaan?",
-    "description": "Lataa sovellus, anna Health Connect -oikeudet ja 30 sekunnissa tiedot ovat aktiivisia."
+    "description": "Lataa FitMesh Sync, kirjaudu sisään ja salli pääsy Apple Terveyteen iPhonessa tai Health Connectiin Androidissa."
   },
   "footer": {
     "tagline": "Synkronoi alykellon tiedot omalle premium-palkkiisi. Tietosuoja-ensin. Emme koskaan myy tietojasi kolmansille osapuolille, ei mainonnan seurantaa.",

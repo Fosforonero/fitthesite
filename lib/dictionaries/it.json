@@ -13,11 +13,11 @@
   },
   "features": {
     "kicker": "Funzionalità",
-    "heading": "Tutto quello che il tuo smartwatch raccoglie, ordinato e visualizzato.",
+    "heading": "I dati del tuo smartwatch che FitMesh legge, ordinati per giorno.",
     "items": [
       {
         "title": "Passi & distanza",
-        "desc": "Sincronizza con Health Connect e Samsung Health. Aggiornamenti in background su Android quando disattivi l'ottimizzazione batteria (best-effort); sempre aggiornato quando apri l'app."
+        "desc": "Passi e distanza letti da Apple Salute o da Health Connect, oppure via Bluetooth da un anello Colmi compatibile. Su Android l'aggiornamento in background dipende dalle impostazioni della batteria; per aggiornare a mano, tocca «Sincronizza ora» nell'app."
       },
       {
         "title": "Battito cardiaco",
@@ -25,15 +25,15 @@
       },
       {
         "title": "Sonno con fasi",
-        "desc": "Durata totale, profondo, REM, leggero, sveglio. Barra colorata e badge qualità immediato."
+        "desc": "Durata totale, profondo, REM, leggero, sveglio. Barra colorata e indicatore di qualità."
       },
       {
         "title": "Calorie e attività",
-        "desc": "Calorie attive e basali, percorso, dislivello, scale. Camminate in verde, allenamenti in rosso."
+        "desc": "Calorie attive e basali, dislivello, scale. Camminate in verde, allenamenti in rosso."
       },
       {
-        "title": "Dashboard globale multi-device",
-        "desc": "Più orologi, più provider, una sola vista. FitMesh unisce le sorgenti, deduplica i dati e tiene il valore migliore per ogni metrica."
+        "title": "Più dispositivi, una sola giornata",
+        "desc": "Se più fonti contano i passi dello stesso giorno, FitMesh mostra un solo conteggio. In automatico lo ricava in base all'affidabilità e alla copertura dei dati e, con un anello collegato via Bluetooth e l'app salute del telefono, può comporlo ora per ora. Nell'app puoi anche indicare la fonte che preferisci per i passi. Se un numero non ti torna, confrontalo con l'app del produttore."
       },
       {
         "title": "Mesh Famiglia",
@@ -46,10 +46,10 @@
   },
   "final_cta": {
     "heading": "Pronto a iniziare?",
-    "description": "Scarica l'app, autorizza Health Connect, e in 30 secondi i tuoi dati sono live."
+    "description": "Scarica FitMesh Sync, accedi e autorizza Apple Salute su iPhone o Health Connect su Android."
   },
   "footer": {
-    "tagline": "Sincronizza i dati del tuo smartwatch su una dashboard premium tua. Privacy-first. Nessuna vendita dei tuoi dati a terzi, niente tracker pubblicitari.",
+    "tagline": "L'app che riunisce per giorno i tuoi dati fitness, su iPhone e Android.",
     "product": "Prodotto",
     "legal": "Legale",
     "rights": "Tutti i diritti riservati.",

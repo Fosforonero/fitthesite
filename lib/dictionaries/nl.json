@@ -29,10 +29,10 @@
       },
       {
         "title": "Calorieën & activiteit",
-        "desc": "Actieve en basale calorieën, route, hoogteverschil, verdiepingen. Wandelingen in groen, workouts in rood."
+        "desc": "Actieve en basale calorieën, hoogteverschil, verdiepingen. Wandelingen in groen, workouts in rood."
       },
       {
-        "title": "Globaal multi-apparaat dashboard",
+        "title": "Meerdere apparaten, één dag",
         "desc": "Meerdere horloges, meerdere providers, één overzicht. FitMesh combineert bronnen, verwijdert duplicaten en bewaar de beste waarde voor elke meting."
       },
       {
@@ -46,7 +46,7 @@
   },
   "final_cta": {
     "heading": "Klaar om te beginnen?",
-    "description": "Download de app, verleen Health Connect-machtigingen, en binnen 30 seconden zijn je gegevens live."
+    "description": "Download FitMesh Sync, log in en geef toegang tot Apple Gezondheid op iPhone of Health Connect op Android."
   },
   "footer": {
     "tagline": "Synchroniseer je smartwatchdata naar een premium persoonlijk dashboard. Privacy-first. We verkopen je gegevens nooit aan derden, geen advertentietrackers.",

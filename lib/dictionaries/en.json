@@ -13,11 +13,11 @@
   },
   "features": {
     "kicker": "Features",
-    "heading": "Everything your smartwatch records, organized and visualized.",
+    "heading": "The smartwatch data FitMesh reads, organized by day.",
     "items": [
       {
         "title": "Steps & distance",
-        "desc": "Syncs with Health Connect and Samsung Health. Best-effort background updates on Android when battery optimization is disabled; always current when you open the app."
+        "desc": "Steps and distance read from Apple Health or Health Connect, or over Bluetooth from a compatible Colmi ring. On Android, background updates depend on your battery settings; to update manually, tap “Sync now” in the app."
       },
       {
         "title": "Heart rate",
@@ -25,15 +25,15 @@
       },
       {
         "title": "Sleep with stages",
-        "desc": "Total duration, deep, REM, light, awake. Color-coded bar and instant quality badge."
+        "desc": "Total duration, deep, REM, light, awake. Color-coded bar and quality indicator."
       },
       {
         "title": "Calories & activity",
-        "desc": "Active and basal calories, route, elevation, floors climbed. Walks in green, workouts in red."
+        "desc": "Active and basal calories, elevation, floors climbed. Walks in green, workouts in red."
       },
       {
-        "title": "Global multi-device dashboard",
-        "desc": "Multiple watches, multiple providers, one view. FitMesh merges sources, deduplicates data and keeps the best value for every metric."
+        "title": "Several devices, one day",
+        "desc": "When several sources count steps on the same day, FitMesh shows one step count. By default it builds that count based on how reliable and complete the data is and, with a ring paired over Bluetooth and the phone's health app, it can build it hour by hour. In the app you can also pick the source you prefer for steps. If a number doesn't add up, compare it with the manufacturer's app."
       },
       {
         "title": "Family Mesh",
@@ -46,10 +46,10 @@
   },
   "final_cta": {
     "heading": "Ready to start?",
-    "description": "Download the app, grant Health Connect permissions, and in 30 seconds your data is live."
+    "description": "Download FitMesh Sync, sign in and allow access to Apple Health on iPhone or Health Connect on Android."
   },
   "footer": {
-    "tagline": "Sync your smartwatch data to a premium dashboard of your own. Privacy-first. No selling your data to third parties, no ad trackers.",
+    "tagline": "The app that brings your fitness data together by day, on iPhone and Android.",
     "product": "Product",
     "legal": "Legal",
     "rights": "All rights reserved.",

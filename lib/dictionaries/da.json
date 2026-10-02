@@ -29,10 +29,10 @@
       },
       {
         "title": "Kalorier og aktivitet",
-        "desc": "Aktive og basale kalorier, rute, højdemeter, etager. Gåture i grønt, træning i rødt."
+        "desc": "Aktive og basale kalorier, højdemeter, etager. Gåture i grønt, træning i rødt."
       },
       {
-        "title": "Globalt dashboard til flere enheder",
+        "title": "Flere enheder, én dag",
         "desc": "Flere ure, flere udbydere, én visning. FitMesh samler kilderne, fjerner dubletter og beholder den bedste værdi for hver måling."
       },
       {
@@ -46,7 +46,7 @@
   },
   "final_cta": {
     "heading": "Klar til at starte?",
-    "description": "Download appen, giv Health Connect-tilladelser, og på 30 sekunder er dine data live."
+    "description": "Hent FitMesh Sync, log ind og giv adgang til Apple Sundhed på iPhone eller Health Connect på Android."
   },
   "footer": {
     "tagline": "Synkronisér dine smartwatch-data til dit eget premium-dashboard. Privatliv først. Vi sælger aldrig dine data til tredjepart, ingen reklametrackere.",

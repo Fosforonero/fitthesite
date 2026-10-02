@@ -29,10 +29,10 @@
       },
       {
         "title": "Calories et activité",
-        "desc": "Calories actives et de base, parcours, dénivelé, étages. Marches en vert, séances d'entraînement en rouge."
+        "desc": "Calories actives et de base, dénivelé, étages. Marches en vert, séances d'entraînement en rouge."
       },
       {
-        "title": "Tableau de bord global multi-appareils",
+        "title": "Plusieurs appareils, une seule journée",
         "desc": "Plusieurs montres, plusieurs fournisseurs, une seule vue. FitMesh réunit les sources, élimine les données en double et conserve la meilleure valeur pour chaque métrique."
       },
       {
@@ -46,7 +46,7 @@
   },
   "final_cta": {
     "heading": "Prêt à commencer ?",
-    "description": "Téléchargez l'application, autorisez Health Connect, et en 30 secondes vos données sont en direct."
+    "description": "Téléchargez FitMesh Sync, connectez-vous et autorisez Apple Santé sur iPhone ou Health Connect sur Android."
   },
   "footer": {
     "tagline": "Synchronisez les données de votre montre connectée sur un tableau de bord premium qui vous appartient. Confidentialité d'abord. Aucune vente de vos données à des tiers, pas de traceurs publicitaires.",

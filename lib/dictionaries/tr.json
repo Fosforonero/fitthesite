@@ -29,10 +29,10 @@
       },
       {
         "title": "Kalori ve aktivite",
-        "desc": "Aktif ve bazal kalori, rota, yükseklik, çıkılan kat. Yürüyüşler yeşil, antrenmanlar kırmızı."
+        "desc": "Aktif ve bazal kalori, yükseklik, çıkılan kat. Yürüyüşler yeşil, antrenmanlar kırmızı."
       },
       {
-        "title": "Küresel çok cihazlı panel",
+        "title": "Birden fazla cihaz, tek bir gün",
         "desc": "Birden fazla saat, birden fazla sağlayıcı, tek görünüm. FitMesh kaynakları birleştirir, verileri tekilleştirir ve her metrik için en iyi değeri saklar."
       },
       {

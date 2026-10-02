@@ -29,10 +29,10 @@
       },
       {
         "title": "Kalorien und Aktivität",
-        "desc": "Aktive Kalorien und Grundumsatz-Kalorien, Strecke, Höhenunterschied, Etagen. Spaziergänge in Grün, Workouts in Rot."
+        "desc": "Aktive Kalorien und Grundumsatz-Kalorien, Höhenunterschied, Etagen. Spaziergänge in Grün, Workouts in Rot."
       },
       {
-        "title": "Globale Multi-Gerät-Dashboard",
+        "title": "Mehrere Geräte, ein einziger Tag",
         "desc": "Mehrere Uhren, mehrere Anbieter, eine einzige Ansicht. FitMesh führt die Quellen zusammen, entfernt doppelte Daten und behält den besten Wert für jede Metrik."
       },
       {
@@ -46,7 +46,7 @@
   },
   "final_cta": {
     "heading": "Bereit loszulegen?",
-    "description": "Lade die App herunter, autorisiere Health Connect, und in 30 Sekunden sind deine Daten live."
+    "description": "Lade FitMesh Sync herunter, melde dich an und erteile Lesezugriff auf Apple Health (iPhone) oder Health Connect (Android)."
   },
   "footer": {
     "tagline": "Synchronisiere die Daten deines Smartwatchs auf einer Premium-Dashboard, die dir gehört. Datenschutz an erster Stelle. Wir verkaufen deine Daten niemals an Dritte, keine Werbe-Tracker.",

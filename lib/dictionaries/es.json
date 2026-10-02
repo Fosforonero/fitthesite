@@ -29,10 +29,10 @@
       },
       {
         "title": "Calorías y actividad",
-        "desc": "Calorías activas y basales, recorrido, desnivel, pisos. Caminatas en verde, entrenamientos en rojo."
+        "desc": "Calorías activas y basales, desnivel, pisos. Caminatas en verde, entrenamientos en rojo."
       },
       {
-        "title": "Panel global multidispositivo",
+        "title": "Varios dispositivos, un solo día",
         "desc": "Varios relojes, varios proveedores, una sola vista. FitMesh une las fuentes, elimina los datos duplicados y conserva el mejor valor de cada métrica."
       },
       {
@@ -46,7 +46,7 @@
   },
   "final_cta": {
     "heading": "¿Listo para empezar?",
-    "description": "Descarga la app, autoriza Health Connect y en 30 segundos tus datos están en vivo."
+    "description": "Descarga FitMesh Sync, inicia sesión y autoriza Apple Salud en iPhone o Health Connect en Android."
   },
   "footer": {
     "tagline": "Sincroniza los datos de tu smartwatch en un panel premium que es tuyo. Centrado en tu privacidad. Sin venta de tus datos a terceros, sin rastreadores publicitarios.",

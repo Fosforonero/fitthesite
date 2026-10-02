@@ -29,10 +29,10 @@
       },
       {
         "title": "Kalorier & aktivitet",
-        "desc": "Aktiva och basala kalorier, rutt, höjdmeter, trappor. Promenader i grönt, träning i rött."
+        "desc": "Aktiva och basala kalorier, höjdmeter, trappor. Promenader i grönt, träning i rött."
       },
       {
-        "title": "Global dashboard för flera enheter",
+        "title": "Flera enheter, en enda dag",
         "desc": "Flera klockor, flera leverantörer, en vy. FitMesh slår samman källorna, tar bort dubbletter och behåller det bästa värdet för varje mått."
       },
       {
@@ -46,7 +46,7 @@
   },
   "final_cta": {
     "heading": "Redo att börja?",
-    "description": "Ladda ner appen, ge Health Connect-behörigheter, och på 30 sekunder är dina data live."
+    "description": "Ladda ner FitMesh Sync, logga in och ge åtkomst till Apple Hälsa på iPhone eller Health Connect på Android."
   },
   "footer": {
     "tagline": "Synka din smartklockas data till en egen premium-dashboard. Integritet först. Vi säljer aldrig din data till tredje part, inga annonsspårare.",
