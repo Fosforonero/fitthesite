@@ -10,8 +10,8 @@ const FAQ_IT: Faq[] = [
   { q: "Quanto consuma di batteria?", a: "Consumo ridotto. Su Android, se disattivi l'ottimizzazione batteria, la sincronizzazione in background avviene indicativamente ogni 15-30 minuti (best-effort: il produttore del telefono può comunque ritardarla o saltarla). Su iOS non c'è sync in background oggi: solo quando apri l'app. Se vedi consumi anomali, probabilmente Health Connect stesso sta indicizzando, non FitMesh Sync." },
   { q: "Funziona offline?", a: "L'app raccoglie e mette in coda i dati anche senza rete. Appena torni online, sincronizza automaticamente tutto l'arretrato." },
   { q: "Posso usare un server privato?", a: "Non ancora come servizio supportato. Il self-hosting esiste a livello tecnico nell'app, ma oggi resta un uso interno/tecnico: non è un percorso self-service per gli utenti. Stato aggiornato su fitmesh.fit/self-host." },
-  { q: "Quanto costa FitMesh Sync?", a: "€3,99 su Android · €4,99 su iPhone (prezzo di riferimento in euro; fuori dall'area euro vale il prezzo mostrato dal tuo store): acquisto unico, niente abbonamento, niente rinnovi automatici, niente sorprese in fattura." },
-  { q: "Ho cambiato telefono. Perdo i miei dati?", a: "No. I dati sono sul server, non sul telefono. Reinstalla l'app, fai login (o inserisci il tuo device ID precedente nelle impostazioni se hai un account avanzato) e ritrovi tutto." },
+  { q: "Quanto costa FitMesh Sync?", a: "L'app si scarica gratis. I nuovi account hanno 14 giorni di prova di FitMesh Pro. Al termine, per continuare a usare le funzioni Pro serve un acquisto o un abbonamento. Le opzioni di acquisto e il prezzo sono quelli che lo store mostra nell'app, nel tuo paese." },
+  { q: "Ho cambiato telefono. Perdo i miei dati?", a: "Se accedi con lo stesso account, ritrovi i dati che il telefono precedente aveva già sincronizzato, negli ultimi periodi che l'app mostra; servono una connessione e un accesso attivo (prova o Pro). Tra ciò che non passa al nuovo telefono: gli allenamenti registrati con l'app, l'abbinamento dell'anello, i collegamenti ai servizi esterni e i giorni che non erano stati sincronizzati." },
   { q: "Supporto iOS?", a: "Sì: l'app iOS è disponibile su App Store in tutti i 27 Paesi dell'Unione Europea, oltre che negli altri store supportati, con un'app Flutter nativa che integra Apple HealthKit per leggere i tuoi dati." },
 ];
 
@@ -23,8 +23,8 @@ const FAQ_EN: Faq[] = [
   { q: "How much battery does it use?", a: "Battery use is minimal. On Android, if you disable battery optimization, background sync happens roughly every 15-30 minutes (best-effort: your phone manufacturer can still delay or skip it). On iOS there's no background sync today: only when you open the app. If you see abnormal drain, Health Connect itself is likely indexing, not FitMesh Sync." },
   { q: "Does it work offline?", a: "The app collects and queues data even without network. As soon as you're back online, it syncs all the backlog automatically." },
   { q: "Can I have my own private server?", a: "Not yet as a supported service. Self-hosting exists at a technical level in the app, but today it's limited to internal/technical use — it isn't a self-service path for users. Current status at fitmesh.fit/self-host." },
-  { q: "How much does FitMesh Sync cost?", a: "€3.99 on Android · €4.99 on iPhone (reference price in euros; outside the eurozone your store shows its own localized price): one-time purchase, no subscription, no auto-renewals, no billing surprises." },
-  { q: "I switched phones. Do I lose my data?", a: "No. Data is on the server, not the phone. Reinstall the app, log in (or enter your previous device ID in settings if you have an advanced account) and you get everything back." },
+  { q: "How much does FitMesh Sync cost?", a: "The app is free to download. New accounts get a 14-day FitMesh Pro trial. After the trial, continuing to use Pro features requires a purchase or subscription. The purchase options and the price are the ones your store shows in the app, in your country." },
+  { q: "I switched phones. Do I lose my data?", a: "If you sign in with the same account, you will see the data your previous phone had already synced, for the recent periods the app shows; this needs a connection and active access (trial or Pro). Among the things that do not move to the new phone: app-recorded workouts, ring pairing, external service connections and days that were not synced." },
   { q: "iOS support?", a: "Yes: the iOS app is available on the App Store in all 27 European Union countries, as well as other supported storefronts, built as a native Flutter app with HealthKit integration to read your data." },
 ];
 
@@ -119,8 +119,15 @@ const FAQ_KO: Faq[] = [
   { q: "iOS 지원은요?", a: "네, iOS 앱은 유럽연합(EU) 회원국 27개국을 포함한 지원되는 App Store에서 이용 가능하며, Apple HealthKit과 연동되는 네이티브 Flutter 앱입니다." },
 ];
 
-// pl and tr inherit Italian; sv/da/no/fi inherit English for now (Nordic FAQ
-// translation is a fast-follow), like the rest of the support page.
+// S02 (02/10/2026): le FAQ di costo e cambio telefono (indici 4 e 5) hanno
+// un testo nuovo solo in it/en (U-FAQ-01/02). Le lingue che ereditavano it
+// (pl, tr) o en (sv, da, no, fi) NON ereditano piu' quelle due: nessun ripiego
+// su un'altra lingua, la FAQ non si rende finche' manca il testo approvato
+// (consegna linguistica TRANSLATE_NEEDED). Le altre FAQ restano come prima.
+const CHANGED_FAQ_INDEXES = [4, 5];
+const withoutChanged = (faqs: Faq[]): Faq[] =>
+  faqs.filter((_, i) => !CHANGED_FAQ_INDEXES.includes(i));
+
 export const SUPPORT_FAQS: Record<Locale, Faq[]> = {
   it: FAQ_IT,
   en: FAQ_EN,
@@ -128,13 +135,13 @@ export const SUPPORT_FAQS: Record<Locale, Faq[]> = {
   de: FAQ_DE,
   pt: FAQ_PT,
   fr: FAQ_FR,
-  pl: FAQ_IT,
-  tr: FAQ_IT,
+  pl: withoutChanged(FAQ_IT),
+  tr: withoutChanged(FAQ_IT),
   nl: FAQ_NL,
   ja: FAQ_JA,
   ko: FAQ_KO,
-  sv: FAQ_EN,
-  da: FAQ_EN,
-  no: FAQ_EN,
-  fi: FAQ_EN,
+  sv: withoutChanged(FAQ_EN),
+  da: withoutChanged(FAQ_EN),
+  no: withoutChanged(FAQ_EN),
+  fi: withoutChanged(FAQ_EN),
 };
