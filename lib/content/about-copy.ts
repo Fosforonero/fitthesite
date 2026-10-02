@@ -305,21 +305,21 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   privacyBody1: {
-    it: "I tuoi dati di salute non sono un prodotto. FitMesh non vende, non condivide, non profila. Il sito usa Google Analytics 4 solo dopo che lo accetti nel banner dei cookie, e puoi cambiare la scelta da «Preferenze cookie» in fondo alla pagina.",
-    en: "Your health data is not a product. FitMesh does not sell, share, or profile. The website uses Google Analytics 4 only after you accept it in the cookie banner, and you can change your choice from “Cookie preferences” at the bottom of the page.",
-    es: "Tus datos de salud no son un producto. FitMesh no vende, no comparte ni crea perfiles. El sitio web usa Google Analytics 4 solo después de que lo aceptes en el banner de cookies, y puedes cambiar tu elección desde «Preferencias de cookies» al pie de la página.",
-    de: "Deine Gesundheitsdaten sind kein Produkt. FitMesh verkauft, teilt und profiliert nicht. Die Website nutzt Google Analytics 4 erst, nachdem du es im Cookie-Banner akzeptiert hast. Deine Wahl kannst du unter „Cookie-Einstellungen“ am Seitenende ändern.",
-    pt: "Seus dados de saúde não são um produto. FitMesh não vende, não compartilha e não cria perfis. O site usa o Google Analytics 4 somente depois que você o aceita no banner de cookies, e você pode mudar sua escolha em “Preferências de cookies” no rodapé da página.",
-    fr: "Vos données de santé ne sont pas un produit. FitMesh ne vend pas, ne partage pas et ne profile pas. Le site n'utilise Google Analytics 4 qu'après votre accord dans le bandeau des cookies, et vous pouvez modifier votre choix via « Paramètres des cookies » en bas de page.",
-    pl: "Twoje dane zdrowotne nie są produktem. FitMesh ich nie sprzedaje, nie udostępnia i nie profiluje. Strona korzysta z Google Analytics 4 dopiero po Twojej zgodzie w banerze cookie, a wybór możesz zmienić przyciskiem „Ustawienia plików cookie” na dole strony.",
-    tr: "Sağlık verileriniz bir ürün değildir. FitMesh verilerinizi satmaz, paylaşmaz ve profillemez. Web sitesi Google Analytics 4'ü yalnızca siz çerez bildiriminde onay verdikten sonra kullanır; seçiminizi sayfanın altındaki “Çerez tercihleri” bağlantısından değiştirebilirsiniz.",
-    nl: "Jouw gezondheidsgegevens zijn geen product. FitMesh verkoopt ze niet, deelt ze niet en gebruikt ze niet voor profilering. De website gebruikt Google Analytics 4 pas nadat je dat in de cookiebanner hebt geaccepteerd, en je kunt je keuze wijzigen via ‘Cookievoorkeuren’ onderaan de pagina.",
-    ja: "あなたの健康データは商品ではありません。FitMeshはデータを販売せず、共有せず、プロファイリングもしません。ウェブサイトでは、Cookieバナーで同意した場合にのみGoogle Analytics 4を使用します。選択はページ下部の「Cookieの設定」から変更できます。",
-    ko: "당신의 건강 데이터는 상품이 아닙니다. FitMesh는 데이터를 판매하거나 공유하거나 프로파일링하지 않습니다. 웹사이트는 쿠키 배너에서 동의한 경우에만 Google Analytics 4를 사용하며, 선택은 페이지 하단의 '쿠키 설정'에서 변경할 수 있습니다.",
-    sv: "Din hälsodata är ingen produkt. FitMesh säljer inte, delar inte och profilerar inte. Webbplatsen använder Google Analytics 4 först när du har godkänt det i cookiebannern, och du kan ändra ditt val via ”Cookieinställningar” längst ned på sidan.",
-    da: "Dine sundhedsdata er ikke et produkt. FitMesh sælger, deler eller profilerer ikke dig. Hjemmesiden bruger først Google Analytics 4, når du har accepteret det i cookiebanneret, og du kan ændre dit valg via »Cookieindstillinger« nederst på siden.",
-    no: "Helsedataene dine er ikke et produkt. FitMesh selger dem ikke, deler dem ikke og profilerer dem ikke. Nettstedet bruker Google Analytics 4 først når du har godtatt det i cookiebanneret, og du kan endre valget ditt under «Cookie-innstillinger» nederst på siden.",
-    fi: "Terveystietosi eivät ole tuote. FitMesh ei myy, jaa eikä profiloi niitä. Sivusto käyttää Google Analytics 4:ää vasta, kun hyväksyt sen evästebannerissa, ja voit muuttaa valintaasi sivun alalaidan kohdasta ”Evästeasetukset”.",
+    it: "Il sito usa Google Analytics 4 solo dopo che lo accetti nel banner dei cookie, e puoi cambiare la scelta da «Preferenze cookie» in fondo alla pagina.",
+    en: "The website uses Google Analytics 4 only after you accept it in the cookie banner, and you can change your choice from “Cookie preferences” at the bottom of the page.",
+    es: "El sitio web usa Google Analytics 4 solo después de que lo aceptes en el banner de cookies, y puedes cambiar tu elección desde «Preferencias de cookies» al pie de la página.",
+    de: "Die Website nutzt Google Analytics 4 erst, nachdem du es im Cookie-Banner akzeptiert hast. Deine Wahl kannst du unter „Cookie-Einstellungen“ am Seitenende ändern.",
+    pt: "O site usa o Google Analytics 4 somente depois que você o aceita no banner de cookies, e você pode mudar sua escolha em “Preferências de cookies” no rodapé da página.",
+    fr: "Le site n'utilise Google Analytics 4 qu'après votre accord dans le bandeau des cookies, et vous pouvez modifier votre choix via « Paramètres des cookies » en bas de page.",
+    pl: "Strona korzysta z Google Analytics 4 dopiero po Twojej zgodzie w banerze cookie, a wybór możesz zmienić przyciskiem „Ustawienia plików cookie” na dole strony.",
+    tr: "Web sitesi Google Analytics 4'ü yalnızca siz çerez bildiriminde onay verdikten sonra kullanır; seçiminizi sayfanın altındaki “Çerez tercihleri” bağlantısından değiştirebilirsiniz.",
+    nl: "De website gebruikt Google Analytics 4 pas nadat je dat in de cookiebanner hebt geaccepteerd, en je kunt je keuze wijzigen via ‘Cookievoorkeuren’ onderaan de pagina.",
+    ja: "ウェブサイトでは、Cookieバナーで同意した場合にのみGoogle Analytics 4を使用します。選択はページ下部の「Cookieの設定」から変更できます。",
+    ko: "웹사이트는 쿠키 배너에서 동의한 경우에만 Google Analytics 4를 사용하며, 선택은 페이지 하단의 '쿠키 설정'에서 변경할 수 있습니다.",
+    sv: "Webbplatsen använder Google Analytics 4 först när du har godkänt det i cookiebannern, och du kan ändra ditt val via ”Cookieinställningar” längst ned på sidan.",
+    da: "Hjemmesiden bruger først Google Analytics 4, når du har accepteret det i cookiebanneret, og du kan ændre dit valg via »Cookieindstillinger« nederst på siden.",
+    no: "Nettstedet bruker Google Analytics 4 først når du har godtatt det i cookiebanneret, og du kan endre valget ditt under «Cookie-innstillinger» nederst på siden.",
+    fi: "Sivusto käyttää Google Analytics 4:ää vasta, kun hyväksyt sen evästebannerissa, ja voit muuttaa valintaasi sivun alalaidan kohdasta ”Evästeasetukset”.",
   } satisfies Localized,
 
   privacyBody2: {
@@ -547,5 +547,16 @@ export const ABOUT_COPY = {
     ja: "AndroidとiOSで今すぐご利用いただけます。", ko: "지금 Android와 iOS에서 이용 가능합니다.", sv: "Tillgänglig nu på Android och iOS.",
     da: "Tilgængelig nu på Android og iOS.", no: "Tilgjengelig nå på Android og iOS.", fi: "Saatavilla nyt Androidille ja iOS:lle.",
   } satisfies Localized,
+
+  /**
+   * U-ABOUT-12 (S02): voce della lista dispositivi, prima scritta a mano in
+   * italiano dentro page.tsx per tutte le lingue. Solo it/en approvati: nelle
+   * altre lingue il valore e' assente e la voce non si rende (tlOwn, nessun
+   * ripiego) finche' non arriva la consegna linguistica.
+   */
+  pixelWatchDevice: {
+    it: "Pixel Watch 1 / 2 / 3 e altri Wear OS che scrivono in Health Connect",
+    en: "Pixel Watch 1 / 2 / 3 and other Wear OS watches that write to Health Connect",
+  } as Localized,
 
 } as const;

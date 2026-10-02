@@ -5,8 +5,9 @@ import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
-import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
-import { p } from "@/lib/pricing";
+import { locales, type Locale, ogLocale, localeAlternates, getDictionary } from "@/lib/i18n";
+import { PRICING_SECTION } from "@/lib/pricing-section";
+import { tlOwn } from "@/lib/content/localized-own";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
@@ -22,7 +23,6 @@ import { ABOUT_TRANSLATED_LOCALES } from "@/lib/content/static-page-locales";
 import { ABOUT_COPY } from "@/lib/content/about-copy";
 import { featureStatusSentence, isFeatureAvailable, meshStatusSentenceRenderable } from "@/lib/feature-status";
 import { tl } from "@/lib/blog/types";
-import { resolveSelfHostLocale } from "@/lib/self-host/locale-redirect";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -72,7 +72,11 @@ export default async function AboutPage({
   const lc = locale as Locale;
   const path = `/${lc}/about`;
 
-  const lifetimeBothShort = p("lifetimeBothShort", lc);
+  // U-PRIV-06/09: H2 e link della sezione privacy vengono dal dizionario.
+  const dict = await getDictionary(lc);
+  // U-ABOUT-07 / U-ABOUT-12: valori senza ripiego inglese (la riga si ritira).
+  const storeNote = tlOwn(PRICING_SECTION.storeNote, lc);
+  const pixelWatchDevice = tlOwn(ABOUT_COPY.pixelWatchDevice, lc);
 
   // P0.16-B: `mainEntity` era un SoftwareApplication incompleto (mai
   // `offers.price`... in realta' l'aveva, ma mai `aggregateRating`/`review`,
@@ -140,21 +144,6 @@ export default async function AboutPage({
             </li>
           ))}
         </ul>
-        <p className="mt-5 text-text-secondary leading-relaxed">
-          {tl(ABOUT_COPY.serverChoice, lc)}{" "}
-          {/* MICRO-GATE P0.13B: /self-host esiste solo it/en — href diretto
-              via resolveSelfHostLocale invece di `/${lc}/self-host`
-              incondizionato, che per le altre 13 locale produceva un anchor
-              indicizzabile→redirect (la pagina self-host stessa reindirizza
-              a /en/self-host in un hop). Zero hop: il target finale è
-              calcolabile in anticipo, nessun redirect da attraversare. */}
-          <Link
-            href={`/${resolveSelfHostLocale(lc)}/self-host`}
-            className="text-brand-aqua hover:text-brand-green underline underline-offset-4"
-          >
-            {lc === "it" ? "Stato attuale del self-host →" : "Current self-hosting status →"}
-          </Link>
-        </p>
 
         {/* ─── Dispositivi supportati ─── */}
         <h2
@@ -172,7 +161,7 @@ export default async function AboutPage({
               h: tl(ABOUT_COPY.nativelySupported, lc),
               items: [
                 "Samsung Galaxy Watch 4 / 5 / 6 / 7 / Ultra",
-                "Pixel Watch 1 / 2 / 3 + qualsiasi Wear OS",
+                ...(pixelWatchDevice ? [pixelWatchDevice] : []),
                 "Xiaomi Mi Band 7+ / Xiaomi Watch S/Active",
                 "Fitbit (via app Fitbit → Health Connect)",
                 "Garmin Forerunner/Fenix/Venu (via Garmin Connect)",
@@ -236,24 +225,20 @@ export default async function AboutPage({
           id="privacy"
           className="mt-16 font-display text-display font-semibold tracking-tightest text-text-primary"
         >
-          {tl(ABOUT_COPY.privacyHeading, lc)}
+          {dict.nav.privacy}
         </h2>
         <p className="mt-4 text-text-secondary leading-relaxed">
           {tl(ABOUT_COPY.privacyBody1, lc)}
         </p>
+        {/* U-PRIV-08/09: niente descrizione dei dati d'accesso ne' del percorso
+            di cancellazione (claim senza ledger): solo il rinvio all'informativa. */}
         <p className="mt-4 text-text-secondary leading-relaxed">
-          {tl(ABOUT_COPY.privacyBody2, lc)}
-        </p>
-        <p className="mt-4 text-text-secondary leading-relaxed">
-          {tl(ABOUT_COPY.deleteAccountPrefix, lc)}
-          {tl(ABOUT_COPY.deleteAccountSuffix, lc)}
           <Link
             href={`/${lc}/privacy`}
             className="text-brand-aqua hover:text-brand-green underline underline-offset-4"
           >
-            {tl(ABOUT_COPY.privacyPolicyLink, lc)}
+            {dict.footer.links.privacy}
           </Link>
-          .
         </p>
 
         {/* ─── Prezzo ─── */}
@@ -264,18 +249,17 @@ export default async function AboutPage({
           {tl(ABOUT_COPY.pricingHeading, lc)}
         </h2>
         <div className="mt-6 rounded-card border border-brand-aqua/30 bg-gradient-to-br from-brand-aqua/5 to-bg-card p-6 sm:p-8">
-          <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
-            {tl(ABOUT_COPY.oneTimePurchase, lc)}
-          </p>
-          <p className="mt-2 font-display text-display font-bold text-text-primary">
-            {lifetimeBothShort}
+          {/* U-ABOUT-07: stesse unita' della sezione prezzi della home
+              (PRICING_SECTION), nessun importo. */}
+          <p className="font-display text-display font-bold text-text-primary">
+            {tl(PRICING_SECTION.heading, lc)}
           </p>
           <p className="mt-2 text-text-secondary leading-relaxed">
-            {tl(ABOUT_COPY.lifetimeUnlockDesc, lc)}
+            {tl(PRICING_SECTION.subhead, lc)}
           </p>
-          <p className="mt-3 text-sm text-text-muted">
-            {tl(ABOUT_COPY.trialDesc, lc)}
-          </p>
+          {storeNote && (
+            <p className="mt-3 text-sm text-text-muted">{storeNote}</p>
+          )}
         </div>
 
         {/* ─── Famiglia / caregiver ─── */}
