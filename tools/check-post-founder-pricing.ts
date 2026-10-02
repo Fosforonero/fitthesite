@@ -126,7 +126,6 @@ const ALLOWED_FILES = new Set([
   "lib/blog/posts/colmi-r02-setup.ts",
   "lib/blog/posts/colmi-r09-temperatura-sviluppo.ts",
   "lib/blog/posts/colmi-ring-fitmesh.ts",
-  "lib/blog/posts/come-funziona-fitmesh.ts",
   "lib/blog/posts/dove-sono-i-tuoi-dati-server-ue.ts",
   "lib/blog/posts/fitmesh-sync-disponibile-google-play.ts",
   "lib/blog/posts/fitmesh-vs-alternative-sync.ts",

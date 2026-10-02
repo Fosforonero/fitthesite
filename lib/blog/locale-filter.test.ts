@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { isBlogContentAvailableForLocale, filterBlogContentForLocale } from "./locale-filter";
-import { isPostLocaleComplete, isBlogVariantIndexable } from "./indexability";
+import { isPostLocaleComplete, isBlogVariantIndexable, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "./indexability";
 import { BLOG_POSTS } from "./data";
+import { isFeatureAvailable } from "@/lib/feature-status";
 import type { BlogPost, BlogSection, BlogQA } from "./types";
 
 /**
@@ -134,7 +135,9 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
   // per design (mantengono il contenuto precedente, piu' corto) —
   // verificato esplicitamente nel describe successivo, non qui.
   //
-  // `come-funziona-fitmesh` e' la SECONDA (P1.5B Fase C, 2026-08-05): stesso
+  // `come-funziona-fitmesh` e' la SECONDA (P1.5B Fase C, 2026-08-05; dal
+  // 02/10/2026 resta nell'elenco solo per il blocco Mesh ristretto a otto lingue,
+  // vedi il test dedicato sotto): stesso
   // meccanismo, ma solo it/en (non de) — il pillar C0 ha deciso l'aggiornamento
   // in place invece di un nuovo URL, con le nuove sezioni gated su
   // locales:["it","en"] per non alterare le 4 locale es/de/pt/fr già
@@ -175,23 +178,47 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
     }
   });
 
-  it("come-funziona-fitmesh: it/en vedono PIU' sezioni e FAQ delle altre locale (aggiornamento in place P1.5B Fase C, solo it/en)", () => {
+  // Riscrittura S02 del 02/10/2026: il pillar NON ha piu' sezioni o FAQ
+  // riservate a it/en (le stringhe es/de/pt/fr sono uscite dal file, le lingue
+  // diverse da it/en vanno in 307 verso /en/ via REDIRECT_INCOMPLETE_LOCALE_SLUGS).
+  // L'unico blocco con `locales` e' la frase di stato Mesh, ristretta alle otto
+  // lingue con formula approvata (it, en, es, de, pt, fr, pl, tr): nelle altre
+  // sette (nl, ja, ko, sv, da, no, fi) il blocco non esiste. Il test sostituisce
+  // quello vecchio (it/en vedono PIU' sezioni di es/de/pt/fr), che non ha piu'
+  // senso: qui e' vero il contrario, le otto lingue vedono lo STESSO corpo.
+  it("come-funziona-fitmesh: nessuna sezione o FAQ riservata a it/en; la sola frase Mesh e' ristretta alle otto lingue approvate", () => {
     const post = BLOG_POSTS.find((p) => p.slug === "come-funziona-fitmesh")!;
-    const itBodyCount = filterBlogContentForLocale(post.body, "it").length;
-    const esBodyCount = filterBlogContentForLocale(post.body, "es").length;
-    expect(itBodyCount).toBeGreaterThan(esBodyCount);
-    expect(filterBlogContentForLocale(post.body, "en").length).toBe(itBodyCount);
-    // es/de/pt/fr restano tutte allo STESSO conteggio tra loro: a differenza
-    // di health-connect-vs-samsung-health, qui de NON e' incluso nell'estensione.
-    for (const lc of ["es", "de", "pt", "fr"] as const) {
-      expect(filterBlogContentForLocale(post.body, lc).length, `body/${lc}`).toBe(esBodyCount);
+    const APPROVED = ["it", "en", "es", "de", "pt", "fr", "pl", "tr"] as const;
+    const AGENT_ONLY = ["nl", "ja", "ko", "sv", "da", "no", "fi"] as const;
+    const scoped = post.body.filter((b) => b.locales != null);
+    // Unico blocco con `locales` ammesso: la frase Mesh (assente solo se la Mesh e' disponibile nel registro).
+    expect(scoped.length).toBeLessThanOrEqual(1);
+    // Se la Mesh non e' disponibile nel registro la frase DEVE esserci, e DEVE essere ristretta:
+    // senza questo controllo togliere `locales` dal blocco passerebbe inosservato.
+    expect(scoped.length).toBe(isFeatureAvailable("familyMesh") ? 0 : 1);
+    for (const b of scoped) {
+      expect([...(b.locales ?? [])].sort()).toEqual([...APPROVED].sort());
     }
-    const itFaqCount = filterBlogContentForLocale(post.faq ?? [], "it").length;
-    const esFaqCount = filterBlogContentForLocale(post.faq ?? [], "es").length;
-    expect(itFaqCount).toBeGreaterThan(esFaqCount);
-    expect(filterBlogContentForLocale(post.faq ?? [], "en").length).toBe(itFaqCount);
-    for (const lc of ["es", "de", "pt", "fr"] as const) {
-      expect(filterBlogContentForLocale(post.faq ?? [], lc).length, `faq/${lc}`).toBe(esFaqCount);
+    for (const lc of APPROVED) {
+      expect(filterBlogContentForLocale(post.body, lc).length, `body/${lc}`).toBe(post.body.length);
+    }
+    for (const lc of AGENT_ONLY) {
+      expect(filterBlogContentForLocale(post.body, lc).length, `body/${lc}`).toBe(post.body.length - scoped.length);
+    }
+    // Nessuna FAQ riservata: stesso numero in tutte le lingue.
+    expect((post.faq ?? []).filter((f) => f.locales != null)).toHaveLength(0);
+    for (const lc of [...APPROVED, ...AGENT_ONLY]) {
+      expect(filterBlogContentForLocale(post.faq ?? [], lc).length, `faq/${lc}`).toBe((post.faq ?? []).length);
+    }
+  });
+
+  it("come-funziona-fitmesh: it/en indicizzabili, le altre 13 lingue non indicizzabili (testo solo it/en, 307 verso /en/)", () => {
+    const post = BLOG_POSTS.find((p) => p.slug === "come-funziona-fitmesh")!;
+    // Senza lo slug nel registro le lingue incomplete andrebbero in noindex con contenuto EN di fallback, non in 307.
+    expect(REDIRECT_INCOMPLETE_LOCALE_SLUGS.has(post.slug)).toBe(true);
+    for (const lc of ["it", "en"] as const) expect(isBlogVariantIndexable(post, lc), lc).toBe(true);
+    for (const lc of ["es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"] as const) {
+      expect(isBlogVariantIndexable(post, lc), lc).toBe(false);
     }
   });
 

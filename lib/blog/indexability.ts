@@ -159,6 +159,11 @@ export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   // SPRINT P1.26 (24/09/2026): pubblicazione iniziale it/en/de/fr/es,
   // redirect 307 verso /en/ per le restanti 10 lingue incomplete.
   "galaxy-watch-sleep-tracking-health-connect",
+  // SPRINT PM 02/10/2026 (opzione A di PILLAR-DIAGNOSI 5.2): pillar riscritto
+  // solo in it/en, stringhe es/de/pt/fr tolte dal file. Le altre 13 lingue
+  // vanno in 307 verso /en/ finche' le traduzioni non vengono consegnate e
+  // completate; ogni lingua smette da sola di reindirizzare quando e' completa.
+  "come-funziona-fitmesh",
 ]);
 
 /**
