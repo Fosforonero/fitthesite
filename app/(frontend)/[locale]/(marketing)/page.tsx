@@ -13,8 +13,8 @@ import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { blogLinkHref } from "@/lib/blog/indexability";
 import { providerLinkHref } from "@/lib/providers/indexability";
-import { tl, tll, type BlogPost } from "@/lib/blog/types";
-import { p } from "@/lib/pricing";
+import { tl, type BlogPost } from "@/lib/blog/types";
+import { tlOwn } from "@/lib/content/localized-own";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
 import { SITE_URL } from "@/lib/product-facts";
@@ -111,6 +111,9 @@ export default async function Home({
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
   const postsBySlug = await getBlogPostsBySlug();
+  // Chiavi NUOVE della sezione prezzi: solo il valore della lingua, mai l'inglese.
+  const storeNote = tlOwn(PRICING_SECTION.storeNote, lc);
+  const priceFromStore = tlOwn(PRICING_SECTION.priceFromStore, lc);
   // MICRO-GATE P0.13A: era `/${lc}/fitness-data-sync` incondizionato —
   // route esiste solo per FITNESS_DATA_SYNC_COMPLETE_LOCALES (it/en/de/es),
   // 404 per le altre 11 (trovato dal crawl esaustivo). Stesso fix già
@@ -662,7 +665,7 @@ export default async function Home({
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
-       *  PRICING — Free / Pro / Prova 14gg
+       *  PRICING: prova 14 giorni / Pro
        *  ════════════════════════════════════════════════════════════ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
         <div className="mb-10">
@@ -675,23 +678,12 @@ export default async function Home({
           <p className="mt-4 text-text-secondary max-w-2xl leading-relaxed">
             {tl(PRICING_SECTION.subhead, lc)}
           </p>
-          {(lc === "it" || lc === "en") && (
-            <Link
-              href={
-                // MICRO-GATE P0.13A: "fitmesh-gratis-prezzo-founder" è lo
-                // slug CANONICO (IT); lo slug EN reale è
-                // "is-fitmesh-free-pricing-founder" (rinominato per SEO) —
-                // l'href hardcoded per EN produceva un 308 (trovato dal
-                // crawl esaustivo). blogLinkHref localizza correttamente.
-                (postsBySlug["fitmesh-gratis-prezzo-founder"] &&
-                  blogLinkHref(postsBySlug["fitmesh-gratis-prezzo-founder"], lc)) ||
-                `/${lc}/blog/fitmesh-gratis-prezzo-founder`
-              }
-              className="mt-3 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition"
-            >
-              {lc === "it" ? "Guida completa ai prezzi" : "Full pricing guide"}
-              <span aria-hidden>→</span>
-            </Link>
+          {/* U-PRICE-04: nota dello store, solo dove la lingua ha il valore
+              (nessun ripiego inglese: il blocco si ritira). Il link «Guida
+              completa ai prezzi» non si rende piu' (U-PRICE-05): la guida
+              e' in correzione, fuori da questo pacchetto. */}
+          {storeNote && (
+            <p className="mt-3 text-sm text-text-muted max-w-2xl leading-relaxed">{storeNote}</p>
           )}
         </div>
         <div className="grid gap-5 md:grid-cols-2 items-stretch max-w-3xl">
@@ -712,15 +704,7 @@ export default async function Home({
             <h3 className="font-display text-lg font-semibold text-text-primary">{tl(HOMEPAGE_COPY.trialName, lc)}</h3>
             <p className="mt-1 text-sm text-text-muted">{tl(HOMEPAGE_COPY.trialTagline, lc)}</p>
             <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.trialPeriodLabel, lc)}</p>
-            <ul className="mt-5 space-y-2.5 flex-1">
-              {tll(PRICING_SECTION.trialFeatures, lc).map((f) => (
-                <li key={f} className="flex gap-2 text-sm text-text-secondary">
-                  <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6">
+            <div className="mt-auto pt-6">
               {/* Fase 7: CTA "Prova 14 giorni" — e' la conversione del funnel
                   post-Founder. */}
               <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepagePricingTrial} />
@@ -730,18 +714,11 @@ export default async function Home({
           <div className="card p-7 flex flex-col">
             <h3 className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.proName, lc)}</h3>
             <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.proTagline, lc)}</p>
-            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-text-primary">{p("lifetimeBothShort", lc)}</p>
-            <p className="mt-1 text-xs text-text-muted">
-              {`${tl(HOMEPAGE_COPY.orLabel, lc)} ${p("subSixMonthsLabel", lc)}`}
-            </p>
-            <ul className="mt-5 space-y-2.5 flex-1">
-              {tll(PRICING_SECTION.proFeatures, lc).map((f) => (
-                <li key={f} className="flex gap-2 text-sm text-text-secondary">
-                  <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
+            {/* U-PRICE-12/13: nessun importo; rinvio allo store, solo dove la
+                lingua ha il valore (tlOwn, nessun ripiego inglese). */}
+            {priceFromStore && (
+              <p className="mt-4 font-display text-xl font-semibold tracking-tightest text-text-primary">{priceFromStore}</p>
+            )}
           </div>
         </div>
       </section>
@@ -844,7 +821,7 @@ export default async function Home({
               <StoreButtonsRow locale={lc} className="justify-center" ctaLocation={CTA_PLACEMENTS.homepageFinalCta} />
             </div>
             <p className="mt-6 text-xs text-text-muted">
-              {`${tl(HOMEPAGE_COPY.trialTagline, lc)}. ${p("fromLifetime", lc)}.`}
+              {`${tl(HOMEPAGE_COPY.trialTagline, lc)}.`}
             </p>
           </div>
         </div>

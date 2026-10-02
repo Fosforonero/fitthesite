@@ -1,8 +1,10 @@
 /**
  * lib/pricing-section.ts — copy localizzata della sezione Pricing in homepage.
  *
- * I PREZZI vivono in lib/pricing.ts (unica fonte di verità): qui solo etichette
- * e feature. en come fallback per le lingue non compilate (vedi tl()).
+ * Nessun importo in questa sezione (S02, 02/10/2026): gli importi vivono in
+ * lib/pricing.ts ma la home non li rende. Qui solo etichette. en come fallback
+ * per le lingue non compilate (vedi tl()), TRANNE le chiavi nuove storeNote e
+ * priceFromStore, che si leggono con tlOwn() senza ripiego.
  *
  * Sprint P0.10K (2026-07-31): chiusura commerciale del sito. `heading`
  * menzionava "Da founder, Pro a vita"/"As a founder, lifetime Pro" SENZA
@@ -132,6 +134,27 @@ export const PRICING_SECTION = {
     fi: "Kokeile FitMesh Pro -versiota 14 päivää. Sen jälkeen tarvitaan osto tai tilaus, jotta voit jatkaa Pro-ominaisuuksien käyttöä.",
   } as Localized,
 
+  /**
+   * U-PRICE-04 (chiave NUOVA, S02): nota sotto la subhead. Rinvia a cio' che lo
+   * store mostra nell'app, senza importi e senza opzioni per piattaforma. Per
+   * le lingue diverse da it/en il valore arriva con la consegna linguistica
+   * (TRANSLATE_NEEDED): finche' manca, il render NON mostra la nota (si legge
+   * con tlOwn(), nessun ripiego sull'inglese).
+   */
+  storeNote: {
+    it: "Le opzioni di acquisto e il prezzo sono quelli che lo store mostra nell'app, nel tuo paese.",
+    en: "The purchase options and the price are the ones your store shows in the app, in your country.",
+  } as Localized,
+  /**
+   * U-PRICE-13 (chiave NUOVA, S02): al posto dell'importo nella card Pro.
+   * Stesse regole di `storeNote`: opzionale oltre it/en, il render ritira la
+   * riga dove manca (tlOwn()).
+   */
+  priceFromStore: {
+    it: "Prezzo indicato dallo store",
+    en: "Price set by your store",
+  } as Localized,
+
   // ── Tier: Pro ──────────────────────────────────────────────────────
   /**
    * "Pro" e' il nome commerciale del piano, identico in tutte le lingue del
@@ -180,77 +203,13 @@ export const PRICING_SECTION = {
     fi: "Tilaus tai elinikäinen käyttöoikeus",
   } as Localized,
   /**
-   * Provenienza 9 locale nuove:
-   *  - storico: ABOUT_COPY.trialDesc ("storico completo" per locale). NOTA: le
-   *    6 locale storiche dicono "Storico illimitato"; per le 9 nuove il repo
-   *    non ha un traducente umano di "illimitato", quindi si usa il claim
-   *    documentato e piu' conservativo ("storico completo"), non una parola
-   *    inventata;
-   *  - Mesh Famiglia: ABOUT_COPY.familyHeading (pl/nl/ja/ko/sv/da/no/fi
-   *    "Family Mesh", tr "Aile Mesh");
-   *  - export: dictionaries <loc>.json → app.settings.export.
-   *
-   * 31/07 (review visiva post-deploy di Matteo): "(caregiving)" -> "(coming
-   * soon)". Mesh Famiglia non e' ancora disponibile (COMING_SOON=true su
-   * app/(frontend)/[locale]/(marketing)/famiglia/page.tsx: "in sviluppo
-   * attivo, senza una data di rilascio confermata"), quindi elencarla come
-   * feature Pro con un descrittore funzionale ("caregiving") suggeriva che
-   * fosse gia' attivabile. Riusa verbatim la chiave dizionario esistente
-   * app.devices.coming_soon (lib/dictionaries/<loc>.json:126, mai consumata
-   * altrove nel sito, gia' su tutte e 15 le locale, gia' fra parentesi).
-   *
-   * 01/10/2026 (contenimento claim, decisione PM): la riga Mesh Famiglia e'
-   * stata TOLTA da qui. Mesh Famiglia e' in sviluppo e non disponibile
-   * (CAPABILITY_STATUS.familyMesh in lib/product-facts.ts): elencarla fra i
-   * benefici del piano a pagamento, anche con "(in arrivo)", la trasformava in
-   * un motivo per comprare una funzione che nessuno puo' usare, e "in
-   * arrivo"/"coming soon" e' comunque escluso dalla formula approvata. Quando
-   * la Mesh sara' disponibile e verificata, la riga si reintroduce a mano
-   * insieme al cambio di stato. proFeatures e trialFeatures oggi coincidono: si
-   * tengono due liste perche' le due card possono divergere.
+   * 02/10/2026 (S02, U-PRICE-09/14): le liste `proFeatures` e `trialFeatures`
+   * ("Storico illimitato", "Export completo dei dati") sono state TOLTE: non
+   * verificate come contenuto della prova o del piano (FATTI-COMMERCIALI C2;
+   * l'app dice che l'export JSON completo e' sempre disponibile). Nessuna lista
+   * sostitutiva finche' le funzioni Pro verificate non hanno un testo
+   * approvato per il sito.
    */
-  proFeatures: {
-    it: ["Storico illimitato", "Export completo dei dati"],
-    en: ["Unlimited history", "Full data export"],
-    es: ["Historial ilimitado", "Exportación completa de datos"],
-    de: ["Unbegrenzter Verlauf", "Vollständiger Datenexport"],
-    pt: ["Histórico ilimitado", "Exportação completa de dados"],
-    fr: ["Historique illimité", "Export complet des données"],
-    pl: ["Pełna historia", "Pełny eksport danych"],
-    tr: ["Tam geçmiş", "Verilerin tam dışa aktarımı"],
-    nl: ["Volledige geschiedenis", "Volledige export van je gegevens"],
-    ja: ["すべての履歴データ", "全データのエクスポート"],
-    ko: ["전체 기록 데이터", "전체 데이터 내보내기"],
-    sv: ["Fullständig historik", "Fullständig export av dina data"],
-    da: ["Fuld historik", "Fuld eksport af dine data"],
-    no: ["Full historikk", "Full eksport av dataene dine"],
-    fi: ["Täysi historia", "Kaikkien tietojesi vienti"],
-  } as LocalizedList,
-  /**
-   * Solo per la terza card (Prova 14gg): identica a `proFeatures` ma senza
-   * la riga Mesh Famiglia. 31/07 (Matteo): la funzione non e' inclusa nella
-   * prova, perche' non e' ancora attivabile da nessuno — quando lo sara',
-   * richiedera' comunque un acquisto/abbonamento attivo, non fa parte del
-   * periodo di prova gratuito. Dal 01/10/2026 non la elenca piu' nemmeno la card
-   * "Pro" (proFeatures).
-   */
-  trialFeatures: {
-    it: ["Storico illimitato", "Export completo dei dati"],
-    en: ["Unlimited history", "Full data export"],
-    es: ["Historial ilimitado", "Exportación completa de datos"],
-    de: ["Unbegrenzter Verlauf", "Vollständiger Datenexport"],
-    pt: ["Histórico ilimitado", "Exportação completa de dados"],
-    fr: ["Historique illimité", "Export complet des données"],
-    pl: ["Pełna historia", "Pełny eksport danych"],
-    tr: ["Tam geçmiş", "Verilerin tam dışa aktarımı"],
-    nl: ["Volledige geschiedenis", "Volledige export van je gegevens"],
-    ja: ["すべての履歴データ", "全データのエクスポート"],
-    ko: ["전체 기록 데이터", "전체 데이터 내보내기"],
-    sv: ["Fullständig historik", "Fullständig export av dina data"],
-    da: ["Fuld historik", "Fuld eksport af dine data"],
-    no: ["Full historikk", "Full eksport av dataene dine"],
-    fi: ["Täysi historia", "Kaikkien tietojesi vienti"],
-  } as LocalizedList,
 
   // ── Badge terza card pricing (prova 14gg) ───────────────────────────
   /**

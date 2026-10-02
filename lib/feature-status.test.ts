@@ -189,14 +189,11 @@ describe("superfici: nessuna legge uno stato proprio", () => {
     expect(generateLlmsTxt()).not.toContain("## Personal web dashboard");
   });
 
-  it("la card Pro della home non elenca piu' la Mesh in nessuna lingua", async () => {
+  it("le card della home non elencano piu' funzioni (nessuna Mesh in nessuna lingua): liste tolte (S02 U-PRICE-09/14)", async () => {
     const { PRICING_SECTION } = await import("./pricing-section");
-    for (const lc of locales) {
-      const pro = (PRICING_SECTION.proFeatures as Record<string, string[]>)[lc];
-      expect(pro, lc).toBeDefined();
-      for (const voce of pro) expect(voce, lc).not.toMatch(/Mesh/);
-      expect(pro, lc).toEqual((PRICING_SECTION.trialFeatures as Record<string, string[]>)[lc]);
-    }
+    expect(Object.keys(PRICING_SECTION)).not.toContain("proFeatures");
+    expect(Object.keys(PRICING_SECTION)).not.toContain("trialFeatures");
+    expect(read("app/(frontend)/[locale]/(marketing)/page.tsx")).not.toMatch(/proFeatures|trialFeatures/);
   });
 });
 
