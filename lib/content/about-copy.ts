@@ -1,4 +1,5 @@
 import type { Localized } from "@/lib/blog/types";
+import { PRICING_SECTION } from "@/lib/pricing-section";
 
 /**
  * Copy di `/about` estratto dall'ex-helper `t(it, en, es, de, pt, fr)` (6
@@ -418,23 +419,12 @@ export const ABOUT_COPY = {
     fi: "Elinikäinen käyttöoikeus: maksat kerran, käytät ikuisesti. Ei automaattista uusiutumista, ei yllätyksiä laskulla.",
   } satisfies Localized,
 
-  trialDesc: {
-    it: "Prova 14 giorni: tutte le funzioni Pro, sync continuo e storico completo. Poi attivi abbonamento o sblocco a vita per continuare.",
-    en: "14-day trial: all Pro features, continuous sync and full history. Then activate a subscription or lifetime unlock to keep going.",
-    es: "Prueba de 14 días: todas las funciones Pro, sincronización continua e historial completo. Luego activas una suscripción o el desbloqueo de por vida para seguir.",
-    de: "14 Tage testen: alle Pro-Funktionen, kontinuierliche Synchronisierung und voller Verlauf. Dann aktivierst du ein Abo oder die lebenslange Freischaltung, um weiterzumachen.",
-    pt: "Teste de 14 dias: todas as funções Pro, sincronização contínua e histórico completo. Depois ativas uma assinatura ou o desbloqueio vitalício para continuar.",
-    fr: "Essai de 14 jours : toutes les fonctions Pro, synchronisation continue et historique complet. Ensuite vous activez un abonnement ou l'achat à vie pour continuer.",
-    pl: "14-dniowy okres próbny: wszystkie funkcje Pro, ciągła synchronizacja i pełna historia. Potem, aby kontynuować, aktywuj subskrypcję lub odblokowanie na zawsze.",
-    tr: "14 günlük deneme: tüm Pro özellikler, kesintisiz senkronizasyon ve tam geçmiş. Ardından devam etmek için abonelik veya ömür boyu kilit açma etkinleştirin.",
-    nl: "14 dagen proefperiode: alle Pro-functies, continue synchronisatie en volledige geschiedenis. Activeer daarna een abonnement of lifetime-toegang om door te gaan.",
-    ja: "14日間のトライアル:Proの全機能、継続的な同期、すべての履歴データが使えます。その後は、続けるためにサブスクリプションまたは永久アンロックを有効にしてください。",
-    ko: "14일 체험 기간: 모든 Pro 기능, 실시간 동기화, 전체 기록 데이터를 이용할 수 있습니다. 이후에는 구독 또는 평생 이용권을 활성화해야 계속 이용할 수 있습니다.",
-    sv: "14 dagars provperiod: alla Pro-funktioner, kontinuerlig synk och fullständig historik. Aktivera sedan en prenumeration eller livstidsupplåsning för att fortsätta.",
-    da: "14 dages prøveperiode: alle Pro-funktioner, kontinuerlig synkronisering og fuld historik. Aktivér derefter et abonnement eller lifetime-oplåsning for at fortsætte.",
-    no: "14 dagers prøveperiode: alle Pro-funksjoner, kontinuerlig synkronisering og full historikk. Aktiver deretter et abonnement eller en livstidslisens for å fortsette.",
-    fi: "14 päivän kokeilu: kaikki Pro-ominaisuudet, jatkuva synkronointi ja täysi historia. Jatka sen jälkeen tilaamalla tai lunastamalla elinikäinen käyttöoikeus.",
-  } satisfies Localized,
+  /**
+   * U-ABOUT-08 (S02): non piu' resa su /about; resta interpolata nelle landing
+   * (lib/landing/data.ts, es-overlay). Stessa frase della sezione prezzi della
+   * home, importata e non ricopiata: una sola fonte (PRICING_SECTION.subhead).
+   */
+  trialDesc: PRICING_SECTION.subhead,
 
   familyHeading: {
     it: "Mesh Famiglia", en: "Family Mesh", es: "Mesh Familia",
