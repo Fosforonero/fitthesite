@@ -6,8 +6,8 @@
   },
   "hero": {
     "badge": "AndroidとiOSに対応",
-    "heading_1": "すべてのデバイスを",
-    "heading_accent": "ひとつのダッシュボードに。",
+    "heading_1": "フィットネスデータを、ひとつに。",
+    "heading_accent": "デバイスを乗り換えたときも。",
     "description": "Androidウェアラブルの健康データをHealth Connect経由で、iPhoneではApple ヘルスケアと対応するリングのデータを、ひとつの画面に統合。歩数、睡眠、心拍数、回復状態、トレンドをアプリを切り替えずに確認できます。",
     "cta_secondary": "詳細を見る"
   },

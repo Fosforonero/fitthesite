@@ -6,8 +6,8 @@
   },
   "hero": {
     "badge": "Disponible sur Android et iOS",
-    "heading_1": "Un tableau de bord global",
-    "heading_accent": "pour tous vos appareils.",
+    "heading_1": "Vos données de fitness, réunies.",
+    "heading_accent": "Même quand vous changez d'appareil.",
     "description": "Réunissez les données de santé des wearables Android via Health Connect et, sur iPhone, d'Apple Santé et des bagues compatibles, en une seule vue. Pas, sommeil, fréquence cardiaque, récupération et tendances, sans jongler entre plusieurs applications.",
     "cta_secondary": "Découvrir"
   },

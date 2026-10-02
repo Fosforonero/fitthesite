@@ -6,9 +6,9 @@
   },
   "hero": {
     "badge": "Available on Android and iOS",
-    "heading_1": "One global dashboard",
-    "heading_accent": "for all your devices.",
-    "description": "Bring health data from Android wearables through Health Connect and, on iPhone, from Apple Health and supported rings, into one view. Steps, sleep, heart rate, recovery and trends, without jumping between apps.",
+    "heading_1": "Your fitness data, together.",
+    "heading_accent": "Even when you switch devices.",
+    "description": "It works with a single watch too. If you switch phones or use more than one, sign in with the same account and you will see the data already synced, as long as you have a connection and active access. Workouts recorded with the app stay on the phone that recorded them.",
     "cta_secondary": "Learn more"
   },
   "features": {

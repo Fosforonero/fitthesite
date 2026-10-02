@@ -6,9 +6,9 @@
   },
   "hero": {
     "badge": "Disponibile su Android e iOS",
-    "heading_1": "Una dashboard globale",
-    "heading_accent": "per tutti i tuoi dispositivi.",
-    "description": "Porta i dati dei wearable Android tramite Health Connect e, su iPhone, di Apple Salute e degli anelli supportati, in un'unica vista. Passi, sonno, battito, recupero e trend, senza saltare tra app diverse.",
+    "heading_1": "I tuoi dati fitness, insieme.",
+    "heading_accent": "Anche quando cambi dispositivo.",
+    "description": "Funziona anche con un solo orologio. Se cambi telefono o ne usi più di uno, accedi con lo stesso account e ritrovi i dati già sincronizzati, a patto di avere una connessione e un accesso attivo. Gli allenamenti registrati con l'app restano sul telefono che li ha registrati.",
     "cta_secondary": "Scopri di più"
   },
   "features": {

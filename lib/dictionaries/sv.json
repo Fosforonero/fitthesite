@@ -6,8 +6,8 @@
   },
   "hero": {
     "badge": "Tillgänglig på Android och iOS",
-    "heading_1": "En global dashboard",
-    "heading_accent": "för alla dina enheter.",
+    "heading_1": "Din träningsdata, tillsammans.",
+    "heading_accent": "Även när du byter enhet.",
     "description": "Samla hälsodata från Android-wearables via Health Connect och, på iPhone, från Apple Hälsa och kompatibla ringar, i en vy. Steg, sömn, puls, återhämtning och trender, utan att byta mellan appar.",
     "cta_secondary": "Läs mer"
   },
