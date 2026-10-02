@@ -20,6 +20,7 @@ import Testimonials from "@/components/Testimonials";
 import { SITE_URL } from "@/lib/product-facts";
 import { visibleFeatureCards } from "@/lib/feature-status";
 import { schemaLanguage } from "@/lib/seo/schema-language";
+import { homeMetaDescription, homeMetaTitle } from "@/lib/content/home-meta";
 
 /**
  * Below-the-fold marketing copy on this page (How it works, Integrations
@@ -136,16 +137,10 @@ export default async function Home({
     "@type": "WebPage",
     "@id": `${SITE_URL}/${lc}#webpage`,
     url: `${SITE_URL}/${lc}`,
-    name: lc === "it"
-      ? "FitMesh Sync: sincronizza il tuo smartwatch a una dashboard personale nell'app"
-      : lc === "es"
-      ? "FitMesh Sync: sincroniza tu smartwatch en un panel personal en la app"
-      : "FitMesh Sync: sync your smartwatch to a personal app dashboard",
-    description: lc === "it"
-      ? "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in un'unica dashboard globale dell'app, privacy-first: passi, battito, sonno, recupero e trend."
-      : lc === "es"
-      ? "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect y proveedores en la nube en un único panel global de la app, centrado en la privacidad: pasos, frecuencia cardíaca, sueño, recuperación y tendencias."
-      : "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one privacy-first global app dashboard: steps, heart rate, sleep, recovery and trends.",
+    // U-META-03: stessa fonte dei metadata dei layout (lib/content/home-meta.ts),
+    // una lingua = il proprio testo, nessun ripiego sull'inglese.
+    name: homeMetaTitle(lc),
+    description: homeMetaDescription(lc),
     inLanguage: schemaLanguage(lc),
     isPartOf: { "@id": `${SITE_URL}#website` },
     // P0.16-B: puntava a `#mobile-app` (MobileApplicationJsonLd, rimosso —
