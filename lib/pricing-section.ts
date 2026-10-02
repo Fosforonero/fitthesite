@@ -93,8 +93,8 @@ export const PRICING_SECTION = {
    * + HOMEPAGE_COPY.trialTagline ("poi scegli il piano piu' adatto").
    */
   heading: {
-    it: "Prova 14 giorni. Poi Pro, come vuoi.",
-    en: "14-day trial. Then Pro, your way.",
+    it: "L'app si scarica gratis.",
+    en: "The app is free to download.",
     es: "Prueba de 14 días. Luego Pro, a tu manera.",
     de: "14 Tage testen. Dann Pro, wie du willst.",
     pt: "14 dias de teste. Depois Pro, à tua maneira.",
@@ -186,8 +186,8 @@ export const PRICING_SECTION = {
    * livstidslisens / elinikäinen käyttöoikeus).
    */
   proTagline: {
-    it: "Abbonamento o sblocco a vita",
-    en: "Subscription or lifetime unlock",
+    it: "Sblocco a vita o abbonamento, secondo lo store",
+    en: "Lifetime unlock or subscription, depending on the store",
     es: "Suscripción o desbloqueo de por vida",
     de: "Abo oder lebenslange Freischaltung",
     pt: "Assinatura ou desbloqueio vitalício",
