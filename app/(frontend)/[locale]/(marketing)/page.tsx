@@ -39,6 +39,7 @@ import {
 } from "@/lib/content/static-page-locales";
 import { HOMEPAGE_COPY, tli } from "@/lib/content/homepage-copy";
 import { LABS_TEASER_COPY } from "@/lib/content/labs-teaser-copy";
+import { HOME_AI_COPY } from "@/lib/content/home-ai-copy";
 import { liveLabsTools, localizedLabsSlug, lt as labsLt } from "@/lib/labs/registry";
 
 export async function generateMetadata({
@@ -118,6 +119,10 @@ export default async function Home({
   const ultraGuide = ultraGuideBlock({ postsBySlug, lc, isBlogVariantIndexable, blogLinkHref });
   const storeNote = tlOwn(PRICING_SECTION.storeNote, lc);
   const priceFromStore = tlOwn(PRICING_SECTION.priceFromStore, lc);
+  // U-AI-02/03/05: solo il valore della lingua, mai l'inglese (la sezione si ritira).
+  const aiHeading = tlOwn(HOME_AI_COPY.heading, lc);
+  const aiBody = tlOwn(HOME_AI_COPY.body, lc);
+  const aiLinkLabel = tlOwn(HOME_AI_COPY.linkLabel, lc);
   // MICRO-GATE P0.13A: era `/${lc}/fitness-data-sync` incondizionato —
   // route esiste solo per FITNESS_DATA_SYNC_COMPLETE_LOCALES (it/en/de/es),
   // 404 per le altre 11 (trovato dal crawl esaustivo). Stesso fix già
@@ -551,7 +556,6 @@ export default async function Home({
           })}
         </div>
 
-        <p className="mt-4 text-xs text-text-muted">{tl(LABS_TEASER_COPY.privacyNote, lc)}</p>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
@@ -596,97 +600,37 @@ export default async function Home({
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
-       *  BRING YOUR OWN AI — manifesto gemello del privacy block: stessa
-       *  card-glass, stesso halo, 2 colonne (pitch + link /ai | checklist).
+       *  AI — U-AI-01..05 (S02): senza kicker di controllo, senza nomi di
+       *  assistenti di terzi, senza elenco «porta il tuo...»; una colonna.
+       *  Testi solo dove la lingua ha il valore (tlOwn): altrove la sezione
+       *  non si rende, mai in inglese dentro una pagina localizzata.
        *  ════════════════════════════════════════════════════════════ */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
-        <div className="card-glass p-10 sm:p-14 relative overflow-hidden">
-          <div
-            aria-hidden
-            className="halo-conic absolute -top-24 -left-24 w-[420px] h-[420px] opacity-50 animate-float"
-          />
-
-          <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16">
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-                {lc === "it" ? "La tua AI, le tue regole" : lc === "es" ? "Tu IA, tus reglas" : "Your AI, your rules"}
-              </p>
-              <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
-                {lc === "it"
-                  ? "Usa il tuo assistente AI preferito con i tuoi dati di salute."
-                  : lc === "es"
-                  ? "Usa tu asistente de IA favorito con tus datos de salud."
-                  : "Use your favorite AI assistant with your own health data."}
+      {aiHeading && aiBody && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
+          <div className="card-glass p-10 sm:p-14 relative overflow-hidden">
+            <div
+              aria-hidden
+              className="halo-conic absolute -top-24 -left-24 w-[420px] h-[420px] opacity-50 animate-float"
+            />
+            <div className="relative max-w-2xl">
+              <h2 className="font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
+                {aiHeading}
               </h2>
-              <p className="mt-5 text-text-secondary text-lg leading-relaxed">
-                {lc === "it"
-                  ? "FitMesh non ti chiude in un assistente proprietario. Prepara un riepilogo pulito dei tuoi dati e sei tu a scegliere con chi condividerlo: ChatGPT, Claude, Gemini o quello che preferisci."
-                  : lc === "es"
-                  ? "FitMesh no te encierra en un asistente propio. Prepara un resumen claro de tus datos y tú eliges con quién compartirlo: ChatGPT, Claude, Gemini o el que prefieras."
-                  : "FitMesh doesn't lock you into a proprietary assistant. It prepares a clean summary of your data, and you choose who to share it with: ChatGPT, Claude, Gemini, or whatever you use."}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href={`/${lc}/ai`}
-                  className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
-                >
-                  {lc === "it" ? "Scopri come funziona" : lc === "es" ? "Descubre cómo funciona" : "See how it works"}
-                </Link>
-              </div>
-            </div>
-
-            <ul className="grid grid-cols-1 gap-3">
-              {[
-                {
-                  t: lc === "it"
-                    ? "Porta il tuo wearable."
-                    : lc === "es"
-                    ? "Trae tu wearable."
-                    : "Bring your own wearable.",
-                  d: lc === "it"
-                    ? "Galaxy Watch, Wear OS, anello smart, Health Connect: colleghi quello che hai già."
-                    : lc === "es"
-                    ? "Galaxy Watch, Wear OS, anillo inteligente, Health Connect: conectas lo que ya tienes."
-                    : "Galaxy Watch, Wear OS, a smart ring, Health Connect: connect whatever you already own.",
-                },
-                {
-                  t: lc === "it"
-                    ? "Porta la tua AI."
-                    : lc === "es"
-                    ? "Trae tu IA."
-                    : "Bring your own AI.",
-                  d: lc === "it"
-                    ? "Nessun chatbot proprietario. Il riepilogo è tuo, l'assistente lo scegli tu."
-                    : lc === "es"
-                    ? "Sin chatbot propio. El resumen es tuyo, el asistente lo eliges tú."
-                    : "No proprietary chatbot. The summary is yours, you pick the assistant.",
-                },
-              ].map((it) => (
-                <li
-                  key={it.t}
-                  className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 flex gap-4"
-                >
-                  <span
-                    className="w-9 h-9 flex-shrink-0 rounded-xl flex items-center justify-center"
-                    style={{
-                      background: "linear-gradient(135deg, rgba(29,161,255,0.18), rgba(167,139,250,0.10))",
-                      boxShadow: "inset 0 0 0 1px rgba(29,161,255,0.30)",
-                    }}
+              <p className="mt-5 text-text-secondary text-lg leading-relaxed">{aiBody}</p>
+              {aiLinkLabel && (
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    href={`/${lc}/ai`}
+                    className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
                   >
-                    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="#1DA1FF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <div>
-                    <p className="font-display text-base font-semibold text-text-primary">{it.t}</p>
-                    <p className="mt-1 text-sm text-text-secondary leading-relaxed">{it.d}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    {aiLinkLabel}
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ════════════════════════════════════════════════════════════════
        *  PRICING: prova 14 giorni / Pro
