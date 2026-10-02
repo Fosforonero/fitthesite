@@ -12,6 +12,7 @@
  *
  * Uso: npx tsx tools/s02-home-cells.ts --dump   (JSON su stdout, root = cwd)
  */
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -192,6 +193,57 @@ export async function dumpValues(root: string): Promise<{ ctx: Ctx; values: Cell
     for (const lc of cellLangs(def)) values[def.id][lc] = def.get(ctx, lc);
   }
   return { ctx, values };
+}
+
+export interface ManifestUnit {
+  id: string;
+  file: string;
+  keyPath: string;
+  segue?: string;
+  celle: Record<string, { sha256: string | null }>;
+}
+export interface Manifest {
+  versione: string;
+  baseline: string;
+  unita: ManifestUnit[];
+}
+
+export const sha256Hex = (s: string): string => crypto.createHash("sha256").update(s, "utf8").digest("hex");
+
+export interface LangStatus {
+  /** Unita' consegnate (cella presente e diversa dal testo di baseline). */
+  consegnate: string[];
+  /** Unita' pendenti con il motivo. */
+  pendenti: { id: string; motivo: string }[];
+}
+
+/**
+ * PENDENTE = cella assente, oppure ancora con l'hash di baseline; se il
+ * manifest ha null (campo nuovo) basta che esista. Una cella che `segue` un'altra
+ * unita' e' pendente finche' lo e' quella.
+ */
+export function cellStatus(manifest: Manifest, values: CellDump): Record<string, LangStatus> {
+  const out: Record<string, LangStatus> = {};
+  const isPending = (id: string, lc: string): string | null => {
+    const u = manifest.unita.find((x) => x.id === id);
+    const base = u?.celle[lc]?.sha256 ?? null;
+    const v = values[id]?.[lc] ?? null;
+    if (v === null) return "assente";
+    if (base !== null && sha256Hex(v) === base) return "ancora al testo di " + manifest.baseline;
+    if (u?.segue && isPending(u.segue, lc)) return `riusa ${u.segue}, ancora pendente`;
+    return null;
+  };
+  for (const lc of LANGS13) {
+    const st: LangStatus = { consegnate: [], pendenti: [] };
+    for (const u of manifest.unita) {
+      if (!(lc in u.celle)) continue;
+      const motivo = isPending(u.id, lc);
+      if (motivo) st.pendenti.push({ id: u.id, motivo });
+      else st.consegnate.push(u.id);
+    }
+    out[lc] = st;
+  }
+  return out;
 }
 
 // Modalita' --dump: JSON dei valori dell'albero in cwd (usata dal builder sul baseline).

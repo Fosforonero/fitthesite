@@ -27,21 +27,13 @@
  * Uso: node_modules/.bin/tsx tools/check-s02-home-lingue.ts [--verbose]
  * Esito: 0 solo se PENDENTI = 0 e violazioni = 0, altrimenti 1.
  */
-import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { CELLS, LANGS13, cellLangs, dumpValues, type Ctx } from "./s02-home-cells";
+import { CELLS, LANGS13, cellLangs, cellStatus, dumpValues, type Ctx, type Manifest } from "./s02-home-cells";
 
 const repoRoot = path.resolve(__dirname, "..");
 const verbose = process.argv.includes("--verbose");
 
-interface Manifest {
-  versione: string;
-  baseline: string;
-  unita: { id: string; file: string; keyPath: string; segue?: string; celle: Record<string, { sha256: string | null }> }[];
-}
-
-const sha256 = (s: string): string => crypto.createHash("sha256").update(s, "utf8").digest("hex");
 
 // ---------------------------------------------------------------------------
 // Stringhe vietate: [etichetta, pattern globale per tutte le lingue + per lingua]
@@ -189,6 +181,7 @@ async function main(): Promise<void> {
   const manifest: Manifest = JSON.parse(fs.readFileSync(path.join(repoRoot, "tools/data/s02-home-units.json"), "utf8"));
   const { ctx, values } = await dumpValues(repoRoot);
 
+  const status = cellStatus(manifest, values);
   const problems: string[] = [];
   const have = new Set(CELLS.map((c) => c.id));
   for (const u of manifest.unita) if (!have.has(u.id)) problems.push(`manifest: unita' ${u.id} senza localizzatore`);
@@ -201,33 +194,13 @@ async function main(): Promise<void> {
     const row: Row = { pend: [], consegnate: 0, totali: 0, dash: [], vietate: [] };
     rows[lc] = row;
 
+    const st = status[lc];
+    row.pend = st.pendenti.map((p) => `${p.id} (${p.motivo})`);
+    row.consegnate = st.consegnate.length;
+    row.totali = st.consegnate.length + st.pendenti.length;
     for (const u of manifest.unita) {
-      const def = CELLS.find((c) => c.id === u.id);
-      if (!def || !cellLangs(def).includes(lc)) continue;
-      row.totali++;
       const v = values[u.id]?.[lc] ?? null;
-      const base = u.celle[lc]?.sha256 ?? null;
-      let pendente = false;
-      let motivo = "";
-      if (v === null) {
-        pendente = true;
-        motivo = "assente";
-      } else if (base !== null && sha256(v) === base) {
-        pendente = true;
-        motivo = "ancora al testo di " + manifest.baseline;
-      }
-      if (!pendente && u.segue) {
-        const sv = values[u.segue]?.[lc] ?? null;
-        const sb = manifest.unita.find((x) => x.id === u.segue)?.celle[lc]?.sha256 ?? null;
-        if (sv === null || (sb !== null && sha256(sv) === sb)) {
-          pendente = true;
-          motivo = `riusa ${u.segue}, ancora pendente`;
-        }
-      }
-      if (pendente) row.pend.push(`${u.id} (${motivo})`);
-      else row.consegnate++;
-
-      if (v !== null && /[—–]/.test(v)) row.dash.push(`${u.id}: em/en dash`);
+      if (v !== null && /[\u2014\u2013]/.test(v)) row.dash.push(`${u.id}: em/en dash`);
     }
 
     // Stringhe vietate: celle del pacchetto + testi collegati di home e /about.
