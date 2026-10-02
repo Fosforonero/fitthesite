@@ -40,4 +40,19 @@ describe("home S02: struttura (A1a)", () => {
     expect(fs).not.toMatch(/"come-funziona-fitmesh"/);
     expect(src).not.toMatch(/Guida completa ai prezzi|Full pricing guide/);
   });
+
+  it("il blocco della guida: dopo i passi, solo se ultraGuide non e' nullo, dati dal modulo (nessun testo scritto nella pagina)", () => {
+    const steps = src.indexOf("HOMEPAGE_COPY.howItWorksHeading");
+    const guida = src.indexOf("{ultraGuide && (");
+    expect(guida).toBeGreaterThan(steps);
+    expect(src).toMatch(/const ultraGuide = ultraGuideBlock\(\{ postsBySlug, lc, isBlogVariantIndexable, blogLinkHref \}\)/);
+    const blocco = src.slice(guida, src.indexOf("\n        )}", guida));
+    for (const campo of ["href", "kicker", "title", "text", "readLabel"]) expect(blocco).toContain(`ultraGuide.${campo}`);
+    // il post e' risolto dallo slug, non da un titolo scritto a mano
+    expect(src).not.toMatch(/Guida (?:per|all')ultra/i);
+  });
+
+  it("nessun importo nel sorgente della pagina", () => {
+    expect(src).not.toMatch(/€\s?\d|\d\s?€|\$\s?\d/);
+  });
 });

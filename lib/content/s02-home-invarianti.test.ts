@@ -292,3 +292,22 @@ describe("testi collegati: nessun importo, em dash o en dash nei campi it/en toc
     }
   });
 });
+
+describe("testi di home e /about in 15 lingue: stringhe vietate gia' pulite", () => {
+  // «privacy-first», importi e «Trenta secondi» restano nelle celle PENDENTI di 13 lingue
+  // (gate di A3); queste quattro sono pulite ovunque e non devono tornare.
+  const PULITE = ["dashboard web", "legge tutto", "deduplica", "gratis per sempre"];
+
+  it("dashboard web, «legge tutto», deduplica, «gratis per sempre»: assenti in dizionari e copy di home e /about", () => {
+    for (const lc of locales) {
+      const d = DICTS[lc];
+      const testi = [
+        ...valuesOf(d.hero, lc), ...valuesOf(d.features, lc), ...valuesOf(d.final_cta, lc),
+        ...valuesOf(d.footer, lc), ...valuesOf(d.privacy_block, lc),
+        ...valuesOf(HOMEPAGE_COPY, lc), ...valuesOf(ABOUT_COPY, lc), ...valuesOf(PRICING_SECTION, lc),
+        ...valuesOf(HOME_AI_COPY, lc), HOME_META_TITLES[lc], HOME_META_DESCRIPTIONS[lc], ORG_DESCRIPTIONS[lc],
+      ];
+      for (const v of testi) for (const label of PULITE) expect(v, `${lc} ${label}: ${v}`).not.toMatch(forbid(label));
+    }
+  });
+});
