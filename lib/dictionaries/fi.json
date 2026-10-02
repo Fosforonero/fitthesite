@@ -9,8 +9,7 @@
     "heading_1": "Yksi globaali yhteenveto",
     "heading_accent": "kaikille laitteillesi.",
     "description": "Kokoa terveystiedot Android-puettavista laitteista Health Connectin kautta ja, iPhonessa, Apple Terveydestä ja tuetuista sormuksista, yhteen näkymään. Askeleet, uni, syke, palautuminen ja kehitys ilman sovellusten välillä hyppäämistä.",
-    "cta_secondary": "Lue lisää",
-    "pricing": "Yksi kerta €3.99, tai €1.19 joka kuusi kuukautta · turvallinen maksu"
+    "cta_secondary": "Lue lisää"
   },
   "features": {
     "kicker": "Ominaisuudet",
@@ -43,9 +42,6 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Tietosuoja-ensin",
-    "heading": "Terveysdatasi ei ole tuote.",
-    "description": "FitMesh Sync ei koskaan myy, jaa eikä profiloi. Tietosi synkronoidaan FitMeshin hallinnoimaan pilvipalvelimeen (Supabase, EU-infrastruktuuri) — voit poistaa ne milloin tahansa sovelluksen asetuksista.",
     "cta": "Lue tietosuojakäytäntö"
   },
   "final_cta": {

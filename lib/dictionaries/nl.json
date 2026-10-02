@@ -9,8 +9,7 @@
     "heading_1": "Één global dashboard",
     "heading_accent": "voor al je apparaten.",
     "description": "Breng gezondheidsgegevens van Android-wearables via Health Connect en, op iPhone, van Apple Gezondheid en ondersteunde ringen samen in één overzicht. Stappen, slaap, hartslag, herstel en trends, zonder tussen apps te wisselen.",
-    "cta_secondary": "Meer informatie",
-    "pricing": "Eenmalig vanaf €3,99, of €1,19 per 6 maanden · veilige betaling"
+    "cta_secondary": "Meer informatie"
   },
   "features": {
     "kicker": "Functies",
@@ -43,9 +42,6 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Privacy-first",
-    "heading": "Je gezondheidsdata is geen product.",
-    "description": "FitMesh Sync verkoopt, deelt of profileert nooit. Je gegevens worden gesynchroniseerd met de door FitMesh beheerde cloud-backend (Supabase, EU-infrastructuur) — je kunt ze op elk moment verwijderen via de app-instellingen.",
     "cta": "Lees het privacybeleid"
   },
   "final_cta": {

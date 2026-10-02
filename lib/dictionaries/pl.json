@@ -9,8 +9,7 @@
     "heading_1": "Jeden globalny panel",
     "heading_accent": "dla wszystkich Twoich urządzeń.",
     "description": "Połącz dane zdrowotne z wearables na Androidzie przez Health Connect oraz, na iPhonie, z Apple Zdrowie i obsługiwanych pierścieni, w jednym widoku. Kroki, sen, tętno, regeneracja i trendy, bez przełączania się między aplikacjami.",
-    "cta_secondary": "Dowiedz się więcej",
-    "pricing": "Jednorazowy zakup od €3,99 lub €1,19 co 6 miesięcy · bezpieczna płatność"
+    "cta_secondary": "Dowiedz się więcej"
   },
   "features": {
     "kicker": "Funkcje",
@@ -43,9 +42,6 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Prywatność na pierwszym miejscu",
-    "heading": "Twoje dane zdrowotne nie są produktem.",
-    "description": "FitMesh Sync nigdy nie sprzedaje, nie udostępnia i nie profiluje. Twoje dane są synchronizowane z zarządzanym przez FitMesh backendem w chmurze (Supabase, infrastruktura UE) — możesz je usunąć w dowolnym momencie w ustawieniach aplikacji.",
     "cta": "Przeczytaj Politykę Prywatności"
   },
   "final_cta": {

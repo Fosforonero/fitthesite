@@ -533,7 +533,10 @@ export default async function Home({
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
-       *  PRIVACY MANIFESTO — bordo grigio, halo brand, copy + 3 punti
+       *  PRIVACY — blocco neutro (U-PRIV-01..05, decisione 4 del 02/10):
+       *  H2 = etichetta di navigazione, solo i collegamenti alle informative
+       *  e al contatto. Nessuno slogan, nessuna descrizione, nessun elenco di
+       *  punti: le informazioni stanno nella Privacy Policy. Colonna singola.
        *  ════════════════════════════════════════════════════════════ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
         <div className="card-glass p-10 sm:p-14 relative overflow-hidden">
@@ -542,57 +545,30 @@ export default async function Home({
             className="halo-conic absolute -top-24 -right-24 w-[420px] h-[420px] opacity-50 animate-float"
           />
 
-          <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16">
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-                {t.privacy_block.kicker}
-              </p>
-              <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
-                {t.privacy_block.heading}
-              </h2>
-              <p className="mt-5 text-text-secondary text-lg leading-relaxed">
-                {t.privacy_block.description}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href={`/${lc}/privacy`}
-                  className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
-                >
-                  {t.privacy_block.cta}
-                </Link>
-                <a
-                  href="mailto:privacy@fitmesh.fit"
-                  className="inline-flex px-5 py-2.5 rounded-pill text-sm text-text-secondary hover:text-text-primary transition"
-                >
-                  privacy@fitmesh.fit
-                </a>
-              </div>
+          <div className="relative">
+            <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
+              {t.nav.privacy}
+            </h2>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href={`/${lc}/privacy`}
+                className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
+              >
+                {t.privacy_block.cta}
+              </Link>
+              <Link
+                href={`/${lc}/cookies`}
+                className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
+              >
+                {t.footer.links.cookies}
+              </Link>
+              <a
+                href="mailto:privacy@fitmesh.fit"
+                className="inline-flex px-5 py-2.5 rounded-pill text-sm text-text-secondary hover:text-text-primary transition"
+              >
+                privacy@fitmesh.fit
+              </a>
             </div>
-
-            <ul className="grid grid-cols-1 gap-3">
-              {tli(HOMEPAGE_COPY.privacyPoints, lc).map((p) => (
-                <li
-                  key={p.t}
-                  className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 flex gap-4"
-                >
-                  <span
-                    className="w-9 h-9 flex-shrink-0 rounded-xl flex items-center justify-center"
-                    style={{
-                      background: "linear-gradient(135deg, rgba(33,230,193,0.18), rgba(124,255,91,0.10))",
-                      boxShadow: "inset 0 0 0 1px rgba(33,230,193,0.30)",
-                    }}
-                  >
-                    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <div>
-                    <p className="font-display text-base font-semibold text-text-primary">{p.t}</p>
-                    <p className="mt-1 text-sm text-text-secondary leading-relaxed">{p.d}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>

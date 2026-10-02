@@ -9,8 +9,7 @@
     "heading_1": "Ét globalt dashboard",
     "heading_accent": "til alle dine enheder.",
     "description": "Saml sundhedsdata fra Android-wearables via Health Connect og, på iPhone, fra Apple Sundhed og understøttede ringe, i én visning. Skridt, søvn, puls, restitution og tendenser, uden at skifte mellem apps.",
-    "cta_secondary": "Læs mere",
-    "pricing": "Engangskøb fra 3,99 €, eller 1,19 € hver 6. måned · sikker betaling"
+    "cta_secondary": "Læs mere"
   },
   "features": {
     "kicker": "Funktioner",
@@ -43,9 +42,6 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Privatliv først",
-    "heading": "Dine sundhedsdata er ikke en vare.",
-    "description": "FitMesh Sync sælger, deler eller profilerer aldrig. Dine data synkroniseres til FitMeshs administrerede cloud-backend (Supabase, EU-infrastruktur) — du kan slette dem når som helst i appens indstillinger.",
     "cta": "Læs privatlivspolitikken"
   },
   "final_cta": {

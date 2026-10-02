@@ -12,7 +12,6 @@ import type { Localized } from "@/lib/blog/types";
  */
 
 type StepItem = { t: string; d: string };
-type PrivacyPoint = { t: string; d: string };
 
 type LocalizedItems<T> = { it: T; en: T } & Partial<Record<Locale, T>>;
 
@@ -333,54 +332,6 @@ export const HOMEPAGE_COPY = {
     es: "¿Quieres saber qué está en vivo y qué sigue en desarrollo?",
     de: "Möchtest du wissen, was live ist und was sich noch in Entwicklung befindet?",
   } satisfies Localized,
-
-  privacyPoints: {
-    it: [
-      { t: "Zero tracker pubblicitari", d: "I tuoi dati salute non alimentano nessun algoritmo pubblicitario. Niente profilazione." },
-    ],
-    en: [
-      { t: "Zero ad trackers", d: "Your health data feeds no advertising algorithm. No cross-site tracking." },
-    ],
-    es: [
-      { t: "Cero rastreadores publicitarios", d: "Tus datos de salud no alimentan ningún algoritmo publicitario. Sin perfilado." },
-    ],
-    de: [
-      { t: "Keine Werbetracker", d: "Deine Gesundheitsdaten fließen in keinen Werbealgorithmus. Kein seitenübergreifendes Tracking." },
-    ],
-    pt: [
-      { t: "Zero rastreadores publicitários", d: "Os teus dados de saúde não alimentam nenhum algoritmo publicitário. Sem rastreamento entre sites." },
-    ],
-    fr: [
-      { t: "Zéro traceur publicitaire", d: "Vos données de santé n'alimentent aucun algorithme publicitaire. Pas de suivi entre sites." },
-    ],
-    pl: [
-      { t: "Zero trackerów reklamowych", d: "Twoje dane zdrowotne nie zasilają żadnego algorytmu reklamowego. Bez śledzenia między witrynami." },
-    ],
-    tr: [
-      { t: "Sıfır reklam izleyicisi", d: "Sağlık verileriniz hiçbir reklam algoritmasını beslemez. Siteler arası takip yok." },
-    ],
-    nl: [
-      { t: "Geen advertentietrackers", d: "Je gezondheidsgegevens voeden geen advertentiealgoritme. Geen cross-site tracking." },
-    ],
-    ja: [
-      { t: "広告トラッカーゼロ", d: "健康データが広告アルゴリズムに使われることはありません。クロスサイトトラッキングもありません。" },
-    ],
-    ko: [
-      { t: "광고 트래커 없음", d: "건강 데이터가 광고 알고리즘에 쓰이지 않습니다. 교차 사이트 추적도 없습니다." },
-    ],
-    sv: [
-      { t: "Inga annonsspårare", d: "Din hälsodata matar ingen annonsalgoritm. Ingen spårning mellan webbplatser." },
-    ],
-    da: [
-      { t: "Ingen annoncetrackere", d: "Dine sundhedsdata fodrer ingen reklamealgoritme. Ingen tracking på tværs af sider." },
-    ],
-    no: [
-      { t: "Ingen annonsesporing", d: "Helsedataene dine mater ingen annonsealgoritme. Ingen sporing på tvers av nettsteder." },
-    ],
-    fi: [
-      { t: "Nolla mainosseurantaa", d: "Terveystietosi eivät ruoki yhtään mainosalgoritmia. Ei sivustojen välistä seurantaa." },
-    ],
-  } as LocalizedItems<PrivacyPoint[]>,
 
   orLabel: {
     it: "oppure",

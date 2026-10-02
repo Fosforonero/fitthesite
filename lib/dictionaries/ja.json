@@ -9,8 +9,7 @@
     "heading_1": "すべてのデバイスを",
     "heading_accent": "ひとつのダッシュボードに。",
     "description": "Androidウェアラブルの健康データをHealth Connect経由で、iPhoneではApple ヘルスケアと対応するリングのデータを、ひとつの画面に統合。歩数、睡眠、心拍数、回復状態、トレンドをアプリを切り替えずに確認できます。",
-    "cta_secondary": "詳細を見る",
-    "pricing": "買い切り €3.99〜、または6ヶ月 €1.19 · 安全なお支払い"
+    "cta_secondary": "詳細を見る"
   },
   "features": {
     "kicker": "機能",
@@ -43,9 +42,6 @@
     ]
   },
   "privacy_block": {
-    "kicker": "プライバシーファースト",
-    "heading": "あなたの健康データは商品ではありません。",
-    "description": "FitMesh Syncは販売・共有・プロファイリングを一切行いません。データはFitMeshが管理するクラウドバックエンド(Supabase、EUインフラ)に同期されます — アプリの設定からいつでも削除できます。",
     "cta": "プライバシーポリシーを読む"
   },
   "final_cta": {

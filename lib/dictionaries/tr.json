@@ -9,8 +9,7 @@
     "heading_1": "Tek bir global panel",
     "heading_accent": "tüm cihazlarınız için.",
     "description": "Android giyilebilir cihazlardan Health Connect üzerinden ve iPhone'da Apple Sağlık ile desteklenen yüzüklerden gelen sağlık verilerini tek bir görünümde birleştirin. Adımlar, uyku, kalp atış hızı, toparlanma ve eğilimler, uygulamalar arasında geçiş yapmadan.",
-    "cta_secondary": "Daha fazla bilgi",
-    "pricing": "€3,99'dan başlayan tek seferlik ödeme veya 6 ayda bir €1,19 · güvenli ödeme"
+    "cta_secondary": "Daha fazla bilgi"
   },
   "features": {
     "kicker": "Özellikler",
@@ -43,9 +42,6 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Gizlilik önce gelir",
-    "heading": "Sağlık verileriniz bir ürün değildir.",
-    "description": "FitMesh Sync asla satmaz, paylaşmaz veya profil oluşturmaz. Verileriniz FitMesh tarafından yönetilen bulut arka ucuna (Supabase, AB altyapısı) senkronize edilir — uygulama ayarlarından istediğiniz zaman silebilirsiniz.",
     "cta": "Gizlilik Politikasını Oku"
   },
   "final_cta": {

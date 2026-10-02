@@ -9,8 +9,7 @@
     "heading_1": "모든 기기를",
     "heading_accent": "하나의 대시보드로.",
     "description": "Android 웨어러블의 건강 데이터는 Health Connect를 통해, iPhone에서는 Apple 건강 및 지원되는 반지의 데이터를 하나의 화면으로 통합하세요. 앱을 전환하지 않고 걸음 수, 수면, 심박수, 회복 상태, 트렌드를 확인할 수 있습니다.",
-    "cta_secondary": "자세히 보기",
-    "pricing": "일회 결제 €3.99부터, 또는 6개월 €1.19 · 안전한 결제"
+    "cta_secondary": "자세히 보기"
   },
   "features": {
     "kicker": "기능",
@@ -43,9 +42,6 @@
     ]
   },
   "privacy_block": {
-    "kicker": "프라이버시 우선",
-    "heading": "건강 데이터는 상품이 아닙니다.",
-    "description": "FitMesh Sync는 절대 판매하거나 공유하거나 프로파일링하지 않습니다. 데이터는 FitMesh가 관리하는 클라우드 백엔드(Supabase, EU 인프라)에 동기화됩니다 — 앱 설정에서 언제든지 삭제할 수 있습니다.",
     "cta": "개인정보 처리방침 읽기"
   },
   "final_cta": {

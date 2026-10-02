@@ -9,8 +9,7 @@
     "heading_1": "Un panel global",
     "heading_accent": "para todos tus dispositivos.",
     "description": "Reúne los datos de salud de los wearables Android mediante Health Connect y, en iPhone, de Apple Salud y los anillos compatibles, en una sola vista. Pasos, sueño, frecuencia cardíaca, recuperación y tendencias, sin saltar entre apps distintas.",
-    "cta_secondary": "Descubre más",
-    "pricing": "Pago único desde 3,99 €, o 1,19 € cada 6 meses · pago seguro"
+    "cta_secondary": "Descubre más"
   },
   "features": {
     "kicker": "Funciones",
@@ -43,9 +42,6 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Privacidad ante todo",
-    "heading": "Tus datos de salud no son un producto.",
-    "description": "FitMesh Sync no vende, no comparte, no perfila. Tus datos se sincronizan con el backend en la nube gestionado por FitMesh (Supabase, infraestructura en la UE): puedes eliminarlos cuando quieras desde los ajustes de la app.",
     "cta": "Lee la Política de Privacidad"
   },
   "final_cta": {

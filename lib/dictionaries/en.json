@@ -9,8 +9,7 @@
     "heading_1": "One global dashboard",
     "heading_accent": "for all your devices.",
     "description": "Bring health data from Android wearables through Health Connect and, on iPhone, from Apple Health and supported rings, into one view. Steps, sleep, heart rate, recovery and trends, without jumping between apps.",
-    "cta_secondary": "Learn more",
-    "pricing": "One-time from €3.99, or €1.19 every 6 months · secure payment"
+    "cta_secondary": "Learn more"
   },
   "features": {
     "kicker": "Features",
@@ -43,9 +42,6 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Privacy-first",
-    "heading": "Your health data is not a product.",
-    "description": "FitMesh Sync never sells, shares or profiles. Your data syncs to FitMesh's managed cloud backend (Supabase, EU infrastructure) — you can delete it anytime from the app settings.",
     "cta": "Read the Privacy Policy"
   },
   "final_cta": {
