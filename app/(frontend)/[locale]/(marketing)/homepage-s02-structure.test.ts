@@ -35,9 +35,9 @@ describe("home S02: struttura (A1a)", () => {
     expect(src).not.toMatch(/privacy_block\.(kicker|heading|description)|privacyPoints/);
   });
 
-  it("il pillar non e' piu' fra i featuredSlugs e il link «Guida completa ai prezzi» non c'e'", () => {
+  it("il pillar e' fra i featuredSlugs e il link «Guida completa ai prezzi» non c'e'", () => {
     const fs = src.slice(src.indexOf("const featuredSlugs"), src.indexOf("];", src.indexOf("const featuredSlugs")));
-    expect(fs).not.toMatch(/"come-funziona-fitmesh"/);
+    expect(fs).toMatch(/"come-funziona-fitmesh"/);
     expect(src).not.toMatch(/Guida completa ai prezzi|Full pricing guide/);
   });
 

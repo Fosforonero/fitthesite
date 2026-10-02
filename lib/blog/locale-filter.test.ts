@@ -212,13 +212,12 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
     }
   });
 
-  it("come-funziona-fitmesh: it/en indicizzabili, le altre 13 lingue non indicizzabili (testo solo it/en, 307 verso /en/)", () => {
+  it("come-funziona-fitmesh: tutte le 15 lingue complete e indicizzabili dopo l'integrazione del pillar", () => {
     const post = BLOG_POSTS.find((p) => p.slug === "come-funziona-fitmesh")!;
-    // Senza lo slug nel registro le lingue incomplete andrebbero in noindex con contenuto EN di fallback, non in 307.
+    // Lo slug resta registrato per protezione, ma con tutte le varianti complete ciascuna lingua e' indicizzabile.
     expect(REDIRECT_INCOMPLETE_LOCALE_SLUGS.has(post.slug)).toBe(true);
-    for (const lc of ["it", "en"] as const) expect(isBlogVariantIndexable(post, lc), lc).toBe(true);
-    for (const lc of ["es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"] as const) {
-      expect(isBlogVariantIndexable(post, lc), lc).toBe(false);
+    for (const lc of ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"] as const) {
+      expect(isBlogVariantIndexable(post, lc), lc).toBe(true);
     }
   });
 

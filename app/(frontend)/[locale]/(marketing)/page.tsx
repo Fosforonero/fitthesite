@@ -705,9 +705,9 @@ export default async function Home({
         const featuredSlugs = [
           "guida-sync-wearable-2026",
           "scegliere-smartwatch-dati-2026",
-          // U-STRUCT-01: «come-funziona-fitmesh» NON e' piu' in home. La card
-          // torna solo dopo integrazione, traduzioni e QA (decisione 6 del
-          // 02/10/2026).
+          // U-STRUCT-01 / TAKEOVER-01-B: «come-funziona-fitmesh» reintegrato
+          // dopo integrazione completa delle 15 lingue e QA di coerenza.
+          "come-funziona-fitmesh",
         ];
         // Sprint P0.13: blogLinkHref — lc-diretto → EN-fallback → nascondi.
         const featured = featuredSlugs
