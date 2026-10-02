@@ -11,10 +11,11 @@ import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { WebSiteJsonLd } from "@/components/seo/WebSiteJsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
-import { blogLinkHref } from "@/lib/blog/indexability";
+import { blogLinkHref, isBlogVariantIndexable } from "@/lib/blog/indexability";
 import { providerLinkHref } from "@/lib/providers/indexability";
 import { tl, type BlogPost } from "@/lib/blog/types";
 import { tlOwn } from "@/lib/content/localized-own";
+import { ultraGuideBlock } from "@/lib/content/ultra-guide-block";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
 import { SITE_URL } from "@/lib/product-facts";
@@ -112,6 +113,9 @@ export default async function Home({
   const t = await getDictionary(lc);
   const postsBySlug = await getBlogPostsBySlug();
   // Chiavi NUOVE della sezione prezzi: solo il valore della lingua, mai l'inglese.
+  // U-STRUCT-01: blocco guida ultratleta in fondo a «Come funziona», solo se il
+  // post e' nel catalogo e la variante nella lingua della pagina e' indicizzabile.
+  const ultraGuide = ultraGuideBlock({ postsBySlug, lc, isBlogVariantIndexable, blogLinkHref });
   const storeNote = tlOwn(PRICING_SECTION.storeNote, lc);
   const priceFromStore = tlOwn(PRICING_SECTION.priceFromStore, lc);
   // MICRO-GATE P0.13A: era `/${lc}/fitness-data-sync` incondizionato —
@@ -296,6 +300,26 @@ export default async function Home({
             </div>
           ))}
         </div>
+
+        {ultraGuide && (
+          <Link
+            href={ultraGuide.href}
+            className="mt-6 card-glass p-7 group hover:-translate-y-0.5 transition-transform flex flex-col"
+          >
+            <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
+              {ultraGuide.kicker}
+            </p>
+            <h3 className="mt-3 font-display text-lg font-semibold text-text-primary group-hover:text-brand-aqua transition leading-snug">
+              {ultraGuide.title}
+            </h3>
+            <p className="mt-3 text-sm text-text-secondary leading-relaxed line-clamp-3">
+              {ultraGuide.text}
+            </p>
+            <span className="mt-4 text-xs text-brand-aqua font-medium inline-flex items-center gap-1">
+              {ultraGuide.readLabel} →
+            </span>
+          </Link>
+        )}
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
@@ -737,7 +761,9 @@ export default async function Home({
         const featuredSlugs = [
           "guida-sync-wearable-2026",
           "scegliere-smartwatch-dati-2026",
-          "come-funziona-fitmesh",
+          // U-STRUCT-01: «come-funziona-fitmesh» NON e' piu' in home. La card
+          // torna solo dopo integrazione, traduzioni e QA (decisione 6 del
+          // 02/10/2026).
         ];
         // Sprint P0.13: blogLinkHref — lc-diretto → EN-fallback → nascondi.
         const featured = featuredSlugs
