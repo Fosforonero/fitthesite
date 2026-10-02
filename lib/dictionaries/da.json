@@ -8,16 +8,16 @@
     "badge": "Tilgængelig på Android og iOS",
     "heading_1": "Dine træningsdata, samlet.",
     "heading_accent": "Også når du skifter enhed.",
-    "description": "Saml sundhedsdata fra Android-wearables via Health Connect og, på iPhone, fra Apple Sundhed og understøttede ringe, i én visning. Skridt, søvn, puls, restitution og tendenser, uden at skifte mellem apps.",
+    "description": "Fungerer også med et enkelt ur. Hvis du skifter telefon eller bruger flere, logger du ind med samme konto og finder de allerede synkroniserede data, så længe du har forbindelse og aktiv adgang. Træningspas optaget med appen forbliver på telefonen, der optog dem.",
     "cta_secondary": "Læs mere"
   },
   "features": {
     "kicker": "Funktioner",
-    "heading": "Alt, hvad dit smartwatch registrerer, organiseret og visualiseret.",
+    "heading": "Data fra dit smartwatch, som FitMesh læser, ordnet efter dag.",
     "items": [
       {
         "title": "Skridt og distance",
-        "desc": "Synkroniserer med Health Connect og Samsung Health. Best-effort baggrundsopdateringer på Android, når batterioptimering er deaktiveret; altid opdateret, når du åbner appen."
+        "desc": "Skridt og distance læst fra Apple Sundhed eller Health Connect, eller via Bluetooth fra en kompatibel Colmi-ring. På Android afhænger baggrundsopdatering af batteriindstillinger; for at opdatere manuelt skal du trykke på «Synkroniser nu» i appen."
       },
       {
         "title": "Puls",
@@ -25,7 +25,7 @@
       },
       {
         "title": "Søvn med faser",
-        "desc": "Samlet varighed, dyb, REM, let, vågen. Farvekodet søjle og øjeblikkeligt kvalitetsmærke."
+        "desc": "Samlet varighed, dyb, REM, let, vågen. Farvet bjælke og kvalitetsindikator."
       },
       {
         "title": "Kalorier og aktivitet",
@@ -33,7 +33,7 @@
       },
       {
         "title": "Flere enheder, én dag",
-        "desc": "Flere ure, flere udbydere, én visning. FitMesh samler kilderne, fjerner dubletter og beholder den bedste værdi for hver måling."
+        "desc": "Skridt, distance, søvn med faser, hvilepuls og træningspas læst fra Apple Sundhed eller Health Connect, eller fra en kompatibel Colmi-ring via Bluetooth."
       },
       {
         "title": "Mesh Familie",
@@ -49,7 +49,7 @@
     "description": "Hent FitMesh Sync, log ind og giv adgang til Apple Sundhed på iPhone eller Health Connect på Android."
   },
   "footer": {
-    "tagline": "Synkronisér dine smartwatch-data til dit eget premium-dashboard. Privatliv først. Vi sælger aldrig dine data til tredjepart, ingen reklametrackere.",
+    "tagline": "Appen, der samler dine træningsdata dag for dag, på iPhone og Android.",
     "product": "Produkt",
     "legal": "Juridisk",
     "rights": "Alle rettigheder forbeholdes.",

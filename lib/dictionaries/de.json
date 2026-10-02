@@ -8,16 +8,16 @@
     "badge": "Verfügbar auf Android und iOS",
     "heading_1": "Deine Fitnessdaten, zusammen.",
     "heading_accent": "Auch wenn du das Gerät wechselst.",
-    "description": "Bringe Gesundheitsdaten von Android-Wearables über Health Connect und, auf dem iPhone, von Apple Health und unterstützten Ringen in eine einzige Ansicht. Schritte, Schlaf, Herzfrequenz, Erholung und Trends, ohne zwischen verschiedenen Apps zu wechseln.",
+    "description": "Funktioniert auch mit einer einzelnen Uhr. Wenn du das Smartphone wechselst oder mehrere nutzt, melde dich mit demselben Konto an und du findest die bereits synchronisierten Daten wieder, sofern eine Verbindung und ein aktiver Zugang bestehen. Mit der App aufgezeichnete Trainings bleiben auf dem Smartphone, das sie aufgezeichnet hat.",
     "cta_secondary": "Mehr erfahren"
   },
   "features": {
     "kicker": "Funktionen",
-    "heading": "Alles, was dein Smartwatch aufzeichnet, geordnet und visualisiert.",
+    "heading": "Die Daten deiner Smartwatch, die FitMesh liest, nach Tagen geordnet.",
     "items": [
       {
         "title": "Schritte und Distanz",
-        "desc": "Synchronisiert mit Health Connect und Samsung Health. Best-effort-Hintergrundaktualisierungen auf Android, wenn die Akkuoptimierung deaktiviert ist; immer aktuell beim Öffnen der App."
+        "desc": "Schritte und Distanz aus Apple Health oder Health Connect gelesen, oder über Bluetooth von einem kompatiblen Colmi-Ring. Unter Android hängt die Hintergrundaktualisierung von den Akku-Einstellungen ab; zum manuellen Aktualisieren tippe in der App auf «Jetzt synchronisieren»."
       },
       {
         "title": "Herzfrequenz",
@@ -25,7 +25,7 @@
       },
       {
         "title": "Schlaf mit Schlafphasen",
-        "desc": "Gesamtdauer, Tiefschlaf, REM, Leichtschlaf, Wachphasen. Farbbalken und sofortiges Qualitätsbadge."
+        "desc": "Gesamtdauer, Tiefschlaf, REM, Leichtschlaf, wach. Farbbalken und Qualitätsanzeige."
       },
       {
         "title": "Kalorien und Aktivität",
@@ -33,7 +33,7 @@
       },
       {
         "title": "Mehrere Geräte, ein einziger Tag",
-        "desc": "Mehrere Uhren, mehrere Anbieter, eine einzige Ansicht. FitMesh führt die Quellen zusammen, entfernt doppelte Daten und behält den besten Wert für jede Metrik."
+        "desc": "Schritte, Distanz, Schlaf mit Phasen, Ruhepuls und Trainings, gelesen aus Apple Health oder Health Connect, oder von einem kompatiblen Colmi-Ring über Bluetooth."
       },
       {
         "title": "Mesh Familie",
@@ -49,7 +49,7 @@
     "description": "Lade FitMesh Sync herunter, melde dich an und erteile Lesezugriff auf Apple Health (iPhone) oder Health Connect (Android)."
   },
   "footer": {
-    "tagline": "Synchronisiere die Daten deines Smartwatchs auf einer Premium-Dashboard, die dir gehört. Datenschutz an erster Stelle. Wir verkaufen deine Daten niemals an Dritte, keine Werbe-Tracker.",
+    "tagline": "Die App, die deine Fitnessdaten Tag für Tag zusammenführt, auf iPhone und Android.",
     "product": "Produkt",
     "legal": "Rechtliches",
     "rights": "Alle Rechte vorbehalten.",

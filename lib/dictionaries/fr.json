@@ -8,16 +8,16 @@
     "badge": "Disponible sur Android et iOS",
     "heading_1": "Vos données de fitness, réunies.",
     "heading_accent": "Même quand vous changez d'appareil.",
-    "description": "Réunissez les données de santé des wearables Android via Health Connect et, sur iPhone, d'Apple Santé et des bagues compatibles, en une seule vue. Pas, sommeil, fréquence cardiaque, récupération et tendances, sans jongler entre plusieurs applications.",
+    "description": "Fonctionne aussi avec une seule montre. Si vous changez de téléphone ou en utilisez plusieurs, connectez-vous avec le même compte et retrouvez les données déjà synchronisées, à condition d'avoir une connexion et un accès actif. Les entraînements enregistrés avec l'application restent sur le téléphone qui les a enregistrés.",
     "cta_secondary": "Découvrir"
   },
   "features": {
     "kicker": "Fonctionnalités",
-    "heading": "Tout ce que votre montre connectée enregistre, organisé et visualisé.",
+    "heading": "Les données de votre montre connectée lues par FitMesh, ordonnées par jour.",
     "items": [
       {
         "title": "Pas et distance",
-        "desc": "Se synchronise avec Health Connect et Samsung Health. Mises à jour en arrière-plan sur Android en best-effort lorsque l'optimisation de la batterie est désactivée ; toujours à jour à l'ouverture de l'application."
+        "desc": "Pas et distance lus depuis Apple Santé ou Health Connect, ou en Bluetooth depuis une bague Colmi compatible. Sur Android, la mise à jour en arrière-plan dépend des paramètres de batterie ; pour actualiser manuellement, touchez « Synchroniser maintenant » dans l'application."
       },
       {
         "title": "Fréquence cardiaque",
@@ -25,7 +25,7 @@
       },
       {
         "title": "Sommeil avec phases",
-        "desc": "Durée totale, profond, REM, léger, éveillé. Barre colorée et badge de qualité en un coup d'œil."
+        "desc": "Durée totale, profond, REM, léger, éveillé. Barre colorée et indicateur de qualité."
       },
       {
         "title": "Calories et activité",
@@ -33,7 +33,7 @@
       },
       {
         "title": "Plusieurs appareils, une seule journée",
-        "desc": "Plusieurs montres, plusieurs fournisseurs, une seule vue. FitMesh réunit les sources, élimine les données en double et conserve la meilleure valeur pour chaque métrique."
+        "desc": "Pas, distance, sommeil avec phases, fréquence cardiaque au repos et entraînements lus depuis Apple Santé ou Health Connect, ou depuis une bague Colmi compatible en Bluetooth."
       },
       {
         "title": "Mesh Famille",
@@ -49,7 +49,7 @@
     "description": "Téléchargez FitMesh Sync, connectez-vous et autorisez Apple Santé sur iPhone ou Health Connect sur Android."
   },
   "footer": {
-    "tagline": "Synchronisez les données de votre montre connectée sur un tableau de bord premium qui vous appartient. Confidentialité d'abord. Aucune vente de vos données à des tiers, pas de traceurs publicitaires.",
+    "tagline": "L'application qui réunit jour par jour vos données de fitness, sur iPhone et Android.",
     "product": "Produit",
     "legal": "Mentions légales",
     "rights": "Tous droits réservés.",

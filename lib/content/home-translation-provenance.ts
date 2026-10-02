@@ -54,56 +54,56 @@ export const HOME_TRANSLATION_PROVENANCE = {
   controlRecordedOn: "2026-10-02",
   byLocale: {
     es: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-PRICE-16", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     de: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-PRICE-16", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     fr: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-PRICE-16", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     pt: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-PRICE-16", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     pl: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     tr: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     nl: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-PRICE-16", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     ja: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-03", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-08", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-08", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-03", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     ko: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-03", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-08", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-08", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-03", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     sv: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-PRICE-16", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     da: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-PRICE-16", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     no: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-PRICE-16", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
     fi: {
-      delivered: ["U-HERO-01", "U-HERO-02", "U-STEP-01", "U-STEP-02", "U-STEP-04", "U-CARD-01", "U-PRICE-16", "U-META-01"],
-      pending: ["U-HERO-03", "U-HERO-04", "U-STEP-03", "U-STEP-05", "U-STEP-06", "U-STEP-07", "U-CARD-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-AI-02", "U-AI-03", "U-AI-05", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-FAQ-01", "U-FAQ-02", "U-PRIV-11", "U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-META-02", "U-META-04"],
+      delivered: ["U-ABOUT-01", "U-ABOUT-02", "U-ABOUT-03", "U-ABOUT-04", "U-ABOUT-05", "U-ABOUT-10", "U-ABOUT-11", "U-ABOUT-12", "U-ABOUT-13", "U-AI-02", "U-AI-03", "U-AI-05", "U-CARD-01", "U-CARD-02", "U-FAQ-01", "U-FAQ-02", "U-FEAT-01", "U-FEAT-02", "U-FEAT-03", "U-HERO-01", "U-HERO-02", "U-HERO-03", "U-HERO-04", "U-META-01", "U-META-02", "U-META-04", "U-PRICE-02", "U-PRICE-04", "U-PRICE-11", "U-PRICE-13", "U-PRICE-16", "U-PRIV-11", "U-STEP-01", "U-STEP-02", "U-STEP-03", "U-STEP-04", "U-STEP-05", "U-STEP-06", "U-STEP-07"],
+      pending: [],
     },
   },
 } as const;

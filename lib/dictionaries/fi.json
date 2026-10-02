@@ -8,16 +8,16 @@
     "badge": "Saatavilla Androidille ja iOS:lle",
     "heading_1": "Kuntotietosi, yhdessä paikassa.",
     "heading_accent": "Myös silloin kun vaihdat laitetta.",
-    "description": "Kokoa terveystiedot Android-puettavista laitteista Health Connectin kautta ja, iPhonessa, Apple Terveydestä ja tuetuista sormuksista, yhteen näkymään. Askeleet, uni, syke, palautuminen ja kehitys ilman sovellusten välillä hyppäämistä.",
+    "description": "Toimii myös yhdellä kellolla. Jos vaihdat puhelinta tai käytät useampaa, kirjaudu sisään samalla tilillä ja löydät jo synkronoidut tiedot, kunhan sinulla on yhteys ja aktiivinen käyttöoikeus. Sovelluksella tallennetut harjoitukset pysyvät puhelimessa, jolla ne tallennettiin.",
     "cta_secondary": "Lue lisää"
   },
   "features": {
     "kicker": "Ominaisuudet",
-    "heading": "Kaikki alykellon tallentamat tiedot, järjestetty ja visuaalisesti esitetty.",
+    "heading": "Älykellosi tiedot, jotka FitMesh lukee, järjestettynä päivittäin.",
     "items": [
       {
         "title": "Askeleet & etäisyys",
-        "desc": "Synkronoi Health Connectin ja Samsung Healthin kanssa. Parhaan kykynsä mukaiset taustapäivitykset Androidilla, kun akun optimointi on poistettu käytöstä; aina ajan tasalla, kun avaat sovelluksen."
+        "desc": "Askeleet ja matka luettuna Apple Terveydestä tai Health Connectista taikka Bluetoothilla yhteensopivasta Colmi-sormuksesta. Androidissa taustapäivitys riippuu akkuasetuksista; päivitä manuaalisesti napauttamalla sovelluksessa «Synkronoi nyt»."
       },
       {
         "title": "Syke",
@@ -25,7 +25,7 @@
       },
       {
         "title": "Uni vaiheina",
-        "desc": "Kokonaisaika, syvän, REM, valon, herkän. Väritysbar ja hetkellinen laatuviiva."
+        "desc": "Kokonaiskesto, syvä, REM, kevyt, hereillä. Värillinen palkki ja laatuindikaattori."
       },
       {
         "title": "Kalorit & aktiviteetti",
@@ -33,7 +33,7 @@
       },
       {
         "title": "Useampi laite, yksi päivä",
-        "desc": "Useita kelloja, useita palveluntarjoajia, yksi näkymä. FitMesh yhdistää lähteet, poistaa päällekkäiset tiedot ja säilyttää parhaan arvon jokaiselle mittareille."
+        "desc": "Askeleet, matka, uni vaiheineen, leposyke ja harjoitukset luettuna Apple Terveydestä tai Health Connectista taikka yhteensopivasta Colmi-sormuksesta Bluetoothilla."
       },
       {
         "title": "Mesh Perhe",
@@ -49,7 +49,7 @@
     "description": "Lataa FitMesh Sync, kirjaudu sisään ja salli pääsy Apple Terveyteen iPhonessa tai Health Connectiin Androidissa."
   },
   "footer": {
-    "tagline": "Synkronoi alykellon tiedot omalle premium-palkkiisi. Tietosuoja-ensin. Emme koskaan myy tietojasi kolmansille osapuolille, ei mainonnan seurantaa.",
+    "tagline": "Sovellus, joka kokoaa kuntotietosi päivittäin yhteen iPhonella ja Androidilla.",
     "product": "Tuote",
     "legal": "Oikeudet",
     "rights": "Kaikki oikeudet pidätetään.",
