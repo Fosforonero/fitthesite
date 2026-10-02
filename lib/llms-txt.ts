@@ -10,7 +10,6 @@ import {
   AVAILABILITY,
   PRODUCT_STATUS,
   FOUNDER_PROGRAM,
-  PRICING_FACTS,
   SUPPORTED_PROVIDERS_ANDROID,
   SUPPORTED_PROVIDERS_IOS,
   ROADMAP_PROVIDERS_ANDROID,
@@ -23,10 +22,6 @@ import { FOUNDER_END_AT, formatFounderEndDate } from "@/lib/founder/program-wind
 import { founderSiteClosedNote } from "@/lib/founder/historical-note";
 
 const IT = (path: string) => `${SITE_URL}/it${path}`;
-
-function fmtEur(amount: string): string {
-  return `€${amount}`;
-}
 
 export function generateLlmsTxt(): string {
   const lines: string[] = [];
@@ -98,7 +93,7 @@ export function generateLlmsTxt(): string {
   );
   lines.push(`- ${founderSiteClosedNote("en")}`);
   lines.push(
-    "- Accounts not eligible for Founder (created on or after the cutoff above, or without a verified first sync within 14 days) get a standard 14-day free Pro trial instead; after the trial they must subscribe or buy the lifetime unlock to keep Pro. Accounts that did receive Founder status keep their lifetime Pro permanently, no action needed.",
+    "- Accounts not eligible for Founder (created on or after the cutoff above, or without a verified first sync within 14 days) get a standard 14-day Pro trial instead; after the trial, continuing to use Pro features requires a purchase or subscription, with the options the store shows. Accounts that did receive Founder status keep their Founder Pro access.",
   );
   lines.push("");
 
@@ -141,12 +136,12 @@ export function generateLlmsTxt(): string {
   lines.push(
     `- Platform: Android (live, ${AVAILABILITY.android.minOsVersion} and up, worldwide) and iOS (live on the App Store, including European Union storefronts, ${AVAILABILITY.ios.minOsVersion} and up).`,
   );
-  lines.push(`- Distribution: Google Play Store (${ANDROID_PACKAGE}) — ${PLAY_STORE_URL}; App Store (including EU storefronts) — ${AVAILABILITY.ios.storeUrl}.`);
+  lines.push(`- Distribution: Google Play Store (${ANDROID_PACKAGE}): ${PLAY_STORE_URL}; App Store (including EU storefronts): ${AVAILABILITY.ios.storeUrl}.`);
   lines.push(
-    `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall, then subscribe or buy lifetime to keep Pro. The one-time Founder launch program (see Founder program section above) is limited to accounts registered by ${FOUNDER_END_AT}; it is not an ongoing offer — never present it as available to an account created on or after that cutoff.`,
+    `- Pricing: the app itself is free to download. FitMesh Pro comes with a 14-day trial; after the trial, continuing to use Pro features requires a purchase or subscription. Purchases are made in the app through the store: the options and the price are the ones the store shows in the user's country, and this file states no amount. The one-time Founder launch program (see Founder program section above) is limited to accounts registered by ${FOUNDER_END_AT}; it is not an ongoing offer; do not present it as available to an account created on or after that cutoff.`,
   );
   lines.push(
-    "- Architecture: native Android app reading via the Health Connect API; native iOS app reading Apple Health (HealthKit) natively and connecting directly via Bluetooth to the Colmi Ring (no Health Connect involvement on iOS — that API is Android-only); backend on Supabase Postgres; marketing site on Vercel.",
+    "- Architecture: native Android app reading via the Health Connect API; native iOS app reading Apple Health (HealthKit); on both platforms the app can also connect directly over Bluetooth to a compatible Colmi ring; Health Connect is Android-only; backend on Supabase Postgres; marketing site on Vercel.",
   );
   lines.push(
     `- Data sources supported on Android today (via Health Connect): ${SUPPORTED_PROVIDERS_ANDROID.join(", ")}.`,
