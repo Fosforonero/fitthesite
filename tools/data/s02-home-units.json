@@ -1,0 +1,1868 @@
+{
+  "versione": "TESTO-BASE-v2-FINALE (02/10/2026, corsia Claude, testo base IT/EN dopo REVISIONE avversaria e DISCREPANZE)",
+  "baseline": "f142eac",
+  "nota": "sha256 = hash del valore della cella a f142eac (UTF-8); null = campo nuovo (non esisteva). Cella PENDENTE se oggi e' assente o ha ancora l'hash di baseline. FAQ: hash di «q\\na».",
+  "unita": [
+    {
+      "id": "U-HERO-01",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "hero.heading_1",
+      "sito": "lib/dictionaries/{lc}.json hero.heading_1",
+      "celle": {
+        "es": {
+          "sha256": "114689ec0e525db5537e765f8c45d05170bdd26d4e455102d62689dae65a28b6"
+        },
+        "de": {
+          "sha256": "f5cf998986629a7fe7ee9d49beaebb1c89349cee9ec18f30e4fa29ed663691b6"
+        },
+        "fr": {
+          "sha256": "d7a2f146c69d9fb405115a4ca5a86e61c3e0f7e62459b4b55af6ddb367033e15"
+        },
+        "pt": {
+          "sha256": "0b45c144dde9e4df3fe8bb03c2ec79996b120a120c9fc27e73e5768b2a9c32f2"
+        },
+        "pl": {
+          "sha256": "b9b7b3818ccad3a885321f46f8db2add073f861df4d8e02bd4dedfe31c53a635"
+        },
+        "tr": {
+          "sha256": "69a25f1e07b1956176ace9b7a81c937e6200fca21586855a5b013fce840f2243"
+        },
+        "nl": {
+          "sha256": "016ed2d1faa240ff6abb7968ea4c510d7546c37fa1c36895fbe1ba8f6594467a"
+        },
+        "ja": {
+          "sha256": "053b111f7eac9c3b434706ef03be8e0be9d5719dc4a741a882104e0cb22baf11"
+        },
+        "ko": {
+          "sha256": "c386eddbf5fdd923164a5b2516ed1628a74e4225ef977f42b0393b1f52fe797a"
+        },
+        "sv": {
+          "sha256": "8844ee14e0bb4a44e0b35aa9fe2d02b49fa8335f2653fb639700a81802e8306d"
+        },
+        "da": {
+          "sha256": "710e61e2ca1fe604322ac6424ad343ba7ffd66dfc6e91df62efec2a80f78cdd8"
+        },
+        "no": {
+          "sha256": "9872c7909e7e526eddeaf738fceefab84d6cf45a15257d4b02210a990f57e523"
+        },
+        "fi": {
+          "sha256": "5cd284f82302e89396ab9ba943854e03b463764557ca9cc6cd027d98a2fbaafb"
+        }
+      }
+    },
+    {
+      "id": "U-HERO-02",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "hero.heading_accent",
+      "sito": "lib/dictionaries/{lc}.json hero.heading_accent",
+      "celle": {
+        "es": {
+          "sha256": "a4087462251291bf3aa4ff33a1e6b1f64b57d1725bd18d4a1ecc866ea3ca8e7d"
+        },
+        "de": {
+          "sha256": "47d886bc9a5c8870055895dad0b85fb52a92bbb5d0a4567989f2f60bec6257f4"
+        },
+        "fr": {
+          "sha256": "681d220eb817c142824837926a7e860ff14dfc7cf055ae66e91b470cbe84dc84"
+        },
+        "pt": {
+          "sha256": "1a6fafa0a69a81a081fafc6ff5daf8d4e7ed15b59c10f969524764190a579d04"
+        },
+        "pl": {
+          "sha256": "fe1a983c385b1819bb0569278a35a826e28723bee7f69d5ea40cacb89aaf2d29"
+        },
+        "tr": {
+          "sha256": "ca2112860511ebdf8005610bddcfdca1946a70062e981f520cac5c4f313fe4bc"
+        },
+        "nl": {
+          "sha256": "bc6d16bdc2f6948875f929c1c8fb371bc62a3fa4d4ef797926184cabe3eb7313"
+        },
+        "ja": {
+          "sha256": "742d1f94ea1113ebffb9a9f3d38fda899cb8d833ffd0494ddf293cfa8471c5ee"
+        },
+        "ko": {
+          "sha256": "b55e8fab209096c03efebf38862865057e603f1b0cd1852ce51fe51134904f6a"
+        },
+        "sv": {
+          "sha256": "ccd86750cacf39faa50a4731425fea2659632828ab6b199c678630496276d087"
+        },
+        "da": {
+          "sha256": "5555f29f707e0add6eaadb1cb255b4a9b9de681a5cd0911751a9dd9c18f8f0d9"
+        },
+        "no": {
+          "sha256": "f1ab29719da57c819d48ad06861085e1f3ecf35b57c700a775db7231674de7e7"
+        },
+        "fi": {
+          "sha256": "84f08a8ccfa6242693829bb63fe4716822b93d8b5e5dd0a9a1e9898dab4a0b35"
+        }
+      }
+    },
+    {
+      "id": "U-HERO-03",
+      "file": "lib/content/homepage-copy.ts",
+      "keyPath": "HOMEPAGE_COPY.leadSentence",
+      "sito": "lib/content/homepage-copy.ts HOMEPAGE_COPY.leadSentence",
+      "celle": {
+        "es": {
+          "sha256": "3346d6bf241cf1ebf717327e88e75a2c9003001ddd69b976fa091a4132814e64"
+        },
+        "de": {
+          "sha256": "e1b4e4260a6c95a658e65bbf02ca7168cfde74cc235f33416b2d69b04ac2e318"
+        },
+        "fr": {
+          "sha256": "141520665d4a7b2444693e1ed9ec0d7da5f748c63b5c38051a38d43c5fde9edb"
+        },
+        "pt": {
+          "sha256": "75a1df597107bb5adf05085c7db6f83ef7865c5490ace2833a70af97e36650bd"
+        },
+        "pl": {
+          "sha256": "5f0af804305a45bf2848edf5b6b8103786aa4246b6583681043f0f28eee4249f"
+        },
+        "tr": {
+          "sha256": "564c7ce29fde639513495f943edea9a8b72a45bf426b7df5f58d90bfdd57d869"
+        },
+        "nl": {
+          "sha256": "152413e306635b53fdb8c1d734c8b31d2dece0dae5efaf629c08522184784f48"
+        },
+        "ja": {
+          "sha256": "7a33b8748abd9bb1319f0545b8f3d72d3a3a9a2864f1c1490c0930ca4a1ad446"
+        },
+        "ko": {
+          "sha256": "c76595bee9a7fb314181e8f62e2402e3d8bb38d2587672176e74cf556bfd8428"
+        },
+        "sv": {
+          "sha256": "3ea9018effd1aa887841683517f59ed25095871a08fa9151dff0f9886c6e4fb3"
+        },
+        "da": {
+          "sha256": "a44dded9bb4281789a1da32c9e65cb8963c202c6968dca3437cd16dba9abb90d"
+        },
+        "no": {
+          "sha256": "e7c0d1f493e8ab5eb60c3a1e7a93a80fc84cf913a0dd7e0ca44e3353c68d71d0"
+        },
+        "fi": {
+          "sha256": "012ff34e06a3bb931bf07221f2020b9193a4a05522408fb493607d653061ff0f"
+        }
+      }
+    },
+    {
+      "id": "U-HERO-04",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "hero.description",
+      "sito": "lib/dictionaries/{lc}.json hero.description",
+      "celle": {
+        "es": {
+          "sha256": "3c135fa5253a6e9bab8d232afbb5acabdaa23e1014d1c5f565ea2d2a97485e0c"
+        },
+        "de": {
+          "sha256": "d014b8377f8a37345438a0784c8eb0053f5c9976e476f606d3f667f338967475"
+        },
+        "fr": {
+          "sha256": "0e0be07cf5c39188832f5b26fed80a774f667e669b9acd0fd641bf8a815eb112"
+        },
+        "pt": {
+          "sha256": "ca8fb3ab23560b1a2fb62556b1146bb4d30a20e32e41d4fddb4a548335719df7"
+        },
+        "pl": {
+          "sha256": "8b12fb9304e9234d3d9ec6c39ce217a087cb43cda5ccee657f0c27bfb001eb54"
+        },
+        "tr": {
+          "sha256": "0b328f63680f1a9bf09606173022c1586a046b46d4dbef5c3aba75c76962a9d9"
+        },
+        "nl": {
+          "sha256": "36693c0209fcffdea4c4bd479b31d76874f00c1850755195bb4723aefd959527"
+        },
+        "ja": {
+          "sha256": "f9bcc66d1454cfd3218982dbb01278d61af6f6bd66f7598c35bdf38e72b815d6"
+        },
+        "ko": {
+          "sha256": "3e2d78be7fcd2330ce80b58a81805feee456325032986702fd59cf73d9429785"
+        },
+        "sv": {
+          "sha256": "7724abfc159a0781f04081728e6c458c371b662e8301d093fc7219d4ac00d594"
+        },
+        "da": {
+          "sha256": "62f67b248a6099d1a21bad8eb43c7b090a4caecb1d51049011226892c9f19625"
+        },
+        "no": {
+          "sha256": "be8622de9e8d168c06788096ce5f69fff22d0b07e057574737ac44ddcfa37cd1"
+        },
+        "fi": {
+          "sha256": "ff5d75192afeccba7015a5f59ffe331e711fa437f39fe2a351dbb4d7babc1309"
+        }
+      }
+    },
+    {
+      "id": "U-STEP-01",
+      "file": "lib/content/homepage-copy.ts",
+      "keyPath": "HOMEPAGE_COPY.howItWorksHeading",
+      "sito": "lib/content/homepage-copy.ts HOMEPAGE_COPY.howItWorksHeading",
+      "celle": {
+        "es": {
+          "sha256": "fbd69fa45f85bf71e2771ff4e1b52b559d1c8563bdbbb3ba616efd846f71bd3c"
+        },
+        "de": {
+          "sha256": "f1ecc1f01e64cf360346a16416e6d5c3bda51dc52b3c89763ed215ebcdcf9fdf"
+        },
+        "fr": {
+          "sha256": "b7546cde66855d5a170a1e662e92bde1f34d5987ba2829ee03646b45ca3bec5d"
+        },
+        "pt": {
+          "sha256": "c89b065804bd4e49b2e2450563c112a1edf95d70d517d412c44c8240ef5c98df"
+        },
+        "pl": {
+          "sha256": "fc7a0d0c718673f2603966a36b58961371003db5c82c9081608edcdcc8105afc"
+        },
+        "tr": {
+          "sha256": "a0f59cd3a0f67730e861da59e82161d1f06a285e2bf4bb630b7b585942488857"
+        },
+        "nl": {
+          "sha256": "bdd1c5d2ea413b6980db0e706e35249d4c57138582344062b95893ec0cc25ccb"
+        },
+        "ja": {
+          "sha256": "4a1566c450a5cfb0060db645eee796c50a00635ce97510e1b8494b86478c41d8"
+        },
+        "ko": {
+          "sha256": "4ee5e24a5934da724b88c3e040aead1be8e0d6859ebe448c82c094fb67f9c249"
+        },
+        "sv": {
+          "sha256": "a924432c545b55ad95af3081f3809465b4794990521ed3be6cf63080e7411d8c"
+        },
+        "da": {
+          "sha256": "be1b1052840ddf0379691caa39bfadbc0cf96b5fa3fff00054a418a201b62fd9"
+        },
+        "no": {
+          "sha256": "51a2dccc2b28fc73871a8f29a8124a79213a7a8351fc39b4d5c567685f78ace7"
+        },
+        "fi": {
+          "sha256": "30187c4846ae36356310f1cc4ab81b106a7a2ec27eac2ddbc0f8f34d8a4f9583"
+        }
+      }
+    },
+    {
+      "id": "U-STEP-02",
+      "file": "lib/content/homepage-copy.ts",
+      "keyPath": "HOMEPAGE_COPY.steps[0].t",
+      "sito": "lib/content/homepage-copy.ts HOMEPAGE_COPY.steps[0].t",
+      "celle": {
+        "es": {
+          "sha256": "a439ab201d2103e993ec09c78099c4ec4a55ad28d2a22b857c6793b0acac79a6"
+        },
+        "de": {
+          "sha256": "e0491c3433bb112825e4c916dc07ff2007807cca2116eb5a663863fa221cdb4b"
+        },
+        "fr": {
+          "sha256": "eaa35b385b3fe5407dfca84ce072cb1ad44d50454d47dd08a16542d89c3f56b4"
+        },
+        "pt": {
+          "sha256": "c0cb419f74ea130ae8f1d28cfbd0fade121de62ffd60228cf8f0e939a9f8aa53"
+        },
+        "pl": {
+          "sha256": "2533d653db915b81567f2b99293f26a165087fb55f81b4c7ab536acaa447fd9c"
+        },
+        "tr": {
+          "sha256": "bc3e237a2830671150527787a512882d068840b9bb6617da8fba9f99f772ace8"
+        },
+        "nl": {
+          "sha256": "146f462b55d80c6a76454078b7e4a06f8e5611fb8eb5b45adabfc6a8075b1c0e"
+        },
+        "ja": {
+          "sha256": "b280dfbf0603d7963f7cd38bf08159a65abeefca03c55a785f9f59931fb3853f"
+        },
+        "ko": {
+          "sha256": "29d28add58b54de981f86fda72b9662f0f19980e330c85ed56ce24837360f53b"
+        },
+        "sv": {
+          "sha256": "5accf1d9ffe73cef86ec7430d0ce5fbf8195d2bf73cb9ed6312718ef3f5ea2cc"
+        },
+        "da": {
+          "sha256": "7c4080b42c8e91ae4e26a0e059ec7f6c1a8be893358e5e24fcd9143791d0b558"
+        },
+        "no": {
+          "sha256": "af3eb92c4c53ac323654199c4b6da760773ada834114af8d45783f178ca4584b"
+        },
+        "fi": {
+          "sha256": "ef5929e09561573b80ceae51ed6c56142acafa5cfbc1f833ab921f9be3f30c80"
+        }
+      }
+    },
+    {
+      "id": "U-STEP-03",
+      "file": "lib/content/homepage-copy.ts",
+      "keyPath": "HOMEPAGE_COPY.steps[0].d",
+      "sito": "lib/content/homepage-copy.ts HOMEPAGE_COPY.steps[0].d",
+      "celle": {
+        "es": {
+          "sha256": "79c40a162079ee3773cf1c7e9891804dc07049786b2a73e853528e02663e25dd"
+        },
+        "de": {
+          "sha256": "152d52983d2b38b1c2f83967030bc9868e7aa7be56a30139eac9da2943e9bd41"
+        },
+        "fr": {
+          "sha256": "dcca0927213f9eededa3ab0749b9f4ff706f7b53b1bb901fff284fece1f42b78"
+        },
+        "pt": {
+          "sha256": "805fb13bc4fa284f328041e076d0453d803e866ca1b603bea13f8378ef933a80"
+        },
+        "pl": {
+          "sha256": "1308b8ebce6a42ded8389dcdf3d96370fccfb6c588a6c44aea2bf02cb51b3b83"
+        },
+        "tr": {
+          "sha256": "179943274e7c5618fa8d68d96e417cb70a5a120cc6ce92a03faec5c14a8e880c"
+        },
+        "nl": {
+          "sha256": "0b3a387cde333b67d0a988b102dc5e92982e30367b9339859951e776cb99d957"
+        },
+        "ja": {
+          "sha256": "8333f6ad48d80fec8627a92d8277c652cebeea3a7e46afff40ac0209aa30fe18"
+        },
+        "ko": {
+          "sha256": "9b3631d39917d831a5c461ff77720a8b0dcbb29c8f45213d630653dc8d98ea6c"
+        },
+        "sv": {
+          "sha256": "2a3271e5a4cca36f2e452e4c6f5fd0678fc01f4dd5abc65bea6b482d832db62e"
+        },
+        "da": {
+          "sha256": "08bfe33f17f9807b5f44baebd83dba6c8879481585be622599512fb291717a04"
+        },
+        "no": {
+          "sha256": "44b73240530700867fb5a9997702682b17da076145ee63a69c875ddace2533e3"
+        },
+        "fi": {
+          "sha256": "c561ddce8b2b4720ce8114b5678249637afe8b0c4544a5f246637417fe016955"
+        }
+      }
+    },
+    {
+      "id": "U-STEP-04",
+      "file": "lib/content/homepage-copy.ts",
+      "keyPath": "HOMEPAGE_COPY.steps[1].t",
+      "sito": "lib/content/homepage-copy.ts HOMEPAGE_COPY.steps[1].t",
+      "celle": {
+        "es": {
+          "sha256": "64675316081060b1ef34401e8c592634844a13f63c87c14657e3fcab0109611d"
+        },
+        "de": {
+          "sha256": "3377981a9f79d26b67328cc3612afcc7d21b0e38d3b9241d40d0418f61af35fe"
+        },
+        "fr": {
+          "sha256": "5b66266b46bc1b6312ae7f42810896967669ddf15cc56aec72759c94d61774fe"
+        },
+        "pt": {
+          "sha256": "5e619380e0246ef2e55971adcff148f9521a53b72f43eb0c04ee3fb550ed65eb"
+        },
+        "pl": {
+          "sha256": "b0970dfaf68a586b9555185a353def8676175ca22f0dc11a2ba190bcd4b5eea9"
+        },
+        "tr": {
+          "sha256": "7a4594dfcd7f2ab46b6d789db29a3a1b9c891e4ee468af7a48d68500e5d7c1ac"
+        },
+        "nl": {
+          "sha256": "79dfaddb1841a5ec451b2b319ed3e5862db9049a4e9dc4fbe337ed70e2d713d0"
+        },
+        "ja": {
+          "sha256": "60d85de58296336aea2c88dfc91e141fe7f491611bae1fed145481b270424518"
+        },
+        "ko": {
+          "sha256": "308522332041e25812fe34e6ac6f9d1702994feb6fb3dea68f677cfe34429e48"
+        },
+        "sv": {
+          "sha256": "68b31bfdb5adc634ccd9f858e63ada00b633501429754425297e36c0def36203"
+        },
+        "da": {
+          "sha256": "c5f2b38931ad2e9078fc07822d96f9c99831a69b046b84ec5468e1a176c49cf1"
+        },
+        "no": {
+          "sha256": "8f0c34ca8d0c0636094d90f7a23b68bd5dea103f161a0acb32d32ff53d5a6d21"
+        },
+        "fi": {
+          "sha256": "50a4057b41248fb0d25b947d6010822f485c6fe0e4ce75a7658a72a3aeb10a4e"
+        }
+      }
+    },
+    {
+      "id": "U-STEP-05",
+      "file": "lib/content/homepage-copy.ts",
+      "keyPath": "HOMEPAGE_COPY.steps[1].d",
+      "sito": "lib/content/homepage-copy.ts HOMEPAGE_COPY.steps[1].d",
+      "celle": {
+        "es": {
+          "sha256": "4a3950d190c5ab0f13b084999837c3f454cb8211a2170eb921e97d81ec66a152"
+        },
+        "de": {
+          "sha256": "acee4827d0555fecfb1f27c4cb6cc9e41bcacefa1b27edd6d3f07ac6afda1c14"
+        },
+        "fr": {
+          "sha256": "cf0bd05a79ff3349bceb3fdcdca91d64abf7a8dd1cb81636646c029679980d54"
+        },
+        "pt": {
+          "sha256": "91aae6089945831be46ed21d1c35643e455783dc2e47ab6974d1956d5d0e1329"
+        },
+        "pl": {
+          "sha256": "3217e5b6494b968bff6c3a38b650a0aad1ea3540662f1603319627afc34e0e13"
+        },
+        "tr": {
+          "sha256": "a920a8f7871d873854bfbdb1283cfe15cea19de994544073d7392ccffb7c1dc5"
+        },
+        "nl": {
+          "sha256": "42739a4804968949a6f10851313ea967752b8af06b2f00103432ad29df3c80bf"
+        },
+        "ja": {
+          "sha256": "1e9d4f23f8d613459035a22c1db7470abc41a0c04053420c855099f4dc8bc647"
+        },
+        "ko": {
+          "sha256": "c487017178d584428a7767a41c67e2e31ebbfc32633c4325f5fdb52ff2473522"
+        },
+        "sv": {
+          "sha256": "6a5a8e6d6a33a1024b372c002f2660eafdaa07f736ccc062bac6bb2cab46fd12"
+        },
+        "da": {
+          "sha256": "1fae4488279e8eb9bc79d9cfcf870998be33d70a53b141b7e96fc7c45a5298de"
+        },
+        "no": {
+          "sha256": "28862300f1599c261ddb12e28668e47fcaca84dd1431037188db9f82d871e388"
+        },
+        "fi": {
+          "sha256": "18b044288b6fb731630c6718a6c86629999e1cf5dda2a67b1786bef4dd48d968"
+        }
+      }
+    },
+    {
+      "id": "U-STEP-06",
+      "file": "lib/content/homepage-copy.ts",
+      "keyPath": "HOMEPAGE_COPY.steps[2].t",
+      "sito": "lib/content/homepage-copy.ts HOMEPAGE_COPY.steps[2].t",
+      "celle": {
+        "es": {
+          "sha256": "95a76921364eeb3a05c450c3d80598f4f56b607379a148992b6e4b9c87486138"
+        },
+        "de": {
+          "sha256": "dfb06f84eb377a00d5352a8ef0c62317c4783c652adfc99f0e77412ca2d9bf5e"
+        },
+        "fr": {
+          "sha256": "03de0d60bec96ea446002915c75b1a3ad76b67885ff31c4e94c2356da57783af"
+        },
+        "pt": {
+          "sha256": "858f877717e33ab50be64d55e70d4dde6eb9d4aabc02e4367ce4b420c309028b"
+        },
+        "pl": {
+          "sha256": "f2dcd8277ca49009da460d334b696ea7f6e2096645a6fc57a1ed465e244442e6"
+        },
+        "tr": {
+          "sha256": "d69d7ba870f74d95e0bfdaa5a2e16e16070e25874da9423135c401a9f229de3b"
+        },
+        "nl": {
+          "sha256": "692dd67dd0dfee26f426ffc40bebb68e35dc201e531845852722e12b17fa781e"
+        },
+        "ja": {
+          "sha256": "e598f99dac843a13f45e5e2d7e1912c34a40061a5829baabc5378f6b66110ad8"
+        },
+        "ko": {
+          "sha256": "6fae16562ee135cf36107d7260ca8ad90e7fda3132e7a09916dad1d088508344"
+        },
+        "sv": {
+          "sha256": "8add91eac7693a7bff13c735b0a9a7d694edab870d9c3cf679885ca8f6ceabc6"
+        },
+        "da": {
+          "sha256": "107b0f88289b803661bd92ab833f434fbc4a8a46141c7f813e640c374a35886c"
+        },
+        "no": {
+          "sha256": "5a8024a60f57533bc996a02def8d8e818438414d6da2923a28b898ef7905c286"
+        },
+        "fi": {
+          "sha256": "57f3ae168bdde0bde7a4eae1c5ec177f09bb9d3148e2733e84f33cc28502209b"
+        }
+      }
+    },
+    {
+      "id": "U-STEP-07",
+      "file": "lib/content/homepage-copy.ts",
+      "keyPath": "HOMEPAGE_COPY.steps[2].d",
+      "sito": "lib/content/homepage-copy.ts HOMEPAGE_COPY.steps[2].d",
+      "celle": {
+        "es": {
+          "sha256": "e98df1ead2885db8ef2ce1aaebcefcd9c559955b2b336b55aca3b36a119e8559"
+        },
+        "de": {
+          "sha256": "f63698f92ecaa333a541dd2f4a92cf05e617bd2aa3afec66ed5c265d3a147de3"
+        },
+        "fr": {
+          "sha256": "50b60c05863aacbb815e7c3ce8f287f6f38e61e1f0b633571ef9c9f12d406e6e"
+        },
+        "pt": {
+          "sha256": "6730258d01328b4b901e6f75bfef9c0ebf1d10a57108bde548ffbe6b9d822873"
+        },
+        "pl": {
+          "sha256": "ab14f793f514f513601b730b41671bad52ed9d1ae1414bdc45a7fdab8d81d5e1"
+        },
+        "tr": {
+          "sha256": "8b1c6f6949e057728f859d45df774063aba40cdaee4ab2fcec6ef394c8da017e"
+        },
+        "nl": {
+          "sha256": "09af065aac5cc9e7f6744a7ec92dd3a0adca4e0b9a56429a69b7d4271d710acf"
+        },
+        "ja": {
+          "sha256": "f83e2f69085c8faaa74a992864dfcade6f601bfbca59bdb8248f2e7d69cc0872"
+        },
+        "ko": {
+          "sha256": "92bf53b7043c73fffa6cacdfe800c85fafe95f30e3babf3e002bb1f9cdf7ff36"
+        },
+        "sv": {
+          "sha256": "c30ce5b908e2b84ab7bf8026e788079abfe521b73a24b5221594806b4871c140"
+        },
+        "da": {
+          "sha256": "1f158939b5a0789f1fceba95e5f1e3681ba0228c2bb06471374eb469d3510c30"
+        },
+        "no": {
+          "sha256": "bac0f3b2ee2a333829b63abff3e23382f9a87ab81c3b563075ad6032ef6d5ff2"
+        },
+        "fi": {
+          "sha256": "5bbf6a514195a727bf30e3d9eb093f93337636a0c6821f7e8618b81fe024e8d6"
+        }
+      }
+    },
+    {
+      "id": "U-CARD-01",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "features.items[4].title",
+      "sito": "lib/dictionaries/{lc}.json features.items[4].title",
+      "celle": {
+        "es": {
+          "sha256": "e13039d88590238be74f07bfe0c66a01e514957b9068ebbb5aa62f098ffc3132"
+        },
+        "de": {
+          "sha256": "16bcd4f6b99ae2e621b4046afd175fafdf48b5aaae464e353ca176c622b671cc"
+        },
+        "fr": {
+          "sha256": "7ddc0102f79c0d2f09d57d80622408a03cf8bd58f7dc30ae41de653e4e182335"
+        },
+        "pt": {
+          "sha256": "7f02a9397db364a557b32cdc98ffa4c069862e50fa7d1f5e377d428f116954a2"
+        },
+        "pl": {
+          "sha256": "9b735c09f8965db43ee4148e97dd92beff5b574d84f49b4df22afa74500a8d8d"
+        },
+        "tr": {
+          "sha256": "8b875ad707d8ed94e7b3933eb230bc470b94212ec508cc17604b60bfc41af209"
+        },
+        "nl": {
+          "sha256": "e798b95ec2dfa1a5a0251756325b040252a5b79fb740bd8d7d5d7179c7490006"
+        },
+        "ja": {
+          "sha256": "12fc00116dae04c625bdf58cb109103e924655ab8d8e918dc15d6ab40a426351"
+        },
+        "ko": {
+          "sha256": "9aa5dfb3b1214fe5da5b6d4c83987e537748ec6829a3c99c15887f1c885c3866"
+        },
+        "sv": {
+          "sha256": "3f73dccb29a0d125d9131c89209b371de0ee29a9902f842f3ed317bcbfce82ca"
+        },
+        "da": {
+          "sha256": "619cd68260ffb7742e4cb6831d5705c17c16ed88e004b1013a6f2fd2d5d167e2"
+        },
+        "no": {
+          "sha256": "4118d489ebc3767806d5b47ab38a3b945fb2c5877bccd5bf1bfb63c8de30748e"
+        },
+        "fi": {
+          "sha256": "7219c91a42c27d91bc481419957b71640653d52d6090d5b092fe24ea5a56ee5a"
+        }
+      }
+    },
+    {
+      "id": "U-CARD-02",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "features.items[4].desc",
+      "sito": "lib/dictionaries/{lc}.json features.items[4].desc",
+      "celle": {
+        "es": {
+          "sha256": "6573d0f04e1bf8df3e45badbf9cb2394d3cf0e169a4a8f4541444ad1b9737c7e"
+        },
+        "de": {
+          "sha256": "13c76fa2d5aced045a55a28dd8c1f2d9f467f56b30bbb7e7e321faaa485d4018"
+        },
+        "fr": {
+          "sha256": "c0ec5e8facc7eed8721cd24933de32909b865e31c84cbb130b5686f1d263e50f"
+        },
+        "pt": {
+          "sha256": "0c082f9c36cce7aeea2404a89fa36ffa99eca06c26d8ed2393cc4e5d73e4c82d"
+        },
+        "pl": {
+          "sha256": "cdf08af6d7b9bbbd5f03a8abea778171dafd01112075adbcaaeb3a47eb55c944"
+        },
+        "tr": {
+          "sha256": "7ea4294b9031d7ebb7b496456510c32b3615ce03b6a27cfeafe28d3f259e7a1d"
+        },
+        "nl": {
+          "sha256": "c0bc3c45b071fdb00436c5bb2d97bbbb2abf8ef9091cc132a3208f6dc2b11bfd"
+        },
+        "ja": {
+          "sha256": "24a8c3b566da95bd454cd70b1020f128ccadcc63182de79d7ebaea6b34f4f16b"
+        },
+        "ko": {
+          "sha256": "0b988cfa73e0befceab873ad27998586be0a2fc7baae5f5bd9e88353b5d59036"
+        },
+        "sv": {
+          "sha256": "2455c1cc5376c289a0da2eeb4bea67bae52c6969ca7e132c2eb9399823c80fa0"
+        },
+        "da": {
+          "sha256": "e87f424f80353dd33b3970c69c46992773c0a9982b73190a2b49336367ff69c4"
+        },
+        "no": {
+          "sha256": "04f6ef3060ac9c874f317a93c97f6641a80ee785db11cf66484ebf761d79a907"
+        },
+        "fi": {
+          "sha256": "fcf4df766756f4e3f25f6219a5581ae6e44afb08d3443e9dd8180f0851d38b0a"
+        }
+      }
+    },
+    {
+      "id": "U-FEAT-01",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "features.heading",
+      "sito": "lib/dictionaries/{lc}.json features.heading",
+      "celle": {
+        "es": {
+          "sha256": "a5533f5500d7407c5ac7a701801e6020bd6d92b19e2f981c4e0e68df7a143d94"
+        },
+        "de": {
+          "sha256": "5550b3496f071a15ac0bfe4ca19b209f43c5d8b34d17b24d5cf78ad9d8916fde"
+        },
+        "fr": {
+          "sha256": "9c3c45cafce1accf657efaca59e9b21746b59051b7eff1fef702654ebbc2e0ed"
+        },
+        "pt": {
+          "sha256": "275f95aaebe148e88e61fff71a12bdc36439296945a65fcd151719bb2638036b"
+        },
+        "pl": {
+          "sha256": "f9ef469034c7fe8e469ff83010aec5667a4bd5e7b14796c6bb7499caa133e8ea"
+        },
+        "tr": {
+          "sha256": "368e20be3b008bb5c79397f056180780eb5ea8d618866b7f1bdac785c384fcb0"
+        },
+        "nl": {
+          "sha256": "2d7a61787a3ac2956a88a9600cc0f0d9c394d11a51abe9990e475520b04eb0e6"
+        },
+        "ja": {
+          "sha256": "82cd02951bd4e3f46648948d4154e1e3484a09591a01e48b12af640b9a30f433"
+        },
+        "ko": {
+          "sha256": "8b6c5164b341206c68da260f66715f47f0dd9da3e2482990e8d88ec7bed06e63"
+        },
+        "sv": {
+          "sha256": "0168aa24751e2e47ee04020c080d9720e271f3a5d05fe9c780c3759a7983246f"
+        },
+        "da": {
+          "sha256": "733f6b0052fa93569e7b425a9262a1d54ffdfacafe27f86b2defe66a3ca6b6f0"
+        },
+        "no": {
+          "sha256": "ec515bab2906c95cce3706763364a1fa1e05d025904cfd7cdf3a58d5ca3a306c"
+        },
+        "fi": {
+          "sha256": "1306956ad7fa3b9c0e8278f2d4b8159f10cc60daed186540749eca3d666dafcb"
+        }
+      }
+    },
+    {
+      "id": "U-FEAT-02",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "features.items[0].desc",
+      "sito": "lib/dictionaries/{lc}.json features.items[0].desc",
+      "celle": {
+        "es": {
+          "sha256": "2a8873a8885f58fdfb5f1a324f0001b6937e5dfc2b8677f50553ab1aa26ca377"
+        },
+        "de": {
+          "sha256": "cd80a09a2dd305fd67b517135b29490690a690250abb31f3f1209ab9af480356"
+        },
+        "fr": {
+          "sha256": "2143b6d084f5d5d08e5025b3a6a41ad96a2781de6caed5768e42b33720f5c428"
+        },
+        "pt": {
+          "sha256": "cafde5e7f9a3a6f1b0f0d0a6ca0857a87e51053e7a96755c27cd595483eb2d66"
+        },
+        "pl": {
+          "sha256": "7abbc2773a8e62287087ecca70b484c3065b44f1f39583beb034ed6d73687e8a"
+        },
+        "tr": {
+          "sha256": "35af7d5c0274aa118d26dc2223db91ea9685acb3095ffdb1b3ce701e814ba8cc"
+        },
+        "nl": {
+          "sha256": "8e13b292318ba67c60a242b38a93d56afaab0ea38a7c0dd66e20de093b58da2c"
+        },
+        "ja": {
+          "sha256": "abbb72f10238573ca091ee9bdbcf3b0abcd0322c8959410da874ff2b87b4c51d"
+        },
+        "ko": {
+          "sha256": "0d2fd2b236dedcf9d243bf40b17769df85117811c507081ec859d9a4a1818275"
+        },
+        "sv": {
+          "sha256": "adfb9eab85678c1f8c540cfcda882a115ea63d45d8a9c81a4d0a15c035e0c153"
+        },
+        "da": {
+          "sha256": "060f7f7599478f4da04622136da6448b2cb4aa1f75e3d2aad694fedfd5bee7b9"
+        },
+        "no": {
+          "sha256": "a2d46cb6382120e637aaf88e5742061077d35ec5728667f19e5112a6a638f1dc"
+        },
+        "fi": {
+          "sha256": "693b14f69b6c168f46d02894aa6d3b28297dde3f78ee0dd5553f067891d8db75"
+        }
+      }
+    },
+    {
+      "id": "U-FEAT-03",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "features.items[2].desc",
+      "sito": "lib/dictionaries/{lc}.json features.items[2].desc",
+      "celle": {
+        "es": {
+          "sha256": "d7e60d0708373d6a60a3811c57397f9303afb49676efacf69678b7ca3b7c7e4f"
+        },
+        "de": {
+          "sha256": "8866f2320ccd9eac1697ed5b6823b893bb1b9dde4b8bfa5fcb67dbcd59ecbb09"
+        },
+        "fr": {
+          "sha256": "ddb3fcbda05cc4b1a3ebeb9ece7eb50bee3705807c5a7d418b97fa05fb202db0"
+        },
+        "pt": {
+          "sha256": "0b09b9b5b0114904d1dec290cc1112fdeb2f579057868c5cc7acba604e00209f"
+        },
+        "pl": {
+          "sha256": "119ccf937759ab7396d2d4610981eeccbf04a71fbd8a9f9017877a6e21314fb2"
+        },
+        "tr": {
+          "sha256": "bc3bdfc09360509361a340242bb47b575564f6f59a2515bc5dc3e85f1c2ffaf1"
+        },
+        "nl": {
+          "sha256": "40899eef981087fdfa12b77e5acfa0c508b4bfe031ad738790a37f6e9ca1b4df"
+        },
+        "ja": {
+          "sha256": "8ebe50c684fc9d6f5de533102969606dab31beded18c55bf6cddba922c75ab31"
+        },
+        "ko": {
+          "sha256": "5f20b5110bee37b547896920448cee13b1d7f223e6d9c522eb56cbdb0da1fab2"
+        },
+        "sv": {
+          "sha256": "409d7017f6e504eba7fbece6af5a8832d22fb2eec91c1009b5b6754e5c23a809"
+        },
+        "da": {
+          "sha256": "ba4b1333273223307244d50ac602f94a6d1e19d6adff416e24d7ee263d72138d"
+        },
+        "no": {
+          "sha256": "04a4a4251e42c1569ab2d72c5a1eaf64dc44a948be390b1fbcccb3b51f6967ec"
+        },
+        "fi": {
+          "sha256": "f51e9bfe02e2626d3e9e0576ce1ad223572fc0cf1febf1228eca0618b87abe33"
+        }
+      }
+    },
+    {
+      "id": "U-AI-02",
+      "file": "page.tsx -> modulo localizzato (es. lib/content/homepage-copy.ts)",
+      "keyPath": "H2 della sezione AI (page.tsx:613-618)",
+      "sito": "lib/content/home-ai-copy.ts HOME_AI_COPY.heading",
+      "celle": {
+        "es": {
+          "sha256": null
+        },
+        "de": {
+          "sha256": null
+        },
+        "fr": {
+          "sha256": null
+        },
+        "pt": {
+          "sha256": null
+        },
+        "pl": {
+          "sha256": null
+        },
+        "tr": {
+          "sha256": null
+        },
+        "nl": {
+          "sha256": null
+        },
+        "ja": {
+          "sha256": null
+        },
+        "ko": {
+          "sha256": null
+        },
+        "sv": {
+          "sha256": null
+        },
+        "da": {
+          "sha256": null
+        },
+        "no": {
+          "sha256": null
+        },
+        "fi": {
+          "sha256": null
+        }
+      }
+    },
+    {
+      "id": "U-AI-03",
+      "file": "page.tsx -> modulo localizzato",
+      "keyPath": "paragrafo della sezione AI (page.tsx:620-626)",
+      "sito": "lib/content/home-ai-copy.ts HOME_AI_COPY.body",
+      "celle": {
+        "es": {
+          "sha256": null
+        },
+        "de": {
+          "sha256": null
+        },
+        "fr": {
+          "sha256": null
+        },
+        "pt": {
+          "sha256": null
+        },
+        "pl": {
+          "sha256": null
+        },
+        "tr": {
+          "sha256": null
+        },
+        "nl": {
+          "sha256": null
+        },
+        "ja": {
+          "sha256": null
+        },
+        "ko": {
+          "sha256": null
+        },
+        "sv": {
+          "sha256": null
+        },
+        "da": {
+          "sha256": null
+        },
+        "no": {
+          "sha256": null
+        },
+        "fi": {
+          "sha256": null
+        }
+      }
+    },
+    {
+      "id": "U-AI-05",
+      "file": "page.tsx -> modulo localizzato",
+      "keyPath": "etichetta del link verso /{lc}/ai (page.tsx:628-633)",
+      "sito": "lib/content/home-ai-copy.ts HOME_AI_COPY.linkLabel",
+      "celle": {
+        "es": {
+          "sha256": null
+        },
+        "de": {
+          "sha256": null
+        },
+        "fr": {
+          "sha256": null
+        },
+        "pt": {
+          "sha256": null
+        },
+        "pl": {
+          "sha256": null
+        },
+        "tr": {
+          "sha256": null
+        },
+        "nl": {
+          "sha256": null
+        },
+        "ja": {
+          "sha256": null
+        },
+        "ko": {
+          "sha256": null
+        },
+        "sv": {
+          "sha256": null
+        },
+        "da": {
+          "sha256": null
+        },
+        "no": {
+          "sha256": null
+        },
+        "fi": {
+          "sha256": null
+        }
+      }
+    },
+    {
+      "id": "U-PRICE-02",
+      "file": "lib/pricing-section.ts",
+      "keyPath": "PRICING_SECTION.heading",
+      "sito": "lib/pricing-section.ts PRICING_SECTION.heading",
+      "celle": {
+        "es": {
+          "sha256": "75aa3fe7b3c5a1f403ee90f4c919ad26aeabda3edad7e7c94c234e85864dd46b"
+        },
+        "de": {
+          "sha256": "17b5b809b93dd877e2eb6e95aa8aca4653d9ff8246514b3888b346c58a5c8e98"
+        },
+        "fr": {
+          "sha256": "208889d374bd7a34e4bd8a9d5ed8ceabc0c0fef2fe1a0da3f53446a269643ac3"
+        },
+        "pt": {
+          "sha256": "d1724969c030bc509cf783fa49574665a22ee0a5d2978e22d29ad0b4ebb6db37"
+        },
+        "pl": {
+          "sha256": "c2491e657ff21634da9bbcc4b57745e2fa32db69e2a4aa491472a5a6c80b21c4"
+        },
+        "tr": {
+          "sha256": "447b74477a264325696087d26dbb47b9b0814bbdcb75b5a1dc2e550c282bdc84"
+        },
+        "nl": {
+          "sha256": "5c642a1977daec61e00efee2006623773a89d7bf99b19472ea21d0c0c19445d6"
+        },
+        "ja": {
+          "sha256": "e895d506342d13d6d7ce429acb05f1bbb8c976e0f9acb27e626233fa20ec8b7d"
+        },
+        "ko": {
+          "sha256": "bb83a9558e3054606902211cc5c168690e227e3f7056d6d03a8ca636393df1ee"
+        },
+        "sv": {
+          "sha256": "2501a8cd8353f9afa623bdc0f587f0f9745b3f00d534bf7adbddd33e556d84cc"
+        },
+        "da": {
+          "sha256": "b5b3ca0a8a64e42678f4c65e5b83cfa18bf8ba7d01f77e3011757639f32dc962"
+        },
+        "no": {
+          "sha256": "c6f0349b7276adac807ba31622a551fd4f398d49aa6e6a8134b74c01986de054"
+        },
+        "fi": {
+          "sha256": "8c8489957cf7efdbfc6f079e1216a3ecdf40ba45dabeedb7575d0454aab6a1e1"
+        }
+      }
+    },
+    {
+      "id": "U-PRICE-03",
+      "file": "lib/pricing-section.ts",
+      "keyPath": "PRICING_SECTION.subhead",
+      "sito": "lib/pricing-section.ts PRICING_SECTION.subhead (solo ja, ko)",
+      "celle": {
+        "ja": {
+          "sha256": "210d71a03696381660413b2dfa16b10b4b8076eb46aee7ab37ce120e5a425749"
+        },
+        "ko": {
+          "sha256": "29c3fd3197abe2007ef6b8eb2b547bbcd96bfae4c8a73e385f6a1618294d9352"
+        }
+      }
+    },
+    {
+      "id": "U-PRICE-04",
+      "file": "lib/pricing-section.ts",
+      "keyPath": "PRICING_SECTION.storeNote (chiave nuova, resa sotto subhead)",
+      "sito": "lib/pricing-section.ts PRICING_SECTION.storeNote",
+      "celle": {
+        "es": {
+          "sha256": null
+        },
+        "de": {
+          "sha256": null
+        },
+        "fr": {
+          "sha256": null
+        },
+        "pt": {
+          "sha256": null
+        },
+        "pl": {
+          "sha256": null
+        },
+        "tr": {
+          "sha256": null
+        },
+        "nl": {
+          "sha256": null
+        },
+        "ja": {
+          "sha256": null
+        },
+        "ko": {
+          "sha256": null
+        },
+        "sv": {
+          "sha256": null
+        },
+        "da": {
+          "sha256": null
+        },
+        "no": {
+          "sha256": null
+        },
+        "fi": {
+          "sha256": null
+        }
+      }
+    },
+    {
+      "id": "U-PRICE-11",
+      "file": "lib/pricing-section.ts",
+      "keyPath": "PRICING_SECTION.proTagline",
+      "sito": "lib/pricing-section.ts PRICING_SECTION.proTagline",
+      "celle": {
+        "es": {
+          "sha256": "4bfeb78e3bb4394c51fc95a89f76b968911bb9a473522e7ab2672d932501cf3f"
+        },
+        "de": {
+          "sha256": "cb50c1ff028d5ab54a0509a6b9b6f123fe8fca9715b734c1ff41d6c4acfa8cc5"
+        },
+        "fr": {
+          "sha256": "78668de7bf5283351aeb1b029fd414b6f13819ef9d015a7a5b85ee07d4d3dd63"
+        },
+        "pt": {
+          "sha256": "7d45defd781e87a18af1ac959f40e557fba09313bc1c22be491dd44e8a8dd60e"
+        },
+        "pl": {
+          "sha256": "27f3a00a1a598c5117260bd1a436c00c92f3018aee7962afb6b62120c4ca7ad8"
+        },
+        "tr": {
+          "sha256": "9ea5cb50a055691104eafb4a28e34176a2438b0c614d986d33c5a1961383fa89"
+        },
+        "nl": {
+          "sha256": "716dc20747667f3b50d6a921170e3dea3cf9c63b8e26f991c93e994809b3f9d0"
+        },
+        "ja": {
+          "sha256": "6d5757bcff318bb3272eac9e75d068b0f131b0495a6cf9ea00ac0beaca8071e4"
+        },
+        "ko": {
+          "sha256": "d88962a8f7ad3d6090de19315702df3820abadcfa228c1a94880cf13e0c33931"
+        },
+        "sv": {
+          "sha256": "485c73c1ca82afbd00687f5ca00b18d4f5e5b3ed6b6604c75580dd8d37ee039e"
+        },
+        "da": {
+          "sha256": "b8057361a051f49f42c8b1fd5159e9c4e05dd5ba913a64a246b16ca2d0875629"
+        },
+        "no": {
+          "sha256": "852c187988b73fe972c707e32fe0cb8be2f33cfa62b2739d4e4ed370a859f28b"
+        },
+        "fi": {
+          "sha256": "467a3d65e654656e97ed0140a07f1593d4d52bdd68812fbc5ebf9099b0637cd0"
+        }
+      }
+    },
+    {
+      "id": "U-PRICE-13",
+      "file": "lib/pricing-section.ts",
+      "keyPath": "PRICING_SECTION.priceFromStore (chiave nuova, nella posizione di p(\"lifetimeBothShort\"))",
+      "sito": "lib/pricing-section.ts PRICING_SECTION.priceFromStore",
+      "celle": {
+        "es": {
+          "sha256": null
+        },
+        "de": {
+          "sha256": null
+        },
+        "fr": {
+          "sha256": null
+        },
+        "pt": {
+          "sha256": null
+        },
+        "pl": {
+          "sha256": null
+        },
+        "tr": {
+          "sha256": null
+        },
+        "nl": {
+          "sha256": null
+        },
+        "ja": {
+          "sha256": null
+        },
+        "ko": {
+          "sha256": null
+        },
+        "sv": {
+          "sha256": null
+        },
+        "da": {
+          "sha256": null
+        },
+        "no": {
+          "sha256": null
+        },
+        "fi": {
+          "sha256": null
+        }
+      }
+    },
+    {
+      "id": "U-PRICE-16",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "final_cta.description",
+      "sito": "lib/dictionaries/{lc}.json final_cta.description",
+      "celle": {
+        "es": {
+          "sha256": "da4d333a94242eeb90d8aa74dd29d934b41f0d4abb3672d0c2c6ea1284a19d08"
+        },
+        "de": {
+          "sha256": "6949b2a8e5fe8d83e0cfad12232b71f56e990f629b81ca686c8e800bcff70e9f"
+        },
+        "fr": {
+          "sha256": "52cd042c3992244c58bc1cad9cf536ffd45128818a1f2971d4a66390780dcbde"
+        },
+        "pt": {
+          "sha256": "a3a181da7a857b6bb4504b4ca80ad35f1ab65f8100da4bf01e97a121fdf01ba8"
+        },
+        "pl": {
+          "sha256": "ac564e10a1b2444bf2dba3d26826587927a0e70985457bee9997ae8c66bf02c9"
+        },
+        "tr": {
+          "sha256": "821ae29f75e74b56abe7384e58ea222a0e6ec1f2a053aa9b667eae47140b5889"
+        },
+        "nl": {
+          "sha256": "a5cff683d90772647f6da64450bc89a301e1877bb3dfac7875087088b0206c1d"
+        },
+        "ja": {
+          "sha256": "04df4976855b3cc4466a1c3bdf2837a3465e91362498772ea68109382c1ec57c"
+        },
+        "ko": {
+          "sha256": "118b63e2742c0a08f087dab448f852d40ad2b4a4dbdd33e412ca0f61ae87d153"
+        },
+        "sv": {
+          "sha256": "e06215ac8d1835df77ee6fe133e9d24eb708d2fbd02534fae62b4645afc64515"
+        },
+        "da": {
+          "sha256": "8e28d572add96c811da2f8b0efb090aa52c6eac0b89abd6af543cbad7b47a866"
+        },
+        "no": {
+          "sha256": "c764fd1767d19b3561a9e2fc54f95827f0c2a160cf53351fbff31fa5e5b6e4bc"
+        },
+        "fi": {
+          "sha256": "37794a8a7b2a7894279f28e2a58f0639306a8fb58a5f2a54ab18cbb8f49dfc5b"
+        }
+      }
+    },
+    {
+      "id": "U-FAQ-01",
+      "file": "lib/content/faqs.ts",
+      "keyPath": "FAQ_IT[4] / FAQ_EN[4] (q 'Quanto costa FitMesh Sync?' / 'How much does FitMesh Sync cost?'), a",
+      "sito": "lib/content/faqs.ts SUPPORT_FAQS[lc][4] (q + a)",
+      "celle": {
+        "es": {
+          "sha256": "7990c1b68ca88e0440126eacd3395bb6aca8c59fe871729bf55fcd7afbdb77a7"
+        },
+        "de": {
+          "sha256": "bc17630dae4e7a9944dbea783e62653e60ac8dd865b698d6c20b8e0970aec16d"
+        },
+        "fr": {
+          "sha256": "53694c6ef118f9ba2015455b8ad53db0eb05c5dc005580454f16df22f6f2930b"
+        },
+        "pt": {
+          "sha256": "cdad92f937ed5362a563ae99bb3b42d936bf66ed255769cd76ce715aa2d3b316"
+        },
+        "pl": {
+          "sha256": "3087c86ee63b0c318a91bebc4f1b6590b097fee16b12fc816c0a5798baf634cc"
+        },
+        "tr": {
+          "sha256": "3087c86ee63b0c318a91bebc4f1b6590b097fee16b12fc816c0a5798baf634cc"
+        },
+        "nl": {
+          "sha256": "5836075b161e65d902142515bb9468a9b821528a52e3cacd5e5be473d9bf22d9"
+        },
+        "ja": {
+          "sha256": "270124272769c123d729957e5e180442746214cc5486658d67acde40fbc73f3f"
+        },
+        "ko": {
+          "sha256": "d50e587f1fb15da918ba7ebf49f3be8b8cb0b8174d9dbf766658e22e5df65822"
+        },
+        "sv": {
+          "sha256": "715541ab5d83ce299239e1c0ea0de514c91d29da341582bc885f0b8240f42de9"
+        },
+        "da": {
+          "sha256": "715541ab5d83ce299239e1c0ea0de514c91d29da341582bc885f0b8240f42de9"
+        },
+        "no": {
+          "sha256": "715541ab5d83ce299239e1c0ea0de514c91d29da341582bc885f0b8240f42de9"
+        },
+        "fi": {
+          "sha256": "715541ab5d83ce299239e1c0ea0de514c91d29da341582bc885f0b8240f42de9"
+        }
+      }
+    },
+    {
+      "id": "U-FAQ-02",
+      "file": "lib/content/faqs.ts",
+      "keyPath": "FAQ_IT[5] / FAQ_EN[5] (q 'Ho cambiato telefono. Perdo i miei dati?' / 'I switched phones. Do I lose my data?'), a",
+      "sito": "lib/content/faqs.ts SUPPORT_FAQS[lc][5] (q + a)",
+      "celle": {
+        "es": {
+          "sha256": "6da23822d9ce6a0116db576075cedc612a19bf511b6cb4fcb63ce28b64e3b109"
+        },
+        "de": {
+          "sha256": "874756f569a8b8d935518ac3265562a1618987afd9c4b72161ddfeea25fa4eb7"
+        },
+        "fr": {
+          "sha256": "e0a3f1e861698a9e56a2c3a343ef9338625b3f9b26d0c38091493bc13339c8e9"
+        },
+        "pt": {
+          "sha256": "f9fe084baf81c08a19cd31f7d3cf969876516844e5908b147e6e9e2048e9be73"
+        },
+        "pl": {
+          "sha256": "92c6c7b1273d9207677fd35ea1978f5ffb27942376cbc85bbb30b71855393884"
+        },
+        "tr": {
+          "sha256": "92c6c7b1273d9207677fd35ea1978f5ffb27942376cbc85bbb30b71855393884"
+        },
+        "nl": {
+          "sha256": "a60257da9dc275c860e8ad6cc43cb10290df2826a20aa92adbc9bea96e089d91"
+        },
+        "ja": {
+          "sha256": "d302c724a5a83d9eb44e73dbd9c7a7e1af5919bf9352862730cf1d52049b150d"
+        },
+        "ko": {
+          "sha256": "06acd54b6deed4e20a522f5df3cc9d25d1db0c82bef841154fe64449a878c735"
+        },
+        "sv": {
+          "sha256": "09070dc7a14e840906366af9e1e25fb6c6ef9e2b5900c9cf0cd9b2a98c87f2e9"
+        },
+        "da": {
+          "sha256": "09070dc7a14e840906366af9e1e25fb6c6ef9e2b5900c9cf0cd9b2a98c87f2e9"
+        },
+        "no": {
+          "sha256": "09070dc7a14e840906366af9e1e25fb6c6ef9e2b5900c9cf0cd9b2a98c87f2e9"
+        },
+        "fi": {
+          "sha256": "09070dc7a14e840906366af9e1e25fb6c6ef9e2b5900c9cf0cd9b2a98c87f2e9"
+        }
+      }
+    },
+    {
+      "id": "U-PRIV-11",
+      "file": "lib/dictionaries/{lc}.json",
+      "keyPath": "footer.tagline (Footer.tsx:47, reso su ogni pagina marketing)",
+      "sito": "lib/dictionaries/{lc}.json footer.tagline",
+      "celle": {
+        "es": {
+          "sha256": "5be00f6aef0a23c275caadd210009edff7d9203e17b0b6ee53d916bb94be1138"
+        },
+        "de": {
+          "sha256": "4d392decf78a57e7fdf863caebd4a3433e9ae611ce394d0f10060e148c0163b3"
+        },
+        "fr": {
+          "sha256": "039c39ff4ec1b4745cf85533ff352a0d05173340a05b4e30fd063b65d3760724"
+        },
+        "pt": {
+          "sha256": "3e24e62553e0a0bb80038170d382fc9420a1dd6fc243f60f07ed0351c5fe41a8"
+        },
+        "pl": {
+          "sha256": "112df7800125a58564f327392ccf96de4592393502f5967616b603cabcad3271"
+        },
+        "tr": {
+          "sha256": "731a2ccf5f95f07aab4524e37a33470da42366b1f68280bb4b5e05afb260509c"
+        },
+        "nl": {
+          "sha256": "a7b1f92937fe3be18ffa111fd52240229341aebd3fb5615fd8325a6779fb0f73"
+        },
+        "ja": {
+          "sha256": "ad1e90d430b85001a50e5a4ccc5ce54aa3d87fd74b016900f3bc4da3a09c641d"
+        },
+        "ko": {
+          "sha256": "de2c5be6fe1d075acad8e39ecd5a3d1e31346e79e83c91e83cdbe846a2d3fd18"
+        },
+        "sv": {
+          "sha256": "35bba3da591b50bdaa91ecc2ac47dbdabb3f23dd54987784a3993e9995d51e88"
+        },
+        "da": {
+          "sha256": "785f902be41d9f5dab73521b311c0aa1c6e2dbbb3e320400ca8383434acc6922"
+        },
+        "no": {
+          "sha256": "f4ffc22d9c80e69d039c58f0569749aecc0572008bb79784598d9497ca92fc5a"
+        },
+        "fi": {
+          "sha256": "eed5057462ad0cfb876672fd6650efa8982ea792dbef0619388ccfc6d5fb488c"
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-01",
+      "file": "lib/content/about-copy.ts",
+      "keyPath": "ABOUT_COPY.metaTitle",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.metaTitle",
+      "celle": {
+        "es": {
+          "sha256": "76d68acb7e5ec43cedb04bef4fc3470acbeccd9a48d22264ece14b80dc103b51"
+        },
+        "de": {
+          "sha256": "ba5f09f2f0935ac3d83531817c5cf9ebe1c8b6c483bc0c45882b24f5f2e546a2"
+        },
+        "fr": {
+          "sha256": "69be98969a69a2a41d370c1c8047372a92a8cb18e8037351d47419193041e268"
+        },
+        "pt": {
+          "sha256": "c05ef23d39ccabcb8c6a3240dc8e65d67d833c98d37cc9cd42f04a2f8c21d88e"
+        },
+        "pl": {
+          "sha256": "e7d5e369ffd64bb1d1e1afa9f88826509068bafda0813727628ce4645a5a0da9"
+        },
+        "tr": {
+          "sha256": "b92da47f96ee5b4c3768822885938d38e117db0fe689d9b5f345ab9d61786c3a"
+        },
+        "nl": {
+          "sha256": "67638b2bb2d84a626a2ce3b49b8593a36ab01bde410d39b26d5c8bb0eb8eee4a"
+        },
+        "ja": {
+          "sha256": "3c3a999dde1277834ad4877c590f00b65d7757304d1c108b1a07df3e1bcb0424"
+        },
+        "ko": {
+          "sha256": "2e53e9c3235c871dc4164415b4ddaaee1563ba36dd3fff7722804b27469ff03c"
+        },
+        "sv": {
+          "sha256": "59803445c5d735cdfcccc10111dc08ee6112388fac3b56240e0576a4f2aefb21"
+        },
+        "da": {
+          "sha256": "46848e8223820822583d5610901671b75a66b8a9ea01de29c846726a1fc2781c"
+        },
+        "no": {
+          "sha256": "e13b9b01829563b26e91aa741358cf55ad6f6166d3279eddf9cf2858f9bb5f11"
+        },
+        "fi": {
+          "sha256": "8d4aa9aa5353a83051782ce308a1b35628cf4ec2e7bf8a8d8bc232f4dad34ede"
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-02",
+      "file": "lib/content/about-copy.ts",
+      "keyPath": "ABOUT_COPY.metaDescription",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.metaDescription",
+      "celle": {
+        "es": {
+          "sha256": "7af6c5461c5b33cb2e56d30eb5fb62e8334548ce892ecd1ffa0afc2582f02fc1"
+        },
+        "de": {
+          "sha256": "c936319f3408fc030a8fcedcae034a17269d00cb5200a10b128adda52bacfe94"
+        },
+        "fr": {
+          "sha256": "aa9899df430e199167be3832d1e2bac6b9e7dae5027eab0e5ae229db76586958"
+        },
+        "pt": {
+          "sha256": "294c2c0527256665eb8d4af9b82e34cb3c4a1b1c24b5542043c86080b74e353b"
+        },
+        "pl": {
+          "sha256": "516c64bd61fad395baa11b85b89e797216db571c6c7c5dec8e46c1bc79811aae"
+        },
+        "tr": {
+          "sha256": "68840cf8433d4e0c463fa97beb423816c2e14fc52da24c8ad9f33522404d9476"
+        },
+        "nl": {
+          "sha256": "0bbf5e72200740a4ec148258320e4d0f223bcad2e776ac3a0c25f65d43791a2b"
+        },
+        "ja": {
+          "sha256": "e4d306b335c8045da07fb4b6ef86a51381ae58c8c7cd8eca370508b839cb3bea"
+        },
+        "ko": {
+          "sha256": "3891800f23365609d3d5fd9653c1c93c715976d7762827ab3c25107a73600f35"
+        },
+        "sv": {
+          "sha256": "47344c6642c1742a475fbf4e1a22c0581643b89e7c9f9826149bd821d192165e"
+        },
+        "da": {
+          "sha256": "0a96ee32a6dd53b1b0c636c2cb0e77e928126f8dbd34271b8ed32661a261cc7f"
+        },
+        "no": {
+          "sha256": "bb8b6fe0d35fc9cf7a689cb434f0bb90d9c1f9f35c371508dca010427efd28d2"
+        },
+        "fi": {
+          "sha256": "57502665b44d507af26d3921662af8e56bcd2b2ed2c012ecd49229e2e00edf9c"
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-03",
+      "file": "lib/content/about-copy.ts",
+      "keyPath": "ABOUT_COPY.heroTitlePrefix (spazio finale incluso)",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.heroTitlePrefix",
+      "celle": {
+        "es": {
+          "sha256": "929604750c7026f1f3b2caf9d2b902634864a54a083d3389e171c3639187162c"
+        },
+        "de": {
+          "sha256": "751f89b26ab7e438ef921e3f8824eceb3c03dfa645768ba98521d0e6e9fadd8f"
+        },
+        "fr": {
+          "sha256": "3d09c7264a1064f0daea743978a792cfd68258c1e52a5871edd61b64bfd6506c"
+        },
+        "pt": {
+          "sha256": "8acd1b7424df22693525f9ae760b3655664d9da2401841541dd3a7462b2cf247"
+        },
+        "pl": {
+          "sha256": "aaed7a443bf0723f0964a5e9e82a4399f3ba634b165176dbe8305665bdf7bfd3"
+        },
+        "tr": {
+          "sha256": "133c0d3e90c6f8f9c81e28f2ebc14b295e40d6e918ef67e7fb6ebbc05865a96c"
+        },
+        "nl": {
+          "sha256": "2ce60c5f51e0367dd18912a3c4150608ccd2bdcdab03b42e19d16da794e776ee"
+        },
+        "ja": {
+          "sha256": "6405c5259ab80a768cde34676847020de2f148dd73b5af151b79f22ab6cdfd2c"
+        },
+        "ko": {
+          "sha256": "b9be82a3dced40a45cfe308d2321a7800c73c6ee43d72db3c0b84718ebf339c4"
+        },
+        "sv": {
+          "sha256": "bacb290a26fb592bb321655a460a55f01bc131a6ad6c8366a6ab98ce43b6c8ca"
+        },
+        "da": {
+          "sha256": "51952230c2adc35aa1ba17d19363c83a5679c28bbc96bc0e33accee460b4e1bb"
+        },
+        "no": {
+          "sha256": "c288c1a2aed07595dce8fe6cdeeb21abdcf228f1c071e7e6ba55b853820f78c8"
+        },
+        "fi": {
+          "sha256": "c97d0ae981e7b3985aa03e24fc319e46da252dc687467ac66efcfe8a7029494c"
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-04",
+      "file": "lib/content/about-copy.ts",
+      "keyPath": "ABOUT_COPY.heroTitleAccent",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.heroTitleAccent",
+      "celle": {
+        "es": {
+          "sha256": "f21d952d508d4d4179f9186f6adcc00304e64d6645f05b8a8da0c4f1c09905d0"
+        },
+        "de": {
+          "sha256": "2793744244006388e83443b6fc761694ee06e01bb3d908472285d004a8cab194"
+        },
+        "fr": {
+          "sha256": "2fe3a49b5abc612b722e7a3aef9d666ef1b088bc3cdcc0964e95e9debe3e451c"
+        },
+        "pt": {
+          "sha256": "dec10613e37ab8977b37abe43bc58e180df4d6cc1e2962e13a7ecebfa4936622"
+        },
+        "pl": {
+          "sha256": "8d40187abcfebb7d3dc8b7fa4df322b06d93618e05b8b38a03ebbf99a1e0406d"
+        },
+        "tr": {
+          "sha256": "131fcab22eba2127552eec1870268906d2eb2d804f10163871a583c0a7bdab87"
+        },
+        "nl": {
+          "sha256": "933710d714328fd9d966edd0f53e0c149c22c857f41d8297153f91c6e27cb02c"
+        },
+        "ja": {
+          "sha256": "1dce3d87f9793e27f550763bcd321dceedd206d50f09b423ef98cbb934d80c07"
+        },
+        "ko": {
+          "sha256": "c871da0301f3a1ab1794275ad687daaafb75de437a3d8d303ea64c26ccc10ea2"
+        },
+        "sv": {
+          "sha256": "3dd80da65629566329c0359d615cbb993bee6cc01675fc25b7249b10e1d53f20"
+        },
+        "da": {
+          "sha256": "70a94f0a3b5d2a6806177e2d9a8daab072a0834c91f3ce12e6e8fca3fc05a78e"
+        },
+        "no": {
+          "sha256": "3dd80da65629566329c0359d615cbb993bee6cc01675fc25b7249b10e1d53f20"
+        },
+        "fi": {
+          "sha256": "e5399371cef0c9984143821c32d11b5b6b70df294531db083c72b811f2c11475"
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-05",
+      "file": "lib/content/about-copy.ts",
+      "keyPath": "ABOUT_COPY.heroDescription",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.heroDescription",
+      "celle": {
+        "es": {
+          "sha256": "81e1111d86644c6b92438d5603c79e70a37577bec5de947c0443818694d38c8e"
+        },
+        "de": {
+          "sha256": "5da0d953fe8107ed83a86748263597c23df067c4a2a5ff294ab1c3731688c42f"
+        },
+        "fr": {
+          "sha256": "e31fa6210c3dfb45d9f839aa50ed3276b4a59d0f03e0bfd3b559b4205da3666b"
+        },
+        "pt": {
+          "sha256": "7991f0b4615f9d3226a65ee377a0a7fb2ff956c832b4be6ae6673ec3bd973851"
+        },
+        "pl": {
+          "sha256": "cd5eb6489792205c6c83dc29aa2515125e4171c1622267c126952b6a564516dd"
+        },
+        "tr": {
+          "sha256": "e967664128873814d114242bacb17caafda761eb336075f6810a75ab1984e6ee"
+        },
+        "nl": {
+          "sha256": "5dfdd16724953c7a628baecb64c2fcb5c2ce4fcf0d394e4af57e7f6a72ba3f76"
+        },
+        "ja": {
+          "sha256": "d5e2526e1a5d6aef5e81bb9d49d8137dabfa2c267b01412927b65ff30167a7ff"
+        },
+        "ko": {
+          "sha256": "2ce62c3bccfa788b154321cba50596d364d80a0b910d64e55f073d18a9b7a68b"
+        },
+        "sv": {
+          "sha256": "06dad37fc8b54afc0430c59ef744f43689ba69bbbf4fbe6d4d0aaa840123c97b"
+        },
+        "da": {
+          "sha256": "8d600278f4668f3c209af762b65e38ca96960cb7b2a2734652bc2f68479eb19c"
+        },
+        "no": {
+          "sha256": "873e755126d9b682148e5de11a5f0f98b8b4a29065feb112e5787387b56608ca"
+        },
+        "fi": {
+          "sha256": "dd0377a3b9b99af89eab96c4f0b041676d3fd852de06ca3caea179ac389ac6c1"
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-08",
+      "file": "lib/content/about-copy.ts",
+      "keyPath": "ABOUT_COPY.trialDesc (non piu' resa su /about; resta interpolata in sei blocchi di lib/landing/data.ts)",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.trialDesc (solo ja, ko)",
+      "celle": {
+        "ja": {
+          "sha256": "1416860f98e5b6370ffc2a3c9d9b18e6a3bc59526b09de1982c074824c0712b0"
+        },
+        "ko": {
+          "sha256": "a7abc9359172585c08171aa7f94060ec1673dc798e82e885d8879e1fab085948"
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-10",
+      "file": "lib/content/about-copy.ts",
+      "keyPath": "ABOUT_COPY.featuresIntro",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.featuresIntro",
+      "celle": {
+        "es": {
+          "sha256": "780b485aa628e42007e1be8cc1bbe2aca4b8df550490d84b0530a5044189978f"
+        },
+        "de": {
+          "sha256": "b8a2c2419dd71b49c86f2fdb83bbd3a07636a5b72d183eab95bd8f4a6b3696d7"
+        },
+        "fr": {
+          "sha256": "a434c687933f1c340ae3fb99be0ff2c8a8545c527d515526dd0a36d1777788eb"
+        },
+        "pt": {
+          "sha256": "940f6c5bb0dae23d04ed1ee372fedc1422563e03ac79d9f33c69d133420281ca"
+        },
+        "pl": {
+          "sha256": "e526d1b6d1bc75de7eccbbb887cbc98035482d60011a83b21329115e586bc6e5"
+        },
+        "tr": {
+          "sha256": "df4ebc236515fcdd295294a60900a7cba0361b3e2db8e5d55c3b64b601b94eca"
+        },
+        "nl": {
+          "sha256": "aede0aadf151f393fa46a8803fa8e38d0a318dcf00faf0cbc6984f7e4b4b0470"
+        },
+        "ja": {
+          "sha256": "66c48820115bb27c1c15241cef5961d4b2560be75c5a16f110fb03b4ab95bdb4"
+        },
+        "ko": {
+          "sha256": "c6ab61ae1e0bd01f6deb81f153655499ad9a5cc7f45ee13fee99d3caf906b06f"
+        },
+        "sv": {
+          "sha256": "0c931d38ad50dad6bf72193aea1a5901fa10dd18ebb3ba712b227a365e12059d"
+        },
+        "da": {
+          "sha256": "5ea31d42458bf57ce07f36a58db7c584d97c4a737da435a3746790ab3f9276a0"
+        },
+        "no": {
+          "sha256": "bf8f5bbd8055523f919919276aa2887f37c663527cbe8122be1151fe81a7d7b2"
+        },
+        "fi": {
+          "sha256": "de27aa99da180c8a1e0840883904f8aaa53edfe2bb6c06469f363f5bd5b0b95a"
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-11",
+      "file": "lib/content/about-copy.ts",
+      "keyPath": "ABOUT_COPY.devicesIntro",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.devicesIntro",
+      "celle": {
+        "es": {
+          "sha256": "dd85e0354239921ee581152595f215f2af549153ea30fcebe6b335fabc1e583b"
+        },
+        "de": {
+          "sha256": "80d3e56079879675c5f6da922b208cbd69e389b8deaafa6444c35e871cf9f707"
+        },
+        "fr": {
+          "sha256": "2a2bfcb29a32a065f415c5fb8fbb94268f42d66d487c12e14433db9ebc753fe2"
+        },
+        "pt": {
+          "sha256": "df0420869bb92b1320aa4f6d8273c46113d25dc1292c18c8cd56c3abdda300f3"
+        },
+        "pl": {
+          "sha256": "710fc774cbbf222142c9cbabe724a5b4d93a5d1da3e87264cdf9ae5fde6337ac"
+        },
+        "tr": {
+          "sha256": "c179b77fd431b0ef9047c685c27030a07006f5d16c8ec4851af9313dbed2135e"
+        },
+        "nl": {
+          "sha256": "f2a5175700b4b300678f34ec4234b18d9fbf43ceb107d14fcf4c60d733e936a2"
+        },
+        "ja": {
+          "sha256": "e5cc87fe585e435590b6618f7544163dc576da9be2a78db83a307b583aac506e"
+        },
+        "ko": {
+          "sha256": "cabd8e0794a7fcc76ab347e07861b9e7eefaa9922a9619e789feee54108cc2ba"
+        },
+        "sv": {
+          "sha256": "4bd1396f515ff03528c77b9c9d1f90328151ca0f5b0beac9352ba0d302e651b7"
+        },
+        "da": {
+          "sha256": "3b17b7d04f897e8cb03e386cb98e6926535c089551de40bcc15d9e8fb2937b47"
+        },
+        "no": {
+          "sha256": "a66a2a183d6c196597c317c3887ef8b039f1d438ca23e573edb7f22546b8f97f"
+        },
+        "fi": {
+          "sha256": "d680dc874bcf2fdf378ee48a206ebbe860aaf7d333090988708cb1a7b15051d9"
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-12",
+      "file": "app/(frontend)/[locale]/(marketing)/about/page.tsx -> modulo localizzato",
+      "keyPath": "voce della lista dispositivi (about/page.tsx:175)",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.pixelWatchDevice",
+      "celle": {
+        "es": {
+          "sha256": null
+        },
+        "de": {
+          "sha256": null
+        },
+        "fr": {
+          "sha256": null
+        },
+        "pt": {
+          "sha256": null
+        },
+        "pl": {
+          "sha256": null
+        },
+        "tr": {
+          "sha256": null
+        },
+        "nl": {
+          "sha256": null
+        },
+        "ja": {
+          "sha256": null
+        },
+        "ko": {
+          "sha256": null
+        },
+        "sv": {
+          "sha256": null
+        },
+        "da": {
+          "sha256": null
+        },
+        "no": {
+          "sha256": null
+        },
+        "fi": {
+          "sha256": null
+        }
+      }
+    },
+    {
+      "id": "U-ABOUT-13",
+      "file": "lib/content/about-copy.ts",
+      "keyPath": "ABOUT_COPY.teamBody1",
+      "sito": "lib/content/about-copy.ts ABOUT_COPY.teamBody1",
+      "celle": {
+        "es": {
+          "sha256": "bdf8e4be0aa25fc7ba0061ceab26dfb0bb87d8eefce4fbec4a1ce8b4c74026f3"
+        },
+        "de": {
+          "sha256": "584065506cc6755c1c3b15bd07e1564fa76a6669698a3a95864a6da1db2054c1"
+        },
+        "fr": {
+          "sha256": "3838a7d6e0482c4d244309b49434fc9a94810d756ee2d144747718eb543ee6db"
+        },
+        "pt": {
+          "sha256": "e7da998a53cfb2e01aad6062b2d8a7002904ce91324f1873cf410d7a669af4b9"
+        },
+        "pl": {
+          "sha256": "c2f79c9fabfcd309116a2369a9f80cdf7d162da222e1e951ba12b49330499ccf"
+        },
+        "tr": {
+          "sha256": "4d2bcba0469ebd2df7d32f82f8c0e82bc5a6c0ddb47fd903f4fed8da39f4267f"
+        },
+        "nl": {
+          "sha256": "80117768d313cf3bd79b2f2c216a4e442bee43a747f0723bd2e4cd6307c54919"
+        },
+        "ja": {
+          "sha256": "58da0c587b7c50345b4fc63b6a6893aa99b1fbe6f586143cdd7ec23fd52352b5"
+        },
+        "ko": {
+          "sha256": "60c175ce18d04d52e4205230359ab7589cba3ea48a996f5458f53e73862d347b"
+        },
+        "sv": {
+          "sha256": "ee82c29d02856e679adb992f1d81f18bd26207b664bc15637ce93a337a009237"
+        },
+        "da": {
+          "sha256": "6b792dafe7172d28ca81203ad33e3abf6decdf4b931b9ff69c15b3092543695f"
+        },
+        "no": {
+          "sha256": "a97f6640e8bace5d8e14686bcd10f5f31e9d21658ca18c8a1f6f276b515a094d"
+        },
+        "fi": {
+          "sha256": "368b7f303f234a88348de5cfb78d2140f5f924b968bb6c6a8ef42c5057d67c4c"
+        }
+      }
+    },
+    {
+      "id": "U-META-01",
+      "file": "app/(frontend)/[locale]/(marketing)/layout.tsx (titles, righe 24-40) e app/(frontend)/[locale]/layout.tsx (titles, righe 27-43) -> modulo condiviso (es. lib/content/home-meta.ts) letto anche da page.tsx homeLd.name (righe 135-139)",
+      "keyPath": "home.metaTitle (titles[lc]; openGraph.title; homeLd.name)",
+      "sito": "lib/content/home-meta.ts HOME_META_TITLES",
+      "celle": {
+        "es": {
+          "sha256": "da76fcf9387fcc17086c1ead49cc71f0760b07bc93d07efa927b82013dfa9dd9"
+        },
+        "de": {
+          "sha256": "337fdb35bc453bf8eb0b3345999a997755768c633361e53159fb4409be998cff"
+        },
+        "fr": {
+          "sha256": "7d7c5a8bea7f0f3c8e76d3fa46d784cb6dc17490f8c3397282d2f378614999e6"
+        },
+        "pt": {
+          "sha256": "1241c80f8a451081e93265a4e6d13d4e07a80402bffd1c0f97e57afbb2a46870"
+        },
+        "pl": {
+          "sha256": "bd059634b0e3d4ebe44af21d6a2a752cdc2019ae6e75e59cd93ddbe94cdec5b6"
+        },
+        "tr": {
+          "sha256": "e2ddad82577397fbcc5a5f13a0bf5270959c191677b6be0db1fa8a9b3f5686c7"
+        },
+        "nl": {
+          "sha256": "31b83e160534b17088013a3c9162b63ce5c50b0b989b2cf3278f801d709df5b4"
+        },
+        "ja": {
+          "sha256": "651db96820fa9a2a2c27bb928f8053215b4c2d4ebbcbf447333235036f530f62"
+        },
+        "ko": {
+          "sha256": "a67470bd6af1b8438e3c6841200b30f9d84a1cdc0d6bd9024126cf1d166fbff0"
+        },
+        "sv": {
+          "sha256": "1bf6f778c3463ee5f4786155d9dc2e9cbf1177fb11edbd0bab29a1b16c0cab7a"
+        },
+        "da": {
+          "sha256": "2457c5b2be1201434d865baec561dbcaabc79381b98b6201df9fcf1170d5dbeb"
+        },
+        "no": {
+          "sha256": "b5347fcf568b6e21296f406c8feed012f3184b168e4859084da79bfe4e4ba3b0"
+        },
+        "fi": {
+          "sha256": "d077663f880e8a6ff0fdb94863cf0d1ca34960798e42d0c420d6dd9f9a55862d"
+        }
+      }
+    },
+    {
+      "id": "U-META-02",
+      "file": "stessi tre punti di U-META-01 (descriptions dei due layout, openGraph.description, twitter.description, homeLd.description righe 140-144)",
+      "keyPath": "home.metaDescription (descriptions[lc]; og; twitter; homeLd.description)",
+      "sito": "lib/content/home-meta.ts HOME_META_DESCRIPTIONS",
+      "celle": {
+        "es": {
+          "sha256": "a06dd2f2ab92a314df8bd5c3a1949972837d7d8441b32fbc9c6be4e566d2d61f"
+        },
+        "de": {
+          "sha256": "f18d8faf2635c1c8a0269f12dc6aeec51d4d463cc0784dfb8dc7b1c00106b080"
+        },
+        "fr": {
+          "sha256": "db88d52d8c5b3ab715e487d64b02174de2b903eb14d32fe19096a448ab9e57f0"
+        },
+        "pt": {
+          "sha256": "3412282e289faf05ea2f748e980851d5583817063b9ca7185295652e875b4d28"
+        },
+        "pl": {
+          "sha256": "c0ea26226ee3e97973071119d0693d45351d107b2607a96cd38d9585f2a6be14"
+        },
+        "tr": {
+          "sha256": "43a64421f11f209a0a307c7a22c66bcdb5cc99cf1267ae154e5ace9f33ddc033"
+        },
+        "nl": {
+          "sha256": "69240d6dd85341de18c98d7ff913540954b25410c95daf606276f0bf17426475"
+        },
+        "ja": {
+          "sha256": "58ec0e52fb9dea3e1c897bbb2ee60dc04bfabcb1998eaf1766b3c54475495299"
+        },
+        "ko": {
+          "sha256": "22f1704e378d4da2c9c811f7addbd0ee68eee27d8f079e02def969c8ecbb7647"
+        },
+        "sv": {
+          "sha256": "a7cb53294d70c328ff35d4f3395bb8ef81c5b517136761ce5692ac973d94af07"
+        },
+        "da": {
+          "sha256": "92946753fd9d7cc7ab17e036e4160866ec09b2162a845152e5ed052e1bc672f0"
+        },
+        "no": {
+          "sha256": "ae94706cfa1a6c9c9eb8c91cda3b1c4b088016280084efcade6144be42d724a4"
+        },
+        "fi": {
+          "sha256": "96b67e74fd5c601b1e2f0dc22a4d92931a162cebe3540a30053f2d8d90c3d457"
+        }
+      }
+    },
+    {
+      "id": "U-META-04",
+      "file": "lib/product-facts.ts",
+      "keyPath": "ORG_DESCRIPTIONS (righe 285-299; Organization JSON-LD su home e /about via OrganizationJsonLd.tsx:46)",
+      "sito": "lib/product-facts.ts ORG_DESCRIPTIONS",
+      "celle": {
+        "es": {
+          "sha256": "498f15b3ffc42157ddd6938eaa6b7937d39b768b2046d23e07421f9527132167"
+        },
+        "de": {
+          "sha256": "7aa5173a8b5971e022b14699e9397cbe9c9e209922ccdd4b92c46d150342fb30"
+        },
+        "fr": {
+          "sha256": "678fd6d0c91eb634dcbdef329000ca945e52499bad9ab8cfecfa09233ebc843c"
+        },
+        "pt": {
+          "sha256": "df6a3e720cdbc136f0dc7726a97cc57610415607c20b60a117ce09a7c85d2fb1"
+        },
+        "pl": {
+          "sha256": "143aa911b1b169f98491f0ddee42bf96a3007463c0a66de5ab8ccfefd6c73fa2"
+        },
+        "tr": {
+          "sha256": "6469f9fc462082ab167ebc78325ccf5c3a03398b8845e2aeb31edb26c1430c3a"
+        },
+        "nl": {
+          "sha256": "81a96f0c11b2d9395454c9172767153a19863dc31ee135ef066a0ac79a0155e6"
+        },
+        "ja": {
+          "sha256": "d90718509a9256e0dc8052d72791ded40bd8b00ece5a56ad94e7642ef8cabb5a"
+        },
+        "ko": {
+          "sha256": "139d8f719bbb51c9f4f6924321437d56d797ec6cf6f402e4316eabd142e0addd"
+        },
+        "sv": {
+          "sha256": "6638b4e4da7f1e01cc776aeb3cf5d530f92eafdef9228c81aff6bfb71211fbdb"
+        },
+        "da": {
+          "sha256": "1245541fddd82679d3282a35d9bd855236ea38288ae6bd272c8ea2fef22f4717"
+        },
+        "no": {
+          "sha256": "a0d2b1d5b23b8e8214949707a9034592bc9f5b3ff43b00aeeb1dacd17946a2a1"
+        },
+        "fi": {
+          "sha256": "7e6c680343d90a2ce174618c20d251a25d8f8790efc2e51fa7648ca65b172fbc"
+        }
+      }
+    }
+  ]
+}
