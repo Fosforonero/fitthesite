@@ -282,8 +282,8 @@ export function appOffers(platform: "android" | "ios") {
 
 // ── Descrizioni Organization (piattaforma-neutre) ───────────────────────────
 export const ORG_DESCRIPTIONS: Record<Locale, string> = {
-  it: "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard personale privacy-first nell'app, su Android (Health Connect) e iPhone (Apple Salute).",
-  en: "FitMesh Sync mirrors your smartwatch data to a privacy-first personal dashboard in the app, on Android (Health Connect) and iPhone (Apple Health).",
+  it: "FitMesh Sync è un'app per iPhone e Android che legge i dati fitness da Apple Salute o da Health Connect, o via Bluetooth da un anello Colmi compatibile, e li riunisce per giorno, anche da più dispositivi sullo stesso account.",
+  en: "FitMesh Sync is an iPhone and Android app that reads fitness data from Apple Health or Health Connect, or over Bluetooth from a compatible Colmi ring, and brings it together by day, including from several devices on the same account.",
   es: "FitMesh Sync sincroniza los datos de tu smartwatch en un panel personal de la app centrado en la privacidad, en Android (Health Connect) y iPhone (Apple Salud).",
   de: "FitMesh Sync synchronisiert deine Smartwatch-Daten mit einem datenschutzorientierten persönlichen Dashboard in der App, auf Android (Health Connect) und iPhone (Apple Health).",
   pt: "O FitMesh Sync sincroniza os dados do seu smartwatch com um painel pessoal da app focado na privacidade, no Android (Health Connect) e no iPhone (Apple Saúde).",

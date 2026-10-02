@@ -13,36 +13,38 @@
  * dava l'inglese a 12 lingue (K001, K015): ora ogni lingua legge il proprio
  * valore.
  *
- * STATO (A1a, 02/10/2026): i valori sono quelli correnti del layout
- * (marketing), copiati identici; l'unica modifica e' il trattino lungo dei
- * title (core rule 8), sostituito da ":" come gia' nei title sv/da/no/fi. I
- * testi it/en di U-META-01/02 (e le 13 lingue coperte) li scrive A2: qui NON
- * sono ancora cambiati. Le description contengono ancora gli slogan
- * «Privacy-first» / «zero tracker» che U-META-02 toglie.
+ * STATO (A2, 02/10/2026, BASE-HOME-v2.1-8961c3f9): title in 15 lingue
+ * (U-META-01: it/en dal testo base, 13 lingue da Gemini K15, tutte COPERTA E
+ * INVARIATA). Description (U-META-02): solo it/en nuovi; le 13 lingue
+ * restano al valore precedente perche' la stringa K16 di Gemini e' SCOSTATA
+ * dalla base finale (aggiunto il percorso Bluetooth): finche' Gemini non
+ * consegna l'adattamento (RICHIESTA-GEMINI-ADATTAMENTI.md) quelle 13
+ * description contengono ancora gli slogan «Privacy-first» / «zero tracker» e
+ * lo segnala il gate di A3.
  */
 import type { Locale } from "@/lib/i18n";
 
 export const HOME_META_TITLES: Record<Locale, string> = {
-  it: "FitMesh Sync: Una dashboard globale per tutti i tuoi dispositivi",
-  en: "FitMesh Sync: One global dashboard for all your devices",
-  es: "FitMesh Sync: Un panel global para todos tus dispositivos",
-  de: "FitMesh Sync: Ein globales Dashboard für alle deine Geräte",
-  pt: "FitMesh Sync: Um painel global para todos os seus dispositivos",
-  fr: "FitMesh Sync: Un tableau de bord global pour tous vos appareils",
-  pl: "FitMesh Sync: jeden globalny panel dla wszystkich Twoich urzadzen",
-  tr: "FitMesh Sync: Tum cihazlariniz icin tek bir global panel",
-  nl: "FitMesh Sync: Één global dashboard voor al je apparaten",
-  ja: "FitMesh Sync: すべてのデバイスをひとつのグローバルダッシュボードへ",
-  ko: "FitMesh Sync: 모든 기기를 위한 하나의 글로벌 대시보드",
-  sv: "FitMesh Sync: En global dashboard för alla dina enheter",
-  da: "FitMesh Sync: Ét globalt dashboard til alle dine enheder",
-  no: "FitMesh Sync: Ett globalt dashbord for alle enhetene dine",
-  fi: "FitMesh Sync: Yksi maailmanlaajuinen koontinäyttö kaikille laitteillesi",
+  it: "FitMesh Sync: i tuoi dati fitness insieme, su iPhone e Android",
+  en: "FitMesh Sync: your fitness data together, on iPhone and Android",
+  es: "FitMesh Sync: tus datos de fitness juntos, en iPhone y Android",
+  de: "FitMesh Sync: Deine Fitnessdaten zusammen, auf iPhone und Android",
+  pt: "FitMesh Sync: os teus dados de fitness juntos, no iPhone e Android",
+  fr: "FitMesh Sync : vos données de fitness réunies, sur iPhone et Android",
+  pl: "FitMesh Sync: Twoje dane fitness razem, na iPhone i Android",
+  tr: "FitMesh Sync: Fitness verileriniz bir arada, iPhone ve Android'de",
+  nl: "FitMesh Sync: je fitnessgegevens samen, op iPhone en Android",
+  ja: "FitMesh Sync：iPhoneとAndroidでフィットネスデータを一元管理",
+  ko: "FitMesh Sync: iPhone과 Android에서 피트니스 데이터를 한곳에",
+  sv: "FitMesh Sync: din träningsdata samlad, på iPhone och Android",
+  da: "FitMesh Sync: dine træningsdata samlet, på iPhone og Android",
+  no: "FitMesh Sync: treningsdataene dine samlet, på iPhone og Android",
+  fi: "FitMesh Sync: kuntotietosi yhdessä, iPhonella ja Androidilla",
 };
 
 export const HOME_META_DESCRIPTIONS: Record<Locale, string> = {
-  it: "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in una dashboard globale: passi, battito, sonno, recupero e trend. Privacy-first, zero tracker pubblicitari.",
-  en: "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one global dashboard: steps, heart rate, sleep, recovery, trends. Privacy-first. No ad trackers.",
+  it: "App per iPhone e Android: legge dati di smartwatch e anelli da Apple Salute, Health Connect o un anello Colmi compatibile via Bluetooth e li unisce per giorno.",
+  en: "iPhone and Android app that reads smartwatch and ring data from Apple Health, Health Connect or a compatible Colmi ring over Bluetooth, and combines it by day.",
   es: "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect y proveedores en la nube en un panel global: pasos, frecuencia cardíaca, sueño, recuperación y tendencias. Centrado en tu privacidad, sin rastreadores publicitarios.",
   de: "FitMesh Sync verbindet Galaxy Watch, Wear OS, Health Connect und Cloud-Dienste in einem globalen Dashboard: Schritte, Herzfrequenz, Schlaf, Erholung und Trends. Datenschutz-first. Keine Werbetracker.",
   pt: "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect e provedores em nuvem em um painel global: passos, frequência cardíaca, sono, recuperação e tendências. Privacidade em primeiro lugar. Sem rastreadores publicitários.",
