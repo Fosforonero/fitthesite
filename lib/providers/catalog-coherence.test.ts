@@ -216,17 +216,28 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
   describe("Suunto Catalog & Neutral Guardrails", () => {
     const suunto = PROVIDERS_BY_SLUG["suunto"];
 
-    it("has status 'coming-soon'", () => {
+    it("has status 'live'", () => {
       expect(suunto).toBeDefined();
-      expect(suunto.status).toBe("coming-soon");
-      expect(suunto.status).not.toBe("beta");
-      expect(suunto.status).not.toBe("live");
+      expect(suunto.status).toBe("live");
+      expect(suunto.status).not.toBe("coming-soon");
+      expect(suunto.status).not.toBe("not-available");
     });
 
-    it("has zero supported data types and workouts is strictly false", () => {
-      expect(suunto.dataTypes.every((d) => !d.supported)).toBe(true);
+    it("supports verified metrics (steps, hr, sleep, calories) and workouts is strictly false", () => {
+      const supportedKeys = suunto.dataTypes.filter((d) => d.supported).map((d) => d.key);
+      expect(supportedKeys.sort()).toEqual(["calories", "hr", "sleep", "steps"].sort());
+
       const workouts = suunto.dataTypes.find((d) => d.key === "workouts");
       expect(workouts?.supported).toBe(false);
+
+      const distance = suunto.dataTypes.find((d) => d.key === "distance");
+      expect(distance?.supported).toBe(false);
+
+      const vo2max = suunto.dataTypes.find((d) => d.key === "vo2max");
+      expect(vo2max?.supported).toBe(false);
+
+      const spo2 = suunto.dataTypes.find((d) => d.key === "spo2");
+      expect(spo2?.supported).toBe(false);
     });
 
     it("has no setupGuide", () => {
@@ -310,14 +321,16 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
   });
 
   describe("Product Facts SSOT Consistency", () => {
-    it("includes Oura in both Android and iOS supported provider lists", () => {
+    it("includes Oura and Suunto in both Android and iOS supported provider lists", () => {
       expect(SUPPORTED_PROVIDERS_ANDROID).toContain("Oura Ring");
       expect(SUPPORTED_PROVIDERS_IOS).toContain("Oura Ring");
+      expect(SUPPORTED_PROVIDERS_ANDROID).toContain("Suunto");
+      expect(SUPPORTED_PROVIDERS_IOS).toContain("Suunto");
     });
 
     it("maintains expected platform count totals", () => {
-      expect(SUPPORTED_PROVIDERS_ANDROID).toHaveLength(13);
-      expect(SUPPORTED_PROVIDERS_IOS).toHaveLength(3);
+      expect(SUPPORTED_PROVIDERS_ANDROID).toHaveLength(14);
+      expect(SUPPORTED_PROVIDERS_IOS).toHaveLength(4);
     });
   });
 
