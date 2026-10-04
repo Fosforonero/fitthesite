@@ -216,11 +216,11 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
   describe("Suunto Catalog & Neutral Guardrails", () => {
     const suunto = PROVIDERS_BY_SLUG["suunto"];
 
-    it("has status 'not-available'", () => {
+    it("has status 'coming-soon'", () => {
       expect(suunto).toBeDefined();
-      expect(suunto.status).toBe("not-available");
+      expect(suunto.status).toBe("coming-soon");
       expect(suunto.status).not.toBe("beta");
-      expect(suunto.status).not.toBe("coming-soon");
+      expect(suunto.status).not.toBe("live");
     });
 
     it("has zero supported data types and workouts is strictly false", () => {
@@ -274,10 +274,9 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
   describe("Universal not-available Status Invariants", () => {
     const notAvailableProviders = PROVIDERS.filter((p) => p.status === "not-available");
 
-    it("ensures at least Huawei and Suunto are not-available", () => {
+    it("ensures at least Huawei is not-available", () => {
       const slugs = notAvailableProviders.map((p) => p.slug);
       expect(slugs).toContain("huawei");
-      expect(slugs).toContain("suunto");
     });
 
     it("strictly requires ZERO supported data types on all not-available providers", () => {
