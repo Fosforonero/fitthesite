@@ -439,6 +439,27 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "image",
+      src: "/blog/screenshots/demo-site/04_sleep_stages.webp",
+      alt: {
+        it: "Schermata dell'app FitMesh su iPhone con riepilogo del sonno e ipnogramma degli stadi (interfaccia in lingua inglese, dati dimostrativi sintetici)",
+        en: "FitMesh app screen on iPhone showing sleep overview and stages hypnogram (English interface, synthetic demonstration data)",
+        de: "FitMesh-App-Bildschirm auf dem iPhone mit Schlafübersicht und Phasen-Hypnogramm (englische Oberfläche, synthetische Demodaten)",
+        fr: "Écran de l'application FitMesh sur iPhone affichant le récapitulatif du sommeil et l'hypnogramme des phases (interface en anglais, données de démonstration synthétiques)",
+        es: "Pantalla de la aplicación FitMesh en iPhone con resumen de sueño e hipnograma de fases (interfaz en inglés, datos de demostración sintéticos)",
+      },
+      caption: {
+        it: "Visualizzazione delle fasi del sonno nell'app FitMesh (schermata acquisita su iPhone con dati dimostrativi sintetici: illustra la consultazione nell'app, non la procedura di configurazione in Health Connect su Android).",
+        en: "Sleep stages view in the FitMesh app (screen captured on iPhone with synthetic demonstration data: illustrates metric display in the app, not the Health Connect setup procedure on Android).",
+        de: "Schlafphasenansicht in der FitMesh-App (Screenshot auf dem iPhone mit synthetischen Demodaten: zeigt die Ansicht in der App, nicht die Health-Connect-Einrichtung auf Android).",
+        fr: "Affichage des phases de sommeil dans l'application FitMesh (capture d'écran sur iPhone avec données de démonstration synthétiques : illustre la consultation dans l'application et non la configuration de Health Connect sur Android).",
+        es: "Visualización de las fases del sueño en la app FitMesh (captura en iPhone con datos de demostración sintéticos: ilustra la consulta en la aplicación, no el proceso de configuración en Health Connect en Android).",
+      },
+      width: 1206,
+      height: 2622,
+      narrow: true,
+    },
+    {
       type: "heading",
       level: 2,
       text: {

@@ -212,6 +212,25 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "image",
+      src: "/blog/screenshots/demo-site/02_intraday_steps.webp",
+      alt: {
+        it: "Schermata dell'app FitMesh con grafico orario dei passi e linea tratteggiata della media (interfaccia in lingua inglese, dati dimostrativi sintetici)",
+        en: "FitMesh app screen showing hourly steps chart and dashed baseline line (English interface, synthetic demonstration data)",
+        de: "FitMesh-App-Bildschirm mit stündlichem Schrittdiagramm und gestrichelter Durchschnittslinie (englische Oberfläche, synthetische Demodaten)",
+        fr: "Écran de l'application FitMesh affichant le graphique horaire des pas et la ligne pointillée de référence (interface en anglais, données de démonstration synthétiques)",
+      },
+      caption: {
+        it: "Visualizzazione oraria dei passi in FitMesh con la linea tratteggiata della media dei giorni precedenti (interfaccia in inglese, dati dimostrativi sintetici).",
+        en: "Hourly steps view in FitMesh with the dashed line representing previous days' average (English interface, synthetic demo data).",
+        de: "Stündliche Schrittansicht in FitMesh mit der gestrichelten Linie des Durchschnitts der Vortage (englische Oberfläche, synthetische Demodaten).",
+        fr: "Vue horaire des pas dans FitMesh avec la ligne pointillée de la moyenne des jours précédents (interface en anglais, données de démonstration synthétiques).",
+      },
+      width: 1206,
+      height: 2622,
+      narrow: true,
+    },
+    {
       type: "callout",
       variant: "info",
       title: {
