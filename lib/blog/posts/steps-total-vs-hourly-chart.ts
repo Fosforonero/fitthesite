@@ -196,10 +196,10 @@ export const post: BlogPost = {
       type: "image",
       src: "/blog/screenshots/demo-site/02_intraday_steps.webp",
       alt: {
-        it: "Schermata dell'app FitMesh con totale giornaliero dei passi, andamento cumulativo e barre dei passi nell'ora (interfaccia in lingua inglese, dati dimostrativi sintetici)",
-        en: "FitMesh app screen showing daily steps total, cumulative progression curve, and hourly step bars (English interface, synthetic demonstration data)",
-        de: "FitMesh-App-Bildschirm mit Tagesgesamtschritten, kumulativem Verlauf und stündlichen Schrittbalken (englische Oberfläche, synthetische Demodaten)",
-        fr: "Écran de l'application FitMesh affichant le total quotidien des pas, la progression cumulée et les barres horaires (interface en anglais, données de démonstration synthétiques)",
+        it: "Schermata dell'app FitMesh con totale giornaliero dei passi, andamento cumulativo e distribuzione oraria (interfaccia in lingua inglese, dati dimostrativi sintetici)",
+        en: "FitMesh app screen showing daily steps total, cumulative progression curve, and hourly distribution (English interface, synthetic demonstration data)",
+        de: "FitMesh-App-Bildschirm mit Tagesgesamtschritten, kumulativem Verlauf und stündlicher Verteilung (englische Oberfläche, synthetische Demodaten)",
+        fr: "Écran de l'application FitMesh affichant le total quotidien des pas, la progression cumulée et la répartition horaire (interface en anglais, données de démonstration synthétiques)",
       },
       caption: {
         it: "Dettaglio dei passi in FitMesh: totale giornaliero in alto, andamento cumulativo e distribuzione dei passi nelle singole ore (interfaccia in inglese, dati dimostrativi sintetici).",
