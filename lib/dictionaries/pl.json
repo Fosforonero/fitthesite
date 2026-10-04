@@ -6,19 +6,18 @@
   },
   "hero": {
     "badge": "Dostępne na Androida i iOS",
-    "heading_1": "Jeden globalny panel",
-    "heading_accent": "dla wszystkich Twoich urządzeń.",
-    "description": "Połącz dane zdrowotne z wearables na Androidzie przez Health Connect oraz, na iPhonie, z Apple Zdrowie i obsługiwanych pierścieni, w jednym widoku. Kroki, sen, tętno, regeneracja i trendy, bez przełączania się między aplikacjami.",
-    "cta_secondary": "Dowiedz się więcej",
-    "pricing": "Jednorazowy zakup od €3,99 lub €1,19 co 6 miesięcy · bezpieczna płatność"
+    "heading_1": "Twoje dane fitness, razem.",
+    "heading_accent": "Nawet gdy zmieniasz urządzenie.",
+    "description": "Działa także z jednym zegarkiem. Jeśli zmienisz telefon lub używasz kilku, zaloguj się na to samo konto i znajdziesz zsynchronizowane wcześniej dane, pod warunkiem posiadania połączenia i aktywnego dostępu. Treningi zarejestrowane w aplikacji pozostają na telefonie, który je zarejestrował.",
+    "cta_secondary": "Dowiedz się więcej"
   },
   "features": {
     "kicker": "Funkcje",
-    "heading": "Wszystko, co rejestruje Twój smartwatch, uporządkowane i zwizualizowane.",
+    "heading": "Dane z Twojego smartwatcha odczytywane przez FitMesh, uporządkowane według dni.",
     "items": [
       {
         "title": "Kroki i dystans",
-        "desc": "Synchronizuje się z Health Connect i Samsung Health. Aktualizacje w tle na Androidzie w trybie best-effort, gdy optymalizacja baterii jest wyłączona; zawsze aktualne po otwarciu aplikacji."
+        "desc": "Kroki i dystans odczytane z Apple Health lub Health Connect, albo przez Bluetooth ze zgodnego pierścienia Colmi. Na Androidzie aktualizacja w tle zależy od ustawień baterii; aby odświeżyć ręcznie, dotknij «Synchronizuj teraz» w aplikacji."
       },
       {
         "title": "Tętno",
@@ -26,15 +25,15 @@
       },
       {
         "title": "Sen z fazami",
-        "desc": "Całkowity czas, głęboki, REM, lekki, czuwanie. Kolorowy wykres i natychmiastowa ocena jakości snu."
+        "desc": "Całkowity czas trwania, głęboki, REM, płytki, wybudzenie. Kolorowy pasek i wskaźnik jakości."
       },
       {
         "title": "Kalorie i aktywność",
-        "desc": "Kalorie aktywne i podstawowe, trasa, przewyższenie, piętra. Spacery na zielono, treningi na czerwono."
+        "desc": "Kalorie aktywne i podstawowe, przewyższenie, piętra. Spacery na zielono, treningi na czerwono."
       },
       {
-        "title": "Globalny panel wielu urządzeń",
-        "desc": "Wiele zegarków, wielu dostawców, jeden widok. FitMesh łączy źródła, usuwa duplikaty i zachowuje najlepszą wartość dla każdej metryki."
+        "title": "Wiele urządzeń, jeden dzień",
+        "desc": "Kroki, dystans, sen z fazami, tętno spoczynkowe i treningi odczytane z Apple Health lub Health Connect, albo ze zgodnego pierścienia Colmi przez Bluetooth."
       },
       {
         "title": "Mesh Rodzina",
@@ -43,17 +42,14 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Prywatność na pierwszym miejscu",
-    "heading": "Twoje dane zdrowotne nie są produktem.",
-    "description": "FitMesh Sync nigdy nie sprzedaje, nie udostępnia i nie profiluje. Twoje dane są synchronizowane z zarządzanym przez FitMesh backendem w chmurze (Supabase, infrastruktura UE) — możesz je usunąć w dowolnym momencie w ustawieniach aplikacji.",
     "cta": "Przeczytaj Politykę Prywatności"
   },
   "final_cta": {
     "heading": "Gotowy, żeby zacząć?",
-    "description": "Pobierz aplikację, nadaj uprawnienia Health Connect i w 30 sekund Twoje dane są aktywne."
+    "description": "Pobierz FitMesh Sync, zaloguj się i przyznaj dostęp do Apple Health na iPhonie lub Health Connect na Androidzie."
   },
   "footer": {
-    "tagline": "Synchronizuj dane smartwatcha z własnym, premium panelem. Prywatność na pierwszym miejscu. Nigdy nie sprzedajemy Twoich danych stronom trzecim, żadnych trackerów reklamowych.",
+    "tagline": "Aplikacja łącząca Twoje dane fitness dzień po dniu, na iPhone'a i Androida.",
     "product": "Produkt",
     "legal": "Prawne",
     "rights": "Wszelkie prawa zastrzeżone.",

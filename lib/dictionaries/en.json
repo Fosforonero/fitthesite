@@ -6,19 +6,18 @@
   },
   "hero": {
     "badge": "Available on Android and iOS",
-    "heading_1": "One global dashboard",
-    "heading_accent": "for all your devices.",
-    "description": "Bring health data from Android wearables through Health Connect and, on iPhone, from Apple Health and supported rings, into one view. Steps, sleep, heart rate, recovery and trends, without jumping between apps.",
-    "cta_secondary": "Learn more",
-    "pricing": "One-time from €3.99, or €1.19 every 6 months · secure payment"
+    "heading_1": "Your fitness data, together.",
+    "heading_accent": "Even when you switch devices.",
+    "description": "It works with a single watch too. If you switch phones or use more than one, sign in with the same account and you will see the data already synced, as long as you have a connection and active access. Workouts recorded with the app stay on the phone that recorded them.",
+    "cta_secondary": "Learn more"
   },
   "features": {
     "kicker": "Features",
-    "heading": "Everything your smartwatch records, organized and visualized.",
+    "heading": "The smartwatch data FitMesh reads, organized by day.",
     "items": [
       {
         "title": "Steps & distance",
-        "desc": "Syncs with Health Connect and Samsung Health. Best-effort background updates on Android when battery optimization is disabled; always current when you open the app."
+        "desc": "Steps and distance read from Apple Health or Health Connect, or over Bluetooth from a compatible Colmi ring. On Android, background updates depend on your battery settings; to update manually, tap “Sync now” in the app."
       },
       {
         "title": "Heart rate",
@@ -26,15 +25,15 @@
       },
       {
         "title": "Sleep with stages",
-        "desc": "Total duration, deep, REM, light, awake. Color-coded bar and instant quality badge."
+        "desc": "Total duration, deep, REM, light, awake. Color-coded bar and quality indicator."
       },
       {
         "title": "Calories & activity",
-        "desc": "Active and basal calories, route, elevation, floors climbed. Walks in green, workouts in red."
+        "desc": "Active and basal calories, elevation, floors climbed. Walks in green, workouts in red."
       },
       {
-        "title": "Global multi-device dashboard",
-        "desc": "Multiple watches, multiple providers, one view. FitMesh merges sources, deduplicates data and keeps the best value for every metric."
+        "title": "Several devices, one day",
+        "desc": "When several sources count steps on the same day, FitMesh shows one step count. By default it builds that count based on how reliable and complete the data is and, with a ring paired over Bluetooth and the phone's health app, it can build it hour by hour. In the app you can also pick the source you prefer for steps. If a number doesn't add up, compare it with the manufacturer's app."
       },
       {
         "title": "Family Mesh",
@@ -43,17 +42,14 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Privacy-first",
-    "heading": "Your health data is not a product.",
-    "description": "FitMesh Sync never sells, shares or profiles. Your data syncs to FitMesh's managed cloud backend (Supabase, EU infrastructure) — you can delete it anytime from the app settings.",
     "cta": "Read the Privacy Policy"
   },
   "final_cta": {
     "heading": "Ready to start?",
-    "description": "Download the app, grant Health Connect permissions, and in 30 seconds your data is live."
+    "description": "Download FitMesh Sync, sign in and allow access to Apple Health on iPhone or Health Connect on Android."
   },
   "footer": {
-    "tagline": "Sync your smartwatch data to a premium dashboard of your own. Privacy-first. No selling your data to third parties, no ad trackers.",
+    "tagline": "The app that brings your fitness data together by day, on iPhone and Android.",
     "product": "Product",
     "legal": "Legal",
     "rights": "All rights reserved.",
@@ -159,7 +155,6 @@
       "metaDescription": "What happens to your FitMesh Sync access now that your free trial has ended.",
       "title": "Your free trial has ended",
       "iosBody": "Your access keeps working: we're fixing purchases on the App Store, and in the meantime you don't lose anything. You don't need to do anything — the app works exactly as before.",
-      "iosNote": "If in the future you'd like a subscription paid directly through the App Store, we'll let you know here as soon as it's ready.",
       "androidBody": "You can continue right away here.",
       "androidCta": "Open Play Store",
       "androidHint": "If you already have FitMesh installed, open it directly on your phone and complete the purchase from there.",

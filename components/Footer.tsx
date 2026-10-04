@@ -6,6 +6,7 @@ import { LANDING_PAGES_BY_SLUG } from "@/lib/landing/data";
 import { landingLinkHref } from "@/lib/landing/indexability";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 import { famigliaLinkHref } from "@/lib/content/static-page-locales";
+import { isFeatureAvailable } from "@/lib/feature-status";
 import { REDDIT_URL, REDDIT_COMMUNITY_LIVE } from "@/lib/product-facts";
 import { COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
 import RedditIcon from "@/components/RedditIcon";
@@ -47,14 +48,10 @@ export default function Footer({
             {dict.footer.tagline}
           </p>
 
-          {/* Status pill */}
-          <div className="mt-6 inline-flex items-center gap-2 px-3 py-1.5 rounded-pill border border-white/[0.06] bg-white/[0.02] text-xs text-text-muted">
-            <span className="relative flex w-2 h-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-brand-green opacity-75 animate-ping motion-reduce:animate-none" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-green" />
-            </span>
-            {locale === "it" ? "Tutti i sistemi operativi" : "All systems operational"}
-          </div>
+          {/* U-FOOT-01 (02/10/2026): tolta la pillola di stato di servizio:
+              un'affermazione assoluta non collegata a nessun monitor, in inglese per
+              13 lingue. Nessuno stato duplicato qui: gli stati di funzione
+              vengono solo da lib/feature-status.ts. */}
         </div>
 
         <div className="text-sm lg:col-span-3">
@@ -69,7 +66,12 @@ export default function Footer({
                 pagina indicizzabile (anchor-verso-noindex, trovato dal
                 guardrail). famigliaLinkHref: lc-diretto→EN-fallback, mai
                 null perché EN è sempre in FAMIGLIA_COMPLETE_LOCALES. */}
-            <li><Link href={famigliaLinkHref(locale)} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Mesh Famiglia" : "Family Mesh"}</Link></li>
+            {/* U-FOOT-02: la Mesh e' in sviluppo e non disponibile; un link di
+                prodotto la presenterebbe come funzione. Compare solo se
+                lib/feature-status.ts la da' disponibile. */}
+            {isFeatureAvailable("familyMesh") && (
+              <li><Link href={famigliaLinkHref(locale)} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Mesh Famiglia" : "Family Mesh"}</Link></li>
+            )}
             {dueTelefoniHref && (
               <li><Link href={dueTelefoniHref} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Android + iPhone" : "Android + iPhone"}</Link></li>
             )}

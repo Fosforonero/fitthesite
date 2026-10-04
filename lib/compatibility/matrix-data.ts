@@ -364,10 +364,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Google Health transfère à Health Connect les pas, le rythme cardiaque, la durée du sommeil, les calories et les entraînements.",
       },
       stepD: {
-        it: "FitMesh Android (release 3.10.0+191) legge i dati standard da Health Connect e aggiorna la dashboard personale senza richiedere abbonamenti premium.",
-        en: "FitMesh Android (release 3.10.0+191) reads standard data from Health Connect and updates your personal dashboard without requiring premium subscriptions.",
-        de: "FitMesh Android (Release 3.10.0+191) liest Standarddaten aus Health Connect aus und aktualisiert das Dashboard ohne Pflicht zu Premium-Abos.",
-        fr: "FitMesh Android (version 3.10.0+191) lit les données standard depuis Health Connect et met à jour le tableau de bord sans abonnement premium.",
+        it: "FitMesh Android (release 3.10.0+191) legge i dati standard da Health Connect e aggiorna la dashboard personale.",
+        en: "FitMesh Android (release 3.10.0+191) reads standard data from Health Connect and updates your personal dashboard.",
+        de: "FitMesh Android (Release 3.10.0+191) liest Standarddaten aus Health Connect aus und aktualisiert das Dashboard.",
+        fr: "FitMesh Android (version 3.10.0+191) lit les données standard depuis Health Connect et met à jour le tableau de bord.",
       },
     },
     metricsSummary: {

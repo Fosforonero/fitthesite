@@ -27,6 +27,7 @@ import { isLocaleInCopy } from "@/lib/content/page-copy-gate";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { getFamigliaComingSoon } from "@/lib/content/famiglia-coming-soon";
+import { isFeatureAvailable } from "@/lib/feature-status";
 
 const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.app";
 
@@ -36,14 +37,18 @@ const PLAY_URL = "https://play.google.com/store/apps/details?id=com.fitmeshsync.
  * Store, worldwide) sia su iOS (App Store, disponibile in tutti gli store
  * supportati, incluse tutte le storefront dell'Unione Europea) — la
  * sospensione non dipende più dalla disponibilità sugli store. Quando la feature lato app sarà pronta:
- * flip `COMING_SOON` a `false` per riattivare la landing piena.
+ * `COMING_SOON` NON e' piu' una costante a mano: deriva da
+ * `CAPABILITY_STATUS.familyMesh` (lib/product-facts.ts, fonte unica dello stato,
+ * letta tramite lib/feature-status.ts). La landing piena torna solo quando lo
+ * stato passa a live_verified/live_limited, dopo un rilascio reale e un nuovo
+ * esame del suo testo (contiene ancora formule non verificate).
  *
  * Mantenuto l'URL stabile per SEO (Google ha già indicizzato) ma il body
  * mostra uno stato "in arrivo" con CTA che rimanda al download dell'app
  * (/it#download): /beta non è più una pagina di iscrizione (è l'archivio
  * storico del programma Founder, chiuso), quindi non va più usata come CTA.
  */
-const COMING_SOON = true;
+const COMING_SOON = !isFeatureAvailable("familyMesh");
 
 const COPY = {
   it: {

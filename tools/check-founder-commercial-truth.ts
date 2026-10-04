@@ -239,7 +239,6 @@ const HELPER_DEFINITION_FILES = new Set(["lib/founder/historical-note.ts"]);
 const KNOWN_UNGATED_DATE_CLAIM_DEBT = new Set([
   "app/(frontend)/[locale]/(marketing)/terms/page.tsx",
   "lib/blog/posts/fitmesh-gratis-prezzo-founder.ts",
-  "lib/blog/posts/come-funziona-fitmesh.ts",
   "lib/blog/posts/migliori-anelli-economici.ts",
   "lib/blog/posts/tracciare-sonno-anello.ts",
   "lib/blog/posts/anello-smart-guida-completa.ts",

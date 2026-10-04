@@ -209,10 +209,6 @@ export default async function TrialExpiredPage({
               {te?.iosBody ??
                 "Your access keeps working: we're fixing purchases on the App Store, and in the meantime you don't lose anything. You don't need to do anything — the app works exactly as before."}
             </p>
-            <p className="mt-3 text-sm text-text-muted">
-              {te?.iosNote ??
-                "If in the future you'd like a subscription paid directly through the App Store, we'll let you know here as soon as it's ready."}
-            </p>
           </section>
         )}
 

@@ -6,19 +6,18 @@
   },
   "hero": {
     "badge": "Android ve iOS'ta mevcut",
-    "heading_1": "Tek bir global panel",
-    "heading_accent": "tüm cihazlarınız için.",
-    "description": "Android giyilebilir cihazlardan Health Connect üzerinden ve iPhone'da Apple Sağlık ile desteklenen yüzüklerden gelen sağlık verilerini tek bir görünümde birleştirin. Adımlar, uyku, kalp atış hızı, toparlanma ve eğilimler, uygulamalar arasında geçiş yapmadan.",
-    "cta_secondary": "Daha fazla bilgi",
-    "pricing": "€3,99'dan başlayan tek seferlik ödeme veya 6 ayda bir €1,19 · güvenli ödeme"
+    "heading_1": "Fitness verileriniz, bir arada.",
+    "heading_accent": "Cihazınızı değiştirdiğinizde bile.",
+    "description": "Tek bir saatle de çalışır. Telefonunuzu değiştirirseniz veya birden fazla telefon kullanırsanız aynı hesapla giriş yapın ve bağlantınız ile etkin erişiminiz olduğu sürece önceden eşitlenmiş verileri bulun. Uygulama ile kaydedilen antrenmanlar kaydedildikleri telefonda kalır.",
+    "cta_secondary": "Daha fazla bilgi"
   },
   "features": {
     "kicker": "Özellikler",
-    "heading": "Akıllı saatinizin kaydettiği her şey, düzenlenmiş ve görselleştirilmiş.",
+    "heading": "Akıllı saatinizin FitMesh tarafından okunan ve günlere göre düzenlenen verileri.",
     "items": [
       {
         "title": "Adımlar ve mesafe",
-        "desc": "Health Connect ve Samsung Health ile senkronize olur. Pil optimizasyonu devre dışı bırakıldığında Android'de best-effort arka plan güncellemeleri; uygulamayı açtığınızda her zaman güncel."
+        "desc": "Apple Health veya Health Connect'ten ya da Bluetooth üzerinden uyumlu bir Colmi yüzüğünden okunan adımlar ve mesafe. Android'de arka plan güncellemesi pil ayarlarına bağlıdır; manuel güncellemek için uygulamada «Şimdi senkronize et» seçeneğine dokunun."
       },
       {
         "title": "Kalp atış hızı",
@@ -26,15 +25,15 @@
       },
       {
         "title": "Evrelerle uyku",
-        "desc": "Toplam süre, derin, REM, hafif, uyanık. Renk kodlu çubuk ve anlık kalite rozeti."
+        "desc": "Toplam süre, derin, REM, hafif, uyanık. Renkli çubuk ve kalite göstergesi."
       },
       {
         "title": "Kalori ve aktivite",
-        "desc": "Aktif ve bazal kalori, rota, yükseklik, çıkılan kat. Yürüyüşler yeşil, antrenmanlar kırmızı."
+        "desc": "Aktif ve bazal kalori, yükseklik, çıkılan kat. Yürüyüşler yeşil, antrenmanlar kırmızı."
       },
       {
-        "title": "Küresel çok cihazlı panel",
-        "desc": "Birden fazla saat, birden fazla sağlayıcı, tek görünüm. FitMesh kaynakları birleştirir, verileri tekilleştirir ve her metrik için en iyi değeri saklar."
+        "title": "Birden fazla cihaz, tek bir gün",
+        "desc": "Apple Health veya Health Connect'ten ya da Bluetooth üzerinden uyumlu bir Colmi yüzüğünden okunan adımlar, mesafe, evreleriyle uyku, dinlenme kalp atış hızı ve antrenmanlar."
       },
       {
         "title": "Mesh Aile",
@@ -43,17 +42,14 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Gizlilik önce gelir",
-    "heading": "Sağlık verileriniz bir ürün değildir.",
-    "description": "FitMesh Sync asla satmaz, paylaşmaz veya profil oluşturmaz. Verileriniz FitMesh tarafından yönetilen bulut arka ucuna (Supabase, AB altyapısı) senkronize edilir — uygulama ayarlarından istediğiniz zaman silebilirsiniz.",
     "cta": "Gizlilik Politikasını Oku"
   },
   "final_cta": {
     "heading": "Başlamaya hazır mısınız?",
-    "description": "Uygulamayı indirin, Health Connect izinlerini verin ve 30 saniyede verileriniz canlıya geçer."
+    "description": "FitMesh Sync uygulamasını indirin, giriş yapın ve iPhone'da Apple Health'e veya Android'de Health Connect'e izin verin."
   },
   "footer": {
-    "tagline": "Akıllı saat verilerinizi kendi premium panelinizle senkronize edin. Gizlilik önce gelir. Verilerinizi asla üçüncü taraflara satmayız, reklam takipçileri yok.",
+    "tagline": "Fitness verilerinizi gün bazında bir araya getiren uygulama, iPhone ve Android'de.",
     "product": "Ürün",
     "legal": "Yasal",
     "rights": "Tüm hakları saklıdır.",

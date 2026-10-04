@@ -147,7 +147,6 @@ export type Dictionary = {
     heading_accent: string;
     description: string;
     cta_secondary: string;
-    pricing: string;
   };
   features: {
     kicker: string;
@@ -155,9 +154,6 @@ export type Dictionary = {
     items: Array<{ title: string; desc: string }>;
   };
   privacy_block: {
-    kicker: string;
-    heading: string;
-    description: string;
     cta: string;
   };
   final_cta: {

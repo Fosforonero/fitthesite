@@ -898,8 +898,8 @@ export const post: BlogPost = {
       ctaHref: {
         it: "/it/sync/fitbit",
         en: "/en/sync/fitbit",
-        de: "/de/lp/fitbit-daten-exportieren-google",
-        fr: "/fr/lp/exporter-donnees-fitbit-google",
+        de: "/de/sync/fitbit",
+        fr: "/fr/sync/fitbit",
       },
     },
   ],

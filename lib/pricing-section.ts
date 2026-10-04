@@ -1,8 +1,10 @@
 /**
  * lib/pricing-section.ts — copy localizzata della sezione Pricing in homepage.
  *
- * I PREZZI vivono in lib/pricing.ts (unica fonte di verità): qui solo etichette
- * e feature. en come fallback per le lingue non compilate (vedi tl()).
+ * Nessun importo in questa sezione (S02, 02/10/2026): gli importi vivono in
+ * lib/pricing.ts ma la home non li rende. Qui solo etichette. en come fallback
+ * per le lingue non compilate (vedi tl()), TRANNE le chiavi nuove storeNote e
+ * priceFromStore, che si leggono con tlOwn() senza ripiego.
  *
  * Sprint P0.10K (2026-07-31): chiusura commerciale del sito. `heading`
  * menzionava "Da founder, Pro a vita"/"As a founder, lifetime Pro" SENZA
@@ -79,8 +81,8 @@ export const PRICING_SECTION = {
     pl: "Cennik",
     tr: "Fiyatlandırma",
     nl: "Prijzen",
-    ja: "料金",
-    ko: "가격",
+    ja: "FitMesh Proを14日間お試しいただけます。期間終了後、Pro機能を引き続き利用するには購入または定期購入が必要です。",
+    ko: "FitMesh Pro를 14일 동안 무료로 체험해 보세요. 체험 기간이 끝나면 Pro 기능을 계속 사용하기 위해 구매 또는 구독이 필요합니다.",
     sv: "Priser",
     da: "Priser",
     no: "Priser",
@@ -91,21 +93,21 @@ export const PRICING_SECTION = {
    * + HOMEPAGE_COPY.trialTagline ("poi scegli il piano piu' adatto").
    */
   heading: {
-    it: "Prova 14 giorni. Poi Pro, come vuoi.",
-    en: "14-day trial. Then Pro, your way.",
-    es: "Prueba de 14 días. Luego Pro, a tu manera.",
-    de: "14 Tage testen. Dann Pro, wie du willst.",
-    pt: "14 dias de teste. Depois Pro, à tua maneira.",
-    fr: "Essai de 14 jours. Puis Pro, à votre façon.",
-    pl: "14 dni za darmo. Potem wybierz odpowiedni plan Pro.",
-    tr: "14 gün ücretsiz. Ardından sana uygun Pro planını seç.",
-    nl: "14 dagen gratis. Daarna kies je het Pro-plan dat bij je past.",
-    ja: "14日間無料。その後は最適なProプランをお選びください。",
-    ko: "14일 무료. 이후 나에게 맞는 Pro 요금제를 선택하세요.",
-    sv: "14 dagar gratis. Välj sedan den Pro-plan som passar dig.",
-    da: "14 dage gratis. Vælg derefter den Pro-plan, der passer dig.",
-    no: "14 dager gratis. Velg deretter Pro-planen som passer deg.",
-    fi: "14 päivää ilmaiseksi. Valitse sitten sinulle sopiva Pro-paketti.",
+    it: "L'app si scarica gratis.",
+    en: "The app is free to download.",
+    es: "La app se descarga gratis.",
+    de: "Die App kann kostenlos heruntergeladen werden.",
+    fr: "L'application se télécharge gratuitement.",
+    pt: "A app pode ser descarregada gratuitamente.",
+    pl: "Aplikację można pobrać bezpłatnie.",
+    tr: "Uygulama ücretsiz indirilir.",
+    nl: "De app kan gratis worden gedownload.",
+    ja: "アプリは無料でダウンロードできます。",
+    ko: "앱은 무료로 다운로드할 수 있습니다.",
+    sv: "Appen kan laddas ner gratis.",
+    da: "Appen kan downloades gratis.",
+    no: "Appen kan lastes ned gratis.",
+    fi: "Sovellus ladataan ilmaiseksi.",
   } as Localized,
   /**
    * Formulazione sicura post-Founder. it/en sono il testo approvato verbatim
@@ -124,12 +126,59 @@ export const PRICING_SECTION = {
     pl: "Wypróbuj FitMesh Pro przez 14 dni. Potem, aby dalej korzystać z funkcji Pro, wymagany jest zakup lub subskrypcja.",
     tr: "FitMesh Pro'yu 14 gün deneyin. Ardından Pro özelliklerini kullanmaya devam etmek için satın alma veya abonelik gerekir.",
     nl: "Probeer FitMesh Pro 14 dagen. Daarna is een aankoop of abonnement nodig om de Pro-functies te blijven gebruiken.",
-    ja: "14日間のトライアルでProの全機能を使えます。その後もPro機能を使い続けるには、購入またはサブスクリプションが必要です。",
-    ko: "14일 체험 기간 동안 모든 Pro 기능을 이용할 수 있습니다. 이후에도 Pro 기능을 계속 사용하려면 구매 또는 구독이 필요합니다.",
+    ja: "FitMesh Proを14日間お試しいただけます。期間終了後、Pro機能を引き続き利用するには購入または定期購入が必要です。",
+    ko: "FitMesh Pro를 14일 동안 무료로 체험해 보세요. 체험 기간이 끝나면 Pro 기능을 계속 사용하기 위해 구매 또는 구독이 필요합니다.",
     sv: "Testa FitMesh Pro i 14 dagar. Därefter krävs ett köp eller en prenumeration för att fortsätta använda Pro-funktionerna.",
     da: "Prøv FitMesh Pro i 14 dage. Derefter er et køb eller abonnement nødvendigt for at fortsætte med at bruge Pro-funktionerne.",
     no: "Prøv FitMesh Pro i 14 dager. Deretter kreves et kjøp eller abonnement for å fortsette å bruke Pro-funksjonene.",
     fi: "Kokeile FitMesh Pro -versiota 14 päivää. Sen jälkeen tarvitaan osto tai tilaus, jotta voit jatkaa Pro-ominaisuuksien käyttöä.",
+  } as Localized,
+
+  /**
+   * U-PRICE-04 (chiave NUOVA, S02): nota sotto la subhead. Rinvia a cio' che lo
+   * store mostra nell'app, senza importi e senza opzioni per piattaforma. Per
+   * le lingue diverse da it/en il valore arriva con la consegna linguistica
+   * (TRANSLATE_NEEDED): finche' manca, il render NON mostra la nota (si legge
+   * con tlOwn(), nessun ripiego sull'inglese).
+   */
+  storeNote: {
+    it: "Le opzioni di acquisto e il prezzo sono quelli che lo store mostra nell'app, nel tuo paese.",
+    en: "The purchase options and the price are the ones your store shows in the app, in your country.",
+    es: "Las opciones de compra y el precio son los que la tienda muestra en la app, en tu país.",
+    de: "Die Kaufoptionen und der Preis entsprechen den Angaben des Stores in der App in deinem Land.",
+    fr: "Les options d'achat et le prix sont ceux affichés par le store dans l'application, dans votre pays.",
+    pt: "As opções de compra e o preço são os apresentados pela loja na app, no teu país.",
+    pl: "Opcje zakupu i cena są zgodne z informacjami wyświetlanymi przez sklep w aplikacji w Twoim kraju.",
+    tr: "Satın alma seçenekleri ve fiyat, mağazanın ülkenizdeki uygulamada gösterdiği değerlerdir.",
+    nl: "De aankoopopties en prijs zijn wat de store in de app toont, in jouw land.",
+    ja: "購入オプションと価格は、お住まいの国のストアがアプリ内で表示する内容に準じます。",
+    ko: "구매 옵션과 가격은 거주 국가의 스토어에서 앱 내에 표시되는 기준을 따릅니다.",
+    sv: "Köpoptioner och pris är de som butiken visar i appen i ditt land.",
+    da: "Købsmuligheder og pris er dem, som butikken viser i appen i dit land.",
+    no: "Kjøpsalternativer og pris er det butikken viser i appen i ditt land.",
+    fi: "Ostovaihtoehdot ja hinta ovat ne, jotka sovelluskauppa näyttää sovelluksessa maassasi.",
+  } as Localized,
+  /**
+   * U-PRICE-13 (chiave NUOVA, S02): al posto dell'importo nella card Pro.
+   * Stesse regole di `storeNote`: opzionale oltre it/en, il render ritira la
+   * riga dove manca (tlOwn()).
+   */
+  priceFromStore: {
+    it: "Prezzo indicato dallo store",
+    en: "Price set by your store",
+    es: "Precio indicado por la tienda",
+    de: "Vom Store angegebener Preis",
+    fr: "Prix indiqué par le store",
+    pt: "Preço indicado pela loja",
+    pl: "Cena wskazana przez sklep",
+    tr: "Mağaza tarafından belirtilen fiyat",
+    nl: "Prijs aangegeven door de store",
+    ja: "ストアに表示される価格",
+    ko: "스토어에 표시된 가격",
+    sv: "Pris angivet av butiken",
+    da: "Pris angivet af butikken",
+    no: "Pris oppgitt av butikken",
+    fi: "Sovelluskaupan ilmoittama hinta",
   } as Localized,
 
   // ── Tier: Pro ──────────────────────────────────────────────────────
@@ -163,84 +212,30 @@ export const PRICING_SECTION = {
    * livstidslisens / elinikäinen käyttöoikeus).
    */
   proTagline: {
-    it: "Abbonamento o sblocco a vita",
-    en: "Subscription or lifetime unlock",
-    es: "Suscripción o desbloqueo de por vida",
-    de: "Abo oder lebenslange Freischaltung",
-    pt: "Assinatura ou desbloqueio vitalício",
-    fr: "Abonnement ou achat à vie",
-    pl: "Subskrypcja lub odblokowanie na zawsze",
-    tr: "Abonelik veya ömür boyu kilit açma",
-    nl: "Abonnement of lifetime-toegang",
-    ja: "サブスクリプションまたは永久アンロック",
-    ko: "구독 또는 평생 이용권",
-    sv: "Prenumeration eller livstidsupplåsning",
-    da: "Abonnement eller lifetime-oplåsning",
-    no: "Abonnement eller livstidslisens",
-    fi: "Tilaus tai elinikäinen käyttöoikeus",
+    it: "Sblocco a vita o abbonamento, secondo lo store",
+    en: "Lifetime unlock or subscription, depending on the store",
+    es: "Desbloqueo de por vida o suscripción, según la tienda",
+    de: "Dauerhafte Freischaltung oder Abonnement, je nach Store",
+    fr: "Déverrouillage à vie ou abonnement, selon le store",
+    pt: "Desbloqueio vitalício ou assinatura, conforme a loja",
+    pl: "Odblokowanie na stałe lub subskrypcja, w zależności od sklepu",
+    tr: "Mağazaya bağlı olarak ömür boyu kilit açma veya abonelik",
+    nl: "Levenslange ontgrendeling of abonnement, afhankelijk van de store",
+    ja: "ストアに応じた無期限買い切りまたは定期購入",
+    ko: "스토어에 따른 평생 이용권 또는 정기 구독",
+    sv: "Livstidsupplåsning eller prenumeration, beroende på butik",
+    da: "Livstidsoplåsning eller abonnement, afhængigt af butikken",
+    no: "Livstidslås eller abonnement, avhengig av butikken",
+    fi: "Elinikäinen avaus tai tilaus sovelluskaupasta riippuen",
   } as Localized,
   /**
-   * Provenienza 9 locale nuove:
-   *  - storico: ABOUT_COPY.trialDesc ("storico completo" per locale). NOTA: le
-   *    6 locale storiche dicono "Storico illimitato"; per le 9 nuove il repo
-   *    non ha un traducente umano di "illimitato", quindi si usa il claim
-   *    documentato e piu' conservativo ("storico completo"), non una parola
-   *    inventata;
-   *  - Mesh Famiglia: ABOUT_COPY.familyHeading (pl/nl/ja/ko/sv/da/no/fi
-   *    "Family Mesh", tr "Aile Mesh");
-   *  - export: dictionaries <loc>.json → app.settings.export.
-   *
-   * 31/07 (review visiva post-deploy di Matteo): "(caregiving)" -> "(coming
-   * soon)". Mesh Famiglia non e' ancora disponibile (COMING_SOON=true su
-   * app/(frontend)/[locale]/(marketing)/famiglia/page.tsx: "in sviluppo
-   * attivo, senza una data di rilascio confermata"), quindi elencarla come
-   * feature Pro con un descrittore funzionale ("caregiving") suggeriva che
-   * fosse gia' attivabile. Riusa verbatim la chiave dizionario esistente
-   * app.devices.coming_soon (lib/dictionaries/<loc>.json:126, mai consumata
-   * altrove nel sito, gia' su tutte e 15 le locale, gia' fra parentesi).
+   * 02/10/2026 (S02, U-PRICE-09/14): le liste `proFeatures` e `trialFeatures`
+   * ("Storico illimitato", "Export completo dei dati") sono state TOLTE: non
+   * verificate come contenuto della prova o del piano (FATTI-COMMERCIALI C2;
+   * l'app dice che l'export JSON completo e' sempre disponibile). Nessuna lista
+   * sostitutiva finche' le funzioni Pro verificate non hanno un testo
+   * approvato per il sito.
    */
-  proFeatures: {
-    it: ["Storico illimitato", "Mesh Famiglia (in arrivo)", "Export completo dei dati"],
-    en: ["Unlimited history", "Family Mesh (coming soon)", "Full data export"],
-    es: ["Historial ilimitado", "Mesh Familia (próximamente)", "Exportación completa de datos"],
-    de: ["Unbegrenzter Verlauf", "Family Mesh (demnächst verfügbar)", "Vollständiger Datenexport"],
-    pt: ["Histórico ilimitado", "Mesh Família (em breve)", "Exportação completa de dados"],
-    fr: ["Historique illimité", "Mesh Famille (bientôt disponible)", "Export complet des données"],
-    pl: ["Pełna historia", "Family Mesh (wkrótce)", "Pełny eksport danych"],
-    tr: ["Tam geçmiş", "Aile Mesh (yakında)", "Verilerin tam dışa aktarımı"],
-    nl: ["Volledige geschiedenis", "Family Mesh (binnenkort)", "Volledige export van je gegevens"],
-    ja: ["すべての履歴データ", "Family Mesh（近日公開）", "全データのエクスポート"],
-    ko: ["전체 기록 데이터", "Family Mesh(출시 예정)", "전체 데이터 내보내기"],
-    sv: ["Fullständig historik", "Family Mesh (kommer snart)", "Fullständig export av dina data"],
-    da: ["Fuld historik", "Family Mesh (kommer snart)", "Fuld eksport af dine data"],
-    no: ["Full historikk", "Family Mesh (kommer snart)", "Full eksport av dataene dine"],
-    fi: ["Täysi historia", "Family Mesh (tulossa pian)", "Kaikkien tietojesi vienti"],
-  } as LocalizedList,
-  /**
-   * Solo per la terza card (Prova 14gg): identica a `proFeatures` ma senza
-   * la riga Mesh Famiglia. 31/07 (Matteo): la funzione non e' inclusa nella
-   * prova, perche' non e' ancora attivabile da nessuno — quando lo sara',
-   * richiedera' comunque un acquisto/abbonamento attivo, non fa parte del
-   * periodo di prova gratuito. La card "Pro" (proFeatures) la elenca ancora,
-   * marcata "(coming soon)".
-   */
-  trialFeatures: {
-    it: ["Storico illimitato", "Export completo dei dati"],
-    en: ["Unlimited history", "Full data export"],
-    es: ["Historial ilimitado", "Exportación completa de datos"],
-    de: ["Unbegrenzter Verlauf", "Vollständiger Datenexport"],
-    pt: ["Histórico ilimitado", "Exportação completa de dados"],
-    fr: ["Historique illimité", "Export complet des données"],
-    pl: ["Pełna historia", "Pełny eksport danych"],
-    tr: ["Tam geçmiş", "Verilerin tam dışa aktarımı"],
-    nl: ["Volledige geschiedenis", "Volledige export van je gegevens"],
-    ja: ["すべての履歴データ", "全データのエクスポート"],
-    ko: ["전체 기록 데이터", "전체 데이터 내보내기"],
-    sv: ["Fullständig historik", "Fullständig export av dina data"],
-    da: ["Fuld historik", "Fuld eksport af dine data"],
-    no: ["Full historikk", "Full eksport av dataene dine"],
-    fi: ["Täysi historia", "Kaikkien tietojesi vienti"],
-  } as LocalizedList,
 
   // ── Badge terza card pricing (prova 14gg) ───────────────────────────
   /**

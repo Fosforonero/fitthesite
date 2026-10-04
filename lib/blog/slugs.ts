@@ -914,6 +914,22 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "nuova-apple-health-rende-inutili-altre-app",
     ko: "nuova-apple-health-rende-inutili-altre-app",
   },
+  // 02/10/2026: guida «Apple Watch, Garmin e Polar: una giornata con FitMesh».
+  // Pubblicata it/en/de/ja/fr. es/pt/pl/tr/nl/ko NON tradotte: stesso slug
+  // inglese (uno slug diverso farebbe un 308 seguito dal 307 di
+  // REDIRECT_INCOMPLETE_LOCALE_SLUGS: due hop invece di uno).
+  "fitmesh-ultratleta-apple-watch-garmin-polar": {
+    en: "apple-watch-garmin-polar-day-fitmesh",
+    es: "apple-watch-garmin-polar-day-fitmesh",
+    de: "apple-watch-garmin-polar-tag-fitmesh",
+    pt: "apple-watch-garmin-polar-day-fitmesh",
+    fr: "apple-watch-garmin-polar-journee-fitmesh",
+    pl: "apple-watch-garmin-polar-day-fitmesh",
+    tr: "apple-watch-garmin-polar-day-fitmesh",
+    nl: "apple-watch-garmin-polar-day-fitmesh",
+    ja: "apple-watch-garmin-polar-fitmesh-no-ichinichi",
+    ko: "apple-watch-garmin-polar-day-fitmesh",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {

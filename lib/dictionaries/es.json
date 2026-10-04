@@ -6,19 +6,18 @@
   },
   "hero": {
     "badge": "Disponible en Android y iOS",
-    "heading_1": "Un panel global",
-    "heading_accent": "para todos tus dispositivos.",
-    "description": "Reúne los datos de salud de los wearables Android mediante Health Connect y, en iPhone, de Apple Salud y los anillos compatibles, en una sola vista. Pasos, sueño, frecuencia cardíaca, recuperación y tendencias, sin saltar entre apps distintas.",
-    "cta_secondary": "Descubre más",
-    "pricing": "Pago único desde 3,99 €, o 1,19 € cada 6 meses · pago seguro"
+    "heading_1": "Tus datos de fitness, juntos.",
+    "heading_accent": "Incluso cuando cambias de dispositivo.",
+    "description": "Funciona también con un solo reloj. Si cambias de teléfono o usas más de uno, inicias sesión con la misma cuenta y encuentras los datos ya sincronizados, siempre que tengas conexión y acceso activo. Los entrenamientos registrados con la app se quedan en el teléfono que los registró.",
+    "cta_secondary": "Descubre más"
   },
   "features": {
     "kicker": "Funciones",
-    "heading": "Todo lo que registra tu smartwatch, ordenado y visualizado.",
+    "heading": "Los datos de tu smartwatch que FitMesh lee, ordenados por día.",
     "items": [
       {
         "title": "Pasos y distancia",
-        "desc": "Se sincroniza con Health Connect y Samsung Health. Actualizaciones en segundo plano en Android cuando desactivas la optimización de batería (best-effort); siempre actualizado al abrir la app."
+        "desc": "Pasos y distancia leídos desde Apple Salud o Health Connect, o por Bluetooth desde un anillo Colmi compatible. En Android la actualización en segundo plano depende de los ajustes de batería; para actualizar a mano, toca «Sincronizar ahora» en la app."
       },
       {
         "title": "Frecuencia cardíaca",
@@ -26,15 +25,15 @@
       },
       {
         "title": "Sueño con fases",
-        "desc": "Duración total, profundo, REM, ligero, despierto. Barra de colores y distintivo de calidad al instante."
+        "desc": "Duración total, profundo, REM, ligero, despierto. Barra en color e indicador de calidad."
       },
       {
         "title": "Calorías y actividad",
-        "desc": "Calorías activas y basales, recorrido, desnivel, pisos. Caminatas en verde, entrenamientos en rojo."
+        "desc": "Calorías activas y basales, desnivel, pisos. Caminatas en verde, entrenamientos en rojo."
       },
       {
-        "title": "Panel global multidispositivo",
-        "desc": "Varios relojes, varios proveedores, una sola vista. FitMesh une las fuentes, elimina los datos duplicados y conserva el mejor valor de cada métrica."
+        "title": "Varios dispositivos, un solo día",
+        "desc": "Pasos, distancia, sueño con fases, frecuencia cardíaca en reposo y entrenamientos leídos desde Apple Salud o Health Connect, o desde un anillo Colmi compatible por Bluetooth."
       },
       {
         "title": "Mesh Familia",
@@ -43,17 +42,14 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Privacidad ante todo",
-    "heading": "Tus datos de salud no son un producto.",
-    "description": "FitMesh Sync no vende, no comparte, no perfila. Tus datos se sincronizan con el backend en la nube gestionado por FitMesh (Supabase, infraestructura en la UE): puedes eliminarlos cuando quieras desde los ajustes de la app.",
     "cta": "Lee la Política de Privacidad"
   },
   "final_cta": {
     "heading": "¿Listo para empezar?",
-    "description": "Descarga la app, autoriza Health Connect y en 30 segundos tus datos están en vivo."
+    "description": "Descarga FitMesh Sync, inicia sesión y autoriza Apple Salud en iPhone o Health Connect en Android."
   },
   "footer": {
-    "tagline": "Sincroniza los datos de tu smartwatch en un panel premium que es tuyo. Centrado en tu privacidad. Sin venta de tus datos a terceros, sin rastreadores publicitarios.",
+    "tagline": "La app que reúne por día tus datos de fitness, en iPhone y Android.",
     "product": "Producto",
     "legal": "Legal",
     "rights": "Todos los derechos reservados.",

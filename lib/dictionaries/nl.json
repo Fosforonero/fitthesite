@@ -6,19 +6,18 @@
   },
   "hero": {
     "badge": "Beschikbaar op Android en iOS",
-    "heading_1": "Één global dashboard",
-    "heading_accent": "voor al je apparaten.",
-    "description": "Breng gezondheidsgegevens van Android-wearables via Health Connect en, op iPhone, van Apple Gezondheid en ondersteunde ringen samen in één overzicht. Stappen, slaap, hartslag, herstel en trends, zonder tussen apps te wisselen.",
-    "cta_secondary": "Meer informatie",
-    "pricing": "Eenmalig vanaf €3,99, of €1,19 per 6 maanden · veilige betaling"
+    "heading_1": "Je fitnessgegevens, samen.",
+    "heading_accent": "Zelfs wanneer je van apparaat wisselt.",
+    "description": "Werkt ook met één horloge. Als je van telefoon wisselt of er meer dan één gebruikt, log je in met hetzelfde account en vind je reeds gesynchroniseerde gegevens terug, mits je verbinding en actieve toegang hebt. Workouts opgenomen met de app blijven op de telefoon die ze heeft opgenomen.",
+    "cta_secondary": "Meer informatie"
   },
   "features": {
     "kicker": "Functies",
-    "heading": "Alles wat je smartwatch registreert, georganiseerd en gevisualiseerd.",
+    "heading": "De gegevens van je smartwatch die FitMesh leest, geordend per dag.",
     "items": [
       {
         "title": "Stappen & afstand",
-        "desc": "Synchroniseert met Health Connect en Samsung Health. Best-effort achtergrondupdates op Android wanneer batterijoptimalisatie is uitgeschakeld; altijd actueel wanneer je de app opent."
+        "desc": "Stappen en afstand gelezen uit Apple Gezondheid of Health Connect, of via Bluetooth van een compatibele Colmi-ring. Op Android hangt achtergrondvernieuwing af van batterij-instellingen; tik in de app op «Nu synchroniseren» om handmatig bij te werken."
       },
       {
         "title": "Hartslag",
@@ -26,15 +25,15 @@
       },
       {
         "title": "Slaap met fasen",
-        "desc": "Totale duur, diep, REM, licht, wakker. Kleurgecodeerde balk en direct kwaliteitsbadge."
+        "desc": "Totale duur, diep, REM, licht, wakker. Gekleurde balk en kwaliteitsindicator."
       },
       {
         "title": "Calorieën & activiteit",
-        "desc": "Actieve en basale calorieën, route, hoogteverschil, verdiepingen. Wandelingen in groen, workouts in rood."
+        "desc": "Actieve en basale calorieën, hoogteverschil, verdiepingen. Wandelingen in groen, workouts in rood."
       },
       {
-        "title": "Globaal multi-apparaat dashboard",
-        "desc": "Meerdere horloges, meerdere providers, één overzicht. FitMesh combineert bronnen, verwijdert duplicaten en bewaar de beste waarde voor elke meting."
+        "title": "Meerdere apparaten, één dag",
+        "desc": "Stappen, afstand, slaap met fasen, rusthartslag en workouts gelezen uit Apple Gezondheid of Health Connect, of van een compatibele Colmi-ring via Bluetooth."
       },
       {
         "title": "Mesh Familie",
@@ -43,17 +42,14 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Privacy-first",
-    "heading": "Je gezondheidsdata is geen product.",
-    "description": "FitMesh Sync verkoopt, deelt of profileert nooit. Je gegevens worden gesynchroniseerd met de door FitMesh beheerde cloud-backend (Supabase, EU-infrastructuur) — je kunt ze op elk moment verwijderen via de app-instellingen.",
     "cta": "Lees het privacybeleid"
   },
   "final_cta": {
     "heading": "Klaar om te beginnen?",
-    "description": "Download de app, verleen Health Connect-machtigingen, en binnen 30 seconden zijn je gegevens live."
+    "description": "Download FitMesh Sync, log in en geef toegang tot Apple Gezondheid op iPhone of Health Connect op Android."
   },
   "footer": {
-    "tagline": "Synchroniseer je smartwatchdata naar een premium persoonlijk dashboard. Privacy-first. We verkopen je gegevens nooit aan derden, geen advertentietrackers.",
+    "tagline": "De app die je fitnessgegevens dag na dag samenbrengt, op iPhone en Android.",
     "product": "Product",
     "legal": "Juridisch",
     "rights": "Alle rechten voorbehouden.",

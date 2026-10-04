@@ -208,6 +208,25 @@ export const CAPABILITY_STATUS: Record<
     note:
       "Non promuovere a live_verified/live_limited senza un rilascio pubblico reale su almeno una piattaforma. Non descrivere meccaniche (inviti, preset di privacy, tetto membri, prezzo) prima che siano implementate e verificabili nel repository. Nessuna data di rilascio: non aggiungerne una finché non è annunciata da Matteo.",
   },
+  /**
+   * Dashboard web personale dei dati salute. Evidenza di prodotto: decisa da
+   * Matteo (decisioni del 28/09/2026) e in sviluppo, non ancora disponibile,
+   * nessuna data di rilascio annunciata (PM del 01/10/2026). L'area web `/app`
+   * (dietro login) gestisce account, dispositivi, export e cancellazione e
+   * mostra segnaposto al posto delle metriche: non e' una dashboard di dati.
+   * La dashboard dell'APP mobile e' un'altra cosa e resta vera: i testi devono
+   * distinguerle con precisione.
+   *
+   * Formula pubblica: IT "La dashboard web personale non è ancora
+   * disponibile."; EN "The personal web dashboard is not yet available." (le
+   * frasi nelle 15 lingue sono in lib/feature-status.ts). Mai date, mai "in
+   * arrivo"/"coming soon".
+   */
+  webDashboard: {
+    status: "in_development",
+    note:
+      "Non promuovere a live_verified/live_limited perche' una flag (per esempio FITMESH_WEB_DASHBOARD) e' accesa o perche' esiste il prototipo. Servono TUTTE E TRE le condizioni: (1) gate tecnico reale lato server, importato dal codice di rilascio e non riletto da process.env; (2) rilascio approvato da Matteo, con data e riferimento; (3) verifica in produzione con almeno un utente Pro idoneo e accesso verificato lato server, con evidenza conservata fuori dal repository pubblico (qui solo data, numero e impronta). I test di annuncio si aggiungono quando il gate tecnico confluisce nel ramo di rilascio. Nessuna data di rilascio: non aggiungerne una finche' non e' annunciata da Matteo.",
+  },
 };
 
 // ── Programma Founder ───────────────────────────────────────────────────────
@@ -263,21 +282,21 @@ export function appOffers(platform: "android" | "ios") {
 
 // ── Descrizioni Organization (piattaforma-neutre) ───────────────────────────
 export const ORG_DESCRIPTIONS: Record<Locale, string> = {
-  it: "FitMesh Sync sincronizza i dati del tuo smartwatch su una dashboard personale privacy-first, su Android (Health Connect) e iPhone (Apple Salute).",
-  en: "FitMesh Sync mirrors your smartwatch data to a privacy-first personal dashboard, on Android (Health Connect) and iPhone (Apple Health).",
-  es: "FitMesh Sync sincroniza los datos de tu smartwatch en un panel personal centrado en la privacidad, en Android (Health Connect) y iPhone (Apple Salud).",
-  de: "FitMesh Sync synchronisiert deine Smartwatch-Daten mit einem datenschutzorientierten persönlichen Dashboard, auf Android (Health Connect) und iPhone (Apple Health).",
-  pt: "O FitMesh Sync sincroniza os dados do seu smartwatch com um painel pessoal focado na privacidade, no Android (Health Connect) e no iPhone (Apple Saúde).",
-  fr: "FitMesh Sync synchronise les données de votre montre connectée avec un tableau de bord personnel axé sur la confidentialité, sur Android (Health Connect) et iPhone (Apple Santé).",
-  pl: "FitMesh Sync synchronizuje dane Twojego smartwatcha z osobistym panelem, który stawia prywatność na pierwszym miejscu, na Androidzie (Health Connect) i iPhonie (Apple Zdrowie).",
-  tr: "FitMesh Sync, akıllı saatinizin verilerini gizlilik öncelikli kişisel bir panele, Android'de (Health Connect) ve iPhone'da (Apple Sağlık) yansıtır.",
-  nl: "FitMesh Sync spiegelt de data van je smartwatch naar een privacy-first persoonlijk dashboard, op Android (Health Connect) en iPhone (Apple Gezondheid).",
-  ja: "FitMesh Syncは、スマートウォッチのデータをプライバシーファーストな個人ダッシュボードに、Android（Health Connect）とiPhone（Apple ヘルスケア）の両方で同期します。",
-  ko: "FitMesh Sync는 스마트워치 데이터를 개인정보 보호를 최우선으로 하는 개인 대시보드에 Android(Health Connect)와 iPhone(Apple 건강) 모두에서 동기화합니다.",
-  sv: "FitMesh Sync speglar din smartklockas data till en integritetsfokuserad personlig dashboard, på Android (Health Connect) och iPhone (Apple Hälsa).",
-  da: "FitMesh Sync spejler dit smartwatchs data til et privatlivsfokuseret personligt dashboard, på Android (Health Connect) og iPhone (Apple Sundhed).",
-  no: "FitMesh Sync speiler smartklokkens data til et personvernfokusert personlig dashbord, på Android (Health Connect) og iPhone (Apple Helse).",
-  fi: "FitMesh Sync peilaa älykellosi tiedot henkilökohtaiseen koontinäyttöön. Yksityisyys edellä, Androidilla (Health Connect) ja iPhonella (Apple Terveys).",
+  it: "FitMesh Sync è un'app per iPhone e Android che legge i dati fitness da Apple Salute o da Health Connect, o via Bluetooth da un anello Colmi compatibile, e li riunisce per giorno, anche da più dispositivi sullo stesso account.",
+  en: "FitMesh Sync is an iPhone and Android app that reads fitness data from Apple Health or Health Connect, or over Bluetooth from a compatible Colmi ring, and brings it together by day, including from several devices on the same account.",
+  es: "FitMesh Sync es una app para iPhone y Android que lee datos de fitness desde Apple Salud o Health Connect, o por Bluetooth desde un anillo Colmi compatible, y los reúne por día, incluso desde varios dispositivos en la misma cuenta.",
+  de: "FitMesh Sync ist eine iPhone- und Android-App, die Fitnessdaten aus Apple Health oder Health Connect oder über Bluetooth von einem kompatiblen Colmi-Ring liest und tageweise zusammenführt, auch von mehreren Geräten auf demselben Konto.",
+  pt: "O FitMesh Sync é uma app para iPhone e Android que lê dados de fitness do Apple Saúde ou Health Connect, ou por Bluetooth de um anel Colmi compatível, e reúne-os por dia, inclusive a partir de vários dispositivos na mesma conta.",
+  fr: "FitMesh Sync est une app iPhone et Android qui lit les données de fitness depuis Apple Santé ou Health Connect, ou en Bluetooth depuis une bague Colmi compatible, et les regroupe par jour, y compris depuis plusieurs appareils sur le même compte.",
+  pl: "FitMesh Sync to aplikacja na iPhone'a i Androida odczytująca dane fitness z Apple Health lub Health Connect, albo przez Bluetooth ze zgodnego pierścienia Colmi, i łącząca je dzień po dniu, także z wielu urządzeń na tym samym koncie.",
+  tr: "FitMesh Sync, Apple Health veya Health Connect'ten ya da Bluetooth üzerinden uyumlu bir Colmi yüzüğünden verileri okuyan ve aynı hesaptaki birden fazla cihaz dahil gün bazında birleştiren bir uygulamadır.",
+  nl: "FitMesh Sync is een iPhone- en Android-app die fitnessgegevens leest uit Apple Gezondheid of Health Connect, of via Bluetooth van een compatibele Colmi-ring, en deze per dag samenbrengt, ook van meerdere apparaten op hetzelfde account.",
+  ja: "FitMesh Syncは、AppleヘルスケアやHealth Connect、またはBluetooth経由の対応Colmiリングからデータを読み込み、同一アカウントの複数端末を含め日ごとにまとめるアプリです。",
+  ko: "FitMesh Sync는 Apple 건강, Health Connect 또는 Bluetooth 호환 Colmi 링에서 피트니스 데이터를 읽어와 동일 계정의 여러 기기를 포함해 날마다 모아주는 앱입니다.",
+  sv: "FitMesh Sync är en iPhone- och Android-app som läser träningsdata från Apple Hälsa eller Health Connect, eller via Bluetooth från en kompatibel Colmi-ring, och samlar den per dag, även från flera enheter på samma konto.",
+  da: "FitMesh Sync er en iPhone- og Android-app, der læser træningsdata fra Apple Sundhed eller Health Connect, eller via Bluetooth fra en kompatibel Colmi-ring, og samler dem pr. dag, også fra flere enheder på samme konto.",
+  no: "FitMesh Sync er en iPhone- og Android-app som leser treningsdata fra Apple Helse eller Health Connect, eller via Bluetooth fra en kompatibel Colmi-ring, og samler dem per dag, også fra flere enheter på samme konto.",
+  fi: "FitMesh Sync on iPhone- ja Android-sovellus, joka lukee kuntotietoja Apple Terveydestä tai Health Connectista taikka Bluetoothilla yhteensopivasta Colmi-sormuksesta ja kokoaa ne päivittäin, myös useilta saman tilin laitteilta.",
 };
 
 // ── Descrizioni + feature MobileApplication, SEPARATE per piattaforma ──────

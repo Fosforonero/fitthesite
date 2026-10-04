@@ -6,19 +6,18 @@
   },
   "hero": {
     "badge": "Tilgjengelig på Android og iOS",
-    "heading_1": "Ett globalt dashbord",
-    "heading_accent": "for alle enhetene dine.",
-    "description": "Samle helsedata fra Android-wearables via Health Connect og, på iPhone, fra Apple Helse og støttede ringer, i én visning. Skritt, søvn, puls, restitusjon og trender, uten å bytte mellom apper.",
-    "cta_secondary": "Lær mer",
-    "pricing": "Engangskjøp fra 3,99 €, eller 1,19 € hver 6. måned · sikker betaling"
+    "heading_1": "Treningsdataene dine, samlet.",
+    "heading_accent": "Også når du bytter enhet.",
+    "description": "Fungerer også med én enkelt klokke. Hvis du bytter telefon eller bruker flere, logger du inn med samme konto og finner igjen dataene som allerede er synkronisert, forutsatt at du har tilkobling og aktiv tilgang. Treningsøkter registrert med appen forblir på telefonen som registrerte dem.",
+    "cta_secondary": "Lær mer"
   },
   "features": {
     "kicker": "Funksjoner",
-    "heading": "Alt smartklokken din registrerer, organisert og visualisert.",
+    "heading": "Dataene fra smartklokken din som FitMesh leser, sortert etter dag.",
     "items": [
       {
         "title": "Skritt og distanse",
-        "desc": "Synkroniserer med Health Connect og Samsung Health. Best-effort bakgrunnsoppdateringer på Android når batterioptimalisering er deaktivert; alltid oppdatert når du åpner appen."
+        "desc": "Skritt og distanse lest fra Apple Helse eller Health Connect, eller via Bluetooth fra en kompatibel Colmi-ring. På Android avhenger bakgrunnsoppdatering av batteriinnstillinger; for å oppdatere manuelt trykker du på «Synkroniser nå» i appen."
       },
       {
         "title": "Puls",
@@ -26,15 +25,15 @@
       },
       {
         "title": "Søvn med faser",
-        "desc": "Total varighet, dyp, REM, lett, våken. Fargekodet stolpe og umiddelbart kvalitetsmerke."
+        "desc": "Total varighet, dyp, REM, lett, våken. Farget stolpe og kvalitetsindikator."
       },
       {
         "title": "Kalorier og aktivitet",
-        "desc": "Aktive og basale kalorier, rute, høydemeter, etasjer. Turer i grønt, treningsøkter i rødt."
+        "desc": "Aktive og basale kalorier, høydemeter, etasjer. Turer i grønt, treningsøkter i rødt."
       },
       {
-        "title": "Globalt dashbord for flere enheter",
-        "desc": "Flere klokker, flere leverandører, én visning. FitMesh slår sammen kildene, fjerner duplikater og beholder den beste verdien for hver måling."
+        "title": "Flere enheter, én dag",
+        "desc": "Skritt, distanse, søvn med faser, hvilepuls og treningsøkter lest fra Apple Helse eller Health Connect, eller fra en kompatibel Colmi-ring via Bluetooth."
       },
       {
         "title": "Mesh Familie",
@@ -43,17 +42,14 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Personvern først",
-    "heading": "Helsedataene dine er ikke et produkt.",
-    "description": "FitMesh Sync selger, deler eller profilerer aldri. Dataene dine synkroniseres til FitMeshs administrerte skybackend (Supabase, EU-infrastruktur) — du kan slette dem når som helst i appens innstillinger.",
     "cta": "Les personvernerklæringen"
   },
   "final_cta": {
     "heading": "Klar til å starte?",
-    "description": "Last ned appen, gi Health Connect-tillatelser, og på 30 sekunder er dataene dine live."
+    "description": "Last ned FitMesh Sync, logg inn og gi tilgang til Apple Helse på iPhone eller Health Connect på Android."
   },
   "footer": {
-    "tagline": "Synkroniser dataene fra smartklokken din til ditt eget premium-dashbord. Personvern først. Vi selger aldri dataene dine til tredjeparter, ingen annonsesporere.",
+    "tagline": "Appen som samler treningsdataene dine dag for dag, på iPhone og Android.",
     "product": "Produkt",
     "legal": "Juridisk",
     "rights": "Alle rettigheter forbeholdt.",

@@ -12,7 +12,6 @@ import type { Localized } from "@/lib/blog/types";
  */
 
 type StepItem = { t: string; d: string };
-type PrivacyPoint = { t: string; d: string };
 
 type LocalizedItems<T> = { it: T; en: T } & Partial<Record<Locale, T>>;
 
@@ -22,21 +21,21 @@ export function tli<T>(l: LocalizedItems<T>, lc: Locale): T {
 
 export const HOMEPAGE_COPY = {
   leadSentence: {
-    it: "FitMesh Sync è la dashboard che unisce i dati di Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit e altri wearable Android in un'unica vista privacy-first.",
-    en: "FitMesh Sync is the dashboard that brings Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit and other Android wearables into one privacy-first view.",
-    es: "FitMesh Sync es el panel que unifica los datos de Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit y otros wearables Android en una sola vista privacy-first.",
-    de: "FitMesh Sync ist das Dashboard, das Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit und andere Android-Wearables in einer datenschutzfreundlichen Ansicht vereint.",
-    pt: "O FitMesh Sync é o dashboard que reúne o Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit e outros wearables Android numa única vista com privacidade em primeiro lugar.",
-    fr: "FitMesh Sync est le tableau de bord qui réunit Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit et d'autres objets connectés Android dans une seule interface centrée sur la confidentialité.",
-    pl: "FitMesh Sync to panel, który zbiera dane z Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit i innych opasek na Androida w jednym miejscu – z dbałością o prywatność.",
-    tr: "FitMesh Sync; Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit ve diğer Android giyilebilir cihazlarınızı, gizliliği önceleyen tek bir panelde bir araya getiren gösterge panelidir.",
-    nl: "FitMesh Sync is het dashboard dat Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit en andere Android-wearables samenbrengt in één privacyvriendelijk overzicht.",
-    ja: "FitMesh Syncは、Galaxy Watch、Wear OS、Mi Band、Garmin、Fitbitなど各種Androidウェアラブルのデータをひとつにまとめ、プライバシーを守りながら表示するダッシュボードです。",
-    ko: "FitMesh Sync는 Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit 등 안드로이드 웨어러블 데이터를 하나의 화면에 모아, 프라이버시를 최우선으로 안전하게 보여주는 대시보드입니다.",
-    sv: "FitMesh Sync är instrumentpanelen som samlar Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit och andra Android-wearables i en enda integritetsfokuserad vy.",
-    da: "FitMesh Sync er dashboardet, der samler Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit og andre Android-wearables i ét privatlivsvenligt overblik.",
-    no: "FitMesh Sync er dashbordet som samler Galaxy Watch, Wear OS, Mi Band, Garmin, Fitbit og andre wearables for Android i én personvernvennlig oversikt.",
-    fi: "FitMesh Sync on hallintapaneeli, joka kokoaa Galaxy Watchin, Wear OS:n, Mi Bandin, Garminin, Fitbitin ja muiden Android-puettavien tiedot yhteen näkymään, joka asettaa yksityisyyden etusijalle.",
+    it: "FitMesh Sync è un'app per iPhone e Android. Legge i dati che orologi, anelli e app fitness salvano in Apple Salute o in Health Connect, con il tuo permesso. Con un anello Colmi compatibile si collega anche via Bluetooth. Te li mostra insieme, giorno per giorno.",
+    en: "FitMesh Sync is an app for iPhone and Android. It reads the data that watches, rings and fitness apps save to Apple Health or Health Connect, with your permission. With a compatible Colmi ring it also connects over Bluetooth. It shows all of it together, day by day.",
+    es: "FitMesh Sync es una app para iPhone y Android. Lee los datos que relojes, anillos y apps de fitness guardan en Apple Salud o en Health Connect, con tu permiso. Con un anillo Colmi compatible también se conecta por Bluetooth. Te los muestra juntos, día tras día.",
+    de: "FitMesh Sync ist eine App für iPhone und Android. Sie liest die Daten, die Uhren, Ringe und Fitness-Apps in Apple Health oder Health Connect speichern, mit deiner Erlaubnis. Mit einem kompatiblen Colmi-Ring verbindet sie sich auch über Bluetooth. Sie zeigt sie zusammen, Tag für Tag.",
+    pt: "O FitMesh Sync é uma app para iPhone e Android. Lê os dados que relógios, anéis e apps de fitness guardam no Apple Saúde ou no Health Connect, com a tua autorização. Com um anel Colmi compatível também se liga por Bluetooth. Mostra-os juntos, dia após dia.",
+    fr: "FitMesh Sync est une application pour iPhone et Android. Elle lit les données que les montres, bagues et apps de fitness enregistrent dans Apple Santé ou Health Connect, avec votre autorisation. Avec une bague Colmi compatible, elle se connecte aussi en Bluetooth. Elle vous les présente réunies, jour après jour.",
+    pl: "FitMesh Sync to aplikacja na iPhone'a i Androida. Odczytuje dane, które zegarki, pierścienie i aplikacje fitness zapisują w Apple Health lub Health Connect, za Twoją zgodą. Ze zgodnym pierścieniem Colmi łączy się także przez Bluetooth. Pokazuje je razem, dzień po dniu.",
+    tr: "FitMesh Sync, iPhone ve Android için bir uygulamadır. Saatlerin, yüzüklerin ve fitness uygulamalarının Apple Health veya Health Connect'e kaydettiği verileri izninizle okur. Uyumlu bir Colmi yüzüğü ile Bluetooth üzerinden de bağlanır. Hepsini gün bazında bir arada gösterir.",
+    nl: "FitMesh Sync is een app voor iPhone en Android. Het leest de gegevens die horloges, ringen en fitness-apps opslaan in Apple Gezondheid of Health Connect, met jouw toestemming. Met een compatibele Colmi-ring maakt het ook verbinding via Bluetooth. Het toont ze samen, dag na dag.",
+    ja: "FitMesh SyncはiPhoneとAndroid向けのアプリです。時計やリング、フィットネスアプリがAppleヘルスケアやHealth Connectに保存したデータを、あなたの許可のもとで読み取ります。対応するColmiリングとはBluetoothでも接続します。日ごとにデータをまとめて表示します。",
+    ko: "FitMesh Sync는 iPhone 및 Android용 앱입니다. 사용자의 허가를 받아 시계, 스마트링, 피트니스 앱이 Apple 건강 또는 Health Connect에 저장한 데이터를 읽어옵니다. 호환되는 Colmi 링과는 Bluetooth로도 연결됩니다. 하루 단위로 데이터를 한곳에 모아 보여줍니다.",
+    sv: "FitMesh Sync är en app för iPhone och Android. Den läser data som klockor, ringar och träningsappar sparar i Apple Hälsa eller Health Connect, med din tillåtelse. Med en kompatibel Colmi-ring ansluter den även via Bluetooth. Den visar allt samlat, dag för dag.",
+    da: "FitMesh Sync er en app til iPhone og Android. Den læser de data, som ure, ringe og fitness-apps gemmer i Apple Sundhed eller Health Connect, med din tilladelse. Med en kompatibel Colmi-ring opretter den også forbindelse via Bluetooth. Den viser det hele samlet, dag for dag.",
+    no: "FitMesh Sync er en app for iPhone og Android. Den leser dataene som klokker, ringer og treningsapper lagrer i Apple Helse eller Health Connect, med din tillatelse. Med en kompatibel Colmi-ring kobler den seg også til via Bluetooth. Den viser alt samlet, dag for dag.",
+    fi: "FitMesh Sync on sovellus iPhonelle ja Androidille. Se lukee tiedot, jotka kellot, sormukset ja kuntosovellukset tallentavat Apple Terveyteen tai Health Connectiin, luvallasi. Yhteensopivan Colmi-sormuksen kanssa se muodostaa yhteyden myös Bluetoothilla. Se näyttää ne yhdessä, päivä päivältä.",
   } satisfies Localized,
 
   /**
@@ -154,21 +153,21 @@ export const HOMEPAGE_COPY = {
   } satisfies Localized,
 
   howItWorksHeading: {
-    it: "Trenta secondi. Niente di più.",
-    en: "Thirty seconds. Nothing more.",
-    es: "Treinta segundos. Nada más.",
-    de: "Dreißig Sekunden. Mehr nicht.",
-    pt: "Trinta segundos. Nada mais.",
-    fr: "Trente secondes. Pas une de plus.",
-    pl: "Trzydzieści sekund. Nic więcej.",
-    tr: "Otuz saniye. Hepsi bu kadar.",
-    nl: "Dertig seconden. Meer niet.",
-    ja: "30秒。それだけ。",
-    ko: "30초. 그게 다예요.",
-    sv: "Trettio sekunder. Inget mer.",
-    da: "Tredive sekunder. Ikke mere.",
-    no: "Tretti sekunder. Ikke mer.",
-    fi: "30 sekuntia. Siinä kaikki.",
+    it: "Tre passi, su iPhone o su Android.",
+    en: "Three steps, on iPhone or Android.",
+    es: "Tres pasos, en iPhone o en Android.",
+    de: "Drei Schritte, auf dem iPhone oder Android.",
+    pt: "Três passos, no iPhone ou no Android.",
+    fr: "Trois étapes, sur iPhone ou Android.",
+    pl: "Trzy kroki, na iPhonie lub Androidzie.",
+    tr: "Üç adımda, iPhone veya Android'de.",
+    nl: "Drie stappen, op iPhone of Android.",
+    ja: "iPhoneでもAndroidでも、3つのステップで完了。",
+    ko: "iPhone과 Android 모두 간단한 3단계.",
+    sv: "Tre steg, på iPhone eller Android.",
+    da: "Tre trin, på iPhone eller Android.",
+    no: "Tre trinn, på iPhone eller Android.",
+    fi: "Kolme vaihetta, iPhonella tai Androidilla.",
   } satisfies Localized,
 
   stepLabel: {
@@ -191,79 +190,79 @@ export const HOMEPAGE_COPY = {
 
   steps: {
     it: [
-      { t: "Scarica & autorizza", d: "Installa l'app dal Play Store, dai accesso a Health Connect." },
-      { t: "FitMesh legge tutto", d: "Passi, battito, sonno, calorie. Anche in background, anche notte." },
-      { t: "La tua dashboard è live", d: "Apri il browser da qualsiasi device. Niente account social, nessuna vendita dei tuoi dati a terzi." },
+      { t: "Installa e accedi", d: "Scarica FitMesh Sync da App Store o da Google Play, poi crea un account o accedi. Se cambi telefono o ne usi più di uno, usa lo stesso account." },
+      { t: "Autorizza le letture", d: "Su iPhone dai accesso ad Apple Salute, su Android a Health Connect, scegliendo quali dati leggere. Se hai un anello Colmi compatibile, attiva il Bluetooth e tocca «Collega anello» nell'app. FitMesh riceve solo quello che le tue sorgenti salvano e che autorizzi: se una misura non viene condivisa, non arriva." },
+      { t: "Consulta i tuoi dati nell'app", d: "FitMesh riunisce per giorno i dati che hai autorizzato. Se usi più telefoni con lo stesso account, ognuno mostra anche i dati già sincronizzati dagli altri. Per aggiornare quando vuoi, tocca «Sincronizza ora»." },
     ],
     en: [
-      { t: "Download & grant", d: "Install the app from Play Store, allow Health Connect access." },
-      { t: "FitMesh reads it all", d: "Steps, heart rate, sleep, calories. In background, even overnight." },
-      { t: "Your dashboard is live", d: "Open it in any browser. No social accounts, no selling your data to third parties." },
+      { t: "Install and sign in", d: "Download FitMesh Sync from the App Store or Google Play, then create an account or sign in. If you switch phones or use more than one, use the same account." },
+      { t: "Allow access", d: "On iPhone, give access to Apple Health; on Android, to Health Connect, choosing which data to read. If you have a compatible Colmi ring, turn on Bluetooth and tap “Pair ring” in the app. FitMesh only receives what your sources save and you allow: if a measurement is not shared, it does not arrive." },
+      { t: "Check your data in the app", d: "FitMesh brings the data you allowed together by day. If you use more than one phone with the same account, each one also shows the data the others have already synced. To update whenever you want, tap “Sync now”." },
     ],
     es: [
-      { t: "Descarga y autoriza", d: "Instala la app desde Play Store y permite el acceso a Health Connect." },
-      { t: "FitMesh lo lee todo", d: "Pasos, frecuencia cardíaca, sueño, calorías. En segundo plano, incluso de noche." },
-      { t: "Tu panel está en vivo", d: "Ábrelo desde cualquier navegador. Sin cuentas sociales, sin venta de tus datos a terceros." },
+      { t: "Instala e inicia sesión", d: "Descarga FitMesh Sync desde App Store o Google Play, luego crea una cuenta o inicia sesión. Si cambias de teléfono o usas más de uno, usa la misma cuenta." },
+      { t: "Autoriza las lecturas", d: "En iPhone da acceso a Apple Salud, en Android a Health Connect, eligiendo qué datos leer. Si tienes un anillo Colmi compatible, activa el Bluetooth y toca «Conectar anillo» en la app. FitMesh solo recibe lo que tus fuentes guardan y tú autorizas: si una medición no se comparte, no llega." },
+      { t: "Consulta tus datos en la app", d: "FitMesh reúne por día los datos que has autorizado. Si usas varios teléfonos con la misma cuenta, cada uno muestra también los datos ya sincronizados por los otros. Para actualizar cuando quieras, toca «Sincronizar ahora»." },
     ],
     de: [
-      { t: "Herunterladen & erlauben", d: "App im Play Store installieren und Zugriff auf Health Connect erlauben." },
-      { t: "FitMesh liest alles aus", d: "Schritte, Herzfrequenz, Schlaf, Kalorien – im Hintergrund, auch über Nacht." },
-      { t: "Dein Dashboard ist live", d: "Einfach im Browser öffnen. Keine Social-Media-Konten, kein Verkauf deiner Daten an Dritte." },
+      { t: "Installieren und anmelden", d: "Lade FitMesh Sync aus dem App Store oder von Google Play herunter, erstelle dann ein Konto oder melde dich an. Wenn du das Smartphone wechselst oder mehrere nutzt, verwende dasselbe Konto." },
+      { t: "Lesezugriff erlauben", d: "Gib auf dem iPhone Zugriff auf Apple Health, auf Android auf Health Connect und wähle, welche Daten gelesen werden sollen. Wenn du einen kompatiblen Colmi-Ring hast, aktiviere Bluetooth und tippe in der App auf «Ring verbinden». FitMesh empfängt nur das, was deine Quellen speichern und du erlaubst: Wenn ein Messwert nicht geteilt wird, kommt er nicht an." },
+      { t: "Sieh deine Daten in der App ein", d: "FitMesh führt die von dir erlaubten Daten tageweise zusammen. Wenn du mehrere Telefone mit demselben Konto nutzt, zeigt jedes auch die von den anderen bereits synchronisierten Daten an. Um jederzeit zu aktualisieren, tippe auf «Jetzt synchronisieren»." },
     ],
     pt: [
-      { t: "Transferir e autorizar", d: "Instala a app na Play Store e permite o acesso ao Health Connect." },
-      { t: "O FitMesh lê tudo", d: "Passos, frequência cardíaca, sono, calorias. Em segundo plano, mesmo durante a noite." },
-      { t: "O teu dashboard está no ar", d: "Abre-o em qualquer navegador. Sem contas sociais, sem venda dos teus dados a terceiros." },
+      { t: "Instala e inicia sessão", d: "Descarrega o FitMesh Sync da App Store ou do Google Play, depois cria uma conta ou inicia sessão. Se mudares de telemóvel ou usares mais do que um, usa a mesma conta." },
+      { t: "Autoriza as leituras", d: "No iPhone concede acesso ao Apple Saúde, no Android ao Health Connect, escolhendo quais os dados a ler. Se tiveres um anel Colmi compatível, ativa o Bluetooth e toca em «Ligar anel» na app. O FitMesh só recebe o que as tuas fontes guardam e tu autorizas: se uma medição não for partilhada, não chega." },
+      { t: "Consulta os teus dados na app", d: "O FitMesh reúne por dia os dados que autorizaste. Se usares vários telemóveis com a mesma conta, cada um mostra também os dados já sincronizados pelos outros. Para atualizar quando quiseres, toca em «Sincronizar agora»." },
     ],
     fr: [
-      { t: "Téléchargez et autorisez", d: "Installez l'application depuis le Play Store, autorisez l'accès à Health Connect." },
-      { t: "FitMesh récupère tout", d: "Pas, fréquence cardiaque, sommeil, calories. En arrière-plan, même la nuit." },
-      { t: "Votre tableau de bord est prêt", d: "Ouvrez-le depuis n'importe quel navigateur. Pas de compte social, aucune vente de vos données à des tiers." },
+      { t: "Installez et connectez-vous", d: "Téléchargez FitMesh Sync sur l'App Store ou Google Play, puis créez un compte ou connectez-vous. Si vous changez de téléphone ou en utilisez plusieurs, utilisez le même compte." },
+      { t: "Autorisez les lectures", d: "Sur iPhone, donnez accès à Apple Santé, sur Android à Health Connect, en choisissant quelles données lire. Si vous avez une bague Colmi compatible, activez le Bluetooth et touchez « Associer la bague » dans l'application. FitMesh ne reçoit que ce que vos sources enregistrent et que vous autorisez : si une mesure n'est pas partagée, elle n'arrive pas." },
+      { t: "Consultez vos données dans l'application", d: "FitMesh regroupe par jour les données que vous avez autorisées. Si vous utilisez plusieurs téléphones avec le même compte, chacun affiche aussi les données déjà synchronisées par les autres. Pour actualiser quand vous le souhaitez, touchez « Synchroniser maintenant »." },
     ],
     pl: [
-      { t: "Pobierz i zezwól", d: "Zainstaluj aplikację z Google Play i zezwól na dostęp do Health Connect." },
-      { t: "FitMesh odczytuje wszystko", d: "Kroki, tętno, sen, kalorie. W tle, nawet w nocy." },
-      { t: "Twój panel jest gotowy", d: "Otwórz go w dowolnej przeglądarce. Bez kont społecznościowych, bez sprzedaży Twoich danych stronom trzecim." },
+      { t: "Zainstaluj i zaloguj się", d: "Pobierz FitMesh Sync z App Store lub Google Play, a następnie utwórz konto lub zaloguj się. Jeśli zmienisz telefon lub używasz kilku, użyj tego samego konta." },
+      { t: "Zezwól na odczyt danych", d: "Na iPhonie przyznaj dostęp do Apple Health, na Androidzie do Health Connect, wybierając dane do odczytu. Jeśli masz zgodny pierścień Colmi, włącz Bluetooth i dotknij «Połącz pierścień» w aplikacji. FitMesh odbiera tylko to, co zapisują Twoje źródła i na co zezwalasz: jeśli pomiar nie jest udostępniony, nie dotrze." },
+      { t: "Sprawdzaj swoje dane w aplikacji", d: "FitMesh gromadzi dzień po dniu dane, na które wyraziłeś zgodę. Jeśli używasz wielu telefonów z tym samym kontem, każdy z nich pokazuje także dane zsynchronizowane przez pozostałe. Aby odświeżyć w dowolnym momencie, dotknij «Synchronizuj teraz»." },
     ],
     tr: [
-      { t: "İndir ve izin ver", d: "Uygulamayı Play Store'dan yükleyin, Health Connect erişimine izin verin." },
-      { t: "FitMesh hepsini okur", d: "Adım sayısı, nabız, uyku, kalori. Arka planda, gece boyunca bile." },
-      { t: "Panelin yayında", d: "Herhangi bir tarayıcıda açın. Sosyal hesap yok, verilerinizin üçüncü taraflara satışı yok." },
+      { t: "Yükleyin ve giriş yapın", d: "FitMesh Sync uygulamasını App Store veya Google Play'den indirin, ardından bir hesap oluşturun veya giriş yapın. Telefon değiştirirseniz veya birden fazla cihaz kullanırsanız aynı hesabı kullanın." },
+      { t: "Okuma erişimi verin", d: "iPhone'da Apple Health'e, Android'de Health Connect'e hangi verilerin okunacağını seçerek erişim verin. Uyumlu bir Colmi yüzüğünüz varsa Bluetooth'u açın ve uygulamada «Yüzüğü bağla» seçeneğine dokunun. FitMesh yalnızca kaynaklarınızın kaydettiği ve izin verdiğiniz verileri alır: bir ölçüm paylaşılmazsa ulaşmaz." },
+      { t: "Verilerinizi uygulamada inceleyin", d: "FitMesh izin verdiğiniz verileri gün bazında bir araya getirir. Aynı hesapla birden fazla telefon kullanıyorsanız her biri diğerlerinin önceden eşitlediği verileri de gösterir. İstediğiniz zaman güncellemek için «Şimdi senkronize et» seçeneğine dokunun." },
     ],
     nl: [
-      { t: "Downloaden & toestaan", d: "Installeer de app via Play Store en geef toegang tot Health Connect." },
-      { t: "FitMesh leest alles uit", d: "Stappen, hartslag, slaap, calorieën. Op de achtergrond, zelfs 's nachts." },
-      { t: "Je dashboard staat live", d: "Open het in elke browser. Geen social accounts, we verkopen je gegevens nooit aan derden." },
+      { t: "Installeer en log in", d: "Download FitMesh Sync uit de App Store of Google Play, maak vervolgens een account aan of log in. Als je van telefoon wisselt of er meer gebruikt, gebruik dan hetzelfde account." },
+      { t: "Geef leestoegang", d: "Geef op iPhone toegang tot Apple Gezondheid, op Android tot Health Connect, en kies welke gegevens je wilt lezen. Als je een compatibele Colmi-ring hebt, schakel dan Bluetooth in en tik in de app op «Koppel ring». FitMesh ontvangt alleen wat je bronnen opslaan en jij toestaat: als een meting niet wordt gedeeld, komt deze niet aan." },
+      { t: "Bekijk je gegevens in de app", d: "FitMesh brengt de door jou goedgekeurde gegevens per dag samen. Als je meerdere telefoons met hetzelfde account gebruikt, toont elke telefoon ook de gegevens die al door de andere zijn gesynchroniseerd. Tik op «Nu synchroniseren» om bij te werken wanneer je wilt." },
     ],
     ja: [
-      { t: "ダウンロードして許可", d: "Playストアからアプリをインストールし、Health Connectへのアクセスを許可します。" },
-      { t: "FitMeshがすべてを読み取る", d: "歩数、心拍数、睡眠、カロリー。バックグラウンドで、就寝中も。" },
-      { t: "ダッシュボードが今すぐ使える", d: "どのブラウザでも開けます。SNSアカウントは不要。データを第三者に販売することは一切ありません。" },
+      { t: "インストールとログイン", d: "App StoreまたはGoogle PlayからFitMesh Syncをダウンロードし、アカウントを作成またはログインします。端末を変更したり複数台使用したりする場合も、同じアカウントを使用します。" },
+      { t: "読み取り権限の許可", d: "iPhoneではAppleヘルスケア、AndroidではHealth Connectへのアクセスを許可し、読み取るデータを選択します。対応するColmiリングをお持ちの場合は、Bluetoothを有効にしてアプリで「リングを接続」をタップします。FitMeshはソースが保存し許可されたデータのみを受信します。共有されていない測定値は届きません。" },
+      { t: "アプリでデータを確認", d: "FitMeshは許可されたデータを日ごとにまとめます。同じアカウントで複数のスマートフォンを使用している場合、それぞれが他の端末からすでに同期されたデータも表示します。いつでも更新するには「今すぐ同期」をタップします。" },
     ],
     ko: [
-      { t: "다운로드 및 권한 허용", d: "Google Play 스토어에서 앱을 설치하고, Health Connect 접근을 허용하세요." },
-      { t: "FitMesh가 전부 읽어옵니다", d: "걸음 수, 심박수, 수면, 칼로리까지. 백그라운드에서, 심지어 자는 동안에도." },
-      { t: "대시보드가 바로 열립니다", d: "어떤 브라우저에서도 열어보세요. 소셜 계정도 필요 없고, 당신의 데이터를 제3자에게 판매하지도 않습니다." },
+      { t: "설치 및 로그인", d: "App Store 또는 Google Play에서 FitMesh Sync를 다운로드한 다음 계정을 만들거나 로그인하세요. 휴대전화를 바꾸거나 여러 대를 사용하는 경우 동일한 계정을 사용하세요." },
+      { t: "읽기 권한 허용", d: "iPhone에서는 Apple 건강, Android에서는 Health Connect에 접근 권한을 부여하고 읽어올 데이터를 선택하세요. 호환되는 Colmi 링이 있다면 Bluetooth를 켜고 앱에서 «링 연결»을 누르세요. FitMesh는 소스가 저장하고 사용자가 허용한 데이터만 수신합니다. 공유되지 않은 측정값은 반영되지 않습니다." },
+      { t: "앱에서 데이터 확인하기", d: "FitMesh는 허용된 데이터를 하루 단위로 모아줍니다. 동일한 계정으로 여러 휴대전화를 사용하는 경우 각 기기는 다른 기기에서 이미 동기화된 데이터도 함께 표시합니다. 원할 때 언제든 업데이트하려면 «지금 동기화»를 누르세요." },
     ],
     sv: [
-      { t: "Ladda ner & godkänn", d: "Installera appen från Play Store, godkänn åtkomst till Health Connect." },
-      { t: "FitMesh läser allt", d: "Steg, puls, sömn, kalorier. I bakgrunden, även över natten." },
-      { t: "Din instrumentpanel är live", d: "Öppna den i vilken webbläsare som helst. Inga sociala konton, vi säljer aldrig din data till tredje part." },
+      { t: "Installera och logga in", d: "Ladda ner FitMesh Sync från App Store eller Google Play, skapa sedan ett konto eller logga in. Om du byter telefon eller använder flera använder du samma konto." },
+      { t: "Tillåt läsåtkomst", d: "På iPhone ger du åtkomst till Apple Hälsa, på Android till Health Connect, och väljer vilka data som ska läsas. Om du har en kompatibel Colmi-ring aktiverar du Bluetooth och trycker på «Anslut ring» i appen. FitMesh tar bara emot det dina källor sparar och du tillåter: om ett mått inte delas kommer det inte fram." },
+      { t: "Se din data i appen", d: "FitMesh samlar den data du har godkänt dag för dag. Om du använder flera telefoner med samma konto visar var och en även data som redan synkroniserats av de andra. För att uppdatera när du vill trycker du på «Synkronisera nu»." },
     ],
     da: [
-      { t: "Download & giv adgang", d: "Installer appen fra Play Store, giv adgang til Health Connect." },
-      { t: "FitMesh læser det hele", d: "Skridt, puls, søvn, kalorier. I baggrunden, også om natten." },
-      { t: "Dit dashboard er live", d: "Åbn det i en hvilken som helst browser. Ingen sociale konti, vi sælger aldrig dine data til tredjepart." },
+      { t: "Installer og log ind", d: "Download FitMesh Sync fra App Store eller Google Play, opret derefter en konto eller log ind. Hvis du skifter telefon eller bruger flere, skal du bruge samme konto." },
+      { t: "Giv læseadgang", d: "Giv på iPhone adgang til Apple Sundhed, på Android til Health Connect, og vælg hvilke data der skal læses. Hvis du har en kompatibel Colmi-ring, skal du slå Bluetooth til og trykke på «Tilslut ring» i appen. FitMesh modtager kun det, dine kilder gemmer og du tillader: hvis en måling ikke deles, ankommer den ikke." },
+      { t: "Se dine data i appen", d: "FitMesh samler de data, du har godkendt, dag for dag. Hvis du bruger flere telefoner med samme konto, viser hver især også data, der allerede er synkroniseret af de andre. Tryk på «Synkroniser nu» for at opdatere, når du vil." },
     ],
     no: [
-      { t: "Last ned og godkjenn", d: "Installer appen fra Play Store, og gi tilgang til Health Connect." },
-      { t: "FitMesh leser alt", d: "Skritt, puls, søvn, kalorier. I bakgrunnen, også om natten." },
-      { t: "Dashbordet ditt er klart", d: "Åpne det i hvilken som helst nettleser. Ingen sosiale kontoer, vi selger aldri dataene dine til tredjeparter." },
+      { t: "Installer og logg inn", d: "Last ned FitMesh Sync fra App Store eller Google Play, og opprett deretter en konto eller logg inn. Hvis du bytter telefon eller bruker flere, bruker du samme konto." },
+      { t: "Gi tilgang til lesing", d: "På iPhone gir du tilgang til Apple Helse, på Android til Health Connect, og velger hvilke data som skal leses. Hvis du har en kompatibel Colmi-ring, slår du på Bluetooth og trykker på «Koble til ring» i appen. FitMesh mottar bare det kildene dine lagrer og du tillater: hvis en måling ikke deles, kommer den ikke frem." },
+      { t: "Se dataene dine i appen", d: "FitMesh samler dataene du har godkjent, dag for dag. Hvis du bruker flere telefoner med samme konto, viser hver enkelt også dataene som allerede er synkronisert av de andre. For å oppdatere når du vil, trykker du på «Synkroniser nå»." },
     ],
     fi: [
-      { t: "Lataa ja hyväksy", d: "Asenna sovellus Google Play -kaupasta ja salli Health Connect -käyttöoikeus." },
-      { t: "FitMesh lukee kaiken", d: "Askeleet, syke, uni, kalorit. Taustalla, myös yön yli." },
-      { t: "Hallintapaneelisi on käytössä", d: "Avaa se missä tahansa selaimessa. Ei sosiaalisen median tilejä, emme koskaan myy tietojasi kolmansille osapuolille." },
+      { t: "Asenna ja kirjaudu", d: "Lataa FitMesh Sync App Storesta tai Google Playsta, luo sitten tili tai kirjaudu sisään. Jos vaihdat puhelinta tai käytät useampaa, käytä samaa tiliä." },
+      { t: "Myönnä lukuoikeudet", d: "Anna iPhonessa käyttöoikeus Apple Terveyteen, Androidissa Health Connectiin valiten luettavat tiedot. Jos sinulla on yhteensopiva Colmi-sormus, ota Bluetooth käyttöön ja napauta sovelluksessa «Yhdistä sormus». FitMesh vastaanottaa vain sen, mitä lähteesi tallentavat ja sinä sallit: jos mittausta ei jaeta, se ei saavu perille." },
+      { t: "Tarkastele tietojasi sovelluksessa", d: "FitMesh kokoaa sallimasi tiedot päiväkohtaisesti. Jos käytät useampaa puhelinta samalla tilillä, kukin näyttää myös muiden jo synkronoimat tiedot. Voit päivittää milloin tahansa napauttamalla «Synkronoi nyt»." },
     ],
   } as LocalizedItems<StepItem[]>,
 
@@ -333,54 +332,6 @@ export const HOMEPAGE_COPY = {
     es: "¿Quieres saber qué está en vivo y qué sigue en desarrollo?",
     de: "Möchtest du wissen, was live ist und was sich noch in Entwicklung befindet?",
   } satisfies Localized,
-
-  privacyPoints: {
-    it: [
-      { t: "Zero tracker pubblicitari", d: "I tuoi dati salute non alimentano nessun algoritmo pubblicitario. Niente profilazione." },
-    ],
-    en: [
-      { t: "Zero ad trackers", d: "Your health data feeds no advertising algorithm. No cross-site tracking." },
-    ],
-    es: [
-      { t: "Cero rastreadores publicitarios", d: "Tus datos de salud no alimentan ningún algoritmo publicitario. Sin perfilado." },
-    ],
-    de: [
-      { t: "Keine Werbetracker", d: "Deine Gesundheitsdaten fließen in keinen Werbealgorithmus. Kein seitenübergreifendes Tracking." },
-    ],
-    pt: [
-      { t: "Zero rastreadores publicitários", d: "Os teus dados de saúde não alimentam nenhum algoritmo publicitário. Sem rastreamento entre sites." },
-    ],
-    fr: [
-      { t: "Zéro traceur publicitaire", d: "Vos données de santé n'alimentent aucun algorithme publicitaire. Pas de suivi entre sites." },
-    ],
-    pl: [
-      { t: "Zero trackerów reklamowych", d: "Twoje dane zdrowotne nie zasilają żadnego algorytmu reklamowego. Bez śledzenia między witrynami." },
-    ],
-    tr: [
-      { t: "Sıfır reklam izleyicisi", d: "Sağlık verileriniz hiçbir reklam algoritmasını beslemez. Siteler arası takip yok." },
-    ],
-    nl: [
-      { t: "Geen advertentietrackers", d: "Je gezondheidsgegevens voeden geen advertentiealgoritme. Geen cross-site tracking." },
-    ],
-    ja: [
-      { t: "広告トラッカーゼロ", d: "健康データが広告アルゴリズムに使われることはありません。クロスサイトトラッキングもありません。" },
-    ],
-    ko: [
-      { t: "광고 트래커 없음", d: "건강 데이터가 광고 알고리즘에 쓰이지 않습니다. 교차 사이트 추적도 없습니다." },
-    ],
-    sv: [
-      { t: "Inga annonsspårare", d: "Din hälsodata matar ingen annonsalgoritm. Ingen spårning mellan webbplatser." },
-    ],
-    da: [
-      { t: "Ingen annoncetrackere", d: "Dine sundhedsdata fodrer ingen reklamealgoritme. Ingen tracking på tværs af sider." },
-    ],
-    no: [
-      { t: "Ingen annonsesporing", d: "Helsedataene dine mater ingen annonsealgoritme. Ingen sporing på tvers av nettsteder." },
-    ],
-    fi: [
-      { t: "Nolla mainosseurantaa", d: "Terveystietosi eivät ruoki yhtään mainosalgoritmia. Ei sivustojen välistä seurantaa." },
-    ],
-  } as LocalizedItems<PrivacyPoint[]>,
 
   orLabel: {
     it: "oppure",

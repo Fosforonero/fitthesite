@@ -1362,16 +1362,16 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Xiaomi och Amazfit på Health Connect: data i din egen översiktspanel",
-      "da": "Xiaomi og Amazfit på Health Connect: data i dit eget kontrolpanel"
+      "sv": "Xiaomi och Amazfit på Health Connect: data i FitMesh-appen",
+      "da": "Xiaomi og Amazfit på Health Connect: data i FitMesh-appen"
     },
     "hero.subtitle": {
-      "sv": "Data från Mi Band och Amazfit förblir låsta i appen Zepp eller Mi Fitness, men med Health Connect kan du hämta ut dem, slå ihop dem med data från dina andra enheter och visa dem på din egen översiktssida. Här beskriver vi hur det går till, med ärliga begränsningar.",
-      "da": "Data fra Mi Band og Amazfit forbliver låst inde i Zepp- eller Mi Fitness-appen, men med Health Connect kan du hente dem ud, sammenflette dem med data fra dine andre enheder og se dem på dit eget kontrolpanel. Her er en vejledning, med ærlige begrænsninger."
+      "sv": "Data från Mi Band och Amazfit förblir låsta i appen Zepp eller Mi Fitness, men med Health Connect kan du hämta ut dem, slå ihop dem med data från dina andra enheter och visa dem i FitMesh-appen. Här beskriver vi hur det går till, med ärliga begränsningar.",
+      "da": "Data fra Mi Band og Amazfit forbliver låst inde i Zepp- eller Mi Fitness-appen, men med Health Connect kan du hente dem ud, sammenflette dem med data fra dine andre enheder og se dem i FitMesh-appen. Her er en vejledning, med ærlige begrænsninger."
     },
     "metaDescription": {
-      "sv": "Så här visar du data från Xiaomi, Mi Band och Amazfit i din egen översiktspanel via Health Connect. Vad som fungerar (steg, puls, sömn, kalorier) och de faktiska begränsningarna hos avancerade mätvärden.",
-      "da": "Sådan får du vist data fra Xiaomi, Mi Band og Amazfit på dit eget kontrolpanel via Health Connect. Hvad der fungerer (skridt, puls, søvn, kalorier), og de reelle begrænsninger ved avancerede målinger."
+      "sv": "Så här visar du data från Xiaomi, Mi Band och Amazfit i FitMesh-appen via Health Connect. Vad som fungerar (steg, puls, sömn, kalorier) och de faktiska begränsningarna hos avancerade mätvärden.",
+      "da": "Sådan får du vist data fra Xiaomi, Mi Band og Amazfit i FitMesh-appen via Health Connect. Hvad der fungerer (skridt, puls, søvn, kalorier), og de reelle begrænsninger ved avancerede målinger."
     },
     "primaryKeyword": {
       "sv": "exportera data från Xiaomi Amazfit till Health Connect",
@@ -1386,8 +1386,8 @@
       "da": "Sådan fungerer forløbet: Zepp / Mi Fitness til Health Connect til FitMesh"
     },
     "body.2.text": {
-      "sv": "Processen består av tre steg. Först synkroniserar tillverkarens app (Zepp eller Mi Fitness) den fysiska enheten och skriver de insamlade uppgifterna till Health Connect. Därefter lagrar Health Connect dem i ett lokalt arkiv på Android-telefonen. Slutligen begär FitMesh Sync läsbehörighet från Health Connect och hämtar data för att visa den på instrumentpanelen. På detta sätt lämnar data aldrig din telefon till obehöriga tredjepartsservrar: du behåller kontrollen.",
-      "da": "Processen består af tre trin. Først synkroniserer producentens app (Zepp eller Mi Fitness) den fysiske enhed og gemmer de indsamlede data i Health Connect. Derefter gemmer Health Connect dem i et lokalt arkiv på Android-telefonen. Til sidst anmoder FitMesh Sync om læsetilladelser fra Health Connect og henter dataene for at vise dem på kontrolpanelet. På denne måde forlader dataene aldrig din telefon til uautoriserede tredjepartsservere: du bevarer kontrollen."
+      "sv": "Processen består av tre steg. Först synkroniserar tillverkarens app (Zepp eller Mi Fitness) den fysiska enheten och skriver de insamlade uppgifterna till Health Connect. Därefter lagrar Health Connect dem i ett lokalt arkiv på Android-telefonen. Slutligen begär FitMesh Sync läsbehörighet från Health Connect och hämtar data för att visa den i appen.",
+      "da": "Processen består af tre trin. Først synkroniserer producentens app (Zepp eller Mi Fitness) den fysiske enhed og gemmer de indsamlede data i Health Connect. Derefter gemmer Health Connect dem i et lokalt arkiv på Android-telefonen. Til sidst anmoder FitMesh Sync om læsetilladelser fra Health Connect og henter dataene for at vise dem i appen."
     },
     "body.3.title": {
       "sv": "Krav: Android 9 eller senare med Health Connect",
@@ -1442,12 +1442,12 @@
       "da": "Det vigtigste kriterium er ikke enhedens model, men den app, der styrer den. Hvis din bærbare enhed bruger Zepp eller Mi Fitness, og disse apps understøtter Health Connect (hvilket begge har gjort siden slutningen af 2023), overføres data, der er tilgængelige på Health Connect, også til FitMesh. Dette omfatter:"
     },
     "body.19.title": {
-      "sv": "Vill du se dina data från Xiaomi och Amazfit i din egen översiktssida?",
-      "da": "Vil du gerne se dine Xiaomi- og Amazfit-data på dit eget kontrolpanel?"
+      "sv": "Vill du se dina data från Xiaomi och Amazfit i FitMesh-appen?",
+      "da": "Vil du gerne se dine Xiaomi- og Amazfit-data i FitMesh-appen?"
     },
     "body.19.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band, Amazfit och alla andra anslutna enheter i en webbpanel som är tillgänglig via webbläsaren. Dina data sparas på din telefon: FitMesh varken säljer eller delar dem med tredje part. Ladda ner FitMesh och prova det gratis.",
-      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band, Amazfit og alle andre tilsluttede enheder i et webdashboard, der kan tilgås via en browser. Dine data forbliver på din telefon: FitMesh sælger dem ikke og deler dem ikke med tredjeparter. Download FitMesh, og prøv det gratis."
+      "sv": "FitMesh Sync hämtar data från Health Connect och sammanställer information från Mi Band och Amazfit i appen. Ladda ner FitMesh och prova det gratis.",
+      "da": "FitMesh Sync henter data fra Health Connect og samler data fra Mi Band og Amazfit i appen. Download FitMesh, og prøv det gratis."
     },
     "body.19.ctaLabel": {
       "sv": "Ladda ner FitMesh och prova gratis →",
@@ -1498,8 +1498,8 @@
       "da": "Overfører FitMesh Sync mine data til en server?"
     },
     "faq.5.a": {
-      "sv": "FitMesh Sync läser in data från Health Connect lokalt på din telefon. För att skapa den webbaserade kontrollpanelen som är tillgänglig via webbläsaren bearbetas vissa aggregerade data för visning. FitMesh:s policy är att dina data inte säljs till tredje part och inte används för reklam. Du kan läsa den fullständiga integritetspolicyn på FitMesh.fit.",
-      "da": "FitMesh Sync henter data fra Health Connect lokalt på din telefon. For at generere det webbaserede dashboard, som kan tilgås via en browser, behandles visse aggregerede data med henblik på visning. FitMesh’s politik er, at dine data ikke sælges til tredjeparter og ikke anvendes til reklameformål. Du kan læse den fulde privatlivspolitik på FitMesh.fit."
+      "sv": "Ja. FitMesh Sync synkroniserar data som lästs från Health Connect till ditt konto. FitMesh:s policy är att dina data inte säljs till tredje part och inte används för reklam. Du kan läsa den fullständiga integritetspolicyn på FitMesh.fit.",
+      "da": "Ja. FitMesh Sync synkroniserer data, der er læst fra Health Connect, med din konto. FitMesh’s politik er, at dine data ikke sælges til tredjeparter og ikke anvendes til reklameformål. Du kan læse den fulde privatlivspolitik på FitMesh.fit."
     },
     "secondaryKeywords": {
       "sv": [
@@ -1520,14 +1520,14 @@
     "tldr": {
       "sv": [
         "Zepp OS (Amazfit) och Mi Fitness (Xiaomi / Mi Band) överför steg, puls, sömn och kalorier till Health Connect: ingen manuell export behövs.",
-        "Från Health Connect hämtar FitMesh Sync dessa data och visar dem på din egen instrumentpanel, sammanfogade med data från dina övriga enheter.",
+        "Från Health Connect hämtar FitMesh Sync dessa data och visar dem i appen, sammanfogade med data från dina övriga enheter.",
         "Vissa avancerade mätvärden (PAI, Zepp Body Battery, detaljerad sömnanalys) finns endast i tillverkarens appar: Health Connect visar inte dessa.",
         "Funktionen fungerar endast på Android 9 eller senare med Health Connect installerat; iPhone stöder inte Health Connect.",
         "Xiaomi och Amazfit hör till de mest sålda bärbara enheterna världen över: den här guiden täcker Mi Band 7/8/9, Amazfit GTR/GTS 4/5, Band 7 Pro och liknande modeller."
       ],
       "da": [
         "Zepp OS (Amazfit) og Mi Fitness (Xiaomi / Mi Band) overfører skridt, puls, søvn og kalorier til Health Connect: der er ikke behov for manuel eksport.",
-        "Fra Health Connect henter FitMesh Sync disse data og viser dem på dit eget dashboard, sammen med data fra dine andre enheder.",
+        "Fra Health Connect henter FitMesh Sync disse data og viser dem i appen, sammen med data fra dine andre enheder.",
         "Nogle avancerede målinger (PAI, Zepp Body Battery, detaljeret søvnanalyse) findes kun i producentens apps: Health Connect viser dem ikke.",
         "Funktionen virker kun på Android 9 eller nyere med Health Connect installeret; iPhone understøtter ikke Health Connect.",
         "Xiaomi og Amazfit er blandt de bedst sælgende wearables på verdensplan: Denne guide omhandler Mi Band 7/8/9, Amazfit GTR/GTS 4/5, Band 7 Pro og lignende modeller."
@@ -1709,14 +1709,14 @@
         "När appen startas för första gången begär den Health Connect behörigheter. Följ auktoriseringsprocessen.",
         "Välj vilka kategorier du vill se: steg, puls, sömn, kalorier, sträcka och SpO2.",
         "FitMesh Sync börjar läsa in data från Health Connect, inklusive data som skrivits av Zepp och Mi Fitness.",
-        "Öppna webbpanelen i en webbläsare: där ser du alla data sammanställda per enhet och per dag."
+        "Öppna FitMesh-appen: där ser du data som lästs från Health Connect. Den personliga webbpanelen är ännu inte tillgänglig."
       ],
       "da": [
         "Installer FitMesh Sync fra Google Play Store på din Android-telefon.",
         "Når appen startes for første gang, anmoder den om Health Connect tilladelser. Følg godkendelsesprocessen.",
         "Vælg de kategorier, du vil læse: skridt, puls, søvn, kalorier, distance og SpO2.",
         "FitMesh Sync begynder at læse data fra Health Connect, herunder data, der er indlæst af Zepp og Mi Fitness.",
-        "Åbn webdashboardet i en browser: Her kan du se alle data samlet efter enhed og dag."
+        "Åbn FitMesh-appen: Her kan du se data, der er læst fra Health Connect. Det personlige webdashboard er endnu ikke tilgængeligt."
       ]
     },
     "body.18.items": {
@@ -1748,16 +1748,16 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Synkronisering av Withings-data: vikt, aktivitet och sömn i en översiktspanel",
-      "da": "Synkronisering af Withings-data: vægt, aktivitet og søvn i ét oversigtspanel"
+      "sv": "Synkronisering av Withings-data: vikt, aktivitet och sömn i appen FitMesh",
+      "da": "Synkronisering af Withings-data: vægt, aktivitet og søvn i FitMesh-appen"
     },
     "hero.subtitle": {
       "sv": "Withings samlar in värdefull hälsodata, men den förblir låst i Health Mate-appen. Här beskriver vi hur du kan hämta ut den, kombinera den med dina andra enheter och se allt på ett och samma ställe – med ärliga kommentarer om dess begränsningar.",
       "da": "Withings indsamler værdifulde sundhedsdata, men de forbliver låst inde i Health Mate-appen. Her kan du læse, hvordan du får dem ud, kombinerer dem med dine andre enheder og får det hele samlet ét sted – med ærlige bemærkninger om appens begrænsninger."
     },
     "metaDescription": {
-      "sv": "Så här synkroniserar du Withings data (våg, hybridklocka, sensorer) till en samlad personlig översiktssida. Praktisk guide som täcker Health Connect, HealthKit och EU:s integritetsbestämmelser.",
-      "da": "Sådan synkroniseres Withings data (vægt, hybridur, sensorer) til et samlet personligt kontrolpanel. Praktisk vejledning, der dækker Health Connect, HealthKit og EU’s databeskyttelsesregler."
+      "sv": "Så här synkroniserar du Withings data (våg, hybridklocka, sensorer) och visar dem i appen FitMesh. Praktisk guide som täcker Health Connect, HealthKit och EU:s integritetsbestämmelser.",
+      "da": "Sådan synkroniseres Withings data (vægt, hybridur, sensorer) og vises i FitMesh-appen. Praktisk vejledning, der dækker Health Connect, HealthKit og EU’s databeskyttelsesregler."
     },
     "primaryKeyword": {
       "sv": "synkronisera Withings data",
@@ -1848,8 +1848,8 @@
       "da": "FitMesh Sync og Withings: hvad man kan forvente"
     },
     "body.20.text": {
-      "sv": "FitMesh Sync läser in data från Health Connect (Android) och HealthKit (iOS) och visar dem i en webbaserad kontrollpanel som är tillgänglig från vilken webbläsare som helst, inklusive från en dator eller surfplatta, utan att du behöver öppna smartphone-appen varje gång. Om du redan har anslutit Withings till Health Connect eller HealthKit enligt stegen ovan kommer data om vikt, steg, sömn och hjärtfrekvens från Withings automatiskt att visas i instrumentpanelen tillsammans med data från andra enheter du använder.",
-      "da": "FitMesh Sync henter data fra Health Connect (Android) og HealthKit (iOS) og viser dem i et webbaseret kontrolpanel, som man kan få adgang til fra enhver browser, herunder fra en pc eller tablet, uden at man behøver at åbne smartphone-appen hver gang. Hvis du allerede har tilsluttet Withings til Health Connect eller HealthKit ved at følge trinene ovenfor, vil data om vægt, skridt, søvn og puls fra Withings automatisk blive vist i dashboardet sammen med data fra andre enheder, du bruger."
+      "sv": "FitMesh Sync läser in data från Health Connect (Android) och HealthKit (iOS) och visar dem i appens instrumentpanel. Den personliga webbpanelen är ännu inte tillgänglig. Om du redan har anslutit Withings till Health Connect eller HealthKit enligt stegen ovan kommer data om vikt, steg, sömn och hjärtfrekvens från Withings automatiskt att visas i appens instrumentpanel tillsammans med data från andra enheter du använder.",
+      "da": "FitMesh Sync henter data fra Health Connect (Android) og HealthKit (iOS) og viser dem i appens dashboard. Det personlige webdashboard er endnu ikke tilgængeligt. Hvis du allerede har tilsluttet Withings til Health Connect eller HealthKit ved at følge trinene ovenfor, vil data om vægt, skridt, søvn og puls fra Withings automatisk blive vist i appens dashboard sammen med data fra andre enheder, du bruger."
     },
     "body.21.title": {
       "sv": "Withings stöds via Health Connect och HealthKit",
@@ -1860,12 +1860,12 @@
       "da": "FitMesh Sync forbinder til Withings via standardplatforme (Health Connect på Android, HealthKit på iOS): Du behøver ikke at forbinde din Withings-konto direkte eller dele dine Health Mate-loginoplysninger. Forløbet er som følger: Withings skriver til Health Connect/HealthKit, og FitMesh Sync læser dataene derfra. Dine data forbliver altid under din kontrol."
     },
     "body.22.title": {
-      "sv": "Vill du se Withings vikt, sömn och aktivitet på en och samma översiktssida?",
-      "da": "Vil du se Withings vægt, søvn og aktivitet samlet på ét oversigtspanel?"
+      "sv": "Vill du se Withings vikt, sömn och aktivitet i appen FitMesh?",
+      "da": "Vil du se Withings vægt, søvn og aktivitet samlet i FitMesh-appen?"
     },
     "body.22.body": {
-      "sv": "FitMesh Sync samlar in data från Health Connect och HealthKit (där Withings skriver automatiskt) och sammanställer dem i en webbpanel som är tillgänglig via webbläsaren. Ingen manuell export, inga extra appar: det fungerar från det ögonblick du godkänner Health Connect för första gången. Europeiska servrar, EU:s integritetsskydd, inget abonnemang krävs för att komma igång.",
-      "da": "FitMesh Sync indsamler data fra Health Connect og HealthKit (hvor Withings skriver automatisk) og samler dem i et web-dashboard, der er tilgængeligt via browseren. Ingen manuel eksport, ingen ekstra apps: Det fungerer fra det øjeblik, du godkender Health Connect for første gang. EU-databeskyttelse, intet abonnement kræves for at komme i gang."
+      "sv": "FitMesh Sync samlar in data från Health Connect och HealthKit (där Withings skriver automatiskt) och sammanställer dem i appens instrumentpanel. Den personliga webbpanelen är ännu inte tillgänglig. Ingen manuell export, inga extra appar: det fungerar från det ögonblick du godkänner Health Connect för första gången. EU:s integritetsskydd, inget abonnemang krävs för att komma igång.",
+      "da": "FitMesh Sync indsamler data fra Health Connect og HealthKit (hvor Withings skriver automatisk) og samler dem i appens dashboard. Det personlige webdashboard er endnu ikke tilgængeligt. Ingen manuel eksport, ingen ekstra apps: Det fungerer fra det øjeblik, du godkender Health Connect for første gang. EU-databeskyttelse, intet abonnement kræves for at komme i gang."
     },
     "body.22.ctaLabel": {
       "sv": "Ladda ner FitMesh och prova gratis",
@@ -1900,8 +1900,8 @@
       "da": "Kan jeg se Withings-data på en pc eller tablet, og ikke kun på en smartphone?"
     },
     "faq.3.a": {
-      "sv": "Appen Health Mate är främst avsedd för smartphones. På webbplatsen withings.com finns en grundläggande datavisning, men ingen avancerad översiktssida. För att se vikt, sömn och aktivitet i en fullständig webbkontrollpanel i en webbläsare måste du använda en app från tredje part som läser av data från Health Connect eller HealthKit (där Withings redan har lagrat dem) och visar dem i webbformat.",
-      "da": "Health Mate-appen er primært udviklet til smartphones. På hjemmesiden withings.com kan du se grundlæggende data, men der er ikke et avanceret kontrolpanel. For at se vægt, søvn og aktivitet i et fuldt web-dashboard i en browser skal du bruge en tredjepartsapp, der læser data fra Health Connect eller HealthKit (hvor Withings allerede har gemt dem) og viser dem i webformat."
+      "sv": "Appen Health Mate är främst avsedd för smartphones. På webbplatsen withings.com finns en grundläggande datavisning, men ingen avancerad översiktssida. För att se vikt, sömn och aktivitet i en fullständig webbkontrollpanel i en webbläsare måste du använda en app från tredje part som läser av data från Health Connect eller HealthKit (där Withings redan har lagrat dem) och visar dem i webbformat. Den personliga webbpanelen är ännu inte tillgänglig.",
+      "da": "Health Mate-appen er primært udviklet til smartphones. På hjemmesiden withings.com kan du se grundlæggende data, men der er ikke et avanceret kontrolpanel. For at se vægt, søvn og aktivitet i et fuldt web-dashboard i en browser skal du bruge en tredjepartsapp, der læser data fra Health Connect eller HealthKit (hvor Withings allerede har gemt dem) og viser dem i webformat. Det personlige webdashboard er endnu ikke tilgængeligt."
     },
     "faq.4.q": {
       "sv": "Synkroniserar Withings ScanWatch träningspass till Health Connect?",
@@ -1939,14 +1939,14 @@
       "sv": [
         "Withings synkroniserar vikt, kroppssammansättning, aktivitet och sömn till sin egen Health Mate-app: därifrån kan du samla all information på en samlad översiktssida.",
         "På Android kommer Withings data via Health Connect; på iOS via HealthKit: koppla bara Health Mate-appen till den plattform du använder.",
-        "För att få tillgång till en personlig instrumentpanel via en webbläsare behöver du en app som kan avläsa både Health Connect/HealthKit och de andra enheterna som du använder parallellt.",
+        "För att få en personlig instrumentpanel i mobilen behöver du en app som kan avläsa både Health Connect/HealthKit och de andra enheterna som du använder parallellt. Den personliga webbpanelen är ännu inte tillgänglig.",
         "Dina uppgifter tillhör dig: Withings är ett europeiskt varumärke och servrarna finns i Europa. Kontrollera var andra tjänster lagrar dina uppgifter innan du delar dem.",
         "Den största begränsningen: vissa avancerade mått på kroppssammansättning finns endast i appen Withings och överförs inte till tredje part."
       ],
       "da": [
         "Withings synkroniserer vægt, kropssammensætning, aktivitet og søvn med sin egen Health Mate-app: derfra kan du samle det hele i et samlet oversigtspanel.",
         "På Android modtages Withings-data via Health Connect; på iOS via HealthKit: Du skal blot forbinde Health Mate-appen til den platform, du bruger.",
-        "For at få et personligt kontrolpanel, som du kan få adgang til via en browser, skal du have en app, der kan aflæse både Health Connect/HealthKit og de andre enheder, du bruger sideløbende.",
+        "For at få et personligt kontrolpanel på din telefon skal du have en app, der kan aflæse både Health Connect/HealthKit og de andre enheder, du bruger sideløbende. Det personlige webdashboard er endnu ikke tilgængeligt.",
         "Dine data tilhører dig: Withings er et europæisk brand, og serverne er placeret i Europa. Tjek, hvor andre tjenester gemmer dine data, før du deler dem.",
         "Den største begrænsning: visse avancerede målinger af kropssammensætning forbliver udelukkende i Withings-appen og videregives ikke til tredjeparter."
       ]
@@ -2088,24 +2088,24 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Pixel Watch-data på din egen instrumentpanel: så här fungerar det med Health Connect",
-      "da": "Pixel Watch-data på dit eget kontrolpanel: Sådan fungerer det med Health Connect"
+      "sv": "Pixel Watch-data i FitMesh-appen: så här fungerar det med Health Connect",
+      "da": "Pixel Watch-data i FitMesh-appen: Sådan fungerer det med Health Connect"
     },
     "hero.subtitle": {
-      "sv": "Pixel Watch registrerar allt i Fitbit, som sedan skriver ut informationen till Health Connect. Därifrån samlar FitMesh Sync in uppgifter om steg, puls, sömn och kalorier och visar dem i en egen panel, tillsammans med de andra enheterna du använder.",
-      "da": "Pixel Watch registrerer alt i Fitbit, som derefter overfører dataene til Health Connect. Derfra samler FitMesh Sync oplysninger om skridt, puls, søvn og kalorier og viser dem i dit eget panel sammen med de andre enheder, du bruger."
+      "sv": "Pixel Watch registrerar allt i Fitbit, som sedan skriver ut informationen till Health Connect. Därifrån samlar FitMesh Sync in uppgifter om steg, puls, sömn och kalorier och visar dem i appen, tillsammans med de andra enheterna du använder.",
+      "da": "Pixel Watch registrerer alt i Fitbit, som derefter overfører dataene til Health Connect. Derfra samler FitMesh Sync oplysninger om skridt, puls, søvn og kalorier og viser dem i appen sammen med de andre enheder, du bruger."
     },
     "metaDescription": {
-      "sv": "Så här visar du data från Pixel Watch (Wear OS, Fitbit) på en personlig översiktssida via Health Connect och kombinerar den med andra enheter med hjälp av FitMesh Sync. Vad som fungerar och vilka begränsningar som faktiskt finns.",
-      "da": "Sådan vises data fra Pixel Watch (Wear OS, Fitbit) på et personligt dashboard via Health Connect og kombineres med andre enheder ved hjælp af FitMesh Sync. Hvad der fungerer, og de reelle begrænsninger."
+      "sv": "Så här visar du data från Pixel Watch (Wear OS, Fitbit) i FitMesh-appen via Health Connect och kombinerar den med andra enheter med hjälp av FitMesh Sync. Vad som fungerar och vilka begränsningar som faktiskt finns.",
+      "da": "Sådan vises data fra Pixel Watch (Wear OS, Fitbit) i FitMesh-appen via Health Connect og kombineres med andre enheder ved hjælp af FitMesh Sync. Hvad der fungerer, og de reelle begrænsninger."
     },
     "primaryKeyword": {
       "sv": "Pixel Watch – personlig översiktssida för data",
       "da": "Personligt kontrolpanel med data fra Pixel Watch"
     },
     "body.0.text": {
-      "sv": "Om du har en Pixel Watch följer dina hälsodata en specifik väg: enheten registrerar dem och synkroniserar dem till Fitbit (Googles hälsoapp på Pixel). Fitbit skriver sedan in dem i Health Connect, Androids centrala lagringsplats. Från Health Connect kan alla auktoriserade appar läsa dem. FitMesh Sync är en av dem: den samlar in dina mätvärden, visar dem i en webbpanel och, om du har andra enheter, sammanför dem på ett och samma ställe.",
-      "da": "Hvis du har et Pixel Watch, følger dine sundhedsdata en bestemt rute: enheden registrerer dem og synkroniserer dem til Fitbit (Googles sundhedsapp på Pixel). Fitbit overfører dem derefter til Health Connect, Androids centraliserede datalager. Fra Health Connect kan enhver autoriseret app læse dem. FitMesh Sync er en af dem: den indsamler dine målinger, viser dem i et webdashboard og, hvis du har andre enheder, samler dem ét sted."
+      "sv": "Om du har en Pixel Watch följer dina hälsodata en specifik väg: enheten registrerar dem och synkroniserar dem till Fitbit (Googles hälsoapp på Pixel). Fitbit skriver sedan in dem i Health Connect, Androids centrala lagringsplats. Från Health Connect kan alla auktoriserade appar läsa dem. FitMesh Sync är en av dem: den samlar in dina mätvärden, visar dem i appen och, om du har andra enheter, sammanför dem på ett och samma ställe. Den personliga webbpanelen är ännu inte tillgänglig.",
+      "da": "Hvis du har et Pixel Watch, følger dine sundhedsdata en bestemt rute: enheden registrerer dem og synkroniserer dem til Fitbit (Googles sundhedsapp på Pixel). Fitbit overfører dem derefter til Health Connect, Androids centraliserede datalager. Fra Health Connect kan enhver autoriseret app læse dem. FitMesh Sync er en af dem: den indsamler dine målinger, viser dem i appen og, hvis du har andre enheder, samler dem ét sted. Det personlige webdashboard er endnu ikke tilgængeligt."
     },
     "body.1.text": {
       "sv": "Hur data från Pixel Watch når Health Connect",
@@ -2120,8 +2120,8 @@
       "da": "Datavejen i korte træk"
     },
     "body.3.body": {
-      "sv": "Pixel Watch lagrar data på enheten. Appen Fitbit på Android synkroniserar dem. Fitbit skriver till Health Connect. FitMesh Sync läser från Health Connect med ditt tillstånd och visar uppgifterna i instrumentpanelen.",
-      "da": "Pixel Watch gemmer data på enheden. Appen Fitbit på Android synkroniserer dem. Fitbit skriver til Health Connect. FitMesh Sync læser fra Health Connect med din tilladelse og viser dem i kontrolpanelet."
+      "sv": "Pixel Watch lagrar data på enheten. Appen Fitbit på Android synkroniserar dem. Fitbit skriver till Health Connect. FitMesh Sync läser från Health Connect med ditt tillstånd och visar uppgifterna i appen.",
+      "da": "Pixel Watch gemmer data på enheden. Appen Fitbit på Android synkroniserer dem. Fitbit skriver til Health Connect. FitMesh Sync læser fra Health Connect med din tilladelse og viser dem i appen."
     },
     "body.4.text": {
       "sv": "Vad som fungerar idag: de tillgängliga mätvärdena",
@@ -2148,8 +2148,8 @@
       "da": "Sammenkobling af Pixel Watch med dine andre enheder"
     },
     "body.9.text": {
-      "sv": "Många använder mer än en enhet: kanske en Pixel Watch på dagen och en smart ring på natten för sömnen, eller en smartklocka under veckodagarna och en annan enhet på helgerna. Det klassiska problemet är att varje app bara visar sin egen del av informationen. FitMesh Sync löser detta: den hämtar data från Health Connect och andra auktoriserade källor och visar sedan allt i samma översiktspanel.",
-      "da": "Mange mennesker bruger mere end én enhed: måske et Pixel Watch om dagen og en smartring om natten, når de sover, eller et smartwatch i løbet af ugen og en anden enhed i weekenden. Det klassiske problem er, at hver app kun viser sine egne data. FitMesh Sync løser dette: den henter data fra Health Connect og andre autoriserede kilder og viser derefter det hele i det samme dashboard."
+      "sv": "Många använder mer än en enhet: kanske en Pixel Watch på dagen och en smart ring på natten för sömnen, eller en smartklocka under veckodagarna och en annan enhet på helgerna. Det klassiska problemet är att varje app bara visar sin egen del av informationen. FitMesh Sync löser detta: den hämtar data från Health Connect och andra auktoriserade källor och visar sedan allt i appen.",
+      "da": "Mange mennesker bruger mere end én enhed: måske et Pixel Watch om dagen og en smartring om natten, når de sover, eller et smartwatch i løbet af ugen og en anden enhed i weekenden. Det klassiske problem er, at hver app kun viser sine egne data. FitMesh Sync løser dette: den henter data fra Health Connect og andre autoriserede kilder og viser derefter det hele i appen."
     },
     "body.10.aTitle": {
       "sv": "Utan FitMesh Sync",
@@ -2168,16 +2168,16 @@
       "da": "Privatliv: Dine data forbliver dine"
     },
     "body.14.text": {
-      "sv": "FitMesh Sync läser in data från Health Connect med de uttryckliga behörigheter som du beviljar vid installationen. Tjänsten säljer inte din historik, använder den inte i reklamsyfte och delar den inte med tredje part. Kontrollpanelen tillhör dig: den finns till för att ge dig en tydlig överblick över dina data, inte för att tjäna pengar på dem.",
-      "da": "FitMesh Sync henter data fra Health Connect med de eksplicitte tilladelser, du giver ved installationen. Den sælger ikke din historik, bruger den ikke til reklame og deler den ikke med tredjeparter. Dashboardet er dit: Det er der for at give dig et klart overblik over dine data, ikke for at tjene penge på dem."
+      "sv": "FitMesh Sync läser in data från Health Connect med de uttryckliga behörigheter som du beviljar vid installationen. Tjänsten säljer inte din historik, använder den inte i reklamsyfte och delar den inte med tredje part. Appen är din: den finns till för att ge dig en tydlig överblick över dina data, inte för att tjäna pengar på dem.",
+      "da": "FitMesh Sync henter data fra Health Connect med de eksplicitte tilladelser, du giver ved installationen. Den sælger ikke din historik, bruger den ikke til reklame og deler den ikke med tredjeparter. Appen er din: Det er der for at give dig et klart overblik over dine data, ikke for at tjene penge på dem."
     },
     "body.15.title": {
-      "sv": "Vill du testa instrumentpanelen med dina Pixel Watch-data?",
-      "da": "Vil du prøve at se dine Pixel Watch-data på dashboardet?"
+      "sv": "Vill du testa appen med dina Pixel Watch-data?",
+      "da": "Vil du prøve at se dine Pixel Watch-data i appen?"
     },
     "body.15.body": {
-      "sv": "FitMesh Sync ger dig en personlig webbpanel med dina Pixel Watch-data. Om du har en Pixel Watch (eller någon annan enhet som kan skriva till Health Connect) kan du testa alla Pro-funktioner gratis i 14 dagar.",
-      "da": "FitMesh Sync giver dig et personligt web-dashboard med dine Pixel Watch-data. Hvis du har et Pixel Watch (eller en hvilken som helst enhed, der kan skrive til Health Connect), kan du prøve alle Pro-funktionerne gratis i 14 dage."
+      "sv": "FitMesh Sync visar dina Pixel Watch-data i appen. Om du har en Pixel Watch (eller någon annan enhet som kan skriva till Health Connect) kan du testa alla Pro-funktioner gratis i 14 dagar.",
+      "da": "FitMesh Sync viser dine Pixel Watch-data i appen. Hvis du har et Pixel Watch (eller en hvilken som helst enhed, der kan skrive til Health Connect), kan du prøve alle Pro-funktionerne gratis i 14 dage."
     },
     "body.15.ctaLabel": {
       "sv": "Prova FitMesh",
@@ -2204,8 +2204,8 @@
       "da": "Fungerer det, hvis jeg har både et Pixel Watch og en smart ring?"
     },
     "faq.2.a": {
-      "sv": "Ja, och det är ett av de viktigaste användningsområdena för FitMesh Sync. Om båda enheterna skriver till Health Connect (Pixel Watch via Fitbit och smartringen via sin app), läser FitMesh av båda och visar dem på samma översiktssida. De dagar då båda registrerar samma data (till exempel steg) hanterar FitMesh överlappningen för att undvika dubbletter i visningen.",
-      "da": "Ja, og det er en af de vigtigste anvendelsessituationer for FitMesh Sync. Hvis begge enheder skriver til Health Connect (Pixel Watch via Fitbit, smart-ringen via sin app), læser FitMesh begge dele og viser dem i det samme dashboard. På dage, hvor begge enheder registrerer de samme data (for eksempel skridt), håndterer FitMesh overlapningen for at undgå dubletter på skærmen."
+      "sv": "Ja, och det är ett av de viktigaste användningsområdena för FitMesh Sync. Om båda enheterna skriver till Health Connect (Pixel Watch via Fitbit och smartringen via sin app), läser FitMesh av båda och visar dem i appen. De dagar då båda registrerar samma data (till exempel steg) hanterar FitMesh överlappningen för att undvika dubbletter i visningen.",
+      "da": "Ja, og det er en af de vigtigste anvendelsessituationer for FitMesh Sync. Hvis begge enheder skriver til Health Connect (Pixel Watch via Fitbit, smart-ringen via sin app), læser FitMesh begge dele og viser dem i appen. På dage, hvor begge enheder registrerer de samme data (for eksempel skridt), håndterer FitMesh overlapningen for at undgå dubletter på skærmen."
     },
     "faq.3.q": {
       "sv": "Måste jag ha Fitbit installerat för att kunna använda FitMesh med Pixel Watch?",
@@ -2216,8 +2216,8 @@
       "da": "Ja, fordi Fitbit fungerer som bro mellem Pixel Watch og Health Connect. FitMesh Sync læser fra Health Connect, ikke direkte fra Fitbit. Så stien kræver, at Fitbit er installeret, synkroniseret med Pixel Watch, og at Health Connect har skrivetilladelser aktiveret. Når denne sti er aktiv, kan FitMesh læse dataene."
     },
     "faq.4.q": {
-      "sv": "Hur mycket historik visas på instrumentpanelen efter att jag har anslutit Pixel Watch?",
-      "da": "Hvor meget historik kan jeg se på instrumentbrættet, når jeg har tilsluttet Pixel Watch?"
+      "sv": "Hur mycket historik visas i appen efter att jag har anslutit Pixel Watch?",
+      "da": "Hvor meget historik kan jeg se i appen, når jeg har tilsluttet Pixel Watch?"
     },
     "faq.4.a": {
       "sv": "Health Connect lagrar data under en period som beror på telefonens inställningar och tillgängligt utrymme (standard är 30 dagar för de flesta datatyper, men kan ställas in på upp till 3 år). FitMesh visar allt som Health Connect har tillgängligt vid anslutningstillfället. För att se en längre historik kan du öka lagringstiden i inställningarna för Health Connect innan du ansluter FitMesh.",
@@ -2250,15 +2250,15 @@
     "tldr": {
       "sv": [
         "Pixel Watch registrerar steg, puls, sömn och kalorier till Fitbit; dessa värden sparas automatiskt i Health Connect på Android.",
-        "Från Health Connect läser FitMesh Sync in dina data och visar dem i en personlig webbpanel – ingen manuell filexport behövs.",
-        "Om du också använder en smart ring eller en annan smartklocka samlar FitMesh dem i en enda panel: allt på ett ställe.",
+        "Från Health Connect läser FitMesh Sync in dina data och visar dem i appen – ingen manuell filexport behövs.",
+        "Om du också använder en smart ring eller en annan smartklocka samlar FitMesh dem i appen: allt på ett ställe.",
         "Vad som fungerar idag: steg, puls, sömn, kalorier. En ärlig begränsning: detaljerade GPS-aktiviteter går inte att överföra Health Connect.",
         "Din historik förblir privat: FitMesh säljer inte dina uppgifter."
       ],
       "da": [
         "Pixel Watch registrerer skridt, puls, søvn og kalorier til Fitbit; disse data overføres automatisk til Health Connect på Android.",
-        "Fra Health Connect henter FitMesh Sync dine data og viser dem i et personligt web-dashboard – der er ikke behov for manuel fileksport.",
-        "Hvis du også bruger en smartring eller et andet smartwatch, samler FitMesh dem i ét panel: alt på ét sted.",
+        "Fra Health Connect henter FitMesh Sync dine data og viser dem i appen – der er ikke behov for manuel fileksport.",
+        "Hvis du også bruger en smartring eller et andet smartwatch, samler FitMesh dem i appen: alt på ét sted.",
         "Hvad der fungerer i dag: skridt, puls, søvn, kalorier. Ærlig begrænsning: detaljerede GPS-aktiviteter vises ikke Health Connect.",
         "Din historik forbliver privat: FitMesh sælger ikke dine data."
       ]
@@ -2353,13 +2353,13 @@
       "sv": [
         "Steg, puls, sömn och kalorier från alla enheter i en och samma översikt",
         "Data från Pixel Watch och smarta ringen sida vid sida på samma skärm",
-        "Historiken är tillgänglig via webbläsaren, utan att man behöver öppna andra appar",
+        "Historiken är tillgänglig i appen, utan att man behöver öppna andra appar",
         "Om data överlappar varandra (samma dag, samma typ) hanterar FitMesh dubbletter"
       ],
       "da": [
         "Skridt, puls, søvn og kalorier fra alle enheder samlet i ét overblik",
         "Data fra Pixel Watch og smart-ringen side om side på samme skærm",
-        "Historikken kan tilgås via browseren uden at skulle åbne andre apps",
+        "Historikken kan tilgås i appen uden at skulle åbne andre apps",
         "Hvis data overlapper hinanden (samme dag, samme type), håndterer FitMesh dubletter"
       ]
     },
@@ -2369,16 +2369,16 @@
         "Öppna inställningarna på din telefon och sök efter ”Health Connect”. Kontrollera att Fitbit finns med i listan över appar med skrivbehörighet.",
         "Ladda ner FitMesh Sync från Google Play Store och skapa ett konto.",
         "Vid första uppstarten ber FitMesh om behörighet att läsa data från Health Connect. Bevilja behörighet för de mätvärden du vill se: steg, puls, sömn, kalorier.",
-        "Efter att du har godkänt detta fylls din instrumentpanel med historiska data som finns tillgängliga i Health Connect.",
-        "Om du har andra enheter (en smartring, en andra smartklocka) kan du lägga till dem från samma panel: uppgifterna visas tillsammans."
+        "Efter att du har godkänt detta fylls appen med historiska data som finns tillgängliga i Health Connect.",
+        "Om du har andra enheter (en smartring, en andra smartklocka) kan du lägga till dem i appen: uppgifterna visas tillsammans."
       ],
       "da": [
         "Sørg for, at appen Fitbit på din Android-telefon er opdateret, og at Pixel Watch synkroniseres regelmæssigt.",
         "Åbn Indstillinger på din telefon, og søg efter 'Health Connect'. Kontroller, at Fitbit er på listen over apps med skriveadgang.",
         "Download FitMesh Sync fra Google Play Store, og opret din konto.",
         "Når appen startes for første gang, beder FitMesh om tilladelse til at læse data fra Health Connect. Giv tilladelse til de målinger, du gerne vil se: skridt, puls, søvn og kalorier.",
-        "Når du har godkendt adgangen, vises historiske data, der er tilgængelige i Health Connect, på dit kontrolpanel.",
-        "Hvis du har andre enheder (en smartring, et ekstra smartur), kan du tilføje dem fra det samme panel: oplysningerne vises samlet."
+        "Når du har godkendt adgangen, vises historiske data, der er tilgængelige i Health Connect, i appen.",
+        "Hvis du har andre enheder (en smartring, et ekstra smartur), kan du tilføje dem i appen: oplysningerne vises samlet."
       ]
     }
   },
@@ -3262,12 +3262,12 @@
       "da": "Sammenfattende"
     },
     "body.11.title": {
-      "sv": "Vill du se dina Fitbit-data i en webbaserad översiktspanel utan krånglig konfiguration?",
-      "da": "Vil du se dine Fitbit-data i et webbaseret dashboard uden kompliceret konfiguration?"
+      "sv": "Vill du se dina Fitbit-data tillsammans med data från dina andra enheter i en och samma app utan krånglig konfiguration?",
+      "da": "Vil du se dine Fitbit-data sammen med data fra dine andre enheder i én og samme app uden kompliceret konfiguration?"
     },
     "body.11.body": {
-      "sv": "FitMesh Sync integreras med Fitbit via dess officiella API och visar steg, puls, sömn och träningspass i en kontrollpanel som är tillgänglig via webbläsaren. Inga besvär med Health Connect-behörigheter: anslutningen till Fitbit sker direkt och styrs steg för steg.",
-      "da": "FitMesh Sync integreres med Fitbit via dets officielle API og viser skridt, puls, søvn og træningspas i et dashboard, der kan tilgås via en browser. Ingen besvær med Health Connect-tilladelser: Forbindelsen til Fitbit er direkte og styres trin for trin."
+      "sv": "FitMesh Sync visar steg, puls, sömn och träningspass i FitMesh-appen.",
+      "da": "FitMesh Sync viser skridt, puls, søvn og træningspas i FitMesh-appen."
     },
     "body.11.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
@@ -3294,16 +3294,16 @@
       "da": "Min Fitbit synkroniseres med Google Fit, men ikke med Health Connect: hvorfor?"
     },
     "faq.2.a": {
-      "sv": "Vissa äldre Fitbit-modeller stöder Google Fit men inte Health Connect, på grund av firmware. Google Fit är det gamla API:et (nu utfasat); Health Connect är det nya. Om din modell inte stöder Health Connect, uppdatera firmware via Fitbit-appen och kontrollera om alternativet dyker upp. Om firmware redan är uppdaterad och alternativet inte finns där kan det hända att modellen inte stöds: i så fall är en direkt API-anslutning via Fitbit:s API (som FitMesh Sync använder) ett giltigt alternativ.",
-      "da": "Nogle ældre Fitbit-modeller understøtter Google Fit, men ikke Health Connect, på grund af firmwaren. Google Fit er den gamle API (nu udfaset); Health Connect er den nye. Hvis din model ikke understøtter Health Connect, skal du opdatere firmwaren fra Fitbit-appen og kontrollere, om indstillingen vises. Hvis firmwaren allerede er opdateret, og indstillingen ikke er der, understøttes modellen muligvis ikke: i så fald er en direkte API-forbindelse via Fitbit's API (som FitMesh Sync bruger) et gyldigt alternativ."
+      "sv": "Vissa äldre Fitbit-modeller stöder Google Fit men inte Health Connect, på grund av firmware. Google Fit är det gamla API:et (nu utfasat); Health Connect är det nya. Om din modell inte stöder Health Connect, uppdatera firmware via Fitbit-appen och kontrollera om alternativet dyker upp. Om firmware redan är uppdaterad och alternativet inte finns där kan det hända att modellen inte stöds: i så fall är en direkt API-anslutning via Fitbit:s API ett giltigt alternativ.",
+      "da": "Nogle ældre Fitbit-modeller understøtter Google Fit, men ikke Health Connect, på grund af firmwaren. Google Fit er den gamle API (nu udfaset); Health Connect er den nye. Hvis din model ikke understøtter Health Connect, skal du opdatere firmwaren fra Fitbit-appen og kontrollere, om indstillingen vises. Hvis firmwaren allerede er opdateret, og indstillingen ikke er der, understøttes modellen muligvis ikke: i så fald er en direkte API-forbindelse via Fitbit's API et gyldigt alternativ."
     },
     "faq.3.q": {
       "sv": "Måste jag ha appen Fitbit installerad för att kunna synkronisera?",
       "da": "Skal jeg have appen Fitbit installeret for at kunne synkronisere?"
     },
     "faq.3.a": {
-      "sv": "Om du använder Health Connect som kanal, ja: appen Fitbit måste vara installerad och aktiv, eftersom det är den som skriver data till Health Connect. Om du istället använder en app som ansluter direkt till Fitbit-API:et (som FitMesh Sync), ändras beroendet: i det fallet kommunicerar appen med Fitbit:s servrar via OAuth, oberoende av vilken kompletterande app som är installerad på telefonen.",
-      "da": "Hvis du bruger Health Connect som kanal, ja: appen Fitbit skal være installeret og aktiv, fordi det er den, der skriver data til Health Connect. Hvis du i stedet bruger en app, der opretter direkte forbindelse til Fitbit API'et (som f.eks. FitMesh Sync), ændres afhængigheden: i dette tilfælde kommunikerer appen med Fitbit's servere via OAuth, uafhængigt af den ledsagende app, der er installeret på telefonen."
+      "sv": "Om du använder Health Connect som kanal, ja: appen Fitbit måste vara installerad och aktiv, eftersom det är den som skriver data till Health Connect. Om du istället använder en app som ansluter direkt till Fitbit-API:et, ändras beroendet: i det fallet kommunicerar appen med Fitbit:s servrar via OAuth, oberoende av vilken kompletterande app som är installerad på telefonen.",
+      "da": "Hvis du bruger Health Connect som kanal, ja: appen Fitbit skal være installeret og aktiv, fordi det er den, der skriver data til Health Connect. Hvis du i stedet bruger en app, der opretter direkte forbindelse til Fitbit API'et, ændres afhængigheden: i dette tilfælde kommunikerer appen med Fitbit's servere via OAuth, uafhængigt af den ledsagende app, der er installeret på telefonen."
     },
     "secondaryKeywords": {
       "sv": [
@@ -3684,8 +3684,8 @@
       "da": "Apple Health indsamler sundhedsdata fra flere år på din iPhone, men det kræver et par ekstra trin at se dem på en computer eller dele dem med andre. Her er alle metoderne, med den nemmeste først."
     },
     "metaDescription": {
-      "sv": "Så här exporterar du Apple Health-data till datorn eller webben år 2026: inbyggd XML-export, kostnadsfria verktyg för att läsa filen och en webbpanel för iPhone-användare. En komplett guide.",
-      "da": "Sådan eksporterer du Apple Health-data til pc eller internettet i 2026: direkte XML-eksport, gratis værktøjer til at læse filerne og et webbaseret kontrolpanel til iPhone-brugere. Komplet guide."
+      "sv": "Så här exporterar du Apple Health-data till datorn eller webben år 2026: inbyggd XML-export, kostnadsfria verktyg för att läsa filen och delning med läkaren. En komplett guide.",
+      "da": "Sådan eksporterer du Apple Health-data til pc eller internettet i 2026: direkte XML-eksport, gratis værktøjer til at læse filerne og deling med lægen. Komplet guide."
     },
     "primaryKeyword": {
       "sv": "Hur man exporterar data från Apple Health",
@@ -3728,24 +3728,24 @@
       "da": "Når man skal dele specifikke data med en læge, har Apple Health en indbygget funktion, der er enklere end den fulde XML-eksport:"
     },
     "body.11.text": {
-      "sv": "Metod 3: Webbpanelen – det smidigaste sättet (nu även på iOS)",
-      "da": "Metode 3: Web-dashboard – den mest praktiske måde (nu også på iOS)"
+      "sv": "Metod 3: Panelen i FitMesh-appen. Den personliga webbpanelen är ännu inte tillgänglig.",
+      "da": "Metode 3: Dashboard i FitMesh-appen. Det personlige webdashboard er endnu ikke tilgængeligt."
     },
     "body.12.text": {
-      "sv": "Det smidigaste alternativet (att ha Apple Health data på en webbpanel som är tillgänglig från vilken webbläsare som helst, utan att behöva exportera data manuellt varje gång) kräver en app som läser in Apple Health och synkroniserar den till molnet.",
-      "da": "Den mest praktiske løsning (hvor man har Apple Health data på et webbaseret dashboard, der kan tilgås fra enhver browser, uden at man hver gang skal eksportere dataene manuelt) kræver en app, der læser Apple Health og synkroniserer det med skyen."
+      "sv": "För att se Apple Health data utan att behöva exportera data manuellt varje gång krävs en app som läser in Apple Health och visar data i sin egen panel.",
+      "da": "For at se Apple Health data uden at skulle eksportere dataene manuelt hver gang kræves en app, der læser Apple Health og viser dem i sit eget dashboard."
     },
     "body.13.text": {
-      "sv": "FitMesh Sync för iPhone är live på App Store, inklusive alla 27 EU-länder. iPhone-appen läser in data från Apple Health (HealthKit), synkroniserar den automatiskt och visar den på samma webbpanel som redan används för Android. Extra funktion: skrivbryggan (opt-in) överför data från Android-wearables direkt till Apple Health, vilket är praktiskt om du har både en Android-enhet och en iPhone.",
-      "da": "FitMesh Sync til iPhone er live på App Store, inklusive alle 27 EU-lande. iPhone-appen læser data fra Apple Health (HealthKit), synkroniserer dem automatisk og viser dem på det samme web-dashboard, som allerede bruges til Android. Ekstra funktion: Write Bridge (tilvalg) overfører data fra Android-wearables direkte til Apple Health, hvilket er nyttigt, hvis du har både en Android-enhed og en iPhone."
+      "sv": "FitMesh Sync för iPhone är live på App Store, inklusive alla 27 EU-länder. iPhone-appen läser in data från Apple Health (HealthKit), synkroniserar den automatiskt och visar den i appen. Extra funktion: skrivbryggan (opt-in) överför data från Android-wearables direkt till Apple Health, vilket är praktiskt om du har både en Android-enhet och en iPhone.",
+      "da": "FitMesh Sync til iPhone er live på App Store, inklusive alle 27 EU-lande. iPhone-appen læser data fra Apple Health (HealthKit), synkroniserer dem automatisk og viser dem i appen. Ekstra funktion: Write Bridge (tilvalg) overfører data fra Android-wearables direkte til Apple Health, hvilket er nyttigt, hvis du har både en Android-enhed og en iPhone."
     },
     "body.14.title": {
       "sv": "Om du har både en iPhone och en Android-enhet",
       "da": "Hvis du har både en iPhone og en Android-telefon"
     },
     "body.14.body": {
-      "sv": "Många användare har en iPhone men en Android-baserad bärbar enhet (t.ex. Galaxy Watch eller en smart ring). Med FitMesh Sync Android kan du redan synkronisera dessa data till webben. iOS-versionen (nu live på App Store) lägger dessutom till en valfri skrivbro: data från Android-wearables skrivs direkt in i Apple Health, så att du kan se den i Hälso-appen på iPhone utan att behöva exportera den manuellt.",
-      "da": "Mange brugere har en iPhone, men et Android-wearable (f.eks. Galaxy Watch eller en smartring). Med FitMesh Sync Android kan du allerede synkronisere disse data til nettet. iOS-versionen (nu live på App Store) tilføjer også en valgfri skrivebro: Data fra Android-wearables skrives direkte ind i Apple Health, så du kan se dem i iPhone-appen Sundhed uden at skulle eksportere dem manuelt."
+      "sv": "Många användare har en iPhone men en Android-baserad bärbar enhet (t.ex. Galaxy Watch eller en smart ring). Med FitMesh Sync Android kan du redan se dessa data i appen. iOS-versionen (nu live på App Store) lägger dessutom till en valfri skrivbro: data från Android-wearables skrivs direkt in i Apple Health, så att du kan se den i Hälso-appen på iPhone utan att behöva exportera den manuellt.",
+      "da": "Mange brugere har en iPhone, men et Android-wearable (f.eks. Galaxy Watch eller en smartring). Med FitMesh Sync Android kan du allerede se disse data i appen. iOS-versionen (nu live på App Store) tilføjer også en valgfri skrivebro: Data fra Android-wearables skrives direkte ind i Apple Health, så du kan se dem i iPhone-appen Sundhed uden at skulle eksportere dem manuelt."
     },
     "body.15.title": {
       "sv": "Varför du bör exportera dina data nu, och inte först när du slutar använda Apple Watch",
@@ -3764,12 +3764,12 @@
       "da": "Sammenfattende"
     },
     "body.20.title": {
-      "sv": "Webbpanel för iPhone: ladda ner FitMesh Sync på App Store",
-      "da": "Web-dashboard til iPhone: Download FitMesh Sync på App Store"
+      "sv": "Panel i appen för iPhone: ladda ner FitMesh Sync på App Store",
+      "da": "Dashboard i appen til iPhone: Download FitMesh Sync på App Store"
     },
     "body.20.body": {
-      "sv": "FitMesh Sync finns nu på App Store för iPhone, inklusive alla 27 EU-länder. Appen läser in data från Apple Health och synkroniserar dem automatiskt till webben, utan att man behöver exportera dem manuellt. Ladda ner den gratis och prova den redan idag. Bonus: skrivbryggan (opt-in) överför även data från Android-wearables till Apple Health.",
-      "da": "FitMesh Sync findes nu på App Store til iPhone, inklusive alle 27 EU-lande. Appen henter data fra Apple Health og synkroniserer dem automatisk til nettet, så der er ikke behov for manuel eksport. Download den gratis, og prøv den allerede i dag. Bonus: Write Bridge (tilvalg) overfører også data fra Android-wearables til Apple Health."
+      "sv": "FitMesh Sync finns nu på App Store för iPhone, inklusive alla 27 EU-länder. Appen läser in data från Apple Health och visar dem automatiskt i appen, utan att man behöver exportera dem manuellt. Ladda ner den gratis och prova den redan idag. Bonus: skrivbryggan (opt-in) överför även data från Android-wearables till Apple Health.",
+      "da": "FitMesh Sync findes nu på App Store til iPhone, inklusive alle 27 EU-lande. Appen henter data fra Apple Health og viser dem automatisk i appen, så der er ikke behov for manuel eksport. Download den gratis, og prøv den allerede i dag. Bonus: Write Bridge (tilvalg) overfører også data fra Android-wearables til Apple Health."
     },
     "body.20.ctaLabel": {
       "sv": "Ladda ner i App Store →",
@@ -3831,14 +3831,14 @@
         "För att läsa XML-filen på en dator krävs ytterligare verktyg: Python-skript med öppen källkod eller Apple Shortcuts för specifika mätvärden.",
         "Om du vill dela specifika uppgifter med en läkare kan du använda exportfunktionen för enskilda mått direkt från diagrammet i Health: den genererar en överskådlig CSV-fil.",
         "XML-filen är okrypterad: behandla den som ett känsligt medicinskt dokument och ladda inte upp den till offentliga molntjänster.",
-        "Det smidigaste sättet är en webbaserad kontrollpanel utan manuella exportar: det krävs en app som läser in data från HealthKit och synkroniserar i bakgrunden. FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
+        "Den personliga webbpanelen är ännu inte tillgänglig. För att se data utan manuella exporter krävs en app som läser in data från HealthKit och synkroniserar i bakgrunden. FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
       ],
       "da": [
         "Den mest omfattende metode er den indbyggede XML-eksport (Sundhed → profil → Eksporter alle sundhedsdata): Den indeholder alle poster, men filen kan blive op til 2 GB stor og kan ikke læses direkte.",
         "For at kunne læse XML-filer på en pc kræves der yderligere værktøjer: open source-Python-scripts eller Apple Shortcuts til bestemte målinger.",
         "Hvis du vil dele specifikke data med en læge, kan du bruge eksportfunktionen for de enkelte målinger direkte fra diagrammet i Health: den genererer en overskuelig CSV-fil.",
         "XML-filen er ukrypteret: Behandl den som et fortroligt medicinsk dokument, og undlad at uploade den til offentlige cloudtjenester.",
-        "Den mest praktiske løsning er et webbaseret kontrolpanel uden manuelle eksportfunktioner: Det kræver en app, der henter data fra HealthKit og synkroniserer i baggrunden. FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
+        "Det personlige webdashboard er endnu ikke tilgængeligt. For at se dataene uden manuelle eksportfunktioner kræves en app, der henter data fra HealthKit og synkroniserer i baggrunden. FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
       ]
     },
     "body.3.items": {
@@ -3919,14 +3919,14 @@
         "För att läsa XML-filen på en dator krävs ytterligare verktyg: Python-skript med öppen källkod på GitHub eller Apple Shortcuts för specifika mätvärden.",
         "Om du vill dela specifika uppgifter med en läkare kan du använda exportfunktionen för enskilda mätvärden direkt från diagrammet i Health: det genererar en ren CSV-fil.",
         "XML-filen är okrypterad: behandla den som ett känsligt medicinskt dokument och ladda inte upp den till offentliga molntjänster.",
-        "Det smidigaste sättet (webbpanel utan manuella export) kräver en app som läser in data från HealthKit och synkroniserar i bakgrunden: FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
+        "Den personliga webbpanelen är ännu inte tillgänglig. För att se data utan manuella exporter krävs en app som läser in data från HealthKit och synkroniserar i bakgrunden. FitMesh iOS-versionen är live på App Store, inklusive alla 27 EU-länder."
       ],
       "da": [
         "Den mest omfattende metode er den indbyggede XML-eksport (Sundhed → profil → Eksporter alle sundhedsdata): Den indeholder alle poster med tidsstempler, men filen kan blive på 2 GB og kan ikke læses direkte.",
         "For at kunne læse XML-filer på en pc kræves der yderligere værktøjer: open source-Python-scripts på GitHub eller Apple Shortcuts til bestemte målinger.",
         "Hvis du vil dele specifikke data med en læge, skal du bruge eksportfunktionen for de enkelte målinger direkte fra diagrammet i Health: det genererer en overskuelig CSV-fil.",
         "XML-filen er ukrypteret: Behandl den som et fortroligt medicinsk dokument, og undlad at uploade den til offentlige cloud-tjenester.",
-        "Den mest praktiske løsning (webdashboard uden manuelle eksportfunktioner) kræver en app, der læser data fra HealthKit og synkroniserer i baggrunden: FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
+        "Det personlige webdashboard er endnu ikke tilgængeligt. For at se dataene uden manuelle eksportfunktioner kræves en app, der henter data fra HealthKit og synkroniserer i baggrunden. FitMesh iOS-versionen er live på App Store, inklusive alle 27 EU-lande."
       ]
     }
   },
@@ -4384,8 +4384,8 @@
       "da": "Vil du samle Garmin træningspas i et samlet oversigtspanel?"
     },
     "body.25.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det integreras med Garmin Connect via det officiella API:et och gör dina träningspass tillgängliga via en webbpanel som du kan nå i webbläsaren, utan att du behöver exportera filer manuellt varje gång.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den integreres med Garmin Connect via det officielle API og viser dine træningsprogrammer i et webbaseret kontrolpanel, som du kan få adgang til via en browser, uden at du behøver at eksportere filer manuelt hver gang."
+      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det gör dina träningspass tillgängliga i appen, utan att du behöver exportera filer manuellt varje gång.",
+      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den viser dine træningsprogrammer i appen, uden at du behøver at eksportere filer manuelt hver gang."
     },
     "body.25.ctaLabel": {
       "sv": "Se Garmin integration på FitMesh →",
@@ -5006,8 +5006,8 @@
       "da": "Vil du gerne se dit familiemedlems sundhedsdata samlet på ét enkelt oversigtspanel?"
     },
     "body.23.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i en webbpanel som är tillgänglig via webbläsaren. Detta är användbart för vårdgivare som vill ha en samlad översikt utan att behöva öppna flera appar.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i et webbaseret kontrolpanel, der kan tilgås via en browser. Det er nyttigt for plejepersonale, der ønsker et samlet overblik uden at skulle åbne flere apps."
+      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i appen.",
+      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i appen."
     },
     "body.23.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
@@ -5396,8 +5396,8 @@
       "da": "Vil du se alle dine Health Connect-data samlet i et enkelt dashboard?"
     },
     "body.29.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect och visar den i en överskådlig webbpanel som är tillgänglig via webbläsaren. Praktiskt om du vill analysera trender på en stor skärm eller dela data med en expert. Kompatibel med Galaxy Watch, Pixel Watch och andra Android-bärbara enheter via Health Connect.",
-      "da": "FitMesh Sync henter data fra Health Connect og viser dem i et overskueligt web-dashboard, som kan tilgås via en browser. Det er nyttigt, hvis du vil analysere tendenser på en stor skærm eller dele data med en fagperson. Kompatibel med Galaxy Watch, Pixel Watch og andre Android-wearables via Health Connect."
+      "sv": "FitMesh Sync hämtar data från Health Connect och visar den i appen. Kompatibel med Galaxy Watch, Pixel Watch och andra Android-bärbara enheter via Health Connect.",
+      "da": "FitMesh Sync henter data fra Health Connect og viser dem i appen. Kompatibel med Galaxy Watch, Pixel Watch og andre Android-wearables via Health Connect."
     },
     "body.29.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
@@ -10224,8 +10224,8 @@
       "da": "Alt fungerer, men vil du have et bedre kontrolpanel til Galaxy Watch data?"
     },
     "body.30.body": {
-      "sv": "När synkroniseringen fungerar kan FitMesh Sync läsa av dina Galaxy Watch-data via Health Connect och visa dem på en webbpanel, vilket är praktiskt om du vill analysera trender på en stor skärm, exportera dem eller jämföra med andra enheter. Om du även har andra bärbara enheter kan du samla data från dem på samma ställe.",
-      "da": "Når synkroniseringen fungerer, kan FitMesh Sync læse dine Galaxy Watch-data via Health Connect og vise dem på et web-dashboard, hvilket er nyttigt, hvis du vil analysere tendenser på en stor skærm, eksportere dem eller sammenligne dem med andre enheder. Hvis du også har andre wearables, kan du samle dataene fra dem alle på ét sted."
+      "sv": "När synkroniseringen fungerar kan FitMesh Sync läsa av dina Galaxy Watch-data via Health Connect och visa dem i appen, vilket är praktiskt om du vill analysera trender, exportera dem eller jämföra med andra enheter. Om du även har andra bärbara enheter kan du samla data från dem på samma ställe. Den personliga webbpanelen är ännu inte tillgänglig.",
+      "da": "Når synkroniseringen fungerer, kan FitMesh Sync læse dine Galaxy Watch-data via Health Connect og vise dem i appen, hvilket er nyttigt, hvis du vil analysere tendenser, eksportere dem eller sammenligne dem med andre enheder. Hvis du også har andre wearables, kan du samle dataene fra dem alle på ét sted. Det personlige webdashboard er endnu ikke tilgængeligt."
     },
     "body.30.ctaLabel": {
       "sv": "Se Galaxy Watch på FitMesh →",
@@ -12360,10 +12360,10 @@
       "da": "Sammenfattende"
     },
     "body.20.title": {
-      "sv": "Letar du efter en färdig webbpanel för Galaxy Watch data?"
+      "sv": "Letar du efter en färdig översiktspanel för Galaxy Watch data?"
     },
     "body.20.body": {
-      "sv": "FitMesh Sync hämtar data från Samsung Health via Health Connect och visar steg, puls, sömn och träningspass på en webbpanel som är tillgänglig via webbläsaren. Inställning via telefonen tar 30 sekunder."
+      "sv": "FitMesh Sync hämtar data från Samsung Health via Health Connect och visar steg, puls, sömn och träningspass i appen."
     },
     "body.20.ctaLabel": {
       "sv": "Se Galaxy Watch på FitMesh →",
@@ -12415,7 +12415,7 @@
     },
     "body.11.items": {
       "sv": [
-        "**För webbpanelen**: FitMesh Sync läser av värden från Health Connect och visar allt i en webbapp som är tillgänglig via dator.",
+        "**För en översiktspanel**: FitMesh Sync läser av värden från Health Connect och visar allt i appen.",
         "**För teknisk export**: appar som Health Connect Toolbox (öppen källkod) genererar manuella JSON-dumpfiler.",
         "**För avancerad analys**: appar som Welltory eller Bearable läser av HC och erbjuder coaching och dagboksfunktioner."
       ]
@@ -12542,7 +12542,7 @@
       "sv": "Behöver du behålla Fitbit men vill ha en alternativ instrumentpanel?"
     },
     "body.19.body": {
-      "sv": "FitMesh Sync läser av Fitbit via Health Connect idag (steg, puls, sömn, kalorier, sträcka) och planerar en OAuth-integration via webb-API för avancerade data år 2026."
+      "sv": "FitMesh Sync läser av Fitbit via Health Connect idag (steg, puls, sömn, kalorier, sträcka)."
     },
     "body.19.ctaLabel": {
       "sv": "Se Fitbit på FitMesh →"
@@ -12657,7 +12657,7 @@
       "sv": "Alternativ 1: appar från tredje part med webbaserade kontrollpaneler"
     },
     "body.6.text": {
-      "sv": "Det finns appar som läser av via Health Connect (Android) eller HealthKit (iOS via separat iCloud-synkronisering) och visar data på en webbpanel kopplad till ditt konto. FitMesh Sync är vår lösning: en Android-app som läser av data från Health Connect och skickar dem till backend, varefter webbpanelen blir tillgänglig från vilken webbläsare som helst med inloggning via Google eller Apple. Det finns alternativ, vissa mer inriktade på konsumenter (Welltory), andra mer tekniska (Heads Up Health)."
+      "sv": "Det finns appar som läser av via Health Connect (Android) eller HealthKit (iOS via separat iCloud-synkronisering) och visar data på en webbpanel kopplad till ditt konto. FitMesh Sync är vår lösning: en Android-app som läser av data från Health Connect och visar dem i appen. Den personliga webbpanelen är ännu inte tillgänglig. Det finns alternativ, vissa mer inriktade på konsumenter (Welltory), andra mer tekniska (Heads Up Health)."
     },
     "body.7.text": {
       "sv": "Alternativ 2: egenhemserver"
@@ -12678,17 +12678,17 @@
       "sv": "Den bästa tidpunkten för att välja rätt väg"
     },
     "body.13.body": {
-      "sv": "Om du har en Galaxy Watch eller en Pixel Watch, sluta vänta på en officiell kontrollpanel från Samsung eller Google: den kommer inte. Dessa varumärken har medvetet valt att inte satsa på webben. Tredjepartsappen via Health Connect-lösningen är mogen och stabil år 2026. Det är inte en tillfällig nödlösning: det är den rätta långsiktiga vägen för dessa ekosystem."
+      "sv": "Om du har en Galaxy Watch eller en Pixel Watch, sluta vänta på en officiell kontrollpanel från Samsung eller Google: den kommer inte. Dessa varumärken har medvetet valt att inte satsa på webben. För att se data i webbläsaren finns de tre vägarna som beskrivs ovan. FitMesh visar datan i appen. Den personliga webbpanelen är ännu inte tillgänglig."
     },
     "body.14.text": {
       "sv": "Sammanfattningsvis",
       "da": "Sammenfattende"
     },
     "body.16.title": {
-      "sv": "Letar du efter en färdig webbpanel för Galaxy/Pixel/Fitbit/Mi Band?"
+      "sv": "Letar du efter en färdig app för Galaxy/Pixel/Fitbit/Mi Band?"
     },
     "body.16.body": {
-      "sv": "FitMesh Sync hämtar data från Health Connect och visar allt i en överskådlig webbapp som kan nås från vilken stationär webbläsare som helst. Inga otydliga moln, inga annonser."
+      "sv": "FitMesh Sync hämtar data från Health Connect och visar den i appen. Den personliga webbpanelen är ännu inte tillgänglig. Inga otydliga moln, inga annonser."
     },
     "body.16.ctaLabel": {
       "sv": "Visa alla integrationer"
@@ -12723,7 +12723,7 @@
       "sv": [
         "Varumärken med en aktiv officiell webbpanel år 2026: Garmin, Polar, Withings, Oura, Whoop och Strava.",
         "Samsung Health, Apple Health, Fitbit och Xiaomi Mi Fitness har ingen webbpanel: det krävs appar från tredje part eller egen hosting.",
-        "Via Health Connect (Android): appar från tredje part, som FitMesh Sync, läser av data och visar den på webben. En välutvecklad lösning som går att installera på några minuter.",
+        "Via Health Connect (Android): appar från tredje part läser av data och visar den på webben. FitMesh Sync visar datan i appen. Den personliga webbpanelen är ännu inte tillgänglig.",
         "Via egenhostad lösning (Raspberry Pi, NAS, Grafana): fullständig kontroll och inget moln, men en brant inlärningskurva. Endast för tekniskt kunniga användare.",
         "Via Google Sheets: fungerar för aggregerade data (steg, vikt, daglig sömn) men klarar inte av högfrekventa intradagsdata."
       ]
@@ -12815,7 +12815,7 @@
     "body.12.items": {
       "sv": [
         "**Fick Garmin / Polar / Strava / Withings / Oura / Whoop?** → Officiell webbpanel, klart.",
-        "**Har du Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Apple Watch och behöver bara en översikt?** → Tredjepartsapp med webbpanel (t.ex. FitMesh).",
+        "**Har du Galaxy Watch / Pixel Watch / Fitbit / Mi Band / Apple Watch och behöver bara en översikt?** → Tredjepartsapp med webbpanel. FitMesh visar datan i appen. Den personliga webbpanelen är ännu inte tillgänglig.",
         "**Vill du ha full kontroll och är du tekniskt kunnig?** → Egenhostad med Grafana + Takeout.",
         "**Vill du bara ha grundläggande siffror för egen analys?** → Google Sheets + regelbunden import."
       ]
@@ -12824,7 +12824,7 @@
       "sv": [
         "Varumärken med aktiva officiella webbpaneler år 2026: Garmin (connect.garmin.com), Polar (flow.polar.com), Withings, Oura, Whoop, Strava.",
         "Samsung Health, Apple Health, Fitbit och Xiaomi Mi Fitness har ingen webbpanel: det krävs appar från tredje part eller egen hosting.",
-        "Via Health Connect (Android): appar från tredje part, som FitMesh Sync, läser av data och visar dem på webben. En välutvecklad lösning som går att installera på mindre än 5 minuter.",
+        "Via Health Connect (Android): appar från tredje part läser av data och visar dem på webben. FitMesh Sync visar datan i appen. Den personliga webbpanelen är ännu inte tillgänglig.",
         "Via egenhostad lösning (Raspberry Pi, NAS, Grafana): fullständig kontroll, inget moln, men brant inlärningskurva. Rekommenderas endast för tekniskt kunniga användare.",
         "Via Google Sheets: fungerar för aggregerade data (steg, vikt, daglig sömn) men klarar inte av högfrekventa intradagsdata."
       ]

@@ -43,7 +43,8 @@ export type CoverType =
   | "budgetSmartRings"
   | "multipleWatchDuplicates"
   | "huaweiPath"
-  | "galaxyWatchTroubleshooting";
+  | "galaxyWatchTroubleshooting"
+  | "ultraAthleteDay";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -136,6 +137,13 @@ export const COVER_FILE: Record<CoverType, string> = {
   // SPRINT PM P1.29-IMG (2026-09-26): cover dedicate per percorso Huawei Health e troubleshooting Galaxy Watch.
   huaweiPath: "huawei-health-path.webp",
   galaxyWatchTroubleshooting: "galaxy-watch-steps-troubleshooting.webp",
+  // 01/10/2026: cover dedicata della guida «Apple Watch, Garmin e Polar: una
+  // giornata con FitMesh», consegnata da Matteo (pacchetto fitthesite-image-
+  // proposals/2026-10-01-ultra-athlete-guide). Illustrazione, NON uno screenshot
+  // dell'app: schermi dei telefoni simbolici. WebP 1200x675, 142098 byte,
+  // SHA-256 87df46339b23449e0808feb3c873ed165c8607f96e696374d1aea42407754788
+  // (identico tra sorgente e copia), nessun testo ne' logo.
+  ultraAthleteDay: "fitmesh-ultra-athlete-multi-device-day.webp",
 };
 
 /**
@@ -268,6 +276,8 @@ export const POST_COVER: Record<string, CoverType> = {
   "nuova-apple-health-rende-inutili-altre-app": "appleHealthConnected",
   // SPRINT P1.26 (24/09/2026): guida Galaxy Watch, sonno e Health Connect
   "galaxy-watch-sleep-tracking-health-connect": "galaxyWatchSleep",
+  // 01/10/2026: guida ultratleta, cover dedicata (vedi COVER_FILE sopra).
+  "fitmesh-ultratleta-apple-watch-garmin-polar": "ultraAthleteDay",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

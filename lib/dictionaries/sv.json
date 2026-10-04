@@ -6,19 +6,18 @@
   },
   "hero": {
     "badge": "Tillgänglig på Android och iOS",
-    "heading_1": "En global dashboard",
-    "heading_accent": "för alla dina enheter.",
-    "description": "Samla hälsodata från Android-wearables via Health Connect och, på iPhone, från Apple Hälsa och kompatibla ringar, i en vy. Steg, sömn, puls, återhämtning och trender, utan att byta mellan appar.",
-    "cta_secondary": "Läs mer",
-    "pricing": "Engångsköp från 3,99 €, eller 1,19 € var 6:e månad · säker betalning"
+    "heading_1": "Din träningsdata, tillsammans.",
+    "heading_accent": "Även när du byter enhet.",
+    "description": "Fungerar även med en enda klocka. Om du byter telefon eller använder flera loggar du in med samma konto och hittar redan synkroniserad data, förutsatt att du har anslutning och aktiv åtkomst. Träningspass registrerade med appen stannar på telefonen som registrerade dem.",
+    "cta_secondary": "Läs mer"
   },
   "features": {
     "kicker": "Funktioner",
-    "heading": "Allt som din smartklocka registrerar, ordnat och visualiserat.",
+    "heading": "Data från din smartklocka som FitMesh läser, ordnade efter dag.",
     "items": [
       {
         "title": "Steg & distans",
-        "desc": "Synkar med Health Connect och Samsung Health. Best-effort-bakgrundsuppdateringar på Android när batterioptimering är avaktiverad; alltid aktuellt när du öppnar appen."
+        "desc": "Steg och distans lästa från Apple Hälsa eller Health Connect, eller via Bluetooth från en kompatibel Colmi-ring. På Android beror bakgrundsuppdatering på batteriinställningar; för att uppdatera manuellt trycker du på «Synkronisera nu» i appen."
       },
       {
         "title": "Puls",
@@ -26,15 +25,15 @@
       },
       {
         "title": "Sömn med faser",
-        "desc": "Total varaktighet, djup, REM, lätt, vaken. Färgkodad stapel och direkt kvalitetsmärke."
+        "desc": "Total längd, djup, REM, lätt, vaken. Färgfält och kvalitetsindikator."
       },
       {
         "title": "Kalorier & aktivitet",
-        "desc": "Aktiva och basala kalorier, rutt, höjdmeter, trappor. Promenader i grönt, träning i rött."
+        "desc": "Aktiva och basala kalorier, höjdmeter, trappor. Promenader i grönt, träning i rött."
       },
       {
-        "title": "Global dashboard för flera enheter",
-        "desc": "Flera klockor, flera leverantörer, en vy. FitMesh slår samman källorna, tar bort dubbletter och behåller det bästa värdet för varje mått."
+        "title": "Flera enheter, en enda dag",
+        "desc": "Steg, distans, sömn med faser, vilopuls och träningspass lästa från Apple Hälsa eller Health Connect, eller från en kompatibel Colmi-ring via Bluetooth."
       },
       {
         "title": "Mesh Familj",
@@ -43,17 +42,14 @@
     ]
   },
   "privacy_block": {
-    "kicker": "Integritet först",
-    "heading": "Din hälsodata är inte en produkt.",
-    "description": "FitMesh Sync säljer, delar eller profilerar aldrig. Din data synkroniseras till FitMeshs hanterade molnbackend (Supabase, EU-infrastruktur) — du kan radera den när som helst i appens inställningar.",
     "cta": "Läs integritetspolicyn"
   },
   "final_cta": {
     "heading": "Redo att börja?",
-    "description": "Ladda ner appen, ge Health Connect-behörigheter, och på 30 sekunder är dina data live."
+    "description": "Ladda ner FitMesh Sync, logga in och ge åtkomst till Apple Hälsa på iPhone eller Health Connect på Android."
   },
   "footer": {
-    "tagline": "Synka din smartklockas data till en egen premium-dashboard. Integritet först. Vi säljer aldrig din data till tredje part, inga annonsspårare.",
+    "tagline": "Appen som samlar din träningsdata dag för dag, på iPhone och Android.",
     "product": "Produkt",
     "legal": "Juridiskt",
     "rights": "Alla rättigheter förbehållna.",

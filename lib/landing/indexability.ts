@@ -27,8 +27,32 @@ export function isLandingLocaleComplete(lp: LandingPage, lc: Locale): boolean {
   return true;
 }
 
+/**
+ * MICRO-GATE K3 (01/10/2026, decisione PM): landing ritirate TEMPORANEAMENTE
+ * dall'indice, in tutte le lingue. Tre pagine il cui valore residuo, tolta la
+ * promessa di una dashboard web personale che non e' ancora disponibile, e' basso
+ * (nessuna procedura propria per l'intento del titolo) e con traffico trascurabile.
+ * Il noindex da solo non basta: il testo visibile e i metadati sono stati
+ * rettificati nello stesso gruppo di commit, perche' la pagina resta raggiungibile.
+ *
+ * Questa e' la SOLA fonte: sitemap, hreflang, robots della pagina, link interni
+ * (Footer, BlogRenderer), IndexNow e controllo crawl-hygiene leggono questa
+ * funzione, quindi non possono divergere. Reversibile: togliere lo slug dal
+ * set quando la pagina sara' di nuovo vera e rivista.
+ */
+export const WITHDRAWN_LANDING_SLUGS: ReadonlySet<string> = new Set([
+  "backup-galaxy-watch",
+  "fitbit-export-google",
+  "apple-health-export",
+]);
+
+export function isLandingWithdrawn(lp: LandingPage): boolean {
+  return WITHDRAWN_LANDING_SLUGS.has(lp.slug);
+}
+
 /** True se la pagina `(lp, locale)` è indicizzabile (NON esce `noindex`). */
 export function isLandingVariantIndexable(lp: LandingPage, lc: Locale): boolean {
+  if (isLandingWithdrawn(lp)) return false;
   if (lc === "it" || lc === "en") return true;
   return isLandingLocaleComplete(lp, lc);
 }

@@ -11,14 +11,17 @@ import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { WebSiteJsonLd } from "@/components/seo/WebSiteJsonLd";
 import { PROVIDERS, statusLabel } from "@/lib/providers/data";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
-import { blogLinkHref } from "@/lib/blog/indexability";
+import { blogLinkHref, isBlogVariantIndexable } from "@/lib/blog/indexability";
 import { providerLinkHref } from "@/lib/providers/indexability";
-import { tl, tll, type BlogPost } from "@/lib/blog/types";
-import { p } from "@/lib/pricing";
+import { tl, type BlogPost } from "@/lib/blog/types";
+import { tlOwn } from "@/lib/content/localized-own";
+import { ultraGuideBlock } from "@/lib/content/ultra-guide-block";
 import { PRICING_SECTION } from "@/lib/pricing-section";
 import Testimonials from "@/components/Testimonials";
 import { SITE_URL } from "@/lib/product-facts";
+import { visibleFeatureCards } from "@/lib/feature-status";
 import { schemaLanguage } from "@/lib/seo/schema-language";
+import { homeMetaDescription, homeMetaTitle } from "@/lib/content/home-meta";
 
 /**
  * Below-the-fold marketing copy on this page (How it works, Integrations
@@ -36,6 +39,7 @@ import {
 } from "@/lib/content/static-page-locales";
 import { HOMEPAGE_COPY, tli } from "@/lib/content/homepage-copy";
 import { LABS_TEASER_COPY } from "@/lib/content/labs-teaser-copy";
+import { HOME_AI_COPY } from "@/lib/content/home-ai-copy";
 import { liveLabsTools, localizedLabsSlug, lt as labsLt } from "@/lib/labs/registry";
 
 export async function generateMetadata({
@@ -109,6 +113,16 @@ export default async function Home({
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
   const t = await getDictionary(lc);
   const postsBySlug = await getBlogPostsBySlug();
+  // Chiavi NUOVE della sezione prezzi: solo il valore della lingua, mai l'inglese.
+  // U-STRUCT-01: blocco guida ultratleta in fondo a «Come funziona», solo se il
+  // post e' nel catalogo e la variante nella lingua della pagina e' indicizzabile.
+  const ultraGuide = ultraGuideBlock({ postsBySlug, lc, isBlogVariantIndexable, blogLinkHref });
+  const storeNote = tlOwn(PRICING_SECTION.storeNote, lc);
+  const priceFromStore = tlOwn(PRICING_SECTION.priceFromStore, lc);
+  // U-AI-02/03/05: solo il valore della lingua, mai l'inglese (la sezione si ritira).
+  const aiHeading = tlOwn(HOME_AI_COPY.heading, lc);
+  const aiBody = tlOwn(HOME_AI_COPY.body, lc);
+  const aiLinkLabel = tlOwn(HOME_AI_COPY.linkLabel, lc);
   // MICRO-GATE P0.13A: era `/${lc}/fitness-data-sync` incondizionato —
   // route esiste solo per FITNESS_DATA_SYNC_COMPLETE_LOCALES (it/en/de/es),
   // 404 per le altre 11 (trovato dal crawl esaustivo). Stesso fix già
@@ -117,10 +131,14 @@ export default async function Home({
     ? `/${lc}/fitness-data-sync`
     : "/en/fitness-data-sync";
 
-  // Curated subset (live + headline) for the inline ticker
+  // U-TICKER-01: sotto «Compatibile con» solo provider con accesso disponibile
+  // oggi (stati live, live-basic, live-bridge del registro): nessun provider
+  // ad accesso limitato o non disponibile, senza la condizione accanto.
+  const TICKER_STATUSES: readonly string[] = ["live", "live-basic", "live-bridge"];
+  const tickerBase = PROVIDERS.filter((pv) => TICKER_STATUSES.includes(pv.status));
   const tickerProviders = [
-    ...PROVIDERS,
-    ...PROVIDERS, // duplicate for seamless marquee
+    ...tickerBase,
+    ...tickerBase, // duplicate for seamless marquee
   ];
 
   // JSON-LD WebPage specifico per la home: linka esplicitamente l'@graph
@@ -131,16 +149,10 @@ export default async function Home({
     "@type": "WebPage",
     "@id": `${SITE_URL}/${lc}#webpage`,
     url: `${SITE_URL}/${lc}`,
-    name: lc === "it"
-      ? "FitMesh Sync — Sincronizza il tuo smartwatch a una dashboard personale"
-      : lc === "es"
-      ? "FitMesh Sync — Sincroniza tu smartwatch en un panel personal"
-      : "FitMesh Sync — Sync your smartwatch to a personal dashboard",
-    description: lc === "it"
-      ? "FitMesh Sync unisce Galaxy Watch, Wear OS, Health Connect e provider cloud in una dashboard globale privacy-first: passi, battito, sonno, recupero e trend."
-      : lc === "es"
-      ? "FitMesh Sync reúne Galaxy Watch, Wear OS, Health Connect y proveedores en la nube en un panel global centrado en la privacidad: pasos, frecuencia cardíaca, sueño, recuperación y tendencias."
-      : "FitMesh Sync brings Galaxy Watch, Wear OS, Health Connect and cloud providers into one privacy-first global dashboard: steps, heart rate, sleep, recovery and trends.",
+    // U-META-03: stessa fonte dei metadata dei layout (lib/content/home-meta.ts),
+    // una lingua = il proprio testo, nessun ripiego sull'inglese.
+    name: homeMetaTitle(lc),
+    description: homeMetaDescription(lc),
     inLanguage: schemaLanguage(lc),
     isPartOf: { "@id": `${SITE_URL}#website` },
     // P0.16-B: puntava a `#mobile-app` (MobileApplicationJsonLd, rimosso —
@@ -216,7 +228,6 @@ export default async function Home({
               <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepageHero} />
             </div>
 
-            <p className="mt-5 text-xs text-text-muted">{t.hero.pricing}</p>
 
             {/* Trust strip — 3 tiny metrics inline */}
             <ul className="mt-10 grid grid-cols-2 max-w-md gap-6 text-left">
@@ -257,11 +268,71 @@ export default async function Home({
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
+       *  HOW IT WORKS — 3 step orizzontali con linea che connette
+       *  ════════════════════════════════════════════════════════════ */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
+        <div className="max-w-2xl">
+          <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
+            {tl(HOMEPAGE_COPY.howItWorksKicker, lc)}
+          </p>
+          <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
+            {tl(HOMEPAGE_COPY.howItWorksHeading, lc)}
+          </h2>
+        </div>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {tli(HOMEPAGE_COPY.steps, lc).map((s, i) => (
+            <div key={i} className="relative card-glass p-7 hover:-translate-y-0.5 transition-transform">
+              <div className="flex items-center gap-3">
+                <span
+                  className="font-display text-2xl font-bold tracking-tightest"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #7CFF5B 0%, #21E6C1 50%, #1DA1FF 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                  }}
+                >
+                  0{i + 1}
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-semibold">
+                  {tl(HOMEPAGE_COPY.stepLabel, lc)}
+                </span>
+              </div>
+              <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">{s.t}</h3>
+              <p className="mt-2 text-sm text-text-secondary leading-relaxed">{s.d}</p>
+            </div>
+          ))}
+        </div>
+
+        {ultraGuide && (
+          <Link
+            href={ultraGuide.href}
+            className="mt-6 card-glass p-7 group hover:-translate-y-0.5 transition-transform flex flex-col"
+          >
+            <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
+              {ultraGuide.kicker}
+            </p>
+            <h3 className="mt-3 font-display text-lg font-semibold text-text-primary group-hover:text-brand-aqua transition leading-snug">
+              {ultraGuide.title}
+            </h3>
+            <p className="mt-3 text-sm text-text-secondary leading-relaxed line-clamp-3">
+              {ultraGuide.text}
+            </p>
+            <span className="mt-4 text-xs text-brand-aqua font-medium inline-flex items-center gap-1">
+              {ultraGuide.readLabel} →
+            </span>
+          </Link>
+        )}
+      </section>
+
+      {/* ════════════════════════════════════════════════════════════════
        *  LOGO CLOUD — marquee infinito dei provider supportati.
        *  Niente loghi reali (rischio TM); usiamo i monogrammi colorati
        *  consistenti col resto del sito. Effetto "ecosistema vivo".
        *  ════════════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden border-y border-white/[0.05] bg-white/[0.015] py-8" data-reveal>
+      <section className="relative overflow-hidden border-y border-white/[0.05] bg-white/[0.015] py-8 mt-20 sm:mt-28" data-reveal>
         <p className="text-center text-[10px] uppercase tracking-[0.28em] text-text-muted font-semibold mb-6">
           {tl(HOMEPAGE_COPY.worksWithKicker, lc)}
         </p>
@@ -322,7 +393,7 @@ export default async function Home({
         </div>
 
         <div className="mt-14 grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {t.features.items.map((f: { title: string; desc: string }, i: number) => {
+          {visibleFeatureCards<{ title: string; desc: string }>(t.features.items).map((f, i) => {
             const color = KPI_COLORS[i % KPI_COLORS.length];
             const Icon = FEATURE_ICONS[i % FEATURE_ICONS.length];
             const isHero = i === 0;
@@ -363,46 +434,6 @@ export default async function Home({
               </article>
             );
           })}
-        </div>
-      </section>
-
-      {/* ════════════════════════════════════════════════════════════════
-       *  HOW IT WORKS — 3 step orizzontali con linea che connette
-       *  ════════════════════════════════════════════════════════════ */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
-        <div className="max-w-2xl">
-          <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-            {tl(HOMEPAGE_COPY.howItWorksKicker, lc)}
-          </p>
-          <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
-            {tl(HOMEPAGE_COPY.howItWorksHeading, lc)}
-          </h2>
-        </div>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {tli(HOMEPAGE_COPY.steps, lc).map((s, i) => (
-            <div key={i} className="relative card-glass p-7 hover:-translate-y-0.5 transition-transform">
-              <div className="flex items-center gap-3">
-                <span
-                  className="font-display text-2xl font-bold tracking-tightest"
-                  style={{
-                    background:
-                      "linear-gradient(135deg, #7CFF5B 0%, #21E6C1 50%, #1DA1FF 100%)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                  }}
-                >
-                  0{i + 1}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-semibold">
-                  {tl(HOMEPAGE_COPY.stepLabel, lc)}
-                </span>
-              </div>
-              <h3 className="mt-3 font-display text-lg font-semibold text-text-primary">{s.t}</h3>
-              <p className="mt-2 text-sm text-text-secondary leading-relaxed">{s.d}</p>
-            </div>
-          ))}
         </div>
       </section>
 
@@ -525,11 +556,13 @@ export default async function Home({
           })}
         </div>
 
-        <p className="mt-4 text-xs text-text-muted">{tl(LABS_TEASER_COPY.privacyNote, lc)}</p>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
-       *  PRIVACY MANIFESTO — bordo grigio, halo brand, copy + 3 punti
+       *  PRIVACY — blocco neutro (U-PRIV-01..05, decisione 4 del 02/10):
+       *  H2 = etichetta di navigazione, solo i collegamenti alle informative
+       *  e al contatto. Nessuno slogan, nessuna descrizione, nessun elenco di
+       *  punti: le informazioni stanno nella Privacy Policy. Colonna singola.
        *  ════════════════════════════════════════════════════════════ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
         <div className="card-glass p-10 sm:p-14 relative overflow-hidden">
@@ -538,156 +571,69 @@ export default async function Home({
             className="halo-conic absolute -top-24 -right-24 w-[420px] h-[420px] opacity-50 animate-float"
           />
 
-          <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16">
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-                {t.privacy_block.kicker}
-              </p>
-              <h2 className="mt-4 font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
-                {t.privacy_block.heading}
-              </h2>
-              <p className="mt-5 text-text-secondary text-lg leading-relaxed">
-                {t.privacy_block.description}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href={`/${lc}/privacy`}
-                  className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
-                >
-                  {t.privacy_block.cta}
-                </Link>
-                <a
-                  href="mailto:privacy@fitmesh.fit"
-                  className="inline-flex px-5 py-2.5 rounded-pill text-sm text-text-secondary hover:text-text-primary transition"
-                >
-                  privacy@fitmesh.fit
-                </a>
-              </div>
+          <div className="relative">
+            <h2 className="font-display text-display font-semibold tracking-tightest text-text-primary text-balance">
+              {t.nav.privacy}
+            </h2>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                href={`/${lc}/privacy`}
+                className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
+              >
+                {t.privacy_block.cta}
+              </Link>
+              <Link
+                href={`/${lc}/cookies`}
+                className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
+              >
+                {t.footer.links.cookies}
+              </Link>
+              <a
+                href="mailto:privacy@fitmesh.fit"
+                className="inline-flex px-5 py-2.5 rounded-pill text-sm text-text-secondary hover:text-text-primary transition"
+              >
+                privacy@fitmesh.fit
+              </a>
             </div>
-
-            <ul className="grid grid-cols-1 gap-3">
-              {tli(HOMEPAGE_COPY.privacyPoints, lc).map((p) => (
-                <li
-                  key={p.t}
-                  className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 flex gap-4"
-                >
-                  <span
-                    className="w-9 h-9 flex-shrink-0 rounded-xl flex items-center justify-center"
-                    style={{
-                      background: "linear-gradient(135deg, rgba(33,230,193,0.18), rgba(124,255,91,0.10))",
-                      boxShadow: "inset 0 0 0 1px rgba(33,230,193,0.30)",
-                    }}
-                  >
-                    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <div>
-                    <p className="font-display text-base font-semibold text-text-primary">{p.t}</p>
-                    <p className="mt-1 text-sm text-text-secondary leading-relaxed">{p.d}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
 
       {/* ════════════════════════════════════════════════════════════════
-       *  BRING YOUR OWN AI — manifesto gemello del privacy block: stessa
-       *  card-glass, stesso halo, 2 colonne (pitch + link /ai | checklist).
+       *  AI — U-AI-01..05 (S02): senza kicker di controllo, senza nomi di
+       *  assistenti di terzi, senza elenco «porta il tuo...»; una colonna.
+       *  Testi solo dove la lingua ha il valore (tlOwn): altrove la sezione
+       *  non si rende, mai in inglese dentro una pagina localizzata.
        *  ════════════════════════════════════════════════════════════ */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
-        <div className="card-glass p-10 sm:p-14 relative overflow-hidden">
-          <div
-            aria-hidden
-            className="halo-conic absolute -top-24 -left-24 w-[420px] h-[420px] opacity-50 animate-float"
-          />
-
-          <div className="relative grid lg:grid-cols-2 gap-10 lg:gap-16">
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.28em] text-brand-aqua font-semibold">
-                {lc === "it" ? "La tua AI, le tue regole" : lc === "es" ? "Tu IA, tus reglas" : "Your AI, your rules"}
-              </p>
-              <h2 className="mt-4 font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
-                {lc === "it"
-                  ? "Usa il tuo assistente AI preferito con i tuoi dati di salute."
-                  : lc === "es"
-                  ? "Usa tu asistente de IA favorito con tus datos de salud."
-                  : "Use your favorite AI assistant with your own health data."}
+      {aiHeading && aiBody && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
+          <div className="card-glass p-10 sm:p-14 relative overflow-hidden">
+            <div
+              aria-hidden
+              className="halo-conic absolute -top-24 -left-24 w-[420px] h-[420px] opacity-50 animate-float"
+            />
+            <div className="relative max-w-2xl">
+              <h2 className="font-display text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
+                {aiHeading}
               </h2>
-              <p className="mt-5 text-text-secondary text-lg leading-relaxed">
-                {lc === "it"
-                  ? "FitMesh non ti chiude in un assistente proprietario. Prepara un riepilogo pulito dei tuoi dati e sei tu a scegliere con chi condividerlo: ChatGPT, Claude, Gemini o quello che preferisci."
-                  : lc === "es"
-                  ? "FitMesh no te encierra en un asistente propio. Prepara un resumen claro de tus datos y tú eliges con quién compartirlo: ChatGPT, Claude, Gemini o el que prefieras."
-                  : "FitMesh doesn't lock you into a proprietary assistant. It prepares a clean summary of your data, and you choose who to share it with: ChatGPT, Claude, Gemini, or whatever you use."}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  href={`/${lc}/ai`}
-                  className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
-                >
-                  {lc === "it" ? "Scopri come funziona" : lc === "es" ? "Descubre cómo funciona" : "See how it works"}
-                </Link>
-              </div>
-            </div>
-
-            <ul className="grid grid-cols-1 gap-3">
-              {[
-                {
-                  t: lc === "it"
-                    ? "Porta il tuo wearable."
-                    : lc === "es"
-                    ? "Trae tu wearable."
-                    : "Bring your own wearable.",
-                  d: lc === "it"
-                    ? "Galaxy Watch, Wear OS, anello smart, Health Connect: colleghi quello che hai già."
-                    : lc === "es"
-                    ? "Galaxy Watch, Wear OS, anillo inteligente, Health Connect: conectas lo que ya tienes."
-                    : "Galaxy Watch, Wear OS, a smart ring, Health Connect: connect whatever you already own.",
-                },
-                {
-                  t: lc === "it"
-                    ? "Porta la tua AI."
-                    : lc === "es"
-                    ? "Trae tu IA."
-                    : "Bring your own AI.",
-                  d: lc === "it"
-                    ? "Nessun chatbot proprietario. Il riepilogo è tuo, l'assistente lo scegli tu."
-                    : lc === "es"
-                    ? "Sin chatbot propio. El resumen es tuyo, el asistente lo eliges tú."
-                    : "No proprietary chatbot. The summary is yours, you pick the assistant.",
-                },
-              ].map((it) => (
-                <li
-                  key={it.t}
-                  className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-5 flex gap-4"
-                >
-                  <span
-                    className="w-9 h-9 flex-shrink-0 rounded-xl flex items-center justify-center"
-                    style={{
-                      background: "linear-gradient(135deg, rgba(29,161,255,0.18), rgba(167,139,250,0.10))",
-                      boxShadow: "inset 0 0 0 1px rgba(29,161,255,0.30)",
-                    }}
+              <p className="mt-5 text-text-secondary text-lg leading-relaxed">{aiBody}</p>
+              {aiLinkLabel && (
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Link
+                    href={`/${lc}/ai`}
+                    className="inline-flex px-5 py-2.5 rounded-pill btn-ghost text-sm"
                   >
-                    <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="#1DA1FF" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                  </span>
-                  <div>
-                    <p className="font-display text-base font-semibold text-text-primary">{it.t}</p>
-                    <p className="mt-1 text-sm text-text-secondary leading-relaxed">{it.d}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    {aiLinkLabel}
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ════════════════════════════════════════════════════════════════
-       *  PRICING — Free / Pro / Prova 14gg
+       *  PRICING: prova 14 giorni / Pro
        *  ════════════════════════════════════════════════════════════ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 mt-28 sm:mt-36" data-reveal>
         <div className="mb-10">
@@ -700,23 +646,12 @@ export default async function Home({
           <p className="mt-4 text-text-secondary max-w-2xl leading-relaxed">
             {tl(PRICING_SECTION.subhead, lc)}
           </p>
-          {(lc === "it" || lc === "en") && (
-            <Link
-              href={
-                // MICRO-GATE P0.13A: "fitmesh-gratis-prezzo-founder" è lo
-                // slug CANONICO (IT); lo slug EN reale è
-                // "is-fitmesh-free-pricing-founder" (rinominato per SEO) —
-                // l'href hardcoded per EN produceva un 308 (trovato dal
-                // crawl esaustivo). blogLinkHref localizza correttamente.
-                (postsBySlug["fitmesh-gratis-prezzo-founder"] &&
-                  blogLinkHref(postsBySlug["fitmesh-gratis-prezzo-founder"], lc)) ||
-                `/${lc}/blog/fitmesh-gratis-prezzo-founder`
-              }
-              className="mt-3 inline-flex items-center gap-1.5 text-sm text-brand-aqua hover:text-brand-green transition"
-            >
-              {lc === "it" ? "Guida completa ai prezzi" : "Full pricing guide"}
-              <span aria-hidden>→</span>
-            </Link>
+          {/* U-PRICE-04: nota dello store, solo dove la lingua ha il valore
+              (nessun ripiego inglese: il blocco si ritira). Il link «Guida
+              completa ai prezzi» non si rende piu' (U-PRICE-05): la guida
+              e' in correzione, fuori da questo pacchetto. */}
+          {storeNote && (
+            <p className="mt-3 text-sm text-text-muted max-w-2xl leading-relaxed">{storeNote}</p>
           )}
         </div>
         <div className="grid gap-5 md:grid-cols-2 items-stretch max-w-3xl">
@@ -737,15 +672,7 @@ export default async function Home({
             <h3 className="font-display text-lg font-semibold text-text-primary">{tl(HOMEPAGE_COPY.trialName, lc)}</h3>
             <p className="mt-1 text-sm text-text-muted">{tl(HOMEPAGE_COPY.trialTagline, lc)}</p>
             <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-brand-aqua">{tl(PRICING_SECTION.trialPeriodLabel, lc)}</p>
-            <ul className="mt-5 space-y-2.5 flex-1">
-              {tll(PRICING_SECTION.trialFeatures, lc).map((f) => (
-                <li key={f} className="flex gap-2 text-sm text-text-secondary">
-                  <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6">
+            <div className="mt-auto pt-6">
               {/* Fase 7: CTA "Prova 14 giorni" — e' la conversione del funnel
                   post-Founder. */}
               <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.homepagePricingTrial} />
@@ -755,18 +682,11 @@ export default async function Home({
           <div className="card p-7 flex flex-col">
             <h3 className="font-display text-lg font-semibold text-text-primary">{tl(PRICING_SECTION.proName, lc)}</h3>
             <p className="mt-1 text-sm text-text-muted">{tl(PRICING_SECTION.proTagline, lc)}</p>
-            <p className="mt-4 font-display text-3xl font-semibold tracking-tightest text-text-primary">{p("lifetimeBothShort", lc)}</p>
-            <p className="mt-1 text-xs text-text-muted">
-              {`${tl(HOMEPAGE_COPY.orLabel, lc)} ${p("subSixMonthsLabel", lc)}`}
-            </p>
-            <ul className="mt-5 space-y-2.5 flex-1">
-              {tll(PRICING_SECTION.proFeatures, lc).map((f) => (
-                <li key={f} className="flex gap-2 text-sm text-text-secondary">
-                  <svg viewBox="0 0 24 24" className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#21E6C1" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M5 13l4 4L19 7" /></svg>
-                  <span>{f}</span>
-                </li>
-              ))}
-            </ul>
+            {/* U-PRICE-12/13: nessun importo; rinvio allo store, solo dove la
+                lingua ha il valore (tlOwn, nessun ripiego inglese). */}
+            {priceFromStore && (
+              <p className="mt-4 font-display text-xl font-semibold tracking-tightest text-text-primary">{priceFromStore}</p>
+            )}
           </div>
         </div>
       </section>
@@ -785,6 +705,8 @@ export default async function Home({
         const featuredSlugs = [
           "guida-sync-wearable-2026",
           "scegliere-smartwatch-dati-2026",
+          // U-STRUCT-01 / TAKEOVER-01-B: «come-funziona-fitmesh» reintegrato
+          // dopo integrazione completa delle 15 lingue e QA di coerenza.
           "come-funziona-fitmesh",
         ];
         // Sprint P0.13: blogLinkHref — lc-diretto → EN-fallback → nascondi.
@@ -869,7 +791,7 @@ export default async function Home({
               <StoreButtonsRow locale={lc} className="justify-center" ctaLocation={CTA_PLACEMENTS.homepageFinalCta} />
             </div>
             <p className="mt-6 text-xs text-text-muted">
-              {`${tl(HOMEPAGE_COPY.trialTagline, lc)}. ${p("fromLifetime", lc)}.`}
+              {`${tl(HOMEPAGE_COPY.trialTagline, lc)}.`}
             </p>
           </div>
         </div>
