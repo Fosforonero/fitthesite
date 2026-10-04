@@ -180,6 +180,21 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "image",
+      src: "/blog/screenshots/demo-site/04_sleep_stages.webp",
+      width: 1206,
+      height: 2622,
+      narrow: true,
+      alt: {
+        it: "Scheda del sonno nell'app FitMesh Sync con tempo dormito di 7h 11m, punteggio 96 e ipnogramma a quattro stadi deep, light, REM e awake",
+        en: "Sleep card in the FitMesh Sync app showing 7h 11m duration, quality score 96, and four-stage hypnogram deep, light, REM and awake",
+      },
+      caption: {
+        it: "Visualizzazione del riposo notturno nell'app FitMesh Sync. Schermata in inglese, dati dimostrativi sintetici.",
+        en: "Overnight sleep visualization in the FitMesh Sync app. Interface in English, synthetic demo data.",
+      },
+    },
+    {
       type: "heading",
       level: 2,
       text: {

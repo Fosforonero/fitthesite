@@ -489,6 +489,27 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "image",
+      src: "/blog/screenshots/demo-site/06_workout_detail.webp",
+      width: 1206,
+      height: 2622,
+      narrow: true,
+      alt: {
+        it: "Scheda di dettaglio di una sessione di corsa in FitMesh Sync con durata 55 min, distanza 9.00 km, passo 6:07 /km, calorie 520 kcal e frequenza cardiaca media 139 e massima 158 BPM",
+        en: "Workout detail sheet for a running session in FitMesh Sync showing 55 min duration, 9.00 km distance, 6:07 /km pace, 520 kcal calories, and average 139 and max 158 BPM heart rate",
+        de: "Detailansicht einer Trainingseinheit Laufen in FitMesh Sync mit 55 Min Dauer, 9,00 km Distanz, 6:07 /km Pace, 520 kcal Kalorien sowie durchschnittlichem 139 und maximalem 158 BPM Puls",
+        ja: "FitMesh Sync内のランニングセッション詳細画面。55分の運動時間、9.00 kmの距離、6:07 /kmのペース、520 kcalの消費カロリー、平均139および最大158 BPMの心拍数を表示",
+        fr: "Fiche détaillée d'une séance de course dans FitMesh Sync affichant 55 min de durée, 9,00 km de distance, allure 6:07 /km, 520 kcal et fréquence cardiaque moyenne 139 et max 158 BPM",
+      },
+      caption: {
+        it: "Scheda di dettaglio di una sessione di corsa nell'app FitMesh Sync. Schermata in lingua inglese, dati dimostrativi sintetici.",
+        en: "Workout detail sheet for a running session in the FitMesh Sync app. Interface in English, synthetic demo data.",
+        de: "Detailansicht einer Laufeinheit in der FitMesh Sync App. Englische Benutzeroberfläche, synthetische Demodaten.",
+        ja: "FitMesh Syncアプリ内のランニングセッション詳細画面。英語表示、合成デモデータ。",
+        fr: "Fiche de détail d'une séance de course dans l'application FitMesh Sync. Interface en anglais, données de démonstration synthétiques.",
+      },
+    },
+    {
       type: "heading",
       level: 2,
       text: {
@@ -538,6 +559,27 @@ export const post: BlogPost = {
         de: "Am Abend zeigt die App die Schritte des Tages, das mit Garmin oder Polar aufgezeichnete Training und den Schlaf der Nacht. Wenn mehrere Geräte am selben Tag Schritte gezählt haben, ist die Gesamtzahl nicht ihre Summe: Der Kasten unten erklärt, wie FitMesh auswählt.",
         ja: "夜には、当日の歩数、GarminやPolarで記録したワークアウト、前夜の睡眠がアプリに表示されます。同じ日に複数の機器が歩数を数えていても、合計はそれらの和ではありません。FitMeshがどのように選ぶかは、下の囲みで説明します。",
         fr: "En fin de journée, l'application affiche les pas du jour, l'entraînement enregistré avec Garmin ou Polar et le sommeil de la nuit. Si plusieurs appareils ont compté des pas le même jour, le total n'est pas leur somme : l'encadré ci-dessous explique comment FitMesh choisit.",
+      },
+    },
+    {
+      type: "image",
+      src: "/blog/screenshots/demo-site/03_intraday_heart_rate.webp",
+      width: 1206,
+      height: 2622,
+      narrow: true,
+      alt: {
+        it: "Grafico della frequenza cardiaca intraday in FitMesh Sync con valori minimo 50, medio 68 e massimo 144 BPM, e barre orarie per fasce di intensità",
+        en: "Intraday heart rate chart in FitMesh Sync showing min 50, avg 68, and max 144 BPM, and hourly bars by intensity level",
+        de: "Stündliches Herzfrequenzdiagramm in FitMesh Sync mit Werten min 50, avg 68 und max 144 BPM sowie stündlichen Intensitätsbalken",
+        ja: "FitMesh Sync内の時間帯別心拍数グラフ。最小50、平均68、最大144 BPMの数値と運動強度別の時間バーを表示",
+        fr: "Graphique de la fréquence cardiaque journalière dans FitMesh Sync affichant min 50, moyenne 68 et max 144 BPM, avec barres horaires par intensité",
+      },
+      caption: {
+        it: "Monitoraggio orario della frequenza cardiaca con fasce di intensità sonno, riposo, attività ed esercizio. Schermata in inglese, dati dimostrativi sintetici.",
+        en: "Hourly heart rate tracking showing sleep, rest, active, and exercise intensity bands. Interface in English, synthetic demo data.",
+        de: "Stündliche Herzfrequenzerfassung mit Bereichen für Schlaf, Ruhe, Aktivität und Training. Englische Benutzeroberfläche, synthetische Demodaten.",
+        ja: "睡眠、安静、活動、運動強度別の時間帯別心拍モニタリング。英語表示、合成デモデータ。",
+        fr: "Suivi horaire du rythme cardiaque avec zones de sommeil, repos, activité et exercice. Interface en anglais, données de démonstration synthétiques.",
       },
     },
     {
