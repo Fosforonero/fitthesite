@@ -193,6 +193,25 @@ export const post: BlogPost = {
       },
     },
     {
+      type: "image",
+      src: "/blog/screenshots/demo-site/02_intraday_steps.webp",
+      alt: {
+        it: "Schermata dell'app FitMesh con totale giornaliero dei passi, andamento cumulativo e barre dei passi nell'ora (interfaccia in lingua inglese, dati dimostrativi sintetici)",
+        en: "FitMesh app screen showing daily steps total, cumulative progression curve, and hourly step bars (English interface, synthetic demonstration data)",
+        de: "FitMesh-App-Bildschirm mit Tagesgesamtschritten, kumulativem Verlauf und stündlichen Schrittbalken (englische Oberfläche, synthetische Demodaten)",
+        fr: "Écran de l'application FitMesh affichant le total quotidien des pas, la progression cumulée et les barres horaires (interface en anglais, données de démonstration synthétiques)",
+      },
+      caption: {
+        it: "Dettaglio dei passi in FitMesh: totale giornaliero in alto, andamento cumulativo e distribuzione dei passi nelle singole ore (interfaccia in inglese, dati dimostrativi sintetici).",
+        en: "Steps detail in FitMesh: daily total at the top, cumulative progression curve, and hourly step distribution (English interface, synthetic demo data).",
+        de: "Schritt-Detailansicht in FitMesh: Tagesgesamtwert oben, kumulativer Verlauf und stündliche Schrittverteilung (englische Oberfläche, synthetische Demodaten).",
+        fr: "Détail des pas dans FitMesh : total du jour en haut, courbe de progression cumulée et répartition horaire des pas (interface en anglais, données de démonstration synthétiques).",
+      },
+      width: 1206,
+      height: 2622,
+      narrow: true,
+    },
+    {
       type: "heading",
       level: 2,
       text: {
@@ -210,25 +229,6 @@ export const post: BlogPost = {
         de: "Die gestrichelte Linie im Diagramm ist nicht dein Schrittziel: Sie ist dein eigener Durchschnitt aus vorherigen Tagen. FitMesh berechnet ihn über die Kalendertage direkt vor dem angezeigten Tag (bis zu 7), wobei nur Tage mit einem echten Wert größer als null gezählt werden: Ein fehlender oder auf null stehender Tag wird nicht als Null behandelt, die den Durchschnitt senkt, er zählt einfach gar nicht mit. Hast du weniger als 3 gültige Tage in diesem Zeitraum, wird keine Linie gezeichnet: lieber keine Linie als ein Durchschnitt aus zu wenigen Daten.",
         fr: "La ligne pointillée sur le graphique n'est pas votre objectif de pas : c'est votre propre moyenne des jours précédents. FitMesh la calcule sur les jours calendaires juste avant celui que vous consultez (jusqu'à 7), en ne comptant que les jours avec une vraie valeur supérieure à zéro : un jour absent ou à zéro n'est pas traité comme un zéro qui fait baisser la moyenne, il n'est tout simplement pas compté. S'il y a moins de 3 jours valides dans cette fenêtre, aucune ligne n'est tracée : mieux vaut pas de ligne qu'une moyenne calculée sur trop peu de données.",
       },
-    },
-    {
-      type: "image",
-      src: "/blog/screenshots/demo-site/02_intraday_steps.webp",
-      alt: {
-        it: "Schermata dell'app FitMesh con grafico orario dei passi e linea tratteggiata della media (interfaccia in lingua inglese, dati dimostrativi sintetici)",
-        en: "FitMesh app screen showing hourly steps chart and dashed baseline line (English interface, synthetic demonstration data)",
-        de: "FitMesh-App-Bildschirm mit stündlichem Schrittdiagramm und gestrichelter Durchschnittslinie (englische Oberfläche, synthetische Demodaten)",
-        fr: "Écran de l'application FitMesh affichant le graphique horaire des pas et la ligne pointillée de référence (interface en anglais, données de démonstration synthétiques)",
-      },
-      caption: {
-        it: "Visualizzazione oraria dei passi in FitMesh con la linea tratteggiata della media dei giorni precedenti (interfaccia in inglese, dati dimostrativi sintetici).",
-        en: "Hourly steps view in FitMesh with the dashed line representing previous days' average (English interface, synthetic demo data).",
-        de: "Stündliche Schrittansicht in FitMesh mit der gestrichelten Linie des Durchschnitts der Vortage (englische Oberfläche, synthetische Demodaten).",
-        fr: "Vue horaire des pas dans FitMesh avec la ligne pointillée de la moyenne des jours précédents (interface en anglais, données de démonstration synthétiques).",
-      },
-      width: 1206,
-      height: 2622,
-      narrow: true,
     },
     {
       type: "callout",
