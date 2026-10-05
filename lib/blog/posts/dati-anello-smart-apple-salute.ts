@@ -1171,4 +1171,20 @@ export const post: BlogPost = {
     "https://developer.apple.com/documentation/healthkit/hkhealthstore/enablebackgrounddelivery(for:frequency:withcompletion:)",
   ],
   ldType: "BlogPosting",
+  // SPRINT PM COVER-08 Lotto 1 (05/10/2026): coverAlt descrittivo dell'illustrazione editoriale
+  // (persona con anello smart al dito e smartphone durante una pausa sul lungomare).
+  // Controllo: AGENT_EDITORIALLY_REVIEWED.
+  coverAlt: {
+    it: "Illustrazione ad acquerello di una donna che fa una pausa su una terrazza costiera, con un anello smart scuro all'indice, smartphone e un bicchiere d'acqua sul tavolo di legno.",
+    en: "Watercolor illustration of a woman taking a break on a coastal terrace, wearing a dark smart ring on her index finger, with a smartphone and glass of water on the wooden table.",
+    es: "Ilustración en acuarela de una mujer descansando en una terraza costera, con un anillo inteligente oscuro en el índice, smartphone y un vaso de agua sobre la mesa de madera.",
+    de: "Aquarellillustration einer Frau bei einer Rast auf einer Küstenterrasse, mit einem dunklen Smart-Ring am Zeigefinger, Smartphone und einem Glas Wasser auf dem Holztisch.",
+    pt: "Ilustração em aquarela de uma mulher em pausa em um terraço costeiro, usando um anel inteligente escuro no indicador, smartphone e um copo de água na mesa de madeira.",
+    fr: "Illustration à l'aquarelle d'une femme en pause sur une terrasse côtière, portant une bague connectée sombre à l'index, smartphone et un verre d'eau sur la table en bois.",
+    pl: "Akwarelowa ilustracja kobiety odpoczywającej na nadmorskim tarasie, z ciemnym inteligentnym pierścieniem na palcu wskazującym, smartfonem i szklanką wody na drewnianym stole.",
+    tr: "Ahşap masada akıllı telefon ve bir bardak su ile sahil terasında mola veren, işaret parmağında koyu renkli akıllı yüzük takan bir kadının suluboya illüstrasyonu.",
+    nl: "Aquarelillustratie van een vrouw die pauzeert op een terras aan de kust, met een donkere slimme ring om haar wijsvinger, smartphone en een glas water op de houten tafel.",
+    ja: "海岸沿いのテラスで休憩する女性の水彩イラスト。人差し指にダークカラーのスマートリングを着け、木製テーブルにはスマートフォンと水のグラス。",
+    ko: "해안가 테라스에서 휴식을 취하는 여성의 수채화 일러스트. 검지 손가락에 어두운 색상의 스마트 링을 착용하고 나무 테이블에 스마트폰과 물 한 잔이 놓인 모습.",
+  },
 };

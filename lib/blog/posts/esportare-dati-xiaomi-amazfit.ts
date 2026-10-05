@@ -1306,4 +1306,20 @@ export const post: BlogPost = {
   ],
   brandsMentioned: ["Xiaomi", "Amazfit", "Zepp", "Health Connect"],
   ldType: "BlogPosting",
+  // SPRINT PM COVER-08 Lotto 1 (05/10/2026): coverAlt descrittivo dell'illustrazione editoriale
+  // (pausa in bicicletta, smartwatch al polso, smartphone e taccuino sul tavolo da picnic).
+  // Controllo: AGENT_EDITORIALLY_REVIEWED.
+  coverAlt: {
+    it: "Illustrazione ad acquerello di un ciclista in pausa accanto a un tavolo da picnic in legno, con smartwatch al polso, borraccia, taccuino e smartphone, con una bicicletta e un lago sullo sfondo.",
+    en: "Watercolor illustration of a cyclist resting by a wooden picnic bench, wearing a smartwatch on their wrist, with a water bottle, notebook, and smartphone, with a bicycle and lake in the background.",
+    es: "Ilustración en acuarela de un ciclista descansando junto a una mesa de picnic de madera, con un smartwatch en la muñeca, botella de agua, cuaderno y smartphone, con una bicicleta y un lago de fondo.",
+    de: "Aquarellillustration eines Radfahrers, der an einer hölzernen Picknickbank rastet, mit einer Smartwatch am Handgelenk, Trinkflasche, Notizbuch und Smartphone, mit Fahrrad und See im Hintergrund.",
+    pt: "Ilustração em aquarela de um ciclista em pausa junto a uma mesa de piquenique de madeira, com smartwatch no pulso, garrafa de água, caderno e smartphone, com uma bicicleta e um lago ao fundo.",
+    fr: "Illustration à l'aquarelle d'un cycliste en pause près d'une table de pique-nique en bois, une montre connectée au poignet, avec gourde, carnet et smartphone, avec un vélo et un lac en arrière-plan.",
+    pl: "Akwarelowa ilustracja rowerzysty odpoczywającego przy drewnianym stole piknikowym, ze smartwatchem na nadgarstku, bidonem, notatnikiem i smartfonem, z rowerem i jeziorem w tle.",
+    tr: "Ahşap piknik masası yanında mola veren, bileğinde akıllı saat, su şişesi, not defteri ve akıllı telefon bulunan, arka planda bisiklet ve göl olan suluboya bisikletçi illüstrasyonu.",
+    nl: "Aquarelillustratie van een fietser die pauzeert bij een houten picknicktafel, met een smartwatch om de pols, bidon, notitieboek en smartphone, met een fiets en meer op de achtergrond.",
+    ja: "木製のピクニックベンチの傍らで休憩するサイクリストの水彩イラスト。手首にスマートウォッチを着け、水筒、ノート、スマートフォンが置かれ、背景には自転車と湖。",
+    ko: "나무 피크닉 벤치 옆에서 휴식을 취하는 사이클리스트의 수채화 일러스트. 손목에 스마트워치를 착용하고 물병, 공책, 스마트폰이 놓여 있으며 배경에는 자전거와 호수.",
+  },
 };

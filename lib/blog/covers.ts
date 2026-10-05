@@ -44,7 +44,11 @@ export type CoverType =
   | "multipleWatchDuplicates"
   | "huaweiPath"
   | "galaxyWatchTroubleshooting"
-  | "ultraAthleteDay";
+  | "ultraAthleteDay"
+  | "xiaomiAmazfitExport"
+  | "seniorsSmartwatchGuide"
+  | "polarHealthConnect"
+  | "appleHealthSmartRing";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -144,6 +148,12 @@ export const COVER_FILE: Record<CoverType, string> = {
   // SHA-256 87df46339b23449e0808feb3c873ed165c8607f96e696374d1aea42407754788
   // (identico tra sorgente e copia), nessun testo ne' logo.
   ultraAthleteDay: "fitmesh-ultra-athlete-multi-device-day.webp",
+  // SPRINT PM COVER-08 Lotto 1 (05/10/2026): 4 cover dedicate per export Xiaomi/Amazfit,
+  // guida smartwatch anziani, sync Polar Health Connect e bridge anello smart Apple Salute.
+  xiaomiAmazfitExport: "smartwatch-export-cycling-pause.webp",
+  seniorsSmartwatchGuide: "active-older-adults-smartwatch.webp",
+  polarHealthConnect: "polar-lake-swim-wearable.webp",
+  appleHealthSmartRing: "smart-ring-coastal-walk-apple-health-20261005.webp",
 };
 
 /**
@@ -171,13 +181,13 @@ export const POST_COVER: Record<string, CoverType> = {
   "google-health-google-fit": "googleHealthSync",
   "huawei-health-health-connect-sincronizzazione": "huaweiPath",
   "garmin-body-battery-health-connect": "troubleshooting",
-  "polar-health-connect-sync": "sync",
+  "polar-health-connect-sync": "polarHealthConnect",
   "sleep-tracker-comparison-2026": "sleepTrackerComparison",
   "garmin-samsung-health-sync-guide": "sync",
   "galaxy-ring-android-health-connect": "ring",
   "vo2-max-wearable-comparison-2026": "vo2MaxComparison",
   "oura-ring-health-connect-android": "ring",
-  "esportare-dati-xiaomi-amazfit": "export",
+  "esportare-dati-xiaomi-amazfit": "xiaomiAmazfitExport",
   "sincronizzare-withings": "sync",
   // P1.8C (2026-08-25): cover dedicata (Pixel Watch reale, non lo smartwatch
   // rugged generico di "dashboard") — vedi nota sul gate marchio in COVER_FILE.
@@ -196,10 +206,9 @@ export const POST_COVER: Record<string, CoverType> = {
   "sync-them-all": "multidevice",
   "colmi-ring-fitmesh": "ring",
   "fitmesh-arriva-su-iphone": "platform",
-  // P1.8S-IMG FASE 9 (2026-08-06): cover dedicata (fitmesh-apple-health-
-  // together.webp) al posto della generica "ring" — pagina bridge
-  // Apple Salute, winner della consolidazione cannibalizzazione P1.8S.
-  "dati-anello-smart-apple-salute": "appleTogether",
+  // SPRINT PM COVER-08 Lotto 1 (2026-10-05): cover dedicata (smart-ring-coastal-walk-apple-health-20261005.webp)
+  // al posto della generica "appleTogether" (fitmesh-apple-health-together.webp).
+  "dati-anello-smart-apple-salute": "appleHealthSmartRing",
   "novita-anello-colmi-sonno": "sleep",
   "piu-smartwatch-insieme-dati-doppi": "multipleWatchDuplicates",
   "novita-dashboard-multi-device": "dashboard",
@@ -211,7 +220,7 @@ export const POST_COVER: Record<string, CoverType> = {
   // (P1.5B Fase A) e merita un'immagine propria invece di quella generica.
   "health-connect-not-syncing": "healthconnect",
   "how-to-export-apple-health-data": "export",
-  "smartwatch-per-anziani-guida": "compare",
+  "smartwatch-per-anziani-guida": "seniorsSmartwatchGuide",
   "esportare-dati-garmin": "export",
   "sync-samsung-health-google-fit": "sync",
   "best-smartwatch-for-elderly": "compare",

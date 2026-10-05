@@ -870,4 +870,20 @@ export const post: BlogPost = {
   ],
   brandsMentioned: ["Polar"],
   related: ["guida-sync-wearable-2026", "health-connect-not-syncing", "esportare-dati-garmin"],
+  // SPRINT PM COVER-08 Lotto 1 (05/10/2026): coverAlt descrittivo dell'illustrazione editoriale
+  // (nuotatore in acque libere vicino alla riva di un lago, con orologio sportivo al polso).
+  // Controllo: AGENT_EDITORIALLY_REVIEWED.
+  coverAlt: {
+    it: "Illustrazione ad acquerello di un nuotatore in acque libere vicino alla riva di un lago circondato da pini, con un orologio sportivo al polso e cuffia da nuoto.",
+    en: "Watercolor illustration of an open-water swimmer near the shore of a pine-lined lake, wearing a sports watch on their wrist and a swim cap.",
+    es: "Ilustración en acuarela de un nadador de aguas abiertas cerca de la orilla de un lago rodeado de pinos, con un reloj deportivo en la muñeca y gorro de natación.",
+    de: "Aquarellillustration eines Freiwasserschwimmers am Ufer eines von Kiefern gesäumten Sees, mit einer Sportuhr am Handgelenk und Badekappe.",
+    pt: "Ilustração em aquarela de um nadador de águas abertas perto da margem de um lago cercado por pinheiros, com um relógio esportivo no pulso e touca de natação.",
+    fr: "Illustration à l'aquarelle d'un nageur en eau libre près de la rive d'un lac bordé de pins, portant une montre de sport au poignet et un bonnet de bain.",
+    pl: "Akwarelowa ilustracja pływaka na wodach otwartych w pobliżu brzegu jeziora otoczonego sosnami, ze sportowym zegarkiem na nadgarstku i czepkiem.",
+    tr: "Çam ağaçlarıyla çevrili bir gölün kıyısında, bileğinde spor saati ve yüzme bonesi bulunan bir açık su yüzücüsünün suluboya illüstrasyonu.",
+    nl: "Aquarelillustratie van een openwaterzwemmer bij de oever van een met dennen omzoomd meer, met een sporthorloge om de pols en een badmuts.",
+    ja: "松林に囲まれた湖の岸辺近くで泳ぐオープンウォータースイマーの水彩イラスト。手首にスポーツウォッチを着け、スイムキャップを着用。",
+    ko: "소나무가 둘러싸인 호숫가 근처에서 수영하는 오픈워터 수영 선수의 수채화 일러스트. 손목에 스포츠 시계를 착용하고 수영모를 쓴 모습.",
+  },
 };

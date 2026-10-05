@@ -1183,4 +1183,20 @@ export const post: BlogPost = {
   ],
   brandsMentioned: ["Samsung", "Apple", "Garmin", "Doro", "Google", "Fitbit"],
   ldType: "BlogPosting",
+  // SPRINT PM COVER-08 Lotto 1 (05/10/2026): coverAlt descrittivo dell'illustrazione editoriale
+  // (coppia anziana attiva in camminata all'aperto nel parco, con smartwatch al polso).
+  // Controllo: AGENT_EDITORIALLY_REVIEWED.
+  coverAlt: {
+    it: "Illustrazione ad acquerello di due persone anziane attive durante una camminata in un parco alberato, una delle quali indossa uno smartwatch al polso mentre passeggiano insieme.",
+    en: "Watercolor illustration of two active older adults walking in a leafy park, one wearing a smartwatch on their wrist as they stroll together.",
+    es: "Ilustración en acuarela de dos adultos mayores activos caminando en un parque arbolado, uno de ellos con un smartwatch en la muñeca mientras pasean juntos.",
+    de: "Aquarellillustration von zwei aktiven älteren Erwachsenen beim Spaziergang in einem grünen Park, von denen einer eine Smartwatch am Handgelenk trägt.",
+    pt: "Ilustração em aquarela de dois idosos ativos caminhando em um parque arborizado, um deles usando um smartwatch no pulso enquanto passeiam juntos.",
+    fr: "Illustration à l'aquarelle de deux personnes âgées actives marchant dans un parc arboré, l'une d'elles portant une montre connectée au poignet pendant leur promenade.",
+    pl: "Akwarelowa ilustracja dwojga aktywnych seniorów spacerujących po zadrzewionym parku, z których jedno ma smartwatch na nadgarstku.",
+    tr: "Ağaçlıklı bir parkta yürüyüş yapan iki aktif yaşlı yetişkinin suluboya illüstrasyonu; biri birlikte gezinirken bileğinde akıllı saat takıyor.",
+    nl: "Aquarelillustratie van twee actieve ouderen die wandelen in een lommerrijk park, van wie er één een smartwatch om de pols draagt.",
+    ja: "緑豊かな公園を散歩する活動的な二人の高齢者の水彩イラスト。一人が手首にスマートウォッチを着けて一緒に歩いている様子。",
+    ko: "나무가 우거진 공원에서 산책하는 두 명의 활동적인 노인의 수채화 일러스트. 함께 걷는 동안 한 명이 손목에 스마트워치를 착용하고 있는 모습.",
+  },
 };
