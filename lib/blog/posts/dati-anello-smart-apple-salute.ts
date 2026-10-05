@@ -1171,20 +1171,4 @@ export const post: BlogPost = {
     "https://developer.apple.com/documentation/healthkit/hkhealthstore/enablebackgrounddelivery(for:frequency:withcompletion:)",
   ],
   ldType: "BlogPosting",
-  // SPRINT PM COVER-08 Lotto 1 (05/10/2026): coverAlt descrittivo dell'illustrazione editoriale
-  // (donna in pausa con anello smart al dito, smartphone tenuto in mano, bicchiere d'acqua sul tavolo di legno).
-  // Controllo: AGENT_EDITORIALLY_REVIEWED.
-  coverAlt: {
-    it: "Illustrazione ad acquerello di una donna che fa una pausa su una terrazza costiera, con un anello smart scuro all'indice mentre tiene in mano lo smartphone, con un bicchiere d'acqua sul tavolo di legno.",
-    en: "Watercolor illustration of a woman taking a break on a coastal terrace, wearing a dark smart ring on her index finger while holding a smartphone in her hand, with a glass of water on the wooden table.",
-    es: "Ilustración en acuarela de una mujer descansando en una terraza costera, con un anillo inteligente oscuro en el índice mientras sostiene un smartphone en la mano, con un vaso de agua sobre la mesa de madera.",
-    de: "Aquarellillustration einer Frau bei einer Rast auf einer Küstenterrasse, mit einem dunklen Smart-Ring am Zeigefinger, während sie ein Smartphone in der Hand hält, mit einem Glas Wasser auf dem Holztisch.",
-    pt: "Ilustração em aquarela de uma mulher em pausa em um terraço costeiro, usando um anel inteligente escuro no indicador enquanto segura um smartphone na mão, com um copo de água na mesa de madeira.",
-    fr: "Illustration à l'aquarelle d'une femme en pause sur une terrasse côtière, portant une bague connectée sombre à l'index tout en tenant un smartphone dans la main, avec un verre d'eau sur la table en bois.",
-    pl: "Akwarelowa ilustracja kobiety odpoczywającej na nadmorskim tarasie, z ciemnym inteligentnym pierścieniem na palcu wskazującym trzymającej smartfon w dłoni, ze szklanką wody na drewnianym stole.",
-    tr: "Sahil terasında mola veren, işaret parmağında koyu renkli akıllı yüzük varken elinde akıllı telefon tutan bir kadının suluboya illüstrasyonu; ahşap masada bir bardak su yer alıyor.",
-    nl: "Aquarelillustratie van een vrouw die pauzeert op een terras aan de kust, met een donkere slimme ring om haar wijsvinger terwijl ze een smartphone in de hand houdt, met een glas water op de houten tafel.",
-    ja: "海岸沿いのテラスで休憩する女性の水彩イラスト。人差し指にダークカラーのスマートリングを着けてスマートフォンを手に持ち、木製テーブルには水のグラスが置かれている。",
-    ko: "해안가 테라스에서 휴식을 취하는 여성의 수채화 일러스트. 검지 손가락에 어두운 색상의 스마트 링을 착용하고 손에 스마트폰을 들고 있으며 나무 테이블에는 물 한 잔이 놓인 모습.",
-  },
 };

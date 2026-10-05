@@ -1183,20 +1183,4 @@ export const post: BlogPost = {
   ],
   brandsMentioned: ["Samsung", "Apple", "Garmin", "Doro", "Google", "Fitbit"],
   ldType: "BlogPosting",
-  // SPRINT PM COVER-08 Lotto 1 (05/10/2026): coverAlt descrittivo dell'illustrazione editoriale
-  // (coppia in cammino lungo un percorso costiero alberato).
-  // Controllo: AGENT_EDITORIALLY_REVIEWED.
-  coverAlt: {
-    it: "Illustrazione ad acquerello di una coppia di anziani in cammino lungo un percorso costiero alberato vicino al mare, con smartwatch al polso.",
-    en: "Watercolor illustration of an older couple walking along a tree-lined coastal path by the sea, wearing smartwatches on their wrists.",
-    es: "Ilustración en acuarela de una pareja de adultos mayores caminando por un sendero costero arbolado junto al mar, con smartwatches en sus muñecas.",
-    de: "Aquarellillustration eines älteren Paares beim Spaziergang auf einem von Bäumen gesäumten Küstenweg am Meer, mit Smartwatches am Handgelenk.",
-    pt: "Ilustração em aquarela de um casal de idosos caminhando ao longo de um caminho costeiro arborizado junto ao mar, com smartwatches nos pulsos.",
-    fr: "Illustration à l'aquarelle d'un couple de personnes âgées marchant le long d'un sentier côtier arboré près de la mer, portant des montres connectées aux poignets.",
-    pl: "Akwarelowa ilustracja starszej pary spacerującej zadrzewioną nadmorską ścieżką nad morzem, ze smartwatchami na nadgarstkach.",
-    tr: "Deniz kenarında ağaçlıklı bir sahil yolunda yürüyüş yapan yaşlı bir çiftin suluboya illüstrasyonu; bileklerinde akıllı saatler bulunuyor.",
-    nl: "Aquarelillustratie van een ouder stel dat wandelt langs een lommerrijk kustpad bij de zee, met smartwatches om hun polsen.",
-    ja: "海沿いの木立ちが並ぶ海岸遊歩道を散歩する高齢者カップルの水彩イラスト。手首にスマートウォッチを着けている様子。",
-    ko: "바닷가 근처 나무가 우거진 해안 길을 따라 산책하는 노부부의 수채화 일러스트. 손목에 스마트워치를 착용한 모습.",
-  },
 };

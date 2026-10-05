@@ -443,7 +443,7 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     });
   });
 
-  describe("SPRINT PM COVER-08 Lotto 1: 4 cover dedicate integrate", () => {
+  describe("SPRINT PM COVER-08 Lotto 1: 2 cover dedicate confermate (Xiaomi/Amazfit e Polar)", () => {
     it("verifica mappatura univoca, esistenza asset e alt text per tutte le varianti indicizzabili", async () => {
       const { coverAlt, coverSrc, COVER_FILE, POST_COVER } = await import("./covers");
       const { tl } = await import("./types");
@@ -456,17 +456,9 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
           type: "xiaomiAmazfitExport",
           file: "smartwatch-export-cycling-pause.webp",
         },
-        "smartwatch-per-anziani-guida": {
-          type: "seniorsSmartwatchGuide",
-          file: "active-older-adults-smartwatch.webp",
-        },
         "polar-health-connect-sync": {
           type: "polarHealthConnect",
           file: "polar-lake-swim-wearable.webp",
-        },
-        "dati-anello-smart-apple-salute": {
-          type: "appleHealthSmartRing",
-          file: "smart-ring-coastal-walk-apple-health-20261005.webp",
         },
       };
 
