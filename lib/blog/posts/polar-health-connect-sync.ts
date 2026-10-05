@@ -871,19 +871,19 @@ export const post: BlogPost = {
   brandsMentioned: ["Polar"],
   related: ["guida-sync-wearable-2026", "health-connect-not-syncing", "esportare-dati-garmin"],
   // SPRINT PM COVER-08 Lotto 1 (05/10/2026): coverAlt descrittivo dell'illustrazione editoriale
-  // (nuotatore in acque libere vicino alla riva di un lago, con orologio sportivo al polso).
+  // (nuotatrice seduta sulla panchina, smartwatch indossato, asciugamano sulle spalle; smartphone, cuffia e occhialini accanto).
   // Controllo: AGENT_EDITORIALLY_REVIEWED.
   coverAlt: {
-    it: "Illustrazione ad acquerello di un nuotatore in acque libere vicino alla riva di un lago circondato da pini, con un orologio sportivo al polso e cuffia da nuoto.",
-    en: "Watercolor illustration of an open-water swimmer near the shore of a pine-lined lake, wearing a sports watch on their wrist and a swim cap.",
-    es: "Ilustración en acuarela de un nadador de aguas abiertas cerca de la orilla de un lago rodeado de pinos, con un reloj deportivo en la muñeca y gorro de natación.",
-    de: "Aquarellillustration eines Freiwasserschwimmers am Ufer eines von Kiefern gesäumten Sees, mit einer Sportuhr am Handgelenk und Badekappe.",
-    pt: "Ilustração em aquarela de um nadador de águas abertas perto da margem de um lago cercado por pinheiros, com um relógio esportivo no pulso e touca de natação.",
-    fr: "Illustration à l'aquarelle d'un nageur en eau libre près de la rive d'un lac bordé de pins, portant une montre de sport au poignet et un bonnet de bain.",
-    pl: "Akwarelowa ilustracja pływaka na wodach otwartych w pobliżu brzegu jeziora otoczonego sosnami, ze sportowym zegarkiem na nadgarstku i czepkiem.",
-    tr: "Çam ağaçlarıyla çevrili bir gölün kıyısında, bileğinde spor saati ve yüzme bonesi bulunan bir açık su yüzücüsünün suluboya illüstrasyonu.",
-    nl: "Aquarelillustratie van een openwaterzwemmer bij de oever van een met dennen omzoomd meer, met een sporthorloge om de pols en een badmuts.",
-    ja: "松林に囲まれた湖の岸辺近くで泳ぐオープンウォータースイマーの水彩イラスト。手首にスポーツウォッチを着け、スイムキャップを着用。",
-    ko: "소나무가 둘러싸인 호숫가 근처에서 수영하는 오픈워터 수영 선수의 수채화 일러스트. 손목에 스포츠 시계를 착용하고 수영모를 쓴 모습.",
+    it: "Illustrazione ad acquerello di una nuotatrice seduta su una panchina vicino a un lago, con smartwatch indossato al polso e un asciugamano sulle spalle, mentre smartphone, cuffia e occhialini da nuoto sono posati accanto a lei.",
+    en: "Watercolor illustration of a swimmer sitting on a bench near a lake, wearing a smartwatch on her wrist and a towel over her shoulders, with a smartphone, swim cap, and goggles placed beside her.",
+    es: "Ilustración en acuarela de una nadadora sentada en un banco junto a un lago, con un smartwatch en la muñeca y una toalla sobre los hombros, con smartphone, gorro y gafas de natación a su lado.",
+    de: "Aquarellillustration einer Schwimmerin, die auf einer Bank an einem See sitzt, mit einer Smartwatch am Handgelenk und einem Handtuch über den Schultern, während Smartphone, Badekappe und Schwimmbrille neben ihr liegen.",
+    pt: "Ilustração em aquarela de uma nadadora sentada em um banco perto de um lago, com um smartwatch no pulso e uma toalha sobre os ombros, com smartphone, touca e óculos de natação ao seu lado.",
+    fr: "Illustration à l'aquarelle d'une nageuse assise sur un banc près d'un lac, portant une montre connectée au poignet et une serviette sur les épaules, avec smartphone, bonnet et lunettes de natation posés à côté d'elle.",
+    pl: "Akwarelowa ilustracja pływaczki siedzącej na ławce nad jeziorem, ze smartwatchem na nadgarstku i ręcznikiem na ramionach, z telefonem, czepkiem i okularami pływackimi leżącymi obok niej.",
+    tr: "Göl kenarındaki bankta oturan, bileğinde akıllı saat ve omuzlarında havlu olan bir kadın yüzücünün suluboya illüstrasyonu; yanında akıllı telefon, yüzme bonesi ve deniz gözlüğü yer alıyor.",
+    nl: "Aquarelillustratie van een zwemster die op een bankje bij een meer zit, met een smartwatch om haar pols en een handdoek over haar schouders, terwijl smartphone, badmuts en zwembril naast haar liggen.",
+    ja: "湖のそばのベンチに座る女性スイマーの水彩イラスト。手首にスマートウォッチを着け肩にタオルを掛け、傍らにはスマートフォン、スイムキャップ、ゴーグルが置かれている。",
+    ko: "호숫가 벤치에 앉아 있는 여성 수영 선수의 수채화 일러스트. 손목에 스마트워치를 착용하고 어깨에 수건을 두른 채 옆에는 스마트폰, 수영모, 물안경이 놓인 모습.",
   },
 };
