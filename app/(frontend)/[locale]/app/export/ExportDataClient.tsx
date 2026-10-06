@@ -60,6 +60,7 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       // l'export (come prima della #96): finisce nel file come non disponibile, senza righe e senza
       // il testo dell'errore. Se NESSUNA tabella e' leggibile non c'e' nessun file e nessun timbro.
       let tabelleLette = 0;
+      const nonDisponibili: string[] = [];
 
       for (const table of EXPORT_TABLES) {
         // Verifica cambio di sessione durante l'export: se l'utente scade o cambia
@@ -192,6 +193,7 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
 
         if (tabellaNonDisponibile) {
           data[table] = { error: 'unavailable' };
+          nonDisponibili.push(table);
           continue;
         }
 
@@ -226,12 +228,18 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         return;
       }
 
-      // Verifica di completezza prima del timbro e del download: tutte le 12
-      // tabelle devono essere state estratte con successo.
+      // Difesa ridondante: ogni iterazione assegna data[table] (anche il marcatore «unavailable») oppure
+      // esce prima, quindi qui le 12 chiavi ci sono sempre. NON dice che le 12 tabelle siano state lette.
       if (Object.keys(data).length !== EXPORT_TABLES.length) {
         setErr(t.errorTitle);
         setPhase('error');
         return;
+      }
+
+      // Il file dice di essere incompleto: chi lo legge sa quali tabelle mancano, senza nuove stringhe in UI.
+      if (nonDisponibili.length > 0) {
+        bundle.incomplete = true;
+        bundle.unavailable_tables = nonDisponibili;
       }
 
       // Pre-scrittura session check: sessione ancora integra prima delle mutazioni
@@ -245,12 +253,18 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         return;
       }
 
-      // Audit e timbro di completamento sono BEST-EFFORT, come prima della #96: la RLS di audit_logs
-      // non ha una policy INSERT per l'utente («INSERT: solo via service_role», init_events_audit.sql),
-      // quindi un esito negativo non deve togliere all'utente i propri dati (GDPR art. 15 e 20).
-      // L'errore e' ignorato di proposito; l'ordine (audit, poi timbro) resta, e fra le scritture e il
-      // download non c'e' nessun altro await.
+      // Il file si costruisce PRIMA delle scritture: se la serializzazione fallisce (JSON troppo grande,
+      // memoria) non restano ne' audit ne' timbro di completamento senza file.
       const now = new Date().toISOString();
+      const fileJson = JSON.stringify(bundle, null, 2);
+
+      // Audit e timbro di completamento sono tentativi (BEST-EFFORT): il loro esito NON blocca il file.
+      // Secondo il testo delle migration (produzione NON verificata) audit_logs ha solo policy SELECT
+      // («INSERT: solo via service_role», init_events_audit.sql), quindi l'INSERT dell'utente puo' essere
+      // respinto: non deve togliere all'utente i propri dati (GDPR art. 15 e 20). Gli errori RESTITUITI sono
+      // ignorati di proposito (un'eccezione lanciata finirebbe nel catch generale, senza download).
+      // Ordine: audit, poi timbro (su b85870a era timbro, poi audit); dopo la seconda scrittura nessun altro
+      // await fino al download.
       await supabase.from('audit_logs').insert({
         user_id: exportUserId,
         action: 'data_exported',
@@ -269,8 +283,9 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       // completamento senza il file. L'ultimo controllo e' quello PRIMA delle scritture; da qui al
       // download non c'e' altro await (il file e' gia' costruito sotto la sessione verificata).
 
-      // Download del file JSON completo solo dopo che tutte le verifiche e scritture sono riuscite.
-      const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
+      // Download del file JSON (gia' serializzato sopra). Il file puo' essere incompleto per tabelle
+      // «unavailable» (vedi incomplete/unavailable_tables); audit e timbro possono mancare.
+      const blob = new Blob([fileJson], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;

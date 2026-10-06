@@ -28,13 +28,18 @@
 -- LIMITI DICHIARATI
 -- -----------------
 --  - Questo e' il database RICOSTRUITO dalle migration, non la produzione.
---    Le policy che qui espongono righe altrui esistono anche in produzione
---    secondo supabase/MANIFESTO-RICONCILIAZIONE-190.md, ma nessuna query e' stata
---    eseguita su dati veri.
+--    Il confronto fra catena e produzione del 25/08/2026 (supabase/CONFRONTO-RICOSTRUZIONE-LIVE-190.md,
+--    categoria E: policy 83 contro 83, 2 diverse) e supabase/CLASSIFICAZIONE-LOCAL-ONLY-190.md (oggetti
+--    di init_events_audit e init_challenges vivi) rendono probabile che le policy qui misurate
+--    esistano anche in produzione, ma il documento ha settimane e nessuna query e' stata eseguita su dati
+--    veri. (supabase/MANIFESTO-RICONCILIAZIONE-190.md NON e' la fonte: marcava quei file come local_only.)
 --  - `challenge_participants` e `challenge_scores` in questa catena rispondono
 --    con «infinite recursion» (42P17) per qualunque utente. E' l'unico errore
 --    tollerato, e solo su quelle due tabelle: viene segnalato come NON MISURATO,
 --    non contato come verde. Qualunque altro errore fa fallire il test.
+--    Il client dell'export (ExportDataClient.tsx, dal secondo giro) NON si ferma per quelle due tabelle: le marca
+--    `{ "error": "unavailable" }` e dichiara `incomplete`/`unavailable_tables` nel file. Questo test resta quindi
+--    l'unico controllo meccanico che rivelerebbe una NUOVA tabella illeggibile: va tenuto severo.
 --  - Il caregiver NON vede le righe del soggetto in questa catena (la sua policy
 --    legge privacy_consents con le regole del chiamante): non e' riprodotto e non
 --    e' asserito.

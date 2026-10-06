@@ -6,6 +6,7 @@ import {
   EXPORT_TABLE_ORDER,
   EXPORT_TABLES,
   getExportColumns,
+  getTableRowKey,
 } from '@/lib/privacy/export-scope';
 
 /**
@@ -54,6 +55,10 @@ let currentUserOverride: { id: string; email?: string } | null = {
 let getUserCallCount = 0;
 let changeUserOnCallIndex: number | null = null;
 let newUserIdOnChange: string | null = null;
+// l'utente e' un altro SOLO a questa chiamata di getUser (poi torna quello di prima): nessun controllo
+// successivo puo' rimediare, quindi ogni controllo di sessione e' discriminato da solo
+let blipAtCall: number | null = null;
+let blipWhen: (() => boolean) | null = null;
 
 let tableErrorOverride: Record<string, { message: string; code?: string }> = {};
 // errore SOLO dalla pagina che parte da questo indice in poi (pagine precedenti riuscite)
@@ -74,6 +79,9 @@ function makeSupabase() {
     auth: {
       getUser: async () => {
         getUserCallCount++;
+        if ((blipAtCall !== null && getUserCallCount === blipAtCall) || (blipWhen !== null && blipWhen())) {
+          return { data: { user: { id: OTHER, email: 'blip@example.invalid' } }, error: null };
+        }
         if (changeUserOnCallIndex !== null && getUserCallCount >= changeUserOnCallIndex) {
           if (!newUserIdOnChange) {
             return { data: { user: null }, error: { message: 'Session expired' } };
@@ -205,6 +213,8 @@ beforeEach(() => {
   getUserCallCount = 0;
   changeUserOnCallIndex = null;
   newUserIdOnChange = null;
+  blipAtCall = null;
+  blipWhen = null;
   tableErrorOverride = {};
   tableErrorFromRange = {};
   tableNonArray = {};
@@ -769,5 +779,214 @@ describe('ExportDataClient: l\'export dei propri dati non dipende da Pro ne\' da
         expect(src.includes(vietato), `${path.basename(f)} cita '${vietato}'`).toBe(false);
       }
     }
+  });
+});
+
+// ───────────────────────────────────────────────────────────────────────────────
+// Secondo giro (06/10, r2): revisione avversaria del candidato. Ogni blocco nasce da un mutante che i test
+// precedenti lasciavano vivo: controllo proprietario solo sull'ultima riga, controlli di sessione non
+// discriminati (il mock cambiava utente «da qui in poi»), marcatore solo su una tabella paginabile,
+// soglia «nessuna tabella leggibile» provata solo a 0 e 10, forma del bundle non fissata.
+// ───────────────────────────────────────────────────────────────────────────────
+// tabelle la cui chiave primaria E' la colonna proprietario: una sola riga propria possibile
+const OWNER_KEYED = new Set<string>(['profiles', 'privacy_consents', 'user_settings', 'b2c_subscriptions']);
+
+function ownRows(table: (typeof EXPORT_TABLES)[number], n: number, marker = 'MIA'): Row[] {
+  const scope = EXPORT_OWNER_SCOPE[table];
+  return Array.from({ length: n }, (_, i) => {
+    const row: Row = { marker };
+    if ('column' in scope) row[scope.column] = ME;
+    else {
+      row.caregiver_id = ME;
+      row.subject_id = `cp-${i}`;
+    }
+    for (const col of EXPORT_TABLE_ORDER[table]) if (!(col in row)) row[col] = `${col}-${i}`;
+    return row;
+  });
+}
+function foreignRow(table: (typeof EXPORT_TABLES)[number]): Row {
+  const scope = EXPORT_OWNER_SCOPE[table];
+  const row: Row = { marker: 'ALTRUI' };
+  if ('column' in scope) row[scope.column] = OTHER;
+  else {
+    row.caregiver_id = OTHER;
+    row.subject_id = OTHER_2;
+  }
+  for (const col of EXPORT_TABLE_ORDER[table]) if (!(col in row)) row[col] = `${col}-altrui`;
+  return row;
+}
+
+async function runExportAtteso(esito: 'errore' | 'ok') {
+  render(<ExportDataClient locale="it" t={T} />);
+  fireEvent.click(screen.getByRole('button', { name: T.cta }));
+  if (esito === 'errore') await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+  else await waitFor(() => expect(screen.getByText(/Fatto/)).toBeInTheDocument());
+}
+
+describe('posizione della riga altrui dentro la pagina', () => {
+  const casi: Array<[string, string, number]> = [];
+  for (const t of EXPORT_TABLES) {
+    if (OWNER_KEYED.has(t)) {
+      casi.push([t, 'prima', 0], [t, 'ultima', 1]);
+    } else {
+      casi.push([t, 'prima', 0], [t, 'seconda', 1], [t, 'terza', 2], [t, 'ultima', 3]);
+    }
+  }
+  it.each(casi)('%s: riga altrui in posizione %s -> l\'export si ferma', async (table, _nome, indice) => {
+    const t = table as (typeof EXPORT_TABLES)[number];
+    const righe = ownRows(t, OWNER_KEYED.has(t) ? 1 : 3);
+    righe.splice(indice, 0, foreignRow(t));
+    // sanity: le chiavi sono tutte distinte, quindi non e' il rilevatore di duplicati a fermare l'export
+    expect(new Set(righe.map((r) => getTableRowKey(t, r))).size).toBe(righe.length);
+    tableDataOverride = { [t]: righe };
+    await runExportAtteso('errore');
+    expect(downloads).toEqual([]);
+    expect(blobParts).toEqual([]);
+    expect(writes).toEqual([]);
+    expect(document.body.textContent ?? '').not.toContain(OTHER);
+  });
+
+  it('un solo intruso in mezzo a 1000 righe proprie (pagina piena) ferma l\'export', async () => {
+    const righe = ownRows('fitness_metrics', 1000);
+    righe.splice(537, 0, foreignRow('fitness_metrics'));
+    tableDataOverride = { fitness_metrics: righe };
+    await runExportAtteso('errore');
+    expect(downloads).toEqual([]);
+    expect(blobParts).toEqual([]);
+  });
+});
+
+describe('ordine fra controllo proprietario e marcatore', () => {
+  it('riga altrui nella pagina 1 + errore alla pagina 2: l\'export resta FATALE (non diventa «non disponibile»)', async () => {
+    const righe = ownRows('fitness_metrics', 1250);
+    righe.splice(10, 0, foreignRow('fitness_metrics')); // 1251 righe
+    tableDataOverride = { fitness_metrics: righe };
+    tableTotalCountOverride = { fitness_metrics: 1251 };
+    tableErrorFromRange = { fitness_metrics: 1000 };
+    await runExportAtteso('errore');
+    expect(downloads).toEqual([]);
+    expect(blobParts).toEqual([]);
+    expect(writes).toEqual([]);
+  });
+});
+
+describe('marcatore su OGNI tabella paginabile', () => {
+  const paginabili = EXPORT_TABLES.filter((t) => !OWNER_KEYED.has(t));
+  it.each([...paginabili])('%s: errore alla seconda pagina -> marcatore, nessuna riga parziale nel file', async (table) => {
+    const t = table as (typeof EXPORT_TABLES)[number];
+    tableDataOverride = { [t]: ownRows(t, 1250, 'PARZIALE') };
+    tableTotalCountOverride = { [t]: 1250 };
+    tableErrorFromRange = { [t]: 1000 };
+    const bundle = await runExport();
+    expect((bundle.data as Record<string, unknown>)[t]).toEqual({ error: 'unavailable' });
+    const blob = blobParts.join('');
+    expect(blob).not.toContain('PARZIALE');
+    expect(blob).not.toContain('cp-');
+    expect(blob).not.toMatch(/statement timeout|57014/);
+  });
+});
+
+describe('sessione che cambia per UNA sola chiamata (nessun controllo successivo puo\' rimediare)', () => {
+  // chiamate di getUser: 1 = iniziale; 2..13 = inizio di ognuna delle 12 tabelle; 14 = pre-scrittura
+  it.each(Array.from({ length: 13 }, (_, i) => i + 2))(
+    'a getUser #%i l\'utente e\' un altro: nessun file, nessuna scrittura',
+    async (k) => {
+      blipAtCall = k;
+      await runExportAtteso('errore');
+      expect(downloads).toEqual([]);
+      expect(blobParts).toEqual([]);
+      expect(writes).toEqual([]);
+    },
+  );
+
+  it('la riverifica FRA le pagine esiste: l\'utente cambia proprio tra la pagina 1 e la pagina 2 di fitness_metrics', async () => {
+    tableDataOverride = { fitness_metrics: ownRows('fitness_metrics', 1250) };
+    tableTotalCountOverride = { fitness_metrics: 1250 };
+    // vero solo mentre la pagina 1 e' stata servita e la 2 no: se il controllo fra le pagine non c'e', nessun getUser cade li'
+    blipWhen = () => recorded.find((r) => r.table === 'fitness_metrics')?.ranges.length === 1;
+    await runExportAtteso('errore');
+    expect(downloads).toEqual([]);
+    expect(blobParts).toEqual([]);
+    expect(writes).toEqual([]);
+  });
+
+  it('dopo una tabella marcata «non disponibile» il controllo di sessione della tabella successiva c\'e\' ancora', async () => {
+    tableErrorOverride = { devices: { message: 'boom', code: '42P17' } };
+    blipAtCall = 6; // inizio di fitness_metrics, subito dopo devices (marcata)
+    await runExportAtteso('errore');
+    expect(downloads).toEqual([]);
+    expect(blobParts).toEqual([]);
+  });
+});
+
+describe('soglia «nessuna tabella leggibile» e forma del bundle', () => {
+  it('una sola tabella leggibile (profiles): il file e\' consegnato, le altre 11 sono marcate', async () => {
+    tableErrorOverride = Object.fromEntries(
+      EXPORT_TABLES.filter((t) => t !== 'profiles').map((t) => [t, { message: 'x', code: '42P17' }]),
+    );
+    const bundle = await runExport();
+    expect(downloads).toHaveLength(1);
+    expect(bundle.data.profiles).toHaveLength(1);
+    for (const t of EXPORT_TABLES.filter((x) => x !== 'profiles')) {
+      expect((bundle.data as Record<string, unknown>)[t]).toEqual({ error: 'unavailable' });
+    }
+  });
+
+  it('profiles e user_roles non disponibili: marcatori, nessuna riga altrui, le altre 10 tabelle intatte', async () => {
+    tableErrorOverride = {
+      profiles: { message: 'permission denied for table profiles', code: '42501' },
+      user_roles: { message: 'infinite recursion detected in policy for relation "user_roles"', code: '42P17' },
+    };
+    const bundle = await runExport();
+    expect(bundle.data.profiles).toEqual({ error: 'unavailable' });
+    expect(bundle.data.user_roles).toEqual({ error: 'unavailable' });
+    expect(blobParts.join('')).not.toMatch(/permission denied|infinite recursion|42501|42P17/);
+    expect(blobParts.join('')).not.toContain(OTHER);
+    expect(downloads).toHaveLength(1);
+  });
+
+  it('il bundle ha solo le chiavi previste e «account» e\' l\'utente della sessione', async () => {
+    await runExport();
+    const bundle = JSON.parse(blobParts.join(''));
+    expect(Object.keys(bundle)).toEqual(['generated_at', 'account', 'format', 'data']);
+    expect(bundle.account).toEqual({ id: ME, email: 'synth-admin@example.invalid' });
+    expect(Object.keys(bundle.data)).toEqual([...EXPORT_TABLES]);
+  });
+});
+
+describe('ExportDataClient: file costruito prima delle scritture, e file che dichiara di essere incompleto', () => {
+  it('se la serializzazione del file fallisce (JSON troppo grande) non restano ne\' audit ne\' timbro', async () => {
+    const reale = JSON.stringify;
+    vi.spyOn(JSON, 'stringify').mockImplementation(((v: unknown, r?: unknown, sp?: unknown) => {
+      if (sp === 2) throw new RangeError('Invalid string length');
+      return reale(v as never, r as never, sp as never);
+    }) as typeof JSON.stringify);
+
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
+    expect(screen.queryByText(/Invalid string length/)).not.toBeInTheDocument();
+    expect(downloads).toEqual([]);
+    expect(writes).toEqual([]);
+  });
+
+  it('con tabelle non disponibili il file lo dichiara: incomplete e unavailable_tables (nessuna stringa nuova in UI)', async () => {
+    tableErrorOverride = {
+      challenge_participants: { message: 'infinite recursion detected in policy', code: '42P17' },
+      challenge_scores: { message: 'infinite recursion detected in policy', code: '42P17' },
+    };
+    await runExport();
+    const bundle = JSON.parse(blobParts.join(''));
+    expect(bundle.incomplete).toBe(true);
+    expect(bundle.unavailable_tables).toEqual(['challenge_participants', 'challenge_scores']);
+    expect(Object.keys(bundle)).toEqual(['generated_at', 'account', 'format', 'data', 'incomplete', 'unavailable_tables']);
+  });
+
+  it('con tutte le tabelle leggibili il file NON ha ne\' incomplete ne\' unavailable_tables', async () => {
+    await runExport();
+    const bundle = JSON.parse(blobParts.join(''));
+    expect('incomplete' in bundle).toBe(false);
+    expect('unavailable_tables' in bundle).toBe(false);
   });
 });
