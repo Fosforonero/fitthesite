@@ -5,6 +5,7 @@ import {
   EXPORT_OWNER_SCOPE,
   EXPORT_TABLE_ORDER,
   EXPORT_TABLES,
+  EXPORT_CATEGORIES,
   getExportColumns,
   getTableRowKey,
 } from '@/lib/privacy/export-scope';
@@ -201,6 +202,14 @@ const T = {
   doneTitle: 'Fatto',
   doneBody: 'ok',
   errorTitle: 'Errore durante export',
+  incompleteTitle: 'File incompleto',
+  incompleteBody: 'Non inclusi:',
+  incompleteHint: 'Riprova piu tardi',
+  // etichette di prova riconoscibili: mai un nome di tabella
+  categories: Object.fromEntries(EXPORT_CATEGORIES.map((c) => [c, `CAT-${c}`])) as Record<
+    (typeof EXPORT_CATEGORIES)[number],
+    string
+  >,
 };
 
 beforeEach(() => {
@@ -246,7 +255,7 @@ afterEach(() => {
 async function runExport() {
   render(<ExportDataClient locale="it" t={T} />);
   fireEvent.click(screen.getByRole('button', { name: T.cta }));
-  await waitFor(() => expect(screen.getByText(/Fatto/)).toBeInTheDocument());
+  await waitFor(() => expect(screen.getByText(/Fatto|File incompleto/)).toBeInTheDocument());
   return JSON.parse(blobParts.join('')) as { data: Record<string, Row[]> };
 }
 
@@ -561,7 +570,10 @@ describe('ExportDataClient: verifiche di sessione e scritture di audit', () => {
       render(<ExportDataClient locale="it" t={T} />);
       fireEvent.click(screen.getByRole('button', { name: T.cta }));
       await waitFor(() => {
-        const finito = screen.queryByRole('alert') !== null || screen.queryByText(/Fatto/) !== null;
+        const finito =
+          screen.queryByRole('alert') !== null ||
+          screen.queryByText(/Fatto/) !== null ||
+          screen.queryByRole('status') !== null;
         expect(finito).toBe(true);
       });
 
@@ -820,7 +832,7 @@ async function runExportAtteso(esito: 'errore' | 'ok') {
   render(<ExportDataClient locale="it" t={T} />);
   fireEvent.click(screen.getByRole('button', { name: T.cta }));
   if (esito === 'errore') await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
-  else await waitFor(() => expect(screen.getByText(/Fatto/)).toBeInTheDocument());
+  else await waitFor(() => expect(screen.getByText(/Fatto|File incompleto/)).toBeInTheDocument());
 }
 
 describe('posizione della riga altrui dentro la pagina', () => {
@@ -988,5 +1000,85 @@ describe('ExportDataClient: file costruito prima delle scritture, e file che dic
     const bundle = JSON.parse(blobParts.join(''));
     expect('incomplete' in bundle).toBe(false);
     expect('unavailable_tables' in bundle).toBe(false);
+  });
+});
+
+describe('ExportDataClient: D-5, la pagina dichiara che il file e\' incompleto', () => {
+  const ERRORE_TECNICO = {
+    message: 'infinite recursion detected in policy for relation "challenge_participants"',
+    code: '42P17',
+  };
+
+  it('tabelle illeggibili: avviso chiaro con le CATEGORIE (una sola per le due tabelle delle sfide), senza errori tecnici e senza «Fatto»', async () => {
+    tableErrorOverride = { challenge_participants: ERRORE_TECNICO, challenge_scores: ERRORE_TECNICO };
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+    const avviso = await screen.findByRole('status');
+
+    expect(avviso).toHaveTextContent(T.incompleteTitle);
+    expect(avviso).toHaveTextContent(T.incompleteBody);
+    expect(avviso).toHaveTextContent(T.incompleteHint);
+    expect(avviso).toHaveTextContent('CAT-challenges');
+    expect((avviso.textContent ?? '').match(/CAT-challenges/g)).toHaveLength(1);
+    // niente nomi di tabella, codici o testi del database, ne' il marcatore del file
+    expect(document.body.textContent ?? '').not.toMatch(/challenge_|42P17|recursion|policy|unavailable|PGRST/i);
+    // non e' presentato come riuscito
+    expect(screen.queryByText(/Fatto/)).not.toBeInTheDocument();
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    // il file e' stato comunque scaricato e dichiara la stessa cosa
+    expect(downloads).toHaveLength(1);
+    expect(JSON.parse(blobParts.join('')).unavailable_tables).toEqual(['challenge_participants', 'challenge_scores']);
+  });
+
+  it('piu\' categorie non disponibili: tutte elencate, nell\'ordine fisso delle categorie, ognuna una volta', async () => {
+    tableErrorOverride = {
+      user_roles: { message: 'permission denied', code: '42501' },
+      devices: { message: 'boom' },
+      challenge_scores: ERRORE_TECNICO,
+      fitness_metrics: { message: 'timeout', code: '57014' },
+    };
+    render(<ExportDataClient locale="en" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+    const avviso = await screen.findByRole('status');
+    const testo = avviso.textContent ?? '';
+    const attese = ['CAT-devices', 'CAT-metrics', 'CAT-challenges', 'CAT-roles'];
+    for (const e of attese) expect(testo).toContain(e);
+    // ordine di EXPORT_CATEGORIES, non l'ordine in cui le tabelle sono fallite
+    const pos = attese.map((e) => testo.indexOf(e));
+    expect([...pos].sort((a, b) => a - b)).toEqual(pos);
+    expect(testo).not.toMatch(/user_roles|fitness_metrics|permission denied|57014/);
+    // l'elenco e' nella lingua dell'utente (Intl.ListFormat), non un separatore fisso
+    expect(testo).toMatch(/CAT-devices, CAT-metrics, CAT-challenges,? and CAT-roles/);
+  });
+
+  it('l\'elenco segue la lingua della pagina: italiano «e», giapponese «、»', async () => {
+    tableErrorOverride = { user_roles: { message: 'x' }, devices: { message: 'x' }, workouts: { message: 'x' } };
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+    expect((await screen.findByRole('status')).textContent).toMatch(/CAT-devices, CAT-workouts e CAT-roles/);
+    cleanup();
+    render(<ExportDataClient locale="ja" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+    expect((await screen.findByRole('status')).textContent).toContain('CAT-devices、CAT-workouts、CAT-roles');
+  });
+
+  it('file completo: messaggio di successo, nessun avviso', async () => {
+    await runExport();
+    expect(screen.getByText(/Fatto/)).toBeInTheDocument();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  it('una nuova esportazione (nuova schermata) dopo un file incompleto riparte pulita: nessun avviso residuo', async () => {
+    tableErrorOverride = { challenge_scores: ERRORE_TECNICO };
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+    await screen.findByRole('status');
+    cleanup();
+    tableErrorOverride = {};
+    blobParts = [];
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+    await waitFor(() => expect(screen.getByText(/Fatto/)).toBeInTheDocument());
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
   });
 });

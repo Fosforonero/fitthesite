@@ -3,8 +3,11 @@
 import { useState } from 'react';
 
 import {
+  categoriesOfTables,
   EXPORT_TABLE_ORDER,
   EXPORT_TABLES,
+  type ExportCategory,
+  type ExportTable,
   getExportColumns,
   getTableRowKey,
   RawCaregiverLink,
@@ -22,7 +25,22 @@ type T = {
   doneTitle: string;
   doneBody: string;
   errorTitle: string;
+  /** File scaricato ma incompleto (D-5): titolo, frase che introduce l'elenco, suggerimento. */
+  incompleteTitle: string;
+  incompleteBody: string;
+  incompleteHint: string;
+  /** Nomi per l'utente delle categorie di dati; mai il nome tecnico della tabella. */
+  categories: Record<ExportCategory, string>;
 };
+
+/** Elenco nella lingua dell'utente («A, B e C»). Se il browser non ha Intl.ListFormat: elenco con virgole. */
+function formatList(locale: string, items: string[]): string {
+  try {
+    return new Intl.ListFormat(locale, { style: 'long', type: 'conjunction' }).format(items);
+  } catch {
+    return items.join(', ');
+  }
+}
 
 type Phase = 'idle' | 'working' | 'done' | 'error';
 
@@ -31,9 +49,12 @@ const PAGE_SIZE = 1000;
 export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
   const [phase, setPhase] = useState<Phase>('idle');
   const [err, setErr] = useState<string | null>(null);
+  // Categorie (nomi per l'utente) che il file NON contiene; vuoto = file completo.
+  const [mancanti, setMancanti] = useState<string[]>([]);
 
   const run = async () => {
     setErr(null);
+    setMancanti([]);
     setPhase('working');
     try {
       const supabase = createClient();
@@ -60,7 +81,7 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       // l'export (come prima della #96): finisce nel file come non disponibile, senza righe e senza
       // il testo dell'errore. Se NESSUNA tabella e' leggibile non c'e' nessun file e nessun timbro.
       let tabelleLette = 0;
-      const nonDisponibili: string[] = [];
+      const nonDisponibili: ExportTable[] = [];
 
       for (const table of EXPORT_TABLES) {
         // Verifica cambio di sessione durante l'export: se l'utente scade o cambia
@@ -295,6 +316,8 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       a.remove();
       URL.revokeObjectURL(url);
 
+      // D-5: se il file e' incompleto la pagina lo dichiara, con le categorie e senza errori tecnici.
+      setMancanti(categoriesOfTables(nonDisponibili).map((c) => t.categories[c]));
       setPhase('done');
     } catch (_e) {
       // In caso di eccezione inattesa, non esporre mai stack trace o dettagli
@@ -310,10 +333,20 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       <p className="mt-2 text-sm text-text-secondary">{t.body}</p>
 
       {phase === 'done' ? (
-        <div className="mt-4 rounded-card border border-success/40 bg-success/5 p-4">
-          <p className="font-semibold text-text-primary text-sm">✓ {t.doneTitle}</p>
-          <p className="mt-1 text-xs text-text-secondary">{t.doneBody}</p>
-        </div>
+        mancanti.length > 0 ? (
+          <div role="status" className="mt-4 rounded-card border border-warning/50 bg-warning/5 p-4">
+            <p className="font-semibold text-text-primary text-sm">{t.incompleteTitle}</p>
+            <p className="mt-1 text-xs text-text-secondary">
+              {t.incompleteBody} <strong>{formatList(locale, mancanti)}</strong>
+            </p>
+            <p className="mt-1 text-xs text-text-secondary">{t.incompleteHint}</p>
+          </div>
+        ) : (
+          <div className="mt-4 rounded-card border border-success/40 bg-success/5 p-4">
+            <p className="font-semibold text-text-primary text-sm">✓ {t.doneTitle}</p>
+            <p className="mt-1 text-xs text-text-secondary">{t.doneBody}</p>
+          </div>
+        )
       ) : (
         <button
           type="button"

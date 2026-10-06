@@ -97,6 +97,48 @@ export const EXPORT_TABLES = [
 export type ExportTable = (typeof EXPORT_TABLES)[number];
 
 /**
+ * Categorie mostrate all'UTENTE quando una tabella non si e' potuta leggere (D-5): mai il nome tecnico della
+ * tabella ne' il testo dell'errore. Due tabelle delle sfide fanno una sola categoria. L'ordine di questo
+ * elenco e' l'ordine in cui compaiono nell'avviso.
+ */
+export const EXPORT_CATEGORIES = [
+  'profile',
+  'consents',
+  'settings',
+  'devices',
+  'metrics',
+  'workouts',
+  'careLinks',
+  'groups',
+  'subscriptions',
+  'challenges',
+  'roles',
+] as const;
+
+export type ExportCategory = (typeof EXPORT_CATEGORIES)[number];
+
+export const EXPORT_CATEGORY_OF_TABLE: Record<ExportTable, ExportCategory> = {
+  profiles: 'profile',
+  privacy_consents: 'consents',
+  user_settings: 'settings',
+  devices: 'devices',
+  fitness_metrics: 'metrics',
+  workouts: 'workouts',
+  caregiver_links: 'careLinks',
+  group_members: 'groups',
+  b2c_subscriptions: 'subscriptions',
+  challenge_participants: 'challenges',
+  challenge_scores: 'challenges',
+  user_roles: 'roles',
+};
+
+/** Categorie (senza doppioni, nell'ordine di EXPORT_CATEGORIES) delle tabelle non disponibili. */
+export function categoriesOfTables(tables: readonly ExportTable[]): ExportCategory[] {
+  const presenti = new Set(tables.map((t) => EXPORT_CATEGORY_OF_TABLE[t]));
+  return EXPORT_CATEGORIES.filter((c) => presenti.has(c));
+}
+
+/**
  * Colonne esplicite da proiettare per ogni tabella (nessun `select('*')`).
  * Riconciliate escludendo segreti infrastrutturali (FCM), hash hardware (fingerprint),
  * ricevute grezze degli store (raw_payload) e dati di audit interni (granted_by, note).
