@@ -56,6 +56,10 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         data: {},
       };
       const data = bundle.data as Record<string, unknown>;
+      // Tabelle lette con successo. Una tabella che la RLS o la rete non lasciano leggere NON ferma
+      // l'export (come prima della #96): finisce nel file come non disponibile, senza righe e senza
+      // il testo dell'errore. Se NESSUNA tabella e' leggibile non c'e' nessun file e nessun timbro.
+      let tabelleLette = 0;
 
       for (const table of EXPORT_TABLES) {
         // Verifica cambio di sessione durante l'export: se l'utente scade o cambia
@@ -77,6 +81,7 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         const tableRows: Record<string, unknown>[] = [];
         const seenKeys = new Set<string>();
         let expectedCount: number | null = null;
+        let tabellaNonDisponibile = false;
 
         // Paginazione deterministica con ordine totale e blocco da 1.000 righe per superare
         // il limite max-rows di PostgREST e garantire l'anti-troncamento e l'assenza di duplicati.
@@ -111,10 +116,18 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
 
           const { data: pageRows, count, error } = await query;
 
-          // FAIL-CLOSED: qualsiasi errore o valore non-array interrompe l'export immediatamente.
-          // Nessun file parziale viene generato o scaricato, nessun timestamp di completamento viene
-          // scritto, e nessun dettaglio tecnico del database viene esposto.
-          if (error || !Array.isArray(pageRows)) {
+          // Errore di lettura della tabella (policy RLS rotta, rete, colonna mancante): le righe di
+          // questa tabella, anche quelle di pagine precedenti, NON entrano nel file; la tabella e'
+          // marcata non disponibile e l'export prosegue con le altre. Non puo' far uscire righe altrui
+          // (nessuna riga e' esportata) e non espone il testo dell'errore del database.
+          if (error) {
+            tabellaNonDisponibile = true;
+            break;
+          }
+
+          // FAIL-CLOSED: una risposta senza errore che non e' un array e' una forma inattesa: l'export
+          // si interrompe, senza file e senza timbro.
+          if (!Array.isArray(pageRows)) {
             setErr(t.errorTitle);
             setPhase('error');
             return;
@@ -177,6 +190,11 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
           from += PAGE_SIZE;
         }
 
+        if (tabellaNonDisponibile) {
+          data[table] = { error: 'unavailable' };
+          continue;
+        }
+
         // FAIL-CLOSED: Corrispondenza esatta fra conteggio e righe uniche
         if (
           expectedCount === null ||
@@ -197,6 +215,15 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         } else {
           data[table] = tableRows;
         }
+        tabelleLette += 1;
+      }
+
+      // Nessuna tabella leggibile (sessione scaduta lato server, rete assente, RLS rotta ovunque):
+      // un file fatto di soli «non disponibile» sarebbe un export vuoto presentato come completo.
+      if (tabelleLette === 0) {
+        setErr(t.errorTitle);
+        setPhase('error');
+        return;
       }
 
       // Verifica di completezza prima del timbro e del download: tutte le 12
@@ -218,41 +245,25 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         return;
       }
 
-      // Scrittura audit log PRIMA del timbro completato:
-      // Se l'audit fallisce, data_export_completed_at NON viene mai scritto
-      // nel database, evitando di lasciare un falso completato.
+      // Audit e timbro di completamento sono BEST-EFFORT, come prima della #96: la RLS di audit_logs
+      // non ha una policy INSERT per l'utente («INSERT: solo via service_role», init_events_audit.sql),
+      // quindi un esito negativo non deve togliere all'utente i propri dati (GDPR art. 15 e 20).
+      // L'errore e' ignorato di proposito; l'ordine (audit, poi timbro) resta, e fra le scritture e il
+      // download non c'e' nessun altro await.
       const now = new Date().toISOString();
-      const { error: auditErr } = await supabase
-        .from('audit_logs')
-        .insert({
+      await supabase.from('audit_logs').insert({
+        user_id: exportUserId,
+        action: 'data_exported',
+        detail: { method: 'web_ui' },
+      } as never);
+      await supabase.from('privacy_consents').upsert(
+        {
           user_id: exportUserId,
-          action: 'data_exported',
-          detail: { method: 'web_ui' },
-        } as never);
-      if (auditErr) {
-        // Fallimento scrittura log di audit: interrompi senza timbro completato ne' download
-        setErr(t.errorTitle);
-        setPhase('error');
-        return;
-      }
-
-      // Scrittura timbro di richiesta e completamento SOLO DOPO che l'audit ha avuto successo.
-      const { error: consentErr } = await supabase
-        .from('privacy_consents')
-        .upsert(
-          {
-            user_id: exportUserId,
-            data_export_requested_at: now,
-            data_export_completed_at: now,
-          } as never,
-          { onConflict: 'user_id' },
-        );
-      if (consentErr) {
-        // Fallimento scrittura consensi: interrompi senza scaricare il file
-        setErr(t.errorTitle);
-        setPhase('error');
-        return;
-      }
+          data_export_requested_at: now,
+          data_export_completed_at: now,
+        } as never,
+        { onConflict: 'user_id' },
+      );
 
       // Nessuna riverifica di sessione DOPO le scritture: un abort qui lascerebbe audit e timbro di
       // completamento senza il file. L'ultimo controllo e' quello PRIMA delle scritture; da qui al

@@ -55,7 +55,11 @@ let getUserCallCount = 0;
 let changeUserOnCallIndex: number | null = null;
 let newUserIdOnChange: string | null = null;
 
-let tableErrorOverride: Record<string, { message: string }> = {};
+let tableErrorOverride: Record<string, { message: string; code?: string }> = {};
+// errore SOLO dalla pagina che parte da questo indice in poi (pagine precedenti riuscite)
+let tableErrorFromRange: Record<string, number> = {};
+// risposta senza errore ma con dati che non sono un array
+let tableNonArray: Record<string, boolean> = {};
 let tableDataOverride: Record<string, Row[]> = {};
 let tableTotalCountOverride: Record<string, number | null> = {};
 let consentUpsertError: { message: string } | null = null;
@@ -138,6 +142,20 @@ function makeSupabase() {
           if (tableErrorOverride[table]) {
             return resolve({ data: null, count: null, error: tableErrorOverride[table] });
           }
+          if (
+            table in tableErrorFromRange &&
+            currentRange !== null &&
+            currentRange.from >= tableErrorFromRange[table]
+          ) {
+            return resolve({
+              data: null,
+              count: null,
+              error: { message: 'canceling statement due to statement timeout', code: '57014' },
+            });
+          }
+          if (tableNonArray[table]) {
+            return resolve({ data: { corrupted: true }, count: 1, error: null });
+          }
           const allRows =
             table in tableDataOverride
               ? tableDataOverride[table]
@@ -188,6 +206,8 @@ beforeEach(() => {
   changeUserOnCallIndex = null;
   newUserIdOnChange = null;
   tableErrorOverride = {};
+  tableErrorFromRange = {};
+  tableNonArray = {};
   tableDataOverride = {};
   tableTotalCountOverride = {};
   consentUpsertError = null;
@@ -546,64 +566,94 @@ describe('ExportDataClient: verifiche di sessione e scritture di audit', () => {
     },
   );
 
-  it('fail-closed se la scrittura del timbro di completamento (privacy_consents) fallisce', async () => {
-    consentUpsertError = { message: 'DB connection failure during consent update' };
-
-    render(<ExportDataClient locale="it" t={T} />);
-    fireEvent.click(screen.getByRole('button', { name: T.cta }));
-
-    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
-    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
-    // Nessun download se il timbro non e' andato a buon fine
-    expect(downloads).toHaveLength(0);
+  // Audit e timbro sono BEST-EFFORT (come prima della #96): la RLS di audit_logs ammette solo SELECT
+  // («INSERT: solo via service_role»), quindi un esito negativo non deve togliere all'utente i propri dati.
+  it('timbro di completamento (privacy_consents) respinto: il file viene consegnato lo stesso', async () => {
+    consentUpsertError = { message: 'new row violates row-level security policy for table "privacy_consents"' };
+    const bundle = await runExport();
+    expect(downloads).toHaveLength(1);
+    expect(bundle.data.profiles).toHaveLength(1);
   });
 
-  it('risoluzione sequenza audit/completed_at: se la scrittura audit fallisce, data_export_completed_at NON viene mai scritto', async () => {
-    auditInsertError = { message: 'Audit insert failure' };
-
-    render(<ExportDataClient locale="it" t={T} />);
-    fireEvent.click(screen.getByRole('button', { name: T.cta }));
-
-    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
-    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
-    // Nessun download se l'audit ha fallito
-    expect(downloads).toHaveLength(0);
-
-    // Nessun falso "completato" in privacy_consents!
-    const timbro = writes.find(
-      (w) => w.table === 'privacy_consents' && 'data_export_completed_at' in w.payload,
-    );
-    expect(timbro, 'data_export_completed_at non deve mai essere scritto se audit fallisce').toBeUndefined();
+  it('INSERT su audit_logs respinto dalla RLS (nessuna policy INSERT): il file viene consegnato lo stesso', async () => {
+    auditInsertError = { message: 'new row violates row-level security policy for table "audit_logs"' };
+    const bundle = await runExport();
+    expect(downloads).toHaveLength(1);
+    expect(bundle.data.profiles).toHaveLength(1);
+    // l'audit e' stato tentato (e respinto) PRIMA del timbro, che e' stato tentato lo stesso
+    const auditIndex = writes.findIndex((w) => w.table === 'audit_logs' && w.op === 'insert');
+    const timbroIndex = writes.findIndex((w) => w.table === 'privacy_consents' && w.op === 'upsert');
+    expect(auditIndex).toBeGreaterThanOrEqual(0);
+    expect(timbroIndex).toBeGreaterThan(auditIndex);
   });
 });
 
 describe('ExportDataClient: gestione discriminante errori DB', () => {
-  it('fail-closed su errore query: nessun download, nessun timbro completato, nessun leak tecnico', async () => {
-    const RAW_LEAK = '42P01: relation fitness_metrics does not exist (internal leak)';
+  const RLS_RICORSIONE = {
+    message: 'infinite recursion detected in policy for relation "challenge_participants"',
+    code: '42P17',
+  };
+
+  it('una tabella illeggibile (RLS rotta, 42P17) NON ferma l\'export: marcata non disponibile, senza testo tecnico, file consegnato', async () => {
     tableErrorOverride = {
-      fitness_metrics: { message: RAW_LEAK },
+      challenge_participants: RLS_RICORSIONE,
+      challenge_scores: { ...RLS_RICORSIONE, message: RLS_RICORSIONE.message.replace('participants', 'scores') },
     };
+    const bundle = await runExport();
 
-    render(<ExportDataClient locale="it" t={T} />);
-    fireEvent.click(screen.getByRole('button', { name: T.cta }));
-
-    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
-    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
-    expect(screen.queryByText(new RegExp(RAW_LEAK, 'i'))).not.toBeInTheDocument();
-    expect(downloads).toHaveLength(0);
-    expect(blobParts).toHaveLength(0);
-
-    const timbro = writes.find(
-      (w) => w.table === 'privacy_consents' && 'data_export_completed_at' in w.payload,
-    );
-    expect(timbro).toBeUndefined();
+    expect(downloads).toHaveLength(1);
+    expect(bundle.data.challenge_participants).toEqual({ error: 'unavailable' });
+    expect(bundle.data.challenge_scores).toEqual({ error: 'unavailable' });
+    // il testo dell'errore del database non entra ne' nel file ne' nella pagina
+    expect(blobParts.join('')).not.toMatch(/infinite recursion|42P17|policy/i);
+    expect(document.body.textContent ?? '').not.toMatch(/infinite recursion|42P17/i);
+    // le altre 10 tabelle sono presenti, solo con righe proprie
+    for (const table of EXPORT_TABLES) {
+      if (table === 'challenge_participants' || table === 'challenge_scores') continue;
+      const rows = bundle.data[table] as Row[];
+      expect(Array.isArray(rows), `${table} non e' un array`).toBe(true);
+      expect(rows.length).toBeGreaterThan(0);
+    }
+    // audit e timbro scritti: il file e' stato consegnato
+    expect(writes.some((w) => w.table === 'privacy_consents' && 'data_export_completed_at' in w.payload)).toBe(true);
   });
 
-  it('fail-closed se i dati restituiti non sono un array: abortisce immediatamente', async () => {
-    tableErrorOverride = {
-      // @ts-expect-error test for unexpected non-array error handling
-      workouts: { corrupted: true },
+  it('errore alla SECONDA pagina: nessuna riga parziale della tabella nel file, tabella marcata non disponibile', async () => {
+    tableDataOverride = {
+      fitness_metrics: Array.from({ length: 1250 }, (_, i) => ({
+        id: `00000000-0000-4000-8000-${String(i).padStart(12, '0')}`,
+        user_id: ME,
+        marker: 'MIA',
+      })),
     };
+    tableTotalCountOverride = { fitness_metrics: 1250 };
+    tableErrorFromRange = { fitness_metrics: 1000 };
+
+    const bundle = await runExport();
+    expect(bundle.data.fitness_metrics).toEqual({ error: 'unavailable' });
+    expect(blobParts.join('')).not.toContain('00000000-0000-4000-8000-000000000000');
+    expect(blobParts.join('')).not.toMatch(/statement timeout|57014/);
+    expect(downloads).toHaveLength(1);
+  });
+
+  it('se NESSUNA tabella e\' leggibile: nessun file, nessun audit, nessun timbro (un export di soli «non disponibile» non e\' un export)', async () => {
+    tableErrorOverride = Object.fromEntries(
+      EXPORT_TABLES.map((t) => [t, { message: 'JWT expired', code: 'PGRST301' }]),
+    );
+
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
+    expect(screen.queryByText(/JWT expired/i)).not.toBeInTheDocument();
+    expect(downloads).toHaveLength(0);
+    expect(blobParts).toHaveLength(0);
+    expect(writes).toHaveLength(0);
+  });
+
+  it('una risposta senza errore che non e\' un array resta FATALE: nessun download, nessuna scrittura', async () => {
+    tableNonArray = { workouts: true };
 
     render(<ExportDataClient locale="it" t={T} />);
     fireEvent.click(screen.getByRole('button', { name: T.cta }));
@@ -611,6 +661,7 @@ describe('ExportDataClient: gestione discriminante errori DB', () => {
     await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
     expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
     expect(downloads).toHaveLength(0);
+    expect(writes).toHaveLength(0);
   });
 
   it('fallisce immediatamente se l\'utente non e\' autenticato senza interrogare tabelle', async () => {
