@@ -1,7 +1,7 @@
 /**
  * Il cancello della dashboard web REALE (/[locale]/app/dashboard).
  *
- * Non va confuso con quello del PROTOTIPO (lib/web-dashboard/flag.ts: dati sintetici, solo in
+ * Non va confuso con quello del PROTOTIPO (flag.ts nella cartella del prototipo: dati sintetici, solo in
  * locale, chiuso su ogni ambiente Vercel e in ogni build di produzione).
  *
  *  - Fuori dalla produzione (sviluppo, test): basta FITMESH_WEB_DASHBOARD=1, per provarla.

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 /**
  * Due cancelli DISTINTI, da non confondere:
- *  - il PROTOTIPO (dati sintetici, lib/web-dashboard/flag.ts): solo in locale, chiuso su ogni
+ *  - il PROTOTIPO (dati sintetici, flag.ts nella cartella del prototipo): solo in locale, chiuso su ogni
  *    ambiente Vercel e in ogni build di produzione, qualunque variabile si imposti;
  *  - la dashboard REALE (questo file): in una build di produzione (Vercel o auto-ospitata) la
  *    decide lo stato dichiarato nel codice di rilascio (CAPABILITY_STATUS.webDashboard), non una
