@@ -411,3 +411,30 @@ export function scopeToOwner<Q extends OwnerFilterable<Q>>(
   const [a, b] = scope.anyOf;
   return query.or(`${a}.eq.${userId},${b}.eq.${userId}`);
 }
+
+/**
+ * Controllo DOPO la lettura, indipendente dal filtro: la riga restituita dal
+ * server e' davvero dell'utente?
+ *
+ * Il filtro (`scopeToOwner`) dice al server cosa vogliamo; questo controllo
+ * verifica cosa e' arrivato. Servono entrambi: una policy RLS, un filtro
+ * ignorato o una proiezione cambiata non devono poter portare nel file la riga
+ * di un co-membro. Fail-closed: una riga senza colonna proprietario leggibile
+ * (assente, null, non stringa, vuota) NON e' dell'utente.
+ *
+ * Il confronto e' esatto sull'intera stringa: ne' prefissi, ne' sottostringhe,
+ * ne' liste («id1,id2») passano.
+ */
+export function rowBelongsToOwner(
+  table: ExportTable,
+  row: Record<string, unknown>,
+  userId: string,
+): boolean {
+  if (typeof userId !== 'string' || !UUID.test(userId)) return false;
+  const mio = (valore: unknown): boolean =>
+    typeof valore === 'string' && valore.toLowerCase() === userId.toLowerCase();
+  const scope = EXPORT_OWNER_SCOPE[table];
+  if ('column' in scope) return mio(row[scope.column]);
+  const [a, b] = scope.anyOf;
+  return mio(row[a]) || mio(row[b]);
+}

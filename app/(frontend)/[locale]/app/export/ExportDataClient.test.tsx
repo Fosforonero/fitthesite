@@ -45,6 +45,7 @@ let recorded: Recorder[] = [];
 let blobParts: string[] = [];
 let writes: Array<{ table: string; op: 'upsert' | 'insert'; payload: Row }> = [];
 let downloads: string[] = [];
+let rpcCalls: string[] = [];
 
 let currentUserOverride: { id: string; email?: string } | null = {
   id: ME,
@@ -62,6 +63,10 @@ let auditInsertError: { message: string } | null = null;
 
 function makeSupabase() {
   return {
+    rpc: (name: string) => {
+      rpcCalls.push(name);
+      return Promise.resolve({ data: null, error: { message: "rpc non ammessa nell'export" } });
+    },
     auth: {
       getUser: async () => {
         getUserCallCount++;
@@ -177,6 +182,7 @@ beforeEach(() => {
   blobParts = [];
   writes = [];
   downloads = [];
+  rpcCalls = [];
   currentUserOverride = { id: ME, email: 'synth-admin@example.invalid' };
   getUserCallCount = 0;
   changeUserOnCallIndex = null;
@@ -603,5 +609,88 @@ describe('ExportDataClient: gestione discriminante errori DB', () => {
     expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
     expect(recorded).toHaveLength(0);
     expect(downloads).toHaveLength(0);
+  });
+});
+
+describe('ExportDataClient: controllo delle righe restituite (difesa in profondita\' dopo il filtro)', () => {
+  // Righe con TUTTE le colonne di chiave valorizzate e distinte: senza questo un test passerebbe
+  // per il motivo sbagliato (chiave duplicata '' -> fail-closed del rilevatore di duplicati) anche
+  // senza il controllo sul proprietario.
+  function conChiavi(table: (typeof EXPORT_TABLES)[number]): Row[] {
+    return fixtureFor(table).map((r, i) => {
+      const copia: Row = { ...r };
+      for (const col of EXPORT_TABLE_ORDER[table]) {
+        if (!(col in copia)) copia[col] = `chiave-${i}-${col}`;
+      }
+      return copia;
+    });
+  }
+
+  async function runExportAttesoErrore() {
+    render(<ExportDataClient locale="it" t={T} />);
+    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+    await waitFor(() => expect(screen.getByText(T.errorTitle)).toBeInTheDocument());
+  }
+
+  it.each([...EXPORT_TABLES])(
+    '%s: se il server restituisce la riga di un co-membro nonostante il filtro, l\'export si ferma e non consegna nulla',
+    async (table) => {
+      // Simula un filtro ignorato o una policy che lascia passare righe altrui: il server
+      // restituisce, per questa tabella, anche la riga ALTRUI della fixture.
+      tableDataOverride = { [table]: conChiavi(table) };
+      await runExportAttesoErrore();
+      expect(downloads, 'nessun download').toEqual([]);
+      expect(blobParts, 'nessun file costruito').toEqual([]);
+      expect(writes, 'nessun timbro di completamento ne\' audit').toEqual([]);
+      expect(document.body.textContent ?? '', 'nessun id del co-membro a schermo').not.toContain(OTHER);
+    },
+  );
+
+  it('una riga senza colonna proprietario (proiezione cambiata o riga corrotta) ferma l\'export', async () => {
+    tableDataOverride = { fitness_metrics: [{ marker: 'SENZA_PROPRIETARIO' }] };
+    await runExportAttesoErrore();
+    expect(downloads).toEqual([]);
+    expect(blobParts).toEqual([]);
+    expect(writes).toEqual([]);
+  });
+
+  it('il co-membro compare solo su una tabella in coda: l\'export si ferma lo stesso e non scrive righe parziali', async () => {
+    tableDataOverride = { user_roles: fixtureFor('user_roles') };
+    await runExportAttesoErrore();
+    expect(blobParts.join('')).not.toContain('ALTRUI');
+    expect(downloads).toEqual([]);
+  });
+});
+
+describe('ExportDataClient: l\'export dei propri dati non dipende da Pro ne\' dal verdetto della dashboard', () => {
+  it('un utente qualunque scarica il proprio export senza alcuna chiamata RPC (nessun verdetto, nessun entitlement)', async () => {
+    const bundle = await runExport();
+    expect(Object.keys(bundle.data)).toHaveLength(EXPORT_TABLES.length);
+    expect(rpcCalls, 'l\'export non deve chiamare il verdetto Pro').toEqual([]);
+  });
+
+  it('i sorgenti dell\'export non importano il verdetto, i titoli o la dashboard web (decisioni 41 e 45)', async () => {
+    const fs = await import('node:fs');
+    const path = await import('node:path');
+    const dir = __dirname;
+    const radice = path.join(dir, '../../../../..');
+    const file = [
+      path.join(dir, 'ExportDataClient.tsx'),
+      path.join(dir, 'page.tsx'),
+      path.join(radice, 'lib/privacy/export-scope.ts'),
+    ];
+    for (const f of file) {
+      const src = fs.readFileSync(f, 'utf8');
+      for (const vietato of [
+        'lib/dashboard',
+        'web-dashboard',
+        'get_web_dashboard_access',
+        'verdetto',
+        'entitlement',
+        'hasFullAccess',
+      ]) {
+        expect(src.includes(vietato), `${path.basename(f)} cita '${vietato}'`).toBe(false);
+      }
+    }
   });
 });

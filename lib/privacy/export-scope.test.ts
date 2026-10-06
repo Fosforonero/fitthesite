@@ -10,6 +10,7 @@ import {
   EXPORT_TABLES,
   getExportColumns,
   getTableRowKey,
+  rowBelongsToOwner,
   sanitizeCaregiverLink,
   scopeToOwner,
   type OwnerFilterable,
@@ -243,5 +244,54 @@ describe('export-scope: ambito delle righe esportate', () => {
       const atteso = 'column' in s ? s.column : s.anyOf.join('|');
       expect(nelSql.get(table), table).toBe(atteso);
     }
+  });
+});
+
+describe('export-scope: controllo delle righe restituite (difesa in profondita\' dopo il filtro)', () => {
+  const CO_MEMBRO = '10000000-0000-4000-8000-000000000007';
+  const TERZO = '10000000-0000-4000-8000-000000000008';
+
+  it('ogni proiezione include la colonna proprietario, altrimenti il controllo non puo\' leggerla', () => {
+    for (const table of EXPORT_TABLES) {
+      const s = EXPORT_OWNER_SCOPE[table];
+      const colonne = EXPORT_TABLE_COLUMNS[table];
+      const proprietario = 'column' in s ? [s.column] : [...s.anyOf];
+      for (const c of proprietario) {
+        expect(colonne, `${table}: manca ${c} nella proiezione`).toContain(c);
+      }
+    }
+  });
+
+  it('una colonna sola: la riga e\' dell\'utente solo se la colonna proprietario coincide', () => {
+    for (const table of EXPORT_TABLES) {
+      const s = EXPORT_OWNER_SCOPE[table];
+      if (!('column' in s)) continue;
+      expect(rowBelongsToOwner(table, { [s.column]: UID }, UID), `${table} propria`).toBe(true);
+      expect(rowBelongsToOwner(table, { [s.column]: CO_MEMBRO }, UID), `${table} di un co-membro`).toBe(false);
+    }
+  });
+
+  it('una riga senza proprietario leggibile non e\' dell\'utente (fail-closed)', () => {
+    for (const table of EXPORT_TABLES) {
+      expect(rowBelongsToOwner(table, {}, UID), `${table} vuota`).toBe(false);
+      const s = EXPORT_OWNER_SCOPE[table];
+      const col = 'column' in s ? s.column : s.anyOf[0];
+      expect(rowBelongsToOwner(table, { [col]: null }, UID), `${table} null`).toBe(false);
+      expect(rowBelongsToOwner(table, { [col]: undefined }, UID), `${table} undefined`).toBe(false);
+      expect(rowBelongsToOwner(table, { [col]: 12345 }, UID), `${table} non stringa`).toBe(false);
+      expect(rowBelongsToOwner(table, { [col]: '' }, UID), `${table} stringa vuota`).toBe(false);
+    }
+  });
+
+  it('caregiver_links: propria se una delle due parti e\' l\'utente, altrui se nessuna', () => {
+    expect(rowBelongsToOwner('caregiver_links', { caregiver_id: UID, subject_id: TERZO }, UID)).toBe(true);
+    expect(rowBelongsToOwner('caregiver_links', { caregiver_id: TERZO, subject_id: UID }, UID)).toBe(true);
+    expect(rowBelongsToOwner('caregiver_links', { caregiver_id: CO_MEMBRO, subject_id: TERZO }, UID)).toBe(false);
+  });
+
+  it('un co-membro con lo stesso prefisso dell\'id non passa (confronto esatto, non prefisso ne\' sottostringa)', () => {
+    expect(rowBelongsToOwner('fitness_metrics', { user_id: `${UID}0` }, UID)).toBe(false);
+    expect(rowBelongsToOwner('fitness_metrics', { user_id: UID.slice(0, -1) }, UID)).toBe(false);
+    expect(rowBelongsToOwner('fitness_metrics', { user_id: `${UID},${CO_MEMBRO}` }, UID)).toBe(false);
   });
 });

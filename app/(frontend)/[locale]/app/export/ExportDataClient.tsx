@@ -8,6 +8,7 @@ import {
   getExportColumns,
   getTableRowKey,
   RawCaregiverLink,
+  rowBelongsToOwner,
   sanitizeCaregiverLink,
   scopeToOwner,
 } from '@/lib/privacy/export-scope';
@@ -133,6 +134,22 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
             setErr(t.errorTitle);
             setPhase('error');
             return;
+          }
+
+          // CONTROLLO DELLE RIGHE RESTITUITE (difesa in profondita', dopo il filtro): se anche
+          // UNA sola riga non e' dell'utente (filtro ignorato, policy RLS che ne lascia passare
+          // altre, proiezione cambiata) l'export si ferma. Nessun file, nessun timbro, nessun audit,
+          // e nessun dettaglio della riga altrui viene mostrato o registrato.
+          for (const row of pageRows) {
+            if (
+              typeof row !== 'object' ||
+              row === null ||
+              !rowBelongsToOwner(table, row as Record<string, unknown>, exportUserId)
+            ) {
+              setErr(t.errorTitle);
+              setPhase('error');
+              return;
+            }
           }
 
           for (const row of pageRows) {
