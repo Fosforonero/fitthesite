@@ -18,6 +18,11 @@ import {
 } from '@/lib/privacy/export-scope';
 
 type Riga = Record<string, unknown>;
+/** Le 12 tabelle attese, scritte qui di proposito: NON derivano da export-scope, cosi' una tabella tolta dal componente si vede. */
+const DODICI_TABELLE = [
+  'profiles', 'privacy_consents', 'user_settings', 'devices', 'fitness_metrics', 'workouts',
+  'caregiver_links', 'group_members', 'b2c_subscriptions', 'challenge_participants', 'challenge_scores', 'user_roles',
+] as const;
 const COLONNE_ESCLUSE = ['fcm_token', 'fcm_token_updated_at', 'device_fingerprint', 'revoked_by', 'raw_payload', 'granted_by', 'note'];
 
 export type EsitoControllo = { nome: string; ok: boolean; dettaglio?: string };
@@ -39,7 +44,8 @@ export function verificaExport(testo: string): EsitoControllo[] {
   controllo('account.id presente', mioId.length > 0);
 
   const data = (b.data ?? {}) as Record<string, unknown>;
-  controllo('data ha esattamente le 12 tabelle dell\'export, nell\'ordine', JSON.stringify(Object.keys(data)) === JSON.stringify([...EXPORT_TABLES]), JSON.stringify(Object.keys(data)));
+  controllo('data ha esattamente le 12 tabelle attese (elenco scritto nel verificatore), nell\'ordine', JSON.stringify(Object.keys(data)) === JSON.stringify([...DODICI_TABELLE]), JSON.stringify(Object.keys(data)));
+  controllo('l\'elenco del verificatore coincide con EXPORT_TABLES del componente', JSON.stringify([...EXPORT_TABLES]) === JSON.stringify([...DODICI_TABELLE]));
 
   const nonDisponibili: string[] = [];
   for (const tabella of EXPORT_TABLES) {

@@ -636,8 +636,10 @@ describe('ExportDataClient: gestione discriminante errori DB', () => {
       expect(Array.isArray(rows), `${table} non e' un array`).toBe(true);
       expect(rows.length).toBeGreaterThan(0);
     }
-    // audit e timbro scritti: il file e' stato consegnato
-    expect(writes.some((w) => w.table === 'privacy_consents' && 'data_export_completed_at' in w.payload)).toBe(true);
+    // audit e timbro tentati; con un file INCOMPLETO si registra solo la richiesta, non il «completato»
+    const timbro = writes.find((w) => w.table === 'privacy_consents');
+    expect(timbro?.payload).toHaveProperty('data_export_requested_at');
+    expect(timbro?.payload).not.toHaveProperty('data_export_completed_at');
   });
 
   it('errore alla SECONDA pagina: nessuna riga parziale della tabella nel file, tabella marcata non disponibile', async () => {
@@ -1020,6 +1022,11 @@ describe('ExportDataClient: D-5, la pagina dichiara che il file e\' incompleto',
     expect(avviso).toHaveTextContent(T.incompleteHint);
     expect(avviso).toHaveTextContent('CAT-challenges');
     expect((avviso.textContent ?? '').match(/CAT-challenges/g)).toHaveLength(1);
+    // l'avviso non e' un successo travestito: niente spunta e niente testo di successo
+    expect(avviso.textContent ?? '').not.toContain('✓');
+    expect(avviso.textContent ?? '').not.toContain(T.doneBody);
+    // l'avviso dice di riprovare: il pulsante c'e' (non serve ricaricare la pagina)
+    expect(screen.getByRole('button', { name: T.cta })).toBeEnabled();
     // niente nomi di tabella, codici o testi del database, ne' il marcatore del file
     expect(document.body.textContent ?? '').not.toMatch(/challenge_|42P17|recursion|policy|unavailable|PGRST/i);
     // non e' presentato come riuscito
@@ -1062,23 +1069,32 @@ describe('ExportDataClient: D-5, la pagina dichiara che il file e\' incompleto',
     expect((await screen.findByRole('status')).textContent).toContain('CAT-devices、CAT-workouts、CAT-roles');
   });
 
-  it('file completo: messaggio di successo, nessun avviso', async () => {
+  it('file completo: messaggio di successo, nessun avviso, nessun pulsante, timbro di completamento scritto', async () => {
     await runExport();
     expect(screen.getByText(/Fatto/)).toBeInTheDocument();
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    const timbro = writes.find((w) => w.table === 'privacy_consents');
+    expect(timbro?.payload).toHaveProperty('data_export_requested_at');
+    expect(timbro?.payload).toHaveProperty('data_export_completed_at');
   });
 
-  it('una nuova esportazione (nuova schermata) dopo un file incompleto riparte pulita: nessun avviso residuo', async () => {
+  it('riprovare dallo STESSO schermo: dopo un file incompleto il pulsante scarica di nuovo; se ora e\' completo l\'avviso sparisce', async () => {
     tableErrorOverride = { challenge_scores: ERRORE_TECNICO };
     render(<ExportDataClient locale="it" t={T} />);
     fireEvent.click(screen.getByRole('button', { name: T.cta }));
     await screen.findByRole('status');
-    cleanup();
-    tableErrorOverride = {};
-    blobParts = [];
-    render(<ExportDataClient locale="it" t={T} />);
+    expect(downloads).toHaveLength(1);
+
+    tableErrorOverride = {}; // il database ora risponde
     fireEvent.click(screen.getByRole('button', { name: T.cta }));
     await waitFor(() => expect(screen.getByText(/Fatto/)).toBeInTheDocument());
     expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    expect(downloads).toHaveLength(2);
+    // il secondo timbro e' di un export completo
+    const timbri = writes.filter((w) => w.table === 'privacy_consents');
+    expect(timbri).toHaveLength(2);
+    expect(timbri[0].payload).not.toHaveProperty('data_export_completed_at');
+    expect(timbri[1].payload).toHaveProperty('data_export_completed_at');
   });
 });

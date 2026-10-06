@@ -1,16 +1,25 @@
 /**
- * PROVA APPLICATIVA dell'export web, a differenza dei test del repository usa un BACKEND VERO.
+ * PROVA APPLICATIVA dell'export web: a differenza dei test del repository usa un BACKEND VERO.
  *
  * Cosa e' VERO qui:
  *   - Postgres 17 ricostruito dalle 126 migration (policy RLS vere della catena, dati sintetici);
  *   - PostgREST vero (immagine supabase/postgrest) che verifica la firma del JWT e applica la RLS;
- *   - il client @supabase/supabase-js vero, quindi le stesse richieste HTTP del browser (filtri, ordine,
- *     Range, count esatto, upsert, insert);
+ *   - le STESSE QUERY che @supabase/supabase-js genera per il componente (filtri eq/or, order, offset/limit,
+ *     Prefer count=exact, insert, upsert on_conflict), eseguite dal client vero verso PostgREST;
  *   - il componente VERO ExportDataClient (e, come CONTROLLO, quello di main b85870a).
- * Cosa e' FINTO e va dichiarato:
- *   - l'identita': un JWT sintetico con ruolo `authenticated` e `sub` dell'attore, firmato col segreto del
- *     PostgREST di prova; auth.getUser() e' uno stub che restituisce quell'attore (non c'e' GoTrue);
- *   - il browser: Blob, URL.createObjectURL e il click di download sono simulati (jsdom).
+ * Cosa e' FINTO o NON esercitato, e va dichiarato:
+ *   - l'identita': un JWT sintetico (`role: authenticated`, `sub` dell'attore) firmato col segreto del PostgREST di
+ *     prova; non c'e' GoTrue e `auth.getUser()` e' uno STUB: i controlli di cambio sessione del componente NON sono
+ *     esercitati qui (li coprono i test con mock);
+ *   - il `createClient` reale dell'app (@supabase/ssr, cookie, refresh del token) NON gira: e' sostituito da un
+ *     oggetto {from, auth.getUser}; le richieste non sono quelle del browser (niente /rest/v1 di Kong, apikey e
+ *     Authorization diversi): sono le stesse QUERY, non gli stessi byte;
+ *   - il browser: Blob, URL.createObjectURL e il click di download sono simulati in jsdom: si prova cio' che il
+ *     componente scaricherebbe, non il comportamento di un browser;
+ *   - `rowBelongsToOwner` (la seconda difesa sulle righe) NON e' provata da qui: un backend vero rispetta il filtro
+ *     sul proprietario, quindi togliere quel controllo lascia la prova verde; lo coprono i test con mock;
+ *   - versioni: Postgres 17.10 (la config locale di Supabase dice major_version 15) e PostgREST v14.15 (la stessa
+ *     dello stack locale; quella di produzione e' ignota); `max_rows` 1000 impostato a mano.
  * NON e' una prova sulla produzione: la RLS e' quella delle migration, non quella viva.
  * NON e' un test SQL (supabase/tests/reset-pg17) e non e' un test con mock (ExportDataClient.test.tsx).
  */
@@ -213,7 +222,9 @@ describe('PROVA APPLICATIVA (PostgREST + RLS veri): identita\' authenticated sin
     expect(document.body.textContent ?? '').not.toMatch(/copia completa/i);
     // scritture reali tramite PostgREST: l'audit e' respinto dalla RLS (il file e' consegnato lo stesso), il timbro e' scritto
     expect(psql(`select count(*) from public.audit_logs where user_id = '${ATTORI.alice}' and action = 'data_exported'`)).toBe('0');
-    expect(psql(`select data_export_completed_at is not null from public.privacy_consents where user_id = '${ATTORI.alice}'`)).toBe('t');
+    // il file e' INCOMPLETO: si registra la richiesta, NON il «completato»
+    expect(psql(`select data_export_requested_at is not null from public.privacy_consents where user_id = '${ATTORI.alice}'`)).toBe('t');
+    expect(psql(`select data_export_completed_at is null from public.privacy_consents where user_id = '${ATTORI.alice}'`)).toBe('t');
     // il verificatore OFFLINE dice che il file e' conforme...
     expect(rossi(salvaEVerifica('alice-candidato'))).toEqual([]);
     // ...e ROSSO su cinque varianti guaste dello stesso file (controllo negativo del verificatore stesso)
@@ -287,7 +298,7 @@ describe('PROVA APPLICATIVA (PostgREST + RLS veri): identita\' authenticated sin
     expect(String(chiavi.size)).toBe(dalDb);
   });
 
-  it('frank (partecipante a una sfida): la RLS delle sfide e\' rotta anche per lui, il file e\' marcato incompleto, nessuna riga altrui', async () => {
+  it('frank (partecipante a una sfida): con la RLS delle migration le sfide danno 42P17 anche a lui, il file e\' marcato incompleto, nessuna riga altrui', async () => {
     const { bundle } = await esporta('frank');
     expect(bundle!.incomplete).toBe(true);
     expect(bundle!.unavailable_tables).toEqual(['challenge_participants', 'challenge_scores']);

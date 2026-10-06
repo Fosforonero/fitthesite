@@ -3,8 +3,9 @@
 #
 # Cosa fa: ricostruisce un Postgres 17 usa-e-getta dalle migration, ci mette dati SINTETICI, avvia un PostgREST
 # vero davanti (RLS attiva, JWT firmato), esegue il componente vero dell'export (e, come controllo, quello di
-# main) con identita' `authenticated` sintetiche, poi distrugge tutto. NON tocca supabase_db_fitmesh, NON legge
-# la produzione, NON scarica immagini (se manca quella di PostgREST si ferma).
+# main) con identita' `authenticated` sintetiche, poi distrugge SOLO cio' che ha creato (nomi unici per ogni
+# esecuzione, mai `docker rm -f` su nomi altrui). NON tocca supabase_*, NON legge la produzione, NON scarica
+# l'immagine di PostgREST (se manca si ferma; l'immagine postgres:17 la usa il resto dei gate del repository).
 #
 # Requisiti: Docker raggiungibile (colima start), immagine PostgREST gia' presente in locale.
 # Uso: bash tools/prove-locali/export-applicativo/esegui.sh [cartella-log]
@@ -12,10 +13,14 @@ set -uo pipefail
 QUI="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$QUI/../../.." && pwd)"
 LOG="${1:-$QUI/.generato}"
-PG="${PG_NAME:-pg17-export-app}"
-REST="${REST_NAME:-postgrest-export-app}"
-NET="export-app-net"
-PORTA="${REST_PORTA:-3399}"
+# Nomi UNICI per ogni esecuzione e porta libera scelta dal sistema: due esecuzioni (o un container di un altro
+# processo) non possono collidere. Se si forzano i nomi e il nome esiste gia', lo script SI FERMA: non fa mai
+# `docker rm -f` su qualcosa che non ha creato lui.
+SUFFISSO="$$-$RANDOM"
+PG="${PG_NAME:-pg17-export-app-$SUFFISSO}"
+REST="${REST_NAME:-postgrest-export-app-$SUFFISSO}"
+NET="${NET_NAME:-export-app-net-$SUFFISSO}"
+PORTA="${REST_PORTA:-$(python3 -c 'import socket; s=socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1])')}"
 IMG="${POSTGREST_IMAGE:-public.ecr.aws/supabase/postgrest:v14.15}"
 COMPONENTE="app/(frontend)/[locale]/app/export/ExportDataClient.tsx"
 BASE_MAIN="${BASE_MAIN:-b85870a9d43cd9a2389566311fab8e5fd60ec2ee}"
@@ -27,15 +32,22 @@ done
 docker info >/dev/null 2>&1 || { echo "ROSSO: Docker non risponde (colima start)."; exit 2; }
 docker image inspect "$IMG" >/dev/null 2>&1 || { echo "ROSSO: l'immagine $IMG non c'e' in locale (non la scarico)."; exit 2; }
 
+for n in "$PG" "$REST"; do
+  if docker ps -a --format '{{.Names}}' | grep -qx "$n"; then echo "ROSSO: il container $n esiste gia': non lo tocco (cambia PG_NAME / REST_NAME)."; exit 2; fi
+done
+if docker network ls --format '{{.Name}}' | grep -qx "$NET"; then echo "ROSSO: la rete $NET esiste gia': non la tocco (cambia NET_NAME)."; exit 2; fi
+
+CREATI=""   # solo cio' che questa esecuzione ha creato
 pulisci() {
-  docker rm -f "$REST" >/dev/null 2>&1
-  docker rm -f "$PG" >/dev/null 2>&1
-  docker network rm "$NET" >/dev/null 2>&1
+  case "$CREATI" in *rest*) docker rm -f "$REST" >/dev/null 2>&1 ;; esac
+  case "$CREATI" in *pg*)   docker rm -f "$PG" >/dev/null 2>&1 ;; esac
+  case "$CREATI" in *net*)  docker network rm "$NET" >/dev/null 2>&1 ;; esac
 }
 trap pulisci EXIT
-pulisci
+trap 'exit 130' INT TERM
 
-echo "== 1) Postgres 17 usa-e-getta dalle migration =="
+echo "== 1) Postgres 17 usa-e-getta dalle migration (container $PG, porta REST $PORTA) =="
+CREATI="$CREATI pg"
 CONT_NAME="$PG" DB_NAME=ricostruzione ESITO_FILE="$LOG/esito-reset.txt" bash "$REPO/supabase/tests/reset-pg17/esegui-reset.sh" > "$LOG/1-reset.log" 2>&1 \
   || { echo "ROSSO: ricostruzione"; tail -5 "$LOG/1-reset.log"; exit 1; }
 grep -E 'applicate' "$LOG/1-reset.log" | tail -1
@@ -46,7 +58,8 @@ docker exec -i "$PG" psql -U postgres -d ricostruzione -v ON_ERROR_STOP=1 < "$QU
 
 echo "== 3) PostgREST vero (RLS attiva, max_rows 1000 come Supabase) =="
 SEGRETO="$(openssl rand -hex 24)"
-docker network create "$NET" >/dev/null && docker network connect "$NET" "$PG" || { echo "ROSSO: rete"; exit 1; }
+ docker network create "$NET" >/dev/null && CREATI="$CREATI net" && docker network connect "$NET" "$PG" || { echo "ROSSO: rete"; exit 1; }
+CREATI="$CREATI rest"
 docker run -d --name "$REST" --network "$NET" -p "127.0.0.1:$PORTA:3000" \
   -e PGRST_DB_URI="postgres://authenticator:usaegetta@$PG:5432/ricostruzione" \
   -e PGRST_DB_SCHEMAS=public -e PGRST_DB_ANON_ROLE=anon \
@@ -70,5 +83,5 @@ echo "esito prova: $ESITO"
 echo "== 6) distruzione =="
 pulisci
 trap - EXIT
-if docker ps -a --format '{{.Names}}' | grep -qE "^($PG|$REST)$"; then echo "ROSSO: container ancora presenti"; exit 1; else echo "ok: container e rete rimossi"; fi
+if docker ps -a --format '{{.Names}}' | grep -qE "^($PG|$REST)$" || docker network ls --format '{{.Name}}' | grep -qx "$NET"; then echo "ROSSO: container o rete ancora presenti"; exit 1; else echo "ok: container e rete rimossi"; fi
 exit $ESITO

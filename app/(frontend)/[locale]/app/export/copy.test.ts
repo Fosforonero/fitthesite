@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { locales } from '@/lib/i18n';
+import { locales, type Locale } from '@/lib/i18n';
 import {
   categoriesOfTables,
   EXPORT_CATEGORIES,
@@ -31,7 +31,26 @@ const PROMESSA_DI_COMPLETEZZA: Record<string, RegExp> = {
   da: /komplet kopi/i, no: /komplett kopi/i, fi: /täydellinen kopio|täydellisen kopion/i,
 };
 
+// la clausola «se una categoria non e' disponibile» (controllo POSITIVO: la lista nera sopra si aggira con sinonimi)
+const CLAUSOLA_NON_DISPONIBILE: Record<string, RegExp> = {
+  it: /non è disponibile/, en: /not available/, es: /no está disponible/, de: /nicht verfügbar/, pt: /não estiver disponível/,
+  fr: /n'est pas disponible/, pl: /niedostępna/, tr: /kullanılamıyorsa/, nl: /niet beschikbaar/, ja: /利用できない/,
+  ko: /사용할 수 없는/, sv: /inte är tillgänglig/, da: /ikke er tilgængelig/, no: /ikke er tilgjengelig/, fi: /ei ole saatavilla/,
+};
+
 describe('copy della pagina di esportazione: 15 lingue servite, nessun ripiego', () => {
+  it('il corpo dice che se una categoria non e\' disponibile il file lo indica (clausola presente in ogni lingua)', () => {
+    for (const lc of locales) expect(EXPORT_COPY[lc].body, `${lc}.body`).toMatch(CLAUSOLA_NON_DISPONIBILE[lc]);
+  });
+
+  it('la pagina sospesa non da\' una causa ne\' rassicurazioni: in un\'emergenza la causa e\' sconosciuta (nessuna «manutenzione», nessun «dati non interessati»)', () => {
+    const CAUSA_O_RASSICURAZIONE = /manutenzion|maintenance|Wartung|mantenimiento|mantenimento|manutenção|conserwac|bakım|onderhoud|メンテナンス|점검|underhåll|vedligehold|vedlikehold|huolto|non sono interessat|not affected|no se ven afectad|nicht betroffen|não são afetad|ne sont pas concern|nie ma to wpływu|etkilen|worden hier niet|影響|영향|påverkas inte|ikke berørt|påvirkes ikke|ei vaikuta/i;
+    for (const lc of locales) {
+      expect(EXPORT_COPY[lc].unavailableTitle, `${lc}.unavailableTitle`).not.toMatch(CAUSA_O_RASSICURAZIONE);
+      expect(EXPORT_COPY[lc].unavailableBody, `${lc}.unavailableBody`).not.toMatch(CAUSA_O_RASSICURAZIONE);
+    }
+  });
+
   it('ha esattamente le lingue servite dal sito, ognuna con tutte le chiavi non vuote', () => {
     expect(Object.keys(EXPORT_COPY).sort()).toEqual([...locales].sort());
     for (const lc of locales) {
@@ -45,11 +64,24 @@ describe('copy della pagina di esportazione: 15 lingue servite, nessun ripiego',
     }
   });
 
-  it('nessuna lingua e\' un ripiego sull\'italiano: titolo, pulsante, corpo ed errore differiscono da quelli italiani', () => {
+  const piatto = (t: (typeof EXPORT_COPY)[Locale]): Record<string, string> => ({
+    ...Object.fromEntries(Object.entries(t).filter(([, v]) => typeof v === 'string') as [string, string][]),
+    ...Object.fromEntries(Object.entries(t.categories).map(([k, v]) => [`categories.${k}`, v])),
+  });
+  // unica coincidenza legittima con l'inglese: «Error» in spagnolo (la parola e' la stessa)
+  const COINCIDENZE_LEGITTIME_CON_EN = new Set(['es.errorTitle']);
+
+  it('nessuna lingua e\' un ripiego: NESSUNA stringa (testi e categorie) coincide con l\'italiano, e nessuna con l\'inglese salvo «Error» in spagnolo', () => {
+    const it_ = piatto(EXPORT_COPY.it);
+    const en = piatto(EXPORT_COPY.en);
     for (const lc of locales) {
       if (lc === 'it') continue;
-      for (const k of ['heading', 'cta', 'body', 'errorTitle', 'incompleteTitle', 'unavailableTitle'] as const) {
-        expect(EXPORT_COPY[lc][k], `${lc}.${k} identico all'italiano`).not.toBe(EXPORT_COPY.it[k]);
+      const t = piatto(EXPORT_COPY[lc]);
+      for (const k of Object.keys(it_)) {
+        expect(t[k], `${lc}.${k} identica all'italiano`).not.toBe(it_[k]);
+        if (lc !== 'en' && !COINCIDENZE_LEGITTIME_CON_EN.has(`${lc}.${k}`)) {
+          expect(t[k], `${lc}.${k} identica all'inglese (ripiego?)`).not.toBe(en[k]);
+        }
       }
     }
   });
@@ -80,6 +112,33 @@ describe('categorie mostrate all\'utente', () => {
   it('ogni tabella dell\'export ha una categoria e ogni categoria e\' usata', () => {
     for (const t of EXPORT_TABLES) expect(EXPORT_CATEGORIES, t).toContain(EXPORT_CATEGORY_OF_TABLE[t]);
     expect(new Set(EXPORT_TABLES.map((t) => EXPORT_CATEGORY_OF_TABLE[t]))).toEqual(new Set(EXPORT_CATEGORIES));
+  });
+
+  it('la mappa tabella -> categoria e\' esattamente questa (uno scambio mostrerebbe all\'utente una categoria sbagliata)', () => {
+    expect(EXPORT_CATEGORY_OF_TABLE).toEqual({
+      profiles: 'profile',
+      privacy_consents: 'consents',
+      user_settings: 'settings',
+      devices: 'devices',
+      fitness_metrics: 'metrics',
+      workouts: 'workouts',
+      caregiver_links: 'careLinks',
+      group_members: 'groups',
+      b2c_subscriptions: 'subscriptions',
+      challenge_participants: 'challenges',
+      challenge_scores: 'challenges',
+      user_roles: 'roles',
+    });
+  });
+
+  it('categoriesOfTables per OGNI coppia di tabelle: stesso risultato in entrambi gli ordini, nell\'ordine fisso delle categorie', () => {
+    for (const a of EXPORT_TABLES) {
+      for (const b of EXPORT_TABLES) {
+        const attese = EXPORT_CATEGORIES.filter((c) => c === EXPORT_CATEGORY_OF_TABLE[a] || c === EXPORT_CATEGORY_OF_TABLE[b]);
+        expect(categoriesOfTables([a, b]), `${a}+${b}`).toEqual(attese);
+        expect(categoriesOfTables([b, a]), `${b}+${a}`).toEqual(attese);
+      }
+    }
   });
 
   it('categoriesOfTables: senza doppioni, nell\'ordine fisso delle categorie', () => {

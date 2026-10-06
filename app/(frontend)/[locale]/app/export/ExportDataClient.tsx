@@ -49,12 +49,12 @@ const PAGE_SIZE = 1000;
 export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
   const [phase, setPhase] = useState<Phase>('idle');
   const [err, setErr] = useState<string | null>(null);
-  // Categorie (nomi per l'utente) che il file NON contiene; vuoto = file completo.
+  // Categorie (nomi per l'utente) che il file NON contiene; vuoto = file completo. Si imposta SEMPRE a fine export
+  // riuscito; l'avviso si vede solo con phase === 'done', quindi durante un nuovo tentativo o dopo un errore non resta.
   const [mancanti, setMancanti] = useState<string[]>([]);
 
   const run = async () => {
     setErr(null);
-    setMancanti([]);
     setPhase('working');
     try {
       const supabase = createClient();
@@ -257,8 +257,12 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         return;
       }
 
-      // Il file dice di essere incompleto: chi lo legge sa quali tabelle mancano, senza nuove stringhe in UI.
-      if (nonDisponibili.length > 0) {
+      // Il file dice di essere incompleto: chi lo legge sa quali tabelle mancano. La pagina lo dichiarera' con le
+      // CATEGORIE (calcolate qui, prima delle scritture e del download: un'eccezione dopo il download darebbe
+      // «Errore» a file gia' scaricato).
+      const incompleto = nonDisponibili.length > 0;
+      const categorieMancanti = categoriesOfTables(nonDisponibili).map((c) => t.categories[c]);
+      if (incompleto) {
         bundle.incomplete = true;
         bundle.unavailable_tables = nonDisponibili;
       }
@@ -291,11 +295,13 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         action: 'data_exported',
         detail: { method: 'web_ui' },
       } as never);
+      // `data_export_completed_at` = ultima esportazione COMPLETA: con un file incompleto si registra solo la
+      // richiesta, cosi' la tabella non dice «completato» mentre la pagina dice «incompleto».
       await supabase.from('privacy_consents').upsert(
         {
           user_id: exportUserId,
           data_export_requested_at: now,
-          data_export_completed_at: now,
+          ...(incompleto ? {} : { data_export_completed_at: now }),
         } as never,
         { onConflict: 'user_id' },
       );
@@ -317,7 +323,7 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       URL.revokeObjectURL(url);
 
       // D-5: se il file e' incompleto la pagina lo dichiara, con le categorie e senza errori tecnici.
-      setMancanti(categoriesOfTables(nonDisponibili).map((c) => t.categories[c]));
+      setMancanti(categorieMancanti);
       setPhase('done');
     } catch (_e) {
       // In caso di eccezione inattesa, non esporre mai stack trace o dettagli
@@ -347,7 +353,11 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
             <p className="mt-1 text-xs text-text-secondary">{t.doneBody}</p>
           </div>
         )
-      ) : (
+      ) : null}
+
+      {/* Il pulsante c'e' sempre, tranne dopo un export COMPLETO: con un file incompleto l'avviso dice di
+          riprovare, quindi si puo' riprovare senza ricaricare la pagina. */}
+      {phase === 'done' && mancanti.length === 0 ? null : (
         <button
           type="button"
           onClick={run}

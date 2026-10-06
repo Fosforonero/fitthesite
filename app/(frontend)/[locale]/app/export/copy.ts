@@ -29,7 +29,7 @@ export type ExportCopy = {
   incompleteHint: string;
   /** Nomi per l'utente delle categorie di dati; mai il nome tecnico della tabella. */
   categories: Record<ExportCategory, string>;
-  /** Esportazione sospesa (interruttore d'emergenza). */
+  /** Esportazione sospesa (interruttore d'emergenza): SENZA causa e senza rassicurazioni, perche' in un'emergenza la causa e' sconosciuta. */
   unavailableTitle: string;
   unavailableBody: string;
 };
@@ -61,7 +61,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "ruoli e accessi",
     },
     unavailableTitle: "Esportazione temporaneamente non disponibile",
-    unavailableBody: "L'esportazione dei dati è temporaneamente sospesa per manutenzione. Riprova più tardi. I tuoi dati nell'app non sono interessati.",
+    unavailableBody: "Riprova più tardi.",
   },
   en: {
     back: "← Settings",
@@ -89,7 +89,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "roles and access",
     },
     unavailableTitle: "Export temporarily unavailable",
-    unavailableBody: "Data export is temporarily suspended for maintenance. Please try again later. Your data in the app is not affected.",
+    unavailableBody: "Please try again later.",
   },
   es: {
     back: "← Ajustes",
@@ -117,7 +117,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "roles y accesos",
     },
     unavailableTitle: "Exportación temporalmente no disponible",
-    unavailableBody: "La exportación de datos está suspendida temporalmente por mantenimiento. Inténtalo de nuevo más tarde. Tus datos en la app no se ven afectados.",
+    unavailableBody: "Inténtalo de nuevo más tarde.",
   },
   de: {
     back: "← Einstellungen",
@@ -145,7 +145,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "Rollen und Zugriffe",
     },
     unavailableTitle: "Export vorübergehend nicht verfügbar",
-    unavailableBody: "Der Datenexport ist wegen Wartungsarbeiten vorübergehend ausgesetzt. Versuche es später erneut. Deine Daten in der App sind nicht betroffen.",
+    unavailableBody: "Versuche es später erneut.",
   },
   pt: {
     back: "← Configurações",
@@ -173,7 +173,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "funções e acessos",
     },
     unavailableTitle: "Exportação temporariamente indisponível",
-    unavailableBody: "A exportação de dados está temporariamente suspensa para manutenção. Tente novamente mais tarde. Seus dados no app não são afetados.",
+    unavailableBody: "Tente novamente mais tarde.",
   },
   fr: {
     back: "← Réglages",
@@ -201,7 +201,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "rôles et accès",
     },
     unavailableTitle: "Exportation temporairement indisponible",
-    unavailableBody: "L'exportation des données est temporairement suspendue pour maintenance. Réessayez plus tard. Vos données dans l'application ne sont pas concernées.",
+    unavailableBody: "Réessayez plus tard.",
   },
   pl: {
     back: "← Ustawienia",
@@ -229,7 +229,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "role i dostęp",
     },
     unavailableTitle: "Eksport tymczasowo niedostępny",
-    unavailableBody: "Eksport danych jest tymczasowo zawieszony z powodu prac konserwacyjnych. Spróbuj ponownie później. Nie ma to wpływu na Twoje dane w aplikacji.",
+    unavailableBody: "Spróbuj ponownie później.",
   },
   tr: {
     back: "← Ayarlar",
@@ -257,7 +257,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "roller ve erişimler",
     },
     unavailableTitle: "Dışa aktarma geçici olarak kullanılamıyor",
-    unavailableBody: "Veri dışa aktarma, bakım nedeniyle geçici olarak askıya alındı. Lütfen daha sonra tekrar deneyin. Uygulamadaki verileriniz etkilenmiyor.",
+    unavailableBody: "Lütfen daha sonra tekrar deneyin.",
   },
   nl: {
     back: "← Instellingen",
@@ -285,7 +285,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "rollen en toegang",
     },
     unavailableTitle: "Export tijdelijk niet beschikbaar",
-    unavailableBody: "Het exporteren van gegevens is tijdelijk onderbroken wegens onderhoud. Probeer het later opnieuw. Je gegevens in de app worden hier niet door beïnvloed.",
+    unavailableBody: "Probeer het later opnieuw.",
   },
   ja: {
     back: "← 設定",
@@ -298,7 +298,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
     errorTitle: "エラー",
     incompleteTitle: "ダウンロードを開始しましたが、ファイルは不完全です",
     incompleteBody: "次のデータカテゴリを含めることができませんでした:",
-    incompleteHint: "完全なファイルを取得するには、時間をおいて再度お試しください。",
+    incompleteHint: "ダウンロードしたファイルにはこれらの情報が含まれていません。完全なファイルを取得するには、時間をおいて再度お試しください。",
     categories: {
       profile: "プロフィール",
       consents: "同意",
@@ -313,7 +313,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "役割とアクセス権",
     },
     unavailableTitle: "エクスポートは一時的にご利用いただけません",
-    unavailableBody: "データのエクスポートは、メンテナンスのため一時的に停止しています。しばらくしてからもう一度お試しください。アプリ内のデータには影響ありません。",
+    unavailableBody: "しばらくしてからもう一度お試しください。",
   },
   ko: {
     back: "← 설정",
@@ -326,7 +326,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
     errorTitle: "오류",
     incompleteTitle: "다운로드를 시작했지만 파일이 불완전해요",
     incompleteBody: "다음 데이터 카테고리를 포함하지 못했어요:",
-    incompleteHint: "완전한 파일을 받으려면 나중에 다시 시도해 주세요.",
+    incompleteHint: "다운로드한 파일에는 이 정보가 들어 있지 않아요. 완전한 파일을 받으려면 나중에 다시 시도해 주세요.",
     categories: {
       profile: "프로필",
       consents: "동의 내역",
@@ -341,7 +341,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "역할 및 접근 권한",
     },
     unavailableTitle: "내보내기를 일시적으로 사용할 수 없어요",
-    unavailableBody: "데이터 내보내기가 점검으로 인해 일시적으로 중단되었어요. 나중에 다시 시도해 주세요. 앱에 있는 내 데이터에는 영향이 없어요.",
+    unavailableBody: "나중에 다시 시도해 주세요.",
   },
   sv: {
     back: "← Inställningar",
@@ -369,7 +369,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "roller och åtkomst",
     },
     unavailableTitle: "Exporten är tillfälligt otillgänglig",
-    unavailableBody: "Dataexporten är tillfälligt pausad för underhåll. Försök igen senare. Dina data i appen påverkas inte.",
+    unavailableBody: "Försök igen senare.",
   },
   da: {
     back: "← Indstillinger",
@@ -397,7 +397,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "roller og adgang",
     },
     unavailableTitle: "Eksporten er midlertidigt ikke tilgængelig",
-    unavailableBody: "Dataeksporten er midlertidigt sat på pause på grund af vedligeholdelse. Prøv igen senere. Dine data i appen er ikke berørt.",
+    unavailableBody: "Prøv igen senere.",
   },
   no: {
     back: "← Innstillinger",
@@ -425,7 +425,7 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "roller og tilgang",
     },
     unavailableTitle: "Eksporten er midlertidig utilgjengelig",
-    unavailableBody: "Dataeksporten er midlertidig satt på pause på grunn av vedlikehold. Prøv igjen senere. Dataene dine i appen påvirkes ikke.",
+    unavailableBody: "Prøv igjen senere.",
   },
   fi: {
     back: "← Asetukset",
@@ -453,6 +453,6 @@ export const EXPORT_COPY: Record<Locale, ExportCopy> = {
       roles: "roolit ja käyttöoikeudet",
     },
     unavailableTitle: "Vienti ei ole tilapäisesti käytettävissä",
-    unavailableBody: "Tietojen vienti on tilapäisesti keskeytetty huollon vuoksi. Yritä myöhemmin uudelleen. Tämä ei vaikuta sovelluksessa oleviin tietoihisi.",
+    unavailableBody: "Yritä myöhemmin uudelleen.",
   },
 };
