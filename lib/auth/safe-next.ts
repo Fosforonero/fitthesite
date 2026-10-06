@@ -7,7 +7,8 @@
  *   1. si accetta solo `/` seguito da un carattere che NON sia `/` ne' `\`;
  *   2. nessun backslash e nessun carattere di controllo in nessuna posizione;
  *   3. si risolve davvero con `new URL` e si confronta l'ORIGINE con quella della richiesta;
- *   4. si rimanda a `pathname + search` gia' normalizzati, mai alla stringa grezza.
+ *   4. si rimanda a `pathname + search` gia' normalizzati, mai alla stringa grezza, e il risultato
+ *      normalizzato ripassa dal controllo del punto 1 (dot-segment: `/.//dominio` -> `//dominio`).
  * Qualunque dubbio ricade sulla propria area nel locale della richiesta.
  */
 export function safeNextPath(next: string | null, locale: string, requestUrl: string): string {
@@ -20,5 +21,10 @@ export function safeNextPath(next: string | null, locale: string, requestUrl: st
     return fallback;
   }
   if (risolto.origin !== new URL(requestUrl).origin) return fallback;
-  return `${risolto.pathname}${risolto.search}`;
+  const percorso = `${risolto.pathname}${risolto.search}`;
+  // Dopo la normalizzazione i dot-segment possono ricomporre un doppio slash iniziale
+  // (`/.//dominio` e `/..//dominio` diventano `//dominio`): riletto da `new URL(percorso, base)`
+  // sarebbe un host. Lo stesso controllo del punto 1 va quindi RIPETUTO sul risultato.
+  if (!/^\/(?![\/\\])/.test(percorso)) return fallback;
+  return percorso;
 }

@@ -52,6 +52,13 @@ describe('callback di login: next resta un percorso interno', () => {
     ['javascript:', 'javascript:alert(1)'],
     ['data:', 'data:text/html,x'],
     ['http con backslash', 'http:%5C%5Cx.invalid'],
+    // Dot-segment: la normalizzazione del parser URL li trasforma in un percorso che inizia per // (host!).
+    ['dot-segment /.//', '/.//x.invalid'],
+    ['dot-segment /..//', '/..//x.invalid'],
+    ['dot-segment /.///', '/.///x.invalid'],
+    ['dot-segment codificato /%2e//', '/%2e//x.invalid'],
+    ['dot-segment codificato maiuscolo /%2E%2E//', '/%2E%2E//x.invalid'],
+    ['dot-segment dopo un segmento /a/..//', '/a/..//x.invalid'],
   ];
 
   it.each(ostili)('%s -> /it/app sullo stesso sito', async (_nome, next) => {
