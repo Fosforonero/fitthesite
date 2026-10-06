@@ -1,93 +1,13 @@
 import Link from 'next/link';
 
 import { locales, type Locale } from '@/lib/i18n';
+import { isExportTemporarilyUnavailable } from '@/lib/privacy/export-switch';
 
 import { ExportDataClient } from './ExportDataClient';
+import { EXPORT_COPY } from './copy';
 
 export const dynamic = 'force-dynamic';
 
-const L = {
-  it: {
-    back: '← Impostazioni',
-    heading: 'Esporta i miei dati',
-    body: 'Scarica una copia completa dei tuoi dati (profilo, dispositivi, metriche, allenamenti, consensi) in formato JSON. Diritto alla portabilità (GDPR art. 20).',
-    cta: 'Scarica i miei dati (JSON)',
-    working: 'Preparazione in corso…',
-    doneTitle: 'Download avviato',
-    doneBody: 'Il file con i tuoi dati è stato scaricato.',
-    errorTitle: 'Errore',
-  },
-  en: {
-    back: '← Settings',
-    heading: 'Export my data',
-    body: 'Download a full copy of your data (profile, devices, metrics, workouts, consents) as JSON. Right to data portability (GDPR art. 20).',
-    cta: 'Download my data (JSON)',
-    working: 'Preparing…',
-    doneTitle: 'Download started',
-    doneBody: 'The file with your data has been downloaded.',
-    errorTitle: 'Error',
-  },
-  es: {
-    back: '← Ajustes',
-    heading: 'Exportar mis datos',
-    body: 'Descarga una copia completa de tus datos (perfil, dispositivos, métricas, entrenamientos, consentimientos) en formato JSON. Derecho a la portabilidad (RGPD art. 20).',
-    cta: 'Descargar mis datos (JSON)',
-    working: 'Preparando…',
-    doneTitle: 'Descarga iniciada',
-    doneBody: 'El archivo con tus datos se ha descargado.',
-    errorTitle: 'Error',
-  },
-  de: {
-    back: '← Einstellungen',
-    heading: 'Meine Daten exportieren',
-    body: 'Lade eine vollständige Kopie deiner Daten (Profil, Geräte, Metriken, Workouts, Einwilligungen) als JSON herunter. Recht auf Datenübertragbarkeit (DSGVO Art. 20).',
-    cta: 'Meine Daten herunterladen (JSON)',
-    working: 'Wird vorbereitet…',
-    doneTitle: 'Download gestartet',
-    doneBody: 'Die Datei mit deinen Daten wurde heruntergeladen.',
-    errorTitle: 'Fehler',
-  },
-  pt: {
-    back: '← Configurações',
-    heading: 'Exportar meus dados',
-    body: 'Baixe uma cópia completa dos seus dados (perfil, dispositivos, métricas, treinos, consentimentos) em formato JSON. Direito à portabilidade (GDPR art. 20).',
-    cta: 'Baixar meus dados (JSON)',
-    working: 'Preparando…',
-    doneTitle: 'Download iniciado',
-    doneBody: 'O arquivo com seus dados foi baixado.',
-    errorTitle: 'Erro',
-  },
-  fr: {
-    back: '← Réglages',
-    heading: 'Exporter mes données',
-    body: 'Téléchargez une copie complète de vos données (profil, appareils, mesures, entraînements, consentements) au format JSON. Droit à la portabilité (RGPD art. 20).',
-    cta: 'Télécharger mes données (JSON)',
-    working: 'Préparation…',
-    doneTitle: 'Téléchargement lancé',
-    doneBody: 'Le fichier avec vos données a été téléchargé.',
-    errorTitle: 'Erreur',
-  },
-  pl: {
-    back: '← Ustawienia',
-    heading: 'Eksportuj moje dane',
-    body: 'Pobierz pełną kopię swoich danych (profil, urządzenia, metryki, treningi, zgody) w formacie JSON. Prawo do przenoszenia danych (RODO art. 20).',
-    cta: 'Pobierz moje dane (JSON)',
-    working: 'Przygotowywanie…',
-    doneTitle: 'Pobieranie rozpoczęte',
-    doneBody: 'Plik z Twoimi danymi został pobrany.',
-    errorTitle: 'Błąd',
-  },
-  tr: {
-    back: '← Ayarlar',
-    heading: 'Verilerimi dışa aktar',
-    body: 'Verilerinizin (profil, cihazlar, metrikler, antrenmanlar, izinler) tam bir kopyasını JSON olarak indirin. Veri taşınabilirliği hakkı (KVKK md. 7).',
-    cta: 'Verilerimi indir (JSON)',
-    working: 'Hazırlanıyor…',
-    doneTitle: 'İndirme başladı',
-    doneBody: 'Verilerinizi içeren dosya indirildi.',
-    errorTitle: 'Hata',
-  },
-} as const;
 
 export default async function ExportPage({
   params,
@@ -95,8 +15,29 @@ export default async function ExportPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  // Un codice che non e' una delle 15 lingue servite non dovrebbe arrivare qui (lo risolve il middleware):
+  // se arriva si usa la lingua di default DICHIARANDOLO. Le 15 lingue servite hanno TUTTE il proprio testo
+  // (EXPORT_COPY e' un Record<Locale, ...>: un buco e' un errore di compilazione, non un ripiego silenzioso).
   const lc: Locale = (locales as readonly string[]).includes(locale) ? (locale as Locale) : 'it';
-  const t = L[(lc in L ? lc : "it") as keyof typeof L];
+  const t = EXPORT_COPY[lc];
+
+  // Interruttore d'emergenza (lib/privacy/export-switch.ts): pagina senza il componente, quindi nessuna lettura.
+  if (isExportTemporarilyUnavailable()) {
+    return (
+      <div className="mx-auto max-w-2xl px-4 py-10">
+        <Link href={`/${lc}/app/settings`} className="text-sm text-text-muted hover:text-text-primary">
+          {t.back}
+        </Link>
+        <section className="mt-4 rounded-card border border-divider bg-bg-secondary p-6">
+          <h2 className="font-display text-lg font-semibold text-text-primary">{t.heading}</h2>
+          <div role="status" className="mt-4 rounded-card border border-warning/50 bg-warning/5 p-4">
+            <p className="font-semibold text-text-primary text-sm">{t.unavailableTitle}</p>
+            <p className="mt-1 text-xs text-text-secondary">{t.unavailableBody}</p>
+          </div>
+        </section>
+      </div>
+    );
+  }
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-10">
