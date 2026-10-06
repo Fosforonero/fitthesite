@@ -21,6 +21,10 @@ import { locales, type Locale } from "@/lib/i18n";
  * Quando la Mesh verra' accesa servira' la pagina definitiva, non un ritorno
  * alla lettura del database da qui.
  *
+ * PERIMETRO: questo file non legge il database. Il middleware continua a chiamare il
+ * rate limit per questa rotta (rate_limit_check con l'IP nella chiave, fail-open): non
+ * e' toccato qui. Non risolve le RPC di invito, le policy cross-utente ne' il kill switch.
+ *
  * Il test statico test/invito-pubblico-senza-database.test.ts tiene questo
  * file e la route di anteprima lontani da Supabase.
  */

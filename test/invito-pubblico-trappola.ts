@@ -27,13 +27,21 @@ export const CLASSI_DI_CODICE: Record<string, string> = {
 };
 
 /**
- * Trappola sull'ambiente: sostituisce `process.env` con un proxy che registra
- * ogni lettura di una variabile di Supabase o della chiave di servizio.
- * Chi la usa deve chiamare `ripristina()` alla fine.
+ * Trappola sull'ambiente e sulla rete: sostituisce `process.env` con un proxy che registra
+ * ogni lettura di una variabile di Supabase o della chiave di servizio, e sostituisce
+ * `globalThis.fetch` con una funzione che registra le chiamate e LANCIA (nessuna richiesta di
+ * rete verso Supabase o altrove: un client Supabase usa fetch sotto, e un fetch scritto a mano
+ * sfuggirebbe alla trappola sul costruttore). Chi la usa deve chiamare `ripristina()` alla fine.
  */
 export function spiaAmbiente() {
   const originale = process.env;
+  const fetchOriginale = globalThis.fetch;
   const lette: string[] = [];
+  const fetchChiamate: string[] = [];
+  globalThis.fetch = ((ingresso: unknown) => {
+    fetchChiamate.push(String(ingresso));
+    throw new Error("fetch chiamato: pagina e API d'invito non devono fare richieste di rete");
+  }) as typeof fetch;
   process.env = new Proxy(originale, {
     get(target, chiave, ricevente) {
       if (typeof chiave === "string" && /supabase|service_role/i.test(chiave)) {
@@ -44,8 +52,10 @@ export function spiaAmbiente() {
   });
   return {
     lette,
+    fetchChiamate,
     ripristina() {
       process.env = originale;
+      globalThis.fetch = fetchOriginale;
     },
   };
 }

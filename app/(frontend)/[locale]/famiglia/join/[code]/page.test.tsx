@@ -140,6 +140,14 @@ describe("pagina pubblica dell'invito: nessun database, nessuna sessione", () =>
     expect(spia.lette).toEqual([]);
   });
 
+  it("nessuna richiesta di rete: fetch non viene mai chiamato, in nessuna lingua e per nessun codice", async () => {
+    for (const lc of locales) {
+      for (const codice of Object.values(CLASSI_DI_CODICE)) await html(lc, codice);
+      await generateMetadata({ params: Promise.resolve({ locale: lc, code: "MESH-ZZZZ" }) });
+    }
+    expect(spia.fetchChiamate).toEqual([]);
+  });
+
   it("nessuna lettura di sessione: ne' cookie ne' intestazioni di richiesta", async () => {
     for (const lc of locales) {
       await html(lc, "MESH-ZZZZ");

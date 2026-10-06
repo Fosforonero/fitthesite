@@ -10,6 +10,11 @@
  * Solo codici sintetici. Solo un server locale su una porta libera, mai la
  * produzione. Il server viene fermato in ogni caso e la porta verificata.
  *
+ * LIMITE: il server gira SENZA variabili Supabase, quindi il rate limit del middleware
+ * esce subito (fail-open) e il percorso con il database NON viene esercitato. Questa
+ * prova dimostra che pagina e API non dipendono dal database, non che il middleware
+ * non lo tocchi in produzione.
+ *
  *   npx next build && node tools/check-invito-pubblico-http.mjs
  *
  * Il log va in .next/check-invito-pubblico-http.log (cartella ignorata da git)

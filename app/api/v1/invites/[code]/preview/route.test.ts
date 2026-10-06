@@ -74,6 +74,11 @@ describe("API di anteprima invito: risposta costante", () => {
     expect(spia.lette).toEqual([]);
   });
 
+  it("nessuna richiesta di rete: fetch non viene mai chiamato, per nessuna classe di codice", async () => {
+    for (const codice of Object.values(CLASSI_DI_CODICE)) await chiama(codice);
+    expect(spia.fetchChiamate).toEqual([]);
+  });
+
   it("risposte identiche per valido simulato, scaduto, esaurito, inesistente, malformato e lunghissimo", async () => {
     const risposte = await Promise.all(
       Object.entries(CLASSI_DI_CODICE).map(async ([classe, codice]) => [classe, await chiama(codice)] as const),

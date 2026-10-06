@@ -12,7 +12,7 @@
  * Mutazione che lo rende rosso (provata a mano): rimettere un import di
  * `@supabase/supabase-js` o la lettura della chiave di servizio in uno dei file.
  */
-import { readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
@@ -43,11 +43,43 @@ const DIVIETI: [string, RegExp][] = [
   ["query .from(", /\.from\s*\(/],
   ["rpc(", /\.rpc\s*\(/],
   ["url di Supabase", /NEXT_PUBLIC_SUPABASE|SUPABASE_URL/],
+  // Una richiesta di rete scritta a mano non passa da nessun client: si vieta il fetch esplicito.
+  ["fetch(", /\bfetch\s*\(|XMLHttpRequest|sendBeacon|new\s+WebSocket/],
   ["sessione o cookie", /next\/headers|\bcookies\s*\(|\bheaders\s*\(/],
   // Nessuna via per accettare o installare tramite il codice: niente pulsanti o
   // link dello store, niente referrer, niente link nella pagina.
   ["pulsanti o link dello store", /StoreButton|PLAY_STORE_URL|APPLE_STORE_URL|play\.google|apps\.apple|referrer|next\/link|<a[\s>]|href/i],
 ];
+
+/** Gli import LOCALI (alias @/ e relativi) di un file, risolti su disco; i pacchetti esterni non si scansionano. */
+function importLocali(sorgente: string, dalDir: string): string[] {
+  const specifici = [...sorgente.matchAll(/(?:from\s*|import\s*\(\s*|require\s*\(\s*)["']([^"']+)["']/g)].map((m) => m[1]);
+  const risolti: string[] = [];
+  for (const spec of specifici) {
+    const base = spec.startsWith("@/") ? path.join(RADICE, spec.slice(2)) : spec.startsWith(".") ? path.resolve(dalDir, spec) : null;
+    if (!base) continue;
+    for (const cand of [base, `${base}.ts`, `${base}.tsx`, `${base}.js`, `${base}.mjs`, path.join(base, "index.ts"), path.join(base, "index.tsx")]) {
+      if (existsSync(cand) && statSync(cand).isFile()) {
+        risolti.push(cand);
+        break;
+      }
+    }
+  }
+  return risolti;
+}
+
+/** La chiusura transitiva degli import locali, a partire dai file della pagina e della route. */
+function chiusura(radici: string[]): string[] {
+  const visti = new Set<string>();
+  const coda = [...radici];
+  while (coda.length) {
+    const p = coda.pop() as string;
+    if (visti.has(p)) continue;
+    visti.add(p);
+    for (const n of importLocali(readFileSync(p, "utf8"), path.dirname(p))) coda.push(n);
+  }
+  return [...visti].sort();
+}
 
 describe("invito pubblico: nessun database, nessuna chiave di servizio", () => {
   const elenco = PERCORSI.flatMap((r) => file(path.join(RADICE, r)));
@@ -65,6 +97,25 @@ describe("invito pubblico: nessun database, nessuna chiave di servizio", () => {
       for (const p of elenco) {
         const sorgente = readFileSync(p, "utf8");
         expect(sorgente, path.relative(RADICE, p)).not.toMatch(regola);
+      }
+    });
+  }
+
+  // Il gate non si ferma ai due file: pagina e route importano contenuti e utilita' locali, e un client dei dati
+  // importato da LI' (anche a piu' livelli) lo aggirerebbe. I divieti di ACCESSO AI DATI (non quelli sui link,
+  // che valgono solo per la pagina) si applicano a tutta la chiusura degli import locali.
+  const ACCESSO_AI_DATI = DIVIETI.filter(([nome]) => !/pulsanti o link/.test(nome));
+
+  it("la chiusura degli import locali e' non vuota e comprende i contenuti dell'invito", () => {
+    const tutti = chiusura(elenco).map((p) => path.relative(RADICE, p).split(path.sep).join("/"));
+    expect(tutti.length).toBeGreaterThan(elenco.length);
+    expect(tutti).toContain("lib/content/famiglia-invito.ts");
+  });
+
+  for (const [nome, regola] of ACCESSO_AI_DATI) {
+    it(`nessun file importato (transitivo) contiene: ${nome}`, () => {
+      for (const p of chiusura(elenco)) {
+        expect(readFileSync(p, "utf8"), path.relative(RADICE, p)).not.toMatch(regola);
       }
     });
   }

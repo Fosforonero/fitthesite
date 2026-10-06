@@ -8,11 +8,17 @@ import { NextResponse } from "next/server";
  * codice del percorso. L'handler non riceve nemmeno gli argomenti: non c'e'
  * niente da cui una risposta possa dipendere.
  *
- * Decisione di Matteo (29/09/2026): 404 costante, stesso corpo per qualunque
- * codice e qualunque metodo. Nel repository non risultano chiamanti.
+ * Decisione 49 di Matteo (29/09/2026): 404 costante, stesso contenuto per
+ * qualunque codice, senza accesso al database. Nel repository non risultano
+ * chiamanti.
  *
- * Si esporta solo GET. POST, PUT, PATCH e DELETE danno 405, OPTIONS dà 204 con
- * Allow: tutto senza dati e uguale per ogni codice.
+ * Si esporta solo GET: per gli altri metodi risponde il framework (405, e OPTIONS
+ * 204 con Allow), senza dati e uguale per ogni codice.
+ *
+ * PERIMETRO: questo file non legge il database. NON e' una correzione del
+ * middleware: per questa rotta il middleware continua a chiamare il rate limit
+ * (rate_limit_check con l'IP nella chiave, fail-open). Non risolve nemmeno le RPC di
+ * invito, le policy cross-utente o il kill switch: sono lotti separati.
  *
  * Il test statico test/invito-pubblico-senza-database.test.ts tiene questo
  * file lontano da Supabase.
