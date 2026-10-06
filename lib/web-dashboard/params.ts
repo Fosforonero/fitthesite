@@ -28,7 +28,8 @@ export function parsePreviewParams(sp: Raw): PreviewParams {
   const range = Number(first(sp.range));
   return {
     state: (SCENARIO_KEYS as readonly string[]).includes(state ?? '') ? (state as ScenarioKey) : DEFAULT_PARAMS.state,
-    as: as && as in SYNTHETIC_VIEWERS ? (as as SyntheticViewer) : DEFAULT_PARAMS.as,
+    // Solo chiavi PROPRIE: `in` risaliva la catena dei prototipi e accettava `toString`, `constructor`, `__proto__`.
+    as: as !== undefined && Object.hasOwn(SYNTHETIC_VIEWERS, as) ? (as as SyntheticViewer) : DEFAULT_PARAMS.as,
     day: clampDay(first(sp.day)),
     range: range === 7 || range === 90 ? range : DEFAULT_PARAMS.range,
     chrome: first(sp.chrome) !== '0',
