@@ -29,7 +29,6 @@ describe('dashboard reale: fuori dalla produzione basta la variabile', () => {
   it.each([
     ['sviluppo con la variabile a 1', { NODE_ENV: 'development', FITMESH_WEB_DASHBOARD: '1' }, true],
     ['test con la variabile a 1', { NODE_ENV: 'test', FITMESH_WEB_DASHBOARD: '1' }, true],
-    ['senza NODE_ENV e variabile a 1', { FITMESH_WEB_DASHBOARD: '1' }, true],
     ['sviluppo senza variabile', { NODE_ENV: 'development' }, false],
     ['sviluppo con valore diverso da 1', { NODE_ENV: 'development', FITMESH_WEB_DASHBOARD: 'true' }, false],
     ['sviluppo con 1 e uno spazio', { NODE_ENV: 'development', FITMESH_WEB_DASHBOARD: '1 ' }, false],
@@ -47,6 +46,12 @@ describe('dashboard reale: in produzione la variabile da sola NON accende (stato
     ['Vercel con un valore di VERCEL_ENV sconosciuto e la variabile a 1', vercel('qualcosa', { FITMESH_WEB_DASHBOARD: '1' })],
     ['VERCEL_ENV senza NODE_ENV e la variabile a 1', { VERCEL_ENV: 'production', FITMESH_WEB_DASHBOARD: '1' }],
     ['produzione senza variabile', produzione()],
+    // Fail-closed: la produzione NON si riconosce per esclusione. Solo development e test sono sviluppo locale;
+    // qualunque altro valore, o l'assenza di NODE_ENV, e' trattato come produzione.
+    ['senza NODE_ENV e la variabile a 1', { FITMESH_WEB_DASHBOARD: '1' }],
+    ['NODE_ENV non standard (staging) e la variabile a 1', { NODE_ENV: 'staging', FITMESH_WEB_DASHBOARD: '1' }],
+    ['NODE_ENV con maiuscole (Development) e la variabile a 1', { NODE_ENV: 'Development', FITMESH_WEB_DASHBOARD: '1' }],
+    ['sviluppo ma su Vercel (vercel dev) e la variabile a 1', { NODE_ENV: 'development', VERCEL_ENV: 'development', FITMESH_WEB_DASHBOARD: '1' }],
   ])('%s -> chiusa', (_nome, env) => {
     expect(dashboardWebAttiva(env)).toBe(false);
   });
@@ -59,6 +64,7 @@ describe('dashboard reale: dopo il release gate (stato promosso nel codice) si a
     ['build di produzione', produzione()],
     ['Vercel production', vercel('production')],
     ['Vercel preview', vercel('preview')],
+    ['NODE_ENV assente', {}],
   ])('%s -> aperta dal solo stato nel codice', (_nome, env) => {
     expect(dashboardWebAttiva(env)).toBe(true);
     expect(disponibile).toHaveBeenCalledWith('webDashboard');

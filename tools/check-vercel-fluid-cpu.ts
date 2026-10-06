@@ -264,8 +264,9 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // di questo sprint non aggiunge ne' rimuove nessun page.tsx/route.ts).
 // 59 -> 60 (24/09/2026, WEB-DASHBOARD-FOUNDATION, di proposito): nuova
 // /[locale]/app/dashboard, force-dynamic per costruzione (dati di un utente,
-// verdetto chiesto a ogni richiesta). Risponde 404 finche'
-// FITMESH_WEB_DASHBOARD non vale 1. Verificato col build: nessun HTML
+// verdetto chiesto a ogni richiesta). Risponde 404 finche' il cancello non e' aperto (in sviluppo
+// locale la variabile FITMESH_WEB_DASHBOARD=1; altrove lo stato nel codice, vedi
+// lib/dashboard/interruttore.ts). Verificato col build: nessun HTML
 // prerenderizzato per /*/app/dashboard.
 // 60 -> 62 (06/10/2026, DASHBOARD WEB L1, di proposito): le due route dell'ANTEPRIMA interna
 // /[locale]/dashboard-preview e /[locale]/dashboard-preview/[screen] (dati sintetici, 404 su ogni

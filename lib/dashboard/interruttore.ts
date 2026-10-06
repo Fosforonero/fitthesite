@@ -4,9 +4,12 @@
  * Non va confuso con quello del PROTOTIPO (flag.ts nella cartella del prototipo: dati sintetici, solo in
  * locale, chiuso su ogni ambiente Vercel e in ogni build di produzione).
  *
- *  - Fuori dalla produzione (sviluppo, test): basta FITMESH_WEB_DASHBOARD=1, per provarla.
- *  - In una build di PRODUZIONE (NODE_ENV=production o qualunque VERCEL_ENV, quindi anche le
- *    anteprime e un `next start` auto-ospitato) la sola variabile d'ambiente NON accende nulla:
+ *  - Sviluppo locale: NODE_ENV esattamente 'development' o 'test' e nessun VERCEL_ENV. Basta
+ *    FITMESH_WEB_DASHBOARD=1, per provarla.
+ *  - Tutto il resto e' trattato come PRODUZIONE. Si riconosce lo SVILUPPO locale, non la produzione
+ *    (fail-closed): NODE_ENV=production, NODE_ENV assente o non standard, qualunque VERCEL_ENV, quindi
+ *    anche le anteprime, `vercel dev` e un `next start` auto-ospitato. In tutti questi casi la sola
+ *    variabile d'ambiente NON accende nulla:
  *    decide lo stato dichiarato nel codice di rilascio, CAPABILITY_STATUS.webDashboard. Passa a
  *    live_verified/live_limited solo con un commit approvato al release gate, e solo dopo la
  *    migration 20260924120000 applicata con un GO di Matteo (condizione 1 della nota di
@@ -22,9 +25,9 @@ import { isFeatureAvailable } from '@/lib/feature-status';
 export function dashboardWebAttiva(
   env: Record<string, string | undefined> = process.env,
 ): boolean {
-  const produzione = env.NODE_ENV === 'production' || Boolean(env.VERCEL_ENV);
-  if (produzione) {
-    return isFeatureAvailable('webDashboard') && env.FITMESH_WEB_DASHBOARD !== '0';
-  }
-  return env.FITMESH_WEB_DASHBOARD === '1';
+  const sviluppoLocale = (env.NODE_ENV === 'development' || env.NODE_ENV === 'test') && !env.VERCEL_ENV;
+  if (sviluppoLocale) return env.FITMESH_WEB_DASHBOARD === '1';
+  // Produzione (o qualunque ambiente non riconosciuto come sviluppo locale): decide il codice di
+  // rilascio. Il kill switch spegne SOLO con il valore esatto '0'.
+  return isFeatureAvailable('webDashboard') && env.FITMESH_WEB_DASHBOARD !== '0';
 }

@@ -18,7 +18,7 @@ dall'app. Due funzioni non possono pero' diventare due verita' incoerenti. La re
   decisione di Matteo, un cambio di versione del contratto e un test.
 
 Il test che lo fa rispettare e' `supabase/tests/reset-pg17/19-test-parita-nucleo-verdetto-web.sql`:
-21 casi fianco a fianco, rosso se compare una differenza non dichiarata o se una dichiarata sparisce.
+22 casi fianco a fianco, rosso se compare una differenza non dichiarata o se una dichiarata sparisce.
 
 ## 2. Interfaccia
 
@@ -42,7 +42,7 @@ Il test che lo fa rispettare e' `supabase/tests/reset-pg17/19-test-parita-nucleo
 | Id | Caso | Nucleo (app) | Verdetto web | Decisione |
 |---|---|---|---|---|
 | D1 | Prova di 14 giorni | concede (`trial`, `hasFullAccess`) | **nega** (`trial_only`) | n. 3: la prova non da' mai accesso |
-| D2 | Abbonamento `active` con `active_until` passato | concede (non guarda la data) | **nega** (`subscription_inactive`) | n. 6: scadenza = fine accesso |
+| D2 | Abbonamento `active` **o `grace`** con `active_until` passato | concede (non guarda la data) | **nega** (`subscription_inactive`) | n. 6: scadenza = fine accesso |
 
 Conseguenza per il web: **mai** usare `hasFullAccess` ne' `user_has_active_entitlement` come criterio di
 idoneita'. Nell'app, «Pro» include la prova e i ripieghi locali (offline, cache dei ruoli, admin per email).
@@ -52,10 +52,15 @@ idoneita'. Nell'app, «Pro» include la prova e i ripieghi locali (offline, cach
 - **Prototipo** (`lib/web-dashboard/flag.ts`, dati sintetici): solo locale; chiuso su ogni ambiente Vercel e in
   ogni build di produzione, qualunque variabile si imposti. Resta locale.
 - **Dashboard reale** (`lib/dashboard/interruttore.ts`): fuori dalla produzione basta
-  `FITMESH_WEB_DASHBOARD=1`. In una build di produzione la variabile da sola **non accende**: decide
-  `CAPABILITY_STATUS.webDashboard` nel codice di rilascio, che cambia solo con un commit approvato al
-  release gate e dopo la migration applicata con un GO di Matteo. In produzione la variabile puo' solo
-  spegnere (`FITMESH_WEB_DASHBOARD=0`). Oggi lo stato e' `in_development`: nessuna build apre la pagina.
+  `FITMESH_WEB_DASHBOARD=1`, ma solo in **sviluppo locale** (NODE_ENV esattamente `development` o `test`,
+  nessun `VERCEL_ENV`). Tutto il resto e' trattato come produzione (fail-closed: `NODE_ENV` assente o non
+  standard, qualunque `VERCEL_ENV`, anteprime, `vercel dev`, `next start` auto-ospitato): li la variabile da
+  sola **non accende**, decide `CAPABILITY_STATUS.webDashboard` nel codice di rilascio, che cambia solo con un
+  commit approvato al release gate e dopo la migration applicata con un GO di Matteo. La variabile puo'
+  solo spegnere, e solo con il valore esatto `0` (`FITMESH_WEB_DASHBOARD=0`). Oggi lo stato e'
+  `in_development`: nessun ambiente diverso dallo sviluppo locale apre la pagina. Conseguenza da decidere
+  al release gate: una volta promosso lo stato, la pagina si apre anche sulle anteprime Vercel (stesso
+  codice); se non e' voluto serve una scelta separata.
 
 ## 5. Cosa la lane app deve confermare (per iscritto, prima del release gate)
 
@@ -75,8 +80,10 @@ idoneita'. Nell'app, «Pro» include la prova e i ripieghi locali (offline, cach
 
 ## 6. DECISIONI APERTE di Matteo: alternative, senza scegliere
 
-Nessuna alternativa spegne un grant esistente ne' cambia un diritto dell'app. L'esito attuale e' registrato
-(non asserito) come `PENDING` in test 19.
+Nessuna alternativa spegne un grant esistente ne' cambia un diritto dell'app. Nel test 19 il **ponte iOS e'
+caratterizzato** (la matrice e il punto 2f fissano il comportamento ATTUALE: valido = `timed_grant`, scaduto =
+negato; non e' un'approvazione e va aggiornato se la decisione cambia); `cancelled` con periodo residuo e
+Founder solo riga b2c sono solo **stampati** (`PENDING`), non asseriti.
 
 ### 6.1 Ponte iOS (`concedi_ponte_ios`, migration `20260817201814`)
 Oggi: a ogni utente iOS che sincronizza **dopo la prova** (quando il nucleo nega e c'e' una riga HealthKit)

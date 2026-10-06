@@ -13,8 +13,8 @@
 --
 --   DIFFERENZE VOLUTE (le sole ammesse)
 --     D1  la prova di 14 giorni concede nell'app e NON sul web (decisione 3 di Matteo)
---     D2  un abbonamento 'active' con active_until passato concede nell'app (il nucleo
---         non guarda la data) e NON sul web (decisione 6: scadenza = fine accesso)
+--     D2  un abbonamento 'active' o 'grace' con active_until passato concede nell'app (il
+--         nucleo non guarda la data) e NON sul web (decisione 6: scadenza = fine accesso)
 --
 -- Se una differenza compare e non e' fra queste, il test e' rosso. Se una differenza
 -- dichiarata sparisce, il test e' rosso lo stesso: la dichiarazione sarebbe falsa.
@@ -25,9 +25,11 @@
 --     funzione privata sia sull'involucro pubblico come sessione `authenticated`;
 --   - tester revocato (DELETE o expires_at), tester a tempo scaduto con nota beta,
 --     premio valido con abbonamento scaduto, ponte iOS valido e scaduto;
---   - i casi che dipendono da DECISIONI APERTE di Matteo sono registrati come PENDING:
---     il test ne stampa l'esito attuale e NON lo asserisce (ponte iOS come titolo web,
---     `cancelled` con periodo residuo, Founder registrato solo come riga b2c).
+--   - il PONTE iOS e' CARATTERIZZATO, non approvato: la matrice (ponte_ios_valido) e il punto 2f
+--     fissano il comportamento ATTUALE (un ponte valido e' un timed_grant, uno scaduto e' negato).
+--     Se Matteo decide diversamente (decisione aperta, alternative nel documento del contratto)
+--     quei due casi vanno aggiornati. `cancelled` con periodo residuo e Founder registrato solo
+--     come riga b2c sono solo STAMPATI (PENDING), non asseriti.
 --
 -- LIMITI DICHIARATI
 --   Database RICOSTRUITO dalle migration, non la produzione: la migration del verdetto e'
@@ -75,6 +77,7 @@ begin
       ('revisione_store',            'da5b0019-0000-4000-8000-000000000018', 'review@fitmesh.fit',    v_vecchio, true,  'appReview',    true,  '{app_review}',              null,                    null),
       ('acquisto_revocato',          'da5b0019-0000-4000-8000-000000000019', 'pm-19@esempio.invalid', v_vecchio, false, 'none',         false, '{}',                        'purchase_revoked',      null),
       ('abbonamento_in_grazia',      'da5b0019-0000-4000-8000-000000000020', 'pm-20@esempio.invalid', v_vecchio, true,  'subscription', true,  '{subscription}',            null,                    null),
+      ('abbonamento_grace_scaduto',  'da5b0019-0000-4000-8000-000000000022', 'pm-22@esempio.invalid', v_vecchio, true,  'subscription', false, '{}',                        'subscription_inactive', 'D2'),
       ('niente',                     'da5b0019-0000-4000-8000-000000000021', 'pm-21@esempio.invalid', v_vecchio, false, 'none',         false, '{}',                        'no_entitlement',        null);
 
     insert into auth.users (id, email, created_at) select id, email, creato from pm_casi;
@@ -100,7 +103,8 @@ begin
       ('da5b0019-0000-4000-8000-000000000005', 'google_play', 'pm.lifetime', 'PM-05', '9999-12-31',               false, 'grace'),
       ('da5b0019-0000-4000-8000-000000000013', 'google_play', 'pm.sub',      'PM-13', now() - interval '1 day',   true,  'active'),
       ('da5b0019-0000-4000-8000-000000000019', 'apple_iap',   'pm.lifetime', 'PM-19', '9999-12-31',               false, 'expired'),
-      ('da5b0019-0000-4000-8000-000000000020', 'google_play', 'pm.sub',      'PM-20', now() + interval '3 days',  true,  'grace');
+      ('da5b0019-0000-4000-8000-000000000020', 'google_play', 'pm.sub',      'PM-20', now() + interval '3 days',  true,  'grace'),
+      ('da5b0019-0000-4000-8000-000000000022', 'google_play', 'pm.sub',      'PM-22', now() - interval '1 day',   true,  'grace');
 
     insert into private.billing_pagamenti_segnalati (user_id, piattaforma, segnalato_da, valido_fino, revocato_at) values
       ('da5b0019-0000-4000-8000-000000000016', 'apple', 'test-19', now() + interval '60 days', null),
@@ -138,7 +142,7 @@ begin
       raise exception '1 FALLISCE  le differenze trovate % non coincidono con quelle dichiarate %', v_diff_trovate, v_diff_dichiarate;
     end if;
     v_passati := v_passati + 1;
-    raise notice '1 PASSA  matrice di % casi: nucleo e verdetto web differiscono SOLO in % (D1 prova, D2 active_until passato)',
+    raise notice '1 PASSA  matrice di % casi: nucleo e verdetto web differiscono SOLO in % (D1 prova, D2 active_until passato in active o grace)',
       (select count(*) from pm_casi), v_diff_trovate;
 
     -- ── 2. revoca e scadenza si vedono alla richiesta successiva (nessuna cache) ──
@@ -212,8 +216,14 @@ begin
 
     -- ── 4. DECISIONI APERTE: esito attuale registrato, NON asserito ──────────────
     -- 4a. ponte iOS come titolo web (decisioni 2 e 3 in tensione, vedi referto D04)
-    v_web := private.web_dashboard_verdict('da5b0019-0000-4000-8000-000000000012');
-    raise notice '4a PENDING  ponte iOS: oggi un ponte valido e'' un timed_grant (casi pm: ponte_ios_valido concesso). Alternativa A: tenerlo; B: titolo ios_bridge separato; C: non idoneo al web. Nessuna scelta qui.';
+    insert into auth.users (id, email, created_at) values ('da5b0019-0000-4000-8000-0000000000a3', 'pm-a3@esempio.invalid', v_vecchio);
+    insert into public.profiles (id, email) values ('da5b0019-0000-4000-8000-0000000000a3', 'pm-a3@esempio.invalid') on conflict do nothing;
+    insert into public.user_roles (user_id, role, expires_at, note)
+      values ('da5b0019-0000-4000-8000-0000000000a3', 'pro', now() + interval '180 days', 'cessione-ios-in-attesa-apple-iap');
+    v_core := private.entitlement_core('da5b0019-0000-4000-8000-0000000000a3');
+    v_web  := private.web_dashboard_verdict('da5b0019-0000-4000-8000-0000000000a3');
+    raise notice '4a CARATTERIZZATO  ponte iOS valido: nucleo full=% kind=%, web granted=% titoli=%. Non approvato: alternative A tenerlo / B titolo ios_bridge separato / C non idoneo al web (decisione aperta, nessuna scelta qui).',
+      v_core->>'hasFullAccess', v_core->>'kind', v_web->>'granted', v_web->'titles';
     -- 4b. abbonamento 'cancelled' con periodo pagato residuo
     insert into auth.users (id, email, created_at) values ('da5b0019-0000-4000-8000-0000000000a1', 'pm-a1@esempio.invalid', v_vecchio);
     insert into public.profiles (id, email) values ('da5b0019-0000-4000-8000-0000000000a1', 'pm-a1@esempio.invalid') on conflict do nothing;

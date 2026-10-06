@@ -57,9 +57,9 @@ describe('logout: POST dal form dell\'area riservata', () => {
   });
 });
 
-describe('logout: GET (DECISIONE APERTA n. 8 di Matteo: oggi accettato, vedi referto)', () => {
+describe('logout: GET (DECISIONE APERTA sul logout via GET, voce 8 delle decisioni del referto 06/10: oggi accettato)', () => {
   // Caratterizzazione, non approvazione: un link di terzi puo' sloggare l'utente (CSRF di logout).
-  // Quando la decisione 8 sara' presa (solo POST) questo test va invertito: GET -> 405 e nessun signOut.
+  // Quando la decisione sara' presa (solo POST) questo test va invertito: GET -> 405 e nessun signOut.
   it('oggi un GET chiude la sessione come un POST', async () => {
     const res = await GET(richiesta('it', 'GET'), { params: Promise.resolve({ locale: 'it' }) });
     expect(signOut).toHaveBeenCalledTimes(1);
