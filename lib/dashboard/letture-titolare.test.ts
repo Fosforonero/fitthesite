@@ -377,6 +377,7 @@ describe('i tre JSONB si leggono solo in letture-titolare.ts e solo per un giorn
   const OMONIMI: Record<string, string> = {
     'lib/providers/models.ts': "'sleep_stages' e' un tipo di dato dei provider, non una colonna letta",
     'app/api/v1/migrate/route.ts': 'chiavi del payload in ingresso della migrazione (scrittura con insert), non una lettura',
+    'lib/privacy/export-scope.ts': "elenco esplicito delle colonne dell'export dei dati del titolare (GDPR art. 15/20, #96): lettura paginata delle SUE righe, fuori dalla dashboard e da letture-titolare",
   };
 
   function sorgenti(dir: string, out: string[] = []): string[] {
