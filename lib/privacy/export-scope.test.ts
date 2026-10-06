@@ -105,6 +105,9 @@ describe('export-scope: ambito delle righe esportate', () => {
     expect(EXPORT_TABLE_COLUMNS.devices).not.toContain('fcm_token');
     expect(EXPORT_TABLE_COLUMNS.devices).not.toContain('fcm_token_updated_at');
     expect(EXPORT_TABLE_COLUMNS.devices).not.toContain('device_fingerprint');
+    // revoked_by e' l'uuid dell'amministratore che ha revocato il dispositivo: dato di un terzo (art. 20 c. 4),
+    // come user_roles.granted_by
+    expect(EXPORT_TABLE_COLUMNS.devices).not.toContain('revoked_by');
 
     // raw_payload (ricevute store grezze con purchase tokens) non deve essere esportato
     expect(EXPORT_TABLE_COLUMNS.b2c_subscriptions).not.toContain('raw_payload');
@@ -287,6 +290,16 @@ describe('export-scope: controllo delle righe restituite (difesa in profondita\'
     expect(rowBelongsToOwner('caregiver_links', { caregiver_id: UID, subject_id: TERZO }, UID)).toBe(true);
     expect(rowBelongsToOwner('caregiver_links', { caregiver_id: TERZO, subject_id: UID }, UID)).toBe(true);
     expect(rowBelongsToOwner('caregiver_links', { caregiver_id: CO_MEMBRO, subject_id: TERZO }, UID)).toBe(false);
+  });
+
+  it('sanitizeCaregiverLink e rowBelongsToOwner usano lo stesso confronto: un uuid in maiuscolo resta caregiver', () => {
+    // un uuid con lettere esadecimali: `UID` e' fatto di sole cifre e il maiuscolo non lo cambierebbe
+    const U = 'abcdef12-0000-4000-8000-0000000000ab';
+    const riga = { caregiver_id: U.toUpperCase(), subject_id: TERZO };
+    expect(U.toUpperCase()).not.toBe(U);
+    expect(rowBelongsToOwner('caregiver_links', riga, U)).toBe(true);
+    expect(sanitizeCaregiverLink(riga, U).relationship_role).toBe('caregiver');
+    expect(sanitizeCaregiverLink({ caregiver_id: TERZO, subject_id: U.toUpperCase() }, U).relationship_role).toBe('subject');
   });
 
   it('un co-membro con lo stesso prefisso dell\'id non passa (confronto esatto, non prefisso ne\' sottostringa)', () => {

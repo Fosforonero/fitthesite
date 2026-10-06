@@ -52,6 +52,10 @@
  *    personale di un dipendente/terzo (art. 20 comma 4 GDPR: non deve ledere
  *    i diritti altrui), non appartiene all'utente destinatario del ruolo.
  *
+ * 4b. `devices.revoked_by`:
+ *    ESCLUSO. UUID dell'amministratore che ha revocato il dispositivo: dato di un terzo, come
+ *    `user_roles.granted_by` (art. 20 c. 4 GDPR). Resta `revoked_at` (quando), non chi.
+ *
  * 5. `user_roles.note`:
  *    ESCLUSO. Campo di annotazione interna amministrativa o di supporto aziendale,
  *    non fa parte dei dati forniti o generati dall'utente per la portabilita'.
@@ -149,7 +153,6 @@ export const EXPORT_TABLE_COLUMNS: Record<ExportTable, readonly string[]> = {
     'paired_at',
     'last_seen_at',
     'revoked_at',
-    'revoked_by',
     'revoked_reason',
     'first_sync_state',
     'first_sync_state_updated_at',
@@ -338,7 +341,9 @@ export function sanitizeCaregiverLink(
   row: RawCaregiverLink,
   userId: string,
 ): SanitizedCaregiverLink {
-  const isCaregiver = row.caregiver_id === userId;
+  // stesso confronto di rowBelongsToOwner (esatto sull'intera stringa, senza distinzione di maiuscole)
+  const isCaregiver =
+    typeof row.caregiver_id === 'string' && row.caregiver_id.toLowerCase() === userId.toLowerCase();
   return {
     relationship_role: isCaregiver ? 'caregiver' : 'subject',
     permissions: row.permissions ?? null,

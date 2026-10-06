@@ -519,18 +519,32 @@ describe('ExportDataClient: verifiche di sessione e scritture di audit', () => {
     expect(downloads).toHaveLength(0);
   });
 
-  it('riverifica la sessione prima della consegna: se l\'utente scade prima del download, consegna bloccata', async () => {
-    // Session check pre-delivery e' la 15esima chiamata a getUser
-    changeUserOnCallIndex = 15;
-    newUserIdOnChange = null;
+  // INVARIANTE: se la sessione viene meno in QUALUNQUE punto, o l'export non consegna nulla e non lascia
+  // nessuna traccia di «completato» (audit, timbro), oppure consegna il file. Mai un timbro senza file.
+  // (Il controllo di consegna dopo le scritture lasciava audit e data_export_completed_at senza download.)
+  it.each(Array.from({ length: 16 }, (_, i) => i + 1))(
+    'la sessione scade alla chiamata %i di getUser: nessun timbro di completamento senza file',
+    async (k) => {
+      changeUserOnCallIndex = k;
+      newUserIdOnChange = null;
 
-    render(<ExportDataClient locale="it" t={T} />);
-    fireEvent.click(screen.getByRole('button', { name: T.cta }));
+      render(<ExportDataClient locale="it" t={T} />);
+      fireEvent.click(screen.getByRole('button', { name: T.cta }));
+      await waitFor(() => {
+        const finito = screen.queryByRole('alert') !== null || screen.queryByText(/Fatto/) !== null;
+        expect(finito).toBe(true);
+      });
 
-    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
-    expect(screen.getByRole('alert')).toHaveTextContent(T.errorTitle);
-    expect(downloads).toHaveLength(0);
-  });
+      const timbro = writes.some((w) => w.table === 'privacy_consents' && 'data_export_completed_at' in w.payload);
+      const audit = writes.some((w) => w.table === 'audit_logs');
+      if (downloads.length === 0) {
+        expect(timbro, `k=${k}: timbro scritto senza download`).toBe(false);
+        expect(audit, `k=${k}: audit scritto senza download`).toBe(false);
+      } else {
+        expect(timbro, `k=${k}: download senza timbro`).toBe(true);
+      }
+    },
+  );
 
   it('fail-closed se la scrittura del timbro di completamento (privacy_consents) fallisce', async () => {
     consentUpsertError = { message: 'DB connection failure during consent update' };
@@ -646,6 +660,15 @@ describe('ExportDataClient: controllo delle righe restituite (difesa in profondi
     },
   );
 
+  it('la riga del co-membro compare solo nella SECONDA pagina (oltre le prime 1000 righe proprie): l\'export si ferma', async () => {
+    const proprie = Array.from({ length: 1000 }, (_, i) => ({ id: `mia-${i}`, user_id: ME, marker: 'MIA' }));
+    tableDataOverride = { fitness_metrics: [...proprie, { id: 'altrui-1000', user_id: OTHER, marker: 'ALTRUI' }] };
+    await runExportAttesoErrore();
+    expect(downloads).toEqual([]);
+    expect(blobParts).toEqual([]);
+    expect(writes).toEqual([]);
+  });
+
   it('una riga senza colonna proprietario (proiezione cambiata o riga corrotta) ferma l\'export', async () => {
     tableDataOverride = { fitness_metrics: [{ marker: 'SENZA_PROPRIETARIO' }] };
     await runExportAttesoErrore();
@@ -678,6 +701,9 @@ describe('ExportDataClient: l\'export dei propri dati non dipende da Pro ne\' da
       path.join(dir, 'ExportDataClient.tsx'),
       path.join(dir, 'page.tsx'),
       path.join(radice, 'lib/privacy/export-scope.ts'),
+      // i punti in cui un cancello Pro verrebbe aggiunto: il layout che avvolge /app/export e il middleware
+      path.join(dir, '../layout.tsx'),
+      path.join(radice, 'middleware.ts'),
     ];
     for (const f of file) {
       const src = fs.readFileSync(f, 'utf8');

@@ -254,16 +254,9 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
         return;
       }
 
-      // Riverifica della sessione PRIMA della consegna del file (download)
-      const {
-        data: { user: deliveryUser },
-        error: deliverySessionErr,
-      } = await supabase.auth.getUser();
-      if (deliverySessionErr || !deliveryUser?.id || deliveryUser.id !== exportUserId) {
-        setErr(t.errorTitle);
-        setPhase('error');
-        return;
-      }
+      // Nessuna riverifica di sessione DOPO le scritture: un abort qui lascerebbe audit e timbro di
+      // completamento senza il file. L'ultimo controllo e' quello PRIMA delle scritture; da qui al
+      // download non c'e' altro await (il file e' gia' costruito sotto la sessione verificata).
 
       // Download del file JSON completo solo dopo che tutte le verifiche e scritture sono riuscite.
       const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
