@@ -14,13 +14,28 @@ import type { Database } from './database.types';
 
 type CookieToSet = { name: string; value: string; options: CookieOptions };
 
-export async function createClient() {
+/**
+ * @param opzioni.senzaCache ogni richiesta a Supabase parte con
+ *   `cache: 'no-store'`. Per le letture di dati di un utente e per il verdetto
+ *   della dashboard web: la Data Cache di Next non usa i cookie nella chiave,
+ *   quindi una risposta conservata potrebbe finire a un altro utente, e un
+ *   verdetto conservato sopravvivrebbe a una scadenza o a un rimborso.
+ */
+export async function createClient(opzioni: { senzaCache?: boolean } = {}) {
   const cookieStore = await cookies();
 
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      ...(opzioni.senzaCache
+        ? {
+            global: {
+              fetch: (input: RequestInfo | URL, init?: RequestInit) =>
+                fetch(input, { ...init, cache: 'no-store' }),
+            },
+          }
+        : {}),
       cookies: {
         getAll() {
           return cookieStore.getAll();

@@ -19,7 +19,9 @@ export async function POST(
   const supabase = await createClient();
   await supabase.auth.signOut();
 
-  return NextResponse.redirect(new URL(`/${locale}`, request.url));
+  // 303 See Other: dopo il POST il browser deve passare a GET sulla home. Con il 307 predefinito
+  // rimanderebbe il POST (e il suo corpo) alla home.
+  return NextResponse.redirect(new URL(`/${locale}`, request.url), 303);
 }
 
 // Anche GET per supportare logout via link semplice (non strict-REST ma pragmatico)

@@ -1,0 +1,342 @@
+import { cleanup, render } from '@testing-library/react';
+import { afterEach, describe, expect, it } from 'vitest';
+
+import { CHART } from '../primitives';
+import { ActivityLoading, ActivityScreen } from './ActivityScreen';
+import { activityCopy } from './ActivityScreen.copy';
+import { absentRuns, countSlots, lastSevenDays, niceTicks, toHourSlots } from './activity/derive';
+import { absent, partial, value } from '@/lib/web-dashboard/measure';
+import type { ScenarioKey } from '@/lib/web-dashboard/model';
+import { FORBIDDEN_SOURCE_LABELS } from '@/lib/web-dashboard/regression-patterns';
+import { forbiddenCopyIn, measureStates, renderScreen, screenProps } from './test-utils';
+
+afterEach(cleanup);
+
+const SCENARIOS: ScenarioKey[] = ['ok', 'partial', 'zeros', 'stale', 'empty'];
+const LOCALES = ['it', 'en'] as const;
+
+const all = (c: HTMLElement, sel: string) => [...c.querySelectorAll<HTMLElement>(sel)];
+const one = (c: HTMLElement, sel: string) => {
+  const el = c.querySelector<HTMLElement>(sel);
+  if (!el) throw new Error(`Elemento non trovato: ${sel}`);
+  return el;
+};
+const stateOf = (c: HTMLElement, scope: string) => one(c, `${scope} [data-measure-state]`).getAttribute('data-measure-state');
+const hasDigit = (s: string | null) => /\d/.test(s ?? '');
+
+describe('ActivityScreen: rende ogni scenario in it e en', () => {
+  for (const sc of SCENARIOS) {
+    for (const lc of LOCALES) {
+      it(`${sc}/${lc}: senza errori, senza copy vietata, senza h1`, () => {
+        const { container } = renderScreen(ActivityScreen, sc, { lc });
+        expect(container.querySelector('[data-screen="activity"]')).not.toBeNull();
+        expect(forbiddenCopyIn(container)).toEqual([]);
+        // niente riferimenti all'AI e niente em dash in nessun testo reso
+        expect(container.textContent ?? '').not.toMatch(/\bAI\b|intelligen|\u2014/i);
+        // l'h1 e' della shell: qui solo h2
+        expect(container.querySelectorAll('h1')).toHaveLength(0);
+        expect(container.querySelectorAll('h2').length).toBeGreaterThanOrEqual(4);
+      });
+    }
+  }
+
+  it('un locale diverso da it/en usa la copy inglese e il proprio segmento di lingua nei link', () => {
+    const { container } = renderScreen(ActivityScreen, 'ok', { lc: 'de' });
+    expect(container.textContent).toContain('Last 7 days');
+    expect(container.querySelector('a[href^="/de/dashboard-preview/activity"]')).not.toBeNull();
+  });
+});
+
+/**
+ * La striscia oraria con uno zero misurato e un tratto assente, costruita nel test: lo scenario `zeros`
+ * non ha piu' ore a zero (le ore vengono da `intraday_steps`, fuori whitelist). Qui si prova solo come
+ * il componente rende i due stati quando il dato li contiene.
+ */
+function renderWithHours() {
+  const props = screenProps('ok');
+  const hours = props.data.activity.hourlySteps.map((m, h) => (h === 15 || h === 16 ? absent('no_samples') : m));
+  props.data = { ...props.data, activity: { ...props.data.activity, hourlySteps: hours } };
+  return { ...render(<ActivityScreen {...props} />), props };
+}
+
+describe('zero misurato e assente sono resi in modo diverso', () => {
+  it('zeros: 0 passi e 0 km (colonne della whitelist) sono DATI («0» + «Zero misurato»), i piani sono assenti', () => {
+    const { container, props } = renderScreen(ActivityScreen, 'zeros');
+    expect(stateOf(container, '[data-hero="steps"]')).toBe('measured-zero');
+    expect(one(container, '[data-hero="steps"]').textContent).toContain(props.copy.measure.zeroMeasured);
+    expect(stateOf(container, '[data-metric="distance"]')).toBe('measured-zero');
+    const text = one(container, '[data-metric="distance"]').textContent ?? '';
+    expect(text).toContain('0');
+    expect(text).toContain(props.copy.measure.zeroMeasured);
+  });
+
+  it('i piani non hanno un riquadro: sono fuori whitelist, esclusi per scelta e non «non misurati»', () => {
+    for (const sc of SCENARIOS) {
+      for (const lc of LOCALES) {
+        const r = renderScreen(ActivityScreen, sc, { lc });
+        expect(r.container.querySelector('[data-metric="floors"]'), `${sc}/${lc}`).toBeNull();
+        expect(r.container.textContent ?? '', `${sc}/${lc}`).not.toMatch(/piani|floors/i);
+        cleanup();
+      }
+    }
+  });
+
+  it('nessun valore assente contiene una cifra, in nessuno scenario e in nessuna lingua', () => {
+    for (const sc of SCENARIOS) {
+      for (const lc of LOCALES) {
+        const { container } = renderScreen(ActivityScreen, sc, { lc });
+        for (const el of all(container, '[data-measure-state="absent"]')) expect(hasDigit(el.textContent)).toBe(false);
+        // tabelle: la cella dei passi di uno slot assente non ha cifre e dice «Nessun dato»
+        for (const cell of all(container, 'tr[data-slot-state="absent"] [data-cell="steps"]')) {
+          expect(hasDigit(cell.textContent)).toBe(false);
+          expect(cell.textContent).toMatch(/Nessun dato|No data/);
+        }
+        cleanup();
+      }
+    }
+  });
+
+  it('nel grafico orario la tacca dello zero e il riquadro dell assente sono elementi diversi', () => {
+    const { container, props } = renderWithHours();
+    const hourly = one(container, '[data-chart="hourly-steps"]');
+    const slots = props.data.activity.hourlySteps;
+    const zeroHours = slots.filter((m) => m.kind === 'value' && m.value === 0).length;
+    expect(zeroHours).toBeGreaterThan(0);
+
+    const zeroSlots = all(hourly, 'g[data-chart-slot="measured-zero"]');
+    expect(zeroSlots).toHaveLength(zeroHours);
+    for (const g of zeroSlots) {
+      const rect = one(g, 'rect');
+      expect(rect.getAttribute('height')).toBe('3'); // tacca sulla base, non una barra
+      expect(rect.getAttribute('fill')).toBe(CHART.steps);
+    }
+
+    // le ore 15 e 16 sono senza campioni: UN riquadro tratteggiato, nessuna barra a zero
+    const runs = all(hourly, '[data-chart-slot="absent"]');
+    expect(runs).toHaveLength(1);
+    expect(runs[0].getAttribute('data-hour-from')).toBe('15');
+    expect(runs[0].getAttribute('data-hour-to')).toBe('16');
+    const box = one(runs[0], 'rect');
+    expect(box.getAttribute('stroke-dasharray')).toBeTruthy();
+    expect(box.getAttribute('fill')).toContain('absent');
+    expect(hourly.querySelector('g[data-hour="15"], g[data-hour="16"]')).toBeNull();
+
+    // e nessuna linea che unisce due punti attraverso il buco
+    expect(hourly.querySelectorAll('polyline, path')).toHaveLength(0);
+  });
+
+  it('la tabella oraria conta le ore per stato come i dati', () => {
+    const { container, props } = renderWithHours();
+    const hourly = props.data.activity.hourlySteps;
+    const rows = (s: string) => all(container, `table[data-table="hourly-steps"] tr[data-slot-state="${s}"]`).length;
+    expect(rows('measured') + rows('measured-zero') + rows('partial') + rows('absent')).toBe(24);
+    expect(rows('measured-zero')).toBe(hourly.filter((m) => m.kind === 'value' && m.value === 0).length);
+    expect(rows('absent')).toBe(2);
+    const absentRow = one(container, 'table[data-table="hourly-steps"] tr[data-slot-state="absent"]');
+    expect(one(absentRow, '[data-cell="state"]').textContent).toBe(props.copy.measure.absent.no_samples);
+  });
+
+  it('il sommario per gli screen reader dice quante ore sono misurate, a zero e mancanti', () => {
+    const { container, props } = renderWithHours();
+    const counts = countSlots(toHourSlots(props.data.activity.hourlySteps));
+    const label = one(container, '[data-card="hourly-steps"] [role="img"]').getAttribute('aria-label') ?? '';
+    expect(label).toContain(`${counts.measured} ore misurate`);
+    expect(label).toContain(`${counts.zero} con zero passi`);
+    expect(label).toContain(`${counts.absent} ore senza dato`);
+    // stessa frase in inglese
+    const en = renderScreen(ActivityScreen, 'partial', { lc: 'en' });
+    const countsEn = countSlots(toHourSlots(en.props.data.activity.hourlySteps));
+    const labelEn = one(en.container, '[data-card="hourly-steps"] [role="img"]').getAttribute('aria-label') ?? '';
+    expect(labelEn).toContain(`${countsEn.measured} hours measured`);
+    expect(labelEn).toContain(`${countsEn.zero} at zero steps`);
+    expect(labelEn).toContain(`${countsEn.absent} hours with no data`);
+  });
+});
+
+describe('dato parziale: sempre con copertura e motivo', () => {
+  it('partial: i passi sono parziali, con copertura, motivo e anello ambra', () => {
+    const { container, props } = renderScreen(ActivityScreen, 'partial');
+    const hero = one(container, '[data-hero="steps"]');
+    expect(stateOf(container, '[data-hero="steps"]')).toBe('partial');
+    expect(hero.textContent).toContain(props.copy.measure.partialLabel);
+    expect(hero.textContent).toContain('54%');
+    expect(hero.textContent).toContain(props.copy.measure.partial.incomplete_coverage);
+    expect(hero.getAttribute('data-goal-state')).toBe('partial');
+    expect(one(hero, '[data-goal-ring]').getAttribute('data-goal-ring')).toBe('partial');
+    expect(one(hero, '[data-goal-caption]').textContent).toContain('calcolato sui passi ricevuti');
+  });
+
+  it('partial: le ore dopo la fine della finestra (13-23) sono un solo riquadro con il motivo scritto sotto', () => {
+    const { container, props } = renderScreen(ActivityScreen, 'partial');
+    const runs = all(container, '[data-chart="hourly-steps"] [data-chart-slot="absent"]');
+    expect(runs).toHaveLength(1);
+    expect(runs[0].getAttribute('data-hour-from')).toBe('13');
+    expect(runs[0].getAttribute('data-hour-to')).toBe('23');
+    const note = one(container, '[data-card="hourly-steps"] [data-chart-notes] [data-note="absent"]');
+    expect(note.textContent).toContain('13:00-23:59');
+    expect(note.textContent).toContain(props.copy.measure.absent.no_samples);
+  });
+
+  it('oggi: l ora in corso e parziale (righe ambra) e le ore future sono assenti "non ancora trascorso"', () => {
+    const { container, props } = renderScreen(ActivityScreen, 'ok', { day: '2026-09-24' });
+    const partialRows = all(container, 'table[data-table="hourly-steps"] tr[data-slot-state="partial"]');
+    expect(partialRows).toHaveLength(1);
+    expect(partialRows[0].getAttribute('data-hour')).toBe('9');
+    expect(partialRows[0].textContent).toContain(props.copy.measure.partial.window_open);
+    const g = one(container, '[data-chart="hourly-steps"] g[data-chart-slot="partial"]');
+    expect(one(g, 'rect').getAttribute('fill')).toContain('partial');
+
+    const run = one(container, '[data-chart="hourly-steps"] [data-chart-slot="absent"]');
+    expect(run.getAttribute('data-hour-from')).toBe('10');
+    expect(run.getAttribute('data-hour-to')).toBe('23');
+    expect(run.getAttribute('data-reason')).toBe('not_yet');
+    expect(stateOf(container, '[data-hero="steps"]')).toBe('partial');
+  });
+});
+
+describe('dato assente: empty e stale', () => {
+  it('empty: eroe, schede e grafici sono tutti assenti, con il motivo e senza cifre', () => {
+    const { container, props } = renderScreen(ActivityScreen, 'empty');
+    const states = measureStates(container);
+    // eroe + 2 schede (i piani non hanno un riquadro); la media dei 7 giorni non c'e' (nessun giorno misurato)
+    expect(states).toHaveLength(3);
+    expect(new Set(states)).toEqual(new Set(['absent']));
+    for (const el of all(container, '[data-measure-state="absent"]')) {
+      expect(el.textContent).toContain(props.copy.measure.absent.no_data_received);
+    }
+    expect(one(container, '[data-hero="steps"]').getAttribute('data-goal-state')).toBe('absent');
+
+    const hourly = one(container, '[data-chart="hourly-steps"]');
+    expect(all(hourly, '[data-chart-slot]:not([data-chart-slot="absent"])')).toHaveLength(0);
+    const run = one(hourly, '[data-chart-slot="absent"]');
+    expect(run.getAttribute('data-hour-from')).toBe('0');
+    expect(run.getAttribute('data-hour-to')).toBe('23');
+    // niente cifre sull'asse Y di un grafico senza dati
+    expect(all(hourly, 'svg')[0].querySelectorAll('text')).toHaveLength(0);
+
+    const week = one(container, '[data-chart="week-steps"]');
+    expect(all(week, '[data-chart-slot]:not([data-chart-slot="absent"])')).toHaveLength(0);
+    expect(one(container, '[data-week-average]').textContent).toContain(activityCopy('it').week.averageNone);
+  });
+
+  it('stale: i passi sono assenti "non ancora sincronizzato"', () => {
+    const { container, props } = renderScreen(ActivityScreen, 'stale');
+    const hero = one(container, '[data-hero="steps"] [data-measure-state]');
+    expect(hero.getAttribute('data-measure-state')).toBe('absent');
+    expect(hero.textContent).toContain(props.copy.measure.absent.not_synced_yet);
+    // due giorni recenti senza dato: un solo riquadro sui 7 giorni, gli altri restano barre
+    const run = one(container, '[data-chart="week-steps"] [data-chart-slot="absent"]');
+    expect(run.getAttribute('data-day-from')).toBe('2026-09-22');
+    expect(run.getAttribute('data-day-to')).toBe('2026-09-23');
+    expect(all(container, '[data-chart="week-steps"] g[data-chart-slot="measured"]')).toHaveLength(5);
+  });
+});
+
+describe('passi: la schermata non nomina nessuna sorgente', () => {
+  // Il server non sa quale sorgente «vince» per i passi del giorno e non sa se e un orologio o un telefono:
+  // nessuna scheda della fonte, in nessuno scenario, in nessuna delle due lingue.
+  it.each(['ok', 'partial', 'zeros', 'stale', 'empty'] as const)('%s: nessuna scheda di fonte, nessun nome di dispositivo, nessuna regola «una sola fonte»', (sc) => {
+    for (const lc of ['it', 'en'] as const) {
+      const { container } = renderScreen(ActivityScreen, sc, { lc });
+      expect(container.querySelector('[data-source-name], [data-source-empty], [data-source-state]'), `${sc}/${lc}`).toBeNull();
+      const hits = FORBIDDEN_SOURCE_LABELS.filter(({ re }) => re.test(container.innerHTML) || re.test(container.textContent ?? '')).map(({ name }) => name);
+      expect(hits, `${sc}/${lc}`).toEqual([]);
+    }
+  });
+});
+
+describe('ultimi 7 giorni', () => {
+  it('ok: sette giorni, il giorno mostrato non e un link e gli altri sono link da 44 px al loro giorno', () => {
+    const { container } = renderScreen(ActivityScreen, 'ok');
+    const items = all(container, '[data-week-days] li');
+    expect(items).toHaveLength(7);
+    expect(items[6].querySelector('a')).toBeNull();
+    expect(items[6].querySelector('[aria-current="date"]')).not.toBeNull();
+    const links = all(container, '[data-week-days] a');
+    expect(links).toHaveLength(6);
+    for (const a of links) expect(a.className).toContain('min-h-[44px]');
+    expect(links[0].getAttribute('href')).toBe('/it/dashboard-preview/activity?day=2026-09-17');
+  });
+
+  it('il giorno mostrato ha la stessa cifra nell eroe e nella barra', () => {
+    const { container, props } = renderScreen(ActivityScreen, 'ok');
+    const steps = props.data.activity.steps;
+    const days = lastSevenDays(props.data);
+    expect(days[6].m).toBe(steps);
+    const selected = one(container, '[data-chart="week-steps"] g[data-selected="true"]');
+    expect(selected.getAttribute('data-date')).toBe(props.data.date);
+  });
+
+  it('partial: giorni parziali e assenti restano distinti da quelli misurati', () => {
+    const { container, props } = renderScreen(ActivityScreen, 'partial', { day: '2026-09-15' });
+    const days = lastSevenDays(props.data);
+    const counts = countSlots(days.map((d) => d.slot));
+    const rows = (s: string) => all(container, `table[data-table="week-steps"] tr[data-slot-state="${s}"]`).length;
+    expect(rows('absent')).toBe(counts.absent);
+    expect(rows('partial')).toBe(counts.partial);
+    expect(rows('measured') + rows('measured-zero')).toBe(counts.measured);
+    const li = all(container, '[data-week-days] li').map((x) => x.getAttribute('data-slot-state'));
+    expect(li).toEqual(days.map((d) => d.slot.state));
+    // la media esclude parziali e assenti
+    const measured = days.filter((d) => d.m.kind === 'value');
+    if (measured.length > 0) expect(one(container, '[data-week-average]').textContent).toContain(String(measured.length));
+  });
+
+  it('la linea dell obiettivo c e quando c e un obiettivo e un dato', () => {
+    expect(renderScreen(ActivityScreen, 'ok').container.querySelector('[data-goal-line]')).not.toBeNull();
+  });
+});
+
+describe('accessibilita: grafici e tabelle', () => {
+  it('ogni grafico ha un riassunto testuale e una tabella dentro <details>', () => {
+    const { container } = renderScreen(ActivityScreen, 'ok');
+    const imgs = all(container, '[role="img"][aria-label]');
+    expect(imgs.length).toBeGreaterThanOrEqual(2);
+    for (const el of imgs) expect((el.getAttribute('aria-label') ?? '').length).toBeGreaterThan(30);
+    expect(container.querySelectorAll('details table[data-table="hourly-steps"] tbody tr')).toHaveLength(24);
+    expect(container.querySelectorAll('details table[data-table="week-steps"] tbody tr')).toHaveLength(7);
+    for (const t of all(container, 'table')) {
+      expect(t.querySelector('caption')).not.toBeNull();
+      expect(t.querySelector('th[scope="col"]')).not.toBeNull();
+    }
+  });
+});
+
+describe('ActivityLoading', () => {
+  it('rende solo blocchi nascosti agli screen reader, senza testo ne cifre', () => {
+    const { container } = render(<ActivityLoading />);
+    expect(container.textContent).toBe('');
+    // eroe + 3 schede + grafico orario + sette giorni
+    expect(container.querySelectorAll('[aria-hidden="true"]').length).toBeGreaterThanOrEqual(6);
+  });
+});
+
+describe('derivazioni pure', () => {
+  it('toHourSlots: sempre 24 slot; i mancanti sono assenti, non zero', () => {
+    const slots = toHourSlots([value(0), partial(5, 0.5, 'window_open')]);
+    expect(slots).toHaveLength(24);
+    expect(slots[0].state).toBe('measured-zero');
+    expect(slots[1].state).toBe('partial');
+    expect(slots[2].state).toBe('absent');
+    expect(slots[2].value).toBeNull();
+  });
+
+  it('absentRuns: unisce i tratti con lo stesso motivo e separa quelli con motivi diversi', () => {
+    const slots = toHourSlots([
+      absent('no_samples'), absent('no_samples'), value(0), absent('no_samples'), absent('not_yet'), absent('not_yet'),
+    ]);
+    const runs = absentRuns(slots).slice(0, 3);
+    expect(runs).toEqual([
+      { from: 0, to: 1, reason: 'no_samples' },
+      { from: 3, to: 3, reason: 'no_samples' },
+      { from: 4, to: 5, reason: 'not_yet' },
+    ]);
+  });
+
+  it('niceTicks: tetto vicino al massimo, passi interi', () => {
+    expect(niceTicks(13200)).toEqual({ top: 15000, ticks: [0, 5000, 10000, 15000] });
+    expect(niceTicks(1198).top).toBe(1500);
+    expect(niceTicks(0)).toEqual({ top: 0, ticks: [0] });
+    expect(niceTicks(7).ticks.every(Number.isInteger)).toBe(true);
+  });
+});

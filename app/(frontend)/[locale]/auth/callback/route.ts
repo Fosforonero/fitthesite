@@ -9,6 +9,7 @@
  */
 import { NextResponse, type NextRequest } from 'next/server';
 
+import { safeNextPath } from '@/lib/auth/safe-next';
 import { createClient } from '@/lib/supabase/server';
 import { locales, UNTRANSLATED_CONTENT_LOCALES } from '@/lib/i18n';
 
@@ -30,7 +31,7 @@ export async function GET(
 
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
-  const next = url.searchParams.get('next') ?? `/${locale}/app`;
+  const next = url.searchParams.get('next');
   const errorParam = url.searchParams.get('error_description');
 
   if (errorParam) {
@@ -54,7 +55,6 @@ export async function GET(
     return NextResponse.redirect(loginUrl);
   }
 
-  // Verifica che `next` sia un path interno (no open redirect)
-  const safeNext = next.startsWith('/') ? next : `/${locale}/app`;
-  return NextResponse.redirect(new URL(safeNext, request.url));
+  // `next` e' un percorso interno oppure si ricade sulla propria area (no open redirect).
+  return NextResponse.redirect(new URL(safeNextPath(next, locale, request.url), request.url));
 }

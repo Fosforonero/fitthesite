@@ -262,7 +262,19 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // statica: la baseline era rimasta indietro di una pagina, non un
 // regresso di questo sprint (verificato: `git diff origin/main --name-status`
 // di questo sprint non aggiunge ne' rimuove nessun page.tsx/route.ts).
-const DYNAMIC_ROUTES_BASELINE = 59;
+// 59 -> 60 (24/09/2026, WEB-DASHBOARD-FOUNDATION, di proposito): nuova
+// /[locale]/app/dashboard, force-dynamic per costruzione (dati di un utente,
+// verdetto chiesto a ogni richiesta). Risponde 404 finche' il cancello non e' aperto (in sviluppo
+// locale la variabile FITMESH_WEB_DASHBOARD=1; altrove lo stato nel codice, vedi
+// lib/dashboard/interruttore.ts). Verificato col build: nessun HTML
+// prerenderizzato per /*/app/dashboard.
+// 60 -> 62 (06/10/2026, DASHBOARD WEB L1, di proposito): le due route dell'ANTEPRIMA interna
+// /[locale]/dashboard-preview e /[locale]/dashboard-preview/[screen] (dati sintetici, 404 su ogni
+// ambiente Vercel e in ogni build di produzione: lib/web-dashboard/flag.ts). Contano come dinamiche per il
+// solo segmento [locale], non perche' servano CPU: rispondono 404 fuori dal cancello. Verificato col
+// build di questo ramo: 62 route dinamiche; nessun HTML prerenderizzato per /*/app/dashboard
+// (solo page.js sotto .next/server/app).
+const DYNAMIC_ROUTES_BASELINE = 62;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {
