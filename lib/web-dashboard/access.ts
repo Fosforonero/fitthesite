@@ -4,7 +4,7 @@
  * REGOLA (DECISIONI.md, punti 1-6 e 8): accede chi ha un titolo Pro valido nella
  * fonte server degli entitlement: abbonamento attivo, Pro lifetime acquistato,
  * Founder, tester con grant Pro valido, e gli altri titoli Pro validi (grant a
- * tempo, ponte iOS, pagamento registrato a mano, grandfather, admin, account di
+ * tempo, pagamento registrato a mano, grandfather, admin, account di
  * revisione dello store). NON accede mai chi e' solo in prova gratuita, chi non ha
  * niente, chi e' scaduto, rimborsato o revocato. Se il controllo non risponde:
  * errore e «riprova», mai un falso paywall.
@@ -18,27 +18,18 @@
  * anche senza entitlement (vedi APP_AREAS e access.test.ts, che lo verifica
  * anche sui sorgenti di quelle pagine).
  *
- * L'input e' la forma del contratto entitlement v1 (docs/architecture/
- * entitlement-contract-v1.md): `entitlementKind` decide, `evaluationReason` no.
- * Il tester con grant arriva come `lifetime` (ruolo permanente) o `subscription`
- * (ruolo a tempo). In questo prototipo l'istantanea e' SINTETICA: nessuna chiamata
- * a get_entitlement_status, nessun collegamento a Supabase o alla fatturazione.
+ * In questo prototipo l'istantanea e' SINTETICA: i viewer sintetici portano
+ * una lista di titoli stringa (`titoli: readonly string[]`) e la decisione
+ * verifica se almeno un titolo appartiene a `TITOLI_DASHBOARD`.
  */
+
+import { TITOLI_DASHBOARD, type TitoloDashboard } from '@/lib/dashboard/verdetto';
 
 export const SUPPORTED_ENTITLEMENT_CONTRACT_VERSION = 1;
 
-export type EntitlementKind =
-  | 'founder'
-  | 'grandfather'
-  | 'lifetime'
-  | 'subscription'
-  | 'appReview'
-  | 'trial'
-  | 'none';
-
 export interface EntitlementSnapshot {
   contractVersion: number;
-  entitlementKind: EntitlementKind;
+  titoli: readonly string[];
   trialStatus: 'active' | 'expired';
 }
 
@@ -58,15 +49,7 @@ export type DashboardAccess =
   | { decision: 'login' }
   | { decision: 'verification_required'; reason: 'read_failed' | 'unknown_contract_version' }
   | { decision: 'paywall'; reason: 'trial' | 'expired' | 'none' }
-  | { decision: 'granted'; via: EntitlementKind };
-
-/**
- * Tipi di entitlement che aprono la dashboard. `trial` NON e' qui: la prova
- * gratuita copre l'app, non la dashboard web (decisione 3), nemmeno se attiva.
- * `appReview` (account di revisione dello store) apre la dashboard: risposta di
- * Matteo del 28/09, decisione 2.
- */
-const GRANTING_KINDS: readonly EntitlementKind[] = ['founder', 'grandfather', 'lifetime', 'subscription', 'appReview'];
+  | { decision: 'granted'; via: TitoloDashboard };
 
 export function resolveDashboardAccess(input: AccessInput): DashboardAccess {
   if (input.session === 'anonymous') return { decision: 'login' };
@@ -78,10 +61,21 @@ export function resolveDashboardAccess(input: AccessInput): DashboardAccess {
   if (e.contractVersion > SUPPORTED_ENTITLEMENT_CONTRACT_VERSION) {
     return { decision: 'verification_required', reason: 'unknown_contract_version' };
   }
-  if (GRANTING_KINDS.includes(e.entitlementKind)) {
-    return { decision: 'granted', via: e.entitlementKind };
+
+  // Cerca il primo titolo concesso che appartiene all'elenco unico TITOLI_DASHBOARD
+  const primoTitoloConcesso = e.titoli.find((t): t is TitoloDashboard =>
+    (TITOLI_DASHBOARD as readonly string[]).includes(t)
+  );
+
+  if (primoTitoloConcesso) {
+    return { decision: 'granted', via: primoTitoloConcesso };
   }
-  if (e.entitlementKind === 'trial') return { decision: 'paywall', reason: 'trial' };
+
+  // Nessun titolo concesso valido: verifica se ha prova attiva
+  if (e.trialStatus === 'active') {
+    return { decision: 'paywall', reason: 'trial' };
+  }
+
   return { decision: 'paywall', reason: e.trialStatus === 'expired' ? 'expired' : 'none' };
 }
 
@@ -98,19 +92,19 @@ export const SYNTHETIC_VIEWERS = {
   anonymous: { session: 'anonymous' },
   trial: {
     session: 'verified',
-    entitlement: { contractVersion: 1, entitlementKind: 'trial', trialStatus: 'active' },
+    entitlement: { contractVersion: 1, titoli: [], trialStatus: 'active' },
   },
   lifetime: {
     session: 'verified',
-    entitlement: { contractVersion: 1, entitlementKind: 'lifetime', trialStatus: 'expired' },
+    entitlement: { contractVersion: 1, titoli: ['lifetime_purchase'], trialStatus: 'expired' },
   },
   subscriber: {
     session: 'verified',
-    entitlement: { contractVersion: 1, entitlementKind: 'subscription', trialStatus: 'expired' },
+    entitlement: { contractVersion: 1, titoli: ['subscription'], trialStatus: 'expired' },
   },
   expired: {
     session: 'verified',
-    entitlement: { contractVersion: 1, entitlementKind: 'none', trialStatus: 'expired' },
+    entitlement: { contractVersion: 1, titoli: [], trialStatus: 'expired' },
   },
   unverifiable: { session: 'unverifiable', reason: 'read_failed' },
 } as const satisfies Record<string, AccessInput>;

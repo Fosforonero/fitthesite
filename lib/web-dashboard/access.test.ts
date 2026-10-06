@@ -3,12 +3,12 @@ import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
+import { TITOLI_DASHBOARD, type TitoloDashboard } from '@/lib/dashboard/verdetto';
 import {
   APP_AREAS,
   SYNTHETIC_VIEWERS,
   isPaywallApplicable,
   resolveDashboardAccess,
-  type EntitlementKind,
 } from './access';
 
 const ROOT = path.join(__dirname, '../..');
@@ -18,48 +18,67 @@ describe('resolveDashboardAccess', () => {
     expect(resolveDashboardAccess({ session: 'anonymous' })).toEqual({ decision: 'login' });
   });
 
-  it('accede chi ha Founder, Lifetime concesso, Lifetime acquistato, abbonamento valido o account di revisione', () => {
-    const kinds: EntitlementKind[] = ['founder', 'grandfather', 'lifetime', 'subscription', 'appReview'];
-    for (const entitlementKind of kinds) {
+  it('accede chi ha un titolo valido in TITOLI_DASHBOARD (tutti i 9 titoli, inclusi admin e manual_payment)', () => {
+    for (const via of TITOLI_DASHBOARD) {
       const r = resolveDashboardAccess({
         session: 'verified',
-        entitlement: { contractVersion: 1, entitlementKind, trialStatus: 'expired' },
+        entitlement: { contractVersion: 1, titoli: [via], trialStatus: 'expired' },
       });
-      expect(r, entitlementKind).toEqual({ decision: 'granted', via: entitlementKind });
+      expect(r, via).toEqual({ decision: 'granted', via });
     }
   });
 
-  it('la prova NON apre la dashboard, nemmeno se attiva', () => {
+  it('la sola prova (nessun titolo valido, prova attiva) NON apre la dashboard', () => {
     expect(resolveDashboardAccess(SYNTHETIC_VIEWERS.trial)).toEqual({ decision: 'paywall', reason: 'trial' });
+    const trialSolo = resolveDashboardAccess({
+      session: 'verified',
+      entitlement: { contractVersion: 1, titoli: [], trialStatus: 'active' },
+    });
+    expect(trialSolo).toEqual({ decision: 'paywall', reason: 'trial' });
   });
 
-  it('nessun entitlement o prova scaduta: paywall, con il motivo giusto', () => {
+  it('titoli sconosciuti non aprono la dashboard e vengono ignorati', () => {
+    const sconosciuti = resolveDashboardAccess({
+      session: 'verified',
+      entitlement: { contractVersion: 1, titoli: ['titolo_inventato', 'pro_plus'], trialStatus: 'expired' },
+    });
+    expect(sconosciuti).toEqual({ decision: 'paywall', reason: 'expired' });
+
+    // Se ci sono titoli sconosciuti ma c e anche un titolo valido, il titolo valido apre
+    const misto = resolveDashboardAccess({
+      session: 'verified',
+      entitlement: { contractVersion: 1, titoli: ['titolo_inventato', 'founder'], trialStatus: 'expired' },
+    });
+    expect(misto).toEqual({ decision: 'granted', via: 'founder' });
+  });
+
+  it('nessun titolo con prova scaduta: paywall expired; con prova non attiva: none', () => {
     expect(resolveDashboardAccess(SYNTHETIC_VIEWERS.expired)).toEqual({ decision: 'paywall', reason: 'expired' });
     const none = resolveDashboardAccess({
       session: 'verified',
-      entitlement: { contractVersion: 1, entitlementKind: 'none', trialStatus: 'active' },
+      entitlement: { contractVersion: 1, titoli: [], trialStatus: 'expired' },
     });
-    expect(none).toEqual({ decision: 'paywall', reason: 'none' });
+    expect(none).toEqual({ decision: 'paywall', reason: 'expired' });
   });
 
-  it('l\'account di revisione dello store accede (DECISIONI 2), la prova non accede mai (DECISIONI 3)', () => {
+  it('l account di revisione dello store accede (DECISIONI 2), la prova non accede mai (DECISIONI 3)', () => {
     const review = resolveDashboardAccess({
       session: 'verified',
-      entitlement: { contractVersion: 1, entitlementKind: 'appReview', trialStatus: 'expired' },
+      entitlement: { contractVersion: 1, titoli: ['app_review'], trialStatus: 'expired' },
     });
-    expect(review).toEqual({ decision: 'granted', via: 'appReview' });
+    expect(review).toEqual({ decision: 'granted', via: 'app_review' });
     for (const trialStatus of ['active', 'expired'] as const) {
       const trial = resolveDashboardAccess({
         session: 'verified',
-        entitlement: { contractVersion: 1, entitlementKind: 'trial', trialStatus },
+        entitlement: { contractVersion: 1, titoli: [], trialStatus },
       });
       expect(trial.decision, trialStatus).toBe('paywall');
     }
   });
 
-  it('un abbonamento prevale su una prova scaduta (priorita\' gia\' risolta dal server)', () => {
+  it('un abbonamento prevale su una prova scaduta (priorita gia risolta)', () => {
     expect(resolveDashboardAccess(SYNTHETIC_VIEWERS.subscriber)).toEqual({ decision: 'granted', via: 'subscription' });
-    expect(resolveDashboardAccess(SYNTHETIC_VIEWERS.lifetime)).toEqual({ decision: 'granted', via: 'lifetime' });
+    expect(resolveDashboardAccess(SYNTHETIC_VIEWERS.lifetime)).toEqual({ decision: 'granted', via: 'lifetime_purchase' });
   });
 
   it('entitlement non letto: errore e riprova, mai un falso paywall e mai un accesso', () => {
@@ -72,14 +91,14 @@ describe('resolveDashboardAccess', () => {
   it('versione di contratto sconosciuta: verifica richiesta, mai accesso', () => {
     const r = resolveDashboardAccess({
       session: 'verified',
-      entitlement: { contractVersion: 2, entitlementKind: 'lifetime', trialStatus: 'expired' },
+      entitlement: { contractVersion: 2, titoli: ['lifetime_purchase'], trialStatus: 'expired' },
     });
     expect(r).toEqual({ decision: 'verification_required', reason: 'unknown_contract_version' });
   });
 });
 
 describe('il paywall riguarda solo la dashboard', () => {
-  it('nessuna area diversa dalla dashboard e\' soggetta al paywall', () => {
+  it('nessuna area diversa dalla dashboard e soggetta al paywall', () => {
     for (const area of APP_AREAS) {
       expect(isPaywallApplicable(area), area).toBe(area === 'dashboard');
     }

@@ -214,11 +214,9 @@ describe('paywall e accesso: testi e componenti', () => {
 
   it('un elenco degli accessi in access.ts e in DECISIONI: la prova non c e, l account di revisione si', () => {
     const access = read('lib/web-dashboard/access.ts');
-    const list = /GRANTING_KINDS:[^=]*=\s*\[([^\]]*)\]/.exec(access)?.[1] ?? '';
-    const kinds = [...list.matchAll(/'(\w+)'/g)].map((m) => m[1]).sort();
-    expect(kinds).toEqual(['appReview', 'founder', 'grandfather', 'lifetime', 'subscription']);
-    expect(kinds).not.toContain('trial');
-    expect(kinds).not.toContain('none');
+    expect(access).toMatch(/import\s*\{\s*TITOLI_DASHBOARD/);
+    expect(access).not.toMatch(/GRANTING_KINDS/);
+    expect(access).not.toMatch(/EntitlementKind/);
   });
 });
 
