@@ -16,6 +16,8 @@
  */
 import { createHmac } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import path from 'node:path';
 
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { createClient as createSupabase } from '@supabase/supabase-js';
@@ -25,6 +27,7 @@ import { EXPORT_COPY } from '@/app/(frontend)/[locale]/app/export/copy';
 import { EXPORT_TABLES, type ExportTable } from '@/lib/privacy/export-scope';
 
 import { ExportDataClient as ComponenteMain } from './.generato/ExportDataClientMain';
+import { verificaExport } from './verifica-export-json';
 import { ExportDataClient } from '@/app/(frontend)/[locale]/app/export/ExportDataClient';
 
 const ctx = vi.hoisted(() => ({ client: null as unknown }));
@@ -77,6 +80,16 @@ function psql(sql: string): string {
 }
 
 type Riga = Record<string, unknown>;
+
+/** Salva il file scaricato in .generato/ (ignorato da git) e lo fa controllare dal verificatore OFFLINE. */
+function salvaEVerifica(nome: string): ReturnType<typeof verificaExport> {
+  const dir = path.join(__dirname, '.generato');
+  mkdirSync(dir, { recursive: true });
+  const testo = blobParts.join('');
+  writeFileSync(path.join(dir, `export-${nome}.json`), testo);
+  return verificaExport(testo);
+}
+const rossi = (esiti: ReturnType<typeof verificaExport>) => esiti.filter((e) => !e.ok).map((e) => e.nome);
 type Bundle = {
   account: { id: string };
   data: Record<string, Riga[] | { error: string }>;
@@ -201,17 +214,37 @@ describe('PROVA APPLICATIVA (PostgREST + RLS veri): identita\' authenticated sin
     // scritture reali tramite PostgREST: l'audit e' respinto dalla RLS (il file e' consegnato lo stesso), il timbro e' scritto
     expect(psql(`select count(*) from public.audit_logs where user_id = '${ATTORI.alice}' and action = 'data_exported'`)).toBe('0');
     expect(psql(`select data_export_completed_at is not null from public.privacy_consents where user_id = '${ATTORI.alice}'`)).toBe('t');
+    // il verificatore OFFLINE dice che il file e' conforme...
+    expect(rossi(salvaEVerifica('alice-candidato'))).toEqual([]);
+    // ...e ROSSO su cinque varianti guaste dello stesso file (controllo negativo del verificatore stesso)
+    const sano = JSON.parse(blobParts.join('')) as Bundle & Record<string, unknown>;
+    const clone = () => JSON.parse(JSON.stringify(sano)) as typeof sano;
+    const varianti: Array<[string, (b: typeof sano) => void]> = [
+      ['riga altrui', (b) => (b.data.devices as Riga[]).push({ ...(b.data.devices as Riga[])[0], user_id: ATTORI.bob })],
+      ['colonna sensibile', (b) => ((b.data.devices as Riga[])[0] as Riga).fcm_token = 'SYNTH-FCM-TOKEN-x'],
+      ['incompletezza non dichiarata', (b) => { delete b.incomplete; }],
+      ['testo tecnico del database', (b) => { (b.data.challenge_scores as unknown as Riga).error = 'infinite recursion detected in policy'; }],
+      ['controparte nei legami', (b) => { (b.data.caregiver_links as Riga[]).push({ caregiver_id: ATTORI.carla, subject_id: ATTORI.alice }); }],
+    ];
+    for (const [nome, guasta] of varianti) {
+      const b = clone();
+      guasta(b);
+      expect(rossi(verificaExport(JSON.stringify(b))).length, `il verificatore non ha visto: ${nome}`).toBeGreaterThan(0);
+    }
   });
 
   it('admin: la RLS gli lascia leggere righe di altri, il file contiene SOLO le sue (CONTROLLO: il componente di main le esporta)', async () => {
     const nuovo = await esporta('admin');
     expect(nuovo.bundle).not.toBeNull();
     expect(righeAltrui(nuovo.bundle!, 'admin')).toEqual([]);
+    expect(rossi(salvaEVerifica('admin-candidato'))).toEqual([]);
     cleanup();
     blobParts = [];
     scaricati = [];
     const vecchio = await esporta('admin', ComponenteMain as unknown as typeof ExportDataClient);
     expect(vecchio.bundle).not.toBeNull();
+    // il file di main NON e' conforme secondo il verificatore (righe altrui, colonne sensibili)
+    expect(rossi(salvaEVerifica('admin-main')).length).toBeGreaterThan(0);
     const perse = righeAltrui(vecchio.bundle!, 'admin');
     // il CONTROLLO deve mostrare la perdita che la #96 evita: se qui fosse vuoto la prova non proverebbe niente
     expect(perse.length, 'il componente di main avrebbe dovuto esportare righe altrui').toBeGreaterThan(0);
@@ -249,6 +282,7 @@ describe('PROVA APPLICATIVA (PostgREST + RLS veri): identita\' authenticated sin
     expect(chiavi.size).toBe(attese);
     expect(righeAltrui(bundle!, 'zed')).toEqual([]);
     // il confronto con la verita' del database: stesso insieme di chiavi
+    expect(rossi(salvaEVerifica('zed-candidato'))).toEqual([]);
     const dalDb = psql(`select count(distinct (device_id::text || '|' || window_start_ms::text)) from public.fitness_metrics where user_id = '${ATTORI.zed}'`);
     expect(String(chiavi.size)).toBe(dalDb);
   });
