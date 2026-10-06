@@ -284,3 +284,85 @@ describe('dashboard web: nessuna memoria fra richieste, prova statica', () => {
     expect(colpevoli).toEqual([]);
   });
 });
+
+/**
+ * Solo lato server, ANCHE INDIRETTAMENTE.
+ *
+ * Il controllo qui sopra vede solo gli import DIRETTI di un componente client. Un client che importa
+ * access (che importa il verdetto) passerebbe: la catena porta il verdetto nel bundle
+ * del browser. Qui si segue la chiusura transitiva degli import LOCALI (alias @/ e relativi) di ogni
+ * file 'use client'. Limiti dichiarati: analisi sul testo (import dinamici con nome costruito a runtime
+ * non si vedono); gli `import type` non contano (spariscono in compilazione); il bundle emesso si
+ * controlla con `next build`.
+ */
+const IMPORT_DI_VALORE =
+  /(?:^|[;\n])\s*(?:import|export)\s+(?!type\b)(?:[^'";]*?\sfrom\s+)?['"]([^'"]+)['"]|import\(\s*['"]([^'"]+)['"]\s*\)/g;
+
+function risolviLocale(da: string, spec: string, esiste: (rel: string) => boolean): string | null {
+  const base = spec.startsWith('@/')
+    ? spec.slice(2)
+    : spec.startsWith('.')
+      ? path.posix.normalize(path.posix.join(path.posix.dirname(da), spec))
+      : null;
+  if (base === null) return null; // pacchetto, non codice del repository
+  return [base, `${base}.ts`, `${base}.tsx`, `${base}/index.ts`, `${base}/index.tsx`].find(esiste) ?? null;
+}
+
+/** Tutti i file locali raggiungibili da `partenza` (esclusa), seguendo gli import di valore. */
+function chiusuraImport(partenza: string, leggiFile: (rel: string) => string | null): Set<string> {
+  const visti = new Set<string>();
+  const coda = [partenza];
+  while (coda.length > 0) {
+    const corrente = coda.pop()!;
+    const sorgente = leggiFile(corrente);
+    if (sorgente === null) continue;
+    for (const m of senzaCommenti(sorgente).matchAll(IMPORT_DI_VALORE)) {
+      const dest = risolviLocale(corrente, (m[1] ?? m[2])!, (rel) => leggiFile(rel) !== null);
+      if (dest && !visti.has(dest)) {
+        visti.add(dest);
+        coda.push(dest);
+      }
+    }
+  }
+  return visti;
+}
+
+const SOLO_SERVER = (rel: string) =>
+  (/^lib\/dashboard\/[^/]+\.tsx?$/.test(rel) && !/\.test\.tsx?$/.test(rel)) ||
+  rel === ['lib', 'web' + '-dashboard', 'access.ts'].join('/') ||
+  rel === ['lib', 'web' + '-dashboard', 'params.ts'].join('/');
+
+describe('dashboard web: solo lato server, anche indirettamente', () => {
+  it('nessun file client raggiunge, per catena di import, il verdetto, le letture o il cancello del prototipo', () => {
+    const leggiRepo = (rel: string) => {
+      try {
+        return readFileSync(path.join(RADICE, rel), 'utf8');
+      } catch {
+        return null;
+      }
+    };
+    const colpevoli = ['app', 'components', 'lib']
+      .flatMap(fileSotto)
+      .filter((rel) => /^\s*['"]use client['"]/m.test(leggi(rel)))
+      .flatMap((rel) => [...chiusuraImport(rel, leggiRepo)].filter(SOLO_SERVER).map((v) => `${rel} -> ${v}`));
+    expect(colpevoli).toEqual([]);
+  });
+
+  it('il seguitore di catene vede client -> access -> verdetto, risolve alias e relativi, ignora import type e pacchetti', () => {
+    const accessPath = ['lib', 'web' + '-dashboard', 'access.ts'].join('/');
+    const grafo: Record<string, string> = {
+      'components/C.tsx': "'use client';\nimport { x } from './ponte';\nimport type { Solo } from '@/lib/dashboard/verdetto';\nimport { useState } from 'react';",
+      'components/ponte.ts': `export { y } from '@/${accessPath}';`,
+      [accessPath]: "import { TITOLI_DASHBOARD } from '@/lib/dashboard/verdetto';",
+      'lib/dashboard/verdetto.ts': 'export const TITOLI_DASHBOARD = [];',
+      'components/D.tsx': "'use client';\nimport type { T } from '@/lib/dashboard/verdetto';\n// import { z } from '@/lib/dashboard/verdetto';",
+    };
+    const leggiGrafo = (rel: string) => grafo[rel] ?? null;
+    const daC = chiusuraImport('components/C.tsx', leggiGrafo);
+    expect([...daC].sort()).toEqual(['components/ponte.ts', 'lib/dashboard/verdetto.ts', accessPath]);
+    expect([...daC].filter(SOLO_SERVER).sort()).toEqual(['lib/dashboard/verdetto.ts', accessPath]);
+    // solo un import di tipo e un commento: nessuna catena
+    expect([...chiusuraImport('components/D.tsx', leggiGrafo)]).toEqual([]);
+  });
+});
+
