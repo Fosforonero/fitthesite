@@ -5,29 +5,43 @@ import { describe, expect, it } from 'vitest';
 
 import { TITOLI_DASHBOARD } from './verdetto';
 
-const ROOT = path.join(__dirname, '../..');
-const MIGRATION_FILE = path.join(
-  ROOT,
-  'supabase/migrations/20260924120000_web_dashboard_access_verdict.sql'
-);
+/**
+ * Parita' fra l'elenco dei titoli del sito (TITOLI_DASHBOARD) e quelli che la funzione SQL del verdetto
+ * puo' produrre. Confronto sul TESTO della migration, non sul comportamento: un ramo morto o un titolo
+ * prodotto da una forma diversa non e' visibile a un confronto di testo (per questo la guardia sulle
+ * assegnazioni qui sotto) e la matrice per titolo e' compito dei test PG17 17/19.
+ */
+const DIR_MIGRATION = path.join(__dirname, '../../supabase/migrations');
 
-describe('confronto tra TITOLI_DASHBOARD e la migration del verdetto SQL', () => {
-  it('la migration SQL del verdetto esiste', () => {
-    expect(fs.existsSync(MIGRATION_FILE)).toBe(true);
-  });
+/** Toglie i commenti SQL (-- fino a fine riga, e blocchi). Limite dichiarato: un `--` dentro una stringa taglia quella riga. */
+const senzaCommenti = (sql: string) => sql.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/--[^\n]*/g, '');
 
-  it('TITOLI_DASHBOARD riflette esattamente i titoli che la migration SQL puo produrre', () => {
-    const sql = fs.readFileSync(MIGRATION_FILE, 'utf8');
+/** La funzione VIVA e' quella dell'ULTIMA migration (per nome) che fa create [or replace] della funzione. */
+function definizioneViva() {
+  const defs = fs
+    .readdirSync(DIR_MIGRATION)
+    .filter((f) => f.endsWith('.sql'))
+    .sort()
+    .map((file) => ({ file, codice: senzaCommenti(fs.readFileSync(path.join(DIR_MIGRATION, file), 'utf8')) }))
+    .filter((m) => /create\s+(or\s+replace\s+)?function\s+private\.web_dashboard_verdict\s*\(/i.test(m.codice));
+  expect(defs.length, 'nessuna migration definisce private.web_dashboard_verdict').toBeGreaterThan(0);
+  return defs[defs.length - 1];
+}
 
-    // Estrae tutti i pattern: v_titoli := array_append(v_titoli, '...')
-    const regex = /v_titoli\s*:=\s*array_append\s*\(\s*v_titoli\s*,\s*'([^']+)'\s*\)/g;
-    const matches = [...sql.matchAll(regex)];
-    expect(matches.length).toBeGreaterThan(0);
+describe('TITOLI_DASHBOARD e la definizione viva del verdetto SQL', () => {
+  it('stessi titoli, e nessun titolo prodotto in una forma che il confronto non legge', () => {
+    const { file, codice } = definizioneViva();
+    const strette = [...codice.matchAll(/v_titoli\s*:=\s*array_append\s*\(\s*v_titoli\s*,\s*'([^']+)'\s*\)/gi)];
+    expect(strette.length, file).toBeGreaterThan(0);
 
-    const titoliSql = matches.map((m) => m[1]);
-    const titoliSqlUnivoci = [...new Set(titoliSql)].sort();
-    const titoliTs = [...TITOLI_DASHBOARD].sort();
+    // Ogni assegnazione a v_titoli deve essere un array_append stretto: `||`, array_cat, `::text`, `pg_catalog.`,
+    // `=` o un titolo vuoto sarebbero titoli invisibili al confronto. (La dichiarazione `text[] := '{}'` non conta.)
+    const assegnazioni = codice.match(/\bv_titoli\s*:?=/gi) ?? [];
+    expect(assegnazioni.length, `${file}: ogni assegnazione a v_titoli deve essere v_titoli := array_append(v_titoli, 'x')`).toBe(strette.length);
 
-    expect(titoliTs).toEqual(titoliSqlUnivoci);
+    // Il verdetto espone proprio v_titoli, senza altro mischiato.
+    expect(codice, file).toMatch(/'titles'\s*,\s*to_jsonb\(v_titoli\)\s*,/);
+
+    expect([...TITOLI_DASHBOARD].sort(), file).toEqual([...new Set(strette.map((m) => m[1]))].sort());
   });
 });
