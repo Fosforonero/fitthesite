@@ -2,6 +2,19 @@
 
 import { useState } from 'react';
 
+import {
+  categoriesOfTables,
+  EXPORT_TABLE_ORDER,
+  EXPORT_TABLES,
+  type ExportCategory,
+  type ExportTable,
+  getExportColumns,
+  getTableRowKey,
+  RawCaregiverLink,
+  rowBelongsToOwner,
+  sanitizeCaregiverLink,
+  scopeToOwner,
+} from '@/lib/privacy/export-scope';
 import { createClient } from '@/lib/supabase/client';
 
 type T = {
@@ -12,31 +25,33 @@ type T = {
   doneTitle: string;
   doneBody: string;
   errorTitle: string;
+  /** File scaricato ma incompleto (D-5): titolo, frase che introduce l'elenco, suggerimento. */
+  incompleteTitle: string;
+  incompleteBody: string;
+  incompleteHint: string;
+  /** Nomi per l'utente delle categorie di dati; mai il nome tecnico della tabella. */
+  categories: Record<ExportCategory, string>;
 };
 
-// Tabelle di proprietà dell'utente: la RLS restituisce solo le sue righe,
-// quindi un select('*') è già scoped. Quelle che non esistono/non leggibili
-// vengono semplicemente saltate (incluse come errore non bloccante).
-const TABLES = [
-  'profiles',
-  'privacy_consents',
-  'user_settings',
-  'devices',
-  'fitness_metrics',
-  'workouts',
-  'caregiver_links',
-  'group_members',
-  'b2c_subscriptions',
-  'challenge_participants',
-  'challenge_scores',
-  'user_roles',
-] as const;
+/** Elenco nella lingua dell'utente («A, B e C»). Se il browser non ha Intl.ListFormat: elenco con virgole. */
+function formatList(locale: string, items: string[]): string {
+  try {
+    return new Intl.ListFormat(locale, { style: 'long', type: 'conjunction' }).format(items);
+  } catch {
+    return items.join(', ');
+  }
+}
 
 type Phase = 'idle' | 'working' | 'done' | 'error';
+
+const PAGE_SIZE = 1000;
 
 export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
   const [phase, setPhase] = useState<Phase>('idle');
   const [err, setErr] = useState<string | null>(null);
+  // Categorie (nomi per l'utente) che il file NON contiene; vuoto = file completo. Si imposta SEMPRE a fine export
+  // riuscito; l'avviso si vede solo con phase === 'done', quindi durante un nuovo tentativo o dopo un errore non resta.
+  const [mancanti, setMancanti] = useState<string[]>([]);
 
   const run = async () => {
     setErr(null);
@@ -45,41 +60,259 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       const supabase = createClient();
       const {
         data: { user },
+        error: authError,
       } = await supabase.auth.getUser();
-      if (!user) {
-        setErr('Not authenticated');
+      if (authError || !user?.id) {
+        setErr(t.errorTitle);
         setPhase('error');
         return;
       }
 
+      const exportUserId = user.id;
+
       const bundle: Record<string, unknown> = {
         generated_at: new Date().toISOString(),
-        account: { id: user.id, email: user.email },
+        account: { id: exportUserId, email: user.email },
         format: 'FitMesh Sync data export (GDPR art. 20) v1',
         data: {},
       };
       const data = bundle.data as Record<string, unknown>;
+      // Tabelle lette con successo. Una tabella che la RLS o la rete non lasciano leggere NON ferma
+      // l'export (come prima della #96): finisce nel file come non disponibile, senza righe e senza
+      // il testo dell'errore. Se NESSUNA tabella e' leggibile non c'e' nessun file e nessun timbro.
+      let tabelleLette = 0;
+      const nonDisponibili: ExportTable[] = [];
 
-      for (const table of TABLES) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const { data: rows, error } = await (supabase.from(table) as any).select('*');
-        data[table] = error ? { error: error.message } : rows;
+      for (const table of EXPORT_TABLES) {
+        // Verifica cambio di sessione durante l'export: se l'utente scade o cambia
+        // mid-flight, interrompi immediatamente (nessun dato esportato sotto sessione mista).
+        const {
+          data: { user: currentUser },
+          error: sessionErr,
+        } = await supabase.auth.getUser();
+        if (sessionErr || !currentUser?.id || currentUser.id !== exportUserId) {
+          setErr(t.errorTitle);
+          setPhase('error');
+          return;
+        }
+
+        const columns = getExportColumns(table);
+        const orderCols = EXPORT_TABLE_ORDER[table];
+        let from = 0;
+        let hasMore = true;
+        const tableRows: Record<string, unknown>[] = [];
+        const seenKeys = new Set<string>();
+        let expectedCount: number | null = null;
+        let tabellaNonDisponibile = false;
+
+        // Paginazione deterministica con ordine totale e blocco da 1.000 righe per superare
+        // il limite max-rows di PostgREST e garantire l'anti-troncamento e l'assenza di duplicati.
+        while (hasMore) {
+          // Se la paginazione richiede piu' chiamate, riverifica la sessione
+          if (from > 0) {
+            const {
+              data: { user: loopUser },
+              error: loopSessionErr,
+            } = await supabase.auth.getUser();
+            if (loopSessionErr || !loopUser?.id || loopUser.id !== exportUserId) {
+              setErr(t.errorTitle);
+              setPhase('error');
+              return;
+            }
+          }
+
+          const to = from + PAGE_SIZE - 1;
+          let query = scopeToOwner(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (supabase.from(table) as any).select(columns, { count: 'exact' }),
+            table,
+            exportUserId,
+          );
+
+          // Applicazione ordine totale su tutte le colonne della chiave
+          for (const col of orderCols) {
+            query = query.order(col, { ascending: true });
+          }
+
+          query = query.range(from, to);
+
+          const { data: pageRows, count, error } = await query;
+
+          // Errore di lettura della tabella (policy RLS rotta, rete, colonna mancante): le righe di
+          // questa tabella, anche quelle di pagine precedenti, NON entrano nel file; la tabella e'
+          // marcata non disponibile e l'export prosegue con le altre. Non puo' far uscire righe altrui
+          // (nessuna riga e' esportata) e non espone il testo dell'errore del database.
+          if (error) {
+            tabellaNonDisponibile = true;
+            break;
+          }
+
+          // FAIL-CLOSED: una risposta senza errore che non e' un array e' una forma inattesa: l'export
+          // si interrompe, senza file e senza timbro.
+          if (!Array.isArray(pageRows)) {
+            setErr(t.errorTitle);
+            setPhase('error');
+            return;
+          }
+
+          // FAIL-CLOSED: count nullo o non numerico interrompe immediatamente.
+          if (typeof count !== 'number') {
+            setErr(t.errorTitle);
+            setPhase('error');
+            return;
+          }
+
+          if (expectedCount === null) {
+            expectedCount = count;
+          } else if (expectedCount !== count) {
+            // Incoerenza di conteggio tra pagine successive (mutazione concorrente)
+            setErr(t.errorTitle);
+            setPhase('error');
+            return;
+          }
+
+          // CONTROLLO DELLE RIGHE RESTITUITE (difesa in profondita', dopo il filtro): se anche
+          // UNA sola riga non e' dell'utente (filtro ignorato, policy RLS che ne lascia passare
+          // altre, proiezione cambiata) l'export si ferma. Nessun file, nessun timbro, nessun audit,
+          // e nessun dettaglio della riga altrui viene mostrato o registrato.
+          for (const row of pageRows) {
+            if (
+              typeof row !== 'object' ||
+              row === null ||
+              !rowBelongsToOwner(table, row as Record<string, unknown>, exportUserId)
+            ) {
+              setErr(t.errorTitle);
+              setPhase('error');
+              return;
+            }
+          }
+
+          for (const row of pageRows) {
+            const rowObj = row as Record<string, unknown>;
+            const rowKey = getTableRowKey(table, rowObj);
+            if (seenKeys.has(rowKey)) {
+              // Duplicato rilevato durante la paginazione: ordine non deterministico!
+              setErr(t.errorTitle);
+              setPhase('error');
+              return;
+            }
+            seenKeys.add(rowKey);
+            tableRows.push(rowObj);
+          }
+
+          if (tableRows.length >= expectedCount) {
+            hasMore = false;
+          } else if (pageRows.length === 0) {
+            // Troncamento inatteso: il conteggio totale dichiarato e' maggiore delle righe restituite
+            setErr(t.errorTitle);
+            setPhase('error');
+            return;
+          }
+
+          from += PAGE_SIZE;
+        }
+
+        if (tabellaNonDisponibile) {
+          data[table] = { error: 'unavailable' };
+          nonDisponibili.push(table);
+          continue;
+        }
+
+        // FAIL-CLOSED: Corrispondenza esatta fra conteggio e righe uniche
+        if (
+          expectedCount === null ||
+          tableRows.length !== expectedCount ||
+          seenKeys.size !== expectedCount
+        ) {
+          setErr(t.errorTitle);
+          setPhase('error');
+          return;
+        }
+
+        // Trattamento caregiver_links: Opzione B (GDPR art. 20 c. 4).
+        // Gli identificativi della controparte vengono rimossi prima di popolare il bundle.
+        if (table === 'caregiver_links') {
+          data[table] = (tableRows as unknown as RawCaregiverLink[]).map((r) =>
+            sanitizeCaregiverLink(r, exportUserId),
+          );
+        } else {
+          data[table] = tableRows;
+        }
+        tabelleLette += 1;
       }
 
-      // Marca export richiesto + completato + audit (best-effort).
-      const now = new Date().toISOString();
-      await supabase
-        .from('privacy_consents')
-        .upsert(
-          { user_id: user.id, data_export_requested_at: now, data_export_completed_at: now } as never,
-          { onConflict: 'user_id' },
-        );
-      await supabase
-        .from('audit_logs')
-        .insert({ user_id: user.id, action: 'data_exported', detail: { method: 'web_ui' } } as never);
+      // Nessuna tabella leggibile (sessione scaduta lato server, rete assente, RLS rotta ovunque):
+      // un file fatto di soli «non disponibile» sarebbe un export vuoto presentato come completo.
+      if (tabelleLette === 0) {
+        setErr(t.errorTitle);
+        setPhase('error');
+        return;
+      }
 
-      // Download del file JSON.
-      const blob = new Blob([JSON.stringify(bundle, null, 2)], { type: 'application/json' });
+      // Difesa ridondante: ogni iterazione assegna data[table] (anche il marcatore «unavailable») oppure
+      // esce prima, quindi qui le 12 chiavi ci sono sempre. NON dice che le 12 tabelle siano state lette.
+      if (Object.keys(data).length !== EXPORT_TABLES.length) {
+        setErr(t.errorTitle);
+        setPhase('error');
+        return;
+      }
+
+      // Il file dice di essere incompleto: chi lo legge sa quali tabelle mancano. La pagina lo dichiarera' con le
+      // CATEGORIE (calcolate qui, prima delle scritture e del download: un'eccezione dopo il download darebbe
+      // «Errore» a file gia' scaricato).
+      const incompleto = nonDisponibili.length > 0;
+      const categorieMancanti = categoriesOfTables(nonDisponibili).map((c) => t.categories[c]);
+      if (incompleto) {
+        bundle.incomplete = true;
+        bundle.unavailable_tables = nonDisponibili;
+      }
+
+      // Pre-scrittura session check: sessione ancora integra prima delle mutazioni
+      const {
+        data: { user: preWriteUser },
+        error: preWriteSessionErr,
+      } = await supabase.auth.getUser();
+      if (preWriteSessionErr || !preWriteUser?.id || preWriteUser.id !== exportUserId) {
+        setErr(t.errorTitle);
+        setPhase('error');
+        return;
+      }
+
+      // Il file si costruisce PRIMA delle scritture: se la serializzazione fallisce (JSON troppo grande,
+      // memoria) non restano ne' audit ne' timbro di completamento senza file.
+      const now = new Date().toISOString();
+      const fileJson = JSON.stringify(bundle, null, 2);
+
+      // Audit e timbro di completamento sono tentativi (BEST-EFFORT): il loro esito NON blocca il file.
+      // Secondo il testo delle migration (produzione NON verificata) audit_logs ha solo policy SELECT
+      // («INSERT: solo via service_role», init_events_audit.sql), quindi l'INSERT dell'utente puo' essere
+      // respinto: non deve togliere all'utente i propri dati (GDPR art. 15 e 20). Gli errori RESTITUITI sono
+      // ignorati di proposito (un'eccezione lanciata finirebbe nel catch generale, senza download).
+      // Ordine: audit, poi timbro (su b85870a era timbro, poi audit); dopo la seconda scrittura nessun altro
+      // await fino al download.
+      await supabase.from('audit_logs').insert({
+        user_id: exportUserId,
+        action: 'data_exported',
+        detail: { method: 'web_ui' },
+      } as never);
+      // `data_export_completed_at` = ultima esportazione COMPLETA: con un file incompleto si registra solo la
+      // richiesta, cosi' la tabella non dice «completato» mentre la pagina dice «incompleto».
+      await supabase.from('privacy_consents').upsert(
+        {
+          user_id: exportUserId,
+          data_export_requested_at: now,
+          ...(incompleto ? {} : { data_export_completed_at: now }),
+        } as never,
+        { onConflict: 'user_id' },
+      );
+
+      // Nessuna riverifica di sessione DOPO le scritture: un abort qui lascerebbe audit e timbro di
+      // completamento senza il file. L'ultimo controllo e' quello PRIMA delle scritture; da qui al
+      // download non c'e' altro await (il file e' gia' costruito sotto la sessione verificata).
+
+      // Download del file JSON (gia' serializzato sopra). Il file puo' essere incompleto per tabelle
+      // «unavailable» (vedi incomplete/unavailable_tables); audit e timbro possono mancare.
+      const blob = new Blob([fileJson], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -89,9 +322,13 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       a.remove();
       URL.revokeObjectURL(url);
 
+      // D-5: se il file e' incompleto la pagina lo dichiara, con le categorie e senza errori tecnici.
+      setMancanti(categorieMancanti);
       setPhase('done');
-    } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+    } catch (_e) {
+      // In caso di eccezione inattesa, non esporre mai stack trace o dettagli
+      // tecnici dell'infrastruttura/database.
+      setErr(t.errorTitle);
       setPhase('error');
     }
   };
@@ -102,11 +339,25 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
       <p className="mt-2 text-sm text-text-secondary">{t.body}</p>
 
       {phase === 'done' ? (
-        <div className="mt-4 rounded-card border border-success/40 bg-success/5 p-4">
-          <p className="font-semibold text-text-primary text-sm">✓ {t.doneTitle}</p>
-          <p className="mt-1 text-xs text-text-secondary">{t.doneBody}</p>
-        </div>
-      ) : (
+        mancanti.length > 0 ? (
+          <div role="status" className="mt-4 rounded-card border border-warning/50 bg-warning/5 p-4">
+            <p className="font-semibold text-text-primary text-sm">{t.incompleteTitle}</p>
+            <p className="mt-1 text-xs text-text-secondary">
+              {t.incompleteBody} <strong>{formatList(locale, mancanti)}</strong>
+            </p>
+            <p className="mt-1 text-xs text-text-secondary">{t.incompleteHint}</p>
+          </div>
+        ) : (
+          <div className="mt-4 rounded-card border border-success/40 bg-success/5 p-4">
+            <p className="font-semibold text-text-primary text-sm">✓ {t.doneTitle}</p>
+            <p className="mt-1 text-xs text-text-secondary">{t.doneBody}</p>
+          </div>
+        )
+      ) : null}
+
+      {/* Il pulsante c'e' sempre, tranne dopo un export COMPLETO: con un file incompleto l'avviso dice di
+          riprovare, quindi si puo' riprovare senza ricaricare la pagina. */}
+      {phase === 'done' && mancanti.length === 0 ? null : (
         <button
           type="button"
           onClick={run}
@@ -119,7 +370,7 @@ export function ExportDataClient({ locale, t }: { locale: string; t: T }) {
 
       {phase === 'error' && (
         <p role="alert" className="mt-3 text-sm text-error">
-          {t.errorTitle}: {err}
+          {err ?? t.errorTitle}
         </p>
       )}
     </section>
