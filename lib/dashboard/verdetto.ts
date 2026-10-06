@@ -144,6 +144,10 @@ function interpreta(data: unknown, uid: string): VerdettoDashboard {
     const noti = titoli.filter((t): t is TitoloDashboard =>
       (TITOLI_DASHBOARD as readonly string[]).includes(t),
     );
+    // Fail-closed: il server dice «concesso» ma nessun titolo e' fra quelli che il contratto v1
+    // riconosce (titolo nuovo, refuso, la prova mandata come titolo). Senza un titolo riconosciuto
+    // non c'e' nessuna prova che l'accesso sia dovuto: mai un concesso con l'elenco vuoto.
+    if (noti.length === 0) return nonDisponibile('risposta_illeggibile');
     return { esito: 'concesso', uid, titoli: noti, [MARCHIO]: true };
   }
 

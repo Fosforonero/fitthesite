@@ -100,3 +100,56 @@ describe('accesso concesso: solo il verdetto lo fabbrica', () => {
     expect(eAccessoConcesso(falso)).toBe(false);
   });
 });
+
+describe('verdetto dashboard web: granted=true senza alcun titolo riconosciuto fallisce chiuso', () => {
+  // Il server dice «concesso» ma i titoli non sono fra quelli che il contratto v1 conosce
+  // (un titolo nuovo, un refuso, la prova): senza un titolo riconosciuto NON c'e' nessuna
+  // prova che l'accesso sia dovuto. L'esito non puo' essere `concesso` con un elenco vuoto:
+  // e' una risposta che non si sa leggere.
+  it.each([
+    ['un titolo sconosciuto', ['titolo_sconosciuto']],
+    ['la prova mandata come titolo', ['trial']],
+    ['piu\' titoli, tutti sconosciuti', ['trial', 'beta', 'qualcosa']],
+    ['una variante con maiuscole', ['FOUNDER']],
+    ['una variante con spazi', [' founder', 'founder ']],
+    ['nomi ereditati dal prototipo degli oggetti', ['constructor', '__proto__', 'toString', 'hasOwnProperty']],
+    ['una stringa vuota', ['']],
+  ])('%s -> non disponibile (risposta illeggibile), mai concesso', async (_nome, titles) => {
+    const v = await leggiVerdettoDashboard(client({ data: concesso(titles), error: null }), UID);
+    expect(v).toEqual({ esito: 'non_disponibile', guasto: 'risposta_illeggibile' });
+    expect(eAccessoConcesso(v)).toBe(false);
+  });
+
+  it('un titolo riconosciuto accanto a uno sconosciuto resta concesso e porta SOLO quello riconosciuto', async () => {
+    const v = await leggiVerdettoDashboard(client({ data: concesso(['titolo_sconosciuto', 'founder']), error: null }), UID);
+    expect(v.esito).toBe('concesso');
+    if (v.esito !== 'concesso') throw new Error('atteso concesso');
+    expect(v.titoli).toEqual(['founder']);
+  });
+
+  it('invariante: ogni accesso concesso porta almeno un titolo riconosciuto, qualunque cosa risponda il server', async () => {
+    const risposte: unknown[] = [
+      concesso([]),
+      concesso(['x']),
+      concesso(['trial']),
+      concesso(['founder']),
+      concesso(['subscription', 'trial']),
+      { ...concesso(['founder']), denialReason: 'trial_only' },
+      { ...concesso(['founder']), contractVersion: 2 },
+      { contractVersion: 1, granted: true, titles: 'founder', denialReason: null },
+      { contractVersion: 1, granted: true, titles: [1, 2], denialReason: null },
+      { contractVersion: 1, granted: true, titles: null, denialReason: null },
+      { contractVersion: 1, granted: true },
+      null,
+      [],
+      'granted',
+    ];
+    for (const data of risposte) {
+      const v = await leggiVerdettoDashboard(client({ data, error: null }), UID);
+      if (v.esito === 'concesso') {
+        expect(v.titoli.length, JSON.stringify(data)).toBeGreaterThan(0);
+        expect(eAccessoConcesso(v)).toBe(true);
+      }
+    }
+  });
+});
