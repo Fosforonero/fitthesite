@@ -10,8 +10,9 @@
  * errore e «riprova», mai un falso paywall.
  *
  * Questo file e' la MAPPA PER LA SCHERMATA del prototipo. Il verdetto vero e'
- * server-side e unico (filone WEB-DASHBOARD-FOUNDATION): quando arriva, prende il
- * posto di `resolveDashboardAccess`; la UI consuma solo `DashboardAccess`.
+ * server-side e unico (filone WEB-DASHBOARD-FOUNDATION): consuma la fonte unica
+ * `TITOLI_DASHBOARD` da `verdetto.ts`; a runtime il verdetto RPC del database
+ * decide l'accesso, mentre la UI consuma `DashboardAccess`.
  *
  * Il paywall riguarda SOLO la dashboard. Impostazioni, export dei dati e
  * cancellazione dell'account non passano mai da qui e restano raggiungibili
@@ -62,8 +63,9 @@ export function resolveDashboardAccess(input: AccessInput): DashboardAccess {
     return { decision: 'verification_required', reason: 'unknown_contract_version' };
   }
 
-  // Cerca il primo titolo concesso che appartiene all'elenco unico TITOLI_DASHBOARD
-  const primoTitoloConcesso = e.titoli.find((t): t is TitoloDashboard =>
+  // Cerca il primo titolo concesso che appartiene all'elenco unico TITOLI_DASHBOARD (fail-closed se titoli non array)
+  const titoliValidi = Array.isArray(e.titoli) ? e.titoli : [];
+  const primoTitoloConcesso = titoliValidi.find((t): t is TitoloDashboard =>
     (TITOLI_DASHBOARD as readonly string[]).includes(t)
   );
 

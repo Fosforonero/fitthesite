@@ -18,8 +18,9 @@
  * Nessuna cache, di nessun tipo: il verdetto si chiede a ogni richiesta. Un
  * verdetto conservato sopravviverebbe a una scadenza o a un rimborso.
  *
- * Solo lato server. Non importarlo da un componente 'use client'
- * (lo verifica lib/dashboard/cache-e-confini.test.ts).
+ * Solo lato server. Consumato da server components/route e dal prototipo
+ * anteprima. Non importarlo da un componente 'use client',
+ * ne' direttamente ne' per catena transitiva (lo verifica lib/dashboard/cache-e-confini.test.ts).
  */
 
 export const TITOLI_DASHBOARD = [

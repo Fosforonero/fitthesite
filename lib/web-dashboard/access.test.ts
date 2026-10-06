@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
 
-import { TITOLI_DASHBOARD, type TitoloDashboard } from '@/lib/dashboard/verdetto';
+import { TITOLI_DASHBOARD } from '@/lib/dashboard/verdetto';
 import {
   APP_AREAS,
   SYNTHETIC_VIEWERS,
@@ -19,6 +19,7 @@ describe('resolveDashboardAccess', () => {
   });
 
   it('accede chi ha un titolo valido in TITOLI_DASHBOARD (tutti i 9 titoli, inclusi admin e manual_payment)', () => {
+    expect(TITOLI_DASHBOARD).toHaveLength(9);
     for (const via of TITOLI_DASHBOARD) {
       const r = resolveDashboardAccess({
         session: 'verified',
@@ -44,12 +45,47 @@ describe('resolveDashboardAccess', () => {
     });
     expect(sconosciuti).toEqual({ decision: 'paywall', reason: 'expired' });
 
+    // Varianti vicine ai titoli veri (case, spazi, prefissi/suffissi, vuoto): devono dare paywall
+    const vicini = [
+      'FOUNDER',
+      'Founder',
+      ' founder',
+      'founder ',
+      'lifetime',
+      'lifetime_revoked',
+      'subscription_inactive',
+      '',
+    ];
+    for (const vicino of vicini) {
+      const r = resolveDashboardAccess({
+        session: 'verified',
+        entitlement: { contractVersion: 1, titoli: [vicino], trialStatus: 'expired' },
+      });
+      expect(r, vicino).toEqual({ decision: 'paywall', reason: 'expired' });
+    }
+
     // Se ci sono titoli sconosciuti ma c e anche un titolo valido, il titolo valido apre
     const misto = resolveDashboardAccess({
       session: 'verified',
       entitlement: { contractVersion: 1, titoli: ['titolo_inventato', 'founder'], trialStatus: 'expired' },
     });
     expect(misto).toEqual({ decision: 'granted', via: 'founder' });
+  });
+
+  it('input malformato con titoli non-array: fail-closed paywall invece di lanciare', () => {
+    const malformatoNull = resolveDashboardAccess({
+      session: 'verified',
+      // @ts-expect-error test di robustezza a runtime per input malformato
+      entitlement: { contractVersion: 1, titoli: null, trialStatus: 'expired' },
+    });
+    expect(malformatoNull).toEqual({ decision: 'paywall', reason: 'expired' });
+
+    const malformatoString = resolveDashboardAccess({
+      session: 'verified',
+      // @ts-expect-error test di robustezza a runtime per input malformato
+      entitlement: { contractVersion: 1, titoli: 'founder', trialStatus: 'expired' },
+    });
+    expect(malformatoString).toEqual({ decision: 'paywall', reason: 'expired' });
   });
 
   it('nessun titolo con prova scaduta: paywall expired; con prova non attiva: none', () => {
