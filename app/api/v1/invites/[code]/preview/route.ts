@@ -1,43 +1,41 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 
-export async function GET(_req: Request, { params }: { params: Promise<{ code: string }> }) {
-  const supabaseAdmin = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { persistSession: false } },
+/**
+ * Anteprima di un invito alla Mesh Famiglia: risposta COSTANTE.
+ *
+ * FIX P0 (29/09/2026): qualunque codice, qualunque richiesta, stessa risposta.
+ * Nessun accesso al database, nessuna chiave di servizio, nessuna lettura del
+ * codice del percorso. L'handler non riceve nemmeno gli argomenti: non c'e'
+ * niente da cui una risposta possa dipendere.
+ *
+ * Decisione 49 di Matteo (29/09/2026): 404 costante, stesso contenuto per
+ * qualunque codice, senza accesso al database. Nel repository non risultano
+ * chiamanti.
+ *
+ * Si esporta solo GET: per gli altri metodi risponde il framework (405, e OPTIONS
+ * 204 con Allow), senza dati e uguale per ogni codice.
+ *
+ * PERIMETRO: questo file non legge il database. NON e' una correzione del
+ * middleware: per questa rotta il middleware continua a chiamare il rate limit
+ * (rate_limit_check con l'IP nella chiave, fail-open). Non risolve nemmeno le RPC di
+ * invito, le policy cross-utente o il kill switch: sono lotti separati.
+ *
+ * Il test statico test/invito-pubblico-senza-database.test.ts tiene questo
+ * file lontano da Supabase.
+ */
+
+// Mai prerenderizzata, mai messa in cache.
+export const dynamic = "force-dynamic";
+
+export async function GET() {
+  return NextResponse.json(
+    { error: "not_available" },
+    {
+      status: 404,
+      headers: {
+        "cache-control": "no-store",
+        "x-robots-tag": "noindex",
+      },
+    },
   );
-  const { code } = await params;
-  if (!/^MESH-[A-Z0-9]{4}$/.test(code)) {
-    return NextResponse.json({ error: "invalid_format" }, { status: 400 });
-  }
-  const { data: invite } = await supabaseAdmin
-    .from("group_invites")
-    .select("group_id, expires_at, uses_count, max_uses")
-    .eq("code", code)
-    .maybeSingle();
-  if (!invite) return NextResponse.json({ error: "not_found" }, { status: 404 });
-  if (new Date(invite.expires_at).getTime() < Date.now()) {
-    return NextResponse.json({ error: "expired" }, { status: 410 });
-  }
-  if (invite.uses_count >= invite.max_uses) {
-    return NextResponse.json({ error: "exhausted" }, { status: 410 });
-  }
-  const { data: group } = await supabaseAdmin
-    .from("groups")
-    .select("name, type")
-    .eq("id", invite.group_id)
-    .maybeSingle();
-  if (!group) return NextResponse.json({ error: "not_found" }, { status: 404 });
-  const { count } = await supabaseAdmin
-    .from("group_members")
-    .select("*", { count: "exact", head: true })
-    .eq("group_id", invite.group_id)
-    .is("left_at", null);
-  return NextResponse.json({
-    group_name: group.name,
-    group_type: group.type,
-    members_count: count ?? 0,
-    expires_at: invite.expires_at,
-  }, { headers: { "cache-control": "no-store" } });
 }
