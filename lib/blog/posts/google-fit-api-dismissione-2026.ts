@@ -255,22 +255,20 @@ export const post: BlogPost = {
     ],
   },
   // MICRO-GATE P1.8C-A: alt reale della cover (descrive l'immagine, non
-  // l'H1) in tutte le 11 locale indicizzabili — stesso pattern di
-  // dati-pixel-watch-dashboard.ts. Mancava (unico dei 2 post pienamente in
-  // scope editoriale P1.8C senza coverAlt), trovato durante la verifica
-  // immagini del micro-gate.
+  // SPRINT PM COVER-08 Lotto 2 (07/10/2026): alt reale della nuova cover
+  // fitness-api-transition-cycling-20261005.webp in tutte le 11 locale indicizzabili.
   coverAlt: {
-    it: "Illustrazione astratta di dati di salute che fluiscono da uno smartwatch e uno smartphone attraverso una vecchia infrastruttura a tubi verso un sistema cloud sicuro con lucchetto e chiave, circondato da icone di diverse metriche di salute.",
-    en: "Abstract illustration of health data flowing from a smartwatch and smartphone through old pipe-like infrastructure into a secure cloud system with a lock and key, surrounded by icons for different health metrics.",
-    es: "Ilustración abstracta de datos de salud que fluyen desde un smartwatch y un smartphone a través de una vieja infraestructura de tuberías hacia un sistema en la nube seguro con candado y llave, rodeado de iconos de distintas métricas de salud.",
-    de: "Abstrakte Illustration von Gesundheitsdaten, die von einer Smartwatch und einem Smartphone durch eine alte, rohrartige Infrastruktur in ein sicheres Cloud-System mit Schloss und Schlüssel fließen, umgeben von Symbolen für verschiedene Gesundheitswerte.",
-    pt: "Ilustração abstrata de dados de saúde fluindo de um smartwatch e um smartphone através de uma infraestrutura antiga em forma de tubos até um sistema de nuvem seguro com cadeado e chave, cercado por ícones de diferentes métricas de saúde.",
-    fr: "Illustration abstraite de données de santé circulant depuis une montre connectée et un smartphone à travers une ancienne infrastructure en tuyaux vers un système cloud sécurisé avec un cadenas et une clé, entouré d'icônes représentant différentes métriques de santé.",
-    pl: "Abstrakcyjna ilustracja danych zdrowotnych płynących ze smartwatcha i smartfona przez starą infrastrukturę przypominającą rury do bezpiecznego systemu chmurowego z kłódką i kluczem, otoczonego ikonami różnych wskaźników zdrowia.",
-    tr: "Bir akıllı saat ve akıllı telefondan gelen sağlık verilerinin eski boru benzeri bir altyapıdan geçerek kilit ve anahtarlı güvenli bir bulut sistemine aktığını gösteren, farklı sağlık ölçütlerine ait simgelerle çevrili soyut illüstrasyon.",
-    nl: "Abstracte illustratie van gezondheidsgegevens die van een smartwatch en smartphone via een oude, buisachtige infrastructuur naar een beveiligd cloudsysteem met slot en sleutel stromen, omringd door pictogrammen voor verschillende gezondheidsstatistieken.",
-    ja: "スマートウォッチとスマートフォンから流れる健康データが、古い配管のようなインフラを通って、鍵と錠前のある安全なクラウドシステムへと向かう様子を、様々な健康指標のアイコンとともに描いた抽象的なイラスト。",
-    ko: "스마트워치와 스마트폰에서 나온 건강 데이터가 낡은 배관 형태의 인프라를 지나 자물쇠와 열쇠가 있는 안전한 클라우드 시스템으로 흘러가는 모습을, 다양한 건강 지표 아이콘과 함께 그린 추상 일러스트.",
+    it: "Illustrazione di una ciclista con smartwatch, due telefoni e un quaderno durante una pausa vicino al lago.",
+    en: "Illustration of a cyclist with a smartwatch, two phones, and a notebook during a break near a lake.",
+    es: "Ilustración de una ciclista con smartwatch, dos teléfonos y un cuaderno durante una pausa junto al lago.",
+    de: "Illustration einer Radfahrerin mit Smartwatch, zwei Smartphones und einem Notizbuch bei einer Pause an einem See.",
+    pt: "Ilustração de uma ciclista com smartwatch, dois celulares e um caderno durante uma pausa perto de um lago.",
+    fr: "Illustration d'une cycliste avec une montre connectée, deux téléphones et un carnet lors d'une pause près d'un lac.",
+    pl: "Ilustracja rowerzystki ze smartwatchem, dwoma telefonami i notatnikiem podczas przerwy nad jeziorem.",
+    tr: "Göl kenarında mola veren, akıllı saat, iki telefon ve defter taşıyan bir bisikletçinin illüstrasyonu.",
+    nl: "Illustratie van een wielrenster met smartwatch, twee telefoons en een notitieblok tijdens een pauze bij een meer.",
+    ja: "湖のそばで休憩するサイクリストのイラスト。スマートウォッチ、2台のスマートフォン、ノートを持っている様子。",
+    ko: "호숫가에서 스마트워치, 두 대의 스마트폰, 공책을 들고 휴식을 취하는 자전거 라이더의 일러스트.",
   },
   body: [
     {

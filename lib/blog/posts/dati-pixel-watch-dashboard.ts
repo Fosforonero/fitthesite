@@ -248,20 +248,20 @@ export const post: BlogPost = {
   seoTitle: {
     pl: "Dane Pixel Watch i Health Connect: jak działa",
   },
-  // P1.8C: alt reale della cover (descrive l'immagine, non l'H1) in tutte
-  // le 11 locale indicizzabili — vedi lib/blog/covers.ts coverAlt().
+  // SPRINT PM COVER-08 Lotto 2 (07/10/2026): alt reale della nuova cover
+  // smartwatch-phone-woodland-walk-20261005.webp in tutte le 11 locale indicizzabili.
   coverAlt: {
-    it: "Illustrazione astratta di una rete di dispositivi wearable (smartwatch, anello e band) collegati a uno smartphone e a una dashboard multi-dispositivo con grafici di salute.",
-    en: "Abstract illustration of a network of wearable devices (smartwatch, ring, and band) connected to a smartphone and a multi-device dashboard with health charts.",
-    es: "Ilustración abstracta de una red de dispositivos wearable (smartwatch, anillo y banda) conectados a un smartphone y a un panel multidispositivo con gráficos de salud.",
-    de: "Abstrakte Illustration eines Netzwerks aus Wearables (Smartwatch, Ring und Band), verbunden mit einem Smartphone und einem Multi-Geräte-Dashboard mit Gesundheitsdiagrammen.",
-    pt: "Ilustração abstrata de uma rede de dispositivos vestíveis (smartwatch, anel e pulseira) conectados a um smartphone e a um painel multidispositivo com gráficos de saúde.",
-    fr: "Illustration abstraite d'un réseau d'appareils connectés (montre connectée, bague et bracelet) reliés à un smartphone et à un tableau de bord multi-appareils avec des graphiques de santé.",
-    pl: "Abstrakcyjna ilustracja sieci urządzeń ubieralnych (smartwatch, pierścień i opaska) połączonych ze smartfonem i wielourządzeniowym pulpitem z wykresami zdrowia.",
-    tr: "Bir akıllı telefona ve sağlık grafikleri içeren çok cihazlı bir panoya bağlı giyilebilir cihaz ağının (akıllı saat, yüzük ve bant) soyut illüstrasyonu.",
-    nl: "Abstracte illustratie van een netwerk van draagbare apparaten (smartwatch, ring en band) verbonden met een smartphone en een dashboard voor meerdere apparaten met gezondheidsgrafieken.",
-    ja: "スマートウォッチ、リング、バンドなどのウェアラブルデバイスのネットワークがスマートフォンとマルチデバイス対応のヘルスチャートダッシュボードに接続されている様子を描いた抽象的なイラスト。",
-    ko: "스마트워치, 링, 밴드 등 웨어러블 기기 네트워크가 스마트폰과 건강 그래프가 표시된 멀티 디바이스 대시보드에 연결된 모습을 그린 추상 일러스트.",
+    it: "Illustrazione di un escursionista che tiene uno smartphone e indossa uno smartwatch su un sentiero nel bosco.",
+    en: "Illustration of a hiker holding a smartphone and wearing a smartwatch on a woodland trail.",
+    es: "Ilustración de un excursionista sosteniendo un smartphone y llevando un smartwatch en un sendero por el bosque.",
+    de: "Illustration eines Wanderers mit Smartphone in der Hand und Smartwatch am Handgelenk auf einem Waldweg.",
+    pt: "Ilustração de um praticante de trilha segurando um celular e usando um smartwatch em uma trilha na floresta.",
+    fr: "Illustration d'un randonneur tenant un smartphone et portant une montre connectée sur un sentier en forêt.",
+    pl: "Ilustracja turysty trzymającego smartfon i noszącego smartwatch na leśnej ścieżce.",
+    tr: "Orman patikasında akıllı telefon tutan ve akıllı saat takan bir doğa yürüyüşçüsünün illüstrasyonu.",
+    nl: "Illustratie van een wandelaar met een smartphone in de hand en een smartwatch om de pols op een bospad.",
+    ja: "森の小道でスマートフォンを持ち、スマートウォッチを身につけたハイカーのイラスト。",
+    ko: "숲길에서 스마트폰을 들고 스마트워치를 착용한 등산객의 일러스트.",
   },
   body: [
     {

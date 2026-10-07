@@ -86,8 +86,10 @@ export const COVER_FILE: Record<CoverType, string> = {
   // BYTE-IDENTICO a zona2.webp (stesso SHA-256) ed e' stato scartato:
   // mai copiato, rinominato, ne' referenziato qui o altrove.
   healthconnect: "health-connect-sync-troubleshooting.webp",
-  zone2: "zone-2-different-devices.webp",
-  circadian: "sleep-score-circadian-rhythm.webp",
+  // SPRINT PM COVER-08 Lotto 2 (07/10/2026): cover dedicata per corsa leggera con due smartwatch
+  zone2: "easy-run-two-wearables-20261005.webp",
+  // SPRINT PM COVER-08 Lotto 2 (07/10/2026): cover dedicata per risveglio nella luce del mattino e regolarità del sonno
+  circadian: "sleep-routine-morning-light-20261005.webp",
   // P1.8S/P1.8S-IMG (2026-08-06): 3 cover consegnate da Matteo, forense +
   // gate visivo/semantico superati (verificate 1200x686 sorgente -> crop
   // centrato 1200x675, no stretch, no alpha/EXIF/XMP, no loghi terzi).
@@ -99,20 +101,11 @@ export const COVER_FILE: Record<CoverType, string> = {
   fitmeshOverview: "how-fitmesh-works.webp",
   samsungTogether: "fitmesh-samsung-health-together.webp",
   appleTogether: "fitmesh-apple-health-together.webp",
-  // P1.8C (2026-08-25): 3 cover consegnate da Matteo da /Users/matteo/Downloads
-  // (pixel-watch-5.webp, google-health-google-fit.webp, migrazione-api-salute.webp),
-  // NON riusate da altri post. Ledger completo (SHA-256, dimensioni, esito
-  // audit, esito gate marchio) in docs/seo/p18c-cover-image-ledger.md. Ognuna
-  // verificata: WebP reale 1200x675 esatti (VP8 lossy semplice, non VP8X),
-  // singolo frame, nessun alpha, nessun EXIF/XMP/ICC, nessun testo/watermark
-  // incorporato, crop sicuro mobile/desktop. pixel-watch-health-connect-sync
-  // ha in piu' superato un gate marchio dedicato sul simbolo centrale
-  // (identificazione cieca + confronto strutturale con Meta/Threads/Airbnb/
-  // Peloton/Google Health Connect/Google Fit: tutti "rischio-basso", nessun
-  // "rischio-medio"/"rischio-alto" — GO documentato nel ledger).
-  pixelWatch: "pixel-watch-health-connect-sync.webp",
+  // SPRINT PM COVER-08 Lotto 2 (07/10/2026): cover dedicata per passeggiata nel bosco con smartwatch circolare e telefono
+  pixelWatch: "smartwatch-phone-woodland-walk-20261005.webp",
   googleHealthSync: "google-health-multi-source-sync.webp",
-  apiMigration: "google-fit-api-migration.webp",
+  // SPRINT PM COVER-08 Lotto 2 (07/10/2026): cover dedicata per ciclista con smartwatch, due telefoni e taccuino
+  apiMigration: "fitness-api-transition-cycling-20261005.webp",
   // P1.9-10 (2026-09-02): cover dedicata consegnata da Matteo per
   // steps-total-vs-hourly-chart, 1200x675 esatti (VP8X, nessun alpha/EXIF/
   // XMP/animazione: byte flags a zero, verificato con xxd), 78.936 byte,

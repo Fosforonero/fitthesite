@@ -61,6 +61,12 @@ export { APPLE_STORE_URL, APPLE_APP_ID };
 export const REDDIT_URL = "https://www.reddit.com/r/FitMesh/";
 export { REDDIT_COMMUNITY_LIVE };
 
+/**
+ * Profilo Instagram ufficiale FitMesh Sync.
+ * Fonte di verità condivisa per Footer e sameAs in OrganizationJsonLd.
+ */
+export const INSTAGRAM_URL = "https://www.instagram.com/fitmesh_sync/";
+
 // ── Disponibilità piattaforme ───────────────────────────────────────────────
 /**
  * Android: live ovunque, nessuna limitazione geografica. Legge da Health

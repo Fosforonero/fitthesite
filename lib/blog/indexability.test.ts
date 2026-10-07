@@ -490,4 +490,60 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
       }
     });
   });
+
+  describe("SPRINT PM COVER-08 Lotto 2: 4 cover dedicate recuperate (Google Fit API, Pixel Watch, Sleep Score, Zona 2)", () => {
+    it("verifica mappatura univoca, esistenza asset e alt text per tutte le varianti indicizzabili", async () => {
+      const { coverAlt, coverSrc, COVER_FILE, POST_COVER } = await import("./covers");
+      const { tl } = await import("./types");
+      const { locales } = await import("@/lib/i18n");
+      const fs = await import("node:fs");
+      const path = await import("node:path");
+
+      const lotto2Expected: Record<string, { type: string; file: string }> = {
+        "google-fit-api-dismissione-2026": {
+          type: "apiMigration",
+          file: "fitness-api-transition-cycling-20261005.webp",
+        },
+        "dati-pixel-watch-dashboard": {
+          type: "pixelWatch",
+          file: "smartwatch-phone-woodland-walk-20261005.webp",
+        },
+        "sleep-score-regolarita-ritmo-circadiano": {
+          type: "circadian",
+          file: "sleep-routine-morning-light-20261005.webp",
+        },
+        "perche-zona-2-cambia-smartwatch-app": {
+          type: "zone2",
+          file: "easy-run-two-wearables-20261005.webp",
+        },
+      };
+
+      for (const [slug, { type, file }] of Object.entries(lotto2Expected)) {
+        expect(POST_COVER[slug], `[${slug}] tipo cover corretto`).toBe(type);
+        expect(COVER_FILE[type as keyof typeof COVER_FILE], `[${slug}] file assegnato`).toBe(file);
+
+        // Nessun altro post condivide questo tipo
+        const sharingSlugs = Object.entries(POST_COVER).filter(([s, t]) => t === type && s !== slug);
+        expect(sharingSlugs, `[${slug}] cover dedicata non condivisa`).toEqual([]);
+
+        // File fisico presente in public/blog/covers/
+        const filePath = path.join(process.cwd(), "public", "blog", "covers", file);
+        expect(fs.existsSync(filePath), `file ${file} deve esistere`).toBe(true);
+
+        const rawPost = BLOG_POSTS.find((p) => p.slug === slug);
+        expect(rawPost, `post ${slug} deve esistere`).toBeDefined();
+        expect(coverSrc(rawPost!)).toBe(`/blog/covers/${file}`);
+
+        for (const lc of locales) {
+          if (!isBlogVariantIndexable(rawPost!, lc)) continue;
+          const alt = rawPost!.coverAlt?.[lc];
+          expect(alt, `[${slug}][${lc}] coverAlt mancante`).toBeDefined();
+          expect(alt!.trim().length, `[${slug}][${lc}] coverAlt non vuoto`).toBeGreaterThan(15);
+          const renderedAlt = coverAlt(rawPost!, lc);
+          expect(renderedAlt).toBe(alt);
+          expect(renderedAlt).not.toBe(tl(rawPost!.hero.title, lc));
+        }
+      }
+    });
+  });
 });
