@@ -90,11 +90,17 @@ describe('resolveDashboardAccess', () => {
 
   it('nessun titolo con prova scaduta: paywall expired; con prova non attiva: none', () => {
     expect(resolveDashboardAccess(SYNTHETIC_VIEWERS.expired)).toEqual({ decision: 'paywall', reason: 'expired' });
-    const none = resolveDashboardAccess({
+    const expired = resolveDashboardAccess({
       session: 'verified',
       entitlement: { contractVersion: 1, titoli: [], trialStatus: 'expired' },
     });
-    expect(none).toEqual({ decision: 'paywall', reason: 'expired' });
+    expect(expired).toEqual({ decision: 'paywall', reason: 'expired' });
+    // Ramo difensivo none: trialStatus non attivo ne' scaduto (es. none o valore non valido a runtime)
+    const none = resolveDashboardAccess({
+      session: 'verified',
+      entitlement: { contractVersion: 1, titoli: [], trialStatus: 'none' as any },
+    });
+    expect(none).toEqual({ decision: 'paywall', reason: 'none' });
   });
 
   it('l account di revisione dello store accede (DECISIONI 2), la prova non accede mai (DECISIONI 3)', () => {
@@ -130,6 +136,31 @@ describe('resolveDashboardAccess', () => {
       entitlement: { contractVersion: 2, titoli: ['lifetime_purchase'], trialStatus: 'expired' },
     });
     expect(r).toEqual({ decision: 'verification_required', reason: 'unknown_contract_version' });
+  });
+
+  it('fonte unica a runtime: resolveDashboardAccess usa effettivamente TITOLI_DASHBOARD da verdetto.ts (W-R3)', async () => {
+    const { vi } = await import('vitest');
+    try {
+      vi.resetModules();
+      vi.doMock('@/lib/dashboard/verdetto', () => ({
+        TITOLI_DASHBOARD: ['solo_questo'],
+      }));
+      const dynamicAccess = await import('./access');
+      const granted = dynamicAccess.resolveDashboardAccess({
+        session: 'verified',
+        entitlement: { contractVersion: 1, titoli: ['solo_questo'], trialStatus: 'expired' },
+      });
+      expect(granted).toEqual({ decision: 'granted', via: 'solo_questo' });
+
+      const denied = dynamicAccess.resolveDashboardAccess({
+        session: 'verified',
+        entitlement: { contractVersion: 1, titoli: ['founder'], trialStatus: 'expired' },
+      });
+      expect(denied).toEqual({ decision: 'paywall', reason: 'expired' });
+    } finally {
+      vi.doUnmock('@/lib/dashboard/verdetto');
+      vi.resetModules();
+    }
   });
 });
 

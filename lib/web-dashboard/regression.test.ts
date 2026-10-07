@@ -212,7 +212,7 @@ describe('paywall e accesso: testi e componenti', () => {
     expect(page).toMatch(/verification_required[\s\S]{0,200}VerificationGate/);
   });
 
-  it('un elenco degli accessi in access.ts e in DECISIONI: la prova non c e, l account di revisione si', () => {
+  it('access.ts usa la fonte unica TITOLI_DASHBOARD e non contiene i vecchi tipi/costanti rimossi', () => {
     const access = read('lib/web-dashboard/access.ts');
     expect(access).toMatch(/import\s*\{\s*TITOLI_DASHBOARD/);
     expect(access).not.toMatch(new RegExp('GRANTING' + '_KINDS'));
