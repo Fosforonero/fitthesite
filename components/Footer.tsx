@@ -7,10 +7,29 @@ import { landingLinkHref } from "@/lib/landing/indexability";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 import { famigliaLinkHref } from "@/lib/content/static-page-locales";
 import { isFeatureAvailable } from "@/lib/feature-status";
-import { REDDIT_URL, REDDIT_COMMUNITY_LIVE } from "@/lib/product-facts";
+import { REDDIT_URL, REDDIT_COMMUNITY_LIVE, INSTAGRAM_URL } from "@/lib/product-facts";
 import { COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
 import RedditIcon from "@/components/RedditIcon";
+import InstagramIcon from "@/components/InstagramIcon";
 import ConsentPreferencesButton from "@/components/ConsentPreferencesButton";
+
+export const SOCIAL_SECTION_TITLE: Record<Locale, string> = {
+  it: "Social",
+  en: "Social",
+  es: "Redes sociales",
+  de: "Social Media",
+  fr: "Réseaux sociaux",
+  pt: "Redes sociais",
+  pl: "Social media",
+  tr: "Sosyal medya",
+  nl: "Sociale media",
+  ja: "公式SNS",
+  ko: "소셜 미디어",
+  sv: "Sociala medier",
+  da: "Sociale medier",
+  no: "Sosiale medier",
+  fi: "Sosiaalinen media",
+};
 
 export default function Footer({
   dict,
@@ -52,6 +71,40 @@ export default function Footer({
               un'affermazione assoluta non collegata a nessun monitor, in inglese per
               13 lingue. Nessuno stato duplicato qui: gli stati di funzione
               vengono solo da lib/feature-status.ts. */}
+
+          {/* Sezione Social autonoma, professionale ed estensibile */}
+          <div className="mt-8">
+            <div className="text-text-muted mb-3 tracking-[0.22em] uppercase text-[10px] font-semibold">
+              {SOCIAL_SECTION_TITLE[locale]}
+            </div>
+            <ul className="space-y-2">
+              {REDDIT_COMMUNITY_LIVE && (
+                <li>
+                  <a
+                    href={REDDIT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-cta-placement={COMMUNITY_PLACEMENTS.footer}
+                    className="inline-flex items-center gap-2 py-3 -my-3 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm min-h-[44px]"
+                  >
+                    <RedditIcon className="h-4 w-4 flex-shrink-0" />
+                    <span>Reddit</span>
+                  </a>
+                </li>
+              )}
+              <li>
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 py-3 -my-3 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm min-h-[44px]"
+                >
+                  <InstagramIcon className="h-4 w-4 flex-shrink-0" />
+                  <span>Instagram</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
         <div className="text-sm lg:col-span-3">
@@ -104,46 +157,6 @@ export default function Footer({
              */}
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
             <li><Link href={`/${locale}/support`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>
-            {/* r/FitMesh — gated su REDDIT_COMMUNITY_LIVE (lib/flags.ts).
-                rel="noopener noreferrer", NIENTE nofollow/ugc: link
-                editoriale ufficiale controllato da FitMesh (non contenuto
-                inserito da utenti), non ha senso marcarlo come tale; non
-                passa comunque autorità per conto proprio — il beneficio SEO
-                reale di questa integrazione è il `sameAs` in
-                OrganizationJsonLd, non questo link. noreferrer: non invia
-                il Referer a Reddit all'apertura. */}
-            {REDDIT_COMMUNITY_LIVE && (
-              <li>
-                {/* P1.9 FASE 7: icona ufficiale aggiunta come asset locale
-                    (RedditIcon.tsx), sempre accanto al testo — mai
-                    icon-only. Stesso href/target/rel/data-cta-placement di
-                    prima, nessun cambio di comportamento tracciato.
-                    ADDENDUM P1.9 (2026-09-01): area cliccabile portata a
-                    44px esatti (WCAG 2.5.5/HIG) con py-3 (12px sopra/sotto,
-                    text-sm a 20px di line-height => 44px totali) compensato
-                    da -my-3 sullo stesso elemento — il padding espande
-                    l'hit-area del link, il margine negativo annulla lo
-                    stesso spazio nel flusso del layout, cosi' lo
-                    space-y-2.5 della <ul> (10px) resta visivamente
-                    invariato e icona/testo non cambiano dimensione.
-                    L'espansione (12px) supera di 2px il gap sopra
-                    (10px) verso "Support", che non ha padding proprio:
-                    overlap minimo alla giunzione, non un vero doppio
-                    target — accettabile, non elimina la cliccabilita' di
-                    "Support". Ultimo item della lista: nessun vincolo
-                    sotto. */}
-                <a
-                  href={REDDIT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-cta-placement={COMMUNITY_PLACEMENTS.footer}
-                  className="inline-flex items-center gap-1.5 py-3 -my-3 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
-                >
-                  <RedditIcon className="h-4 w-4 flex-shrink-0" />
-                  {dict.footer.links.community}
-                </a>
-              </li>
-            )}
           </ul>
         </div>
 
