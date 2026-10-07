@@ -77,7 +77,7 @@ export default function Footer({
             <div className="text-text-muted mb-3 tracking-[0.22em] uppercase text-[10px] font-semibold">
               {SOCIAL_SECTION_TITLE[locale]}
             </div>
-            <ul className="space-y-2">
+            <ul className="space-y-1">
               {REDDIT_COMMUNITY_LIVE && (
                 <li>
                   <a
@@ -85,7 +85,7 @@ export default function Footer({
                     target="_blank"
                     rel="noopener noreferrer"
                     data-cta-placement={COMMUNITY_PLACEMENTS.footer}
-                    className="inline-flex items-center gap-2 py-3 -my-3 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm min-h-[44px]"
+                    className="inline-flex items-center gap-2.5 min-h-[44px] min-w-[44px] py-2.5 px-2 -mx-2 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
                   >
                     <RedditIcon className="h-4 w-4 flex-shrink-0" />
                     <span>Reddit</span>
@@ -97,7 +97,7 @@ export default function Footer({
                   href={INSTAGRAM_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 py-3 -my-3 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm min-h-[44px]"
+                  className="inline-flex items-center gap-2.5 min-h-[44px] min-w-[44px] py-2.5 px-2 -mx-2 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
                 >
                   <InstagramIcon className="h-4 w-4 flex-shrink-0" />
                   <span>Instagram</span>

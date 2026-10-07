@@ -29,6 +29,12 @@ describe("Footer (S02 U-FOOT-01/02)", () => {
     // Instagram è presente con target blank e rel noopener noreferrer
     expect(src).toMatch(/href=\{INSTAGRAM_URL\}[\s\S]*?target="_blank"[\s\S]*?rel="noopener noreferrer"/);
 
+    // I link social usano target minimi di almeno 44x44px senza margini verticali negativi
+    const socialBlock = src.split("Sezione Social autonoma")[1]?.split("dict.footer.product")[0] ?? "";
+    expect(socialBlock).not.toMatch(/-my-\d+/);
+    expect(socialBlock).toContain("min-h-[44px]");
+    expect(socialBlock).toContain("min-w-[44px]");
+
     // Reddit rimosso dalla sezione Prodotto (non compare dopo dict.footer.product)
     const productSection = src.split("dict.footer.product")[1]?.split("dict.footer.legal")[0] ?? "";
     expect(productSection).not.toContain("REDDIT_URL");
