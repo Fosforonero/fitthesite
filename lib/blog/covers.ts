@@ -46,7 +46,8 @@ export type CoverType =
   | "galaxyWatchTroubleshooting"
   | "ultraAthleteDay"
   | "xiaomiAmazfitExport"
-  | "polarHealthConnect";
+  | "polarHealthConnect"
+  | "garminBodyBattery";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -143,6 +144,8 @@ export const COVER_FILE: Record<CoverType, string> = {
   // e sync Polar Health Connect (anziani e anello Apple Salute scorporati per BLOCKED_BY_COPY).
   xiaomiAmazfitExport: "smartwatch-export-cycling-pause.webp",
   polarHealthConnect: "polar-lake-swim-wearable.webp",
+  // SPRINT PM COVER-LOTTO3-B (08/10/2026): cover dedicata per ciclista in sosta recupero su strada di montagna
+  garminBodyBattery: "endurance-cycling-recovery.webp",
 };
 
 /**
@@ -169,7 +172,9 @@ export const POST_COVER: Record<string, CoverType> = {
   // riscritto in P1.8B/PR #57).
   "google-health-google-fit": "googleHealthSync",
   "huawei-health-health-connect-sincronizzazione": "huaweiPath",
-  "garmin-body-battery-health-connect": "troubleshooting",
+  // SPRINT PM COVER-LOTTO3-B (08/10/2026): cover dedicata (endurance-cycling-recovery.webp)
+  // al posto del fallback generico "troubleshooting" (gear.webp).
+  "garmin-body-battery-health-connect": "garminBodyBattery",
   "polar-health-connect-sync": "polarHealthConnect",
   "sleep-tracker-comparison-2026": "sleepTrackerComparison",
   "garmin-samsung-health-sync-guide": "sync",
