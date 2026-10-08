@@ -548,13 +548,15 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
   });
 });
 
-describe("MICRO-GATE COVER-LOTTO3-C: Garmin body battery health connect & endurance-cycling-recovery", () => {
-  it("verifica cover dedicata, asset storici, alt text e fact checking per tutte le varianti indicizzabili", async () => {
+describe("MICRO-GATE COVER-LOTTO3-D: Garmin body battery health connect & endurance-cycling-recovery", () => {
+  it("verifica cover dedicata, hash storico identico a main, alt text, requisito Android e celle SpO2 nelle strutture delle 11 lingue", async () => {
     const { POST_COVER, COVER_FILE, coverSrc, coverAlt } = await import("./covers");
     const { tl } = await import("./types");
     const { locales } = await import("@/lib/i18n");
     const fs = await import("node:fs");
     const path = await import("node:path");
+    const crypto = await import("node:crypto");
+    const { execSync } = await import("node:child_process");
 
     const slug = "garmin-body-battery-health-connect";
     const type = "garminBodyBattery";
@@ -569,18 +571,28 @@ describe("MICRO-GATE COVER-LOTTO3-C: Garmin body battery health connect & endura
     const sharingSlugs = Object.entries(POST_COVER).filter(([s, t]) => t === type && s !== slug);
     expect(sharingSlugs, `[${slug}] cover dedicata non condivisa`).toEqual([]);
 
-    // 3. File fisico dedicato e asset storico preservato in public/blog/covers/
+    // 3. File fisico dedicato presente
     const filePath = path.join(process.cwd(), "public", "blog", "covers", file);
     expect(fs.existsSync(filePath), `file ${file} deve esistere`).toBe(true);
 
+    // 4. Asset storico preservato: verifica HASH DEL BLOB CONTRO IL MAIN di git
     const historicPath = path.join(process.cwd(), "public", "blog", "covers", historicFile);
     expect(fs.existsSync(historicPath), `asset storico ${historicFile} deve esistere`).toBe(true);
+
+    const localBytes = fs.readFileSync(historicPath);
+    const localSha256 = crypto.createHash("sha256").update(localBytes).digest("hex");
+    const mainBlobHash = execSync(`git rev-parse main:public/blog/covers/${historicFile}`, { encoding: "utf-8" }).trim();
+    const localBlobHash = execSync(`git hash-object public/blog/covers/${historicFile}`, { encoding: "utf-8" }).trim();
+    expect(localBlobHash, "hash git blob di gear.webp deve coincidere con main").toBe(mainBlobHash);
+
+    const mainSha256 = execSync(`git cat-file blob ${mainBlobHash} | shasum -a 256`, { encoding: "utf-8" }).split(/\s+/)[0];
+    expect(localSha256, "sha256 di gear.webp deve coincidere byte-per-byte con main").toBe(mainSha256);
 
     const rawPost = BLOG_POSTS.find((p) => p.slug === slug);
     expect(rawPost, `post ${slug} deve esistere`).toBeDefined();
     expect(coverSrc(rawPost!)).toBe(`/blog/covers/${file}`);
 
-    // 4. Tutte le 11 lingue indicizzabili hanno coverAlt valido e non uguale al titolo
+    // 5. Tutte le 11 lingue indicizzabili hanno coverAlt valido e non uguale al titolo
     const expectedLocales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const;
     for (const lc of expectedLocales) {
       expect(isBlogVariantIndexable(rawPost!, lc), `locale ${lc} deve essere indicizzabile`).toBe(true);
@@ -592,40 +604,98 @@ describe("MICRO-GATE COVER-LOTTO3-C: Garmin body battery health connect & endura
       expect(renderedAlt).not.toBe(tl(rawPost!.hero.title, lc));
     }
 
-    // 5. Verifica assenza di formule categoriche e vietate nel sorgente
-    const postSourcePath = path.join(process.cwd(), "lib", "blog", "posts", "garmin-body-battery-health-connect.ts");
-    const postSource = fs.readFileSync(postSourcePath, "utf-8");
+    // 6. Controllo del requisito Android 14+ nelle strutture localizzate di TUTTE le 11 lingue
+    const reqParagraph = rawPost!.body.find(
+      (b) => b.type === "paragraph" && b.text?.it?.includes("Android 14"),
+    ) as { type: "paragraph"; text: Record<string, string> } | undefined;
+    expect(reqParagraph, "paragrafo requisiti di sistema con Android 14 deve esistere").toBeDefined();
 
-    const forbiddenRegexes = [
-      /trovi sempre zero/i,
-      /passano regolarmente/i,
-      /scrive solo quando si sincronizza attivamente/i,
-      /always find zero/i,
-      /flow through regularly/i,
-      /flows regularly/i,
-      /only when it actively syncs/i,
-      /siempre encuentras cero/i,
-      /fluyen con normalidad/i,
-      /immer null/i,
-      /fließen regelmäßig/i,
-      /sempre encontra zero/i,
-      /passam regularmente/i,
-      /toujours rien/i,
-      /transitent régulièrement/i,
-      /zawsze widzisz zero/i,
-      /przepływają regularnie/i,
-      /her zaman sıfır/i,
-      /düzenli olarak aktarılır/i,
-      /altijd nul/i,
-      /komen regelmatig door/i,
-    ];
+    const calloutSection = rawPost!.body.find((b) => b.type === "callout") as {
+      type: "callout";
+      body: Record<string, string>;
+    } | undefined;
+    expect(calloutSection, "callout di sintesi deve esistere").toBeDefined();
 
-    for (const regex of forbiddenRegexes) {
-      expect(postSource, `Post non deve contenere la formula vietata: ${regex}`).not.toMatch(regex);
+    for (const lc of expectedLocales) {
+      // Nel tldr
+      const tldrSecondItem = rawPost!.tldr?.[lc]?.[1] || "";
+      expect(tldrSecondItem, `[${lc}] tldr item 1 deve specificare Android 14`).toMatch(/Android.*14/i);
+
+      // Nel paragrafo requisiti
+      const reqText = reqParagraph!.text[lc] || "";
+      expect(reqText, `[${lc}] paragrafo requisiti deve specificare Android 14`).toMatch(/Android.*14/i);
+
+      // Nel callout di sintesi
+      const calloutText = calloutSection!.body[lc] || "";
+      expect(calloutText, `[${lc}] callout deve specificare Android 14`).toMatch(/Android.*14/i);
     }
 
-    // 6. Verifica presenza requisiti fattuali (Android 14+, SpO2 no export)
-    expect(postSource).toMatch(/Android 14/);
-    expect(postSource).toMatch(/SpO2 \(Pulse Ox\)/);
+    // 7. Controllo delle celle della riga SpO2 nella tabella localizzata delle 11 lingue
+    const tableSection = rawPost!.body.find((b) => b.type === "table") as {
+      type: "table";
+      rows: Array<Record<string, string[]>>;
+    };
+    expect(tableSection, "tabella comparativa deve essere presente").toBeDefined();
+
+    const spo2Row = tableSection.rows.find((r) => r.it?.[0]?.includes("SpO2"));
+    expect(spo2Row, "riga SpO2 deve essere presente nella tabella").toBeDefined();
+
+    const NEGATIVE_VALUES: Record<string, string> = {
+      it: "No",
+      en: "No",
+      es: "No",
+      de: "Nein",
+      pt: "Não",
+      fr: "Non",
+      pl: "Nie",
+      tr: "Hayır",
+      nl: "Nee",
+      ja: "なし",
+      ko: "아니요",
+    };
+
+    const POSITIVE_VALUES: Record<string, string> = {
+      it: "Sì",
+      en: "Yes",
+      es: "Sí",
+      de: "Ja",
+      pt: "Sim",
+      fr: "Oui",
+      pl: "Tak",
+      tr: "Evet",
+      nl: "Ja",
+      ja: "あり",
+      ko: "예",
+    };
+
+    for (const lc of expectedLocales) {
+      const rowCells = spo2Row![lc];
+      expect(rowCells, `[${lc}] riga SpO2 deve avere 4 celle`).toHaveLength(4);
+      expect(rowCells[0], `[${lc}] cella 0 deve menzionare SpO2`).toContain("SpO2");
+      expect(rowCells[1], `[${lc}] cella 1 (Garmin) deve essere affermativa`).toBe(POSITIVE_VALUES[lc]);
+
+      // Celle 2 (Health Connect) e 3 (FitMesh) DEVONO essere categoricamente negative
+      expect(rowCells[2], `[${lc}] cella 2 (Health Connect) deve essere negativa`).toBe(NEGATIVE_VALUES[lc]);
+      expect(rowCells[2], `[${lc}] cella 2 (Health Connect) non puo essere affermativa`).not.toBe(POSITIVE_VALUES[lc]);
+
+      expect(rowCells[3], `[${lc}] cella 3 (FitMesh) deve essere negativa`).toBe(NEGATIVE_VALUES[lc]);
+      expect(rowCells[3], `[${lc}] cella 3 (FitMesh) non puo essere affermativa`).not.toBe(POSITIVE_VALUES[lc]);
+    }
+
+    // 8. Verifica che la descrizione dell'integrazione escluda formule assolute sull'intera app
+    const integrationParagraph = rawPost!.body.find(
+      (b) => b.type === "paragraph" && b.text?.it?.includes("Per i dispositivi Garmin, l'app FitMesh non include"),
+    ) as { type: "paragraph"; text: Record<string, string> } | undefined;
+    expect(integrationParagraph, "paragrafo integrazione Garmin deve esistere").toBeDefined();
+
+    for (const lc of expectedLocales) {
+      const text = integrationParagraph!.text[lc];
+      expect(text, `[${lc}] deve menzionare Garmin Connect`).toContain("Garmin Connect");
+      expect(text, `[${lc}] deve menzionare Health Connect`).toContain("Health Connect");
+      // Non deve sostenere che FitMesh acquisisce esclusivamente da framework di sistema in generale
+      expect(text, `[${lc}] non deve contenere formule generiche sull'intera app`).not.toMatch(
+        /l'acquisizione dei dati si appoggia esclusivamente ai framework di sistema/i,
+      );
+    }
   });
 });
