@@ -547,3 +547,85 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     });
   });
 });
+
+describe("MICRO-GATE COVER-LOTTO3-C: Garmin body battery health connect & endurance-cycling-recovery", () => {
+  it("verifica cover dedicata, asset storici, alt text e fact checking per tutte le varianti indicizzabili", async () => {
+    const { POST_COVER, COVER_FILE, coverSrc, coverAlt } = await import("./covers");
+    const { tl } = await import("./types");
+    const { locales } = await import("@/lib/i18n");
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+
+    const slug = "garmin-body-battery-health-connect";
+    const type = "garminBodyBattery";
+    const file = "endurance-cycling-recovery.webp";
+    const historicFile = "gear.webp";
+
+    // 1. Cover dedicata e file associato
+    expect(POST_COVER[slug], `[${slug}] tipo cover corretto`).toBe(type);
+    expect(COVER_FILE[type as keyof typeof COVER_FILE], `[${slug}] file assegnato`).toBe(file);
+
+    // 2. Nessun altro post condivide questo tipo
+    const sharingSlugs = Object.entries(POST_COVER).filter(([s, t]) => t === type && s !== slug);
+    expect(sharingSlugs, `[${slug}] cover dedicata non condivisa`).toEqual([]);
+
+    // 3. File fisico dedicato e asset storico preservato in public/blog/covers/
+    const filePath = path.join(process.cwd(), "public", "blog", "covers", file);
+    expect(fs.existsSync(filePath), `file ${file} deve esistere`).toBe(true);
+
+    const historicPath = path.join(process.cwd(), "public", "blog", "covers", historicFile);
+    expect(fs.existsSync(historicPath), `asset storico ${historicFile} deve esistere`).toBe(true);
+
+    const rawPost = BLOG_POSTS.find((p) => p.slug === slug);
+    expect(rawPost, `post ${slug} deve esistere`).toBeDefined();
+    expect(coverSrc(rawPost!)).toBe(`/blog/covers/${file}`);
+
+    // 4. Tutte le 11 lingue indicizzabili hanno coverAlt valido e non uguale al titolo
+    const expectedLocales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const;
+    for (const lc of expectedLocales) {
+      expect(isBlogVariantIndexable(rawPost!, lc), `locale ${lc} deve essere indicizzabile`).toBe(true);
+      const alt = rawPost!.coverAlt?.[lc];
+      expect(alt, `[${slug}][${lc}] coverAlt mancante`).toBeDefined();
+      expect(alt!.trim().length, `[${slug}][${lc}] coverAlt non vuoto`).toBeGreaterThan(15);
+      const renderedAlt = coverAlt(rawPost!, lc);
+      expect(renderedAlt).toBe(alt);
+      expect(renderedAlt).not.toBe(tl(rawPost!.hero.title, lc));
+    }
+
+    // 5. Verifica assenza di formule categoriche e vietate nel sorgente
+    const postSourcePath = path.join(process.cwd(), "lib", "blog", "posts", "garmin-body-battery-health-connect.ts");
+    const postSource = fs.readFileSync(postSourcePath, "utf-8");
+
+    const forbiddenRegexes = [
+      /trovi sempre zero/i,
+      /passano regolarmente/i,
+      /scrive solo quando si sincronizza attivamente/i,
+      /always find zero/i,
+      /flow through regularly/i,
+      /flows regularly/i,
+      /only when it actively syncs/i,
+      /siempre encuentras cero/i,
+      /fluyen con normalidad/i,
+      /immer null/i,
+      /fließen regelmäßig/i,
+      /sempre encontra zero/i,
+      /passam regularmente/i,
+      /toujours rien/i,
+      /transitent régulièrement/i,
+      /zawsze widzisz zero/i,
+      /przepływają regularnie/i,
+      /her zaman sıfır/i,
+      /düzenli olarak aktarılır/i,
+      /altijd nul/i,
+      /komen regelmatig door/i,
+    ];
+
+    for (const regex of forbiddenRegexes) {
+      expect(postSource, `Post non deve contenere la formula vietata: ${regex}`).not.toMatch(regex);
+    }
+
+    // 6. Verifica presenza requisiti fattuali (Android 14+, SpO2 no export)
+    expect(postSource).toMatch(/Android 14/);
+    expect(postSource).toMatch(/SpO2 \(Pulse Ox\)/);
+  });
+});
