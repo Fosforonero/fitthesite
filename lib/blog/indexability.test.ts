@@ -547,3 +547,165 @@ describe("P0.27 verità editoriale su pillar e guide ad alta esposizione", () =>
     });
   });
 });
+
+describe("MICRO-GATE COVER-LOTTO3-D: Garmin body battery health connect & endurance-cycling-recovery", () => {
+  it("verifica cover dedicata, hash storico identico a main, alt text, requisito Android e celle SpO2 nelle strutture delle 11 lingue", async () => {
+    const { POST_COVER, COVER_FILE, coverSrc, coverAlt } = await import("./covers");
+    const { tl } = await import("./types");
+    const { locales } = await import("@/lib/i18n");
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const crypto = await import("node:crypto");
+    const { execSync } = await import("node:child_process");
+
+    const slug = "garmin-body-battery-health-connect";
+    const type = "garminBodyBattery";
+    const file = "endurance-cycling-recovery.webp";
+    const historicFile = "gear.webp";
+
+    // 1. Cover dedicata e file associato
+    expect(POST_COVER[slug], `[${slug}] tipo cover corretto`).toBe(type);
+    expect(COVER_FILE[type as keyof typeof COVER_FILE], `[${slug}] file assegnato`).toBe(file);
+
+    // 2. Nessun altro post condivide questo tipo
+    const sharingSlugs = Object.entries(POST_COVER).filter(([s, t]) => t === type && s !== slug);
+    expect(sharingSlugs, `[${slug}] cover dedicata non condivisa`).toEqual([]);
+
+    // 3. File fisico dedicato presente
+    const filePath = path.join(process.cwd(), "public", "blog", "covers", file);
+    expect(fs.existsSync(filePath), `file ${file} deve esistere`).toBe(true);
+
+    // 4. Asset storico preservato: baseline immutabile congelata all'origine
+    // Non dipende dal branch locale "main" né da ref mobili, verificabile in qualunque checkout CI
+    const FROZEN_GEAR_BLOB_HASH = "34641cff7b06a88f89a5c3c7abb53abc680361c6";
+    const FROZEN_GEAR_SHA256 = "54bbcf1e2b936a8663ee3160a932e108c0eeea588264513f9e7003aeb3593d2e";
+    const FROZEN_GEAR_SIZE_BYTES = 81718;
+
+    const historicPath = path.join(process.cwd(), "public", "blog", "covers", historicFile);
+    expect(fs.existsSync(historicPath), `asset storico ${historicFile} deve esistere`).toBe(true);
+
+    const localBytes = fs.readFileSync(historicPath);
+    expect(localBytes.length, "dimensione esatta di gear.webp in byte").toBe(FROZEN_GEAR_SIZE_BYTES);
+
+    const localSha256 = crypto.createHash("sha256").update(localBytes).digest("hex");
+    expect(localSha256, "sha256 di gear.webp deve coincidere byte-per-byte con la baseline immutabile").toBe(FROZEN_GEAR_SHA256);
+
+    const localBlobHash = execSync(`git hash-object public/blog/covers/${historicFile}`, { encoding: "utf-8" }).trim();
+    expect(localBlobHash, "hash git blob di gear.webp deve coincidere con la baseline immutabile").toBe(FROZEN_GEAR_BLOB_HASH);
+
+    const rawPost = BLOG_POSTS.find((p) => p.slug === slug);
+    expect(rawPost, `post ${slug} deve esistere`).toBeDefined();
+    expect(coverSrc(rawPost!)).toBe(`/blog/covers/${file}`);
+
+    // Fonti ufficiali: link diretto alla FAQ Garmin Connect
+    const GARMIN_FAQ_URL = "https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5";
+    expect(rawPost!.sources, "post deve includere sources").toContain(GARMIN_FAQ_URL);
+
+    // 5. Tutte le 11 lingue indicizzabili hanno coverAlt valido e non uguale al titolo
+    const expectedLocales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const;
+    for (const lc of expectedLocales) {
+      expect(isBlogVariantIndexable(rawPost!, lc), `locale ${lc} deve essere indicizzabile`).toBe(true);
+      const alt = rawPost!.coverAlt?.[lc];
+      expect(alt, `[${slug}][${lc}] coverAlt mancante`).toBeDefined();
+      expect(alt!.trim().length, `[${slug}][${lc}] coverAlt non vuoto`).toBeGreaterThan(15);
+      const renderedAlt = coverAlt(rawPost!, lc);
+      expect(renderedAlt).toBe(alt);
+      expect(renderedAlt).not.toBe(tl(rawPost!.hero.title, lc));
+    }
+
+    // 6. Controllo del requisito Android 14+ e del link ufficiale nelle strutture localizzate di TUTTE le 11 lingue
+    const reqParagraph = rawPost!.body.find(
+      (b) => b.type === "paragraph" && b.text?.it?.includes("Android 14"),
+    ) as { type: "paragraph"; text: Record<string, string> } | undefined;
+    expect(reqParagraph, "paragrafo requisiti di sistema con Android 14 deve esistere").toBeDefined();
+
+    const calloutSection = rawPost!.body.find((b) => b.type === "callout") as {
+      type: "callout";
+      body: Record<string, string>;
+    } | undefined;
+    expect(calloutSection, "callout di sintesi deve esistere").toBeDefined();
+
+    for (const lc of expectedLocales) {
+      // Nel tldr
+      const tldrSecondItem = rawPost!.tldr?.[lc]?.[1] || "";
+      expect(tldrSecondItem, `[${lc}] tldr item 1 deve specificare Android 14`).toMatch(/Android.*14/i);
+
+      // Nel paragrafo requisiti
+      const reqText = reqParagraph!.text[lc] || "";
+      expect(reqText, `[${lc}] paragrafo requisiti deve specificare Android 14`).toMatch(/Android.*14/i);
+      expect(reqText, `[${lc}] paragrafo requisiti deve includere il link alla FAQ ufficiale Garmin`).toContain(GARMIN_FAQ_URL);
+
+      // Nel callout di sintesi
+      const calloutText = calloutSection!.body[lc] || "";
+      expect(calloutText, `[${lc}] callout deve specificare Android 14`).toMatch(/Android.*14/i);
+    }
+
+    // 7. Controllo delle celle della riga SpO2 nella tabella localizzata delle 11 lingue
+    const tableSection = rawPost!.body.find((b) => b.type === "table") as {
+      type: "table";
+      rows: Array<Record<string, string[]>>;
+    };
+    expect(tableSection, "tabella comparativa deve essere presente").toBeDefined();
+
+    const spo2Row = tableSection.rows.find((r) => r.it?.[0]?.includes("SpO2"));
+    expect(spo2Row, "riga SpO2 deve essere presente nella tabella").toBeDefined();
+
+    const NEGATIVE_VALUES: Record<string, string> = {
+      it: "No",
+      en: "No",
+      es: "No",
+      de: "Nein",
+      pt: "Não",
+      fr: "Non",
+      pl: "Nie",
+      tr: "Hayır",
+      nl: "Nee",
+      ja: "なし",
+      ko: "아니요",
+    };
+
+    const POSITIVE_VALUES: Record<string, string> = {
+      it: "Sì",
+      en: "Yes",
+      es: "Sí",
+      de: "Ja",
+      pt: "Sim",
+      fr: "Oui",
+      pl: "Tak",
+      tr: "Evet",
+      nl: "Ja",
+      ja: "あり",
+      ko: "예",
+    };
+
+    for (const lc of expectedLocales) {
+      const rowCells = spo2Row![lc];
+      expect(rowCells, `[${lc}] riga SpO2 deve avere 4 celle`).toHaveLength(4);
+      expect(rowCells[0], `[${lc}] cella 0 deve menzionare SpO2`).toContain("SpO2");
+      expect(rowCells[1], `[${lc}] cella 1 (Garmin) deve essere affermativa`).toBe(POSITIVE_VALUES[lc]);
+
+      // Celle 2 (Health Connect) e 3 (FitMesh) DEVONO essere categoricamente negative
+      expect(rowCells[2], `[${lc}] cella 2 (Health Connect) deve essere negativa`).toBe(NEGATIVE_VALUES[lc]);
+      expect(rowCells[2], `[${lc}] cella 2 (Health Connect) non puo essere affermativa`).not.toBe(POSITIVE_VALUES[lc]);
+
+      expect(rowCells[3], `[${lc}] cella 3 (FitMesh) deve essere negativa`).toBe(NEGATIVE_VALUES[lc]);
+      expect(rowCells[3], `[${lc}] cella 3 (FitMesh) non puo essere affermativa`).not.toBe(POSITIVE_VALUES[lc]);
+    }
+
+    // 8. Verifica che la descrizione dell'integrazione escluda formule assolute sull'intera app
+    const integrationParagraph = rawPost!.body.find(
+      (b) => b.type === "paragraph" && b.text?.it?.includes("Per i dispositivi Garmin, l'app FitMesh non include"),
+    ) as { type: "paragraph"; text: Record<string, string> } | undefined;
+    expect(integrationParagraph, "paragrafo integrazione Garmin deve esistere").toBeDefined();
+
+    for (const lc of expectedLocales) {
+      const text = integrationParagraph!.text[lc];
+      expect(text, `[${lc}] deve menzionare Garmin Connect`).toContain("Garmin Connect");
+      expect(text, `[${lc}] deve menzionare Health Connect`).toContain("Health Connect");
+      // Non deve sostenere che FitMesh acquisisce esclusivamente da framework di sistema in generale
+      expect(text, `[${lc}] non deve contenere formule generiche sull'intera app`).not.toMatch(
+        /l'acquisizione dei dati si appoggia esclusivamente ai framework di sistema/i,
+      );
+    }
+  });
+});
