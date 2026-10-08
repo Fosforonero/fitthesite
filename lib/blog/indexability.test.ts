@@ -575,22 +575,31 @@ describe("MICRO-GATE COVER-LOTTO3-D: Garmin body battery health connect & endura
     const filePath = path.join(process.cwd(), "public", "blog", "covers", file);
     expect(fs.existsSync(filePath), `file ${file} deve esistere`).toBe(true);
 
-    // 4. Asset storico preservato: verifica HASH DEL BLOB CONTRO IL MAIN di git
+    // 4. Asset storico preservato: baseline immutabile congelata all'origine
+    // Non dipende dal branch locale "main" né da ref mobili, verificabile in qualunque checkout CI
+    const FROZEN_GEAR_BLOB_HASH = "34641cff7b06a88f89a5c3c7abb53abc680361c6";
+    const FROZEN_GEAR_SHA256 = "54bbcf1e2b936a8663ee3160a932e108c0eeea588264513f9e7003aeb3593d2e";
+    const FROZEN_GEAR_SIZE_BYTES = 81718;
+
     const historicPath = path.join(process.cwd(), "public", "blog", "covers", historicFile);
     expect(fs.existsSync(historicPath), `asset storico ${historicFile} deve esistere`).toBe(true);
 
     const localBytes = fs.readFileSync(historicPath);
-    const localSha256 = crypto.createHash("sha256").update(localBytes).digest("hex");
-    const mainBlobHash = execSync(`git rev-parse main:public/blog/covers/${historicFile}`, { encoding: "utf-8" }).trim();
-    const localBlobHash = execSync(`git hash-object public/blog/covers/${historicFile}`, { encoding: "utf-8" }).trim();
-    expect(localBlobHash, "hash git blob di gear.webp deve coincidere con main").toBe(mainBlobHash);
+    expect(localBytes.length, "dimensione esatta di gear.webp in byte").toBe(FROZEN_GEAR_SIZE_BYTES);
 
-    const mainSha256 = execSync(`git cat-file blob ${mainBlobHash} | shasum -a 256`, { encoding: "utf-8" }).split(/\s+/)[0];
-    expect(localSha256, "sha256 di gear.webp deve coincidere byte-per-byte con main").toBe(mainSha256);
+    const localSha256 = crypto.createHash("sha256").update(localBytes).digest("hex");
+    expect(localSha256, "sha256 di gear.webp deve coincidere byte-per-byte con la baseline immutabile").toBe(FROZEN_GEAR_SHA256);
+
+    const localBlobHash = execSync(`git hash-object public/blog/covers/${historicFile}`, { encoding: "utf-8" }).trim();
+    expect(localBlobHash, "hash git blob di gear.webp deve coincidere con la baseline immutabile").toBe(FROZEN_GEAR_BLOB_HASH);
 
     const rawPost = BLOG_POSTS.find((p) => p.slug === slug);
     expect(rawPost, `post ${slug} deve esistere`).toBeDefined();
     expect(coverSrc(rawPost!)).toBe(`/blog/covers/${file}`);
+
+    // Fonti ufficiali: link diretto alla FAQ Garmin Connect
+    const GARMIN_FAQ_URL = "https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5";
+    expect(rawPost!.sources, "post deve includere sources").toContain(GARMIN_FAQ_URL);
 
     // 5. Tutte le 11 lingue indicizzabili hanno coverAlt valido e non uguale al titolo
     const expectedLocales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const;
@@ -604,7 +613,7 @@ describe("MICRO-GATE COVER-LOTTO3-D: Garmin body battery health connect & endura
       expect(renderedAlt).not.toBe(tl(rawPost!.hero.title, lc));
     }
 
-    // 6. Controllo del requisito Android 14+ nelle strutture localizzate di TUTTE le 11 lingue
+    // 6. Controllo del requisito Android 14+ e del link ufficiale nelle strutture localizzate di TUTTE le 11 lingue
     const reqParagraph = rawPost!.body.find(
       (b) => b.type === "paragraph" && b.text?.it?.includes("Android 14"),
     ) as { type: "paragraph"; text: Record<string, string> } | undefined;
@@ -624,6 +633,7 @@ describe("MICRO-GATE COVER-LOTTO3-D: Garmin body battery health connect & endura
       // Nel paragrafo requisiti
       const reqText = reqParagraph!.text[lc] || "";
       expect(reqText, `[${lc}] paragrafo requisiti deve specificare Android 14`).toMatch(/Android.*14/i);
+      expect(reqText, `[${lc}] paragrafo requisiti deve includere il link alla FAQ ufficiale Garmin`).toContain(GARMIN_FAQ_URL);
 
       // Nel callout di sintesi
       const calloutText = calloutSection!.body[lc] || "";
