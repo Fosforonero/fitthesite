@@ -158,6 +158,14 @@ export type BlogSection = (
       type: "fitmesh-editorial-cta";
       contentCluster: ContentCluster;
       placement: "after_solution" | "article_end";
+      /**
+       * Store mostrati dalla riga di badge. Assente = comportamento storico
+       * (entrambi, Google Play e App Store). `["android"]` = solo Google
+       * Play, `["ios"]` = solo App Store: serve agli articoli la cui
+       * funzione e' disponibile su una sola piattaforma (es. Health Connect
+       * esiste solo su Android).
+       */
+      platforms?: readonly ("android" | "ios")[];
       title: Localized;
       body: Localized;
       benefits: LocalizedList;
