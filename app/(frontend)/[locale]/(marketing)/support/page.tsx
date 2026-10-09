@@ -190,6 +190,21 @@ export default async function SupportPage({
             {deleteAccountLinkText}
           </Link>
         </p>
+        {/* Nelle altre 13 lingue preserviamo la posizione originale di Reddit nell'header per non introdurre testo inglese nel footer */}
+        {REDDIT_COMMUNITY_LIVE && lc !== "it" && lc !== "en" && (
+          <p className="mt-2 text-sm">
+            <a
+              href={REDDIT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cta-placement={COMMUNITY_PLACEMENTS.support}
+              className="inline-flex items-center gap-1.5 py-3 -my-3 text-brand-aqua hover:text-brand-blue underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
+            >
+              <RedditIcon className="h-4 w-4 flex-shrink-0" />
+              r/FitMesh — {t.footer.links.community}
+            </a>
+          </p>
+        )}
       </header>
 
       {/* Ingresso evidente guida Android Health Connect (disponibile in it ed en) */}
@@ -257,8 +272,8 @@ export default async function SupportPage({
         </div>
       </section>
 
-      {/* Zona secondaria Community: preserva REDDIT_URL, REDDIT_COMMUNITY_LIVE e tracking */}
-      {REDDIT_COMMUNITY_LIVE && (
+      {/* Zona secondaria Community: attiva esclusivamente per IT ed EN */}
+      {REDDIT_COMMUNITY_LIVE && (lc === "it" || lc === "en") && (
         <section className="mt-12 pt-8 border-t border-divider text-left">
           <p className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-semibold">
             Community
@@ -274,7 +289,7 @@ export default async function SupportPage({
               target="_blank"
               rel="noopener noreferrer"
               data-cta-placement={COMMUNITY_PLACEMENTS.support}
-              className="inline-flex items-center gap-2 py-2 px-3 rounded-lg border border-divider bg-bg-card hover:bg-bg-elevated text-brand-aqua hover:text-brand-blue text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua"
+              className="inline-flex items-center gap-2 py-3 px-3 rounded-lg border border-divider bg-bg-card hover:bg-bg-elevated text-brand-aqua hover:text-brand-blue text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua min-h-[44px]"
             >
               <RedditIcon className="h-4 w-4 flex-shrink-0" />
               <span>r/FitMesh - {t.footer.links.community}</span>
