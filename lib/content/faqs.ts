@@ -5,7 +5,7 @@ export type Faq = { q: string; a: string };
 const FAQ_IT: Faq[] = [
   {
     q: "L'app non mostra dati. Cosa devo fare?",
-    a: "Verifica nell'ordine: (1) Health Connect è installato dal Play Store? (2) Hai concesso il permesso «Lettura dati in background» dentro Health Connect? (3) Premi «Sincronizza Ora» nelle impostazioni. Se persiste, scrivici allegando uno screenshot del pannello «Stato».",
+    a: "Verifica nell'ordine: (1) Su Android 14 o successivo Connessione Salute si trova nelle impostazioni di sistema (Sicurezza e privacy); su Android 9-13 serve l'app dal Play Store. (2) Assicurati che l'app del tuo dispositivo scriva i dati e che FitMesh Sync abbia le autorizzazioni di lettura in Connessione Salute. (3) Premi «Sincronizza ora» nella schermata principale. (4) Tocca «Diagnostica» per verificare il Centro Sincronizzazione. Se persiste, scrivici a support@fitmesh.fit.",
   },
   { q: "Quanto consuma di batteria?", a: "Consumo ridotto. Su Android, se disattivi l'ottimizzazione batteria, la sincronizzazione in background avviene indicativamente ogni 15-30 minuti (best-effort: il produttore del telefono può comunque ritardarla o saltarla). Su iOS non c'è sync in background oggi: solo quando apri l'app. Se vedi consumi anomali, probabilmente Health Connect stesso sta indicizzando, non FitMesh Sync." },
   { q: "Funziona offline?", a: "L'app raccoglie e mette in coda i dati anche senza rete. Appena torni online, sincronizza automaticamente tutto l'arretrato." },
@@ -18,7 +18,7 @@ const FAQ_IT: Faq[] = [
 const FAQ_EN: Faq[] = [
   {
     q: "The app shows no data. What do I do?",
-    a: "Check in order: (1) Is Health Connect installed from the Play Store? (2) Did you grant «Read data in background» permission inside Health Connect? (3) Tap «Sync now» in settings. If the issue persists, email us with a screenshot of the «Status» panel.",
+    a: "Check in order: (1) On Android 14 or newer, Health Connect is built into system settings (Security & privacy); on Android 9-13, install the app from Google Play. (2) Ensure your wearable app writes data and FitMesh Sync has read permissions in Health Connect. (3) Tap «Sync now» on the home screen. (4) Tap «Diagnostica» to inspect the Sync Center. If it persists, email us at support@fitmesh.fit.",
   },
   { q: "How much battery does it use?", a: "Battery use is minimal. On Android, if you disable battery optimization, background sync happens roughly every 15-30 minutes (best-effort: your phone manufacturer can still delay or skip it). On iOS there's no background sync today: only when you open the app. If you see abnormal drain, Health Connect itself is likely indexing, not FitMesh Sync." },
   { q: "Does it work offline?", a: "The app collects and queues data even without network. As soon as you're back online, it syncs all the backlog automatically." },

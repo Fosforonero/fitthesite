@@ -190,20 +190,9 @@ export default async function SupportPage({
             {deleteAccountLinkText}
           </Link>
         </p>
-        {/* r/FitMesh — stessa etichetta l10n del Footer (t.footer.links.community,
-            dizionario condiviso), stesso gate REDDIT_COMMUNITY_LIVE e stesso
-            rel. Vedi components/Footer.tsx per la motivazione completa. */}
-        {REDDIT_COMMUNITY_LIVE && (
+        {/* Nelle altre 13 lingue preserviamo la posizione originale di Reddit nell'header per non introdurre testo inglese nel footer */}
+        {REDDIT_COMMUNITY_LIVE && lc !== "it" && lc !== "en" && (
           <p className="mt-2 text-sm">
-            {/* P1.9 FASE 7: icona ufficiale come asset locale, sempre
-                accanto al testo "r/FitMesh — ..." già presente — mai
-                icon-only. Stesso href/target/rel/data-cta-placement.
-                ADDENDUM P1.9 (2026-09-01): stessa area cliccabile a 44px
-                del Footer (py-3 -my-3, vedi components/Footer.tsx per la
-                motivazione completa) — <a> resta inline-flex, quindi il suo
-                margine negativo non collassa con il margin-top del <p>
-                genitore (il collasso dei margini riguarda box di livello
-                block, non contenitori inline-level). */}
             <a
               href={REDDIT_URL}
               target="_blank"
@@ -217,6 +206,33 @@ export default async function SupportPage({
           </p>
         )}
       </header>
+
+      {/* Ingresso evidente guida Android Health Connect (disponibile in it ed en) */}
+      {(lc === "it" || lc === "en") && (
+        <section className="mb-8 rounded-[16px] border border-brand-aqua/40 bg-gradient-to-r from-brand-aqua/10 via-bg-card to-bg-card p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+          <div className="space-y-1">
+            <p className="text-[10px] uppercase tracking-[0.2em] text-brand-aqua font-semibold">
+              {lc === "it" ? "Guida in primo piano" : "Featured Guide"}
+            </p>
+            <h2 className="font-display text-lg sm:text-xl font-semibold text-text-primary">
+              {lc === "it"
+                ? "Configurazione Android: Connessione Salute e prima sincronizzazione"
+                : "Android Setup: Health Connect and first sync"}
+            </h2>
+            <p className="text-sm text-text-secondary leading-relaxed">
+              {lc === "it"
+                ? "Istruzioni passo-passo con schermate reali per verificare l'app del tuo orologio, concedere i permessi di lettura ed eseguire la prima sincronizzazione."
+                : "Step-by-step instructions with verified screenshots to check your wearable app, grant read permissions, and complete your first sync."}
+            </p>
+          </div>
+          <Link
+            href={`/${lc}/support/health-connect`}
+            className="flex-shrink-0 inline-flex items-center justify-center px-4 py-2.5 rounded-pill btn-cta text-xs sm:text-sm whitespace-nowrap"
+          >
+            {lc === "it" ? "Apri la guida passo-passo" : "Open step-by-step guide"}
+          </Link>
+        </section>
+      )}
 
       <section className="space-y-3">
         {faqs.map((faq) => (
@@ -255,6 +271,32 @@ export default async function SupportPage({
           </div>
         </div>
       </section>
+
+      {/* Zona secondaria Community: attiva esclusivamente per IT ed EN */}
+      {REDDIT_COMMUNITY_LIVE && (lc === "it" || lc === "en") && (
+        <section className="mt-12 pt-8 border-t border-divider text-left">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-text-muted font-semibold">
+            Community
+          </p>
+          <p className="mt-2 text-sm text-text-secondary leading-relaxed">
+            {lc === "it"
+              ? "Vuoi discutere di configurazioni, modelli di orologi e suggerimenti con altri utenti? Unisciti alla community su Reddit:"
+              : "Looking to discuss device setups, wearable models, and feedback with fellow users? Join our Reddit community:"}
+          </p>
+          <div className="mt-3">
+            <a
+              href={REDDIT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cta-placement={COMMUNITY_PLACEMENTS.support}
+              className="inline-flex items-center gap-2 py-3 px-3 rounded-lg border border-divider bg-bg-card hover:bg-bg-elevated text-brand-aqua hover:text-brand-blue text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua min-h-[44px]"
+            >
+              <RedditIcon className="h-4 w-4 flex-shrink-0" />
+              <span>r/FitMesh - {t.footer.links.community}</span>
+            </a>
+          </div>
+        </section>
+      )}
     </article>
   );
 }
