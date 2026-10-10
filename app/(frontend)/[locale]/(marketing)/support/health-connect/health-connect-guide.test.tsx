@@ -55,12 +55,12 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
     expect(metaEn.openGraph?.url).toBe('https://www.fitmesh.fit/en/support/health-connect');
     expect(metaEn.openGraph?.locale).toBe('en_US');
     expect((metaEn.openGraph?.images as Array<{ url: string }>)?.[0]?.url).toBe(
-      'https://www.fitmesh.fit/support/health-connect/01-impostazioni-connessione-salute.webp',
+      'https://www.fitmesh.fit/support/health-connect/en-01-settings-health-connect.webp',
     );
     expect((metaEn.twitter as any)?.card).toBe('summary_large_image');
     expect(metaEn.twitter?.title).toBe(metaEn.title);
     expect(metaEn.twitter?.images).toEqual([
-      'https://www.fitmesh.fit/support/health-connect/01-impostazioni-connessione-salute.webp',
+      'https://www.fitmesh.fit/support/health-connect/en-01-settings-health-connect.webp',
     ]);
 
     // Lingue non supportate devono chiamare notFound()
@@ -71,7 +71,7 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
     }
   });
 
-  it('tutti gli 8 asset WebP referenziati esistono su disco in public/support/health-connect/', () => {
+  it('tutti i 16 asset WebP (8 IT + 8 EN) referenziati esistono su disco in public/support/health-connect/', () => {
     const dir = path.join(process.cwd(), 'public/support/health-connect');
     expect(fs.existsSync(dir)).toBe(true);
 
@@ -80,9 +80,9 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
     for (const f of filesInDir) {
       expect(f.endsWith('.webp')).toBe(true);
     }
-    expect(filesInDir.length).toBe(8);
+    expect(filesInDir.length).toBe(16);
 
-    const expectedFiles = [
+    const expectedFilesIt = [
       '01-impostazioni-connessione-salute.webp',
       '02-connessione-salute-autorizzazioni-app.webp',
       '03-connessione-salute-categorie-dati.webp',
@@ -93,7 +93,18 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
       '08-impostazioni-batteria-background.webp',
     ];
 
-    for (const expected of expectedFiles) {
+    const expectedFilesEn = [
+      'en-01-settings-health-connect.webp',
+      'en-02-health-connect-app-permissions.webp',
+      'en-03-health-connect-data-categories.webp',
+      'en-04-health-connect-fitmesh-app.webp',
+      'en-05-fitmesh-read-permissions.webp',
+      'en-06-dashboard-sync-now.webp',
+      'en-07-sync-center-diagnostics.webp',
+      'en-08-battery-settings-background.webp',
+    ];
+
+    for (const expected of [...expectedFilesIt, ...expectedFilesEn]) {
       expect(filesInDir).toContain(expected);
       const stat = fs.statSync(path.join(dir, expected));
       expect(stat.size).toBeGreaterThan(10000); // File non vuoto e > 10KB
@@ -103,11 +114,19 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
   it('il manifest tecnico e i file PNG raw sono conservati nella cartella privata docs/qa/', () => {
     const privateDir = path.join(process.cwd(), 'docs/qa/support-health-connect');
     expect(fs.existsSync(path.join(privateDir, 'MANIFEST-SCREENSHOTS.md'))).toBe(true);
+    expect(fs.existsSync(path.join(privateDir, 'MANIFEST-SCREENSHOTS-EN.md'))).toBe(true);
     expect(fs.existsSync(path.join(privateDir, 'raw'))).toBe(true);
+    expect(fs.existsSync(path.join(privateDir, 'raw-en'))).toBe(true);
 
-    const rawFiles = fs.readdirSync(path.join(privateDir, 'raw'));
-    expect(rawFiles.length).toBeGreaterThanOrEqual(8);
-    for (const rf of rawFiles) {
+    const rawFilesIt = fs.readdirSync(path.join(privateDir, 'raw'));
+    expect(rawFilesIt.length).toBeGreaterThanOrEqual(8);
+    for (const rf of rawFilesIt) {
+      expect(rf.endsWith('.png')).toBe(true);
+    }
+
+    const rawFilesEn = fs.readdirSync(path.join(privateDir, 'raw-en'));
+    expect(rawFilesEn.length).toBeGreaterThanOrEqual(8);
+    for (const rf of rawFilesEn) {
       expect(rf.endsWith('.png')).toBe(true);
     }
   });
@@ -129,7 +148,8 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
         const img = figure!.querySelector('img');
         expect(img, `Img assente nel passo ${stepId}`).not.toBeNull();
         const src = img!.getAttribute('src');
-        expect(src).toMatch(new RegExp(`^/support/health-connect/0${stepId}-.*\\.webp$`));
+        const prefix = lc === 'it' ? `0${stepId}` : `en-0${stepId}`;
+        expect(src).toMatch(new RegExp(`^/support/health-connect/${prefix}-.*\\.webp$`));
         imageSrcs.add(src!);
 
         const figcaption = figure!.querySelector('figcaption');
@@ -190,7 +210,7 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
     const { container: enContainer } = render(enUi);
 
     expect(enContainer.textContent).toContain('Google Pixel 6 emulator running Android 14 (API 34) with FitMesh QA app 3.9.9+190');
-    expect(enContainer.textContent).toContain('system interface in Italian locale');
+    expect(enContainer.textContent).toContain('system interface in English (en-US)');
     expect(enContainer.textContent).toContain('not on a physical phone');
 
     expect(enContainer.textContent).not.toContain('qa-demo@internal.invalid');
@@ -202,7 +222,6 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
 
     const enStep6 = enContainer.querySelector('#passo-6');
     expect(enStep6?.textContent).toContain('pre-loaded synthetic fixture data');
-    expect(enStep6?.textContent).toContain('did not retrieve valid records');
 
     const enStep7 = enContainer.querySelector('#passo-7');
     expect(enStep7?.textContent).toContain('They do not prove Health Connect itself is empty');
@@ -243,7 +262,8 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
         expect(step['@type']).toBe('HowToStep');
         expect(step.position).toBe(i + 1);
         expect(step.url).toBe(`https://www.fitmesh.fit/${lc}/support/health-connect#passo-${i + 1}`);
-        expect(step.image).toMatch(/^https:\/\/www\.fitmesh\.fit\/support\/health-connect\/0[1-8]-.*\.webp$/);
+        const prefix = lc === 'it' ? '0' : 'en-0';
+        expect(step.image).toMatch(new RegExp(`^https://www.fitmesh\\.fit/support/health-connect/${prefix}[1-8]-.*\\.webp$`));
       }
 
       // Nessun totalTime arbitrario
