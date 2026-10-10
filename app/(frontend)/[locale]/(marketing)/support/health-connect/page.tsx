@@ -34,7 +34,10 @@ export async function generateMetadata(
     : "Step-by-step instructions with verified Android screenshots: find Health Connect, check your companion app, configure FitMesh Sync permissions, and start your first sync.";
 
   const canonicalUrl = `${SITE_URL}/${lc}/support/health-connect`;
-  const ogImageUrl = `${SITE_URL}/support/health-connect/01-impostazioni-connessione-salute.webp`;
+  const ogImageFile = lc === "it"
+    ? "01-impostazioni-connessione-salute.webp"
+    : "en-01-settings-health-connect.webp";
+  const ogImageUrl = `${SITE_URL}/support/health-connect/${ogImageFile}`;
 
   return {
     title,
@@ -172,83 +175,83 @@ const STEPS_EN: StepItem[] = [
   {
     id: 1,
     title: "1. Find and open Health Connect",
-    action: "Open Android Settings, tap Security & privacy, scroll down to Privacy, and tap Health Connect («Connessione Salute»).",
-    expected: "The Health Connect main screen opens showing «Manage app access to health data» («Gestisci l'accesso delle app ai dati sulla salute»).",
+    action: "Open Android Settings, tap Security & privacy, scroll down to Privacy, and tap Health Connect.",
+    expected: "The Health Connect main screen opens showing «Manage app access to health data».",
     troubleshoot: "On Android 14 or newer, Health Connect is built into system settings. On Android 9-13, install the standalone Health Connect app from Google Play Store. On Samsung Galaxy smartphones, this menu may also appear under Settings > Security & privacy > Health Connect or inside Samsung Health settings.",
-    imageSrc: "/support/health-connect/01-impostazioni-connessione-salute.webp",
+    imageSrc: "/support/health-connect/en-01-settings-health-connect.webp",
     imageAlt: "Android 14 Settings screen showing Health Connect under Privacy section",
-    caption: "System path: Settings > Security & privacy > Privacy > Health Connect. (Reference device running Italian system locale).",
+    caption: "System path: Settings > Security & privacy > Privacy > Health Connect.",
   },
   {
     id: 2,
     title: "2. Open app permissions",
-    action: "On the Health Connect home screen, tap App permissions («Autorizzazioni app») to inspect which applications request health data access.",
+    action: "On the Health Connect home screen, tap App permissions to inspect which applications request health data access.",
     expected: "You see the list of applications, split into allowed and not allowed categories.",
     troubleshoot: "If no apps are listed, verify that both your wearable companion app and FitMesh Sync are installed on this phone.",
-    imageSrc: "/support/health-connect/02-connessione-salute-autorizzazioni-app.webp",
+    imageSrc: "/support/health-connect/en-02-health-connect-app-permissions.webp",
     imageAlt: "Health Connect home screen displaying App permissions section",
-    caption: "Health Connect home screen displaying connected app count. (Italian interface: «Autorizzazioni app»).",
+    caption: "Health Connect home screen displaying connected app count.",
   },
   {
     id: 3,
     title: "3. Verify your wearable companion app writes health data",
-    action: "Open your smartwatch or tracker companion app (e.g., Samsung Health, Garmin Connect, Zepp, Withings, Oura) and ensure sync to Health Connect is turned on in its settings. In Health Connect, you can inspect categories under Data & access > Browse data («Dati e accesso > Sfoglia i dati»).",
+    action: "Open your smartwatch or tracker companion app (e.g., Samsung Health, Garmin Connect, Zepp, Withings, Oura) and ensure sync to Health Connect is turned on in its settings. In Health Connect, you can inspect categories under Data & access > Browse data.",
     expected: "Your companion app writes supported metrics to the shared repository. Note: available metrics depend on the source app and hardware model; not all vendors support or write the full set of metrics (steps, heart rate, sleep, calories, distance).",
-    troubleshoot: "If a category shows «Nessun dato» (No data), it simply indicates that no records are currently available for that category in Health Connect. Open your wearable companion app and trigger a sync from the device to the phone to verify data is being shared.",
-    imageSrc: "/support/health-connect/03-connessione-salute-categorie-dati.webp",
+    troubleshoot: "If a category shows «No data», it simply indicates that no records are currently available for that category in Health Connect. Open your wearable companion app and trigger a sync from the device to the phone to verify data is being shared.",
+    imageSrc: "/support/health-connect/en-03-health-connect-data-categories.webp",
     imageAlt: "Health Connect Browse data screen showing categories with No data state",
-    caption: "Health Connect Browse data screen showing «Nessun dato» (No data) before a companion app writes records. Companion write configuration varies by vendor.",
+    caption: "Health Connect Browse data screen showing «No data» before a companion app writes records. Companion write configuration varies by vendor.",
     warningNotice: "The screenshots show demo data; importing data from a real device is not illustrated in this guide.",
   },
   {
     id: 4,
     title: "4. Select FitMesh Sync from the app list",
-    action: "Return to the App permissions screen and select FitMesh Sync, initially located under the Not allowed section («Accesso non consentito»).",
+    action: "Return to the App permissions screen and select FitMesh Sync, initially located under the Not allowed access section.",
     expected: "The dedicated permission configuration screen for FitMesh Sync opens.",
     troubleshoot: "If FitMesh Sync is not visible in the list, open the FitMesh Sync app, sign in to your account, and complete initial launch setup.",
-    imageSrc: "/support/health-connect/04-elenco-app-fitmesh.webp",
-    imageAlt: "Health Connect app permissions list showing FitMesh Sync under Not allowed section",
-    caption: "App permissions list showing FitMesh Sync in the initial unauthorized state. (Italian interface: «Accesso non consentito»).",
+    imageSrc: "/support/health-connect/en-04-health-connect-fitmesh-app.webp",
+    imageAlt: "Health Connect app permissions list showing FitMesh Sync under Not allowed access section",
+    caption: "App permissions list showing FitMesh Sync in the initial unauthorized state under Not allowed access.",
   },
   {
     id: 5,
     title: "5. Configure read permissions for FitMesh Sync",
-    action: "Review and toggle on the read permissions for the metrics you wish to track (e.g., Steps, Resting heart rate, Sleep, Total calories burned, Distance, Exercise), or turn on Allow all («Consenti tutte»).",
+    action: "Review and toggle on the read permissions for the metrics you wish to track (e.g., Steps, Resting heart rate, Sleep, Total calories burned, Distance, Exercise), or turn on Allow all.",
     expected: "The selected metric toggles turn on. For the smartwatch reading path described in this guide, FitMesh Sync operates by reading records stored in Health Connect. (Optional write permissions declared in the manifest are only used for opt-in write-back features).",
     troubleshoot: "If you leave a specific metric disabled (such as sleep or heart rate), FitMesh Sync cannot retrieve new readings for that category from Health Connect. This does not mean the corresponding card will necessarily be empty: previously synced historical records, demo data, or inputs from other sources may still be shown.",
-    imageSrc: "/support/health-connect/05-permessi-lettura-fitmesh.webp",
+    imageSrc: "/support/health-connect/en-05-fitmesh-read-permissions.webp",
     imageAlt: "FitMesh Sync permissions screen in Health Connect with Allow all and read permissions toggled on",
-    caption: "Read permissions screen with active toggles. (Italian interface: «Consenti tutte» / «Autorizzazioni di lettura»).",
+    caption: "Read permissions screen with active toggles under Allowed to read.",
   },
   {
     id: 6,
     title: "6. Open FitMesh Sync and start a sync attempt",
-    action: "Open the FitMesh Sync app. On the home dashboard, locate the Synchronization card and tap the Sync now («Sincronizza ora») button to request data from Health Connect.",
+    action: "Open the FitMesh Sync app. On the home dashboard, locate the Synchronization card and tap the Sync now button to request data from Health Connect.",
     expected: "The app queries the local Health Connect APIs to import available metrics. The button temporarily disables during the operation.",
-    troubleshoot: "If the warning «No wearable detected» («Attenzione: Nessun wearable rilevato») appears, the sync cycle did not retrieve valid records. This can stem from multiple causes: your companion app has not stored records in Health Connect yet, relevant read permissions are disabled, or a transient API read error occurred.",
-    imageSrc: "/support/health-connect/06-dashboard-sincronizza-ora.webp",
-    imageAlt: "FitMesh Sync dashboard with No wearable detected warning banner",
-    caption: "Displayed numbers (e.g., 7,450 steps) are pre-loaded synthetic fixture data, not an import from Health Connect. The «Nessun wearable rilevato» notice indicates the sync cycle did not retrieve valid records, whether due to absent source data, missing permissions, or a transient read error.",
+    troubleshoot: "If no wearable data is found in Health Connect, the Synchronization card displays setup requirements. This can stem from multiple causes: your companion app has not stored records in Health Connect yet, relevant read permissions are disabled, or a transient API read error occurred.",
+    imageSrc: "/support/health-connect/en-06-dashboard-sync-now.webp",
+    imageAlt: "FitMesh Sync dashboard with Synchronization card and Sync now button",
+    caption: "Displayed numbers (e.g., 7,450 steps) are pre-loaded synthetic fixture data, not an import from Health Connect. The Synchronization card prompts to complete setup and tap Sync now when no wearable records have been imported yet.",
   },
   {
     id: 7,
     title: "7. Inspect status in the Sync Center (Diagnostics)",
-    action: "In the Synchronization card, tap Diagnostics («Diagnostica») to open the detailed Sync Center screen («Centro Sincronizzazione»).",
+    action: "In the Synchronization card, tap Diagnostics to open the detailed Sync Center screen.",
     expected: "You see the Sync Center with metric-by-metric source information.",
-    troubleshoot: "The labels «Never synced» («Mai sincronizzato») and «No source» («Nessuna sorgente») describe the status known to FitMesh Sync for each metric, indicating the app has not yet completed a read from a valid source, rather than a successful sync outcome. They do not prove Health Connect itself is empty: verify separately that Health Connect contains records from your companion app and that read permissions granted to FitMesh Sync are active.",
-    imageSrc: "/support/health-connect/07-centro-sincronizzazione-diagnostica.webp",
+    troubleshoot: "The labels «Never synced» and «No source» describe the status known to FitMesh Sync for each metric, indicating the app has not yet completed a read from a valid source, rather than a successful sync outcome. They do not prove Health Connect itself is empty: verify separately that Health Connect contains records from your companion app and that read permissions granted to FitMesh Sync are active.",
+    imageSrc: "/support/health-connect/en-07-sync-center-diagnostics.webp",
     imageAlt: "Sync Center screen showing Never synced and No source labels for health metrics",
-    caption: "Sync Center: «Mai sincronizzato» (Never synced) and «Nessuna sorgente» (No source) reflect the app's current internal state (no valid read recorded by FitMesh), not a successful sync outcome. They do not prove Health Connect itself is empty: check source records and permissions separately.",
+    caption: "Sync Center: «Never synced» and «No source» reflect the app's current internal state (no valid read recorded by FitMesh), not a successful sync outcome. They do not prove Health Connect itself is empty: check source records and permissions separately.",
   },
   {
     id: 8,
     title: "8. (Optional) Battery management and background syncing",
-    action: "Under Android Settings > Apps > FitMesh Sync > App battery usage, you may select Unrestricted («Senza limitazioni») to reduce system battery saver constraints.",
-    expected: "The battery usage radio button switches to «Unrestricted» («Senza limitazioni»).",
-    troubleshoot: "This step is optional. Battery settings alone do not guarantee automatic background sync: background execution also depends on the Health Connect background read permission, the Health Connect platform version, and vendor Doze policies. A manual sync attempt with «Sincronizza ora» can always be initiated at any time even under the default «Optimized» profile.",
-    imageSrc: "/support/health-connect/08-impostazioni-batteria-background.webp",
+    action: "Under Android Settings > Apps > FitMesh Sync > App battery usage, you may select Unrestricted to reduce system battery saver constraints.",
+    expected: "The battery usage radio button switches to «Unrestricted».",
+    troubleshoot: "This step is optional. Battery settings alone do not guarantee automatic background sync: background execution also depends on the Health Connect background read permission, the Health Connect platform version, and vendor Doze policies. A manual sync attempt with «Sync now» can always be initiated at any time even under the default «Optimized» profile.",
+    imageSrc: "/support/health-connect/en-08-battery-settings-background.webp",
     imageAlt: "Android App battery usage settings screen with Unrestricted option selected",
-    caption: "App battery usage screen with the «Senza limitazioni» (Unrestricted) option selected.",
+    caption: "App battery usage screen with the «Unrestricted» option selected.",
   },
 ];
 
@@ -318,7 +321,7 @@ export default async function HealthConnectGuidePage({
           {pageSubtitle}
         </p>
 
-        {/* Nota sull'ambiente di test e sulle schermate di riferimento (emulatore Pixel 6, Android 14, QA 3.9.9+190, interfaccia in italiano) */}
+        {/* Nota sull'ambiente di test e sulle schermate di riferimento (emulatore Pixel 6, Android 14, QA 3.9.9+190, interfaccia IT per IT e EN per EN) */}
         {isIt ? (
           <div className="mt-4 rounded-lg border border-brand-aqua/30 bg-brand-aqua/5 p-3 sm:p-4 text-xs text-text-secondary leading-relaxed">
             <strong className="text-text-primary font-medium block mb-1">
@@ -331,7 +334,7 @@ export default async function HealthConnectGuidePage({
             <strong className="text-text-primary font-medium block mb-1">
               Note on test environment and reference screenshots:
             </strong>
-            The screenshots in this guide were captured on a Google Pixel 6 emulator running Android 14 (API 34) with FitMesh QA app 3.9.9+190 and system interface in Italian locale, not on a physical phone or with live third-party wearable accounts attached. Settings and paths accurately reflect Android 14. For clarity, actions and descriptions below indicate both the English term and the corresponding Italian interface label visible in the images (such as «Autorizzazioni app» for App permissions and «Sincronizza ora» for Sync now).
+            The screenshots in this guide were captured on a Google Pixel 6 emulator running Android 14 (API 34) with FitMesh QA app 3.9.9+190 and system interface in English (en-US), not on a physical phone or with live third-party wearable accounts attached. Settings, labels, and navigation paths accurately reflect standard Android 14.
           </div>
         )}
 
