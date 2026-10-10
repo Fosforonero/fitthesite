@@ -126,17 +126,20 @@ export default async function IntegrationsHub({
   const fitnessDataSyncHref = FITNESS_DATA_SYNC_COMPLETE_LOCALES.includes(lc)
     ? `/${lc}/fitness-data-sync`
     : "/en/fitness-data-sync";
+  // Filter out providers hidden from promotional visibility
+  const visibleProviders = PROVIDERS.filter((p) => p.promotionalVisibility !== false);
+
   // Group providers by category, in canonical order
   const grouped = CATEGORY_ORDER.map((category) => ({
     category,
     label: categoryLabel(category, lc),
-    items: PROVIDERS.filter((p) => p.category === category),
+    items: visibleProviders.filter((p) => p.category === category),
   })).filter((g) => g.items.length > 0);
 
-  const liveCount = PROVIDERS.filter(
+  const liveCount = visibleProviders.filter(
     (p) => p.status === "live" || p.status === "live-basic",
   ).length;
-  const roadmapCount = PROVIDERS.filter((p) =>
+  const roadmapCount = visibleProviders.filter((p) =>
     p.status.startsWith("roadmap"),
   ).length;
 
@@ -163,7 +166,7 @@ export default async function IntegrationsHub({
     // result. WebPage rappresenta esattamente cio' che ogni entry e'
     // davvero: un link a una pagina reale del sito, nome + url, senza
     // inventare un tipo "applicazione" incompleto per farlo.
-    hasPart: PROVIDERS.map((p) => {
+    hasPart: visibleProviders.map((p) => {
       const href = providerLinkHref(p, lc);
       if (!href) return null;
       return {

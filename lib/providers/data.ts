@@ -81,6 +81,12 @@ export interface Provider {
   category: ProviderCategory;
   status: ProviderStatus;
   /**
+   * Visibilita promozionale (griglia home, /integrations, marquee, sitemap, link llms.txt).
+   * Default: true (o campo omesso). Impostato a false per provider esclusi
+   * promozionalmente (Fitbit, Polar, Oura, Withings, Huawei).
+   */
+  promotionalVisibility?: boolean;
+  /**
    * Piattaforme FitMesh su cui questo provider è effettivamente leggibile.
    * Default (campo omesso) = `["android"]`, per compatibilità con i provider
    * esistenti (tutti Health Connect / Android-only). Va impostato esplicitamente
@@ -3279,6 +3285,7 @@ export const PROVIDERS: Provider[] = [
     vendor: "Google",
     category: "wearable",
     status: "live-basic",
+    promotionalVisibility: false,
     brandColor: "#00B0B9",
     initial: "F",
     tagline: {
@@ -4454,6 +4461,7 @@ export const PROVIDERS: Provider[] = [
     vendor: "Polar",
     category: "wearable",
     status: "live-basic",
+    promotionalVisibility: false,
     brandColor: "#E60000",
     initial: "P",
     tagline: {
@@ -4757,30 +4765,30 @@ export const PROVIDERS: Provider[] = [
       ko: "Suunto 계정을 FitMesh Sync에 연결하세요.",
     },
     longDesc: {
-      it: "FitMesh integra il supporto diretto per i dispositivi Suunto tramite account Suunto: una volta collegato il profilo nell'app, FitMesh legge e visualizza le metriche giornaliere registrate (passi, frequenza cardiaca, calorie e sonno base). In alternativa, se l'app Suunto esporta dati verso Health Connect su Android o Apple Salute su iOS, FitMesh può leggere le metriche condivise dal sistema operativo, pur senza garantire la disponibilità completa di ogni campo da parte delle app esterne.",
-      en: "FitMesh directly supports Suunto devices via Suunto account: once connected in the app, FitMesh imports and displays daily recorded metrics (steps, heart rate, calories, and basic sleep). Alternatively, if the Suunto app exports data to Health Connect on Android or Apple Health on iOS, FitMesh can read metrics shared by the operating system, without guaranteeing universal field export across third-party apps.",
-      es: "FitMesh admite directamente dispositivos Suunto mediante cuenta Suunto: una vez conectada en la app, FitMesh importa y muestra las métricas diarias registradas (pasos, frecuencia cardíaca, calorías y sueño básico). Como alternativa, si la app Suunto exporta datos a Health Connect en Android o Apple Health en iOS, FitMesh puede leer las métricas compartidas por el sistema, sin garantizar que apps externas exporten siempre todos los campos.",
-      de: "FitMesh unterstützt Suunto-Geräte direkt über das Suunto-Konto: Nach der Verknüpfung in der App liest und visualisiert FitMesh die erfassten Tagesmetriken (Schritte, Herzfrequenz, Kalorien und Basisschlaf). Alternativ kann FitMesh vom Betriebssystem geteilte Werte lesen, falls die Suunto-App Daten an Health Connect unter Android oder Apple Health auf iOS exportiert, wobei die vollständige Datenübergabe von Drittanbieter-Apps nicht garantiert werden kann.",
-      pt: "O FitMesh suporta diretamente dispositivos Suunto via conta Suunto: após a conexão no app, o FitMesh lê e exibe as métricas diárias registradas (passos, frequência cardíaca, calorias e sono básico). Como alternativa, se o app da Suunto exportar dados para o Health Connect no Android ou Apple Health no iOS, o FitMesh pode ler as métricas compartilhadas pelo sistema operacional, sem garantir a exportação universal de todos os campos por apps externos.",
-      fr: "FitMesh prend en charge directement les appareils Suunto via le compte Suunto : une fois connecté dans l'application, FitMesh lit et affiche les métriques quotidiennes enregistrées (pas, fréquence cardiaque, calories et sommeil de base). Alternativement, si l'application Suunto exporte des données vers Health Connect sur Android ou Apple Santé sur iOS, FitMesh peut lire les métriques partagées par le système, sans garantir que chaque champ soit toujours exporté par les applications tierces.",
-      pl: "FitMesh obsługuje urządzenia Suunto bezpośrednio przez konto Suunto: po połączeniu w aplikacji FitMesh odczytuje i wyświetla zarejestrowane metryki dzienne (kroki, tętno, kalorie i podstawowy sen). Alternatywnie, jeśli aplikacja Suunto eksportuje dane do Health Connect na Androidzie lub Apple Zdrowie na iOS, FitMesh może odczytać metryki udostępnione przez system, bez gwarancji pełnego eksportu każdego pola przez aplikacje zewnętrzne.",
-      tr: "FitMesh, Suunto hesabınız üzerinden Suunto cihazlarını doğrudan destekler: uygulamada bağlantı kurulduktan sonra FitMesh kaydedilen günlük metrikleri (adımlar, kalp atış hızı, kaloriler ve temel uyku) okur ve görüntüler. Alternatif olarak, Suunto uygulaması Android'de Health Connect'e veya iOS'ta Apple Health'e veri aktarıyorsa FitMesh işletim sistemi tarafından paylaşılan metrikleri okuyabilir; ancak harici uygulamaların tüm alanları eksiksiz aktarması garanti edilmez.",
-      nl: "FitMesh ondersteunt Suunto-apparaten rechtstreeks via het Suunto-account: zodra gekoppeld in de app, leest en toont FitMesh de geregistreerde dagelijkse statistieken (stappen, hartslag, calorieën en basisslaap). Als alternatief kan FitMesh door het besturingssysteem gedeelde statistieken uitlezen wanneer de Suunto-app gegevens exporteert naar Health Connect op Android of Apple Gezondheid op iOS, hoewel volledige gegevensoverdracht door externe apps niet kan worden gegarandeerd.",
-      ja: "FitMeshはSuuntoアカウントによるSuuntoデバイスの直接連携に対応しています。アプリ内で接続すると、記録された日々の指標（歩数、心拍数、消費カロリー、基本睡眠）を読み取ってダッシュボードに表示します。また、SuuntoアプリがAndroidのHealth ConnectやiOSのAppleヘルスケアにデータを出力している場合、FitMeshはOS経由で共有された指標を読み取ることも可能ですが、外部アプリによる全項目の完全な出力を保証するものではありません。",
-      ko: "FitMesh는 Suunto 계정을 통한 Suunto 기기의 직접 연동을 지원합니다. 앱에서 연동하면 기록된 일일 지표(걸음 수, 심박수, 칼로리, 기본 수면)를 가져와 표시합니다. 또는 Suunto 앱이 Android의 Health Connect나 iOS의 Apple 건강으로 데이터를 내보내는 경우 FitMesh는 운영체제를 통해 공유된 지표를 읽을 수도 있지만, 외부 앱에서 모든 필드가 항상 전달된다고 보장할 수는 없습니다.",
+      it: "FitMesh consente di collegare il proprio profilo tramite login account Suunto: una volta effettuato l'accesso nell'app, FitMesh legge e visualizza gli allenamenti e i dati giornalieri (passi, frequenza cardiaca, calorie e sonno base). Non è inclusa alcuna traccia GPS o posizione geografica. I dati vengono richiesti dall'app su richiesta dell'utente: non è prevista sincronizzazione automatica in background per questa integrazione.",
+      en: "FitMesh allows you to connect your profile via Suunto account login: once connected in the app, FitMesh reads and displays workouts and daily metrics (steps, heart rate, calories, and basic sleep). No GPS track or location data is included. Data is fetched by the app on user request: there is no automatic background sync for this integration.",
+      es: "FitMesh permite conectar tu perfil mediante login de cuenta Suunto: una vez conectada en la app, FitMesh lee y muestra los entrenamientos y las métricas diarias (pasos, frecuencia cardíaca, calorías y sueño básico). No se incluye ningún seguimiento GPS ni ubicación. Los datos se solicitan desde la app a petición del usuario: no hay sincronización automática en segundo plano para esta integración.",
+      de: "FitMesh ermöglicht die Verknüpfung deines Profils per Suunto-Konto-Login: Nach der Anmeldung in der App liest und visualisiert FitMesh Workouts und Tagesmetriken (Schritte, Herzfrequenz, Kalorien und Basisschlaf). Es werden keine GPS-Routen oder Standortdaten erfasst. Die Daten werden von der App auf Nutzeranfrage abgerufen: Für diese Integration gibt es keine automatische Hintergrundsynchronisierung.",
+      pt: "O FitMesh permite conectar o seu perfil através do login da conta Suunto: após a autenticação na app, o FitMesh lê e exibe os treinos e as métricas diárias (passos, frequência cardíaca, calorias e sono básico). Não inclui qualquer rota GPS ou localização. Os dados são solicitados pela app a pedido do utilizador: não há sincronização automática em segundo plano para esta integração.",
+      fr: "FitMesh permet de connecter votre profil via la connexion au compte Suunto : une fois connecté dans l'application, FitMesh lit et affiche les entraînements et les métriques quotidiennes (pas, fréquence cardiaque, calories et sommeil de base). Aucun tracé GPS ni position géographique n'est inclus. Les données sont demandées par l'application à la demande de l'utilisateur : aucune synchronisation automatique en arrière-plan n'est prévue pour cette intégration.",
+      pl: "FitMesh pozwala połączyć profil przez logowanie do konta Suunto: po połączeniu w aplikacji FitMesh odczytuje i wyświetla treningi oraz dzienne metryki (kroki, tętno, kalorie i podstawowy sen). Nie obejmuje śladu GPS ani danych o lokalizacji. Dane są pobierane przez aplikację na żądanie użytkownika: brak automatycznej synchronizacji w tle dla tej integracji.",
+      tr: "FitMesh, Suunto hesabı girişi ile profilinizi bağlamanızı sağlar: uygulamada giriş yapıldıktan sonra FitMesh antrenmanları ve günlük metrikleri (adımlar, kalp atış hızı, kaloriler ve temel uyku) okur ve görüntüler. GPS rotası veya konum verisi dahil değildir. Veriler kullanıcı talebi üzerine uygulama tarafından alınır: bu entegrasyon için otomatik arka plan senkronizasyonu yoktur.",
+      nl: "FitMesh maakt het mogelijk je profiel te koppelen via Suunto-account login: eenmaal ingelogd in de app, leest en toont FitMesh trainingen en dagelijkse statistieken (stappen, hartslag, calorieën en basisslaap). Er worden geen GPS-routes of locatiegegevens opgenomen. De gegevens worden door de app op verzoek van de gebruiker opgehaald: er is geen automatische achtergrondsynchronisatie voor deze integratie.",
+      ja: "FitMeshはSuuntoアカウントへのログインによるプロファイルの連携に対応しています。アプリでログインすると、ワークアウトと日々の指標（歩数、心拍数、消費カロリー、基本睡眠）を読み取って表示します。GPSルートや位置情報は含まれません。データはユーザーの要求に応じてアプリから取得され、この連携では自動バックグラウンド同期は行われません。",
+      ko: "FitMesh는 Suunto 계정 로그인을 통한 프로필 연동을 지원합니다. 앱에서 로그인하면 운동 기록과 일일 지표(걸음 수, 심박수, 칼로리, 기본 수면)를 읽어와 표시합니다. GPS 경로 또는 위치 데이터는 포함되지 않습니다. 데이터는 사용자의 요청에 따라 앱에서 가져오며, 이 연동에는 자동 백그라운드 동기화가 제공되지 않습니다.",
     },
     techNote: {
-      it: "Integrazione diretta con Suunto Cloud API: acquisizione e snapshot per passi, frequenza cardiaca, calorie e sonno base. I percorsi tramite bridge di sistema (Health Connect / Apple Salute) dipendono dai dati effettivamente condivisi dall'app Suunto sul telefono.",
-      en: "Direct integration via Suunto Cloud API: ingestion and snapshot for steps, heart rate, calories, and basic sleep. Paths via system bridges (Health Connect / Apple Health) depend on data actually shared by the Suunto companion app on your phone.",
-      es: "Integración directa mediante Suunto Cloud API: ingesta y snapshot de pasos, frecuencia cardíaca, calorías y sueño básico. Las rutas mediante puentes del sistema (Health Connect / Apple Health) dependen de los datos que la app Suunto comparta realmente en el teléfono.",
-      de: "Direkte Integration über die Suunto Cloud API: Erfassung und Snapshot für Schritte, Herzfrequenz, Kalorien und Basisschlaf. Wege über Systembrücken (Health Connect / Apple Health) hängen von den Daten ab, die die Suunto-App auf dem Telefon tatsächlich bereitstellt.",
-      pt: "Integração direta via Suunto Cloud API: captura e snapshot para passos, frequência cardíaca, calorias e sono básico. Os caminhos por pontes do sistema (Health Connect / Apple Health) dependem dos dados efetivamente compartilhados pelo app da Suunto no telefone.",
-      fr: "Intégration directe via Suunto Cloud API : acquisition et snapshot pour les pas, la fréquence cardiaque, les calories et le sommeil de base. Les passerelles système (Health Connect / Apple Santé) dépendent des données effectivement partagées par l'application Suunto sur le téléphone.",
-      pl: "Bezpośrednia integracja przez Suunto Cloud API: pobieranie i snapshot dla kroków, tętna, kalorii i podstawowego snu. Ścieżki przez mosty systemowe (Health Connect / Apple Zdrowie) zależą od danych rzeczywiście udostępnianych przez aplikację Suunto na telefonie.",
-      tr: "Suunto Cloud API ile doğrudan entegrasyon: adımlar, kalp atış hızı, kaloriler ve temel uyku için veri alımı ve anlık görüntü. Sistem köprüleri (Health Connect / Apple Health) üzerinden aktarım, Suunto uygulamasının telefonda fiilen paylaştığı verilere bağlıdır.",
-      nl: "Directe integratie via de Suunto Cloud API: inlezen en snapshot voor stappen, hartslag, calorieën en basisslaap. Trajecten via systeemkoppelingen (Health Connect / Apple Gezondheid) zijn afhankelijk van de gegevens die de Suunto-app daadwerkelijk op de telefoon deelt.",
-      ja: "Suunto Cloud APIによる直接連携：歩数、心拍数、消費カロリー、基本睡眠の取得およびスナップショット。システムブリッジ（Health Connect / Appleヘルスケア）経由の経路は、端末のSuuntoアプリが実際に共有するデータに依存します。",
-      ko: "Suunto Cloud API를 통한 직접 연동: 걸음 수, 심박수, 칼로리, 기본 수면에 대한 수집 및 스냅샷. 시스템 브리지(Health Connect / Apple 건강)를 통한 경로는 휴대폰의 Suunto 앱이 실제로 공유하는 데이터에 따릅니다.",
+      it: "Integrazione tramite login Suunto: lettura di allenamenti e dati giornalieri (passi, frequenza cardiaca, calorie, sonno base). Nessuna traccia GPS o posizione. Dati richiesti dall'app su richiesta dell'utente, nessuna sincronizzazione automatica in background.",
+      en: "Integration via Suunto login: reading workouts and daily metrics (steps, heart rate, calories, basic sleep). No GPS tracking or location data. Data requested by the app on user demand, no automatic background synchronization.",
+      es: "Integración mediante login Suunto: lectura de entrenamientos y métricas diarias (pasos, frecuencia cardíaca, calorías, sueño básico). Sin seguimiento GPS ni ubicación. Datos solicitados por la app a petición del usuario, sin sincronización automática en segundo plano.",
+      de: "Integration über Suunto-Login: Auslesen von Workouts und Tagesmetriken (Schritte, Herzfrequenz, Kalorien, Basisschlaf). Kein GPS-Tracking oder Standortdaten. Datenabruf durch die App auf Nutzeranfrage, keine automatische Hintergrundsynchronisierung.",
+      pt: "Integração via login Suunto: leitura de treinos e métricas diárias (passos, frequência cardíaca, calorias, sono básico). Sem registo de rota GPS ou localização. Dados solicitados pela app a pedido do utilizador, sem sincronização automática em segundo plano.",
+      fr: "Intégration via connexion Suunto : lecture des entraînements et des données quotidiennes (pas, fréquence cardiaque, calories, sommeil de base). Aucun suivi GPS ni localisation. Données demandées par l'application à la demande de l'utilisateur, aucune synchronisation automatique en arrière-plan.",
+      pl: "Integracja przez logowanie Suunto: odczyt treningów i danych dziennych (kroki, tętno, kalorie, podstawowy sen). Brak śledzenia GPS i lokalizacji. Dane pobierane przez aplikację na żądanie użytkownika, bez automatycznej synchronizacji w tle.",
+      tr: "Suunto girişi ile entegrasyon: antrenmanların ve günlük metriklerin (adımlar, kalp atış hızı, kaloriler, temel uyku) okunması. GPS takibi veya konum verisi yok. Veriler kullanıcının isteği üzerine uygulama tarafından çekilir, otomatik arka plan senkronizasyonu yoktur.",
+      nl: "Integratie via Suunto-login: uitlezen van trainingen en dagelijkse statistieken (stappen, hartslag, calorieën, basisslaap). Geen GPS-tracking of locatiegegevens. Gegevens worden op verzoek van de gebruiker door de app opgehaald, geen automatische achtergrondsynchronisatie.",
+      ja: "Suuntoログインによる連携：ワークアウトおよび日々の指標（歩数、心拍数、消費カロリー、基本睡眠）の読み取り。GPSトラッキングや位置データはありません。データはユーザーの操作時にアプリから取得され、自動バックグラウンド同期はありません。",
+      ko: "Suunto 로그인 연동: 운동 및 일일 지표(걸음 수, 심박수, 칼로리, 기본 수면) 읽기. GPS 추적 또는 위치 데이터 없음. 사용자의 요청 시 앱에서 데이터를 가져오며 자동 백그라운드 동기화는 지원되지 않습니다.",
     },
     dataTypes: STD_DATA_TYPES({
       steps: true,
@@ -4788,7 +4796,7 @@ export const PROVIDERS: Provider[] = [
       sleep: true,
       calories: true,
       distance: false,
-      workouts: false,
+      workouts: true,
       vo2max: false,
       spo2: false,
     }),
@@ -4808,17 +4816,17 @@ export const PROVIDERS: Provider[] = [
           ko: "Suunto 시계를 FitMesh에 연결할 수 있나요?",
         },
         a: {
-          it: "Sì. Puoi collegare direttamente il tuo account Suunto nell'app FitMesh (su Android e iOS) per visualizzare passi, frequenza cardiaca, calorie e sonno base. In alternativa, se l'app Suunto esporta dati verso Health Connect o Apple Salute, FitMesh può leggere le metriche condivise dal sistema operativo.",
-          en: "Yes. You can directly connect your Suunto account inside the FitMesh app (on Android and iOS) to view daily steps, heart rate, calories, and basic sleep. Alternatively, if the Suunto app exports data to Health Connect or Apple Health, FitMesh can read metrics shared by the operating system.",
-          es: "Sí. Puedes conectar directamente tu cuenta Suunto en la app FitMesh (en Android e iOS) para ver pasos diarios, frecuencia cardíaca, calorías y sueño básico. Como alternativa, si la app Suunto exporta datos a Health Connect o Apple Health, FitMesh puede leer las métricas compartidas por el sistema.",
-          de: "Ja. Du kannst dein Suunto-Konto direkt in der FitMesh-App (unter Android und iOS) verknüpfen, um Schritte, Herzfrequenz, Kalorien und Basisschlaf einzusehen. Wenn die Suunto-App Daten an Health Connect oder Apple Health exportiert, kann FitMesh alternativ auch diese Systemwerte lesen.",
-          pt: "Sim. Você pode conectar diretamente sua conta Suunto no aplicativo FitMesh (no Android e iOS) para visualizar passos diários, frequência cardíaca, calorias e sono básico. Como alternativa, se o app da Suunto exportar dados para o Health Connect ou Apple Health, o FitMesh pode ler as métricas compartilhadas pelo sistema.",
-          fr: "Oui. Vous pouvez connecter directement votre compte Suunto dans l'application FitMesh (sur Android et iOS) pour afficher les pas quotidiens, la fréquence cardiaque, les calories et le sommeil de base. Alternativement, si l'application Suunto exporte des données vers Health Connect ou Apple Santé, FitMesh peut lire les métriques partagées par le système.",
-          pl: "Tak. Możesz bezpośrednio połączyć swoje konto Suunto w aplikacji FitMesh (na Androidzie i iOS), aby przeglądać dzienne kroki, tętno, kalorie i podstawowy sen. Alternatywnie, jeśli aplikacja Suunto eksportuje dane do Health Connect lub Apple Zdrowie, FitMesh może odczytać metryki udostępnione przez system.",
-          tr: "Evet. Günlük adımları, kalp atış hızını, kalorileri ve temel uykuyu görüntülemek için FitMesh uygulamasında (Android ve iOS üzerinde) doğrudan Suunto hesabınızı bağlayabilirsiniz. Alternatif olarak, Suunto uygulaması Health Connect veya Apple Health sistemine veri aktarıyorsa FitMesh işletim sistemi tarafından paylaşılan metrikleri okuyabilir.",
-          nl: "Ja. Je kunt je Suunto-account rechtstreeks koppelen in de FitMesh-app (op Android en iOS) om dagelijkse stappen, hartslag, calorieën en basisslaap te bekijken. Als alternatief kan FitMesh ook statistieken uitlezen die via Health Connect of Apple Gezondheid door het systeem worden gedeeld.",
-          ja: "はい。FitMeshアプリ（AndroidおよびiOS）でSuuntoアカウントを直接接続し、日々の歩数、心拍数、消費カロリー、基本睡眠を表示できます。また、SuuntoアプリがHealth ConnectまたはAppleヘルスケアにデータを出力している場合、FitMeshはOS経由で共有された指標を読み取ることもできます。",
-          ko: "예. FitMesh 앱(Android 및 iOS)에서 Suunto 계정을 직접 연결하여 일일 걸음 수, 심박수, 칼로리, 기본 수면을 확인할 수 있습니다. 또는 Suunto 앱이 Health Connect나 Apple 건강으로 데이터를 내보내는 경우 FitMesh는 운영체제를 통해 공유된 지표를 읽을 수도 있습니다.",
+          it: "Sì. Puoi collegare direttamente il tuo account Suunto nell'app FitMesh (su Android e iOS) per visualizzare allenamenti e metriche giornaliere (passi, frequenza cardiaca, calorie e sonno base). Non sono incluse tracce GPS né posizione geografica. I dati vengono scaricati su richiesta dall'app: non è prevista sincronizzazione automatica in background per questa integrazione.",
+          en: "Yes. You can directly connect your Suunto account inside the FitMesh app (on Android and iOS) to view workouts and daily metrics (steps, heart rate, calories, and basic sleep). No GPS tracks or location data are included. Data is fetched on demand by the app: there is no automatic background sync for this integration.",
+          es: "Sí. Puedes conectar directamente tu cuenta Suunto en la app FitMesh (en Android e iOS) para ver entrenamientos y métricas diarias (pasos, frecuencia cardíaca, calorías y sueño básico). No se incluyen rutas GPS ni ubicación. Los datos se descargan a petición desde la app: no hay sincronización automática en segundo plano para esta integración.",
+          de: "Ja. Du kannst dein Suunto-Konto direkt in der FitMesh-App (unter Android und iOS) verknüpfen, um Workouts und Tagesmetriken (Schritte, Herzfrequenz, Kalorien und Basisschlaf) einzusehen. Es werden keine GPS-Routen oder Standortdaten erfasst. Daten werden auf Anfrage von der App geladen: Es gibt keine automatische Hintergrundsynchronisierung für diese Integration.",
+          pt: "Sim. Você pode conectar diretamente sua conta Suunto no app FitMesh (no Android e iOS) para visualizar treinos e métricas diárias (passos, frequência cardíaca, calorias e sono básico). Não estão incluídas rotas GPS nem localização. Os dados são obtidos a pedido pela app: não há sincronização automática em segundo plano para esta integração.",
+          fr: "Oui. Vous pouvez connecter directement votre compte Suunto dans l'application FitMesh (sur Android et iOS) pour afficher les entraînements et les métriques quotidiennes (pas, fréquence cardiaque, calories et sommeil de base). Aucun tracé GPS ni position géographique n'est inclus. Les données sont récupérées à la demande par l'application : aucune synchronisation automatique en arrière-plan n'est prévue pour cette intégration.",
+          pl: "Tak. Możesz bezpośrednio połączyć swoje konto Suunto w aplikacji FitMesh (na Androidzie i iOS), aby przeglądać treningi i codzienne metryki (kroki, tętno, kalorie i podstawowy sen). Ślady GPS ani lokalizacja nie są dołączane. Dane są pobierane na żądanie przez aplikację: brak automatycznej synchronizacji w tle dla tej integracji.",
+          tr: "Evet. Antrenmanları ve günlük metrikleri (adımlar, kalp atış hızı, kaloriler ve temel uyku) görüntülemek için FitMesh uygulamasında (Android ve iOS üzerinde) doğrudan Suunto hesabınızı bağlayabilirsiniz. GPS rotası veya konum verisi dahil değildir. Veriler uygulama tarafından talep üzerine çekilir: bu entegrasyon için otomatik arka plan senkronizasyonu yoktur.",
+          nl: "Ja. Je kunt je Suunto-account rechtstreeks koppelen in de FitMesh-app (op Android en iOS) om trainingen en dagelijkse statistieken (stappen, hartslag, calorieën en basisslaap) te bekijken. GPS-routes en locatiegegevens zijn niet inbegrepen. Gegevens worden op verzoek door de app opgehaald: er is geen automatische achtergrondsynchronisatie voor deze integratie.",
+          ja: "はい。FitMeshアプリ（AndroidおよびiOS）でSuuntoアカウントを直接接続し、ワークアウトと日々の指標（歩数、心拍数、消費カロリー、基本睡眠）を表示できます。GPSルートや位置情報は含まれません。データはアプリからの要求時に取得され、この連携では自動バックグラウンド同期は行われません。",
+          ko: "예. FitMesh 앱(Android 및 iOS)에서 Suunto 계정을 직접 연결하여 운동 기록과 일일 지표(걸음 수, 심박수, 칼로리, 기본 수면)를 확인할 수 있습니다. GPS 경로 또는 위치 데이터는 포함되지 않습니다. 데이터는 앱의 요청 시 가져오며 이 연동에는 자동 백그라운드 동기화가 제공되지 않습니다.",
         },
       },
       {
@@ -4900,6 +4908,7 @@ export const PROVIDERS: Provider[] = [
     vendor: "Oura",
     category: "wearable",
     status: "live-bridge",
+    promotionalVisibility: false,
     platforms: ["android", "ios"],
     syncMechanism: "system-bridge",
     brandColor: "#8E8E93",
@@ -5056,6 +5065,7 @@ export const PROVIDERS: Provider[] = [
     vendor: "Withings",
     category: "health-platform",
     status: "live-basic",
+    promotionalVisibility: false,
     brandColor: "#00C2A8",
     initial: "W",
     tagline: {
@@ -5384,6 +5394,7 @@ export const PROVIDERS: Provider[] = [
     vendor: "Huawei",
     category: "wearable",
     status: "not-available",
+    promotionalVisibility: false,
     brandColor: "#CF0A2C",
     initial: "H",
     tagline: {
