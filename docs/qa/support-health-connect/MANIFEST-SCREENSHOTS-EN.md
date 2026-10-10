@@ -22,7 +22,7 @@
 | 03 | `en-03-health-connect-data-categories.webp` | **VERIFICATO** | Schermata autentica Health Connect (*Browse data / Categories*) con stato «No data» per tutte le categorie prima del collegamento sorgente |
 | 04 | `en-04-health-connect-fitmesh-app.webp` | **VERIFICATO** | Schermata Health Connect con FitMesh Sync sotto la sezione «Not allowed access» |
 | 05 | `en-05-fitmesh-read-permissions.webp` | **VERIFICATO** | Schermata permessi FitMesh Sync in Health Connect con «Allow all» e permessi di lettura attivi sotto «Allowed to read» |
-| 06 | `en-06-dashboard-sync-now.webp` | **VERIFICATO (stato demo/configurazione)** | Dashboard FitMesh Sync con card Synchronization («Setup required», pulsanti «Sync now» e «Diagnostics»). I dati mostrati (7,450 passi) provengono dalla fixture sintetica demo dell'account QA locale |
+| 06 | `en-06-dashboard-sync-now.webp` | **VERIFICATO (stato demo/configurazione)** | Dashboard FitMesh Sync con card Synchronization («Setup required», pulsante attivo «Sync now» e pulsante «Diagnostics»). I dati mostrati (7,450 passi) provengono dalla fixture sintetica demo dell'account QA locale |
 | 07 | `en-07-sync-center-diagnostics.webp` | **VERIFICATO (stato configurazione iniziale)** | Schermata Sync Center: «Never synced» e «No source · tap to enable» per ciascuna metrica riflettono lo stato iniziale noto all'app (nessuna lettura valida registrata da Health Connect) |
 | 08 | `en-08-battery-settings-background.webp` | **VERIFICATO** | Impostazioni Android (*App battery usage*) per FitMesh Sync con l'opzione «Unrestricted» selezionata |
 
@@ -39,7 +39,7 @@ Tutti gli asset WebP sono compressi con `cwebp -q 85` a partire dagli screenshot
 | 03 | `en-03-health-connect-data-categories.webp` | 1080x2400 | 27.556 byte | `71eec946ec960947b434bc3ad86891333e791ae38924c4e29057c98d01e25009` |
 | 04 | `en-04-health-connect-fitmesh-app.webp` | 1080x2400 | 56.058 byte | `8ac0acc327e79b395bf50ff8f66eb26f827bbbd9b53b7e01c304d7020c5c6498` |
 | 05 | `en-05-fitmesh-read-permissions.webp` | 1080x2400 | 51.862 byte | `369c99310f8cf04096783ca86c6da79a7c124ec2e61b0b332441df07e545e2bc` |
-| 06 | `en-06-dashboard-sync-now.webp` | 1080x2400 | 68.194 byte | `5c906c1c0bd33e6bc9435e329f6a7b43b1fb9aa8638b775b2e46da771873daab` |
+| 06 | `en-06-dashboard-sync-now.webp` | 1080x2400 | 70.634 byte | `a23b5595be9b19d71d2857dce8946fbbcdde53729cfc386e861e097b25eeced4` |
 | 07 | `en-07-sync-center-diagnostics.webp` | 1080x2400 | 87.360 byte | `598d43eb1e51faecf284ed5109c096787251617a97a0b0d9e16388787b22bdc2` |
 | 08 | `en-08-battery-settings-background.webp` | 1080x2400 | 79.318 byte | `cf1924a3191411e6ac2bd30460ee2c13a8243214eacb50f1c2916a396ba44caa` |
 
@@ -54,6 +54,6 @@ Tutti gli asset WebP sono compressi con `cwebp -q 85` a partire dagli screenshot
 | 03 | `03-health-connect-data-categories.png` | 1080x2400 | 96.127 byte | `f0a545249a70a759748a973d500c3f642a0b2537025572b5756e4880cb154ec1` |
 | 04 | `04-health-connect-fitmesh-app.png` | 1080x2400 | 155.119 byte | `b2eeec82e79ffc5b18fc3878a9fa5fa9a34882b1309dcd74c454934d558738d3` |
 | 05 | `05-fitmesh-read-permissions.png` | 1080x2400 | 159.434 byte | `c9cd213aa5fc6a984bd493708c7e0a35170af028f79323b04aa9c838250413bb` |
-| 06 | `06-dashboard-sync-now.png` | 1080x2400 | 204.643 byte | `100f20fe721fe29853ad042443d7e20e31174575cd62a92a01a0ff78e24c76a6` |
+| 06 | `06-dashboard-sync-now.png` | 1080x2400 | 207.141 byte | `88406930eff475668015f7d78dcee315d6563379f472ade8476809dcffd35658` |
 | 07 | `07-sync-center-diagnostics.png` | 1080x2400 | 207.529 byte | `0e729f9e70e5bac9d5940a78c42e30a890b9c13a91a3d938c0f6dc41a3873bfa` |
 | 08 | `08-battery-settings-background.png` | 1080x2400 | 213.022 byte | `43baf55289ee0280c50e3895506b34b3f75b8e089f6371088647ad390918cd27` |

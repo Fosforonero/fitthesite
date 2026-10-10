@@ -1,0 +1,506 @@
+[
+  {
+    "locale": "en",
+    "viewport": {
+      "name": "desktop-1280",
+      "width": 1280,
+      "height": 800
+    },
+    "status": 200,
+    "title": "How to connect Health Connect to FitMesh Sync on Android: step-by-step guide",
+    "metaDesc": "Step-by-step instructions with verified Android screenshots: find Health Connect, check your companion app, configure FitMesh Sync permissions, and start your first sync.",
+    "canonical": "https://www.fitmesh.fit/en/support/health-connect",
+    "ogImage": "https://www.fitmesh.fit/support/health-connect/en-01-settings-health-connect.webp",
+    "hasHorizontalOverflow": false,
+    "imageCount": 8,
+    "allImagesLoaded": true,
+    "imagesInfo": [
+      {
+        "step": 1,
+        "src": "http://localhost:3009/support/health-connect/en-01-settings-health-connect.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "System path: Settings > Security & privacy > Privacy > Health Connect."
+      },
+      {
+        "step": 2,
+        "src": "http://localhost:3009/support/health-connect/en-02-health-connect-app-permissions.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Health Connect home screen displaying connected app count."
+      },
+      {
+        "step": 3,
+        "src": "http://localhost:3009/support/health-connect/en-03-health-connect-data-categories.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Health Connect Browse data screen showing «No data» before a companion app writes records. Companion write configuration varies by vendor."
+      },
+      {
+        "step": 4,
+        "src": "http://localhost:3009/support/health-connect/en-04-health-connect-fitmesh-app.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "App permissions list showing FitMesh Sync in the initial unauthorized state under Not allowed access."
+      },
+      {
+        "step": 5,
+        "src": "http://localhost:3009/support/health-connect/en-05-fitmesh-read-permissions.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Read permissions screen with active toggles under Allowed to read."
+      },
+      {
+        "step": 6,
+        "src": "http://localhost:3009/support/health-connect/en-06-dashboard-sync-now.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Displayed numbers (e.g., 7,450 steps) are pre-loaded synthetic fixture data, not an import from Health Connect. The Synchronization card prompts to complete setup and tap Sync now when no wearable records have been imported yet."
+      },
+      {
+        "step": 7,
+        "src": "http://localhost:3009/support/health-connect/en-07-sync-center-diagnostics.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Sync Center: «Never synced» and «No source» reflect the app's current internal state (no valid read recorded by FitMesh), not a successful sync outcome. They do not prove Health Connect itself is empty: check source records and permissions separately."
+      },
+      {
+        "step": 8,
+        "src": "http://localhost:3009/support/health-connect/en-08-battery-settings-background.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "App battery usage screen with the «Unrestricted» option selected."
+      }
+    ],
+    "hasHowToJsonLd": true,
+    "screenshot": "docs/qa/support-health-connect/browser-artifacts/en-desktop-1280.png"
+  },
+  {
+    "locale": "en",
+    "viewport": {
+      "name": "mobile-375",
+      "width": 375,
+      "height": 667
+    },
+    "status": 200,
+    "title": "How to connect Health Connect to FitMesh Sync on Android: step-by-step guide",
+    "metaDesc": "Step-by-step instructions with verified Android screenshots: find Health Connect, check your companion app, configure FitMesh Sync permissions, and start your first sync.",
+    "canonical": "https://www.fitmesh.fit/en/support/health-connect",
+    "ogImage": "https://www.fitmesh.fit/support/health-connect/en-01-settings-health-connect.webp",
+    "hasHorizontalOverflow": false,
+    "imageCount": 8,
+    "allImagesLoaded": true,
+    "imagesInfo": [
+      {
+        "step": 1,
+        "src": "http://localhost:3009/support/health-connect/en-01-settings-health-connect.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "System path: Settings > Security & privacy > Privacy > Health Connect."
+      },
+      {
+        "step": 2,
+        "src": "http://localhost:3009/support/health-connect/en-02-health-connect-app-permissions.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Health Connect home screen displaying connected app count."
+      },
+      {
+        "step": 3,
+        "src": "http://localhost:3009/support/health-connect/en-03-health-connect-data-categories.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Health Connect Browse data screen showing «No data» before a companion app writes records. Companion write configuration varies by vendor."
+      },
+      {
+        "step": 4,
+        "src": "http://localhost:3009/support/health-connect/en-04-health-connect-fitmesh-app.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "App permissions list showing FitMesh Sync in the initial unauthorized state under Not allowed access."
+      },
+      {
+        "step": 5,
+        "src": "http://localhost:3009/support/health-connect/en-05-fitmesh-read-permissions.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Read permissions screen with active toggles under Allowed to read."
+      },
+      {
+        "step": 6,
+        "src": "http://localhost:3009/support/health-connect/en-06-dashboard-sync-now.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Displayed numbers (e.g., 7,450 steps) are pre-loaded synthetic fixture data, not an import from Health Connect. The Synchronization card prompts to complete setup and tap Sync now when no wearable records have been imported yet."
+      },
+      {
+        "step": 7,
+        "src": "http://localhost:3009/support/health-connect/en-07-sync-center-diagnostics.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Sync Center: «Never synced» and «No source» reflect the app's current internal state (no valid read recorded by FitMesh), not a successful sync outcome. They do not prove Health Connect itself is empty: check source records and permissions separately."
+      },
+      {
+        "step": 8,
+        "src": "http://localhost:3009/support/health-connect/en-08-battery-settings-background.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "App battery usage screen with the «Unrestricted» option selected."
+      }
+    ],
+    "hasHowToJsonLd": true,
+    "screenshot": "docs/qa/support-health-connect/browser-artifacts/en-mobile-375.png"
+  },
+  {
+    "locale": "en",
+    "viewport": {
+      "name": "mobile-320",
+      "width": 320,
+      "height": 568
+    },
+    "status": 200,
+    "title": "How to connect Health Connect to FitMesh Sync on Android: step-by-step guide",
+    "metaDesc": "Step-by-step instructions with verified Android screenshots: find Health Connect, check your companion app, configure FitMesh Sync permissions, and start your first sync.",
+    "canonical": "https://www.fitmesh.fit/en/support/health-connect",
+    "ogImage": "https://www.fitmesh.fit/support/health-connect/en-01-settings-health-connect.webp",
+    "hasHorizontalOverflow": false,
+    "imageCount": 8,
+    "allImagesLoaded": true,
+    "imagesInfo": [
+      {
+        "step": 1,
+        "src": "http://localhost:3009/support/health-connect/en-01-settings-health-connect.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "System path: Settings > Security & privacy > Privacy > Health Connect."
+      },
+      {
+        "step": 2,
+        "src": "http://localhost:3009/support/health-connect/en-02-health-connect-app-permissions.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Health Connect home screen displaying connected app count."
+      },
+      {
+        "step": 3,
+        "src": "http://localhost:3009/support/health-connect/en-03-health-connect-data-categories.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Health Connect Browse data screen showing «No data» before a companion app writes records. Companion write configuration varies by vendor."
+      },
+      {
+        "step": 4,
+        "src": "http://localhost:3009/support/health-connect/en-04-health-connect-fitmesh-app.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "App permissions list showing FitMesh Sync in the initial unauthorized state under Not allowed access."
+      },
+      {
+        "step": 5,
+        "src": "http://localhost:3009/support/health-connect/en-05-fitmesh-read-permissions.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Read permissions screen with active toggles under Allowed to read."
+      },
+      {
+        "step": 6,
+        "src": "http://localhost:3009/support/health-connect/en-06-dashboard-sync-now.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Displayed numbers (e.g., 7,450 steps) are pre-loaded synthetic fixture data, not an import from Health Connect. The Synchronization card prompts to complete setup and tap Sync now when no wearable records have been imported yet."
+      },
+      {
+        "step": 7,
+        "src": "http://localhost:3009/support/health-connect/en-07-sync-center-diagnostics.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Sync Center: «Never synced» and «No source» reflect the app's current internal state (no valid read recorded by FitMesh), not a successful sync outcome. They do not prove Health Connect itself is empty: check source records and permissions separately."
+      },
+      {
+        "step": 8,
+        "src": "http://localhost:3009/support/health-connect/en-08-battery-settings-background.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "App battery usage screen with the «Unrestricted» option selected."
+      }
+    ],
+    "hasHowToJsonLd": true,
+    "screenshot": "docs/qa/support-health-connect/browser-artifacts/en-mobile-320.png"
+  },
+  {
+    "locale": "it",
+    "viewport": {
+      "name": "desktop-1280",
+      "width": 1280,
+      "height": 800
+    },
+    "status": 200,
+    "title": "Come collegare Connessione Salute (Health Connect) a FitMesh Sync: guida passo-passo",
+    "metaDesc": "Istruzioni con schermate autentiche per Android: trovare Connessione Salute, verificare l'app sorgente, configurare i permessi di FitMesh Sync e avviare la prima sincronizzazione.",
+    "canonical": "https://www.fitmesh.fit/it/support/health-connect",
+    "ogImage": "https://www.fitmesh.fit/support/health-connect/01-impostazioni-connessione-salute.webp",
+    "hasHorizontalOverflow": false,
+    "imageCount": 8,
+    "allImagesLoaded": true,
+    "imagesInfo": [
+      {
+        "step": 1,
+        "src": "http://localhost:3009/support/health-connect/01-impostazioni-connessione-salute.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Percorso di sistema: Impostazioni > Sicurezza e privacy > Privacy > Connessione Salute."
+      },
+      {
+        "step": 2,
+        "src": "http://localhost:3009/support/health-connect/02-connessione-salute-autorizzazioni-app.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata iniziale di Connessione Salute con conteggio delle app collegate."
+      },
+      {
+        "step": 3,
+        "src": "http://localhost:3009/support/health-connect/03-connessione-salute-categorie-dati.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata Connessione Salute (Sfoglia i dati) con «Nessun dato» prima del collegamento di una sorgente. La configurazione dei permessi di scrittura varia in base all'applicazione del produttore del dispositivo."
+      },
+      {
+        "step": 4,
+        "src": "http://localhost:3009/support/health-connect/04-elenco-app-fitmesh.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Elenco applicazioni in Connessione Salute con FitMesh Sync nello stato iniziale di accesso non ancora autorizzato."
+      },
+      {
+        "step": 5,
+        "src": "http://localhost:3009/support/health-connect/05-permessi-lettura-fitmesh.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata delle autorizzazioni di lettura con selettori attivi."
+      },
+      {
+        "step": 6,
+        "src": "http://localhost:3009/support/health-connect/06-dashboard-sincronizza-ora.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "I valori numerici visibili (es. 7.450 passi) sono dati sintetici precaricati dall'ambiente demo e non costituiscono un'importazione da Connessione Salute. L'avviso «Nessun wearable rilevato» indica che il ciclo di sincronizzazione non ha acquisito registrazioni valide, per assenza di dati nella sorgente, permessi mancanti o un errore temporaneo di lettura."
+      },
+      {
+        "step": 7,
+        "src": "http://localhost:3009/support/health-connect/07-centro-sincronizzazione-diagnostica.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Centro Sincronizzazione: «Mai sincronizzato» e «Nessuna sorgente» riflettono lo stato noto all'app (nessuna lettura valida registrata da FitMesh), non un esito positivo. Non dimostrano che Connessione Salute sia vuota: verificare separatamente dati sorgente e autorizzazioni."
+      },
+      {
+        "step": 8,
+        "src": "http://localhost:3009/support/health-connect/08-impostazioni-batteria-background.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata Utilizzo della batteria per l'app con l'opzione «Senza limitazioni» selezionata."
+      }
+    ],
+    "hasHowToJsonLd": true,
+    "screenshot": "docs/qa/support-health-connect/browser-artifacts/it-desktop-1280.png"
+  },
+  {
+    "locale": "it",
+    "viewport": {
+      "name": "mobile-375",
+      "width": 375,
+      "height": 667
+    },
+    "status": 200,
+    "title": "Come collegare Connessione Salute (Health Connect) a FitMesh Sync: guida passo-passo",
+    "metaDesc": "Istruzioni con schermate autentiche per Android: trovare Connessione Salute, verificare l'app sorgente, configurare i permessi di FitMesh Sync e avviare la prima sincronizzazione.",
+    "canonical": "https://www.fitmesh.fit/it/support/health-connect",
+    "ogImage": "https://www.fitmesh.fit/support/health-connect/01-impostazioni-connessione-salute.webp",
+    "hasHorizontalOverflow": false,
+    "imageCount": 8,
+    "allImagesLoaded": true,
+    "imagesInfo": [
+      {
+        "step": 1,
+        "src": "http://localhost:3009/support/health-connect/01-impostazioni-connessione-salute.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Percorso di sistema: Impostazioni > Sicurezza e privacy > Privacy > Connessione Salute."
+      },
+      {
+        "step": 2,
+        "src": "http://localhost:3009/support/health-connect/02-connessione-salute-autorizzazioni-app.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata iniziale di Connessione Salute con conteggio delle app collegate."
+      },
+      {
+        "step": 3,
+        "src": "http://localhost:3009/support/health-connect/03-connessione-salute-categorie-dati.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata Connessione Salute (Sfoglia i dati) con «Nessun dato» prima del collegamento di una sorgente. La configurazione dei permessi di scrittura varia in base all'applicazione del produttore del dispositivo."
+      },
+      {
+        "step": 4,
+        "src": "http://localhost:3009/support/health-connect/04-elenco-app-fitmesh.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Elenco applicazioni in Connessione Salute con FitMesh Sync nello stato iniziale di accesso non ancora autorizzato."
+      },
+      {
+        "step": 5,
+        "src": "http://localhost:3009/support/health-connect/05-permessi-lettura-fitmesh.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata delle autorizzazioni di lettura con selettori attivi."
+      },
+      {
+        "step": 6,
+        "src": "http://localhost:3009/support/health-connect/06-dashboard-sincronizza-ora.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "I valori numerici visibili (es. 7.450 passi) sono dati sintetici precaricati dall'ambiente demo e non costituiscono un'importazione da Connessione Salute. L'avviso «Nessun wearable rilevato» indica che il ciclo di sincronizzazione non ha acquisito registrazioni valide, per assenza di dati nella sorgente, permessi mancanti o un errore temporaneo di lettura."
+      },
+      {
+        "step": 7,
+        "src": "http://localhost:3009/support/health-connect/07-centro-sincronizzazione-diagnostica.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Centro Sincronizzazione: «Mai sincronizzato» e «Nessuna sorgente» riflettono lo stato noto all'app (nessuna lettura valida registrata da FitMesh), non un esito positivo. Non dimostrano che Connessione Salute sia vuota: verificare separatamente dati sorgente e autorizzazioni."
+      },
+      {
+        "step": 8,
+        "src": "http://localhost:3009/support/health-connect/08-impostazioni-batteria-background.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata Utilizzo della batteria per l'app con l'opzione «Senza limitazioni» selezionata."
+      }
+    ],
+    "hasHowToJsonLd": true,
+    "screenshot": "docs/qa/support-health-connect/browser-artifacts/it-mobile-375.png"
+  },
+  {
+    "locale": "it",
+    "viewport": {
+      "name": "mobile-320",
+      "width": 320,
+      "height": 568
+    },
+    "status": 200,
+    "title": "Come collegare Connessione Salute (Health Connect) a FitMesh Sync: guida passo-passo",
+    "metaDesc": "Istruzioni con schermate autentiche per Android: trovare Connessione Salute, verificare l'app sorgente, configurare i permessi di FitMesh Sync e avviare la prima sincronizzazione.",
+    "canonical": "https://www.fitmesh.fit/it/support/health-connect",
+    "ogImage": "https://www.fitmesh.fit/support/health-connect/01-impostazioni-connessione-salute.webp",
+    "hasHorizontalOverflow": false,
+    "imageCount": 8,
+    "allImagesLoaded": true,
+    "imagesInfo": [
+      {
+        "step": 1,
+        "src": "http://localhost:3009/support/health-connect/01-impostazioni-connessione-salute.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Percorso di sistema: Impostazioni > Sicurezza e privacy > Privacy > Connessione Salute."
+      },
+      {
+        "step": 2,
+        "src": "http://localhost:3009/support/health-connect/02-connessione-salute-autorizzazioni-app.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata iniziale di Connessione Salute con conteggio delle app collegate."
+      },
+      {
+        "step": 3,
+        "src": "http://localhost:3009/support/health-connect/03-connessione-salute-categorie-dati.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata Connessione Salute (Sfoglia i dati) con «Nessun dato» prima del collegamento di una sorgente. La configurazione dei permessi di scrittura varia in base all'applicazione del produttore del dispositivo."
+      },
+      {
+        "step": 4,
+        "src": "http://localhost:3009/support/health-connect/04-elenco-app-fitmesh.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Elenco applicazioni in Connessione Salute con FitMesh Sync nello stato iniziale di accesso non ancora autorizzato."
+      },
+      {
+        "step": 5,
+        "src": "http://localhost:3009/support/health-connect/05-permessi-lettura-fitmesh.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata delle autorizzazioni di lettura con selettori attivi."
+      },
+      {
+        "step": 6,
+        "src": "http://localhost:3009/support/health-connect/06-dashboard-sincronizza-ora.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "I valori numerici visibili (es. 7.450 passi) sono dati sintetici precaricati dall'ambiente demo e non costituiscono un'importazione da Connessione Salute. L'avviso «Nessun wearable rilevato» indica che il ciclo di sincronizzazione non ha acquisito registrazioni valide, per assenza di dati nella sorgente, permessi mancanti o un errore temporaneo di lettura."
+      },
+      {
+        "step": 7,
+        "src": "http://localhost:3009/support/health-connect/07-centro-sincronizzazione-diagnostica.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Centro Sincronizzazione: «Mai sincronizzato» e «Nessuna sorgente» riflettono lo stato noto all'app (nessuna lettura valida registrata da FitMesh), non un esito positivo. Non dimostrano che Connessione Salute sia vuota: verificare separatamente dati sorgente e autorizzazioni."
+      },
+      {
+        "step": 8,
+        "src": "http://localhost:3009/support/health-connect/08-impostazioni-batteria-background.webp",
+        "complete": true,
+        "naturalWidth": 1080,
+        "naturalHeight": 2400,
+        "caption": "Schermata Utilizzo della batteria per l'app con l'opzione «Senza limitazioni» selezionata."
+      }
+    ],
+    "hasHowToJsonLd": true,
+    "screenshot": "docs/qa/support-health-connect/browser-artifacts/it-mobile-320.png"
+  }
+]

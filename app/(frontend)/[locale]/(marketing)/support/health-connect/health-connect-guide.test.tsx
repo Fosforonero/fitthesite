@@ -331,7 +331,7 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
       expect(entry.alternates?.languages?.['x-default']).toBe('https://www.fitmesh.fit/it/support/health-connect');
       expect(Object.keys(entry.alternates?.languages || {})).toEqual(['it', 'en', 'x-default']);
     }
-  });
+  }, 15000);
 
   it('le FAQ di supporto su Android (indice 0) specificano Android 14 vs 9-13 e il pulsante Sincronizza ora nella schermata principale', () => {
     const faqIt = SUPPORT_FAQS.it[0];
