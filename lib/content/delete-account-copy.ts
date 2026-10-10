@@ -138,7 +138,7 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
     backupsLinkLabel: "Read our Privacy Policy",
     externalTitle: "Data held by other services",
     externalBody:
-      "FitMesh reads data from services you choose to connect, such as Health Connect, Samsung Health, Garmin, Fitbit, Apple Health, or a Colmi smart ring's own app. Deleting your FitMesh account only deletes the copy stored inside FitMesh. It does not delete, change, or disconnect anything in those other services. If you also want your data removed there, you need to do that separately, directly with each provider.",
+      "FitMesh reads data from directly connected sources (such as Health Connect, Apple Health, Suunto, or a Colmi smart ring over Bluetooth) and indirect sources synced through Health Connect or Apple Health (such as Garmin or Samsung Health). Deleting your FitMesh account only deletes the copy stored inside FitMesh. It does not delete, change, or disconnect anything in those other services. If you also want your data removed there, you need to do that separately, directly with each provider.",
     purchasesTitle: "Subscriptions and purchases",
     purchasesBody:
       "If you subscribed or bought FitMesh Pro through Google Play or the App Store, deleting your FitMesh account does not cancel that subscription and does not issue a refund. Apple and Google handle billing on their own systems. To cancel a subscription or request a refund, use your Google Play or App Store account settings directly.",
@@ -210,7 +210,7 @@ export const DELETE_ACCOUNT_COPY: { en: DeleteAccountCopy; it: DeleteAccountCopy
     backupsLinkLabel: "Leggi la nostra Privacy Policy",
     externalTitle: "Dati presenti in altri servizi",
     externalBody:
-      "FitMesh legge i dati dai servizi che scegli di collegare, come Health Connect, Samsung Health, Garmin, Fitbit, Apple Health, o l'app del tuo anello smart Colmi. Eliminare il tuo account FitMesh cancella solo la copia conservata dentro FitMesh. Non elimina, modifica o scollega nulla in quegli altri servizi. Se vuoi che i tuoi dati vengano rimossi anche li', devi farlo separatamente, direttamente con ciascun fornitore.",
+      "FitMesh legge i dati da connessioni dirette (come Health Connect, Apple Health, Suunto o un anello smart Colmi via Bluetooth) e da sorgenti indirette sincronizzate tramite Health Connect o Apple Health (come Garmin o Samsung Health). Eliminare il tuo account FitMesh cancella solo la copia conservata dentro FitMesh. Non elimina, modifica o scollega nulla in quegli altri servizi. Se vuoi che i tuoi dati vengano rimossi anche li', devi farlo separatamente, direttamente con ciascun fornitore.",
     purchasesTitle: "Abbonamenti e acquisti",
     purchasesBody:
       "Se ti sei abbonato o hai acquistato FitMesh Pro tramite Google Play o l'App Store, eliminare il tuo account FitMesh non annulla quell'abbonamento e non genera un rimborso. Apple e Google gestiscono la fatturazione sui propri sistemi. Per annullare un abbonamento o richiedere un rimborso, usa direttamente le impostazioni del tuo account Google Play o App Store.",

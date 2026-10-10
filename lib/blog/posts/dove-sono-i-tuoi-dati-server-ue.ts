@@ -114,8 +114,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Collegare un'app a un anello o a uno smartwatch significa darle accesso a dati piuttosto intimi: quando dormi, quanto ti muovi, come batte il tuo cuore. È una domanda legittima chiedersi cosa ne facciamo prima ancora di guardare le funzioni. La risposta breve è che trattiamo i tuoi dati come li tratteresti tu: restano tuoi, li usiamo solo per mostrarteli nella dashboard, e non li giriamo a nessuno per pubblicità o rivendita.",
-        en: "Connecting an app to a ring or smartwatch means giving it access to fairly intimate data: when you sleep, how much you move, how your heart beats. It's a fair question to ask what we do with it before you even look at the features. The short answer is that we treat your data the way you would want it treated: it stays yours, we use it only to show it back to you in the dashboard, and we never pass it to anyone for ads or resale.",
+        it: "Collegare un'app a un anello o a uno smartwatch significa darle accesso a dati piuttosto intimi: quando dormi, quanto ti muovi, come batte il tuo cuore. È una domanda legittima chiedersi cosa ne facciamo prima ancora di guardare le funzioni. La risposta breve è che trattiamo i tuoi dati come li tratteresti tu: restano tuoi, li usiamo solo per mostrarteli nell'app, e non li giriamo a nessuno per pubblicità o rivendita.",
+        en: "Connecting an app to a ring or smartwatch means giving it access to fairly intimate data: when you sleep, how much you move, how your heart beats. It's a fair question to ask what we do with it before you even look at the features. The short answer is that we treat your data the way you would want it treated: it stays yours, we use it only to show it back to you in the app, and we never pass it to anyone for ads or resale.",
       },
     },
     {
@@ -144,8 +144,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Quando colleghi un wearable, FitMesh legge i dati (via Health Connect su Android o direttamente dall'anello Colmi via Bluetooth), li deduplica se più fonti coprono lo stesso intervallo, e li salva sul tuo account, su server nell'Unione Europea. Da lì li vedi nell'app e nella dashboard web, con lo stesso account, da qualsiasi browser. Nessun altro utente, nessun inserzionista e nessun servizio terzo li vede: restano sul tuo account, punto.",
-        en: "When you connect a wearable, FitMesh reads the data (via Health Connect on Android or directly from the Colmi ring over Bluetooth), deduplicates it if multiple sources cover the same window, and saves it to your account, on servers in the European Union. From there you see it in the app and in the web dashboard, with the same account, from any browser. No other user, no advertiser and no third-party service sees it: it stays on your account, full stop.",
+        it: "Quando colleghi un wearable, FitMesh legge i dati (via Health Connect su Android o direttamente dall'anello Colmi via Bluetooth), li deduplica se più fonti coprono lo stesso intervallo, e li salva sul tuo account, su server nell'Unione Europea. Da lì li vedi nell'app, con lo stesso account. Nessun altro utente, nessun inserzionista e nessun servizio terzo li vede: restano sul tuo account, punto.",
+        en: "When you connect a wearable, FitMesh reads the data (via Health Connect on Android or directly from the Colmi ring over Bluetooth), deduplicates it if multiple sources cover the same window, and saves it to your account, on servers in the European Union. From there you see it in the app, with the same account. No other user, no advertiser and no third-party service sees it: it stays on your account, full stop.",
       },
     },
     {
@@ -196,8 +196,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Non è un caso che FitMesh abbia un prezzo (piccolo: circa un caffè ogni sei mesi, o meno di una pizza per lo sblocco a vita) invece di essere gratis per sempre. È esattamente il prezzo a permetterci di non dover monetizzare i tuoi dati in altro modo. Trovi il dettaglio completo del modello, incluso il posto founder per i primi 1000 iscritti, nella guida [FitMesh è gratis? Prezzo e posti founder](/it/blog/fitmesh-gratis-prezzo-founder). Se vuoi il dettaglio legale completo su come trattiamo i dati secondo il GDPR, c'è la guida dedicata su [GDPR e dati fitness](/it/blog/gdpr-dati-fitness-smartwatch).",
-        en: "It's not a coincidence that FitMesh has a price (a small one: about a coffee every six months, or less than a pizza for the lifetime unlock) instead of being free forever. That price is exactly what lets us avoid monetizing your data any other way. You'll find the full model, including the founder spot for the first 1,000 sign-ups, in the guide [Is FitMesh free? Pricing and founder spots](/en/blog/fitmesh-gratis-prezzo-founder). For the full legal detail on how we handle data under GDPR, there's a dedicated guide on [GDPR and fitness data](/en/blog/gdpr-dati-fitness-smartwatch).",
+        it: "Non è un caso che FitMesh abbia un prezzo mostrato dallo store per il tuo Paese invece di essere gratis per sempre. È esattamente il prezzo a permetterci di non dover monetizzare i tuoi dati in altro modo. Trovi il dettaglio completo del modello, incluso il posto founder per i primi 1000 iscritti, nella guida [FitMesh è gratis? Prezzo e posti founder](/it/blog/fitmesh-gratis-prezzo-founder). Se vuoi il dettaglio legale completo su come trattiamo i dati secondo il GDPR, c'è la guida dedicata su [GDPR e dati fitness](/it/blog/gdpr-dati-fitness-smartwatch).",
+        en: "It's not a coincidence that FitMesh has a price shown in the store for your country instead of being free forever. That price is exactly what lets us avoid monetizing your data any other way. You'll find the full model, including the founder spot for the first 1,000 sign-ups, in the guide [Is FitMesh free? Pricing and founder spots](/en/blog/fitmesh-gratis-prezzo-founder). For the full legal detail on how we handle data under GDPR, there's a dedicated guide on [GDPR and fitness data](/en/blog/gdpr-dati-fitness-smartwatch).",
       },
     },
     {

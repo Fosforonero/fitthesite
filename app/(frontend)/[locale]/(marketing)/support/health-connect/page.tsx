@@ -245,7 +245,7 @@ const STEPS_EN: StepItem[] = [
     title: "8. (Optional) Battery management and background syncing",
     action: "Under Android Settings > Apps > FitMesh Sync > App battery usage, you may select Unrestricted («Senza limitazioni») to reduce system battery saver constraints.",
     expected: "The battery usage radio button switches to «Unrestricted» («Senza limitazioni»).",
-    troubleshoot: "This step is optional. Battery settings alone do not guarantee automatic background sync: background execution also depends on the Health Connect background read permission, the Health Connect platform version, and vendor Doze policies. A manual sync attempt with «Sincronizza ora» can always be initiated at any time even under the default «Optimized» profile.",
+    troubleshoot: "This step is optional. Battery settings alone do not guarantee automatic background sync: background execution also depends on the Health Connect background read permission, the Health Connect platform version, and vendor Doze policies. A manual sync attempt with «Sincronizza ora» can be initiated at any time even under the default «Optimized» profile.",
     imageSrc: "/support/health-connect/08-impostazioni-batteria-background.webp",
     imageAlt: "Android App battery usage settings screen with Unrestricted option selected",
     caption: "App battery usage screen with the «Senza limitazioni» (Unrestricted) option selected.",

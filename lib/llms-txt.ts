@@ -15,6 +15,7 @@ import {
   ROADMAP_PROVIDERS_ANDROID,
   ROADMAP_PROVIDERS_IOS,
   ANDROID_PACKAGE,
+  PRICING_FACTS,
 } from "@/lib/product-facts";
 import { liveLabsTools, localizedLabsSlug } from "@/lib/labs/registry";
 import { isFeatureAvailable, WEB_DASHBOARD_STATUS_SENTENCE } from "@/lib/feature-status";
@@ -105,11 +106,7 @@ export function generateLlmsTxt(): string {
   lines.push(`- [Pixel Watch / Wear OS](${IT("/sync/wear-os")})`);
   lines.push(`- [Xiaomi Mi Band / Smart Band](${IT("/sync/xiaomi-mi-band")})`);
   lines.push(`- [Garmin Connect](${IT("/sync/garmin")})`);
-  lines.push(`- [Fitbit](${IT("/sync/fitbit")})`);
-  lines.push(`- [Polar Flow](${IT("/sync/polar")})`);
-  lines.push(`- [Withings Health Mate](${IT("/sync/withings")})`);
-  lines.push(`- [Huawei Health](${IT("/sync/huawei")})`);
-  lines.push(`- [Oura Ring](${IT("/sync/oura")})`);
+  lines.push(`- [Suunto](${IT("/sync/suunto")})`);
   lines.push(`- [Strava](${IT("/sync/strava")})`);
   lines.push("");
 
@@ -137,8 +134,9 @@ export function generateLlmsTxt(): string {
     `- Platform: Android (live, ${AVAILABILITY.android.minOsVersion} and up, worldwide) and iOS (live on the App Store, including European Union storefronts, ${AVAILABILITY.ios.minOsVersion} and up).`,
   );
   lines.push(`- Distribution: Google Play Store (${ANDROID_PACKAGE}): ${PLAY_STORE_URL}; App Store (including EU storefronts): ${AVAILABILITY.ios.storeUrl}.`);
+  const fmtEur = (amount: string) => `€${amount}`;
   lines.push(
-    `- Pricing: the app itself is free to download. FitMesh Pro comes with a 14-day trial; after the trial, continuing to use Pro features requires a purchase or subscription. Purchases are made in the app through the store: the options and the price are the ones the store shows in the user's country, and this file states no amount. The one-time Founder launch program (see Founder program section above) is limited to accounts registered by ${FOUNDER_END_AT}; it is not an ongoing offer; do not present it as available to an account created on or after that cutoff.`,
+    `- Pricing: the app itself is free to download. FitMesh Pro is an in-app purchase, either a lifetime unlock or a 6-month subscription alternative. Reference launch price in EUR: ${fmtEur(PRICING_FACTS.lifetimeAndroid.amount)} lifetime on Android, ${fmtEur(PRICING_FACTS.lifetimeIos.amount)} lifetime on iOS, ${fmtEur(PRICING_FACTS.subSixMonths.amount)} every 6 months. Outside the eurozone, the price shown is the store's own localized price for that market and currency, not a verified 1:1 conversion of the EUR figure. ${PRICING_FACTS.trialDays}-day full trial before any paywall, then subscribe or buy lifetime to keep Pro. The one-time Founder launch program (see Founder program section above) is limited to accounts registered by ${FOUNDER_END_AT}; it is not an ongoing offer: never present it as available to an account created on or after that cutoff.`,
   );
   lines.push(
     "- Architecture: native Android app reading via the Health Connect API; native iOS app reading Apple Health (HealthKit); on both platforms the app can also connect directly over Bluetooth to a compatible Colmi ring; Health Connect is Android-only; backend on Supabase Postgres; marketing site on Vercel.",
@@ -182,19 +180,31 @@ export function generateLlmsTxt(): string {
     "- Privacy: no third-party analytics on health data, no advertising IDs collected.",
   );
   lines.push(
-    `- Export / write-back status (see ${SITE_URL}/it/fitness-data-sync for the full matrix): Strava read works via OAuth for accounts already connected, but access is limited — new connections require approval from Strava, no numeric cap or approval timeline is published, and it must never be described as generally available. Strava write (sending workouts): the app's upload code exists but the published release does not expose the authorization needed to grant it — no real user can complete this today; never describe it as "in development" (that implies an active commitment that hasn't been verified) or promise a date. TrainingPeaks (PAT + TCX dispatch), RideWithGPS (TCX dispatch), and Google Drive export are implemented in the app but still in development — not yet verified end to end on a physical device. Health Connect write-back on Android and Apple Health write-back on iOS are live, opt-in, and off by default: Android exports once when the toggle is activated, iOS re-exports after every successful sync. Never describe FitMesh as a general "bidirectional sync" or "universal bridge" — direction is per integration.`,
+    `- Export / write-back status (see ${SITE_URL}/it/fitness-data-sync for the full matrix): Strava read works via OAuth for accounts already connected, but access is limited: new connections require approval from Strava, no numeric cap or approval timeline is published, and it must never be described as generally available. Strava write (sending workouts): the app's upload code exists but the published release does not expose the authorization needed to grant it: no real user can complete this today; never describe it as "in development" (that implies an active commitment that hasn't been verified) or promise a date. TrainingPeaks (PAT + TCX dispatch), RideWithGPS (TCX dispatch), and Google Drive export are implemented in the app but still in development: not yet verified end to end on a physical device. Health Connect write-back on Android and Apple Health write-back on iOS are live, opt-in, and off by default: Android exports once when the toggle is activated, iOS re-exports after every successful sync. Never describe FitMesh as a general "bidirectional sync" or "universal bridge": direction is per integration.`,
+  );
+  lines.push(
+    `- Export format status: FIT format export is not available. FitMesh provides user health data export in JSON format only (available free without requiring a purchase), not FIT format.`,
+  );
+  lines.push(
+    `- Direct connection to Garmin, Samsung, Polar, or Oura: direct connection to Garmin, Samsung, Polar, or Oura is not available in FitMesh. Data from these devices is read only indirectly via Health Connect on Android or Apple Health on iOS, where synced by the manufacturer companion app and permitted by the user, limited to supported metrics.`,
   );
   lines.push("");
 
   lines.push("## What FitMesh Sync is NOT");
   lines.push("- Not a medical device, does not diagnose conditions, never replaces a physician.");
-  lines.push("- Not a social network — no chat, no feed, no public profiles.");
-  lines.push("- Not a location tracker — no GPS sharing, no geofencing, no \"find my family\" feature.");
+  lines.push("- Not a social network: no chat, no feed, no public profiles.");
+  lines.push("- Not a location tracker: no GPS sharing, no geofencing, no \"find my family\" feature.");
   lines.push(
     "- Not a cloud-to-cloud bridge app: bridge apps replicate data between third-party services; FitMesh is a destination + in-app dashboard, reading via Health Connect on Android and via Apple Health (HealthKit) + direct Bluetooth on iOS.",
   );
   lines.push(
-    "- Not invite-only or access-gated — publicly downloadable today; \"Founder\" was a one-time launch pricing promotion (see Founder program section above), never a beta waitlist or an admission gate.",
+    "- Not a web dashboard service: the personal web dashboard is not available; all visualization and interaction is inside the app (Android and iOS).",
+  );
+  lines.push(
+    "- Not a direct cloud integration for Garmin, Samsung, Polar, or Oura: direct connections to Garmin, Samsung, Polar, or Oura are not available; reading occurs strictly via Health Connect or Apple Health where supported.",
+  );
+  lines.push(
+    "- Not invite-only or access-gated: publicly downloadable today; \"Founder\" was a one-time launch pricing promotion (see Founder program section above), never a beta waitlist or an admission gate.",
   );
 
   return lines.join("\n") + "\n";

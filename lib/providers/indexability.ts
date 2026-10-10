@@ -23,8 +23,8 @@
  * (robots + hreflang) e da `sitemap.ts`: un solo helper, non possono divergere.
  */
 import { locales, type Locale } from "@/lib/i18n";
-import type { Provider } from "@/lib/providers/data";
-import type { ProviderModel } from "@/lib/providers/models";
+import { PROVIDERS, type Provider } from "@/lib/providers/data";
+import { PROVIDER_MODELS, type ProviderModel } from "@/lib/providers/models";
 import { SITE_URL } from "@/lib/product-facts";
 
 type LocField = Partial<Record<Locale, string>> | undefined;
@@ -59,6 +59,15 @@ function walkProviderModel(m: ProviderModel): LocField[] {
   return out;
 }
 
+function findParentProvider(m: ProviderModel): Provider | undefined {
+  for (const [providerSlug, models] of Object.entries(PROVIDER_MODELS)) {
+    if (models.some((model) => model.slug === m.slug)) {
+      return PROVIDERS.find((p) => p.slug === providerSlug);
+    }
+  }
+  return undefined;
+}
+
 /** True se OGNI campo traducibile del provider (tagline/longDesc/FAQ) ha un valore reale per `lc`. */
 export function isProviderLocaleComplete(p: Provider, lc: Locale): boolean {
   const fields = walkProvider(p);
@@ -68,6 +77,7 @@ export function isProviderLocaleComplete(p: Provider, lc: Locale): boolean {
 
 /** True se la pagina `/sync/[provider]` per `(p, locale)` è indicizzabile (NON esce `noindex`). */
 export function isProviderVariantIndexable(p: Provider, lc: Locale): boolean {
+  if (p.promotionalVisibility === false) return false;
   // it/en sono le lingue sorgente: sempre presenti, mai fallback.
   if (lc === "it" || lc === "en") return true;
   return isProviderLocaleComplete(p, lc);
@@ -81,7 +91,15 @@ export function isProviderModelLocaleComplete(m: ProviderModel, lc: Locale): boo
 }
 
 /** True se la pagina `/sync/[provider]/[model]` per `(m, locale)` è indicizzabile (NON esce `noindex`). */
-export function isProviderModelVariantIndexable(m: ProviderModel, lc: Locale): boolean {
+export function isProviderModelVariantIndexable(
+  m: ProviderModel,
+  lc: Locale,
+  parentProvider?: Provider | string,
+): boolean {
+  const p = typeof parentProvider === "string"
+    ? PROVIDERS.find((prov) => prov.slug === parentProvider)
+    : parentProvider ?? findParentProvider(m);
+  if (p && p.promotionalVisibility === false) return false;
   if (lc === "it" || lc === "en") return true;
   return isProviderModelLocaleComplete(m, lc);
 }
@@ -89,11 +107,12 @@ export function isProviderModelVariantIndexable(m: ProviderModel, lc: Locale): b
 /**
  * Sprint P0.13: URL da usare per un link INTERNO (grid "altri provider",
  * homepage, integrations, blog correlati) verso il provider `p` nella
- * locale corrente `lc`. Stessa regola di `blogLinkHref`: lc indicizzabile →
- * diretto; altrimenti EN indicizzabile → fallback EN; altrimenti null
+ * locale corrente `lc`. Stessa regola di `blogLinkHref`: lc indicizzabile ->
+ * diretto; altrimenti EN indicizzabile -> fallback EN; altrimenti null
  * (nascondi, mai un redirect).
  */
 export function providerLinkHref(p: Provider, lc: Locale): string | null {
+  if (p.promotionalVisibility === false) return null;
   if (isProviderVariantIndexable(p, lc)) return `/${lc}/sync/${p.slug}`;
   if (lc !== "en" && isProviderVariantIndexable(p, "en")) return `/en/sync/${p.slug}`;
   return null;
@@ -105,20 +124,21 @@ export function providerModelLinkHref(
   m: ProviderModel,
   lc: Locale,
 ): string | null {
-  if (isProviderModelVariantIndexable(m, lc)) return `/${lc}/sync/${p.slug}/${m.slug}`;
-  if (lc !== "en" && isProviderModelVariantIndexable(m, "en"))
+  if (p.promotionalVisibility === false) return null;
+  if (isProviderModelVariantIndexable(m, lc, p)) return `/${lc}/sync/${p.slug}/${m.slug}`;
+  if (lc !== "en" && isProviderModelVariantIndexable(m, "en", p))
     return `/en/sync/${p.slug}/${m.slug}`;
   return null;
 }
 
 /**
- * Sprint P0.13 FASE 4: hreflang filtrato per `/sync/[provider]` — stessa
+ * Sprint P0.13 FASE 4: hreflang filtrato per `/sync/[provider]` - stessa
  * fonte di verità di `robots`/sitemap (`isProviderVariantIndexable`), non più
  * il generico `localeAlternates()` che emetteva hreflang anche verso le
  * varianti noindex (gap documentato in
  * `docs/seo/p012-fase3-sitemap-hreflang-gap.md`, mai corretto prima d'ora).
  * x-default = IT: sempre indicizzabile (it/en required), stesso pattern già
- * in uso per blog (`blogLanguages`) e landing (`landingLanguages`) — scelta
+ * in uso per blog (`blogLanguages`) e landing (`landingLanguages`) - scelta
  * di coerenza sitewide, non introduce un x-default diverso per questa sola
  * famiglia.
  */
@@ -128,17 +148,25 @@ export function providerLanguages(p: Provider): Record<string, string> {
     if (!isProviderVariantIndexable(p, l)) continue;
     langs[l] = `${SITE_URL}/${l}/sync/${p.slug}`;
   }
-  langs["x-default"] = `${SITE_URL}/it/sync/${p.slug}`;
+  if (Object.keys(langs).length > 0) {
+    langs["x-default"] = `${SITE_URL}/it/sync/${p.slug}`;
+  }
   return langs;
 }
 
 /** Stesso helper di `providerLanguages`, per `/sync/[provider]/[model]`. */
-export function providerModelLanguages(p: Provider, m: ProviderModel): Record<string, string> {
+export function providerModelLanguages(
+  p: Provider,
+  m: ProviderModel,
+  parentProvider?: Provider | string,
+): Record<string, string> {
   const langs: Record<string, string> = {};
   for (const l of locales) {
-    if (!isProviderModelVariantIndexable(m, l)) continue;
+    if (!isProviderModelVariantIndexable(m, l, parentProvider ?? p)) continue;
     langs[l] = `${SITE_URL}/${l}/sync/${p.slug}/${m.slug}`;
   }
-  langs["x-default"] = `${SITE_URL}/it/sync/${p.slug}/${m.slug}`;
+  if (Object.keys(langs).length > 0) {
+    langs["x-default"] = `${SITE_URL}/it/sync/${p.slug}/${m.slug}`;
+  }
   return langs;
 }

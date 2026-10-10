@@ -24,6 +24,7 @@ import {
   providerLinkHref,
   providerLanguages,
 } from "@/lib/providers/indexability";
+import { getExcludedBannerNotice } from "@/lib/providers/excluded-banner";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { BlogSources } from "@/components/blog/BlogSources";
 import { FITNESS_DATA_SYNC_COMPLETE_LOCALES } from "@/lib/content/static-page-locales";
@@ -264,8 +265,10 @@ export default async function ProviderLanding({
     isPartOf: { "@id": `${SITE_URL}#website` },
   };
 
+  const isPromotional = p.promotionalVisibility !== false;
+
   const faqLd =
-    p.faqs.length > 0
+    isPromotional && p.faqs.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "FAQPage",
@@ -280,11 +283,11 @@ export default async function ProviderLanding({
         }
       : null;
 
-  // HowTo JSON-LD — emitted only when a setup guide with steps exists.
+  // HowTo JSON-LD - emitted only when a setup guide with steps exists.
   // Makes the page eligible for Google HowTo rich results on setup-intent queries.
   const howToSteps = p.setupGuide ? tll(p.setupGuide.steps, lc) : [];
   const howToLd =
-    !isNotAvailable && p.setupGuide && howToSteps.length > 0
+    isPromotional && !isNotAvailable && p.setupGuide && howToSteps.length > 0
       ? {
           "@context": "https://schema.org",
           "@type": "HowTo",
@@ -349,6 +352,21 @@ export default async function ProviderLanding({
         locale={lc}
       />
 
+      {p.promotionalVisibility === false && (
+        <aside className="max-w-6xl mx-auto px-4 sm:px-6 pt-4">
+          <div className="rounded-[14px] border border-amber-500/30 bg-amber-500/10 p-5 text-sm text-text-primary">
+            <p className="font-semibold text-amber-300">
+              {getExcludedBannerNotice(p, lc).directUnavailable}
+            </p>
+            {getExcludedBannerNotice(p, lc).hubBridgeClause && (
+              <p className="mt-2 text-text-secondary leading-relaxed">
+                {getExcludedBannerNotice(p, lc).hubBridgeClause}
+              </p>
+            )}
+          </div>
+        </aside>
+      )}
+
       {/* HERO */}
       <section className="relative max-w-6xl mx-auto px-4 sm:px-6 pt-12 sm:pt-20 pb-16">
         <div
@@ -391,7 +409,7 @@ export default async function ProviderLanding({
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              {isNotAvailable ? (
+              {isNotAvailable || !isPromotional ? (
                 <Link
                   href={`/${lc}/integrations`}
                   className="inline-flex items-center px-5 py-3 rounded-pill btn-cta text-sm font-semibold"
@@ -658,7 +676,7 @@ export default async function ProviderLanding({
                 hero/CTA finale (componente condiviso con gli altri 17
                 provider, "non cambiare le altre landing senza un audit
                 specifico"). */}
-            {isLive && (
+            {isLive && isPromotional && (
               <div className="mt-8">
                 <StoreButtonsRow
                   locale={lc}
@@ -1085,7 +1103,7 @@ export default async function ProviderLanding({
               )}
         </p>
         <div className="mt-8 flex justify-center">
-          {isNotAvailable ? (
+          {isNotAvailable || !isPromotional ? (
             <Link
               href={`/${lc}/integrations`}
               className="inline-flex items-center px-6 py-3 rounded-pill btn-cta text-sm font-semibold"

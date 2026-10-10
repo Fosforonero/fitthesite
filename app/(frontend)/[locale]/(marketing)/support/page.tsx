@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { locales, type Locale, getDictionary, localeAlternates } from "@/lib/i18n";
+import { locales, type Locale, ogLocale, getDictionary, localeAlternates } from "@/lib/i18n";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SUPPORT_FAQS } from "@/lib/content/faqs";
@@ -38,6 +38,20 @@ export async function generateMetadata(
     alternates: {
       canonical: `${SITE_URL}/${lc}/support`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/support`),
+    },
+    openGraph: {
+      type: "website",
+      url: `${SITE_URL}/${lc}/support`,
+      title: titles[lc],
+      description: desc[lc],
+      siteName: "FitMesh Sync",
+      locale: ogLocale[lc],
+      alternateLocale: locales.filter((l) => l !== lc).map((l) => ogLocale[l]),
+    },
+    twitter: {
+      card: "summary",
+      title: titles[lc],
+      description: desc[lc],
     },
   };
 }
