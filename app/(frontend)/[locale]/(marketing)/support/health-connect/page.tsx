@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/seo/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ogLocale } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 
@@ -32,15 +33,41 @@ export async function generateMetadata(
     ? "Istruzioni con schermate autentiche per Android: trovare Connessione Salute, verificare l'app sorgente, configurare i permessi di FitMesh Sync e avviare la prima sincronizzazione."
     : "Step-by-step instructions with verified Android screenshots: find Health Connect, check your companion app, configure FitMesh Sync permissions, and start your first sync.";
 
+  const canonicalUrl = `${SITE_URL}/${lc}/support/health-connect`;
+  const ogImageUrl = `${SITE_URL}/support/health-connect/01-impostazioni-connessione-salute.webp`;
+
   return {
     title,
     description,
     alternates: {
-      canonical: `${SITE_URL}/${lc}/support/health-connect`,
+      canonical: canonicalUrl,
       languages: {
         it: `${SITE_URL}/it/support/health-connect`,
         en: `${SITE_URL}/en/support/health-connect`,
       },
+    },
+    openGraph: {
+      type: "article",
+      url: canonicalUrl,
+      title,
+      description,
+      siteName: "FitMesh Sync",
+      locale: ogLocale[lc],
+      alternateLocale: [ogLocale[lc === "it" ? "en" : "it"]],
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1080,
+          height: 2400,
+          alt: title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [ogImageUrl],
     },
   };
 }
@@ -54,7 +81,7 @@ interface StepItem {
   imageSrc: string;
   imageAlt: string;
   caption: string;
-  statusBadge?: string;
+  warningNotice?: string;
 }
 
 const STEPS_IT: StepItem[] = [
@@ -66,7 +93,7 @@ const STEPS_IT: StepItem[] = [
     troubleshoot: "Su Android 14 o versioni successive Connessione Salute è integrata nel sistema operativo. Su Android 9-13 è necessario installare l'app Connessione Salute dal Google Play Store. Sugli smartphone Samsung Galaxy, il percorso può trovarsi anche in Impostazioni > Sicurezza e privacy > Connessione Salute oppure direttamente nelle impostazioni di Samsung Health.",
     imageSrc: "/support/health-connect/01-impostazioni-connessione-salute.webp",
     imageAlt: "Schermata Impostazioni Android 14 con voce Connessione Salute nella sezione Privacy",
-    caption: "Ambiente: emulatore Google Pixel 6 · Android 14 (API 34). Percorso di sistema: Impostazioni > Sicurezza e privacy > Privacy > Connessione Salute.",
+    caption: "Percorso di sistema: Impostazioni > Sicurezza e privacy > Privacy > Connessione Salute.",
   },
   {
     id: 2,
@@ -76,7 +103,7 @@ const STEPS_IT: StepItem[] = [
     troubleshoot: "Se non vedi alcuna applicazione nell'elenco, verifica di aver già installato sul dispositivo sia l'app del tuo dispositivo indossabile sia FitMesh Sync.",
     imageSrc: "/support/health-connect/02-connessione-salute-autorizzazioni-app.webp",
     imageAlt: "Schermata principale di Connessione Salute con la voce Autorizzazioni app",
-    caption: "Ambiente: emulatore Google Pixel 6 · Android 14 (API 34). Schermata iniziale di Connessione Salute con conteggio delle app collegate.",
+    caption: "Schermata iniziale di Connessione Salute con conteggio delle app collegate.",
   },
   {
     id: 3,
@@ -86,8 +113,8 @@ const STEPS_IT: StepItem[] = [
     troubleshoot: "Se una categoria mostra «Nessun dato», indica semplicemente che per quella categoria non risultano registrazioni disponibili in Connessione Salute. Apri l'app del tuo dispositivo indossabile e avvia una sincronizzazione dall'orologio al telefono per verificare che i dati vengano effettivamente condivisi.",
     imageSrc: "/support/health-connect/03-connessione-salute-categorie-dati.webp",
     imageAlt: "Schermata Connessione Salute Sfoglia i dati con le categorie che mostrano Nessun dato",
-    caption: "Ambiente: emulatore Google Pixel 6 · Android 14 (API 34). Schermata Connessione Salute (Sfoglia i dati) con «Nessun dato» prima del collegamento di una sorgente. La configurazione dei permessi di scrittura varia in base all'app del produttore ed è dichiarata non verificata a runtime su questo banco sintetico privo di account o dispositivi fisici di terze parti.",
-    statusBadge: "Non verificato a runtime su banco sintetico",
+    caption: "Schermata Connessione Salute (Sfoglia i dati) con «Nessun dato» prima del collegamento di una sorgente. La configurazione dei permessi di scrittura varia in base all'applicazione del produttore del dispositivo.",
+    warningNotice: "Le schermate mostrano dati dimostrativi; l’importazione da un dispositivo reale non è illustrata in questa guida.",
   },
   {
     id: 4,
@@ -97,7 +124,7 @@ const STEPS_IT: StepItem[] = [
     troubleshoot: "Se FitMesh Sync non compare nell'elenco, apri l'app FitMesh Sync sul telefono, completa l'accesso con il tuo account ed esegui il primo avvio.",
     imageSrc: "/support/health-connect/04-elenco-app-fitmesh.webp",
     imageAlt: "Elenco delle applicazioni in Connessione Salute con FitMesh Sync sotto Accesso non consentito",
-    caption: "Ambiente: emulatore Google Pixel 6 · Android 14 (API 34). Elenco applicazioni con FitMesh Sync nello stato iniziale di accesso non ancora autorizzato.",
+    caption: "Elenco applicazioni in Connessione Salute con FitMesh Sync nello stato iniziale di accesso non ancora autorizzato.",
   },
   {
     id: 5,
@@ -107,7 +134,7 @@ const STEPS_IT: StepItem[] = [
     troubleshoot: "Se lasci disattivata una metrica specifica (come il sonno o la frequenza cardiaca), FitMesh Sync non potrà acquisire nuove letture per quella categoria da Connessione Salute. Questo non implica che la relativa card sia necessariamente vuota: potrebbero rimanere visibili dati storici già sincronizzati in precedenza, dati dimostrativi o informazioni provenienti da altre sorgenti.",
     imageSrc: "/support/health-connect/05-permessi-lettura-fitmesh.webp",
     imageAlt: "Schermata di autorizzazione di FitMesh Sync in Connessione Salute con opzione Consenti tutte e permessi di lettura attivi",
-    caption: "Ambiente: emulatore Google Pixel 6 · Android 14 (API 34) · FitMesh Sync v3.9.9+190. Schermata delle autorizzazioni di lettura con selettori attivi.",
+    caption: "Schermata delle autorizzazioni di lettura con selettori attivi.",
   },
   {
     id: 6,
@@ -116,8 +143,8 @@ const STEPS_IT: StepItem[] = [
     expected: "L'app interroga le API locali di Connessione Salute per importare le metriche presenti. Il pulsante si disabilita temporaneamente durante l'operazione.",
     troubleshoot: "Se compare il messaggio «Attenzione: Nessun wearable rilevato», significa che il ciclo di sincronizzazione non ha acquisito registrazioni valide. Questa condizione può dipendere da più cause: l'app del tuo orologio non ha ancora memorizzato dati in Connessione Salute, i permessi di lettura pertinenti non sono attivi, oppure si è verificato un errore temporaneo di lettura delle API.",
     imageSrc: "/support/health-connect/06-dashboard-sincronizza-ora.webp",
-    imageAlt: "Dashboard di FitMesh Sync con account dimostrativo e avviso Nessun wearable rilevato",
-    caption: "Ambiente: emulatore Google Pixel 6 · Android 14 (API 34) · FitMesh Sync v3.9.9+190 (account dimostrativo qa-demo@internal.invalid). I valori numerici visibili (es. 7.450 passi) sono dati sintetici precaricati dall'ambiente demo e non costituiscono un'importazione da Connessione Salute. L'avviso «Nessun wearable rilevato» indica che il ciclo di sincronizzazione non ha acquisito registrazioni valide, per assenza di dati nella sorgente, permessi mancanti o un errore temporaneo di lettura.",
+    imageAlt: "Dashboard di FitMesh Sync con avviso Nessun wearable rilevato",
+    caption: "I valori numerici visibili (es. 7.450 passi) sono dati sintetici precaricati dall'ambiente demo e non costituiscono un'importazione da Connessione Salute. L'avviso «Nessun wearable rilevato» indica che il ciclo di sincronizzazione non ha acquisito registrazioni valide, per assenza di dati nella sorgente, permessi mancanti o un errore temporaneo di lettura.",
   },
   {
     id: 7,
@@ -127,7 +154,7 @@ const STEPS_IT: StepItem[] = [
     troubleshoot: "Le diciture «Mai sincronizzato» e «Nessuna sorgente» descrivono lo stato noto a FitMesh Sync per ciascuna metrica e indicano che l'app non ha ancora completato una lettura da una sorgente valida, non che la sincronizzazione sia riuscita. Non dimostrano che Connessione Salute sia priva di registrazioni: controlla separatamente che Connessione Salute contenga i dati della tua app e che le autorizzazioni di lettura concesse a FitMesh Sync siano attive.",
     imageSrc: "/support/health-connect/07-centro-sincronizzazione-diagnostica.webp",
     imageAlt: "Schermata Centro Sincronizzazione con diciture Mai sincronizzato e Nessuna sorgente per le metriche",
-    caption: "Ambiente: emulatore Google Pixel 6 · Android 14 (API 34) · FitMesh Sync v3.9.9+190. Centro Sincronizzazione: «Mai sincronizzato» e «Nessuna sorgente» riflettono lo stato noto all'app (nessuna lettura valida registrata da FitMesh), non un esito positivo. Non dimostrano che Connessione Salute sia vuota: verificare separatamente dati sorgente e autorizzazioni.",
+    caption: "Centro Sincronizzazione: «Mai sincronizzato» e «Nessuna sorgente» riflettono lo stato noto all'app (nessuna lettura valida registrata da FitMesh), non un esito positivo. Non dimostrano che Connessione Salute sia vuota: verificare separatamente dati sorgente e autorizzazioni.",
   },
   {
     id: 8,
@@ -137,7 +164,7 @@ const STEPS_IT: StepItem[] = [
     troubleshoot: "Questo passaggio è facoltativo. L'impostazione della batteria non garantisce da sola la sincronizzazione automatica: l'aggiornamento a schermo spento dipende anche dall'autorizzazione alla lettura in background in Connessione Salute, dalla versione di Health Connect installata e dalle policy di Doze del produttore del telefono. Un tentativo di sincronizzazione manuale con «Sincronizza ora» può essere avviato in qualsiasi momento anche con il profilo «Ottimizzato».",
     imageSrc: "/support/health-connect/08-impostazioni-batteria-background.webp",
     imageAlt: "Schermata Impostazioni Android Utilizzo della batteria per l'app con opzione Senza limitazioni",
-    caption: "Ambiente: emulatore Google Pixel 6 · Android 14 (API 34). Schermata Utilizzo della batteria per l'app con l'opzione «Senza limitazioni» selezionata.",
+    caption: "Schermata Utilizzo della batteria per l'app con l'opzione «Senza limitazioni» selezionata.",
   },
 ];
 
@@ -150,7 +177,7 @@ const STEPS_EN: StepItem[] = [
     troubleshoot: "On Android 14 or newer, Health Connect is built into system settings. On Android 9-13, install the standalone Health Connect app from Google Play Store. On Samsung Galaxy smartphones, this menu may also appear under Settings > Security & privacy > Health Connect or inside Samsung Health settings.",
     imageSrc: "/support/health-connect/01-impostazioni-connessione-salute.webp",
     imageAlt: "Android 14 Settings screen showing Health Connect under Privacy section",
-    caption: "Environment: Google Pixel 6 emulator · Android 14 (API 34). System path: Settings > Security & privacy > Privacy > Health Connect. (Reference device running Italian system locale).",
+    caption: "System path: Settings > Security & privacy > Privacy > Health Connect. (Reference device running Italian system locale).",
   },
   {
     id: 2,
@@ -160,7 +187,7 @@ const STEPS_EN: StepItem[] = [
     troubleshoot: "If no apps are listed, verify that both your wearable companion app and FitMesh Sync are installed on this phone.",
     imageSrc: "/support/health-connect/02-connessione-salute-autorizzazioni-app.webp",
     imageAlt: "Health Connect home screen displaying App permissions section",
-    caption: "Environment: Google Pixel 6 emulator · Android 14 (API 34). Health Connect home screen displaying connected app count. (Italian interface: «Autorizzazioni app»).",
+    caption: "Health Connect home screen displaying connected app count. (Italian interface: «Autorizzazioni app»).",
   },
   {
     id: 3,
@@ -170,8 +197,8 @@ const STEPS_EN: StepItem[] = [
     troubleshoot: "If a category shows «Nessun dato» (No data), it simply indicates that no records are currently available for that category in Health Connect. Open your wearable companion app and trigger a sync from the device to the phone to verify data is being shared.",
     imageSrc: "/support/health-connect/03-connessione-salute-categorie-dati.webp",
     imageAlt: "Health Connect Browse data screen showing categories with No data state",
-    caption: "Environment: Google Pixel 6 emulator · Android 14 (API 34). Health Connect Browse data screen showing «Nessun dato» (No data) before a companion app writes records. Companion write configuration varies by vendor and is declared unverified at runtime on this synthetic test environment without third-party accounts or hardware.",
-    statusBadge: "Unverified at runtime on synthetic bench",
+    caption: "Health Connect Browse data screen showing «Nessun dato» (No data) before a companion app writes records. Companion write configuration varies by vendor.",
+    warningNotice: "The screenshots show demo data; importing data from a real device is not illustrated in this guide.",
   },
   {
     id: 4,
@@ -181,7 +208,7 @@ const STEPS_EN: StepItem[] = [
     troubleshoot: "If FitMesh Sync is not visible in the list, open the FitMesh Sync app, sign in to your account, and complete initial launch setup.",
     imageSrc: "/support/health-connect/04-elenco-app-fitmesh.webp",
     imageAlt: "Health Connect app permissions list showing FitMesh Sync under Not allowed section",
-    caption: "Environment: Google Pixel 6 emulator · Android 14 (API 34). App permissions list showing FitMesh Sync in the initial unauthorized state. (Italian interface: «Accesso non consentito»).",
+    caption: "App permissions list showing FitMesh Sync in the initial unauthorized state. (Italian interface: «Accesso non consentito»).",
   },
   {
     id: 5,
@@ -191,7 +218,7 @@ const STEPS_EN: StepItem[] = [
     troubleshoot: "If you leave a specific metric disabled (such as sleep or heart rate), FitMesh Sync cannot retrieve new readings for that category from Health Connect. This does not mean the corresponding card will necessarily be empty: previously synced historical records, demo data, or inputs from other sources may still be shown.",
     imageSrc: "/support/health-connect/05-permessi-lettura-fitmesh.webp",
     imageAlt: "FitMesh Sync permissions screen in Health Connect with Allow all and read permissions toggled on",
-    caption: "Environment: Google Pixel 6 emulator · Android 14 (API 34) · FitMesh Sync v3.9.9+190. Read permissions screen with active toggles. (Italian interface: «Consenti tutte» / «Autorizzazioni di lettura»).",
+    caption: "Read permissions screen with active toggles. (Italian interface: «Consenti tutte» / «Autorizzazioni di lettura»).",
   },
   {
     id: 6,
@@ -200,8 +227,8 @@ const STEPS_EN: StepItem[] = [
     expected: "The app queries the local Health Connect APIs to import available metrics. The button temporarily disables during the operation.",
     troubleshoot: "If the warning «No wearable detected» («Attenzione: Nessun wearable rilevato») appears, the sync cycle did not retrieve valid records. This can stem from multiple causes: your companion app has not stored records in Health Connect yet, relevant read permissions are disabled, or a transient API read error occurred.",
     imageSrc: "/support/health-connect/06-dashboard-sincronizza-ora.webp",
-    imageAlt: "FitMesh Sync dashboard with demo account and No wearable detected warning banner",
-    caption: "Environment: Google Pixel 6 emulator · Android 14 (API 34) · FitMesh Sync v3.9.9+190 (demo account qa-demo@internal.invalid). Displayed numbers (e.g., 7,450 steps) are pre-loaded synthetic fixture data, not an import from Health Connect. The «Nessun wearable rilevato» notice indicates the sync cycle did not retrieve valid records, whether due to absent source data, missing permissions, or a transient read error.",
+    imageAlt: "FitMesh Sync dashboard with No wearable detected warning banner",
+    caption: "Displayed numbers (e.g., 7,450 steps) are pre-loaded synthetic fixture data, not an import from Health Connect. The «Nessun wearable rilevato» notice indicates the sync cycle did not retrieve valid records, whether due to absent source data, missing permissions, or a transient read error.",
   },
   {
     id: 7,
@@ -211,7 +238,7 @@ const STEPS_EN: StepItem[] = [
     troubleshoot: "The labels «Never synced» («Mai sincronizzato») and «No source» («Nessuna sorgente») describe the status known to FitMesh Sync for each metric, indicating the app has not yet completed a read from a valid source, rather than a successful sync outcome. They do not prove Health Connect itself is empty: verify separately that Health Connect contains records from your companion app and that read permissions granted to FitMesh Sync are active.",
     imageSrc: "/support/health-connect/07-centro-sincronizzazione-diagnostica.webp",
     imageAlt: "Sync Center screen showing Never synced and No source labels for health metrics",
-    caption: "Environment: Google Pixel 6 emulator · Android 14 (API 34) · FitMesh Sync v3.9.9+190. Sync Center: «Mai sincronizzato» (Never synced) and «Nessuna sorgente» (No source) reflect the app's current internal state (no valid read recorded by FitMesh), not a successful sync outcome. They do not prove Health Connect itself is empty: check source records and permissions separately.",
+    caption: "Sync Center: «Mai sincronizzato» (Never synced) and «Nessuna sorgente» (No source) reflect the app's current internal state (no valid read recorded by FitMesh), not a successful sync outcome. They do not prove Health Connect itself is empty: check source records and permissions separately.",
   },
   {
     id: 8,
@@ -221,7 +248,7 @@ const STEPS_EN: StepItem[] = [
     troubleshoot: "This step is optional. Battery settings alone do not guarantee automatic background sync: background execution also depends on the Health Connect background read permission, the Health Connect platform version, and vendor Doze policies. A manual sync attempt with «Sincronizza ora» can always be initiated at any time even under the default «Optimized» profile.",
     imageSrc: "/support/health-connect/08-impostazioni-batteria-background.webp",
     imageAlt: "Android App battery usage settings screen with Unrestricted option selected",
-    caption: "Environment: Google Pixel 6 emulator · Android 14 (API 34). App battery usage screen with the «Senza limitazioni» (Unrestricted) option selected.",
+    caption: "App battery usage screen with the «Senza limitazioni» (Unrestricted) option selected.",
   },
 ];
 
@@ -291,20 +318,20 @@ export default async function HealthConnectGuidePage({
           {pageSubtitle}
         </p>
 
-        {/* Nota sull'ambiente delle schermate di riferimento (emulatore Pixel 6, Android 14) */}
+        {/* Nota sull'ambiente di test e sulle schermate di riferimento (emulatore Pixel 6, Android 14, QA 3.9.9+190, interfaccia in italiano) */}
         {isIt ? (
           <div className="mt-4 rounded-lg border border-brand-aqua/30 bg-brand-aqua/5 p-3 sm:p-4 text-xs text-text-secondary leading-relaxed">
             <strong className="text-text-primary font-medium block mb-1">
-              Nota sull'ambiente delle schermate di riferimento:
+              Nota sull'ambiente di test e sulle schermate di riferimento:
             </strong>
-            Le schermate di questa guida provengono da un emulatore Google Pixel 6 con Android 14 (API 34), non da una prova su telefono fisico né con account di terze parti o dispositivi indossabili reali collegati. Le impostazioni e i percorsi di sistema rispecchiano fedelmente l'interfaccia di Android 14.
+            Le schermate di questa guida provengono da un emulatore Google Pixel 6 con Android 14 (API 34) e app FitMesh QA 3.9.9+190, con interfaccia di sistema in lingua italiana, non da una prova su telefono fisico né con account di terze parti o dispositivi indossabili reali collegati. Le impostazioni e i percorsi rispecchiano fedelmente l'interfaccia standard di Android 14.
           </div>
         ) : (
           <div className="mt-4 rounded-lg border border-brand-aqua/30 bg-brand-aqua/5 p-3 sm:p-4 text-xs text-text-secondary leading-relaxed">
             <strong className="text-text-primary font-medium block mb-1">
-              Note on reference screenshots and environment:
+              Note on test environment and reference screenshots:
             </strong>
-            The screenshots in this guide were captured on a Google Pixel 6 emulator running Android 14 (API 34) in Italian locale, not on a physical phone or with live third-party wearable accounts attached. System settings accurately reflect Android 14. For clarity, actions and descriptions below indicate both the English term and the corresponding Italian interface label visible in the images (such as «Autorizzazioni app» for App permissions and «Sincronizza ora» for Sync now).
+            The screenshots in this guide were captured on a Google Pixel 6 emulator running Android 14 (API 34) with FitMesh QA app 3.9.9+190 and system interface in Italian locale, not on a physical phone or with live third-party wearable accounts attached. Settings and paths accurately reflect Android 14. For clarity, actions and descriptions below indicate both the English term and the corresponding Italian interface label visible in the images (such as «Autorizzazioni app» for App permissions and «Sincronizza ora» for Sync now).
           </div>
         )}
 
@@ -343,12 +370,15 @@ export default async function HealthConnectGuidePage({
                 <h2 className="font-display text-xl sm:text-2xl font-semibold text-text-primary">
                   {step.title}
                 </h2>
-                {step.statusBadge && (
-                  <span className="text-[10px] uppercase tracking-wider font-semibold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                    {step.statusBadge}
-                  </span>
-                )}
               </div>
+              {step.warningNotice && (
+                <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 sm:p-4 text-xs text-amber-200/90 leading-relaxed">
+                  <strong className="text-amber-200 font-medium block mb-1">
+                    {isIt ? "Avvertenza sui dati:" : "Notice on demo data:"}
+                  </strong>
+                  <span>{step.warningNotice}</span>
+                </div>
+              )}
               <div className="mt-3 space-y-2 text-sm leading-relaxed">
                 <p>
                   <strong className="text-text-primary font-medium">

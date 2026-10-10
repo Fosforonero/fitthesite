@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { cleanup, render, screen } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { SUPPORT_FAQS } from '@/lib/content/faqs';
 import { REDDIT_COMMUNITY_LIVE } from '@/lib/product-facts';
 import SupportPage from '../page';
@@ -9,6 +9,11 @@ import HealthConnectGuidePage, {
   generateMetadata,
   generateStaticParams,
 } from './page';
+
+vi.mock('@/lib/blog/payload-source', async () => {
+  const { BLOG_POSTS: posts } = await import('@/lib/blog/data');
+  return { getBlogPosts: async () => posts, getBlogPostsBySlug: async () => posts };
+});
 
 afterEach(() => {
   cleanup();
@@ -28,10 +33,35 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
       it: 'https://www.fitmesh.fit/it/support/health-connect',
       en: 'https://www.fitmesh.fit/en/support/health-connect',
     });
+    expect(metaIt.openGraph?.title).toBe(metaIt.title);
+    expect(metaIt.openGraph?.description).toBe(metaIt.description);
+    expect(metaIt.openGraph?.url).toBe('https://www.fitmesh.fit/it/support/health-connect');
+    expect((metaIt.openGraph as any)?.type).toBe('article');
+    expect(metaIt.openGraph?.locale).toBe('it_IT');
+    expect((metaIt.openGraph?.images as Array<{ url: string }>)?.[0]?.url).toBe(
+      'https://www.fitmesh.fit/support/health-connect/01-impostazioni-connessione-salute.webp',
+    );
+    expect((metaIt.twitter as any)?.card).toBe('summary_large_image');
+    expect(metaIt.twitter?.title).toBe(metaIt.title);
+    expect(metaIt.twitter?.images).toEqual([
+      'https://www.fitmesh.fit/support/health-connect/01-impostazioni-connessione-salute.webp',
+    ]);
 
     const metaEn = await generateMetadata({ params: Promise.resolve({ locale: 'en' }) });
     expect(metaEn.title).toContain('Health Connect');
     expect(metaEn.alternates?.canonical).toBe('https://www.fitmesh.fit/en/support/health-connect');
+    expect(metaEn.openGraph?.title).toBe(metaEn.title);
+    expect(metaEn.openGraph?.description).toBe(metaEn.description);
+    expect(metaEn.openGraph?.url).toBe('https://www.fitmesh.fit/en/support/health-connect');
+    expect(metaEn.openGraph?.locale).toBe('en_US');
+    expect((metaEn.openGraph?.images as Array<{ url: string }>)?.[0]?.url).toBe(
+      'https://www.fitmesh.fit/support/health-connect/01-impostazioni-connessione-salute.webp',
+    );
+    expect((metaEn.twitter as any)?.card).toBe('summary_large_image');
+    expect(metaEn.twitter?.title).toBe(metaEn.title);
+    expect(metaEn.twitter?.images).toEqual([
+      'https://www.fitmesh.fit/support/health-connect/01-impostazioni-connessione-salute.webp',
+    ]);
 
     // Lingue non supportate devono chiamare notFound()
     for (const nonSupported of ['es', 'de', 'fr', 'ja', 'pl', 'tr', 'nl']) {
@@ -106,11 +136,9 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
         expect(figcaption, `Figcaption assente nel passo ${stepId}`).not.toBeNull();
         expect(figcaption!.textContent?.trim().length).toBeGreaterThan(20);
 
-        if (lc === 'it') {
-          expect(figcaption!.textContent).toContain('Ambiente: emulatore Google Pixel 6');
-        } else {
-          expect(figcaption!.textContent).toContain('Environment: Google Pixel 6 emulator');
-        }
+        // La dicitura dell'ambiente non deve essere ripetuta nelle didascalie dei singoli passi
+        expect(figcaption!.textContent).not.toContain('Ambiente: emulatore');
+        expect(figcaption!.textContent).not.toContain('Environment: Google Pixel 6');
       }
 
       expect(imageSrcs.size).toBe(8);
@@ -118,23 +146,29 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
     }
   });
 
-  it('rendering effettivo: include avvertenze sui dati demo, stato incompleto, assenza di telefono fisico e passaggio sorgente non verificato', async () => {
+  it('rendering effettivo: include avvertenze sui dati demo, assenza di qa-demo e badge tecnico, ambiente una sola volta', async () => {
     // 1. Verifica Italiano
     const itUi = await HealthConnectGuidePage({ params: Promise.resolve({ locale: 'it' }) });
     const { container: itContainer } = render(itUi);
 
-    // Disclaimer ambiente in header: specifica emulatore Google Pixel 6, non telefono fisico
-    expect(itContainer.textContent).toContain('emulatore Google Pixel 6 con Android 14');
+    // Disclaimer ambiente in header: specifica emulatore Google Pixel 6, Android 14, QA 3.9.9+190, lingua italiana
+    expect(itContainer.textContent).toContain('emulatore Google Pixel 6 con Android 14 (API 34) e app FitMesh QA 3.9.9+190');
+    expect(itContainer.textContent).toContain('interfaccia di sistema in lingua italiana');
     expect(itContainer.textContent).toContain('non da una prova su telefono fisico');
 
-    // Passo 3: etichetta non verificato a runtime sul banco sintetico
+    // Nessun riferimento a qa-demo@internal.invalid sulla pagina pubblica
+    expect(itContainer.textContent).not.toContain('qa-demo@internal.invalid');
+
+    // Nessun badge tecnico «Non verificato a runtime su banco sintetico»
+    expect(itContainer.textContent).not.toContain('Non verificato a runtime su banco sintetico');
+
+    // Nuova avvertenza comprensibile al passo 3
     const itStep3 = itContainer.querySelector('#passo-3');
-    expect(itStep3?.textContent).toContain('Non verificato a runtime su banco sintetico');
+    expect(itStep3?.textContent).toContain('Le schermate mostrano dati dimostrativi; l’importazione da un dispositivo reale non è illustrata in questa guida.');
     expect(itStep3?.textContent).toContain('indica semplicemente che per quella categoria non risultano registrazioni disponibili');
 
-    // Passo 6: avvertenza esplicita sui dati sintetici dell'account demo e gestione errori lettura
+    // Passo 6: avvertenza esplicita sui dati sintetici e gestione errori lettura
     const itStep6 = itContainer.querySelector('#passo-6');
-    expect(itStep6?.textContent).toContain('qa-demo@internal.invalid');
     expect(itStep6?.textContent).toContain('dati sintetici precaricati');
     expect(itStep6?.textContent).toContain('non ha acquisito registrazioni valide');
 
@@ -145,21 +179,28 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
 
     // Diagramma di flusso: "dashboard nell'app"
     expect(itContainer.textContent).toContain("dashboard nell'app");
+
+    // Didascalie senza ripetizione dell'ambiente
+    const itCaptions = Array.from(itContainer.querySelectorAll('figcaption')).map((f) => f.textContent || '').join(' ');
+    expect(itCaptions).not.toContain('Ambiente: emulatore');
     cleanup();
 
     // 2. Verifica Inglese
     const enUi = await HealthConnectGuidePage({ params: Promise.resolve({ locale: 'en' }) });
     const { container: enContainer } = render(enUi);
 
-    expect(enContainer.textContent).toContain('Google Pixel 6 emulator running Android 14');
+    expect(enContainer.textContent).toContain('Google Pixel 6 emulator running Android 14 (API 34) with FitMesh QA app 3.9.9+190');
+    expect(enContainer.textContent).toContain('system interface in Italian locale');
     expect(enContainer.textContent).toContain('not on a physical phone');
 
+    expect(enContainer.textContent).not.toContain('qa-demo@internal.invalid');
+    expect(enContainer.textContent).not.toContain('Unverified at runtime on synthetic bench');
+
     const enStep3 = enContainer.querySelector('#passo-3');
-    expect(enStep3?.textContent).toContain('Unverified at runtime on synthetic bench');
+    expect(enStep3?.textContent).toContain('The screenshots show demo data; importing data from a real device is not illustrated in this guide.');
     expect(enStep3?.textContent).toContain('simply indicates that no records are currently available');
 
     const enStep6 = enContainer.querySelector('#passo-6');
-    expect(enStep6?.textContent).toContain('qa-demo@internal.invalid');
     expect(enStep6?.textContent).toContain('pre-loaded synthetic fixture data');
     expect(enStep6?.textContent).toContain('did not retrieve valid records');
 
@@ -167,6 +208,9 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
     expect(enStep7?.textContent).toContain('They do not prove Health Connect itself is empty');
 
     expect(enContainer.textContent).toContain('dashboard trends in the app');
+
+    const enCaptions = Array.from(enContainer.querySelectorAll('figcaption')).map((f) => f.textContent || '').join(' ');
+    expect(enCaptions).not.toContain('Environment: Google Pixel 6');
     cleanup();
   });
 
@@ -209,7 +253,7 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
     }
   });
 
-  it('integrazione supporto: la pagina Supporto collega la guida per IT/EN e preserva il gate Reddit differenziato senza perdite nelle altre lingue', async () => {
+  it('integrazione supporto e sitemap: la pagina Supporto e sitemap collegano la guida per IT/EN senza perdite nelle altre lingue', async () => {
     // IT: banner presente con link alla guida, Reddit non nell'header ma in zona secondaria (se live)
     const itUi = await SupportPage({ params: Promise.resolve({ locale: 'it' }) });
     const { container: itContainer } = render(itUi);
@@ -251,6 +295,22 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
     // Nessun blocco secondario Community in inglese per ES
     expect(esContainer.textContent).not.toContain('Looking to discuss device setups');
     cleanup();
+
+    // Sitemap XML include /support/health-connect esclusivamente per IT ed EN
+    const { default: sitemap } = await import('@/app/sitemap');
+    const sitemapEntries = await sitemap();
+    const hcEntries = sitemapEntries.filter((e) => e.url.includes('/support/health-connect'));
+    expect(hcEntries.length).toBe(2);
+    expect(hcEntries.map((e) => e.url).sort()).toEqual([
+      'https://www.fitmesh.fit/en/support/health-connect',
+      'https://www.fitmesh.fit/it/support/health-connect',
+    ]);
+    for (const entry of hcEntries) {
+      expect(entry.alternates?.languages?.it).toBe('https://www.fitmesh.fit/it/support/health-connect');
+      expect(entry.alternates?.languages?.en).toBe('https://www.fitmesh.fit/en/support/health-connect');
+      expect(entry.alternates?.languages?.['x-default']).toBe('https://www.fitmesh.fit/it/support/health-connect');
+      expect(Object.keys(entry.alternates?.languages || {})).toEqual(['it', 'en', 'x-default']);
+    }
   });
 
   it('le FAQ di supporto su Android (indice 0) specificano Android 14 vs 9-13 e il pulsante Sincronizza ora nella schermata principale', () => {
