@@ -3214,12 +3214,12 @@
       "da": "Fitbit Data synkroniseres ikke på Android: den egentlige årsag (og løsningen)"
     },
     "hero.subtitle": {
-      "sv": "95 % av fallen har en enda grundorsak: Health Connect behörigheter. Det handlar varken om Bluetooth eller en ominstallation. Här ska du leta.",
-      "da": "95 % af tilfældene har én grundårsag: Health Connect-rettigheder. Det er hverken Bluetooth eller en geninstallation. Her skal du kigge."
+      "sv": "Innan du installerar om appen eller startar om Bluetooth, kontrollera Health Connect-behörigheterna. Här ska du leta.",
+      "da": "Før du geninstallerer appen eller genstarter Bluetooth, skal du tjekke Health Connect-tilladelserne. Her skal du kigge."
     },
     "metaDescription": {
-      "sv": "När Fitbit-data inte visas i Android-appar beror det nästan alltid på att en behörighet saknas i Health Connect, inte på ett Fitbit-problem. Här beskrivs var du ska leta och hur du åtgärdar det på 30 sekunder.",
-      "da": "Når Fitbit-data ikke vises i Android-apps, skyldes problemet næsten altid en manglende tilladelse i Health Connect og ikke et Fitbit-problem. Her kan du se, hvor du skal kigge, og hvordan du løser problemet på 30 sekunder."
+      "sv": "Fitbit-data syns inte i Android-appar? Kontrollera behörigheterna i Health Connect. Se hur du kontrollerar inställningarna och återställer synkningen.",
+      "da": "Fitbit-data vises ikke i Android-apps? Tjek tilladelserne i Health Connect. Se, hvordan du kontrollerer indstillingerne og genopretter synkroniseringen."
     },
     "primaryKeyword": {
       "sv": "Fitbit-data synkroniseras inte med Android",
@@ -3254,8 +3254,8 @@
       "da": "Min personlige holdning"
     },
     "body.8.body": {
-      "sv": "De flesta felsökningsguider rekommenderar att man ”installerar om appen” eller ”startar om Bluetooth”. Det är fel. I 95 % av fallen ligger problemet i Health Connect behörigheter, och när man väl vet var man ska leta tar det mindre än 30 sekunder att hitta det. Slösa inte tid på drastiska åtgärder: kontrollera behörigheterna först, och sedan allt annat om det behövs.",
-      "da": "De fleste fejlfindingsvejledninger siger »geninstaller appen« eller »genstart Bluetooth«. Det er forkert. I 95 % af tilfældene ligger problemet i Health Connect-tilladelserne, og når man først ved, hvor man skal lede, tager det mindre end 30 sekunder at finde det. Spild ikke tiden på drastiske tiltag: Tjek først tilladelserne, og derefter alt andet, hvis det er nødvendigt."
+      "sv": "De flesta felsökningsguider rekommenderar att man installerar om appen eller startar om Bluetooth. Innan du vidtar drastiska åtgärder bör du kontrollera Health Connect-behörigheterna: utan läs- eller skrivrättigheter överförs inga data. Kontrollera behörigheterna först.",
+      "da": "De fleste fejlfindingsvejledninger anbefaler at geninstallere appen eller genstarte Bluetooth. Før du tager drastiske skridt, bør du tjekke Health Connect-tilladelserne: uden læse- eller skriverettigheder overføres der ingen data. Tjek tilladelserne først."
     },
     "body.9.text": {
       "sv": "Sammanfattningsvis",
@@ -3323,14 +3323,14 @@
     },
     "tldr": {
       "sv": [
-        "I 95 % av fallen är problemet inte Fitbit utan en saknad behörighet i Health Connect.",
+        "Ett vanligt synkroniseringsproblem beror på saknade behörigheter i Health Connect, inte på Fitbit.",
         "Fitbit skriver till Health Connect endast om du manuellt aktiverar skrivfunktion i dess inställningar.",
         "Målappen behöver en egen läsbehörighet, som är separat och oberoende av Fitbit:s.",
         "Health Connect synkroniserar inte historiska data: endast från och med godkännandet och framåt.",
         "Vissa äldre Fitbit-modeller skriver till Google Fit istället för Health Connect: uppdatera firmware eller kontrollera kompatibiliteten."
       ],
       "da": [
-        "I 95 % af tilfældene er problemet ikke Fitbit, men en manglende tilladelse i Health Connect.",
+        "Et almindeligt synkroniseringsproblem skyldes manglende tilladelser i Health Connect, ikke Fitbit.",
         "Fitbit skriver kun til Health Connect, hvis du manuelt aktiverer skrivefunktionen i indstillingerne.",
         "Destination-appen skal have sin egen læsetilladelse, der er adskilt fra og uafhængig af Fitbit's.",
         "Health Connect synkroniserer ikke historiske data: kun fra det øjeblik, hvor godkendelsen finder sted og fremad.",

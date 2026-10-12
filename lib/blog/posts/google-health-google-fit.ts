@@ -72,6 +72,9 @@ export const post: BlogPost = {
   // H1, slug e meta description invariati.
   seoTitle: {
     en: "Google Health vs Google Fit: What Changes in 2026",
+    // SPRINT SEO-METADATA-02 (2026-10-12): seoTitle.de per URL Bing oltre 70c (72c con suffisso).
+    // Target 50-60c con suffisso ' · FitMesh' (45c + 10c = 55c).
+    de: "Google Health vs Google Fit: Die Unterschiede",
   },
     metaDescription: {
       it: "Google Fit sta per essere sostituito da Google Health. Cosa migra e cosa no, e come vedere insieme anche i wearable che Google Health non copre direttamente.",
@@ -163,7 +166,7 @@ secondaryKeywords: {
         "Google Health può leggere e scrivere dati selezionati tramite Health Connect su Android; su iPhone legge da Apple Health ma non scrive ancora indietro. In entrambi i casi serve consenso e permesso per ogni tipo di dato: non è una sincronizzazione completa, automatica o storica (fonte: Google Health Help Center).",
         "Con Garmin non c'è collegamento diretto: passa da Health Connect o Apple Health. Con Strava sì: Google Health invia automaticamente le nuove attività, ma solo in avanti, mai lo storico (fonte: Google Health Help Center).",
         "Non tutti i dati di terze parti alimentano tutte le funzioni: oggi Sleep Score e Cardio Load usano solo dati first-party Fitbit e Pixel, anche se altri dispositivi sono collegati correttamente.",
-        "FitMesh non si integra con Google Health né con la sua API: legge da Health Connect, Apple Health, Samsung Health Data SDK e Bluetooth diretto (anello Colmi), e mostra tutto in un'unica dashboard con provenienza e priorità delle fonti.",
+        "FitMesh non si integra con Google Health né con la sua API: su Android legge da Health Connect (in cui scrive anche Samsung Health), su iPhone da Apple Health, e dai dispositivi compatibili via Bluetooth diretto (anello Colmi), mostrando tutto in un'unica dashboard con provenienza e priorità delle fonti.",
       ],
       en: [
         "Since May 19, 2026 the Fitbit app has become Google Health; for most people, the automatic update arrived between May 19 and May 26 (source: Google Health Help Center).",
@@ -171,7 +174,7 @@ secondaryKeywords: {
         "Google Health can read and write selected data through Health Connect on Android; on iPhone it reads from Apple Health but doesn't write back yet. Either way it needs consent and permission per data type: it isn't a complete, automatic, or historical sync (source: Google Health Help Center).",
         "There's no direct link with Garmin: it goes through Health Connect or Apple Health. With Strava there is: Google Health automatically sends new activities, but only going forward, never your history (source: Google Health Help Center).",
         "Not all third-party data feeds every feature: today Sleep Score and Cardio Load use only first-party Fitbit and Pixel data, even when other devices are connected correctly.",
-        "FitMesh doesn't integrate with Google Health or its API: it reads from Health Connect, Apple Health, the Samsung Health Data SDK, and direct Bluetooth (Colmi ring), and shows everything in one dashboard with source provenance and priority.",
+        "FitMesh doesn't integrate with Google Health or its API: on Android it reads from Health Connect (which Samsung Health writes to), on iPhone from Apple Health, and via direct Bluetooth from compatible devices (Colmi ring), showing everything in one dashboard with source provenance and priority.",
       ],
       es: [
         "Desde el 19 de mayo de 2026, la app de Fitbit se convirtió en Google Health; para la mayoría de las personas, la actualización automática llegó entre el 19 y el 26 de mayo (fuente: Centro de ayuda de Google Health).",
@@ -179,7 +182,7 @@ secondaryKeywords: {
         "Google Health puede leer y escribir datos seleccionados a través de Health Connect en Android; en iPhone lee de Apple Health pero todavía no escribe de vuelta. En ambos casos necesita consentimiento y permiso para cada tipo de dato: no es una sincronización completa, automática ni retroactiva (fuente: Centro de ayuda de Google Health).",
         "Con Garmin no hay conexión directa: pasa por Health Connect o Apple Health. Con Strava sí la hay: Google Health envía automáticamente las actividades nuevas, pero solo hacia adelante, nunca tu historial (fuente: Centro de ayuda de Google Health).",
         "No todos los datos de terceros alimentan todas las funciones: hoy Sleep Score y Cardio Load usan solo datos propios de Fitbit y Pixel, aunque otros dispositivos estén conectados correctamente.",
-        "FitMesh no se integra con Google Health ni con su API: lee de Health Connect, Apple Health, el SDK de Samsung Health Data y Bluetooth directo (anillo Colmi), y lo muestra todo en un único panel con la procedencia y la prioridad de cada fuente.",
+        "FitMesh no se integra con Google Health ni con su API: en Android lee de Health Connect (donde escribe Samsung Health), en iPhone de Apple Health y por Bluetooth directo desde dispositivos compatibles (anillo Colmi), y muestra todo en un único panel con la procedencia y la prioridad de cada fuente.",
       ],
       de: [
         "Seit dem 19. Mai 2026 ist aus der Fitbit-App die App Google Health geworden; für die meisten Nutzer kam das automatische Update zwischen dem 19. und 26. Mai (Quelle: Google Health Help Center).",
@@ -187,7 +190,7 @@ secondaryKeywords: {
         "Google Health kann über Health Connect auf Android ausgewählte Daten lesen und schreiben; auf dem iPhone liest es aus Apple Health, schreibt aber noch nicht zurück. In beiden Fällen braucht es für jeden Datentyp Zustimmung und Berechtigung: Das ist keine vollständige, automatische oder rückwirkende Synchronisierung (Quelle: Google Health Help Center).",
         "Mit Garmin gibt es keine direkte Verbindung: Sie läuft über Health Connect oder Apple Health. Mit Strava schon: Google Health sendet neue Aktivitäten automatisch, aber nur ab dem Zeitpunkt der Verbindung nach vorn, nie den Verlauf (Quelle: Google Health Help Center).",
         "Nicht alle Daten von Drittanbietern speisen alle Funktionen: Sleep Score und Cardio Load nutzen heute ausschließlich First-Party-Daten von Fitbit und Pixel, auch wenn andere Geräte korrekt verbunden sind.",
-        "FitMesh integriert sich weder mit Google Health noch mit dessen API: Es liest aus Health Connect, Apple Health, dem Samsung Health Data SDK und direktem Bluetooth (Colmi-Ring) und zeigt alles in einem einzigen Dashboard mit Herkunft und Priorität der Quellen.",
+        "FitMesh integriert sich weder mit Google Health noch mit dessen API: Unter Android liest es aus Health Connect (in das Samsung Health schreibt), auf dem iPhone aus Apple Health und über direktes Bluetooth von kompatiblen Geräten (Colmi-Ring), und zeigt alles in einem einzigen Dashboard mit Herkunft und Priorität der Quellen.",
       ],
       pt: [
         "Desde 19 de maio de 2026, o aplicativo Fitbit se tornou o Google Saúde; para a maioria das pessoas, a atualização automática chegou entre 19 e 26 de maio (fonte: Central de Ajuda do Google Saúde).",
@@ -195,7 +198,7 @@ secondaryKeywords: {
         "O Google Saúde pode ler e gravar dados selecionados através do Health Connect no Android; no iPhone ele lê do Apple Health, mas ainda não grava de volta. Em ambos os casos, cada tipo de dado exige consentimento e permissão específicos: não é uma sincronização completa, automática ou retroativa (fonte: Central de Ajuda do Google Saúde).",
         "Com o Garmin não há conexão direta: os dados passam pelo Health Connect ou pelo Apple Health. Com o Strava sim: o Google Saúde envia automaticamente as novas atividades, mas só dali em diante, nunca o histórico (fonte: Central de Ajuda do Google Saúde).",
         "Nem todos os dados de terceiros alimentam todas as funções: hoje o Sleep Score e o Cardio Load usam apenas dados first-party do Fitbit e do Pixel, mesmo quando outros dispositivos estão conectados corretamente.",
-        "O FitMesh não se integra com o Google Saúde nem com a API dele: ele lê do Health Connect, do Apple Health, do Samsung Health Data SDK e via Bluetooth direto (anel Colmi), e mostra tudo em um único painel com a origem e a prioridade de cada fonte.",
+        "O FitMesh não se integra com o Google Saúde nem com a API dele: no Android lê do Health Connect (onde o Samsung Health grava), no iPhone do Apple Health e via Bluetooth direto de dispositivos compatíveis (anel Colmi), e mostra tudo em um único painel com a origem e a prioridade de cada fonte.",
       ],
       fr: [
         "Depuis le 19 mai 2026, l'application Fitbit est devenue Google Health ; pour la plupart des utilisateurs, la mise à jour automatique est arrivée entre le 19 et le 26 mai (source : Google Health Help Center).",
@@ -203,7 +206,7 @@ secondaryKeywords: {
         "Google Health peut lire et écrire des données sélectionnées via Health Connect sur Android ; sur iPhone, il lit depuis Apple Health mais n'y écrit pas encore. Dans les deux cas, un consentement et une autorisation sont nécessaires pour chaque type de donnée : ce n'est pas une synchronisation complète, automatique ou rétroactive sur l'historique (source : Google Health Help Center).",
         "Avec Garmin, il n'y a pas de connexion directe : cela passe par Health Connect ou Apple Health. Avec Strava, si : Google Health envoie automatiquement les nouvelles activités, mais seulement à partir de maintenant, jamais l'historique (source : Google Health Help Center).",
         "Toutes les données tierces n'alimentent pas toutes les fonctionnalités : aujourd'hui, le Sleep Score et le Cardio Load n'utilisent que les données first-party Fitbit et Pixel, même quand d'autres appareils sont correctement connectés.",
-        "FitMesh ne s'intègre pas à Google Health ni à son API : il lit depuis Health Connect, Apple Health, le Samsung Health Data SDK et le Bluetooth direct (bague Colmi), et affiche tout dans un seul tableau de bord avec la provenance et la priorité des sources.",
+        "FitMesh ne s'intègre pas à Google Health ni à son API : sur Android il lit depuis Health Connect (où Samsung Health écrit), sur iPhone depuis Apple Health et via Bluetooth direct depuis les appareils compatibles (bague Colmi), et affiche tout dans un seul tableau de bord avec la provenance et la priorité des sources.",
       ],
       pl: [
         "Od 19 maja 2026 r. aplikacja Fitbit stała się Google Health; dla większości osób automatyczna aktualizacja pojawiła się między 19 a 26 maja (źródło: Centrum pomocy Google Health).",
@@ -211,7 +214,7 @@ secondaryKeywords: {
         "Google Health może odczytywać i zapisywać wybrane dane przez Health Connect na Androidzie; na iPhonie odczytuje dane z Apple Health, ale jeszcze ich tam nie zapisuje. W obu przypadkach wymaga to zgody i osobnego uprawnienia dla każdego typu danych: to nie jest pełna, automatyczna ani historyczna synchronizacja (źródło: Centrum pomocy Google Health).",
         "Z Garminem nie ma bezpośredniego połączenia: dane przechodzą przez Health Connect lub Apple Health. Ze Strava jest inaczej: Google Health automatycznie wysyła nowe aktywności, ale tylko od teraz, nigdy historii (źródło: Centrum pomocy Google Health).",
         "Nie wszystkie dane firm trzecich zasilają wszystkie funkcje: dziś Sleep Score i Cardio Load wykorzystują wyłącznie własne dane Fitbit i Pixel, nawet jeśli inne urządzenia są poprawnie połączone.",
-        "FitMesh nie integruje się z Google Health ani z jego API: odczytuje dane z Health Connect, Apple Health, Samsung Health Data SDK oraz bezpośredniego Bluetooth (pierścień Colmi) i pokazuje wszystko na jednym pulpicie z pochodzeniem i priorytetem źródeł.",
+        "FitMesh nie integruje się z Google Health ani z jego API: na Androidzie odczytuje dane z Health Connect (do którego zapisuje Samsung Health), na iPhonie z Apple Health, a z kompatybilnych urządzeń przez bezpośredni Bluetooth (pierścień Colmi), pokazując wszystko w jednym panelu z pochodzeniem i priorytetem źródeł.",
       ],
       tr: [
         "19 Mayıs 2026'dan itibaren Fitbit uygulaması Google Health'e dönüştü; çoğu kullanıcı için otomatik güncelleme 19-26 Mayıs arasında geldi (kaynak: Google Health Help Center).",
@@ -219,7 +222,7 @@ secondaryKeywords: {
         "Google Health, Android'de Health Connect üzerinden seçili verileri okuyup yazabiliyor; iPhone'da ise Apple Health'ten okuyor ama henüz geri yazmıyor. Her iki durumda da her veri türü için ayrı onay ve izin gerekiyor: bu eksiksiz, otomatik veya geçmişe dönük bir senkronizasyon değil (kaynak: Google Health Help Center).",
         "Garmin ile doğrudan bir bağlantı yok: veriler Health Connect veya Apple Health üzerinden geçiyor. Strava ile ise var: Google Health yeni antrenmanları otomatik olarak gönderiyor, ama yalnızca ileriye dönük, geçmiş antrenmanlar asla (kaynak: Google Health Help Center).",
         "Üçüncü taraf verilerin tamamı her özelliği beslemiyor: bugün Sleep Score ve Cardio Load yalnızca birinci taraf Fitbit ve Pixel verilerini kullanıyor, başka cihazlar doğru şekilde bağlı olsa bile.",
-        "FitMesh, Google Health'e veya onun API'sine entegre değildir: Health Connect, Apple Health, Samsung Health Data SDK ve doğrudan Bluetooth'tan (Colmi yüzüğü) veri okur ve hepsini kaynak ve öncelik bilgisiyle tek bir panoda gösterir.",
+        "FitMesh, Google Health veya API'si ile entegre değildir: Android'de Health Connect'ten (Samsung Health'in yazdığı yer), iPhone'da Apple Health'ten ve uyumlu cihazlardan doğrudan Bluetooth (Colmi yüzüğü) üzerinden okur; her kaynağın kökeni ve önceliğiyle tek bir panoda gösterir.",
       ],
       nl: [
         "Sinds 19 mei 2026 is de Fitbit-app Google Health geworden; voor de meeste mensen kwam de automatische update tussen 19 en 26 mei (bron: Google Health Help Center).",
@@ -227,7 +230,7 @@ secondaryKeywords: {
         "Google Health kan geselecteerde gegevens lezen én schrijven via Health Connect op Android; op iPhone leest het uit Apple Health, maar schrijft nog niet terug. In beide gevallen is voor elk gegevenstype toestemming en een aparte machtiging nodig: het is geen volledige, automatische of historische synchronisatie (bron: Google Health Help Center).",
         "Met Garmin is er geen directe koppeling: dat loopt via Health Connect of Apple Health. Met Strava wel: Google Health stuurt nieuwe activiteiten automatisch door, maar alleen vooruit, nooit je geschiedenis (bron: Google Health Help Center).",
         "Niet alle gegevens van derden voeden elke functie: Sleep Score en Cardio Load gebruiken vandaag alleen first-party Fitbit- en Pixel-gegevens, ook als andere apparaten correct zijn gekoppeld.",
-        "FitMesh integreert niet met Google Health of de bijbehorende API: het leest uit Health Connect, Apple Health, de Samsung Health Data SDK en directe Bluetooth (Colmi-ring), en toont alles in één dashboard met herkomst en prioriteit van de bronnen.",
+        "FitMesh integreert niet met Google Health of de bijbehorende API: op Android leest het uit Health Connect (waarnaar Samsung Health schrijft), op iPhone uit Apple Health en via directe Bluetooth van compatibele apparaten (Colmi-ring), en toont alles in één dashboard met herkomst en prioriteit van de bronnen.",
       ],
       ja: [
         "2026年5月19日、Fitbit アプリは Google Health になりました。ほとんどのユーザーには、自動更新が5月19日から26日の間に届きました(出典:Google Health ヘルプセンター)。",
@@ -235,7 +238,7 @@ secondaryKeywords: {
         "Google Health は Android では Health Connect を通じて選択したデータを読み書きできます。iPhone では Apple Health からデータを読み取りますが、まだ書き戻しはしません。いずれの場合もデータの種類ごとに同意と許可が必要です。完全・自動・過去分をすべて含む同期ではありません(出典:Google Health ヘルプセンター)。",
         "Garmin との直接連携はなく、Health Connect または Apple Health を経由します。一方 Strava とは直接連携しており、Google Health は新しいアクティビティを自動的に送信しますが、それは今後分のみで過去の履歴は対象外です(出典:Google Health ヘルプセンター)。",
         "サードパーティのデータがすべての機能に反映されるわけではありません。他のデバイスが正しく接続されていても、Sleep Score と Cardio Load は現在 Fitbit と Pixel のファーストパーティデータのみを使用しています。",
-        "FitMesh は Google Health ともその API とも連携しません。Health Connect、Apple Health、Samsung Health Data SDK、直接 Bluetooth 接続(Colmi リング)からデータを読み取り、出所と優先順位を明示した一つのダッシュボードにまとめて表示します。",
+        "FitMesh は Google Health ともその API とも連携しません。Android では Health Connect（Samsung Health の書き込み先）、iPhone では Apple Health、対応デバイスからは直接 Bluetooth（Colmi リング）からデータを読み取り、出所と優先順位を明示した一つのダッシュボードにまとめて表示します。",
       ],
       ko: [
         "2026년 5월 19일부터 Fitbit 앱이 Google Health가 되었으며; 대부분의 사용자에게는 자동 업데이트가 5월 19일부터 26일 사이에 도착했습니다(출처: Google Health 고객센터).",
@@ -243,7 +246,7 @@ secondaryKeywords: {
         "Google Health는 Android에서는 Health Connect를 통해 선택된 데이터를 읽고 쓸 수 있습니다. iPhone에서는 Apple Health에서 읽어오지만 아직 다시 쓰지는 않습니다. 두 경우 모두 데이터 유형마다 동의와 권한이 필요합니다. 완전하거나 자동적이거나 과거 기록까지 포함하는 동기화는 아닙니다(출처: Google Health 고객센터).",
         "Garmin과는 직접 연결되지 않으며 Health Connect나 Apple Health를 거칩니다. 반면 Strava와는 직접 연결되어 있어 Google Health가 새 활동을 자동으로 전송하지만, 연결 이후의 활동에 한하며 과거 기록은 전송되지 않습니다(출처: Google Health 고객센터).",
         "서드파티 데이터가 모든 기능에 반영되는 것은 아닙니다. 현재 Sleep Score와 Cardio Load는 다른 기기가 제대로 연결되어 있어도 Fitbit과 Pixel의 자체(first-party) 데이터만 사용합니다.",
-        "FitMesh는 Google Health나 그 API와 연동하지 않습니다. Health Connect, Apple Health, Samsung Health Data SDK, 직접 블루투스(Colmi 링)에서 데이터를 읽어와, 출처와 우선순위가 표시된 하나의 대시보드에 모두 보여줍니다.",
+        "FitMesh는 Google Health나 그 API와 연동하지 않습니다. Android에서는 Health Connect(Samsung Health가 기록하는 대상), iPhone에서는 Apple Health, 호환 기기에서는 직접 블루투스(Colmi 링)에서 데이터를 읽어와, 출처와 우선순위가 표시된 하나의 대시보드에 모두 보여줍니다.",
       ],
     },
   body: [
@@ -696,17 +699,17 @@ secondaryKeywords: {
     {
       type: "paragraph",
       text: {
-          it: "FitMesh non si integra direttamente con l'app Google Health e non usa la Google Health API nella release pubblica attuale. Un'etichetta come ‘Google Fit’ che a volte vedi nell'app FitMesh vicino a un dato non è un'integrazione diretta: è solo il nome leggibile del pacchetto Android che ha scritto quel dato dentro Health Connect (es. com.google.android.apps.fitness), usato per mostrarti la provenienza. Il percorso reale è sempre: dispositivo o app -> Health Connect (su Android) o Apple Health (su iPhone) -> FitMesh. Su Android, FitMesh legge anche direttamente dal Samsung Health Data SDK (per alcune metriche che Samsung Health non fa sempre transitare su Health Connect) e via Bluetooth diretto dagli anelli Colmi supportati, senza passare da nessuno strato intermedio.",
-          en: "FitMesh doesn't integrate directly with the Google Health app and doesn't use the Google Health API in the current public release. A label like ‘Google Fit’ that you sometimes see in the FitMesh app next to a data point isn't a direct integration: it's just the readable name of the Android package that wrote that data into Health Connect (e.g. com.google.android.apps.fitness), used to show you where a value came from. The real path is always: device or app -> Health Connect (on Android) or Apple Health (on iPhone) -> FitMesh. On Android, FitMesh also reads directly from the Samsung Health Data SDK (for some metrics Samsung Health doesn't always pass through Health Connect) and via direct Bluetooth from supported Colmi rings, without going through any intermediate layer.",
-          es: "FitMesh no se integra directamente con la app Google Health y no usa la Google Health API en la versión pública actual. Una etiqueta como 'Google Fit' que a veces ves en la app de FitMesh junto a un dato no es una integración directa: es solo el nombre legible del paquete de Android que escribió ese dato en Health Connect (por ejemplo, com.google.android.apps.fitness), usado para mostrarte de dónde viene un valor. La ruta real siempre es: dispositivo o app → Health Connect (en Android) o Apple Health (en iPhone) → FitMesh. En Android, FitMesh también lee directamente del SDK de Samsung Health Data (para algunas métricas que Samsung Health no siempre hace pasar por Health Connect) y por Bluetooth directo desde los anillos Colmi compatibles, sin pasar por ninguna capa intermedia.",
-          de: "FitMesh integriert sich nicht direkt mit der App Google Health und nutzt in der aktuellen öffentlichen Version nicht die Google Health API. Eine Kennzeichnung wie 'Google Fit', die du manchmal in der FitMesh-App neben einem Wert siehst, ist keine direkte Integration: Es ist nur der lesbare Name des Android-Pakets, das diesen Wert in Health Connect geschrieben hat (zum Beispiel com.google.android.apps.fitness), verwendet, um dir die Herkunft anzuzeigen. Der tatsächliche Weg ist immer: Gerät oder App → Health Connect (auf Android) oder Apple Health (auf dem iPhone) → FitMesh. Auf Android liest FitMesh außerdem direkt aus dem Samsung Health Data SDK (für einige Messwerte, die Samsung Health nicht immer über Health Connect weiterleitet) und über direktes Bluetooth von unterstützten Colmi-Ringen, ohne über eine Zwischenschicht zu laufen.",
-          pt: "O FitMesh não se integra diretamente com o aplicativo Google Saúde e não usa a Google Health API na versão pública atual. Uma etiqueta como \"Google Fit\" que você às vezes vê no aplicativo FitMesh ao lado de um dado não é uma integração direta: é apenas o nome legível do pacote Android que gravou aquele dado dentro do Health Connect (por exemplo, com.google.android.apps.fitness), usado para mostrar de onde o dado veio. O caminho real é sempre: dispositivo ou app -> Health Connect (no Android) ou Apple Health (no iPhone) -> FitMesh. No Android, o FitMesh também lê diretamente do Samsung Health Data SDK (para algumas métricas que o Samsung Health nem sempre transmite pelo Health Connect) e via Bluetooth direto dos anéis Colmi compatíveis, sem passar por nenhuma camada intermediária.",
-          fr: "FitMesh ne s'intègre pas directement à l'application Google Health et n'utilise pas la Google Health API dans la version publique actuelle. Une étiquette comme « Google Fit » que vous voyez parfois dans l'application FitMesh à côté d'une donnée n'est pas une intégration directe : c'est simplement le nom lisible du package Android qui a écrit cette donnée dans Health Connect (par ex. com.google.android.apps.fitness), utilisé pour vous montrer sa provenance. Le chemin réel est toujours : appareil ou app → Health Connect (sur Android) ou Apple Health (sur iPhone) → FitMesh. Sur Android, FitMesh lit aussi directement depuis le Samsung Health Data SDK (pour certaines métriques que Samsung Health ne fait pas toujours transiter par Health Connect) et via Bluetooth direct depuis les bagues Colmi prises en charge, sans passer par aucune couche intermédiaire.",
-          pl: "FitMesh nie integruje się bezpośrednio z aplikacją Google Health i nie korzysta z Google Health API w obecnym publicznym wydaniu. Etykieta typu \"Google Fit\", którą czasem widzisz w aplikacji FitMesh obok danej wartości, nie jest bezpośrednią integracją: to tylko czytelna nazwa pakietu Androida, który zapisał tę daną w Health Connect (np. com.google.android.apps.fitness), użyta po to, by pokazać Ci pochodzenie danych. Rzeczywista ścieżka to zawsze: urządzenie lub aplikacja → Health Connect (na Androidzie) lub Apple Health (na iPhonie) → FitMesh. Na Androidzie FitMesh odczytuje też dane bezpośrednio z Samsung Health Data SDK (dla niektórych metryk, których Samsung Health nie zawsze przekazuje przez Health Connect) oraz przez bezpośredni Bluetooth z obsługiwanych pierścieni Colmi, bez przechodzenia przez żadną warstwę pośrednią.",
-          tr: "FitMesh, Google Health uygulamasıyla doğrudan entegre değildir ve mevcut genel sürümde Google Health API'sini kullanmaz. FitMesh uygulamasında bazen bir verinin yanında gördüğünüz 'Google Fit' gibi bir etiket doğrudan bir entegrasyon değildir: bu yalnızca o veriyi Health Connect'e yazan Android paketinin okunabilir adıdır (örn. com.google.android.apps.fitness), verinin nereden geldiğini göstermek için kullanılır. Gerçek yol her zaman şudur: cihaz veya uygulama -> Health Connect (Android'de) veya Apple Health (iPhone'da) -> FitMesh. Android'de FitMesh ayrıca Samsung Health Data SDK'sından doğrudan okuma yapar (Samsung Health'in her zaman Health Connect'e aktarmadığı bazı metrikler için) ve desteklenen Colmi yüzüklerinden doğrudan Bluetooth üzerinden veri okur, herhangi bir ara katmandan geçmeden.",
-          nl: "FitMesh integreert niet rechtstreeks met de Google Health-app en gebruikt de Google Health API niet in de huidige publieke release. Een label als 'Google Fit' dat je soms in de FitMesh-app naast een gegeven ziet, is geen directe integratie: het is enkel de leesbare naam van het Android-package dat dat gegeven in Health Connect heeft geschreven (bijv. com.google.android.apps.fitness), gebruikt om je de herkomst te tonen. Het werkelijke traject is altijd: apparaat of app -> Health Connect (op Android) of Apple Health (op iPhone) -> FitMesh. Op Android leest FitMesh ook rechtstreeks uit de Samsung Health Data SDK (voor sommige metingen die Samsung Health niet altijd via Health Connect laat lopen) en via directe Bluetooth vanaf ondersteunde Colmi-ringen, zonder tussenliggende laag.",
-          ja: "FitMesh は Google Health アプリと直接連携しておらず、現在の公開リリースでは Google Health API も使用していません。FitMesh アプリ内で、あるデータの近くに「Google Fit」というラベルが表示されることがありますが、これは直接連携を意味するものではありません。単に、そのデータを Health Connect に書き込んだ Android パッケージの読みやすい名前(例:com.google.android.apps.fitness)を、データの出所を示すために表示しているだけです。実際の経路は常に、デバイスまたはアプリ → Health Connect(Android の場合)または Apple Health(iPhone の場合)→ FitMesh です。Android では、FitMesh は Samsung Health Data SDK からも直接データを読み取り(Samsung Health が常に Health Connect を経由させるとは限らない一部の指標のため)、対応する Colmi リングからは直接 Bluetooth 接続でデータを取得します。いずれも中間層を経由しません。",
-          ko: "FitMesh는 Google Health 앱과 직접 연동하지 않으며, 현재 공개 릴리스에서 Google Health API를 사용하지 않습니다. FitMesh 앱에서 데이터 옆에 가끔 보이는 \"Google Fit\" 같은 라벨은 직접 연동을 뜻하지 않습니다. 이는 해당 데이터를 Health Connect에 기록한 Android 패키지의 읽기 쉬운 이름(예: com.google.android.apps.fitness)일 뿐이며, 출처를 표시하기 위해 쓰입니다. 실제 경로는 항상 다음과 같습니다: 기기 또는 앱 → Health Connect(Android) 또는 Apple Health(iPhone) → FitMesh. Android에서 FitMesh는 Samsung Health Data SDK에서도 직접 데이터를 읽고(Samsung Health가 Health Connect로 항상 전달하지는 않는 일부 지표를 위해), 지원되는 Colmi 링에서는 중간 계층을 거치지 않고 직접 블루투스로 데이터를 읽습니다.",
+          it: "FitMesh non si integra direttamente con l'app Google Health e non usa la Google Health API nella release pubblica attuale. Un'etichetta come ‘Google Fit’ che a volte vedi nell'app FitMesh vicino a un dato non è un'integrazione diretta: è solo il nome leggibile del pacchetto Android che ha scritto quel dato dentro Health Connect (es. com.google.android.apps.fitness), usato per mostrarti la provenienza. Il percorso reale è sempre: dispositivo o app -> Health Connect (su Android) o Apple Health (su iPhone) -> FitMesh. Su Android, i dati di Galaxy Watch e Samsung Health transitano attraverso Health Connect, mentre dagli anelli Colmi supportati la lettura avviene via Bluetooth diretto, senza server intermedi.",
+          en: "FitMesh doesn't integrate directly with the Google Health app and doesn't use the Google Health API in the current public release. A label like ‘Google Fit’ that you sometimes see in the FitMesh app next to a data point isn't a direct integration: it's just the readable name of the Android package that wrote that data into Health Connect (e.g. com.google.android.apps.fitness), used to show you where a value came from. The real path is always: device or app -> Health Connect (on Android) or Apple Health (on iPhone) -> FitMesh. On Android, Galaxy Watch and Samsung Health data flow through Health Connect, while supported Colmi rings are read via direct Bluetooth without intermediate servers.",
+          es: "FitMesh no se integra directamente con la app Google Health y no usa la Google Health API en la versión pública actual. Una etiqueta como 'Google Fit' que a veces ves en la app de FitMesh junto a un dato no es una integración directa: es solo el nombre legible del paquete de Android que escribió ese dato en Health Connect (por ejemplo, com.google.android.apps.fitness), usado para mostrarte de dónde viene un valor. La ruta real siempre es: dispositivo o app → Health Connect (en Android) o Apple Health (en iPhone) → FitMesh. En Android, los datos de Galaxy Watch y Samsung Health pasan a través de Health Connect, mientras que con los anillos Colmi compatibles la lectura se realiza por Bluetooth directo, sin servidores intermedios.",
+          de: "FitMesh integriert sich nicht direkt mit der App Google Health und nutzt in der aktuellen öffentlichen Version nicht die Google Health API. Eine Kennzeichnung wie 'Google Fit', die du manchmal in der FitMesh-App neben einem Wert siehst, ist keine direkte Integration: Es ist nur der lesbare Name des Android-Pakets, das diesen Wert in Health Connect geschrieben hat (zum Beispiel com.google.android.apps.fitness), verwendet, um dir die Herkunft anzuzeigen. Der tatsächliche Weg ist immer: Gerät oder App → Health Connect (auf Android) oder Apple Health (auf dem iPhone) → FitMesh. Unter Android fließen Daten von Galaxy Watch und Samsung Health über Health Connect, während unterstützte Colmi-Ringe über direktes Bluetooth ohne Zwischenserver ausgelesen werden.",
+          pt: "O FitMesh não se integra diretamente com o aplicativo Google Saúde e não usa a Google Health API na versão pública atual. Uma etiqueta como \"Google Fit\" que você às vezes vê no aplicativo FitMesh ao lado de um dado não é uma integração direta: é apenas o nome legível do pacote Android que gravou aquele dado dentro do Health Connect (por exemplo, com.google.android.apps.fitness), usado para mostrar de onde o dado veio. O caminho real é sempre: dispositivo ou app -> Health Connect (no Android) ou Apple Health (no iPhone) -> FitMesh. No Android, os dados do Galaxy Watch e do Samsung Health passam pelo Health Connect, enquanto os anéis Colmi compatíveis são lidos via Bluetooth direto, sem servidores intermediários.",
+          fr: "FitMesh ne s'intègre pas directement à l'application Google Health et n'utilise pas la Google Health API dans la version publique actuelle. Une étiquette comme « Google Fit » que vous voyez parfois dans l'application FitMesh à côté d'une donnée n'est pas une intégration directe : c'est simplement le nom lisible du package Android qui a écrit cette donnée dans Health Connect (par ex. com.google.android.apps.fitness), utilisé pour vous montrer sa provenance. Le chemin réel est toujours : appareil ou app → Health Connect (sur Android) ou Apple Health (sur iPhone) → FitMesh. Sur Android, les données Galaxy Watch et Samsung Health transitent par Health Connect, tandis que les bagues Colmi compatibles sont lues via Bluetooth direct, sans serveurs intermédiaires.",
+          pl: "FitMesh nie integruje się bezpośrednio z aplikacją Google Health i nie korzysta z Google Health API w obecnym publicznym wydaniu. Etykieta typu \"Google Fit\", którą czasem widzisz w aplikacji FitMesh obok danej wartości, nie jest bezpośrednią integracją: to tylko czytelna nazwa pakietu Androida, który zapisał tę daną w Health Connect (np. com.google.android.apps.fitness), użyta po to, by pokazać Ci pochodzenie danych. Rzeczywista ścieżka to zawsze: urządzenie lub aplikacja → Health Connect (na Androidzie) lub Apple Health (na iPhonie) → FitMesh. Na Androidzie dane z Galaxy Watch i Samsung Health przechodzą przez Health Connect, a kompatybilne pierścienie Colmi są odczytywane przez bezpośredni Bluetooth, bez serwerów pośrednich.",
+          tr: "FitMesh, Google Health uygulamasıyla doğrudan entegre değildir ve mevcut genel sürümde Google Health API'sini kullanmaz. FitMesh uygulamasında bazen bir verinin yanında gördüğünüz 'Google Fit' gibi bir etiket doğrudan bir entegrasyon değildir: bu yalnızca o veriyi Health Connect'e yazan Android paketinin okunabilir adıdır (örn. com.google.android.apps.fitness), verinin nereden geldiğini göstermek için kullanılır. Gerçek yol her zaman şudur: cihaz veya uygulama -> Health Connect (Android'de) veya Apple Health (iPhone'da) -> FitMesh. Android'de Galaxy Watch ve Samsung Health verileri Health Connect üzerinden geçer, desteklenen Colmi yüzükleri ise ara sunucular olmadan doğrudan Bluetooth ile okunur.",
+          nl: "FitMesh integreert niet rechtstreeks met de Google Health-app en gebruikt de Google Health API niet in de huidige publieke release. Een label als 'Google Fit' dat je soms in de FitMesh-app naast een gegeven ziet, is geen directe integratie: het is enkel de leesbare naam van het Android-package dat dat gegeven in Health Connect heeft geschreven (bijv. com.google.android.apps.fitness), gebruikt om je de herkomst te tonen. Het werkelijke traject is altijd: apparaat of app -> Health Connect (op Android) of Apple Health (op iPhone) -> FitMesh. Op Android lopen Galaxy Watch en Samsung Health-gegevens via Health Connect, terwijl ondersteunde Colmi-ringen via directe Bluetooth worden uitgelezen, zonder tussenservers.",
+          ja: "FitMesh は Google Health アプリと直接連携しておらず、現在の公開リリースでは Google Health API も使用していません。FitMesh アプリ内で、あるデータの近くに「Google Fit」というラベルが表示されることがありますが、これは直接連携を意味するものではありません。単に、そのデータを Health Connect に書き込んだ Android パッケージの読みやすい名前(例:com.google.android.apps.fitness)を、データの出所を示すために表示しているだけです。実際の経路は常に、デバイスまたはアプリ → Health Connect(Android の場合)または Apple Health(iPhone の場合)→ FitMesh です。Android では Galaxy Watch と Samsung Health のデータは Health Connect を経由し、対応する Colmi リングは中間サーバーを経由せず直接 Bluetooth で読み取られます。",
+          ko: "FitMesh는 Google Health 앱과 직접 연동하지 않으며, 현재 공개 릴리스에서 Google Health API를 사용하지 않습니다. FitMesh 앱에서 데이터 옆에 가끔 보이는 \"Google Fit\" 같은 라벨은 직접 연동을 뜻하지 않습니다. 이는 해당 데이터를 Health Connect에 기록한 Android 패키지의 읽기 쉬운 이름(예: com.google.android.apps.fitness)일 뿐이며, 출처를 표시하기 위해 쓰입니다. 실제 경로는 항상 다음과 같습니다: 기기 또는 앱 → Health Connect(Android) 또는 Apple Health(iPhone) → FitMesh. Android에서 Galaxy Watch와 Samsung Health 데이터는 Health Connect를 통하며, 지원되는 Colmi 링은 중간 서버 없이 직접 블루투스로 읽습니다.",
         },
     },
     {
@@ -1000,72 +1003,72 @@ secondaryKeywords: {
         ko: "데이터가 지금 어디에 있든, 한곳에서",
       },
       body: {
-        it: "FitMesh non sostituisce Google Health né decide al posto tuo cosa migrare: è complementare. Legge da Health Connect, Apple Health, Samsung Health Data SDK e Bluetooth diretto, e riunisce i dati compatibili in un'unica dashboard con provenienza e priorità delle fonti — utile proprio durante una transizione come questa, quando i tuoi dati possono trovarsi in più posti insieme.",
-        en: "FitMesh doesn't replace Google Health or decide what to migrate for you — it's complementary. It reads from Health Connect, Apple Health, the Samsung Health Data SDK, and direct Bluetooth, and brings compatible data together in one dashboard with source provenance and priority — useful exactly during a transition like this one, when your data can live in more than one place at once.",
-        es: "FitMesh no sustituye a Google Health ni decide por ti qué migrar: es complementario. Lee desde Health Connect, Apple Health, el SDK de Samsung Health Data y Bluetooth directo, y reúne los datos compatibles en un único panel con procedencia y prioridad de las fuentes — útil justo durante una transición como esta, cuando tus datos pueden estar en más de un sitio a la vez.",
-        de: "FitMesh ersetzt Google Health nicht und entscheidet nicht für Sie, was migriert wird — es ist eine Ergänzung. Es liest aus Health Connect, Apple Health, dem Samsung Health Data SDK und direktem Bluetooth und führt kompatible Daten in einem Dashboard mit Herkunft und Priorität der Quellen zusammen — nützlich genau während eines solchen Übergangs, wenn Ihre Daten an mehr als einem Ort zugleich liegen können.",
-        pt: "O FitMesh não substitui o Google Health nem decide por si o que migrar — é complementar. Lê do Health Connect, Apple Health, Samsung Health Data SDK e Bluetooth direto, e reúne os dados compatíveis num único painel com proveniência e prioridade das fontes — útil precisamente durante uma transição como esta, quando os seus dados podem estar em mais do que um sítio ao mesmo tempo.",
-        fr: "FitMesh ne remplace pas Google Health et ne décide pas à votre place ce qu'il faut migrer — il est complémentaire. Il lit Health Connect, Apple Health, le SDK Samsung Health Data et le Bluetooth direct, et réunit les données compatibles dans un seul tableau de bord avec provenance et priorité des sources — utile précisément pendant une transition comme celle-ci, quand vos données peuvent vivre à plusieurs endroits à la fois.",
-        pl: "FitMesh nie zastępuje Google Health ani nie decyduje za Ciebie, co migrować — jest uzupełnieniem. Odczytuje dane z Health Connect, Apple Health, Samsung Health Data SDK i bezpośredniego Bluetooth, łącząc zgodne dane w jednym panelu z pochodzeniem i priorytetem źródeł — przydatne właśnie podczas takiego przejścia, gdy Twoje dane mogą znajdować się w więcej niż jednym miejscu naraz.",
-        tr: "FitMesh, Google Health'in yerini almaz ve sizin adınıza neyin taşınacağına karar vermez — tamamlayıcıdır. Health Connect, Apple Health, Samsung Health Data SDK ve doğrudan Bluetooth'tan okuyarak uyumlu verileri kaynak kökeni ve önceliğiyle tek bir panoda birleştirir — verilerinizin aynı anda birden fazla yerde bulunabildiği böyle bir geçiş sırasında tam da işe yarar.",
-        nl: "FitMesh vervangt Google Health niet en beslist niet voor jou wat er wordt gemigreerd — het is aanvullend. Het leest uit Health Connect, Apple Health, de Samsung Health Data SDK en directe Bluetooth, en brengt compatibele gegevens samen in één dashboard met herkomst en prioriteit van bronnen — handig juist tijdens zo'n overgang, wanneer je gegevens op meer dan één plek tegelijk kunnen staan.",
-        ja: "FitMeshはGoogle Healthを置き換えるものでも、何を移行すべきかを代わりに決めるものでもありません——補完的な存在です。Health Connect、Apple Health、Samsung Health Data SDK、直接のBluetoothから読み取り、互換性のあるデータを出典と優先度とともにひとつのダッシュボードにまとめます——データが同時に複数の場所に存在しうる、まさにこうした移行期に役立ちます。",
-        ko: "FitMesh는 Google Health를 대체하거나 무엇을 마이그레이션할지 대신 결정하지 않습니다 — 보완적인 존재입니다. Health Connect, Apple Health, Samsung Health Data SDK, 직접 블루투스에서 데이터를 읽어와 출처와 우선순위와 함께 호환되는 데이터를 하나의 대시보드로 모읍니다 — 데이터가 동시에 여러 곳에 존재할 수 있는 지금 같은 전환기에 특히 유용합니다.",
+        it: "FitMesh non sostituisce Google Health né decide al posto tuo cosa migrare: è complementare. Legge da Health Connect (Android), Apple Health (iPhone) e Bluetooth diretto (anelli Colmi supportati), e riunisce i dati compatibili in un'unica dashboard con provenienza e priorità delle fonti, utile proprio durante una transizione come questa.",
+        en: "FitMesh doesn't replace Google Health or decide what to migrate for you: it's complementary. It reads from Health Connect on Android, Apple Health on iPhone, and direct Bluetooth for supported Colmi rings, bringing compatible data together in one dashboard with source provenance and priority, useful during transitions like this.",
+        es: "FitMesh no sustituye a Google Health ni decide por ti qué migrar: es complementario. Lee desde Health Connect en Android, Apple Health en iPhone y Bluetooth directo para anillos Colmi compatibles, reuniendo los datos compatibles en un único panel con procedencia y prioridad de las fuentes.",
+        de: "FitMesh ersetzt Google Health nicht und entscheidet nicht für Sie, was migriert wird: Es ist eine Ergänzung. Es liest unter Android aus Health Connect, auf dem iPhone aus Apple Health und über direktes Bluetooth von unterstützten Colmi-Ringen, und führt kompatible Daten in einem Dashboard mit Herkunft und Priorität der Quellen zusammen.",
+        pt: "O FitMesh não substitui o Google Health nem decide por si o que migrar: é complementar. Lê do Health Connect no Android, do Apple Health no iPhone e via Bluetooth direto de anéis Colmi compatíveis, reunindo os dados compatíveis num único painel com proveniência e prioridade das fontes.",
+        fr: "FitMesh ne remplace pas Google Health et ne décide pas à votre place ce qu'il faut migrer : il est complémentaire. Il lit Health Connect sur Android, Apple Health sur iPhone et le Bluetooth direct pour les bagues Colmi compatibles, et réunit les données compatibles dans un seul tableau de bord avec provenance et priorité des sources.",
+        pl: "FitMesh nie zastępuje Google Health ani nie decyduje za Ciebie, co migrować: jest uzupełnieniem. Odczytuje dane z Health Connect na Androidzie, Apple Health na iPhonie i bezpośredniego Bluetooth dla obsługiwanych pierścieni Colmi, łącząc zgodne dane w jednym panelu z pochodzeniem i priorytetem źródeł.",
+        tr: "FitMesh, Google Health'in yerini almaz ve sizin adınıza neyin taşınacağına karar vermez: tamamlayıcıdır. Android'de Health Connect, iPhone'da Apple Health ve desteklenen Colmi yüzükleri için doğrudan Bluetooth'tan okuyarak uyumlu verileri kaynak kökeni ve önceliğiyle tek bir panoda birleştirir.",
+        nl: "FitMesh vervangt Google Health niet en beslist niet voor jou wat er wordt gemigreerd: het is aanvullend. Het leest uit Health Connect op Android, Apple Health op iPhone en via directe Bluetooth voor ondersteunde Colmi-ringen, en brengt compatibele gegevens samen in één dashboard met herkomst en prioriteit van bronnen.",
+        ja: "FitMeshはGoogle Healthを置き換えるものでも、何を移行すべきかを代わりに決めるものでもありません。補完的な存在です。AndroidのHealth Connect、iPhoneのApple Health、対応Colmiリングの直接Bluetoothから読み取り、互換性のあるデータを出典と優先度とともにひとつのダッシュボードにまとめます。",
+        ko: "FitMesh는 Google Health를 대체하거나 무엇을 마이그레이션할지 대신 결정하지 않습니다. 보완적인 존재입니다. Android의 Health Connect, iPhone의 Apple Health, 지원되는 Colmi 링의 직접 블루투스에서 데이터를 읽어와 출처와 우선순위와 함께 하나의 대시보드로 모읍니다.",
       },
       benefits: {
         it: [
           "Complementare a Google Health: non lo sostituisce, non decide al posto tuo",
-          "Legge da più fonti (Health Connect, Apple Health, Samsung Health Data SDK, Bluetooth diretto)",
+          "Legge da più fonti (Health Connect, Apple Health, Bluetooth diretto)",
           "Provenienza e priorità delle fonti sempre visibili",
         ],
         en: [
           "Complementary to Google Health: it doesn't replace it or decide for you",
-          "Reads from multiple sources (Health Connect, Apple Health, Samsung Health Data SDK, direct Bluetooth)",
+          "Reads from multiple sources (Health Connect, Apple Health, direct Bluetooth)",
           "Source provenance and priority always visible",
         ],
         es: [
           "Complementario a Google Health: no lo sustituye ni decide por ti",
-          "Lee de varias fuentes (Health Connect, Apple Health, SDK de Samsung Health Data, Bluetooth directo)",
+          "Lee de varias fuentes (Health Connect, Apple Health, Bluetooth directo)",
           "Procedencia y prioridad de las fuentes siempre visibles",
         ],
         de: [
           "Ergänzt Google Health: ersetzt es nicht und entscheidet nicht für Sie",
-          "Liest aus mehreren Quellen (Health Connect, Apple Health, Samsung Health Data SDK, direktes Bluetooth)",
+          "Liest aus mehreren Quellen (Health Connect, Apple Health, direktes Bluetooth)",
           "Herkunft und Priorität der Quellen immer sichtbar",
         ],
         pt: [
           "Complementar ao Google Health: não o substitui nem decide por si",
-          "Lê de várias fontes (Health Connect, Apple Health, Samsung Health Data SDK, Bluetooth direto)",
+          "Lê de várias fontes (Health Connect, Apple Health, Bluetooth direto)",
           "Proveniência e prioridade das fontes sempre visíveis",
         ],
         fr: [
           "Complémentaire à Google Health: ne le remplace pas, ne décide pas à votre place",
-          "Lit plusieurs sources (Health Connect, Apple Health, SDK Samsung Health Data, Bluetooth direct)",
+          "Lit plusieurs sources (Health Connect, Apple Health, Bluetooth direct)",
           "Provenance et priorité des sources toujours visibles",
         ],
         pl: [
           "Uzupełnienie Google Health: nie zastępuje go ani nie decyduje za Ciebie",
-          "Odczytuje z wielu źródeł (Health Connect, Apple Health, Samsung Health Data SDK, bezpośredni Bluetooth)",
+          "Odczytuje z wielu źródeł (Health Connect, Apple Health, bezpośredni Bluetooth)",
           "Pochodzenie i priorytet źródeł zawsze widoczne",
         ],
         tr: [
           "Google Health'i tamamlar: yerini almaz, sizin adınıza karar vermez",
-          "Birden çok kaynaktan okur (Health Connect, Apple Health, Samsung Health Data SDK, doğrudan Bluetooth)",
+          "Birden çok kaynaktan okur (Health Connect, Apple Health, doğrudan Bluetooth)",
           "Kaynak kökeni ve önceliği her zaman görünür",
         ],
         nl: [
           "Aanvullend op Google Health: vervangt het niet en beslist niet voor jou",
-          "Leest uit meerdere bronnen (Health Connect, Apple Health, Samsung Health Data SDK, directe Bluetooth)",
+          "Leest uit meerdere bronnen (Health Connect, Apple Health, directe Bluetooth)",
           "Herkomst en prioriteit van bronnen altijd zichtbaar",
         ],
         ja: [
           "Google Healthを補完：置き換えず、代わりに決定もしない",
-          "複数のソースから読み取り（Health Connect、Apple Health、Samsung Health Data SDK、直接Bluetooth）",
+          "複数のソースから読み取り（Health Connect、Apple Health、直接Bluetooth）",
           "出典と優先度が常に確認できる",
         ],
         ko: [
           "Google Health를 보완: 대체하지 않고 대신 결정하지도 않음",
-          "여러 소스에서 읽음 (Health Connect, Apple Health, Samsung Health Data SDK, 직접 블루투스)",
+          "여러 소스에서 읽음 (Health Connect, Apple Health, 직접 블루투스)",
           "출처와 우선순위를 항상 확인 가능",
         ],
       },
