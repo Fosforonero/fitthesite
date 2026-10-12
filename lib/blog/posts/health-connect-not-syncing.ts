@@ -321,6 +321,8 @@ export const post: BlogPost = {
     // non isolato a queste due lingue.
     pl: "Health Connect nie synchronizuje: 7 rozwiązań",
     ja: "Health Connectが同期しない：Android向け対処法",
+    // SPRINT SEO-METADATA-01 (2026-10-12): seoTitle.sv per URL Bing oltre 70c (76c con suffisso).
+    sv: "Health Connect synkroniseras inte: 7 lösningar",
   },
   body: [
     {

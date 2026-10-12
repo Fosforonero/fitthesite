@@ -186,7 +186,7 @@ export const post: BlogPost = {
     fr: "Les pas du Galaxy Watch ne se synchronisent pas dans Samsung Health? Guide étape par étape: autorisations, Health Connect, Bluetooth, optimisation de la batterie et cas particuliers. Une solution pour chaque scénario.",
     pl: "Kroki krokowe dla niepowiązanych kropek Samsung Health? Kroki krokowe do rozwiązywania: uprawnienia, Health Connect, Bluetooth, optymalizacja akumulatora, i przypadki ekstremalne. Rozwiązanie dla każdego scenariusza.",
     tr: "Paslar Galaxy Watch sıfırıncı Samsung Health'da synkronlaşmıyor? Adım-adım çözüm rehberi: izinler, Health Connect, Bluetooth, bateri optimizasyonu ve özel durumlar. Her senaryoya göre çözüm.",
-    nl: "Galaxy Watch-stappen synchroniseren niet naar Samsung Health? Stapsgewijze handleiding: machtigingen, Health Connect, Bluetooth, batterijoptimalisatie en uitzonderlijke gevallen. Met een oplossing voor elk scenario.",
+    nl: "Galaxy Watch-stappen niet gesynchroniseerd in Samsung Health? Stappenplan voor Health Connect, Bluetooth, app-rechten en batterij-instellingen op Android.",
     ja: "Galaxy Watchの歩数がSamsung Healthに同期しませんか？ステップごとの修正ガイド: 権限、Health Connect、Bluetooth、バッテリー最適化、エッジケース。各シナリオの解決策付き。",
     ko: "Galaxy Watch 걸음 수가 Samsung Health에 동기화되지 않나요? 단계별 해결 가이드: 권한, Health Connect, Bluetooth, 배터리 최적화, 특수 사례. 각 시나리오에 대한 해결책 포함.",
   },
@@ -232,11 +232,13 @@ export const post: BlogPost = {
     },
   },
   // P0.8: <title> renderizzato fr superava 60 caratteri (87). H1 invariato.
+  // SPRINT SEO-METADATA-01 (2026-10-12): seoTitle.nl per URL Bing oltre 70c (83c con suffisso).
   seoTitle: {
     fr: "Galaxy Watch : pas non synchronisés, solution",
     // SPRINT PRE-FERIE addendum Bing (2026-08-06): title DE renderizzato
     // sopra 70 caratteri (Bing FailingUrls CSV, verificato live).
     de: "Galaxy Watch: Schritte synchronisieren sich nicht",
+    nl: "Galaxy Watch: stappen synchroniseren niet",
   },
   body: [
     {

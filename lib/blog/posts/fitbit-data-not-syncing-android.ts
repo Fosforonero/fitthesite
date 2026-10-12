@@ -186,7 +186,7 @@ export const post: BlogPost = {
     fr: "Si les données Fitbit n'apparaissent pas dans vos applications Android, le problème vient presque toujours d'une autorisation manquante dans Health Connect. Voici où chercher et comment résoudre cela en 30 secondes.",
     pl: "Gdy dane Fitbit nie pojawiają się w aplikacjach Android, problem to prawie zawsze brakujące uprawnienie w Health Connect, nie błąd Fitbit. Sprawdź, gdzie szukać i jak to naprawić w 30 sekund.",
     tr: "Android uygulamalarında Fitbit verileri görünmüyorsa sorun neredeyse her zaman Health Connect'te eksik bir izindir, Fitbit sorunu değil. Nereye bakacağınızı ve 30 saniyede nasıl düzelteceğinizi öğrenin.",
-    nl: "Als Fitbit-gegevens niet verschijnen in Android-apps, is de oorzaak bijna altijd een ontbrekende toestemming in Health Connect, geen Fitbit-probleem. Hier leest u waar u moet kijken en hoe u het in 30 seconden oplost.",
+    nl: "Fitbit-gegevens niet zichtbaar in Android-apps? Vaak ontbreken Health Connect-rechten. Ontdek waar u moet kijken en hoe u de synchronisatie herstelt.",
     ja: "AndroidアプリにFitbitのデータが表示されない場合、原因はほぼ常にHealth Connectの権限不足であり、Fitbitの問題ではありません。どこを確認すれば30秒で解決できるかを説明します。",
     ko: "Android 앱에 Fitbit 데이터가 표시되지 않는다면, 원인은 거의 항상 Health Connect의 권한 누락이지 Fitbit 문제가 아닙니다. 어디를 확인해야 하는지, 30초 안에 해결하는 방법을 알아보세요.",
   },
@@ -220,8 +220,10 @@ export const post: BlogPost = {
     },
   },
   // P0.8: <title> renderizzato it superava 60 caratteri (78). H1 invariato.
+  // SPRINT SEO-METADATA-01 (2026-10-12): seoTitle.nl per URL Bing oltre 70c (92c con suffisso).
   seoTitle: {
     it: "Fitbit non si sincronizza su Android: la causa",
+    nl: "Fitbit synchroniseert niet op Android: de oorzaak",
   },
   body: [
     {

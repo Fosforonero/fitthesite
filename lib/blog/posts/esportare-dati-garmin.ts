@@ -183,7 +183,7 @@ export const post: BlogPost = {
     es: "Cómo exportar datos de Garmin: guía práctica para descargar entrenamientos en GPX, TCX, FIT y CSV desde Garmin Connect (web, app móvil y API). Ventajas y limitaciones de cada método.",
     de: "Garmin Daten exportieren: Praxisratgeber zum Herunterladen von Trainings als GPX, TCX, FIT und CSV aus Garmin Connect (Website, App und API). Vor- und Nachteile jeder Methode.",
     pt: "Como exportar dados da Garmin: guia prático para baixar treinos em GPX, TCX, FIT e CSV do Garmin Connect (site, app móvel e API). Prós e contras de cada método.",
-    fr: "Comment exporter les données Garmin: guide pratique pour télécharger vos séances en GPX, TCX, FIT et CSV depuis Garmin Connect (site web, app mobile et API). Avantages et limites de chaque méthode.",
+    fr: "Comment exporter vos données Garmin en GPX, TCX, FIT ou CSV depuis Garmin Connect: méthodes sur le web, limites de l'application et formats recommandés.",
     pl: "Jak eksportować dane Garmin: praktyczny przewodnik po pobieraniu treningów w formacie GPX, TCX, FIT i CSV z Garmin Connect (strona internetowa, aplikacja mobilna i API). Zalety i ograniczenia każdej metody.",
     tr: "Garmin verileri nasıl dışa aktarılır: Garmin Connect'ten (web sitesi, mobil uygulama ve API) GPX, TCX, FIT ve CSV formatlarında antrenman indirmeye pratik kılavuz. Her yöntemin artı ve eksileri.",
     nl: "Hoe exporteert u Garmin-gegevens: praktische gids voor het downloaden van trainingen in GPX, TCX, FIT en CSV vanuit Garmin Connect (website, mobiele app en API). Voor- en nadelen van elke methode.",
@@ -230,6 +230,8 @@ export const post: BlogPost = {
     de: "Garmin-Daten exportieren: GPX, TCX, FIT, CSV",
     nl: "Garmin-gegevens exporteren: GPX, TCX, FIT, CSV",
     sv: "Exportera Garmin-data: GPX, TCX, FIT, CSV",
+    // SPRINT SEO-METADATA-01 (2026-10-12): seoTitle.fr per URL Bing oltre 70c (74c con suffisso).
+    fr: "Exporter les données Garmin: GPX, TCX, FIT, CSV",
   },
   body: [
     {

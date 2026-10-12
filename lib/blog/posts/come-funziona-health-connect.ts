@@ -180,7 +180,7 @@ export const post: BlogPost = {
   metaDescription: {
     it: "Come funziona Health Connect spiegato in modo chiaro: cos'è, come gestisce i permessi tra app, cosa può e non può fare, e perché è fondamentale per i wearable Android nel 2026.",
     en: "How Health Connect works explained clearly: what it is, how it manages app permissions, what it can and cannot do, and why it's essential for Android wearables in 2026.",
-    es: "Cómo funciona Health Connect explicado de forma clara: qué es, cómo gestiona los permisos entre apps, qué puede y qué no puede hacer, y por qué es clave para los wearables Android en 2026.",
+    es: "Cómo funciona Health Connect: qué es, cómo gestiona los permisos entre apps, qué puede y no puede hacer, y por qué es clave para wearables Android en 2026.",
     de: "Wie Health Connect funktioniert, klar erklärt: was es ist, wie es App-Berechtigungen verwaltet, was es kann und nicht kann, und warum es 2026 für Android-Wearables unverzichtbar ist.",
     pt: "Como funciona o Health Connect explicado de forma clara: o que é, como gerencia as permissões entre apps, o que pode e não pode fazer, e por que é essencial para wearables Android em 2026.",
     fr: "Comment fonctionne Health Connect expliqué clairement: ce que c'est, comment il gère les autorisations entre applications, ce qu'il peut et ne peut pas faire, et pourquoi il est essentiel pour les wearables Android en 2026.",
@@ -218,6 +218,9 @@ export const post: BlogPost = {
       ja: "Health Connectは単なるアプリではありません。すべてのAndroid健康アプリが相互にデータをやり取りできるデータ交換レイヤーです。Health Connectが実際に何をするのか、権限をどのように管理するのか、そして何かがうまくいかないときに何が起こるのかを解説します。",
       ko: "Health Connect는 단순한 앱이 아닙니다. 모든 Android 건강 앱이 서로 소통할 수 있게 하는 데이터 교환 레이어입니다. Health Connect가 실제로 무엇을 하는지, 권한을 어떻게 관리하는지, 그리고 문제가 발생했을 때 어떤 일이 일어나는지 알아보세요.",
     },
+  },
+  seoTitle: {
+    es: "Cómo funciona Health Connect: guía Android 2026",
   },
   body: [
     {
