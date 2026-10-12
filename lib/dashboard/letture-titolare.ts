@@ -146,6 +146,7 @@ async function leggiPaginato<R>(
   pagina: (da: number, a: number) => RispostaPagina,
   uid: string,
   massimoPagine: number,
+  colonne: readonly string[],
 ): Promise<Lettura<R>> {
   const righe: R[] = [];
   for (let p = 0; p < massimoPagine; p++) {
@@ -158,8 +159,14 @@ async function leggiPaginato<R>(
       if (riga.user_id !== uid) {
         throw new ErroreLettura('riga_altrui', 'la lettura ha restituito una riga di un altro proprietario');
       }
-      const { user_id: _proprietario, ...resto } = riga;
-      righe.push(resto as R);
+      const proiettata: Record<string, unknown> = {};
+      for (const colonna of colonne) {
+        if (colonna === 'user_id') continue;
+        if (Object.prototype.hasOwnProperty.call(riga, colonna)) {
+          proiettata[colonna] = riga[colonna];
+        }
+      }
+      righe.push(proiettata as R);
     }
     if (lette.length < RIGHE_PER_PAGINA) return { righe, completo: true };
   }
@@ -190,6 +197,7 @@ export async function leggiMetricheDelTitolare(
         .range(da, a),
     uid,
     massimoPagine,
+    COLONNE_METRICHE,
   );
 }
 
@@ -220,6 +228,7 @@ export async function leggiSerieDelGiorno(
         .range(da, a),
     uid,
     massimoPagine,
+    COLONNE_SERIE_DEL_GIORNO,
   );
 }
 
@@ -247,5 +256,6 @@ export async function leggiAllenamentiDelTitolare(
         .range(da, a),
     uid,
     massimoPagine,
+    COLONNE_ALLENAMENTI,
   );
 }

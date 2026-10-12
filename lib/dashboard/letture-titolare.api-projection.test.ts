@@ -50,4 +50,25 @@ describe('letture titolare: proiezione e proprietario', () => {
     const righe = [{ ...base, user_id: UID }, { ...base, user_id: ALTRO }];
     await expect(leggi(fakeClient(righe), await accesso())).rejects.toMatchObject({ codice: 'riga_altrui' });
   });
+
+  it.each(scenari)('$nome: preserva zero, null e array senza mutare o copiare proprieta ereditate', async ({ cols, leggi }) => {
+    const pubbliche = cols.filter(k => k !== 'user_id');
+    const ultima = pubbliche[pubbliche.length - 1];
+    const dati = Object.fromEntries(pubbliche.slice(0, -1).map(k => [k, 1]));
+    const array = Object.freeze([0, null]);
+    const riga: Record<string, unknown> = Object.assign(Object.create({ [ultima]: 'inherited-marker' }), dati, {
+      user_id: UID, [pubbliche[0]]: 0, [pubbliche[1]]: null, [pubbliche[2]]: array,
+    });
+    Object.freeze(riga);
+    const prima = Object.entries(riga);
+    const lettura = await leggi(fakeClient([riga]), await accesso());
+    const risultato = lettura.righe[0] as Record<string, unknown>;
+    expect(risultato[pubbliche[0]]).toBe(0);
+    expect(risultato[pubbliche[1]]).toBeNull();
+    expect(risultato[pubbliche[2]]).toBe(array);
+    expect(Object.hasOwn(risultato, ultima)).toBe(false);
+    expect(Object.hasOwn(risultato, 'user_id')).toBe(false);
+    expect(Object.entries(riga)).toEqual(prima);
+    expect(lettura.completo).toBe(true);
+  });
 });

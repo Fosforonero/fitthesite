@@ -425,9 +425,13 @@ describe('i tre JSONB si leggono solo in letture-titolare.ts e solo per un giorn
       expect(c).toMatch(/\.eq\(\s*'local_day_key'/);
       expect(c).not.toMatch(/\.(gte|lte|lt|gt|in|or|filter|match)\(/);
     }
-    // nessun uso della lista fuori da una catena from...range (per esempio passata a un'altra funzione);
-    // il tipo della riga (`typeof COLONNE_SERIE_DEL_GIORNO`) non legge niente e non si conta
+    // L'unico uso aggiuntivo ammesso e' la proiezione dello stesso risultato:
+    // lista passata a leggiPaginato<RigaSerie>, dopo la catena di UN giorno.
+    const proiezioniSerie = [...s.matchAll(/return leggiPaginato<RigaSerie>\(\s*\(da, a\) =>([\s\S]*?)\.range\(da, a\),\s*uid,\s*massimoPagine,\s*COLONNE_SERIE_DEL_GIORNO,\s*\);/g)];
+    expect(proiezioniSerie).toHaveLength(1);
+    expect(proiezioniSerie[0][0]).toContain(conSerie[0]);
+    // Altri usi della lista restano vietati. Il tipo non legge dati e non conta.
     const usi = (s.match(/(?<!typeof )\bCOLONNE_SERIE_DEL_GIORNO\b/g) ?? []).length;
-    expect(usi).toBe(1 + conSerie.length);
+    expect(usi).toBe(1 + conSerie.length + proiezioniSerie.length);
   });
 });
