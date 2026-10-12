@@ -103,10 +103,21 @@ export async function leggiVerdettoDashboard(
   if (!UUID.test(uid)) return nonDisponibile('utente_assente');
 
   const controllo = new AbortController();
-  const timer = setTimeout(() => controllo.abort(), limiteMs);
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const scadenza = new Promise<never>((_, rifiuta) => {
+    timer = setTimeout(() => {
+      controllo.abort();
+      rifiuta(new Error('tempo_scaduto'));
+    }, limiteMs);
+  });
+  scadenza.catch(() => {});
   let risposta: Awaited<ReturnType<ReturnType<ClientVerdetto['rpc']>['abortSignal']>>;
   try {
-    risposta = await client.rpc('get_web_dashboard_access').abortSignal(controllo.signal);
+    const chiamata = Promise.resolve(
+      client.rpc('get_web_dashboard_access').abortSignal(controllo.signal),
+    );
+    chiamata.catch(() => {});
+    risposta = await Promise.race([chiamata, scadenza]);
   } catch {
     return nonDisponibile(controllo.signal.aborted ? 'tempo_scaduto' : 'errore_rete');
   } finally {
