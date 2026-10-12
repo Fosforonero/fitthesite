@@ -113,6 +113,9 @@ export async function leggiVerdettoDashboard(
     clearTimeout(timer);
   }
 
+  // La cancellazione prevale anche se un adapter restituisce un successo tardivo.
+  if (controllo.signal.aborted) return nonDisponibile('tempo_scaduto');
+
   const { data, error } = risposta;
   if (error) {
     if (controllo.signal.aborted) return nonDisponibile('tempo_scaduto');
