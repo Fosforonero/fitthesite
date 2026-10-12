@@ -4,8 +4,20 @@ import { describe, expect, it, vi } from "vitest";
 // post statici per evitare import da @payload-config non configurato in test.
 vi.mock("@/lib/blog/payload-source", async () => {
   const { BLOG_POSTS: posts } = await import("@/lib/blog/data");
-  return { getBlogPosts: async () => posts, getBlogPostsBySlug: async () => posts };
+  return {
+    getBlogPosts: async () => posts,
+    getBlogPostsBySlug: async () => posts,
+    getBlogPostBySlug: async (slug: string) => posts.find((p) => p.slug === slug) ?? null,
+  };
 });
+
+import { renderToStaticMarkup } from "react-dom/server";
+// @ts-expect-error jsdom lacks bundled declaration in devDependencies
+import { JSDOM } from "jsdom";
+import Home from "@/app/(frontend)/[locale]/(marketing)/page";
+import IntegrationsHub from "@/app/(frontend)/[locale]/(marketing)/integrations/page";
+import ProviderSyncPage, { generateMetadata as generateProviderMetadata } from "@/app/(frontend)/[locale]/(marketing)/sync/[provider]/page";
+import ModelPage, { generateMetadata as generateModelMetadata } from "@/app/(frontend)/[locale]/(marketing)/sync/[provider]/[model]/page";
 
 import { PROVIDERS, PROVIDERS_BY_SLUG } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
@@ -48,16 +60,20 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       expect(PROVIDERS_BY_SLUG["strava"].status).toBe("limited-beta");
     });
 
-    it("la griglia e il marquee della homepage filtrano promotionalVisibility !== false", () => {
-      const homePath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/page.tsx");
-      const homeCode = fs.readFileSync(homePath, "utf-8");
-      expect(homeCode).toMatch(/promotionalVisibility !== false/);
+    it("la griglia e il marquee della homepage renderizzata escludono i provider non visibili", async () => {
+      const html = renderToStaticMarkup(await Home({ params: Promise.resolve({ locale: "it" }) }));
+      const doc = new JSDOM(html).window.document;
+      for (const slug of EXCLUDED_SLUGS) {
+        expect(doc.querySelector(`a[href*="/sync/${slug}"]`), `Link a ${slug} non deve essere presente in homepage`).toBeNull();
+      }
     });
 
-    it("la pagina /integrations filtra i provider con promotionalVisibility !== false", () => {
-      const intPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/integrations/page.tsx");
-      const intCode = fs.readFileSync(intPath, "utf-8");
-      expect(intCode).toMatch(/promotionalVisibility !== false/);
+    it("la pagina /integrations renderizzata filtra i provider con promotionalVisibility !== false", async () => {
+      const html = renderToStaticMarkup(await IntegrationsHub({ params: Promise.resolve({ locale: "it" }) }));
+      const doc = new JSDOM(html).window.document;
+      for (const slug of EXCLUDED_SLUGS) {
+        expect(doc.querySelector(`a[href*="/sync/${slug}"]`), `Link a ${slug} non deve essere presente in /integrations`).toBeNull();
+      }
     });
     it("Galaxy Watch ha stato live-bridge e piattaforma Android", () => {
       const gw = PROVIDERS_BY_SLUG["galaxy-watch"];
@@ -105,41 +121,94 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       }
     });
 
-    it("le pagine sync dei provider esclusi hanno avviso in testa e nessun badge store", () => {
-      const provPagePath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/sync/[provider]/page.tsx");
-      const provCode = fs.readFileSync(provPagePath, "utf-8");
-      expect(provCode).toMatch(/getExcludedBannerNotice/);
-      expect(provCode).toMatch(/promotionalVisibility/);
+    it("le pagine sync dei provider esclusi hanno avviso in testa, nessun badge store, noindex e distinguono i breadcrumb", async () => {
       for (const slug of EXCLUDED_SLUGS) {
         const p = PROVIDERS_BY_SLUG[slug];
+        const meta = await generateProviderMetadata({ params: Promise.resolve({ locale: "it", provider: slug }) });
+        expect(meta.robots, `${slug} deve avere robots noindex,follow`).toEqual({ index: false, follow: true });
+
+        const html = renderToStaticMarkup(await ProviderSyncPage({ params: Promise.resolve({ locale: "it", provider: slug }) }));
+        const doc = new JSDOM(html).window.document;
         const notice = getExcludedBannerNotice(p, "it");
-        expect(notice.directUnavailable).toMatch(/Il collegamento diretto a/);
+        expect(doc.body.textContent).toContain(notice.directUnavailable);
+
+        // Assenza badge store
+        const storeLinks = Array.from(doc.querySelectorAll("a[href*='apple.com'], a[href*='play.google.com']"));
+        expect(storeLinks, `Nessun badge store deve essere renderizzato per ${slug}`).toHaveLength(0);
+
+        // Breadcrumb informativo presente nello schema JSON-LD
+        const scripts = Array.from(doc.querySelectorAll("script[type='application/ld+json']")).map((s: any) => s.textContent || "");
+        const breadcrumbScript = scripts.find((s) => s.includes('"@type":"BreadcrumbList"'));
+        expect(breadcrumbScript, `Breadcrumb schema presente per ${slug}`).toBeDefined();
+        expect(breadcrumbScript).toContain("/it/integrations");
+
+        // CTA visivo neutro verso /integrations e nessun download promozionale
+        const ctaBtn = doc.querySelector("a[href='/it/integrations']");
+        expect(ctaBtn, `CTA neutro verso /integrations presente per ${slug}`).not.toBeNull();
+        expect(doc.querySelector("a[href*='/download']")).toBeNull();
       }
     });
 
-    it("le pagine sync dei modelli di provider esclusi hanno avviso in testa e nessun badge store", () => {
-      const modelPagePath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/sync/[provider]/[model]/page.tsx");
-      const modelCode = fs.readFileSync(modelPagePath, "utf-8");
-      expect(modelCode).toMatch(/getExcludedBannerNotice/);
-      expect(modelCode).toMatch(/promotionalVisibility/);
-      for (const slug of EXCLUDED_SLUGS) {
-        const p = PROVIDERS_BY_SLUG[slug];
+    it("le pagine sync dei modelli di provider esclusi hanno avviso in testa, nessun badge store, noindex e distinguono i breadcrumb", async () => {
+      const sampleModels = [
+        { provider: "oura", model: "ring-gen3" },
+        { provider: "fitbit", model: "charge-6" },
+        { provider: "polar", model: "vantage-v3" },
+        { provider: "withings", model: "scanwatch-2" },
+      ];
+      for (const { provider, model } of sampleModels) {
+        const p = PROVIDERS_BY_SLUG[provider];
+        const meta = await generateModelMetadata({ params: Promise.resolve({ locale: "it", provider, model }) });
+        expect(meta.robots, `${provider}/${model} deve avere robots noindex,follow`).toEqual({ index: false, follow: true });
+
+        const html = renderToStaticMarkup(await ModelPage({ params: Promise.resolve({ locale: "it", provider, model }) }));
+        const doc = new JSDOM(html).window.document;
         const notice = getExcludedBannerNotice(p, "it");
-        expect(notice.directUnavailable).toMatch(/Il collegamento diretto a/);
+        expect(doc.body.textContent).toContain(notice.directUnavailable);
+
+        // Assenza badge store
+        const storeLinks = Array.from(doc.querySelectorAll("a[href*='apple.com'], a[href*='play.google.com']"));
+        expect(storeLinks, `Nessun badge store deve essere renderizzato per ${provider}/${model}`).toHaveLength(0);
+
+        // Breadcrumb informativo presente nello schema JSON-LD
+        const scripts = Array.from(doc.querySelectorAll("script[type='application/ld+json']")).map((s: any) => s.textContent || "");
+        const breadcrumbScript = scripts.find((s) => s.includes('"@type":"BreadcrumbList"'));
+        expect(breadcrumbScript, `Breadcrumb schema presente per ${provider}/${model}`).toBeDefined();
+        expect(breadcrumbScript).toContain(`/it/sync/${provider}`);
+
+        // CTA visivo neutro verso /integrations e nessun download promozionale
+        const ctaBtn = doc.querySelector("a[href='/it/integrations']");
+        expect(ctaBtn, `CTA neutro verso /integrations presente per ${provider}/${model}`).not.toBeNull();
+        expect(doc.querySelector("a[href*='/download']")).toBeNull();
       }
     });
 
-    it("le pagine sync e modello escludono HowTo e FAQPage JSON-LD per i provider esclusi", () => {
-      const provPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/sync/[provider]/page.tsx");
-      const provCode = fs.readFileSync(provPath, "utf-8");
-      expect(provCode).toMatch(/const isPromotional = p\.promotionalVisibility !== false/);
-      expect(provCode).toMatch(/const faqLd =\s*isPromotional/);
-      expect(provCode).toMatch(/const howToLd =\s*isPromotional/);
+    it("le pagine sync e modello escludono HowTo e FAQPage JSON-LD nel DOM per i provider esclusi", async () => {
+      for (const slug of EXCLUDED_SLUGS) {
+        const provHtml = renderToStaticMarkup(await ProviderSyncPage({ params: Promise.resolve({ locale: "it", provider: slug }) }));
+        const provDoc = new JSDOM(provHtml).window.document;
+        const provScripts = Array.from(provDoc.querySelectorAll("script[type='application/ld+json']")).map((s: any) => s.textContent || "");
+        for (const scriptText of provScripts) {
+          expect(scriptText).not.toContain('"@type":"HowTo"');
+          expect(scriptText).not.toContain('"@type":"FAQPage"');
+        }
+      }
 
-      const modelPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/sync/[provider]/[model]/page.tsx");
-      const modelCode = fs.readFileSync(modelPath, "utf-8");
-      expect(modelCode).toMatch(/const isPromotional = p\.promotionalVisibility !== false/);
-      expect(modelCode).toMatch(/const faqSchema = isPromotional/);
+      const sampleModels = [
+        { provider: "oura", model: "ring-gen3" },
+        { provider: "fitbit", model: "charge-6" },
+        { provider: "polar", model: "vantage-v3" },
+        { provider: "withings", model: "scanwatch-2" },
+      ];
+      for (const { provider, model } of sampleModels) {
+        const modelHtml = renderToStaticMarkup(await ModelPage({ params: Promise.resolve({ locale: "it", provider, model }) }));
+        const modelDoc = new JSDOM(modelHtml).window.document;
+        const modelScripts = Array.from(modelDoc.querySelectorAll("script[type='application/ld+json']")).map((s: any) => s.textContent || "");
+        for (const scriptText of modelScripts) {
+          expect(scriptText).not.toContain('"@type":"HowTo"');
+          expect(scriptText).not.toContain('"@type":"FAQPage"');
+        }
+      }
     });
 
     it("il pulsante allIntegrations e backToProvider nei modelli e localizzato in tutte le 15 lingue", () => {
@@ -205,6 +274,15 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       expect(suunto.techNote.en).toMatch(/No GPS tracking/i);
       expect(suunto.techNote.en).toMatch(/no automatic background synchronization/i);
       expect(suunto.techNote.en).toMatch(/on user demand/i);
+    });
+
+    it("la pagina /sync/suunto renderizzata mostra solo il badge Google Play Android e nessun App Store Apple", async () => {
+      const html = renderToStaticMarkup(await ProviderSyncPage({ params: Promise.resolve({ locale: "it", provider: "suunto" }) }));
+      const doc = new JSDOM(html).window.document;
+      expect(doc.querySelector("a[href*='apps.apple.com']"), "Suunto non deve mostrare il pulsante App Store Apple").toBeNull();
+      expect(doc.querySelector("a[href*='play.google.com']"), "Suunto deve mostrare il pulsante Google Play per Android").not.toBeNull();
+      expect(doc.body.textContent).toContain("su Android");
+      expect(doc.body.textContent).toContain("Non sono incluse tracce GPS");
     });
   });
 
@@ -300,6 +378,24 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       expect(PRICING_SECTION.subhead.en).toMatch(/on Android you can also choose the 6-month subscription/);
       expect(PRICING_SECTION.subhead.it).not.toMatch(/su iPhone.*abbonamento semestrale/);
       expect(PRICING_SECTION.subhead.en).not.toMatch(/on iPhone.*6-month subscription/);
+    });
+
+    it("la homepage renderizzata nel DOM in IT ed EN mostra il testo esatto della prova e preserva i benefici Founder", async () => {
+      const itHtml = renderToStaticMarkup(await Home({ params: Promise.resolve({ locale: "it" }) }));
+      const itDoc = new JSDOM(itHtml).window.document;
+      expect(itDoc.body.textContent).toContain(itExact);
+      expect(itDoc.body.textContent).not.toMatch(/caffè|caffe|pizza/i);
+
+      const enHtml = renderToStaticMarkup(await Home({ params: Promise.resolve({ locale: "en" }) }));
+      const enDoc = new JSDOM(enHtml).window.document;
+      expect(enDoc.body.textContent).toContain(enExact);
+      expect(enDoc.body.textContent).not.toMatch(/coffee|pizza/i);
+
+      // Benefici Founder preservati nell'articolo dedicato
+      const founderPath = path.join(process.cwd(), "lib/blog/posts/fitmesh-gratis-prezzo-founder.ts");
+      const founderCode = fs.readFileSync(founderPath, "utf-8");
+      expect(founderCode).toMatch(/Pro a vita/i);
+      expect(founderCode).toMatch(/il beneficio resta tuo per sempre|Chi era già founder mantiene il Pro a vita/i);
     });
   });
 
