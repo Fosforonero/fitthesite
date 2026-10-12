@@ -417,7 +417,7 @@ export default async function ProviderLanding({
                   {SEE_ALL_INTEGRATIONS[lc] ?? SEE_ALL_INTEGRATIONS.en}
                 </Link>
               ) : isLive ? (
-                <StoreButtonsRow locale={lc} ctaLocation={CTA_PLACEMENTS.syncProviderHero} />
+                <StoreButtonsRow locale={lc} platforms={platforms} ctaLocation={CTA_PLACEMENTS.syncProviderHero} />
               ) : (
                 <a
                   href={waitlistHref}
@@ -1111,7 +1111,7 @@ export default async function ProviderLanding({
               {SEE_ALL_INTEGRATIONS[lc] ?? SEE_ALL_INTEGRATIONS.en}
             </Link>
           ) : isLive ? (
-            <StoreButtonsRow locale={lc} className="justify-center" ctaLocation={CTA_PLACEMENTS.syncProviderFinalCta} />
+            <StoreButtonsRow locale={lc} platforms={platforms} className="justify-center" ctaLocation={CTA_PLACEMENTS.syncProviderFinalCta} />
           ) : (
             <a
               href={waitlistHref}

@@ -117,8 +117,8 @@ export const PRICING_SECTION = {
    * con "tutte le funzioni Pro" di ABOUT_COPY.trialDesc.
    */
   subhead: {
-    it: "I nuovi account possono provare FitMesh Pro gratis per 14 giorni. Dopo la prova, per continuare a sincronizzare serve un acquisto a vita o un abbonamento ogni 6 mesi. Esportare i dati in formato JSON e richiedere la cancellazione dell'account non richiede un acquisto.",
-    en: "New accounts can try FitMesh Pro free for 14 days. After the trial, continuing to sync requires a lifetime purchase or a 6-month subscription. Exporting your data as JSON and requesting account deletion do not require a purchase.",
+    it: "La prova gratuita dura 14 giorni. Poi, per continuare a sincronizzare, serve l'acquisto a vita; su Android puoi scegliere anche l'abbonamento semestrale. Esportare i dati in formato JSON e richiedere la cancellazione dell'account non richiede un acquisto.",
+    en: "The free trial lasts 14 days. After that, syncing requires the lifetime purchase; on Android you can also choose the 6-month subscription. Exporting your data as JSON and requesting account deletion never require a purchase.",
     es: "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     de: "Teste FitMesh Pro 14 Tage lang. Danach ist für die weitere Nutzung der Pro-Funktionen ein Kauf oder Abonnement erforderlich.",
     pt: "Experimenta o FitMesh Pro durante 14 dias. Depois, para continuar a usar as funções Pro é necessária uma compra ou uma assinatura.",

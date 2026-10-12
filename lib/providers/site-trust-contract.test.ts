@@ -9,6 +9,7 @@ vi.mock("@/lib/blog/payload-source", async () => {
 
 import { PROVIDERS, PROVIDERS_BY_SLUG } from "@/lib/providers/data";
 import { PROVIDER_MODELS } from "@/lib/providers/models";
+import { providerPlatforms } from "@/lib/providers/platforms";
 import { isProviderVariantIndexable, isProviderModelVariantIndexable, providerLinkHref } from "@/lib/providers/indexability";
 import { getExcludedBannerNotice } from "@/lib/providers/excluded-banner";
 import sitemap from "@/app/sitemap";
@@ -21,6 +22,7 @@ import { isBlogVariantIndexable } from "@/lib/blog/indexability";
 import { BLOG_POSTS } from "@/lib/blog/data";
 import { applyNordicOverlay } from "@/lib/blog/nordic-overlay";
 import nordicOverlay from "@/lib/blog/nordic-overlay.json";
+import { AVAILABILITY } from "@/lib/product-facts";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -56,6 +58,23 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       const intPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/integrations/page.tsx");
       const intCode = fs.readFileSync(intPath, "utf-8");
       expect(intCode).toMatch(/promotionalVisibility !== false/);
+    });
+    it("Galaxy Watch ha stato live-bridge e piattaforma Android", () => {
+      const gw = PROVIDERS_BY_SLUG["galaxy-watch"];
+      expect(gw.status).toBe("live-bridge");
+      expect(providerPlatforms(gw)).toEqual(["android"]);
+    });
+
+    it("Galaxy Watch non presenta un collegamento diretto Samsung Health", () => {
+      const gw = PROVIDERS_BY_SLUG["galaxy-watch"];
+      const allText = JSON.stringify({
+        longDesc: gw.longDesc,
+        techNote: gw.techNote,
+        faqs: gw.faqs,
+      });
+      expect(allText).toMatch(/Health Connect/i);
+      expect(allText).not.toMatch(/collegamento diretto a Samsung Health/i);
+      expect(allText).not.toMatch(/direct connection to Samsung Health/i);
     });
   });
 
@@ -109,10 +128,50 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
         expect(notice.directUnavailable).toMatch(/Il collegamento diretto a/);
       }
     });
+
+    it("le pagine sync e modello escludono HowTo e FAQPage JSON-LD per i provider esclusi", () => {
+      const provPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/sync/[provider]/page.tsx");
+      const provCode = fs.readFileSync(provPath, "utf-8");
+      expect(provCode).toMatch(/const isPromotional = p\.promotionalVisibility !== false/);
+      expect(provCode).toMatch(/const faqLd =\s*isPromotional/);
+      expect(provCode).toMatch(/const howToLd =\s*isPromotional/);
+
+      const modelPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/sync/[provider]/[model]/page.tsx");
+      const modelCode = fs.readFileSync(modelPath, "utf-8");
+      expect(modelCode).toMatch(/const isPromotional = p\.promotionalVisibility !== false/);
+      expect(modelCode).toMatch(/const faqSchema = isPromotional/);
+    });
+
+    it("il pulsante allIntegrations e backToProvider nei modelli e localizzato in tutte le 15 lingue", () => {
+      const modelPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/sync/[provider]/[model]/page.tsx");
+      const modelCode = fs.readFileSync(modelPath, "utf-8");
+      const allLocales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"];
+      for (const lc of allLocales) {
+        expect(modelCode).toMatch(new RegExp(`allIntegrations:\\s*\\{[^}]*\\b${lc}:`));
+        expect(modelCode).toMatch(new RegExp(`backToProvider:\\s*\\{[^}]*\\b${lc}:`));
+      }
+    });
+
+    it("il fallback promozionale dei modelli non reinserisce link ai provider esclusi", () => {
+      const modelPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/sync/[provider]/[model]/page.tsx");
+      const modelCode = fs.readFileSync(modelPath, "utf-8");
+      expect(modelCode).not.toMatch(/providerLinkHref\(p, lc\)\s*\?\?\s*`\/en\/sync\/\$\{p\.slug\}`/);
+      expect(modelCode).toMatch(/const providerHref = providerLinkHref\(p, lc\)/);
+    });
+
+    it("i breadcrumb mantengono il percorso del provider anche per provider esclusi", () => {
+      const modelPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/sync/[provider]/[model]/page.tsx");
+      const modelCode = fs.readFileSync(modelPath, "utf-8");
+      expect(modelCode).toMatch(/\{ name: p\.name, path: `\/\$\{lc\}\/sync\/\$\{p\.slug\}` \}/);
+    });
   });
 
   describe("Punto 3: Pagina /sync/suunto allineata al contratto", () => {
     const suunto = PROVIDERS_BY_SLUG["suunto"];
+
+    it("suunto ha piattaforme ristrette a solo android", () => {
+      expect(suunto.platforms).toEqual(["android"]);
+    });
 
     it("suunto supporta allenamenti e dati giornalieri, e non supporta traccia GPS/distanza", () => {
       const workouts = suunto.dataTypes.find((d) => d.key === "workouts");
@@ -126,15 +185,26 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       expect(hr?.supported).toBe(true);
     });
 
-    it("descrizione e technote di Suunto escludono sync background automatica e traccia GPS", () => {
-      const allText = JSON.stringify({
-        longDesc: suunto.longDesc,
-        techNote: suunto.techNote,
-        faqs: suunto.faqs,
-      });
+    it("descrizione, FAQ e technote di Suunto escludono esplicitamente traccia GPS e sync background automatica", () => {
+      const itFaq = suunto.faqs[0].a.it;
+      const enFaq = suunto.faqs[0].a.en;
 
-      expect(allText).toMatch(/background/i);
-      expect(allText).toMatch(/GPS/i);
+      expect(itFaq).toMatch(/su Android/);
+      expect(itFaq).toMatch(/allenamenti e metriche giornaliere/);
+      expect(itFaq).toMatch(/Non sono incluse tracce GPS/);
+      expect(itFaq).toMatch(/non è prevista sincronizzazione automatica in background/);
+      expect(itFaq).toMatch(/su richiesta/);
+
+      expect(enFaq).toMatch(/on Android/);
+      expect(enFaq).toMatch(/workouts and daily metrics/);
+      expect(enFaq).toMatch(/No GPS tracks/);
+      expect(enFaq).toMatch(/no automatic background sync/);
+      expect(enFaq).toMatch(/on demand/);
+
+      expect(suunto.techNote.en).toMatch(/Suunto login/i);
+      expect(suunto.techNote.en).toMatch(/No GPS tracking/i);
+      expect(suunto.techNote.en).toMatch(/no automatic background synchronization/i);
+      expect(suunto.techNote.en).toMatch(/on user demand/i);
     });
   });
 
@@ -147,12 +217,46 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       }
     });
 
+    it("non include prezzi numerici non autorizzati o simboli di valuta aggiunti", () => {
+      expect(txt).not.toMatch(/€\s*\d/);
+      expect(txt).not.toMatch(/€3\.99|€4\.99|€1\.19/);
+      expect(txt).not.toMatch(/\b3\.99\b|\b4\.99\b|\b1\.19\b/);
+    });
+
+    it("distingue esplicitamente le 5 architetture", () => {
+      expect(txt).toMatch(/Health Connect.*Android/i);
+      expect(txt).toMatch(/Apple Health.*iOS/i);
+      expect(txt).toMatch(/Colmi.*direct Bluetooth/i);
+      expect(txt).toMatch(/Suunto via account login.*Android only/i);
+      expect(txt).toMatch(/Strava/i);
+    });
+
+    it("qualifica Garmin, Fitbit, Polar, Oura, Withings come percorsi indiretti tramite hub", () => {
+      expect(txt).toMatch(/read only indirectly via Health Connect/i);
+      expect(txt).toMatch(/read only indirectly via Apple Health/i);
+      expect(txt).toMatch(/Health Connect \(Galaxy Watch via Samsung Health bridge/i);
+      expect(txt).not.toMatch(/direct connection to Samsung Health/i);
+    });
+
+    it("riassume correttamente prova 14 giorni senza cifre numeriche", () => {
+      expect(txt).toMatch(/14-day trial/i);
+      expect(txt).toMatch(/lifetime purchase/i);
+      expect(txt).toMatch(/on Android you can also choose the 6-month subscription/i);
+      expect(txt).toMatch(/6-month subscription is not available on iPhone/i);
+      expect(txt).toMatch(/JSON.*never require a purchase/i);
+    });
+
     it("dichiara non disponibili dashboard web, export FIT (distinto da JSON), Mesh Famiglia e collegamenti diretti", () => {
       expect(txt).toMatch(/FIT format/i);
       expect(txt).toMatch(/JSON/i);
       expect(txt).toMatch(/Family Mesh/i);
       expect(txt).toMatch(/web dashboard/i);
       expect(txt).toMatch(/direct connections? (to|for) (Garmin|Samsung|Polar|Oura)/i);
+    });
+
+    it("dichiara il requisito minimo iOS 15.0 nel registro del sito e in llms.txt", () => {
+      expect(AVAILABILITY.ios.minOsVersion).toBe("iOS 15.0");
+      expect(txt).toMatch(/iOS 15\.0 and up/i);
     });
   });
 
@@ -175,9 +279,9 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
     });
   });
 
-  describe("Punto 6: Prova 14 giorni testo definitivo approvato", () => {
-    const itExact = "I nuovi account possono provare FitMesh Pro gratis per 14 giorni. Dopo la prova, per continuare a sincronizzare serve un acquisto a vita o un abbonamento ogni 6 mesi. Esportare i dati in formato JSON e richiedere la cancellazione dell'account non richiede un acquisto.";
-    const enExact = "New accounts can try FitMesh Pro free for 14 days. After the trial, continuing to sync requires a lifetime purchase or a 6-month subscription. Exporting your data as JSON and requesting account deletion do not require a purchase.";
+  describe("Punto 6: Prova 14 giorni testo definitivo approvato (Decisione 7A)", () => {
+    const itExact = "La prova gratuita dura 14 giorni. Poi, per continuare a sincronizzare, serve l'acquisto a vita; su Android puoi scegliere anche l'abbonamento semestrale. Esportare i dati in formato JSON e richiedere la cancellazione dell'account non richiede un acquisto.";
+    const enExact = "The free trial lasts 14 days. After that, syncing requires the lifetime purchase; on Android you can also choose the 6-month subscription. Exporting your data as JSON and requesting account deletion never require a purchase.";
 
     it("sezione prezzi usa il testo esatto approvato per IT ed EN", () => {
       expect(PRICING_SECTION.subhead.it).toBe(itExact);
@@ -190,6 +294,13 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       expect(itFaq?.a).toBe(itExact);
       expect(enFaq?.a).toBe(enExact);
     });
+
+    it("non presenta abbonamento semestrale come disponibile su iPhone", () => {
+      expect(PRICING_SECTION.subhead.it).toMatch(/su Android puoi scegliere anche l'abbonamento semestrale/);
+      expect(PRICING_SECTION.subhead.en).toMatch(/on Android you can also choose the 6-month subscription/);
+      expect(PRICING_SECTION.subhead.it).not.toMatch(/su iPhone.*abbonamento semestrale/);
+      expect(PRICING_SECTION.subhead.en).not.toMatch(/on iPhone.*6-month subscription/);
+    });
   });
 
   describe("Punto 7: Copy cancellazione account distingue sorgenti dirette e indirette", () => {
@@ -198,6 +309,11 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       expect(DELETE_ACCOUNT_COPY.en.externalBody).toMatch(/indirect sources/i);
       expect(DELETE_ACCOUNT_COPY.it.externalBody).toMatch(/connessioni dirette/i);
       expect(DELETE_ACCOUNT_COPY.it.externalBody).toMatch(/sorgenti indirette/i);
+    });
+
+    it("dichiara le sole lingue realmente disponibili (IT ed EN)", () => {
+      const copyKeys = Object.keys(DELETE_ACCOUNT_COPY);
+      expect(copyKeys.sort()).toEqual(["en", "it"]);
     });
   });
 
@@ -209,9 +325,34 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       expect(aboutCode).not.toMatch(/Fitbit accesso cloud dati storici/);
     });
 
-    it("Mesh Famiglia e qualificata come in sviluppo", () => {
+    it("About renderizza due sezioni distinte: collegamenti diretti e percorsi tramite hub", () => {
+      const aboutPath = path.join(process.cwd(), "app/(frontend)/[locale]/(marketing)/about/page.tsx");
+      const aboutCode = fs.readFileSync(aboutPath, "utf-8");
+      expect(aboutCode).toMatch(/ABOUT_COPY\.directConnectionsHeading/);
+      expect(aboutCode).toMatch(/ABOUT_COPY\.hubConnectionsHeading/);
+      expect(aboutCode).toMatch(/ABOUT_COPY\.wearOsDevice/);
+      expect(aboutCode).toMatch(/ABOUT_COPY\.suuntoDevice/);
+      expect(aboutCode).toMatch(/ABOUT_COPY\.galaxyWatchHub/);
+      expect(aboutCode).toMatch(/ABOUT_COPY\.garminHub/);
+    });
+
+    it("ABOUT_COPY copre tutte le 15 lingue servite per le nuove sezioni", () => {
+      const allLocales = ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"] as const;
+      for (const lc of allLocales) {
+        expect(ABOUT_COPY.directConnectionsHeading[lc], `directConnectionsHeading missing ${lc}`).toBeDefined();
+        expect(ABOUT_COPY.hubConnectionsHeading[lc], `hubConnectionsHeading missing ${lc}`).toBeDefined();
+        expect(ABOUT_COPY.suuntoDevice[lc], `suuntoDevice missing ${lc}`).toBeDefined();
+        expect(ABOUT_COPY.galaxyWatchHub[lc], `galaxyWatchHub missing ${lc}`).toBeDefined();
+      }
+    });
+
+    it("Mesh Famiglia e qualificata come in sviluppo senza impegni futuri su minori o consenso", () => {
       expect(ABOUT_COPY.familyBody.it).toMatch(/in sviluppo/i);
       expect(ABOUT_COPY.familyBody.en).toMatch(/in development/i);
+      const allFamilyText = JSON.stringify(ABOUT_COPY.familyBody);
+      expect(allFamilyText).not.toMatch(/minori|minors|children/i);
+      expect(allFamilyText).not.toMatch(/metriche condivise|shared metrics/i);
+      expect(allFamilyText).not.toMatch(/consenso genitoriale|parental consent/i);
     });
   });
 
@@ -230,17 +371,22 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       applyNordicOverlay(p, nordicOverlay as any);
     }
 
-    it("nessuna variante nordica indicizzabile presenta corpo identico a inglese o italiano", () => {
+    it("nessun paragrafo del corpo delle varianti nordiche indicizzabili presenta corpo identico a inglese o italiano", () => {
       for (const lc of ["sv", "da", "no", "fi"] as const) {
         for (const p of BLOG_POSTS) {
           if (isBlogVariantIndexable(p, lc)) {
-            const firstPara = p.body.find((b) => b.type === "paragraph")?.text;
-            if (firstPara) {
-              const text = (firstPara as any)[lc];
-              const textIt = (firstPara as any).it;
-              const textEn = (firstPara as any).en;
-              expect(text, `${p.slug} in ${lc} non deve coincidere con IT`).not.toBe(textIt);
-              expect(text, `${p.slug} in ${lc} non deve coincidere con EN`).not.toBe(textEn);
+            const paragraphs = p.body.filter((b) => b.type === "paragraph");
+            expect(paragraphs.length, `Post ${p.slug} deve avere paragrafi`).toBeGreaterThan(0);
+            for (const para of paragraphs) {
+              const text = (para.text as any)[lc];
+              const textIt = (para.text as any).it;
+              const textEn = (para.text as any).en;
+              if (text && textIt) {
+                expect(text, `${p.slug} in ${lc} non deve coincidere con IT`).not.toBe(textIt);
+              }
+              if (text && textEn) {
+                expect(text, `${p.slug} in ${lc} non deve coincidere con EN`).not.toBe(textEn);
+              }
             }
           }
         }

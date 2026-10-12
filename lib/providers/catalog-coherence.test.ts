@@ -321,16 +321,16 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
   });
 
   describe("Product Facts SSOT Consistency", () => {
-    it("includes Oura and Suunto in both Android and iOS supported provider lists", () => {
+    it("includes Oura on both Android and iOS, and Suunto strictly on Android (Decision 7C)", () => {
       expect(SUPPORTED_PROVIDERS_ANDROID).toContain("Oura Ring");
       expect(SUPPORTED_PROVIDERS_IOS).toContain("Oura Ring");
       expect(SUPPORTED_PROVIDERS_ANDROID).toContain("Suunto");
-      expect(SUPPORTED_PROVIDERS_IOS).toContain("Suunto");
+      expect(SUPPORTED_PROVIDERS_IOS).not.toContain("Suunto");
     });
 
     it("maintains expected platform count totals", () => {
       expect(SUPPORTED_PROVIDERS_ANDROID).toHaveLength(14);
-      expect(SUPPORTED_PROVIDERS_IOS).toHaveLength(4);
+      expect(SUPPORTED_PROVIDERS_IOS).toHaveLength(3);
     });
   });
 
