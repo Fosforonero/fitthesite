@@ -77,12 +77,12 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
       }
     });
 
-    it("is indexable across all 11 provider catalog locales", () => {
+    it("is not indexable across catalog locales (promotionalVisibility: false)", () => {
       for (const lc of PROVIDER_LOCALES) {
         expect(
           isProviderVariantIndexable(oura, lc),
-          `oura variant ${lc} should be indexable`,
-        ).toBe(true);
+          `oura variant ${lc} should not be indexable`,
+        ).toBe(false);
       }
     });
   });
@@ -108,12 +108,12 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
       expect(allText).not.toMatch(/12 mesi|12-month/);
     });
 
-    it("is indexable across all 11 provider catalog locales", () => {
+    it("is not indexable across catalog locales (promotionalVisibility: false)", () => {
       for (const lc of PROVIDER_LOCALES) {
         expect(
           isProviderVariantIndexable(fitbit, lc),
-          `fitbit variant ${lc} should be indexable`,
-        ).toBe(true);
+          `fitbit variant ${lc} should not be indexable`,
+        ).toBe(false);
       }
     });
   });
@@ -190,12 +190,12 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
       expect(allText).not.toMatch(/AppGallery/i);
     });
 
-    it("is indexable across all 11 provider catalog locales with neutral copy", () => {
+    it("is not indexable across catalog locales (promotionalVisibility: false)", () => {
       for (const lc of PROVIDER_LOCALES) {
         expect(
           isProviderVariantIndexable(huawei, lc),
-          `huawei variant ${lc} should be indexable`,
-        ).toBe(true);
+          `huawei variant ${lc} should not be indexable`,
+        ).toBe(false);
       }
     });
 
@@ -223,12 +223,12 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
       expect(suunto.status).not.toBe("not-available");
     });
 
-    it("supports verified metrics (steps, hr, sleep, calories) and workouts is strictly false", () => {
+    it("supports verified metrics (steps, hr, sleep, calories, workouts) and distance is strictly false", () => {
       const supportedKeys = suunto.dataTypes.filter((d) => d.supported).map((d) => d.key);
-      expect(supportedKeys.sort()).toEqual(["calories", "hr", "sleep", "steps"].sort());
+      expect(supportedKeys.sort()).toEqual(["calories", "hr", "sleep", "steps", "workouts"].sort());
 
       const workouts = suunto.dataTypes.find((d) => d.key === "workouts");
-      expect(workouts?.supported).toBe(false);
+      expect(workouts?.supported).toBe(true);
 
       const distance = suunto.dataTypes.find((d) => d.key === "distance");
       expect(distance?.supported).toBe(false);
@@ -321,16 +321,16 @@ describe("P0.22-C Catalog & Integration Matrix Coherence Guardrails", () => {
   });
 
   describe("Product Facts SSOT Consistency", () => {
-    it("includes Oura and Suunto in both Android and iOS supported provider lists", () => {
+    it("includes Oura on both Android and iOS, and Suunto strictly on Android (Decision 7C)", () => {
       expect(SUPPORTED_PROVIDERS_ANDROID).toContain("Oura Ring");
       expect(SUPPORTED_PROVIDERS_IOS).toContain("Oura Ring");
       expect(SUPPORTED_PROVIDERS_ANDROID).toContain("Suunto");
-      expect(SUPPORTED_PROVIDERS_IOS).toContain("Suunto");
+      expect(SUPPORTED_PROVIDERS_IOS).not.toContain("Suunto");
     });
 
     it("maintains expected platform count totals", () => {
       expect(SUPPORTED_PROVIDERS_ANDROID).toHaveLength(14);
-      expect(SUPPORTED_PROVIDERS_IOS).toHaveLength(4);
+      expect(SUPPORTED_PROVIDERS_IOS).toHaveLength(3);
     });
   });
 

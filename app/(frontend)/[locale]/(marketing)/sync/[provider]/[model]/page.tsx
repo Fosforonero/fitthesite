@@ -16,6 +16,7 @@ import {
   providerModelLanguages,
   providerLinkHref,
 } from "@/lib/providers/indexability";
+import { getExcludedBannerNotice } from "@/lib/providers/excluded-banner";
 import { tl } from "@/lib/blog/types";
 import { SITE_URL, PLAY_STORE_URL as PLAY_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
@@ -207,6 +208,27 @@ const UI = {
     nl: "Alle integraties",
     ja: "すべての連携",
     ko: "모든 통합",
+    sv: "Alla integrationer",
+    da: "Alle integrationer",
+    no: "Alle integrasjoner",
+    fi: "Kaikki integraatiot",
+  },
+  allIntegrations: {
+    it: "Tutte le integrazioni",
+    en: "All integrations",
+    es: "Todas las integraciones",
+    de: "Alle Integrationen",
+    pt: "Todas as integrações",
+    fr: "Toutes les intégrations",
+    pl: "Wszystkie integracje",
+    tr: "Tüm entegrasyonlar",
+    nl: "Alle integraties",
+    ja: "すべての連携",
+    ko: "모든 통합",
+    sv: "Alla integrationer",
+    da: "Alle integrationer",
+    no: "Alle integrasjoner",
+    fi: "Kaikki integraatiot",
   },
   otherModels: {
     it: "Altri modelli",
@@ -397,12 +419,10 @@ export default async function ModelPage({
   if (!p || !m) notFound();
 
   const desc = m.description[lc] ?? m.description["en"] ?? "";
-  // MICRO-GATE P0.13A: breadcrumb + "back to provider" linkavano
-  // incondizionatamente `/${lc}/sync/${p.slug}` — la pagina modello può
-  // essere indicizzabile mentre il provider padre non lo è nella stessa
-  // locale (es. pl/galaxy-watch), trovato dal crawl esaustivo. mai null:
-  // providerLinkHref ricade su EN se lc non è indicizzabile.
-  const providerHref = providerLinkHref(p, lc) ?? `/en/sync/${p.slug}`;
+  // providerLinkHref applica lc-diretto -> EN-fallback -> null per provider esclusi
+  // o varianti non indicizzabili. Non forzare il fallback /en/sync/${p.slug} per
+  // i provider promozionalmente esclusi (evita di reintrodurre link promozionali).
+  const providerHref = providerLinkHref(p, lc);
   // Sprint P0.13: providerModelLinkHref applica lc-diretto → EN-fallback →
   // nascondi, stessa regola di blogLinkHref/providerLinkHref.
   const otherModels = models
@@ -413,8 +433,10 @@ export default async function ModelPage({
   const pageUrl = `${SITE_URL}/${lc}/sync/${p.slug}/${m.slug}`;
   const isLive = p.status === "live" || p.status === "live-basic" || p.status === "live-bridge" || p.status === "beta";
 
+  const isPromotional = p.promotionalVisibility !== false;
+
   // JSON-LD: SoftwareApplication + FAQPage
-  const faqSchema = m.faq.length
+  const faqSchema = isPromotional && m.faq.length
     ? {
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -429,7 +451,7 @@ export default async function ModelPage({
       }
     : null;
 
-  // P0.16-B: era SoftwareApplication — required aggregateRating/review per
+  // P0.16-B: era SoftwareApplication - required aggregateRating/review per
   // il rich result Software App, che nessuno store da' oggi in modo
   // pubblico, stabile e onestamente sitewide (vedi guardrail). Rimosso
   // finche' non esiste un dato reale: WebPage rappresenta correttamente
@@ -437,7 +459,7 @@ export default async function ModelPage({
   const appSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `FitMesh Sync — ${m.name}`,
+    name: `FitMesh Sync - ${m.name}`,
     description: desc,
     inLanguage: schemaLanguage(lc),
     url: pageUrl,
@@ -460,12 +482,27 @@ export default async function ModelPage({
                 name: lc === "it" ? "Integrazioni" : lc === "es" ? "Integraciones" : lc === "de" ? "Integrationen" : lc === "pt" ? "Integrações" : lc === "fr" ? "Intégrations" : lc === "pl" ? "Integracje" : lc === "tr" ? "Entegrasyonlar" : lc === "nl" ? "Integraties" : lc === "ja" ? "連携" : lc === "ko" ? "통합" : "Integrations",
                 path: `/${lc}/integrations`,
               },
-              { name: p.name, path: providerHref },
+              { name: p.name, path: `/${lc}/sync/${p.slug}` },
               { name: m.name, path: `/${lc}/sync/${p.slug}/${m.slug}` },
             ]}
             locale={lc}
           />
         </div>
+
+        {p.promotionalVisibility === false && (
+          <aside className="max-w-5xl mx-auto px-4 pt-6">
+            <div className="rounded-[14px] border border-amber-500/30 bg-amber-500/10 p-5 text-sm text-text-primary">
+              <p className="font-semibold text-amber-300">
+                {getExcludedBannerNotice(p, lc).directUnavailable}
+              </p>
+              {getExcludedBannerNotice(p, lc).hubBridgeClause && (
+                <p className="mt-2 text-text-secondary leading-relaxed">
+                  {getExcludedBannerNotice(p, lc).hubBridgeClause}
+                </p>
+              )}
+            </div>
+          </aside>
+        )}
 
         {/* Hero */}
         <section className="max-w-5xl mx-auto px-4 py-12">
@@ -502,7 +539,7 @@ export default async function ModelPage({
             {desc}
           </p>
 
-          {isLive && (
+          {isLive && isPromotional && (
             <StoreButtonsRow locale={lc} platforms={providerPlatforms(p)} />
           )}
         </section>
@@ -632,14 +669,16 @@ export default async function ModelPage({
         )}
 
         {/* Back to provider */}
-        <section className="max-w-5xl mx-auto px-4 pb-6">
-          <Link
-            href={providerHref}
-            className="text-accent-primary text-sm hover:underline"
-          >
-            ← {t("backToProvider", lc)} {p.name}
-          </Link>
-        </section>
+        {providerHref && (
+          <section className="max-w-5xl mx-auto px-4 pb-6">
+            <Link
+              href={providerHref}
+              className="text-accent-primary text-sm hover:underline"
+            >
+              ← {t("backToProvider", lc)} {p.name}
+            </Link>
+          </section>
+        )}
 
         {/* CTA */}
         <section className="max-w-5xl mx-auto px-4 pb-20">
@@ -648,7 +687,7 @@ export default async function ModelPage({
             <p className="text-text-secondary mb-6 max-w-md mx-auto">
               {tSync("ctaBody", "ctaBodyBle", "ctaBodyBridge", lc, p)} {m.name}.
             </p>
-            {isLive ? (
+            {isLive && isPromotional ? (
               <div className="flex justify-center">
                 <StoreButtonsRow
                   locale={lc}
@@ -656,6 +695,13 @@ export default async function ModelPage({
                   className="justify-center"
                 />
               </div>
+            ) : isLive && !isPromotional ? (
+              <Link
+                href={`/${lc}/integrations`}
+                className="inline-flex items-center px-6 py-3 rounded-pill btn-cta text-sm font-semibold"
+              >
+                {t("allIntegrations", lc)}
+              </Link>
             ) : (
               <a
                 href="mailto:waitlist@fitmesh.fit"

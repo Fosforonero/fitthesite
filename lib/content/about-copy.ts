@@ -1,5 +1,6 @@
 import type { Localized } from "@/lib/blog/types";
 import { PRICING_SECTION } from "@/lib/pricing-section";
+import { FAMILY_MESH_STATUS_SENTENCE } from "@/lib/feature-status";
 
 /**
  * Copy di `/about` estratto dall'ex-helper `t(it, en, es, de, pt, fr)` (6
@@ -252,27 +253,27 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   ouraDirectApi: {
-    it: "Oura API diretta per metriche proprietarie", en: "Oura direct API for proprietary metrics", es: "API directa de Oura para métricas propietarias",
-    de: "Oura direkte API für proprietäre Metriken", pt: "API direta Oura para métricas proprietárias", fr: "API directe Oura pour les métriques propriétaires",
-    pl: "Bezpośrednie API Oura dla zastrzeżonych metryk", tr: "Özel metrikler için doğrudan Oura API", nl: "Directe Oura API voor eigen metrieken",
-    ja: "独自指標向けの Oura 直接 API", ko: "독점 지표를 위한 Oura 직접 API", sv: "Oura direkt-API för proprietära mätvärden",
-    da: "Oura direkte API til proprietære målinger", no: "Oura direkte API for proprietære målinger", fi: "Oura suora API omiin mittauksiin",
+    it: "Oura (integrazione indiretta via piattaforma salute del telefono)", en: "Oura (indirect integration via phone health platform)", es: "Oura (integración indirecta vía plataforma de salud del teléfono)",
+    de: "Oura (indirekte Integration über die Gesundheitsplattform des Telefons)", pt: "Oura (integração indireta via plataforma de saúde do telemóvel)", fr: "Oura (intégration indirecte via la plateforme santé du téléphone)",
+    pl: "Oura (pośrednia integracja za pośrednictwem platformy zdrowotnej telefonu)", tr: "Oura (telefon sağlık platformu üzerinden dolaylı entegrasyon)", nl: "Oura (indirecte integratie via gezondheidsplatform van de telefoon)",
+    ja: "Oura (スマートフォンのヘルスケアプラットフォーム経由の間接連携)", ko: "Oura (스마트폰 건강 플랫폼을 통한 간접 연동)", sv: "Oura (indirekt integration via telefonens hälsoplattform)",
+    da: "Oura (indirekte integration via telefonens sundhedsplatform)", no: "Oura (indirekte integrasjon via telefonens helseplattform)", fi: "Oura (epäsuora integraatio puhelimen terveysalustan kautta)",
   } satisfies Localized,
 
   garminDirectApi: {
     it: "Garmin API diretta per Body Battery e metriche avanzate", en: "Garmin direct API for Body Battery and advanced metrics", es: "API directa de Garmin para Body Battery y métricas avanzadas",
-    de: "Garmin direkte API für Body Battery und erweiterte Metriken", pt: "API direta Garmin para Body Battery e métricas avançadas", fr: "API directe Garmin pour Body Battery et métriques avancées",
+    de: "Garmin direkte API für Body Battery und erweiterte Metriken", pt: "API direta Garmin para Body Battery e métricas avanzadas", fr: "API directe Garmin pour Body Battery et métriques avancées",
     pl: "Bezpośrednie API Garmin dla Body Battery i zaawansowanych metryk", tr: "Body Battery ve gelişmiş metrikler için doğrudan Garmin API", nl: "Directe Garmin API voor Body Battery en geavanceerde metrieken",
     ja: "Body Battery および高度な指標向けの Garmin 直接 API", ko: "Body Battery 및 고급 지표를 위한 Garmin 직접 API", sv: "Garmin direkt-API för Body Battery och avancerade mätvärden",
     da: "Garmin direkte API til Body Battery og avancerede målinger", no: "Garmin direkte API for Body Battery og avanserte målinger", fi: "Garmin suora API Body Batterylle ja edistyneille mittauksille",
   } satisfies Localized,
 
   fitbitHistoricalGps: {
-    it: "Fitbit accesso cloud dati storici", en: "Fitbit cloud access for historical data", es: "Fitbit acceso en la nube para datos históricos",
-    de: "Fitbit Cloud-Zugriff für Verlaufsdaten", pt: "Fitbit acesso na nuvem para dados históricos", fr: "Fitbit accès cloud pour les données historiques",
-    pl: "Fitbit: dostęp chmurowy do danych historycznych", tr: "Fitbit geçmiş veriler için bulut erişimi", nl: "Fitbit cloud-toegang voor historische gegevens",
-    ja: "Fitbit 過去データのクラウドアクセス", ko: "Fitbit 과거 데이터 클라우드 접근", sv: "Fitbit molnåtkomst för historiska data",
-    da: "Fitbit-cloudadgang til historiske data", no: "Fitbit skyadgang for historiske data", fi: "Fitbitin pilvikäyttö historiatietoihin",
+    it: "Fitbit (integrazione via Health Connect o Apple Salute)", en: "Fitbit (integration via Health Connect or Apple Health)", es: "Fitbit (integración vía Health Connect o Apple Health)",
+    de: "Fitbit (Integration über Health Connect oder Apple Health)", pt: "Fitbit (integração via Health Connect ou Apple Health)", fr: "Fitbit (intégration via Health Connect ou Apple Health)",
+    pl: "Fitbit (integracja przez Health Connect lub Apple Health)", tr: "Fitbit (Health Connect veya Apple Health üzerinden entegrasyon)", nl: "Fitbit (integratie via Health Connect of Apple Health)",
+    ja: "Fitbit (Health Connect または Apple Health 経由の連携)", ko: "Fitbit (Health Connect 또는 Apple Health 연동)", sv: "Fitbit (integration via Health Connect eller Apple Health)",
+    da: "Fitbit (integration via Health Connect eller Apple Health)", no: "Fitbit (integrasjon via Health Connect eller Apple Health)", fi: "Fitbit (integraatio Health Connectin tai Apple Healthin kautta)",
   } satisfies Localized,
 
   otherConnections: {
@@ -305,6 +306,130 @@ export const ABOUT_COPY = {
     pl: "Pełna lista i szczegóły na /integrations", tr: "Tüm liste ve ayrıntılar /integrations sayfasında", nl: "Volledige lijst en details op /integrations",
     ja: "完全なリストと詳細は /integrations を参照", ko: "전체 목록 및 세부 정보는 /integrations 참조", sv: "Fullständig lista och detaljer på /integrations",
     da: "Fuld liste og detaljer på /integrations", no: "Fullstendig liste og detaljer på /integrations", fi: "Koko lista ja tiedot sivulla /integrations",
+  } satisfies Localized,
+
+  directConnectionsHeading: {
+    it: "Collegamenti diretti", en: "Direct connections", es: "Conexiones directas",
+    de: "Direkte Verbindungen", pt: "Conexões diretas", fr: "Connexions directes",
+    pl: "Połączenia bezpośrednie", tr: "Doğrudan bağlantılar", nl: "Directe verbindingen",
+    ja: "直接連携", ko: "직접 연동", sv: "Direkta anslutningar",
+    da: "Direkte forbindelser", no: "Direkte tilkoblinger", fi: "Suorat yhteydet",
+  } satisfies Localized,
+
+  hubConnectionsHeading: {
+    it: "Percorsi tramite hub di sistema", en: "System hub paths", es: "Rutas mediante hub del sistema",
+    de: "Wege über System-Hubs", pt: "Caminhos através do hub do sistema", fr: "Passerelles via hub système",
+    pl: "Ścieżki przez huby systemowe", tr: "Sistem merkezi üzerinden yollar", nl: "Trajecten via systeemhubs",
+    ja: "システムハブ経由の経路", ko: "시스템 허브를 통한 경로", sv: "Vägar via systemhubb",
+    da: "Ruter via systemhub", no: "Ruter via systemhub", fi: "Reitit järjestelmäkeskittimen kautta",
+  } satisfies Localized,
+
+  wearOsDevice: {
+    it: "Pixel Watch e Wear OS (su Android via Health Connect)",
+    en: "Pixel Watch and Wear OS (on Android via Health Connect)",
+    es: "Pixel Watch y Wear OS (en Android vía Health Connect)",
+    de: "Pixel Watch und Wear OS (auf Android über Health Connect)",
+    pt: "Pixel Watch e Wear OS (no Android via Health Connect)",
+    fr: "Pixel Watch et Wear OS (sur Android via Health Connect)",
+    pl: "Pixel Watch i Wear OS (na Androidzie przez Health Connect)",
+    tr: "Pixel Watch ve Wear OS (Android'de Health Connect üzerinden)",
+    nl: "Pixel Watch en Wear OS (op Android via Health Connect)",
+    ja: "Pixel Watch および Wear OS（Android では Health Connect 経由）",
+    ko: "Pixel Watch 및 Wear OS (Android에서 Health Connect 경유)",
+    sv: "Pixel Watch och Wear OS (på Android via Health Connect)",
+    da: "Pixel Watch og Wear OS (på Android via Health Connect)",
+    no: "Pixel Watch og Wear OS (på Android via Health Connect)",
+    fi: "Pixel Watch ja Wear OS (Androidissa Health Connectin kautta)",
+  } satisfies Localized,
+
+  xiaomiDevice: {
+    it: "Xiaomi Mi Band e Watch (su Android via Health Connect)",
+    en: "Xiaomi Mi Band and Watch (on Android via Health Connect)",
+    es: "Xiaomi Mi Band y Watch (en Android vía Health Connect)",
+    de: "Xiaomi Mi Band und Watch (auf Android über Health Connect)",
+    pt: "Xiaomi Mi Band e Watch (no Android via Health Connect)",
+    fr: "Xiaomi Mi Band et Watch (sur Android via Health Connect)",
+    pl: "Xiaomi Mi Band i Watch (na Androidzie przez Health Connect)",
+    tr: "Xiaomi Mi Band ve Watch (Android'de Health Connect üzerinden)",
+    nl: "Xiaomi Mi Band en Watch (op Android via Health Connect)",
+    ja: "Xiaomi Mi Band および Watch（Android では Health Connect 経由）",
+    ko: "Xiaomi Mi Band 및 Watch (Android에서 Health Connect 경유)",
+    sv: "Xiaomi Mi Band och Watch (på Android via Health Connect)",
+    da: "Xiaomi Mi Band og Watch (på Android via Health Connect)",
+    no: "Xiaomi Mi Band og Watch (på Android via Health Connect)",
+    fi: "Xiaomi Mi Band ja Watch (Androidissa Health Connectin kautta)",
+  } satisfies Localized,
+
+  suuntoDevice: {
+    it: "Suunto tramite login account (solo Android: allenamenti e dati giornalieri, nessun GPS o background sync)",
+    en: "Suunto via account login (Android only: workouts and daily metrics, no GPS or background sync)",
+    es: "Suunto mediante inicio de sesión (solo Android: entrenamientos y métricas diarias, sin GPS ni sincronización en segundo plano)",
+    de: "Suunto per Konto-Login (nur Android: Workouts und Tagesmetriken, kein GPS oder Hintergrundsync)",
+    pt: "Suunto via login da conta (apenas no Android: treinos e métricas diárias, sem GPS ou sincronização em segundo plano)",
+    fr: "Suunto via connexion au compte (Android uniquement : entraînements et métriques quotidiennes, sans GPS ni sync en arrière-plan)",
+    pl: "Suunto przez logowanie do konta (tylko Android: treningi i dzienne metryki, brak GPS i synchronizacji w tle)",
+    tr: "Hesap girişi ile Suunto (yalnızca Android: antrenmanlar ve günlük metrikler, GPS veya arka plan senkronizasyonu yok)",
+    nl: "Suunto via account-inlog (alleen Android: trainingen en dagelijkse statistieken, geen GPS of achtergrondsync)",
+    ja: "Suunto アカウントログイン（Android 限定：ワークアウトおよび日々の指標、GPSやバックグラウンド同期なし）",
+    ko: "Suunto 계정 로그인 (Android 전용: 운동 및 일일 지표, GPS 또는 백그라운드 동기화 없음)",
+    sv: "Suunto via kontoinloggning (endast Android: träning och dagliga mätvärden, ingen GPS eller bakgrundssynk)",
+    da: "Suunto via kontologin (kun Android: træning og daglige målinger, ingen GPS eller baggrundssynkronisering)",
+    no: "Suunto via kontoinnlogging (kun Android: trening og daglige målinger, ingen GPS eller bakgrunnssynkronisering)",
+    fi: "Suunto tilikirjautumisella (vain Android: harjoitukset ja päivittäiset tiedot, ei GPS:ää tai taustasynkronointia)",
+  } satisfies Localized,
+
+  galaxyWatchHub: {
+    it: "Samsung Galaxy Watch (Samsung Health → Health Connect su Android)",
+    en: "Samsung Galaxy Watch (Samsung Health → Health Connect on Android)",
+    es: "Samsung Galaxy Watch (Samsung Health → Health Connect en Android)",
+    de: "Samsung Galaxy Watch (Samsung Health → Health Connect auf Android)",
+    pt: "Samsung Galaxy Watch (Samsung Health → Health Connect no Android)",
+    fr: "Samsung Galaxy Watch (Samsung Health → Health Connect sur Android)",
+    pl: "Samsung Galaxy Watch (Samsung Health → Health Connect na Androidzie)",
+    tr: "Samsung Galaxy Watch (Android'de Samsung Health → Health Connect)",
+    nl: "Samsung Galaxy Watch (Samsung Health → Health Connect op Android)",
+    ja: "Samsung Galaxy Watch（Android では Samsung Health → Health Connect）",
+    ko: "Samsung Galaxy Watch (Android에서 Samsung Health → Health Connect)",
+    sv: "Samsung Galaxy Watch (Samsung Health → Health Connect på Android)",
+    da: "Samsung Galaxy Watch (Samsung Health → Health Connect på Android)",
+    no: "Samsung Galaxy Watch (Samsung Health → Health Connect på Android)",
+    fi: "Samsung Galaxy Watch (Samsung Health → Health Connect Androidissa)",
+  } satisfies Localized,
+
+  garminHub: {
+    it: "Garmin (Garmin Connect → Health Connect su Android o Apple Salute su iPhone)",
+    en: "Garmin (Garmin Connect → Health Connect on Android or Apple Health on iPhone)",
+    es: "Garmin (Garmin Connect → Health Connect en Android o Apple Salud en iPhone)",
+    de: "Garmin (Garmin Connect → Health Connect auf Android oder Apple Health auf dem iPhone)",
+    pt: "Garmin (Garmin Connect → Health Connect no Android ou Apple Saúde no iPhone)",
+    fr: "Garmin (Garmin Connect → Health Connect sur Android ou Apple Santé sur iPhone)",
+    pl: "Garmin (Garmin Connect → Health Connect na Androidzie lub Apple Zdrowie na iPhonie)",
+    tr: "Garmin (Android'de Health Connect veya iPhone'da Apple Health üzerinden Garmin Connect)",
+    nl: "Garmin (Garmin Connect → Health Connect op Android of Apple Gezondheid op iPhone)",
+    ja: "Garmin（Android では Health Connect、iPhone では Apple ヘルスケア経由の Garmin Connect）",
+    ko: "Garmin (Android에서는 Health Connect, iPhone에서는 Apple 건강 경유 Garmin Connect)",
+    sv: "Garmin (Garmin Connect → Health Connect på Android eller Apple Hälsa på iPhone)",
+    da: "Garmin (Garmin Connect → Health Connect på Android eller Apple Sundhed på iPhone)",
+    no: "Garmin (Garmin Connect → Health Connect på Android eller Apple Helse på iPhone)",
+    fi: "Garmin (Garmin Connect → Health Connect Androidissa tai Apple Terveys iPhonessa)",
+  } satisfies Localized,
+
+  thirdPartyHub: {
+    it: "Dispositivi terzi (Fitbit, Polar, Oura, Withings: nessun collegamento diretto, dati letti solo tramite Health Connect o Apple Salute)",
+    en: "Third-party devices (Fitbit, Polar, Oura, Withings: no direct connection, data read only via Health Connect or Apple Health)",
+    es: "Dispositivos de terceros (Fitbit, Polar, Oura, Withings: sin conexión directa, datos leídos solo a través de Health Connect o Apple Salud)",
+    de: "Drittanbieter-Geräte (Fitbit, Polar, Oura, Withings: keine direkte Verbindung, Daten werden nur über Health Connect oder Apple Health gelesen)",
+    pt: "Dispositivos de terceiros (Fitbit, Polar, Oura, Withings: sem conexão direta, dados lidos apenas via Health Connect ou Apple Saúde)",
+    fr: "Appareils tiers (Fitbit, Polar, Oura, Withings : aucune connexion directe, données lues uniquement via Health Connect ou Apple Santé)",
+    pl: "Urządzenia innych producentów (Fitbit, Polar, Oura, Withings: brak bezpośredniego połączenia, dane odczytywane tylko przez Health Connect lub Apple Zdrowie)",
+    tr: "Üçüncü taraf cihazlar (Fitbit, Polar, Oura, Withings: doğrudan bağlantı yok, veriler yalnızca Health Connect veya Apple Health üzerinden okunur)",
+    nl: "Apparaten van derden (Fitbit, Polar, Oura, Withings: geen directe verbinding, gegevens worden alleen gelezen via Health Connect of Apple Gezondheid)",
+    ja: "サードパーティ製デバイス（Fitbit、Polar、Oura、Withings：直接接続なし、データはHealth ConnectまたはAppleヘルスケア経由でのみ読み取り）",
+    ko: "타사 기기 (Fitbit, Polar, Oura, Withings: 직접 연결 없음, Health Connect 또는 Apple 건강을 통해서만 데이터 읽기)",
+    sv: "Tredjepartsenheter (Fitbit, Polar, Oura, Withings: ingen direktanslutning, data läses endast via Health Connect eller Apple Hälsa)",
+    da: "Tredjepartsenheder (Fitbit, Polar, Oura, Withings: ingen direkte forbindelse, data læses kun via Health Connect eller Apple Sundhed)",
+    no: "Tredjepartsenheter (Fitbit, Polar, Oura, Withings: ingen direkte tilkobling, data leses kun via Health Connect eller Apple Helse)",
+    fi: "Kolmannen osapuolen laitteet (Fitbit, Polar, Oura, Withings: ei suoraa yhteyttä, tietoja luetaan vain Health Connectin tai Apple Terveyden kautta)",
   } satisfies Localized,
 
   upToDateListPrefix: {
@@ -452,23 +577,7 @@ export const ABOUT_COPY = {
     da: "Family Mesh", no: "Family Mesh", fi: "Family Mesh",
   } satisfies Localized,
 
-  familyBody: {
-    it: "Mesh Famiglia ti permette di creare un gruppo con chi vuoi (genitori, partner, figli): ogni membro condivide passi, sonno e frequenza cardiaca con gli altri, in un'unica dashboard. Ogni utente del gruppo sceglie autonomamente cosa condividere e dà consenso scritto in-app prima di farlo.",
-    en: "Family Mesh lets you create a group with anyone you want (parents, partner, kids): every member shares steps, sleep and heart rate with the others, in one dashboard. Each group member independently chooses what to share and gives written in-app consent before doing so.",
-    es: "Mesh Familia te permite crear un grupo con quien quieras (padres, pareja, hijos): cada miembro comparte pasos, sueño y frecuencia cardíaca con los demás, en un solo panel. Cada miembro del grupo elige de forma independiente qué compartir y da su consentimiento por escrito en la app antes de hacerlo.",
-    de: "Mit Mesh Familie erstellst du eine Gruppe mit wem du möchtest (Eltern, Partner, Kinder): Jedes Mitglied teilt Schritte, Schlaf und Herzfrequenz mit den anderen, in einem Dashboard. Jedes Gruppenmitglied entscheidet selbstständig, was es teilt, und gibt vorher eine schriftliche Zustimmung in der App.",
-    pt: "O Mesh Família permite criar um grupo com quem você quiser (pais, parceiro, filhos): cada membro compartilha passos, sono e frequência cardíaca com os demais, em um único painel. Cada membro do grupo escolhe de forma independente o que compartilhar e dá consentimento por escrito no app antes de fazê-lo.",
-    fr: "Mesh Famille vous permet de créer un groupe avec qui vous voulez (parents, partenaire, enfants): chaque membre partage ses pas, son sommeil et sa fréquence cardiaque avec les autres, dans un seul tableau de bord. Chaque membre du groupe choisit indépendamment ce qu'il partage et donne son consentement écrit dans l'application avant de le faire.",
-    pl: "Family Mesh pozwala stworzyć grupę z dowolnie wybranymi osobami (rodzicami, partnerem, dziećmi): każdy członek grupy dzieli się z pozostałymi krokami, snem i tętnem — wszystko w jednym panelu. Każdy członek grupy samodzielnie decyduje, czym się dzieli, i wyraża pisemną zgodę w aplikacji, zanim to zrobi.",
-    tr: "Aile Mesh, istediğiniz kişilerle (ebeveynler, eş, çocuklar) bir grup oluşturmanızı sağlar: her üye adım sayısını, uykusunu ve kalp atış hızını diğerleriyle tek bir panelde paylaşır. Her grup üyesi neyi paylaşacağına bağımsız olarak karar verir ve bunu yapmadan önce uygulama içinde yazılı onay verir.",
-    nl: "Met Family Mesh maak je een groep met wie je maar wilt (ouders, partner, kinderen): elk lid deelt stappen, slaap en hartslag met de anderen, in één dashboard. Elk groepslid kiest zelf wat het deelt en geeft daarvoor vooraf schriftelijk toestemming in de app.",
-    ja: "Family Meshを使えば、好きな相手(親、パートナー、子どもなど)とグループを作成できます。メンバー全員が、歩数・睡眠・心拍数を互いに共有し、ひとつのダッシュボードで確認できます。各メンバーは何を共有するかを個別に選択し、共有する前にアプリ内で書面による同意を行います。",
-    ko: "Family Mesh를 이용하면 원하는 사람과 자유롭게 그룹을 만들 수 있습니다(부모님, 배우자, 자녀 등). 그룹의 모든 구성원은 걸음 수, 수면, 심박수를 하나의 대시보드에서 서로 공유합니다. 각 구성원은 무엇을 공유할지 개별적으로 선택하고, 공유하기 전에 앱 내에서 서면 동의를 제공합니다.",
-    sv: "Med Family Mesh kan du skapa en grupp med vem du vill (föräldrar, partner, barn): varje medlem delar steg, sömn och puls med de andra, i en gemensam dashboard. Varje gruppmedlem väljer själv vad som ska delas och ger ett skriftligt samtycke i appen innan det sker.",
-    da: "Med Family Mesh kan du oprette en gruppe med dem, du vil (forældre, partner, børn): alle medlemmer deler skridt, søvn og puls med hinanden i ét fælles dashboard. Hvert gruppemedlem vælger selv, hvad der skal deles, og giver skriftligt samtykke i appen, før det sker.",
-    no: "Med Family Mesh kan du opprette en gruppe med hvem du vil (foreldre, partner, barn): alle medlemmer deler skritt, søvn og puls med de andre, i ett felles dashbord. Hvert gruppemedlem velger selv og uavhengig hva de vil dele, og gir skriftlig samtykke i appen før de gjør det.",
-    fi: "Family Meshin avulla voit perustaa ryhmän kenen tahansa kanssa haluat (vanhemmat, puoliso, lapset): jokainen jäsen jakaa askeleensa, unensa ja sykkeensä muiden kanssa, samassa näkymässä. Jokainen ryhmän jäsen päättää itsenäisesti, mitä jakaa, ja antaa siihen kirjallisen suostumuksen sovelluksessa ennen jakamisen aloittamista.",
-  } satisfies Localized,
+  familyBody: FAMILY_MESH_STATUS_SENTENCE satisfies Localized,
 
   teamHeading: {
     it: "Chi c'è dietro", en: "Who's behind it", es: "Quién hay detrás",

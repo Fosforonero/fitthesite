@@ -119,7 +119,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const m of models) {
       routes.push({
         path: `/sync/${providerSlug}/${m.slug}`,
-        indexableLocales: (lc) => isProviderModelVariantIndexable(m, lc),
+        indexableLocales: (lc) => isProviderModelVariantIndexable(m, lc, providerSlug),
       });
     }
   }

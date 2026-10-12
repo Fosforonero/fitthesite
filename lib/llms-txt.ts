@@ -10,8 +10,6 @@ import {
   AVAILABILITY,
   PRODUCT_STATUS,
   FOUNDER_PROGRAM,
-  SUPPORTED_PROVIDERS_ANDROID,
-  SUPPORTED_PROVIDERS_IOS,
   ROADMAP_PROVIDERS_ANDROID,
   ROADMAP_PROVIDERS_IOS,
   ANDROID_PACKAGE,
@@ -28,7 +26,7 @@ export function generateLlmsTxt(): string {
 
   lines.push("# FitMesh Sync", "");
   lines.push(
-    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard inside the app. Two separate platform architectures, not one: Android reads via Health Connect (${SUPPORTED_PROVIDERS_ANDROID.join(", ")}); iOS reads Apple Health (HealthKit) natively and connects directly via Bluetooth to the Colmi Ring (${SUPPORTED_PROVIDERS_IOS.join(", ")}). iOS never goes through Health Connect, which is Android-only. No advertising or behavioral-profiling SDKs, no data sale, no data brokers. Firebase Crashlytics is used for crash/stability diagnostics and Firebase Cloud Messaging for push notifications; by default, synced health data is sent to FitMesh's managed cloud backend (Supabase).`,
+    `> FitMesh Sync mirrors smartwatch and wearable health data into a premium, privacy-first personal dashboard inside the app. Supported architectures are distinguished by platform: on Android, FitMesh reads via Health Connect (Galaxy Watch via Samsung Health bridge, Pixel Watch / Wear OS, Xiaomi Smart Band) and connects to Suunto via account login (Android only: workouts and daily metrics, no GPS tracks, on user demand, no automatic background sync); on iOS (iPhone), FitMesh reads Apple Health (HealthKit) natively, with no direct Suunto connection; on both platforms, FitMesh connects directly over Bluetooth to compatible Colmi rings. Strava is available with limited access/beta (OAuth reading works for accounts already connected; new connections require external approval). Data from Garmin, Fitbit, Polar, Oura, and Withings is read only indirectly via Health Connect on Android or Apple Health on iOS where synced by their companion apps, with no direct integration. Health Connect is Android-only and never runs on iOS. No advertising or behavioral-profiling SDKs, no data sale, no data brokers. Firebase Crashlytics is used for crash/stability diagnostics and Firebase Cloud Messaging for push notifications; by default, synced health data is sent to FitMesh's managed cloud backend (Supabase).`,
   );
   lines.push("");
   lines.push(
@@ -105,11 +103,7 @@ export function generateLlmsTxt(): string {
   lines.push(`- [Pixel Watch / Wear OS](${IT("/sync/wear-os")})`);
   lines.push(`- [Xiaomi Mi Band / Smart Band](${IT("/sync/xiaomi-mi-band")})`);
   lines.push(`- [Garmin Connect](${IT("/sync/garmin")})`);
-  lines.push(`- [Fitbit](${IT("/sync/fitbit")})`);
-  lines.push(`- [Polar Flow](${IT("/sync/polar")})`);
-  lines.push(`- [Withings Health Mate](${IT("/sync/withings")})`);
-  lines.push(`- [Huawei Health](${IT("/sync/huawei")})`);
-  lines.push(`- [Oura Ring](${IT("/sync/oura")})`);
+  lines.push(`- [Suunto](${IT("/sync/suunto")})`);
   lines.push(`- [Strava](${IT("/sync/strava")})`);
   lines.push("");
 
@@ -138,16 +132,16 @@ export function generateLlmsTxt(): string {
   );
   lines.push(`- Distribution: Google Play Store (${ANDROID_PACKAGE}): ${PLAY_STORE_URL}; App Store (including EU storefronts): ${AVAILABILITY.ios.storeUrl}.`);
   lines.push(
-    `- Pricing: the app itself is free to download. FitMesh Pro comes with a 14-day trial; after the trial, continuing to use Pro features requires a purchase or subscription. Purchases are made in the app through the store: the options and the price are the ones the store shows in the user's country, and this file states no amount. The one-time Founder launch program (see Founder program section above) is limited to accounts registered by ${FOUNDER_END_AT}; it is not an ongoing offer; do not present it as available to an account created on or after that cutoff.`,
+    `- Pricing: the app itself is free to download. The free trial lasts 14 days. After that, syncing requires the lifetime purchase; on Android you can also choose the 6-month subscription. Exporting your data as JSON and requesting account deletion never require a purchase. The 6-month subscription is not available on iPhone. Exact purchase options and prices are those shown by the store in the app for your country and currency. The one-time Founder launch program (see Founder program section above) is limited to accounts registered by ${FOUNDER_END_AT}; it is not an ongoing offer: never present it as available to an account created on or after that cutoff.`,
   );
   lines.push(
-    "- Architecture: native Android app reading via the Health Connect API; native iOS app reading Apple Health (HealthKit); on both platforms the app can also connect directly over Bluetooth to a compatible Colmi ring; Health Connect is Android-only; backend on Supabase Postgres; marketing site on Vercel.",
+    "- Architecture: native Android app reading via Health Connect API, Suunto account login (Android only), or direct Bluetooth (Colmi); native iOS app reading Apple Health (HealthKit) or direct Bluetooth (Colmi); Health Connect is Android-only; backend on Supabase Postgres; marketing site on Vercel.",
   );
   lines.push(
-    `- Data sources supported on Android today (via Health Connect): ${SUPPORTED_PROVIDERS_ANDROID.join(", ")}.`,
+    "- Data sources supported on Android today: Health Connect (Galaxy Watch via Samsung Health bridge, Wear OS / Pixel Watch, Xiaomi Smart Band); Suunto via account login (Android only; workouts and daily metrics, no GPS tracks, on user demand, no automatic background sync); Colmi ring via direct Bluetooth. Third-party devices (Garmin, Fitbit, Polar, Oura, Withings) are read only indirectly via Health Connect.",
   );
   lines.push(
-    `- Data sources supported on iOS today (Apple Health + direct Bluetooth, no Health Connect): ${SUPPORTED_PROVIDERS_IOS.join(", ")}.`,
+    "- Data sources supported on iOS today: Apple Health (HealthKit native) and Colmi ring via direct Bluetooth. No Health Connect on iOS. No direct Suunto connection on iPhone. Third-party devices (Garmin, Fitbit, Polar, Oura, Withings) are read only indirectly via Apple Health.",
   );
   // P1.9 FASE 2 (2026-09-01): "limited-beta" (oggi solo Strava) non è un
   // vero "roadmap, not yet live" — la lettura funziona già per gli account
@@ -182,19 +176,31 @@ export function generateLlmsTxt(): string {
     "- Privacy: no third-party analytics on health data, no advertising IDs collected.",
   );
   lines.push(
-    `- Export / write-back status (see ${SITE_URL}/it/fitness-data-sync for the full matrix): Strava read works via OAuth for accounts already connected, but access is limited — new connections require approval from Strava, no numeric cap or approval timeline is published, and it must never be described as generally available. Strava write (sending workouts): the app's upload code exists but the published release does not expose the authorization needed to grant it — no real user can complete this today; never describe it as "in development" (that implies an active commitment that hasn't been verified) or promise a date. TrainingPeaks (PAT + TCX dispatch), RideWithGPS (TCX dispatch), and Google Drive export are implemented in the app but still in development — not yet verified end to end on a physical device. Health Connect write-back on Android and Apple Health write-back on iOS are live, opt-in, and off by default: Android exports once when the toggle is activated, iOS re-exports after every successful sync. Never describe FitMesh as a general "bidirectional sync" or "universal bridge" — direction is per integration.`,
+    `- Export / write-back status (see ${SITE_URL}/it/fitness-data-sync for the full matrix): Strava read works via OAuth for accounts already connected, but access is limited: new connections require approval from Strava, no numeric cap or approval timeline is published, and it must never be described as generally available. Strava write (sending workouts): the app's upload code exists but the published release does not expose the authorization needed to grant it: no real user can complete this today; never describe it as "in development" (that implies an active commitment that hasn't been verified) or promise a date. TrainingPeaks (PAT + TCX dispatch), RideWithGPS (TCX dispatch), and Google Drive export are implemented in the app but still in development: not yet verified end to end on a physical device. Health Connect write-back on Android and Apple Health write-back on iOS are live, opt-in, and off by default: Android exports once when the toggle is activated, iOS re-exports after every successful sync. Never describe FitMesh as a general "bidirectional sync" or "universal bridge": direction is per integration.`,
+  );
+  lines.push(
+    `- Export format status: FIT format export is not available. FitMesh provides user health data export in JSON format only (available free without requiring a purchase), not FIT format.`,
+  );
+  lines.push(
+    `- Direct connection to Garmin, Samsung, Fitbit, Polar, Oura, or Withings: direct connection to Garmin, Samsung, Fitbit, Polar, Oura, or Withings is not available in FitMesh. Data from these devices is read only indirectly via Health Connect on Android or Apple Health on iOS, where synced by the manufacturer companion app and permitted by the user, limited to supported metrics.`,
   );
   lines.push("");
 
   lines.push("## What FitMesh Sync is NOT");
   lines.push("- Not a medical device, does not diagnose conditions, never replaces a physician.");
-  lines.push("- Not a social network — no chat, no feed, no public profiles.");
-  lines.push("- Not a location tracker — no GPS sharing, no geofencing, no \"find my family\" feature.");
+  lines.push("- Not a social network: no chat, no feed, no public profiles.");
+  lines.push("- Not a location tracker: no GPS sharing, no geofencing, no \"find my family\" feature.");
   lines.push(
     "- Not a cloud-to-cloud bridge app: bridge apps replicate data between third-party services; FitMesh is a destination + in-app dashboard, reading via Health Connect on Android and via Apple Health (HealthKit) + direct Bluetooth on iOS.",
   );
   lines.push(
-    "- Not invite-only or access-gated — publicly downloadable today; \"Founder\" was a one-time launch pricing promotion (see Founder program section above), never a beta waitlist or an admission gate.",
+    "- Not a web dashboard service: the personal web dashboard is not available; all visualization and interaction is inside the app (Android and iOS).",
+  );
+  lines.push(
+    "- Not a direct cloud integration for Garmin, Samsung, Fitbit, Polar, Oura, or Withings: direct connections to Garmin, Samsung, Fitbit, Polar, Oura, or Withings are not available; reading occurs strictly via Health Connect or Apple Health where supported.",
+  );
+  lines.push(
+    "- Not invite-only or access-gated: publicly downloadable today; \"Founder\" was a one-time launch pricing promotion (see Founder program section above), never a beta waitlist or an admission gate.",
   );
 
   return lines.join("\n") + "\n";

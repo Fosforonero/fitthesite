@@ -117,7 +117,7 @@ describe("sezione prezzi: nessun importo, nessun «niente abbonamento» (15 ling
     expect(PRICING_SECTION.heading.it).toBe("L'app si scarica gratis.");
     expect(PRICING_SECTION.heading.en).toBe("The app is free to download.");
     expect(PRICING_SECTION.subhead.en).toBe(
-      "Try FitMesh Pro for 14 days. After the trial, continuing to use Pro features requires a purchase or subscription.",
+      "The free trial lasts 14 days. After that, syncing requires the lifetime purchase; on Android you can also choose the 6-month subscription. Exporting your data as JSON and requesting account deletion never require a purchase.",
     );
     expect(ABOUT_COPY.trialDesc).toBe(PRICING_SECTION.subhead);
     expect(PRICING_SECTION.storeNote.en).toBe("The purchase options and the price are the ones your store shows in the app, in your country.");

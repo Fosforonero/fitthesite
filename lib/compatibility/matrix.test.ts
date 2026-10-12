@@ -285,12 +285,18 @@ describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
 
   it("resolves SSOT localized direct 200 internal links with EN fallback tagging", () => {
     for (const path of COMPATIBILITY_PATHS) {
+      const provider = PROVIDERS_BY_SLUG[path.providerSlug];
+      const isExcluded = provider?.promotionalVisibility === false && !path.guideSlug;
+
       for (const lc of SUPPORTED_LOCALES) {
         const link = resolveGuideLink(path, lc);
-        expect(link, `Path ${path.id} must resolve a guide link for ${lc}`).toBeDefined();
-        expect(link!.href.startsWith("/")).toBe(true);
-
-        expect(link!.isFallbackEn).toBe(false);
+        if (isExcluded) {
+          expect(link, `Path ${path.id} must return null as promotional provider is excluded`).toBeNull();
+        } else {
+          expect(link, `Path ${path.id} must resolve a guide link for ${lc}`).toBeDefined();
+          expect(link!.href.startsWith("/")).toBe(true);
+          expect(link!.isFallbackEn).toBe(false);
+        }
       }
     }
 
