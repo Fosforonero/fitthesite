@@ -122,9 +122,24 @@ async function tooltipSequence(page: Page, chart: Locator, period: number): Prom
   const afterSecondClickB = await tooltipDate(chart);
   await a.focus(); await a.click();
   const afterRepinA = await tooltipDate(chart);
+  // Tab dal fissato A verso un altro giorno: il fuoco non sposta il tooltip fissato; Invio e Spazio si.
+  const focusedDate = () => page.evaluate(() => document.activeElement?.getAttribute('data-date') ?? '');
+  await page.keyboard.press('Tab');
+  const dateC = await focusedDate();
+  const afterTabOther = await tooltipDate(chart);
+  await page.keyboard.press('Enter');
+  const afterEnterOther = await tooltipDate(chart);
+  await page.keyboard.press('Tab');
+  const dateD = await focusedDate();
+  const afterTabOther2 = await tooltipDate(chart);
+  await page.keyboard.press('Space');
+  const afterSpaceOther = await tooltipDate(chart);
   await page.keyboard.press('Escape');
   const afterEscape = await tooltipDate(chart);
-  return { dateA, dateB, afterClickA, afterClickB, afterHoverAWhilePinnedB, afterSecondClickB, afterRepinA, afterEscape };
+  return {
+    dateA, dateB, afterClickA, afterClickB, afterHoverAWhilePinnedB, afterSecondClickB, afterRepinA,
+    dateC, afterTabOther, afterEnterOther, dateD, afterTabOther2, afterSpaceOther, afterEscape,
+  };
 }
 
 interface ComboResult {

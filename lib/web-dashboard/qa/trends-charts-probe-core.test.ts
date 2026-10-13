@@ -91,12 +91,21 @@ describe('giudizio sul layout (controprova: ogni regola deve poter fallire)', ()
 describe('giudizio sulla sequenza F-1', () => {
   const ok: TooltipSequence = {
     dateA: '2026-08-26', dateB: '2026-09-14', afterClickA: '2026-08-26', afterClickB: '2026-09-14',
-    afterHoverAWhilePinnedB: '2026-09-14', afterSecondClickB: null, afterRepinA: '2026-08-26', afterEscape: null,
+    afterHoverAWhilePinnedB: '2026-09-14', afterSecondClickB: null, afterRepinA: '2026-08-26',
+    dateC: '2026-08-27', afterTabOther: '2026-08-26', afterEnterOther: '2026-08-27',
+    dateD: '2026-08-28', afterTabOther2: '2026-08-27', afterSpaceOther: '2026-08-28', afterEscape: null,
   };
   it('verde sulla sequenza attesa', () => expect(tooltipFailures(ok)).toEqual([]));
   it('la vecchia logica (click su B chiude) e un Escape inerte sono rossi', () => {
     expect(tooltipFailures({ ...ok, afterClickB: null })).toEqual(['f1:click-B-non-sposta:null']);
     expect(tooltipFailures({ ...ok, afterEscape: '2026-08-26' })).toEqual(['f1:escape-non-chiude:2026-08-26']);
     expect(tooltipFailures({ ...ok, afterSecondClickB: '2026-09-14' })).toEqual(['f1:stesso-punto-non-chiude:2026-09-14']);
+  });
+  it('Tab su un altro giorno con tooltip fissato: se lo sposta, o se Invio/Spazio non fissano, e\' rosso', () => {
+    expect(tooltipFailures({ ...ok, afterTabOther: '2026-08-27' })).toEqual(['f1:tab-sposta-il-fissato:2026-08-27']);
+    expect(tooltipFailures({ ...ok, afterEnterOther: '2026-08-26' })).toEqual(['f1:invio-non-fissa:2026-08-26']);
+    expect(tooltipFailures({ ...ok, afterTabOther2: '2026-08-28' })).toEqual(['f1:tab-sposta-il-fissato-2:2026-08-28']);
+    expect(tooltipFailures({ ...ok, afterSpaceOther: null })).toEqual(['f1:spazio-non-fissa:null']);
+    expect(tooltipFailures({ ...ok, dateC: '' })).toContain('f1:tab-giorno-C-non-valido:');
   });
 });

@@ -154,6 +154,15 @@ export interface TooltipSequence {
   afterHoverAWhilePinnedB: string | null;
   afterSecondClickB: string | null;
   afterRepinA: string | null;
+  /** Tab dal punto fissato A verso un ALTRO giorno C: il tooltip fissato non si sposta. */
+  dateC: string;
+  afterTabOther: string | null;
+  /** Invio su C: ora e' il gesto esplicito a fissare C. */
+  afterEnterOther: string | null;
+  /** Tab su D (successivo a C), poi Spazio: stesso criterio dell'Invio. */
+  dateD: string;
+  afterTabOther2: string | null;
+  afterSpaceOther: string | null;
   afterEscape: string | null;
 }
 
@@ -165,6 +174,12 @@ export function tooltipFailures(s: TooltipSequence): string[] {
   if (s.afterHoverAWhilePinnedB !== s.dateB) f.push(`f1:hover-sposta-il-fissato:${s.afterHoverAWhilePinnedB}`);
   if (s.afterSecondClickB !== null) f.push(`f1:stesso-punto-non-chiude:${s.afterSecondClickB}`);
   if (s.afterRepinA !== s.dateA) f.push(`f1:rifissa-A:${s.afterRepinA}`);
+  if (!s.dateC || s.dateC === s.dateA) f.push(`f1:tab-giorno-C-non-valido:${s.dateC}`);
+  if (!s.dateD || s.dateD === s.dateC || s.dateD === s.dateA) f.push(`f1:tab-giorno-D-non-valido:${s.dateD}`);
+  if (s.afterTabOther !== s.dateA) f.push(`f1:tab-sposta-il-fissato:${s.afterTabOther}`);
+  if (s.afterEnterOther !== s.dateC) f.push(`f1:invio-non-fissa:${s.afterEnterOther}`);
+  if (s.afterTabOther2 !== s.dateC) f.push(`f1:tab-sposta-il-fissato-2:${s.afterTabOther2}`);
+  if (s.afterSpaceOther !== s.dateD) f.push(`f1:spazio-non-fissa:${s.afterSpaceOther}`);
   if (s.afterEscape !== null) f.push(`f1:escape-non-chiude:${s.afterEscape}`);
   return f;
 }
