@@ -145,6 +145,14 @@ describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 vari
       expect(post.hero.title.de).toBe(
         "Google Health vs Google Fit: Unterschiede und wie du migrierst",
       );
+
+      // G3: la variante DE avanza solo con G1/G2 chiusi nel DE stesso (ROSSO su ed7f8cc9)
+      expect(post.hero.subtitle.de).not.toMatch(/Samsung Health/);
+      const deOnly = JSON.stringify(post.body, (_k, v) =>
+        v && typeof v === "object" && !Array.isArray(v) && "en" in v && "de" in v ? v.de : v,
+      );
+      expect(deOnly).not.toMatch(/Samsung Health( Data)? ?SDK/);
+      expect(JSON.stringify(post.tldr!.de)).not.toMatch(/Samsung/);
     });
   });
 
@@ -189,7 +197,11 @@ describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 vari
 
       // Verifica TLDR
       expect(post.tldr).toBeDefined();
+      // EN ESCLUSA: /en/blog/google-health-replaces-google-fit e' una URL CTR protetta (pilota
+      // 2026-09-14, osservazione 16/10): il suo contenuto resta quello di main c011056b finche'
+      // Matteo non decide (D2). BLOCCATA-DA-DECISIONE. Le altre 10 lingue restano coperte.
       for (const [lang, items] of Object.entries(post.tldr!)) {
+        if (lang === "en") continue;
         for (const item of items) {
           expect(item, `tldr.${lang} contains Samsung Health Data SDK`).not.toContain("Samsung Health Data SDK");
         }
@@ -200,6 +212,49 @@ describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 vari
       expect(bodyStr).not.toContain("FitMesh si interfaccia con il Samsung Health Data SDK");
       expect(bodyStr).not.toContain("FitMesh interfaces with the Samsung Health Data SDK");
       expect(bodyStr).not.toContain("FitMesh verbindet sich über das Samsung Health Data SDK");
+    });
+
+    it("Google Health G1/G2/G5: nessun SDK Samsung come sorgente FitMesh in nessun campo delle 10 lingue non protette", () => {
+      const post = BLOG_POSTS_BY_SLUG["google-health-google-fit"];
+      expect(post).toBeDefined();
+      const sdk = /Samsung Health( Data)? ?SDK|SDK de Samsung|SDK Samsung|Samsung Health-SDK|SDK from Samsung/i;
+      const seen: string[] = [];
+      const walk = (o: unknown, path: string[]): void => {
+        if (typeof o === "string") {
+          // ROSSO su ed7f8cc9fc92c0d1136949f8ab7e7838dc6dc9ea (83cb361 + F1/F2/F4): 10 hit in
+          // body[13].flows[3].steps (G1), piu' i parziali in hero.subtitle (G2).
+          const lang = [...path].reverse().find((k) => /^[a-z]{2}$/.test(k));
+          if (lang && lang !== "en") expect(o, path.join(".")).not.toMatch(sdk);
+          seen.push(path.join("."));
+          return;
+        }
+        if (Array.isArray(o)) o.forEach((x, i) => walk(x, [...path, String(i)]));
+        else if (o && typeof o === "object") {
+          for (const [k, v] of Object.entries(o)) walk(v, [...path, k]);
+        }
+      };
+      walk(post, []);
+      expect(seen.length).toBeGreaterThan(200);
+
+      // G2: «Samsung Health» non e' una quarta sorgente autonoma nel sottotitolo (EN protetta esclusa)
+      for (const [lang, val] of Object.entries(post.hero.subtitle)) {
+        if (lang === "en") continue;
+        expect(val, `hero.subtitle.${lang}`).not.toMatch(/\([^()]*Samsung Health[^()]*\)|（[^（）]*Samsung Health[^（）]*）/);
+      }
+
+      // G5: nessuna nuova affermazione architetturale «senza server intermedi» (EN protetta esclusa).
+      // ROSSO su ed7f8cc9: faq.it/de/es/pt/fr/pl/nl/ja/ko/tr (sezione «FitMesh e Google Health»).
+      const noServers = /senza server intermedi|sin servidores intermedios|ohne Zwischenserver|sem servidores intermedi|sans serveurs intermédiaires|bez serwerów pośrednich|ara sunucular olmadan|zonder tussenservers|中間サーバーを経由せず|중간 서버 없이/i;
+      const check = (o: unknown, path: string[]): void => {
+        if (typeof o === "string") {
+          const lang = [...path].reverse().find((k) => /^[a-z]{2}$/.test(k));
+          if (lang && lang !== "en") expect(o, path.join(".")).not.toMatch(noServers);
+          return;
+        }
+        if (Array.isArray(o)) o.forEach((x, i) => check(x, [...path, String(i)]));
+        else if (o && typeof o === "object") for (const [k, v] of Object.entries(o)) check(v, [...path, k]);
+      };
+      check(post, []);
     });
 
     it("Garmin: nessun obbligo generale di API per attività GPS e corretta distinzione export web vs API", () => {
