@@ -586,6 +586,9 @@ describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
         expect(t, where).toMatch(/Health[ -]Connect/);
         expect(t, where).toMatch(negation[l]);
         expect(t.replace(negation[l], ""), `${where} residuo`).not.toMatch(residualBan);
+        // la voce FINISCE con la clausola di negazione: nessuna coda di beneficio dopo (CS-2: «...vilket gör
+        // det möjligt att samla data på ett centralt ställe utan att behöva exportera dem manuellt»).
+        expect(t.trim(), `${where} chiusura`).toMatch(new RegExp(negation[l].source + "[.。]$"));
       }
     });
 
