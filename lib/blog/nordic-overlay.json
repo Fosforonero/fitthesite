@@ -4360,12 +4360,12 @@
       "da": "Garmin og Health Connect: den nuværende situation"
     },
     "body.20.text": {
-      "sv": "En vanlig fråga: skriver Garmin till Health Connect? Det aktuella svaret (maj 2026) är: delvis. Garmin Connect för Android har börjat stödja Health Connect-överföring för vissa grundläggande mätvärden (dagliga steg, vilopuls, sammanställda sömndata), men inte för fullständiga aktiviteter med GPS. För fullständiga träningsdata är vägen fortfarande Garmin:s OAuth-API, inte Health Connect.",
-      "da": "Et ofte stillet spørgsmål: skriver Garmin til Health Connect? Det aktuelle svar (maj 2026) er: delvist. Garmin Connect til Android understøtter nu overførsel fra Health Connect for nogle grundlæggende målinger (daglige skridt, hvilepuls, samlede søvndata), men ikke for komplette aktiviteter med GPS. For fuldstændige træningsdata er vejen stadig Garmins OAuth-API, ikke Health Connect."
+      "sv": "En vanlig fråga: skriver Garmin till Health Connect? Vi har ingen daterad primärkälla som anger vilka mätvärden Garmin Connect för Android skriver till Health Connect, eller om GPS-spår från träningspass ingår: kontrollera beteendet direkt i inställningarna för appen Garmin Connect och Health Connect på din enhet. För att exportera kompletta aktiviteter med karta kan du ladda ner filerna från Garmin Connects webbplats (manuell export).",
+      "da": "Et ofte stillet spørgsmål: skriver Garmin til Health Connect? Vi har ingen dateret primærkilde, der angiver, hvilke målinger Garmin Connect til Android skriver til Health Connect, eller om GPS-spor fra træningspas er med: kontrollér adfærden direkte i indstillingerne for appen Garmin Connect og Health Connect på din enhed. For at eksportere komplette aktiviteter med kort kan du downloade filerne fra Garmin Connects hjemmeside (manuel eksport)."
     },
     "body.21.text": {
-      "sv": "Det innebär att appar som endast använder Health Connect för att läsa Garmin-data kommer att kunna visa steg och BPM, men inte detaljerna om cykelpass eller GPS-löpningar. För dessa krävs en direkt Garmin Connect API-integration.",
-      "da": "Det betyder, at apps, der udelukkende bruger Health Connect til at læse Garmin-data, vil kunne se skridt og BPM, men ikke detaljerne fra cykelture eller GPS-løbeture. Til disse formål er der behov for direkte Garmin Connect API-integration."
+      "sv": "Det innebär att en app som endast läser Garmin-data via Health Connect kanske inte tar emot GPS-spåren från registrerade löppass eller cykelturer (kontrollera på din enhet). För att få hela rutten kan du ladda ner filen (GPX, TCX eller FIT) manuellt från Garmin Connect på webben.",
+      "da": "Det betyder, at en app, der kun læser Garmin-data via Health Connect, muligvis ikke modtager GPS-sporene fra registrerede løbeture eller cykelture (kontrollér på din enhed). For at få den fuldstændige rute kan du downloade filen (GPX, TCX eller FIT) manuelt fra Garmin Connect på nettet."
     },
     "body.22.title": {
       "sv": "Vår tydliga hållning när det gäller exportformat",
@@ -4452,14 +4452,14 @@
         "För att exportera en enskild aktivitet krävs webbplatsen connect.garmin.com: mobilappen Garmin Connect exporterar inga filer i något format.",
         "För en fullständig säkerhetskopia bör du välja det ursprungliga FIT-formatet: det innehåller alla Garmin proprietära data som inte bevaras i GPX- och TCX-formaten.",
         "Med massexport (Kontoinställningar → Exportera dina data) laddas hela historiken ner i ett ZIP-arkiv, vanligtvis inom 24–48 timmar.",
-        "Garmin skriver inte fullständiga träningsdata till Health Connect: för GPS-aktiviteter krävs direkt Garmin Connect API-integration.",
+        "Anta inte att GPS-spår når Health Connect (ej verifierat): för aktiviteter med karta är manuell export från webbplatsen det alternativ som går att kontrollera.",
         "Innan du raderar ditt Garmin-konto bör du alltid först göra en samlad export: uppgifterna raderas permanent när kontot stängs."
       ],
       "da": [
         "Eksport af en enkelt aktivitet kræver, at man bruger hjemmesiden connect.garmin.com: Mobilappen Garmin Connect eksporterer ingen filer i noget format.",
         "Hvis du ønsker en fuldstændig sikkerhedskopi, skal du vælge det oprindelige FIT-format: Det indeholder alle Garmin proprietære data, som GPX og TCX ikke bevarer.",
         "Ved masseeksport (Kontoindstillinger → Eksporter dine data) downloades hele historikken i et ZIP-arkiv, typisk inden for 24–48 timer.",
-        "Garmin overfører ikke komplette træningsdata til Health Connect: For GPS-aktiviteter kræves der direkte Garmin Connect API-integration.",
+        "Antag ikke, at GPS-spor når Health Connect (ikke verificeret): for aktiviteter med kort er manuel eksport fra hjemmesiden den mulighed, der kan kontrolleres.",
         "Inden du sletter din Garmin-konto, skal du altid først foretage en masseeksport: Data slettes permanent, når kontoen lukkes."
       ]
     },
@@ -4573,12 +4573,12 @@
       "sv": [
         "**Garmin Connect API**: kräver en OAuth-applikation som godkänts av Garmin. Du kan inte få tillgång till dina personuppgifter direkt via API utan att vara en godkänd utvecklare med en registrerad app. Godkännandeprocessen tar tid och omfattar vissa utvärderingskriterier.",
         "**Redan integrerade appar**: Strava, Training Peaks, Final Surge och några andra plattformar är redan officiellt integrerade. Du kan godkänna dessa appar via Garmin Connect → Anslutna appar och enheter → Hantera appar.",
-        "**FitMesh Sync**: en av de tjänster som officiellt stöder integration med Garmin Connect API, vilket gör det möjligt att samla data på ett centralt ställe utan att behöva exportera dem manuellt varje gång."
+        "**FitMesh Sync**: läser idag dina Garmin-data via Health Connect och inte via det officiella Garmin Connect API som nämns ovan, vilket gör det möjligt att samla data på ett centralt ställe utan att behöva exportera dem manuellt varje gång."
       ],
       "da": [
         "**Garmin Connect API**: kræver en OAuth-applikation, der er godkendt af Garmin. Du kan ikke få direkte adgang til dine personlige data via API’et, medmindre du er en godkendt udvikler med en registreret app. Godkendelsesprocessen tager tid og er underlagt bestemte vurderingskriterier.",
         "**Allerede integrerede apps**: Strava, Training Peaks, Final Surge og nogle andre platforme er allerede officielt integreret. Du kan godkende disse apps under Garmin Connect → Tilsluttede apps og enheder → Administrer apps.",
-        "**FitMesh Sync**: blandt de tjenester, der officielt understøtter integration med Garmin Connect API, hvilket gør det muligt at samle dataene på ét sted uden at skulle eksportere dem manuelt hver gang."
+        "**FitMesh Sync**: læser i dag dine Garmin-data via Health Connect og ikke via det officielle Garmin Connect-API, der er nævnt ovenfor, hvilket gør det muligt at samle dataene på ét sted uden at skulle eksportere dem manuelt hver gang."
       ]
     },
     "body.18.items": {
@@ -4598,14 +4598,14 @@
         "För att exportera en enskild aktivitet krävs webbplatsen connect.garmin.com: mobilappen Garmin Connect exporterar inga filer i något format.",
         "För en fullständig säkerhetskopia bör du välja det ursprungliga FIT-formatet: det innehåller alla Garmin proprietära data som inte bevaras i GPX- och TCX-formaten.",
         "Med massexport (Kontoinställningar → Exportera dina data) laddas hela historiken ner i ett ZIP-arkiv, vanligtvis inom 24–48 timmar.",
-        "Garmin skriver inte fullständiga träningsdata till Health Connect: för GPS-aktiviteter krävs direkt Garmin Connect API-integration.",
+        "Anta inte att GPS-spår når Health Connect (ej verifierat): för aktiviteter med karta är manuell export från webbplatsen det alternativ som går att kontrollera.",
         "Innan du raderar ditt Garmin-konto bör du alltid först göra en samlad export: uppgifterna raderas permanent när kontot stängs."
       ],
       "da": [
         "Eksport af en enkelt aktivitet kræver, at man bruger hjemmesiden connect.garmin.com: Mobilappen Garmin Connect eksporterer ingen filer i noget format.",
         "For at få en fuldstændig sikkerhedskopi skal du vælge det originale FIT-format: Det indeholder alle Garmin proprietære data, som GPX og TCX ikke bevarer.",
         "Ved masseeksport (Kontoindstillinger → Eksporter dine data) downloades hele historikken i et ZIP-arkiv, typisk inden for 24–48 timer.",
-        "Garmin overfører ikke komplette træningsdata til Health Connect: For GPS-aktiviteter kræves der direkte Garmin Connect API-integration.",
+        "Antag ikke, at GPS-spor når Health Connect (ikke verificeret): for aktiviteter med kort er manuel eksport fra hjemmesiden den mulighed, der kan kontrolleres.",
         "Inden du sletter din Garmin-konto, skal du altid først foretage en masseeksport: Data slettes permanent, når kontoen lukkes."
       ]
     }
