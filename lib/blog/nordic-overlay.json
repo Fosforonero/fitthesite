@@ -3218,16 +3218,16 @@
       "da": "Før du geninstallerer appen eller genstarter Bluetooth, skal du tjekke Health Connect-tilladelserne. Her skal du kigge."
     },
     "metaDescription": {
-      "sv": "Fitbit-data syns inte i Android-appar? Kontrollera behörigheterna i Health Connect. Se hur du kontrollerar inställningarna och återställer synkningen.",
-      "da": "Fitbit-data vises ikke i Android-apps? Tjek tilladelserne i Health Connect. Se, hvordan du kontrollerer indstillingerne og genopretter synkroniseringen."
+      "sv": "Fitbit-data syns inte i Android-appar? Kontrollera behörigheterna i Health Connect. Se var du kontrollerar inställningarna för delning mellan appar.",
+      "da": "Fitbit-data vises ikke i Android-apps? Tjek tilladelserne i Health Connect. Se, hvor du kontrollerer indstillingerne for deling mellem apps."
     },
     "primaryKeyword": {
       "sv": "Fitbit-data synkroniseras inte med Android",
       "da": "Fitbit-data synkroniseres ikke med Android"
     },
     "body.0.text": {
-      "sv": "När Fitbit-data inte visas i Android-appar beror det nästan alltid på en saknad behörighet i Health Connect, inte på ett Fitbit-problem. Jag har sett den här situationen dussintals gånger: Fitbit-appen fungerar perfekt, den bärbara enheten synkroniseras, men en tredjepartsapp ser ingenting. Det är inte Fitbit:s fel. Fitbit har redan gjort sin del.",
-      "da": "Når Fitbit-data ikke vises i Android-apps, skyldes det næsten altid en manglende tilladelse i Health Connect, ikke et Fitbit-problem. Jeg har set denne situation utallige gange: Fitbit-appen fungerer perfekt, det bærbare enhed synkroniseres, men en tredjepartsapp kan ikke se noget. Det er ikke Fitbit's skyld. Fitbit har allerede gjort sin del."
+      "sv": "När Fitbit-data inte visas i Android-appar är behörigheterna i Health Connect den första punkten att kontrollera: utan läs- och skrivbehörighet förs inga data mellan apparna. Fitbit-appen kan fungera som den ska och den bärbara enheten synkroniseras, men en tredjepartsapp kan ändå inte se något.",
+      "da": "Når Fitbit-data ikke vises i Android-apps, er tilladelserne i Health Connect det første punkt at tjekke: uden læse- og skrivetilladelse overføres der ingen data mellem apps. Fitbit-appen kan fungere korrekt, og det bærbare udstyr kan synkronisere, men en tredjepartsapp kan stadig ikke se noget."
     },
     "body.1.text": {
       "sv": "Varför det händer: hur datautbytet fungerar på Android",
@@ -3323,14 +3323,14 @@
     },
     "tldr": {
       "sv": [
-        "Ett vanligt synkroniseringsproblem beror på saknade behörigheter i Health Connect, inte på Fitbit.",
+        "Kontrollera först behörigheterna i Health Connect: utan läs- och skrivbehörighet förs inga data mellan appar, oavsett Fitbit-hårdvaran.",
         "Fitbit skriver till Health Connect endast om du manuellt aktiverar skrivfunktion i dess inställningar.",
         "Målappen behöver en egen läsbehörighet, som är separat och oberoende av Fitbit:s.",
         "Health Connect synkroniserar inte historiska data: endast från och med godkännandet och framåt.",
         "Vissa äldre Fitbit-modeller skriver till Google Fit istället för Health Connect: uppdatera firmware eller kontrollera kompatibiliteten."
       ],
       "da": [
-        "Et almindeligt synkroniseringsproblem skyldes manglende tilladelser i Health Connect, ikke Fitbit.",
+        "Tjek først tilladelserne i Health Connect: uden læse- og skrivetilladelse overføres der ingen data mellem apps, uanset Fitbit-hardwaren.",
         "Fitbit skriver kun til Health Connect, hvis du manuelt aktiverer skrivefunktionen i indstillingerne.",
         "Destination-appen skal have sin egen læsetilladelse, der er adskilt fra og uafhængig af Fitbit's.",
         "Health Connect synkroniserer ikke historiske data: kun fra det øjeblik, hvor godkendelsen finder sted og fremad.",
