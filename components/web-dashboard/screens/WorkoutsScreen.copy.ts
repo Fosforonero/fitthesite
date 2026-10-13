@@ -43,6 +43,8 @@ export interface WorkoutsCopy {
     calories: string;
     /** Somma di sole `present` sessioni su `total`: il totale non e' completo. */
     sumOf: (present: number, total: number) => string;
+    /** Dove compare «Dati incompleti»: quante sessioni hanno il campo pieno (conteggio, mai percentuale). */
+    completeOf: (complete: number, total: number) => string;
   };
   list: {
     title: string;
@@ -94,6 +96,7 @@ const IT: WorkoutsCopy = {
     duration: 'Durata totale',
     calories: 'Calorie',
     sumOf: (present, total) => `Somma delle sessioni con dato: ${present} su ${total}.`,
+    completeOf: (complete, total) => `${complete} su ${total} ${total === 1 ? 'sessione completa' : 'sessioni complete'}`,
   },
   list: {
     title: 'Sessioni del giorno',
@@ -156,6 +159,7 @@ const EN: WorkoutsCopy = {
     duration: 'Total duration',
     calories: 'Calories',
     sumOf: (present, total) => `Sum of the sessions with data: ${present} of ${total}.`,
+    completeOf: (complete, total) => `${complete} of ${total} ${total === 1 ? 'session' : 'sessions'} complete`,
   },
   list: {
     title: 'Sessions of the day',

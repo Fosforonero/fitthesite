@@ -161,6 +161,30 @@ describe.each(['it', 'en'] as const)('riepilogo allenamenti, totale per quota di
     expect(kcal.textContent).toContain(lc === 'it' ? 'Dati incompleti' : 'Incomplete data');
   });
 
+  it('una sessione con campo PARZIALE (non assente): «Dati incompleti» e il conteggio delle sessioni complete', () => {
+    const { container } = render1({
+      kind: 'value',
+      value: [
+        mk({ id: 'a' }),
+        mk({ id: 'b', startedAt: '2026-09-23T19:10:00+02:00', caloriesKcal: { kind: 'partial', value: 120, coverage: 0.5, note: 'incomplete_coverage' } }),
+      ],
+    });
+    const kcal = container.querySelector('[data-metric="calories"]') as HTMLElement;
+    expect(kcal.textContent).toContain(lc === 'it' ? 'Dati incompleti' : 'Incomplete data');
+    expect(kcal.textContent).toContain(lc === 'it' ? '1 su 2 sessioni complete' : '1 of 2 sessions complete');
+    expect(kcal.textContent).not.toContain('%');
+    expect(kcal.textContent).toContain('420');
+  });
+
+  it('campo assente in una sessione: il conteggio compare una sola volta, senza ripetere', () => {
+    const { container } = render1({
+      kind: 'value',
+      value: [mk({ id: 'a' }), mk({ id: 'b', startedAt: '2026-09-23T19:10:00+02:00', caloriesKcal: abs })],
+    });
+    const kcal = container.querySelector('[data-metric="calories"]') as HTMLElement;
+    expect(kcal.textContent).not.toMatch(lc === 'it' ? /sessioni complete/ : /sessions complete/);
+  });
+
   it('elenco parziale con sessioni piene: la copertura reale dell\'elenco resta con la percentuale', () => {
     const { container } = render1({ kind: 'partial', value: [mk({ id: 'a' })], coverage: 0.6, note: 'incomplete_coverage' });
     const dur = container.querySelector('[data-metric="duration"]') as HTMLElement;

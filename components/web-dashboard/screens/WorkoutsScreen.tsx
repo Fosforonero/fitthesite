@@ -43,13 +43,24 @@ function Summary({ data, lc, copy, t }: { data: DashboardData; lc: string; copy:
   /**
    * Il totale di durata/calorie e' «parziale per quota di sessioni» se almeno una sessione non ha il
    * campo pieno: allora la percentuale sarebbe sessioni piene / sessioni, non una copertura temporale.
-   * Si mostra «Dati incompleti» senza percentuale (il piede della scheda dice gia' «N su M»).
+   * Si mostra «Dati incompleti» senza percentuale e, SEMPRE, il conteggio delle sessioni complete
+   * nel piede della scheda («N su M sessioni complete»). Se il campo e' ASSENTE in qualche sessione
+   * il piede dice gia' «Somma delle sessioni con dato: P su M»: il conteggio delle complete si
+   * aggiunge solo quando differisce da P (campo parziale, non assente).
    */
   const incompleteChip = { chip: copy.measure.partial.incomplete_coverage };
-  const quota = (pick: (w: Workout) => Measure<number>) =>
-    st.kind === 'sessions' && st.sessions.some((w) => pick(w).kind !== 'value') ? { partialDisplay: incompleteChip } : {};
-  /** Se manca il campo in qualche sessione il totale e' parziale: si dice su quante e' calcolato. */
-  const sumNote = (c: Coverage | null) => (c ? t.summary.sumOf(c.present, c.total) : undefined);
+  const incompleteIn = (pick: (w: Workout) => Measure<number>) =>
+    st.kind === 'sessions' && st.sessions.some((w) => pick(w).kind !== 'value');
+  const quota = (pick: (w: Workout) => Measure<number>) => (incompleteIn(pick) ? { partialDisplay: incompleteChip } : {});
+  /** Piede della scheda: somma sulle sessioni con dato (campo assente) e/o conteggio delle complete. */
+  const footerFor = (pick: (w: Workout) => Measure<number>, c: Coverage | null) => {
+    const sum = c ? t.summary.sumOf(c.present, c.total) : undefined;
+    if (st.kind !== 'sessions' || !incompleteIn(pick)) return sum;
+    const complete = st.sessions.filter((w) => pick(w).kind === 'value').length;
+    if (c && c.present === complete) return sum;
+    const done = t.summary.completeOf(complete, st.sessions.length);
+    return sum ? `${sum} ${done}` : done;
+  };
   const tiles = [
     { key: 'sessions', label: t.summary.sessions, dot: CHART.steps, m: s.count, footer: undefined, props: {} },
     {
@@ -57,10 +68,10 @@ function Summary({ data, lc, copy, t }: { data: DashboardData; lc: string; copy:
       label: t.summary.duration,
       dot: CHART.resting,
       m: s.duration,
-      footer: sumNote(s.durationCover),
+      footer: footerFor((w) => w.durationMin, s.durationCover),
       props: { unit: copy.units.min, format: (n: number) => durationParts(n, lc), ...quota((w) => w.durationMin) },
     },
-    { key: 'calories', label: t.summary.calories, dot: CHART.calories, m: s.calories, footer: sumNote(s.caloriesCover), props: { unit: copy.units.kcal, ...quota((w) => w.caloriesKcal) } },
+    { key: 'calories', label: t.summary.calories, dot: CHART.calories, m: s.calories, footer: footerFor((w) => w.caloriesKcal, s.caloriesCover), props: { unit: copy.units.kcal, ...quota((w) => w.caloriesKcal) } },
   ];
   return (
     <section aria-labelledby="wk-summary-title">
