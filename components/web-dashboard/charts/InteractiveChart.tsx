@@ -548,7 +548,12 @@ export function InteractiveChart({
                       aria-label={accessibleLabel}
                       aria-describedby={isActive ? tooltipElementId : undefined}
                       onFocus={() => {
-                        setActiveIdx(idx);
+                        // F-1: il fuoco non sposta un tooltip fissato. Nel browser il click
+                        // arriva dopo il focus: se il focus trascinasse il fissaggio, il click
+                        // vedrebbe "stesso punto gia' fissato" e chiuderebbe invece di spostare.
+                        if (!isPinned) {
+                          setActiveIdx(idx);
+                        }
                       }}
                       onBlur={() => {
                         if (!isPinned) {
