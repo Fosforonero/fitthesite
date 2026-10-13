@@ -109,7 +109,7 @@ const IT: TrendsCopy = {
     max: 'Massimo',
     avgBasis: (n, partials) =>
       partials > 0
-        ? `Sui ${n} giorni con dato, inclusi ${days(partials, 'giorno parziale', 'giorni parziali')}: può risultare più bassa.`
+        ? `Sui ${n} giorni con dato, ${partials === 1 ? 'incluso' : 'inclusi'} ${days(partials, 'giorno parziale', 'giorni parziali')}: può risultare più bassa.`
         : `Sui ${n} giorni con dato.`,
     extremePartial: 'Giorno parziale',
     total: 'Totale del periodo',
@@ -137,7 +137,7 @@ const IT: TrendsCopy = {
 
   summary: {
     stats: (avg, min, max, partials = 0) =>
-      `Media ${avg}, minimo ${min}, massimo ${max}${partials > 0 ? `, inclusi ${days(partials, 'giorno parziale', 'giorni parziali')}` : ''}.`,
+      `Media ${avg}, minimo ${min}, massimo ${max}${partials > 0 ? `, ${partials === 1 ? 'incluso' : 'inclusi'} ${days(partials, 'giorno parziale', 'giorni parziali')}` : ''}.`,
     insufficient: (title, n, m) =>
       `${title}: dati insufficienti, ${n === 0 ? 'nessun giorno' : days(n, 'giorno', 'giorni')} con dato su ${m}.`,
   },

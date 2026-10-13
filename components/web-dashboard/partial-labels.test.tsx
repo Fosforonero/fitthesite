@@ -44,7 +44,7 @@ function renderTrends(lc: 'it' | 'en', ms: Measure<number>[]) {
 }
 
 const LABELS = {
-  it: { incomplete: 'Dati incompleti', completeDays: '5 su 7', including: /inclus[aie]/, avg: '7.333', sum: '44.000', min: '3.000' },
+  it: { incomplete: 'Dati incompleti', completeDays: '5 su 7', including: /inclus[aoie]/, avg: '7.333', sum: '44.000', min: '3.000' },
   en: { incomplete: 'Incomplete data', completeDays: '5 of 7', including: /including/, avg: '7,333', sum: '44,000', min: '3,000' },
 } as const;
 
@@ -80,6 +80,13 @@ describe.each(['it', 'en'] as const)('parziali, etichette %s', (lc) => {
     expect(s.textContent).toMatch(L.including);
     const basis = container.querySelector('[data-trend-card="steps"] [data-stat="avg"]') as HTMLElement;
     expect(basis.textContent).toMatch(L.including);
+    // accordo al singolare: «incluso 1 giorno parziale», mai «inclusi 1 …»
+    if (lc === 'it') {
+      expect(s.textContent).toContain(', incluso 1 giorno parziale');
+      expect(basis.textContent).toContain('incluso 1 giorno parziale');
+      expect(s.textContent).not.toMatch(/inclusi 1 /);
+      expect(basis.textContent).not.toMatch(/inclusi 1 /);
+    }
   });
 
   it('(d) senza parziali nessuna dichiarazione e nessun chip sul totale', () => {
@@ -111,7 +118,7 @@ describe.each(['it', 'en'] as const)('parziali, etichette %s', (lc) => {
     // (it-IT non raggruppa le cifre a quattro numeri: «7333»), non e' oggetto di questo gate.
     const steps = container.querySelector('#s-summary')?.textContent ?? '';
     const avg = new Intl.NumberFormat(lc === 'it' ? 'it-IT' : 'en-US', { maximumFractionDigits: 0 }).format(44000 / 6);
-    expect(steps).toContain(lc === 'it' ? `media di ${avg} passi al giorno, inclusi 1 giorno parziale` : `average of ${avg} steps per day, including 1 partial day`);
+    expect(steps).toContain(lc === 'it' ? `media di ${avg} passi al giorno, incluso 1 giorno parziale` : `average of ${avg} steps per day, including 1 partial day`);
   });
 
   it('(d) i tre grafici senza parziali non dichiarano nulla', () => {

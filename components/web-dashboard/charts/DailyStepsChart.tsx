@@ -41,7 +41,7 @@ export function DailyStepsChart({
   const avgSteps = validCount > 0 ? Math.round(totalSteps / validCount) : 0;
 
   // Media (e totale) includono i giorni parziali: lo si dichiara nella stessa frase.
-  const inclIt = partialCount > 0 ? `, inclusi ${partialCount} ${partialCount === 1 ? 'giorno parziale' : 'giorni parziali'}` : '';
+  const inclIt = partialCount > 0 ? `, ${partialCount === 1 ? 'incluso' : 'inclusi'} ${partialCount} ${partialCount === 1 ? 'giorno parziale' : 'giorni parziali'}` : '';
   const inclEn = partialCount > 0 ? `, including ${partialCount} ${partialCount === 1 ? 'partial day' : 'partial days'}` : '';
 
   const summaryText = validCount === 0

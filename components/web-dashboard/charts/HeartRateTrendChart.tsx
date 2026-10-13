@@ -40,7 +40,7 @@ export function HeartRateTrendChart({
   const avgHr = validVals.length > 0 ? Math.round(validVals.reduce((a, b) => a + b, 0) / validVals.length) : 0;
 
   // Media, minimo e massimo includono i giorni parziali: lo si dichiara nella stessa frase.
-  const inclIt = partialCount > 0 ? `, inclusi ${partialCount} ${partialCount === 1 ? 'giorno parziale' : 'giorni parziali'}` : '';
+  const inclIt = partialCount > 0 ? `, ${partialCount === 1 ? 'incluso' : 'inclusi'} ${partialCount} ${partialCount === 1 ? 'giorno parziale' : 'giorni parziali'}` : '';
   const inclEn = partialCount > 0 ? `, including ${partialCount} ${partialCount === 1 ? 'partial day' : 'partial days'}` : '';
 
   const summaryText = validCount === 0
