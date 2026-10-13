@@ -92,6 +92,13 @@ export const post: BlogPost = {
       "Der FitMesh Labs Rechner zeigt beide Methoden (%HFmax und Karvonen) mit deinem Alter/deiner Ruheherzfrequenz nebeneinander, damit du genau siehst, woher der Unterschied zwischen deinen Geräten kommt.",
     ],
   },
+  // SPRINT PM COVER-08 Lotto 2 (07/10/2026): alt reale della nuova cover
+  // easy-run-two-wearables-20261005.webp per le 3 lingue indicizzabili (IT/EN/DE).
+  coverAlt: {
+    it: "Illustrazione di due persone che corrono su un sentiero costiero indossando smartwatch diversi.",
+    en: "Illustration of two people running on a coastal path wearing different smartwatches.",
+    de: "Illustration von zwei Personen, die auf einem Küstenweg laufen und unterschiedliche Smartwatches tragen.",
+  },
   body: [
     {
       type: "heading",

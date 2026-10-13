@@ -74,9 +74,8 @@ export default async function AboutPage({
 
   // U-PRIV-06/09: H2 e link della sezione privacy vengono dal dizionario.
   const dict = await getDictionary(lc);
-  // U-ABOUT-07 / U-ABOUT-12: valori senza ripiego inglese (la riga si ritira).
+  // U-ABOUT-07: valore senza ripiego inglese (la riga si ritira).
   const storeNote = tlOwn(PRICING_SECTION.storeNote, lc);
-  const pixelWatchDevice = tlOwn(ABOUT_COPY.pixelWatchDevice, lc);
 
   // P0.16-B: `mainEntity` era un SoftwareApplication incompleto (mai
   // `offers.price`... in realta' l'aveva, ma mai `aggregateRating`/`review`,
@@ -158,34 +157,22 @@ export default async function AboutPage({
         <div className="mt-5 grid sm:grid-cols-2 gap-3 text-sm">
           {[
             {
-              h: tl(ABOUT_COPY.nativelySupported, lc),
+              h: tl(ABOUT_COPY.directConnectionsHeading, lc),
               items: [
-                "Samsung Galaxy Watch 4 / 5 / 6 / 7 / Ultra",
-                ...(pixelWatchDevice ? [pixelWatchDevice] : []),
-                "Xiaomi Mi Band 7+ / Xiaomi Watch S/Active",
-                "Fitbit (via app Fitbit → Health Connect)",
-                "Garmin Forerunner/Fenix/Venu (via Garmin Connect)",
-                "Polar Vantage/Grit X (via Polar Flow)",
-                "Withings Body+/ScanWatch (via Health Mate)",
-                "Oura Ring Gen 2/3/4 (via Health Connect / HealthKit)",
-                // P1.9 FASE 2 (2026-09-01): "Strava (via OAuth)" rimosso da
-                // questo gruppo — devicesIntro sopra dice "tutto ciò che
-                // scrive su Health Connect è supportato nativamente", ma
-                // Strava non passa da Health Connect (OAuth diretto) ed è
-                // oggi ad accesso limitato (nuove connessioni soggette ad
-                // approvazione Strava), quindi non appartiene a nessuno dei
-                // due gruppi di questa pagina. Il contesto (panoramica
-                // "About", non la matrice di compatibilità) non richiede di
-                // spiegare la sfumatura qui: chi vuole il dettaglio trova
-                // lo stato corretto su /integrations e /sync/strava.
+                tl(ABOUT_COPY.wearOsDevice, lc),
+                tl(ABOUT_COPY.xiaomiDevice, lc),
+                tl(ABOUT_COPY.colmiRingBluetooth, lc),
+                tl(ABOUT_COPY.suuntoDevice, lc),
+                tl(ABOUT_COPY.stravaLimitedAccess, lc),
               ],
               color: "#31E981",
             },
             {
-              h: tl(ABOUT_COPY.otherConnections, lc),
+              h: tl(ABOUT_COPY.hubConnectionsHeading, lc),
               items: [
-                tl(ABOUT_COPY.colmiRingBluetooth, lc),
-                tl(ABOUT_COPY.stravaLimitedAccess, lc),
+                tl(ABOUT_COPY.galaxyWatchHub, lc),
+                tl(ABOUT_COPY.garminHub, lc),
+                tl(ABOUT_COPY.thirdPartyHub, lc),
                 tl(ABOUT_COPY.seeAllIntegrations, lc),
               ],
               color: "#21E6C1",

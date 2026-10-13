@@ -130,6 +130,13 @@ export const post: BlogPost = {
       "Dieser Artikel vergibt selbst keinen Punktwert: Er verlinkt auf die offiziellen Quellen jeder Plattform und auf den FitMesh Labs Rechner für die einzige wirklich transparente und nachprüfbare Kennzahl, die Schlafeffizienz.",
     ],
   },
+  // SPRINT PM COVER-08 Lotto 2 (07/10/2026): alt reale della nuova cover
+  // sleep-routine-morning-light-20261005.webp per le 3 lingue indicizzabili (IT/EN/DE).
+  coverAlt: {
+    it: "Illustrazione di una donna al risveglio con smartwatch, luce del mattino e telefono sul comodino.",
+    en: "Illustration of a woman waking up with a smartwatch, morning light, and a phone on the bedside table.",
+    de: "Illustration einer Frau beim Aufwachen mit Smartwatch, Morgenlicht und Smartphone auf dem Nachttisch.",
+  },
   body: [
     {
       type: "heading",

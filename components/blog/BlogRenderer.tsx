@@ -539,7 +539,7 @@ export function BlogRenderer({
                   </ul>
                 )}
                 <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3">
-                  <StoreButtonsRow locale={locale} ctaLocation={ctaPlacementValue} />
+                  <StoreButtonsRow locale={locale} platforms={s.platforms} ctaLocation={ctaPlacementValue} />
                   {secondaryHref !== null && secondaryHref !== undefined && s.secondaryLabel && (
                     <Link
                       href={secondaryHref}

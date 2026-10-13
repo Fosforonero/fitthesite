@@ -10,6 +10,7 @@ import {
   ORG_DESCRIPTIONS,
   REDDIT_URL,
   REDDIT_COMMUNITY_LIVE,
+  INSTAGRAM_URL,
 } from "@/lib/product-facts";
 
 /**
@@ -68,6 +69,7 @@ export function organizationJsonLdData(locale: Locale) {
       PLAY_STORE_URL,
       AVAILABILITY.ios.storeUrl,
       "https://www.fosforonero.com",
+      INSTAGRAM_URL,
       ...(REDDIT_COMMUNITY_LIVE ? [REDDIT_URL] : []),
     ],
     email: "hello@fitmesh.fit",

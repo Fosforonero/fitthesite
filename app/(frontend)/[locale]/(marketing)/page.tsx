@@ -135,7 +135,9 @@ export default async function Home({
   // oggi (stati live, live-basic, live-bridge del registro): nessun provider
   // ad accesso limitato o non disponibile, senza la condizione accanto.
   const TICKER_STATUSES: readonly string[] = ["live", "live-basic", "live-bridge"];
-  const tickerBase = PROVIDERS.filter((pv) => TICKER_STATUSES.includes(pv.status));
+  const tickerBase = PROVIDERS.filter(
+    (pv) => TICKER_STATUSES.includes(pv.status) && pv.promotionalVisibility !== false,
+  );
   const tickerProviders = [
     ...tickerBase,
     ...tickerBase, // duplicate for seamless marquee
@@ -467,7 +469,7 @@ export default async function Home({
         </div>
 
         <div className="grid gap-3 sm:gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
-          {PROVIDERS.map((p) => {
+          {PROVIDERS.filter((p) => p.promotionalVisibility !== false).map((p) => {
             const st = statusLabel(p.status, lc);
             // Sprint P0.13: providerLinkHref — lc-diretto → EN-fallback →
             // nascondi la card (mai un link verso una pagina noindex).

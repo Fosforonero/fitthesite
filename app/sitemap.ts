@@ -89,6 +89,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/blog" },
     { path: "/novita" },
     { path: "/support" },
+    { path: "/support/health-connect", indexableLocales: (lc) => lc === "it" || lc === "en" },
     { path: "/privacy" },
     { path: "/terms" },
     { path: "/cookies" },
@@ -118,7 +119,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     for (const m of models) {
       routes.push({
         path: `/sync/${providerSlug}/${m.slug}`,
-        indexableLocales: (lc) => isProviderModelVariantIndexable(m, lc),
+        indexableLocales: (lc) => isProviderModelVariantIndexable(m, lc, providerSlug),
       });
     }
   }

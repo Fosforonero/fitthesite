@@ -255,22 +255,20 @@ export const post: BlogPost = {
     ],
   },
   // MICRO-GATE P1.8C-A: alt reale della cover (descrive l'immagine, non
-  // l'H1) in tutte le 11 locale indicizzabili — stesso pattern di
-  // dati-pixel-watch-dashboard.ts. Mancava (unico dei 2 post pienamente in
-  // scope editoriale P1.8C senza coverAlt), trovato durante la verifica
-  // immagini del micro-gate.
+  // SPRINT PM COVER-08 Lotto 2 (07/10/2026): alt reale della nuova cover
+  // fitness-api-transition-cycling-20261005.webp in tutte le 11 locale indicizzabili.
   coverAlt: {
-    it: "Illustrazione astratta di dati di salute che fluiscono da uno smartwatch e uno smartphone attraverso una vecchia infrastruttura a tubi verso un sistema cloud sicuro con lucchetto e chiave, circondato da icone di diverse metriche di salute.",
-    en: "Abstract illustration of health data flowing from a smartwatch and smartphone through old pipe-like infrastructure into a secure cloud system with a lock and key, surrounded by icons for different health metrics.",
-    es: "Ilustración abstracta de datos de salud que fluyen desde un smartwatch y un smartphone a través de una vieja infraestructura de tuberías hacia un sistema en la nube seguro con candado y llave, rodeado de iconos de distintas métricas de salud.",
-    de: "Abstrakte Illustration von Gesundheitsdaten, die von einer Smartwatch und einem Smartphone durch eine alte, rohrartige Infrastruktur in ein sicheres Cloud-System mit Schloss und Schlüssel fließen, umgeben von Symbolen für verschiedene Gesundheitswerte.",
-    pt: "Ilustração abstrata de dados de saúde fluindo de um smartwatch e um smartphone através de uma infraestrutura antiga em forma de tubos até um sistema de nuvem seguro com cadeado e chave, cercado por ícones de diferentes métricas de saúde.",
-    fr: "Illustration abstraite de données de santé circulant depuis une montre connectée et un smartphone à travers une ancienne infrastructure en tuyaux vers un système cloud sécurisé avec un cadenas et une clé, entouré d'icônes représentant différentes métriques de santé.",
-    pl: "Abstrakcyjna ilustracja danych zdrowotnych płynących ze smartwatcha i smartfona przez starą infrastrukturę przypominającą rury do bezpiecznego systemu chmurowego z kłódką i kluczem, otoczonego ikonami różnych wskaźników zdrowia.",
-    tr: "Bir akıllı saat ve akıllı telefondan gelen sağlık verilerinin eski boru benzeri bir altyapıdan geçerek kilit ve anahtarlı güvenli bir bulut sistemine aktığını gösteren, farklı sağlık ölçütlerine ait simgelerle çevrili soyut illüstrasyon.",
-    nl: "Abstracte illustratie van gezondheidsgegevens die van een smartwatch en smartphone via een oude, buisachtige infrastructuur naar een beveiligd cloudsysteem met slot en sleutel stromen, omringd door pictogrammen voor verschillende gezondheidsstatistieken.",
-    ja: "スマートウォッチとスマートフォンから流れる健康データが、古い配管のようなインフラを通って、鍵と錠前のある安全なクラウドシステムへと向かう様子を、様々な健康指標のアイコンとともに描いた抽象的なイラスト。",
-    ko: "스마트워치와 스마트폰에서 나온 건강 데이터가 낡은 배관 형태의 인프라를 지나 자물쇠와 열쇠가 있는 안전한 클라우드 시스템으로 흘러가는 모습을, 다양한 건강 지표 아이콘과 함께 그린 추상 일러스트.",
+    it: "Illustrazione di una ciclista con smartwatch, due telefoni e un quaderno durante una pausa vicino al lago.",
+    en: "Illustration of a cyclist with a smartwatch, two phones, and a notebook during a break near a lake.",
+    es: "Ilustración de una ciclista con smartwatch, dos teléfonos y un cuaderno durante una pausa junto al lago.",
+    de: "Illustration einer Radfahrerin mit Smartwatch, zwei Smartphones und einem Notizbuch bei einer Pause an einem See.",
+    pt: "Ilustração de uma ciclista com smartwatch, dois celulares e um caderno durante uma pausa perto de um lago.",
+    fr: "Illustration d'une cycliste avec une montre connectée, deux téléphones et un carnet lors d'une pause près d'un lac.",
+    pl: "Ilustracja rowerzystki ze smartwatchem, dwoma telefonami i notatnikiem podczas przerwy nad jeziorem.",
+    tr: "Göl kenarında mola veren, akıllı saat, iki telefon ve defter taşıyan bir bisikletçinin illüstrasyonu.",
+    nl: "Illustratie van een wielrenster met smartwatch, twee telefoons en een notitieblok tijdens een pauze bij een meer.",
+    ja: "湖のそばで休憩するサイクリストのイラスト。スマートウォッチ、2台のスマートフォン、ノートを持っている様子。",
+    ko: "호숫가에서 스마트워치, 두 대의 스마트폰, 공책을 들고 휴식을 취하는 자전거 라이더의 일러스트.",
   },
   body: [
     {
@@ -879,51 +877,96 @@ export const post: BlogPost = {
       },
     },
     {
-      type: "cta",
+      // CONVERSION-01 (pilota): modulo editoriale al posto della CTA generica. Solo Google Play (Health Connect esiste solo su
+      // Android). Testo breve: funzione, requisiti, prova di 14 giorni e successivo acquisto o abbonamento. Nessuna promessa di
+      // migrazione dello storico di Google Fit, nessun «pannello web», nessun prezzo. Il blocco precedente era `type: "cta"`
+      // senza `ctaId`: non emetteva alcun evento cta_view/cta_click.
+      type: "fitmesh-editorial-cta",
+      contentCluster: "google_health_vs_fit",
+      placement: "after_solution",
+      platforms: ["android"],
       title: {
-        it: "Prova FitMesh Sync su Android",
-        en: "Try FitMesh Sync on Android",
-        es: "Prueba FitMesh Sync en Android",
-        de: "Probiere FitMesh Sync auf Android aus",
-        pt: "Experimente o FitMesh Sync no Android",
-        fr: "Essayez FitMesh Sync sur Android",
-        pl: "Wypróbuj FitMesh Sync na Androidzie",
-        tr: "Android'de FitMesh Sync'i deneyin",
-        nl: "Probeer FitMesh Sync op Android",
-        ja: "Android で FitMesh Sync を試す",
-        ko: "Android에서 FitMesh Sync 사용해보기",
+        it: "Leggi i tuoi dati di Health Connect con FitMesh Sync",
+        en: "Read your Health Connect data with FitMesh Sync",
+        es: "Lee tus datos de Health Connect con FitMesh Sync",
+        de: "Deine Health-Connect-Daten mit FitMesh Sync lesen",
+        pt: "Leia seus dados do Health Connect com o FitMesh Sync",
+        fr: "Lisez vos données Health Connect avec FitMesh Sync",
+        pl: "Czytaj dane z Health Connect w FitMesh Sync",
+        tr: "Health Connect verilerinizi FitMesh Sync ile okuyun",
+        nl: "Lees je Health Connect-gegevens met FitMesh Sync",
+        ja: "Health Connect のデータを FitMesh Sync で読み取る",
+        ko: "FitMesh Sync로 Health Connect 데이터 읽기",
       },
       body: {
-        it: "FitMesh Sync legge i tuoi dati da Health Connect e li mostra in un pannello unificato nell'app. Niente doppioni, fonte del dato visibile. Disponibile su Google Play.",
-        en: "FitMesh Sync reads your data from Health Connect and shows it in a unified panel in the app. No duplicates, data source visible. Available on Google Play.",
-        es: "FitMesh Sync lee tus datos de Health Connect y los muestra en un panel unificado en la app. Sin duplicados, fuente del dato visible. Disponible en Google Play.",
-        de: "FitMesh Sync liest deine Daten aus Health Connect und zeigt sie in einem einheitlichen Panel in der App an. Keine Duplikate, Datenquelle sichtbar. Verfügbar auf Google Play.",
-        pt: "O FitMesh Sync lê seus dados do Health Connect e os exibe em um painel unificado no app. Sem duplicatas, fonte do dado visível. Disponível no Google Play.",
-        fr: "FitMesh Sync lit vos données depuis Health Connect et les affiche dans un panneau unifié dans l'application. Pas de doublons, source des données visible. Disponible sur Google Play.",
-        pl: "FitMesh Sync odczytuje Twoje dane z Health Connect i wyświetla je w ujednoliconym panelu w aplikacji. Bez duplikatów, źródło danych widoczne. Dostępne w Google Play.",
-        tr: "FitMesh Sync, Health Connect'ten verilerinizi okur ve uygulamadaki birleşik bir panelde gösterir. Tekrar yok, veri kaynağı görünür. Google Play'de mevcut.",
-        nl: "FitMesh Sync leest je gegevens van Health Connect en toont ze in een samengevoegd paneel in de app. Geen duplicaten, databron zichtbaar. Beschikbaar op Google Play.",
-        ja: "FitMesh Sync は Health Connect からデータを読み取り、アプリ内の統合パネルに表示します。重複なし、データソースが見える。Google Play で提供中。",
-        ko: "FitMesh Sync는 Health Connect에서 데이터를 읽어 앱 내 통합 패널에 표시합니다. 중복 없음, 데이터 소스 표시. Google Play에서 사용 가능.",
+        it: "Con la dismissione delle REST API di Google Fit, su Android molte app salvano ora i dati in Health Connect. FitMesh Sync legge i dati che le tue app e i tuoi dispositivi scrivono in Health Connect (ad esempio passi, sonno e frequenza cardiaca) e li mostra nell'app.",
+        en: "With Google Fit's REST APIs being retired, many Android apps now save their data in Health Connect. FitMesh Sync reads what your apps and devices write there (such as steps, sleep and heart rate) and shows it in the app.",
+        es: "Con el cierre de las API REST de Google Fit, en Android muchas apps guardan ahora sus datos en Health Connect. FitMesh Sync lee lo que tus apps y dispositivos escriben allí (como pasos, sueño y frecuencia cardíaca) y lo muestra en la app.",
+        de: "Mit der Einstellung der REST-APIs von Google Fit speichern auf Android viele Apps ihre Daten jetzt in Health Connect. FitMesh Sync liest, was deine Apps und Geräte dort schreiben (zum Beispiel Schritte, Schlaf und Herzfrequenz), und zeigt es in der App an.",
+        pt: "Com o encerramento das APIs REST do Google Fit, no Android muitos apps passaram a salvar os dados no Health Connect. O FitMesh Sync lê o que seus apps e dispositivos gravam lá (como passos, sono e frequência cardíaca) e mostra no app.",
+        fr: "Avec la fin des API REST de Google Fit, de nombreuses applications Android enregistrent désormais leurs données dans Health Connect. FitMesh Sync lit ce que vos applications et appareils y écrivent (comme les pas, le sommeil et la fréquence cardiaque) et l'affiche dans l'application.",
+        pl: "Wraz z wycofywaniem interfejsów REST API Google Fit wiele aplikacji na Androidzie zapisuje teraz dane w Health Connect. FitMesh Sync odczytuje to, co zapisują tam Twoje aplikacje i urządzenia (np. kroki, sen i tętno), i pokazuje to w aplikacji.",
+        tr: "Google Fit REST API'lerinin kullanımdan kaldırılmasıyla birlikte Android'de birçok uygulama artık verilerini Health Connect'e kaydediyor. FitMesh Sync, uygulamalarınızın ve cihazlarınızın oraya yazdığı verileri (adım, uyku ve kalp atış hızı gibi) okur ve uygulamada gösterir.",
+        nl: "Nu de REST-API's van Google Fit worden uitgefaseerd, slaan veel Android-apps hun gegevens inmiddels op in Health Connect. FitMesh Sync leest wat je apps en apparaten daar schrijven (zoals stappen, slaap en hartslag) en toont het in de app.",
+        ja: "Google Fit の REST API が廃止されるのに伴い、Android では多くのアプリがデータを Health Connect に保存するようになっています。FitMesh Sync は、お使いのアプリやデバイスが Health Connect に書き込んだデータ（歩数、睡眠、心拍数など）を読み取り、アプリ内に表示します。",
+        ko: "Google Fit REST API가 종료됨에 따라 Android에서는 많은 앱이 이제 데이터를 Health Connect에 저장합니다. FitMesh Sync는 사용 중인 앱과 기기가 Health Connect에 기록한 데이터(걸음 수, 수면, 심박수 등)를 읽어 앱에 표시합니다.",
       },
-      ctaLabel: {
-        it: "Scarica su Google Play →",
-        en: "Download on Google Play →",
-        es: "Descarga en Google Play →",
-        de: "Auf Google Play herunterladen →",
-        pt: "Baixe no Google Play →",
-        fr: "Télécharger sur Google Play →",
-        pl: "Pobierz w Google Play →",
-        tr: "Google Play'den indir →",
-        nl: "Downloaden op Google Play →",
-        ja: "Google Play でダウンロード →",
-        ko: "Google Play에서 다운로드 →",
-      },
-      ctaHref: {
-        it: "/it#download",
-        en: "/en#download",
-        pl: "/pl#download",
-        tr: "/tr#download",
+      benefits: {
+        it: [
+          "Richiede Android con Health Connect e il permesso di lettura",
+          "Legge solo i dati che le tue app scrivono in Health Connect",
+          "Prova gratuita di 14 giorni con tutte le funzioni Pro, poi acquisto o abbonamento su Google Play",
+        ],
+        en: [
+          "Requires Android with Health Connect and read permission",
+          "Reads only the data your apps write to Health Connect",
+          "14-day free trial with all Pro features, then a purchase or subscription on Google Play",
+        ],
+        es: [
+          "Requiere Android con Health Connect y el permiso de lectura",
+          "Lee solo los datos que tus apps escriben en Health Connect",
+          "Prueba gratuita de 14 días con todas las funciones Pro; después, compra o suscripción en Google Play",
+        ],
+        de: [
+          "Voraussetzung: Android mit Health Connect und Leseberechtigung",
+          "Liest nur die Daten, die deine Apps in Health Connect schreiben",
+          "14 Tage kostenlos testen mit allen Pro-Funktionen, danach Kauf oder Abonnement über Google Play",
+        ],
+        pt: [
+          "Requer Android com Health Connect e permissão de leitura",
+          "Lê apenas os dados que seus apps gravam no Health Connect",
+          "Teste gratuito de 14 dias com todas as funções Pro; depois, compra ou assinatura no Google Play",
+        ],
+        fr: [
+          "Nécessite Android avec Health Connect et l'autorisation de lecture",
+          "Ne lit que les données que vos applications écrivent dans Health Connect",
+          "Essai gratuit de 14 jours avec toutes les fonctions Pro, puis achat ou abonnement sur Google Play",
+        ],
+        pl: [
+          "Wymaga Androida z Health Connect i uprawnienia do odczytu",
+          "Odczytuje tylko dane, które Twoje aplikacje zapisują w Health Connect",
+          "14 dni bezpłatnego okresu próbnego ze wszystkimi funkcjami Pro, potem zakup lub subskrypcja w Google Play",
+        ],
+        tr: [
+          "Health Connect'in bulunduğu bir Android cihaz ve okuma izni gerekir",
+          "Yalnızca uygulamalarınızın Health Connect'e yazdığı verileri okur",
+          "Tüm Pro özellikleriyle 14 gün ücretsiz deneme, ardından Google Play'de satın alma veya abonelik",
+        ],
+        nl: [
+          "Vereist Android met Health Connect en leestoestemming",
+          "Leest alleen de gegevens die je apps in Health Connect schrijven",
+          "Gratis proefperiode van 14 dagen met alle Pro-functies, daarna een aankoop of abonnement via Google Play",
+        ],
+        ja: [
+          "Health Connect に対応した Android と、読み取り権限が必要です",
+          "お使いのアプリが Health Connect に書き込んだデータのみを読み取ります",
+          "Pro機能をすべて使える14日間の無料トライアル。その後は Google Play での購入またはサブスクリプション",
+        ],
+        ko: [
+          "Health Connect가 있는 Android와 읽기 권한이 필요합니다",
+          "앱이 Health Connect에 기록한 데이터만 읽습니다",
+          "모든 Pro 기능을 쓸 수 있는 14일 무료 체험, 이후 Google Play에서 구매 또는 구독",
+        ],
       },
     },
     {

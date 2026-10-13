@@ -61,6 +61,12 @@ export { APPLE_STORE_URL, APPLE_APP_ID };
 export const REDDIT_URL = "https://www.reddit.com/r/FitMesh/";
 export { REDDIT_COMMUNITY_LIVE };
 
+/**
+ * Profilo Instagram ufficiale FitMesh Sync.
+ * Fonte di verità condivisa per Footer e sameAs in OrganizationJsonLd.
+ */
+export const INSTAGRAM_URL = "https://www.instagram.com/fitmesh_sync/";
+
 // ── Disponibilità piattaforme ───────────────────────────────────────────────
 /**
  * Android: live ovunque, nessuna limitazione geografica. Legge da Health
@@ -89,7 +95,7 @@ export const AVAILABILITY = {
     storeUrl: APPLE_STORE_URL,
     /** Verificato sui 27 storefront UE (2026-07-13); non riverificato oggi ogni altro storefront Apple esistente. */
     regions: "eu-and-previously-verified-regions" as const,
-    minOsVersion: "iOS 14.0",
+    minOsVersion: "iOS 15.0",
     /** Apple Health/HealthKit nativo + Bluetooth diretto al Colmi Ring — MAI Health Connect (Android-only). */
     dataSource: "Apple Health (HealthKit) + Colmi Ring via Bluetooth diretto" as const,
   },

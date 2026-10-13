@@ -49,6 +49,15 @@ const REJECTED_DUP_LEGIT_FILE = "zone-2-different-devices.webp";
 // documentarlo qui invece di far fallire il guardrail in silenzio.
 const ALLOWED_DUP_HASHES = new Set<string>();
 
+// Asset legacy sostituiti da nuove cover dedicate ma mantenuti su disco
+// byte-per-byte per compatibilità con pagine in cache o collegamenti esterni.
+const LEGACY_PRESERVED_ASSETS = new Set<string>([
+  "google-fit-api-migration.webp",
+  "pixel-watch-health-connect-sync.webp",
+  "sleep-score-circadian-rhythm.webp",
+  "zone-2-different-devices.webp",
+]);
+
 const problems: string[] = [];
 
 async function main(): Promise<void> {
@@ -149,7 +158,8 @@ if (existsSync(COVERS_DIR)) {
   }
   // File presenti su disco ma non referenziati da nessun CoverType: non un
   // errore bloccante di per sé, ma segnalato per igiene (asset orfano).
-  const orphans = onDisk.filter((f) => !declaredFiles.has(f));
+  // Esclude i file legacy esplicitamente preservati per cache/link esterni.
+  const orphans = onDisk.filter((f) => !declaredFiles.has(f) && !LEGACY_PRESERVED_ASSETS.has(f));
   if (orphans.length > 0) {
     problems.push(`[file-orfani] presenti in public/blog/covers/ ma non referenziati da nessun CoverType: ${orphans.join(", ")}.`);
   }
