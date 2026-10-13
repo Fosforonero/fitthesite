@@ -277,7 +277,10 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // 62 -> 63 (13/10/2026, micro-gate grafici dashboard L1; NON causato dal micro-gate): +1 ereditato da
 // main per la guida Health Connect (/[locale]/support/health-connect, #102; force-static con
 // generateStaticParams it/en, classificata fra le dinamiche per il solo segmento [locale]; vedi la
-// corsia M, baseline di main 59 -> 60). Le altre 3 route dashboard (/[locale]/app/dashboard,
+// corsia M, baseline di main 59 -> 60). Per it/en non e' CPU a richiesta (prerenderizzata). Per le altre
+// locale di lib/i18n.ts il prerender-manifest la dichiara con fallback null (blocking): il rendering a
+// richiesta e' possibile e la pagina risponde notFound(); la messa in cache di quel 404 NON e' verificata.
+// Le altre 3 route dashboard (/[locale]/app/dashboard,
 // /[locale]/dashboard-preview, /[locale]/dashboard-preview/[screen]) erano gia' dichiarate in #98.
 // Verifica NOMINALE sul build di questo ramo: 63 route = le 60 di main + esattamente queste 3, nessuna
 // altra differenza; nessuna entry in prerender-manifest e nessun HTML sotto .next/server/app per le
