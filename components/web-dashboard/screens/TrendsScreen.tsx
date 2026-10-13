@@ -10,6 +10,7 @@ import { trendsCopy, type TrendsCopy } from './TrendsScreen.copy';
 import { METRICS, TrendCard, prepare } from './trends/TrendCard';
 import { windowOf } from './trends/derive';
 import { TRENDS_GRID } from './trends/layout';
+import { TrendChartsPanel } from '../charts/TrendChartsPanel';
 
 /**
  * Trend: 7, 30 o 90 giorni che finiscono nel giorno scelto.
@@ -69,6 +70,8 @@ function RangeSelector({
 
 export function TrendsScreen({ data, lc, ui, copy, params, href }: ScreenProps) {
   const t = trendsCopy(ui);
+  const chartsPeriod: 7 | 30 | null =
+    (lc === 'it' || lc === 'en') && (params.range === 7 || params.range === 30) ? params.range : null;
   const prepared = METRICS.map((cfg) => prepare(cfg, windowOf(data.trends.find((s) => s.metric === cfg.metric), params.range)));
 
   // Il periodo si legge dalla prima serie che ha giorni: sono tutte 90 giorni che finiscono nel giorno scelto.
@@ -105,6 +108,15 @@ export function TrendsScreen({ data, lc, ui, copy, params, href }: ScreenProps) 
             </a>
           </div>
         </div>
+      ) : null}
+
+      {/*
+        Grafici interattivi: SOLO nella preview locale, SOLO con it/en e periodo 7 o 30. Con 90 giorni o con una lingua
+        senza copy propria il pannello non si monta (mai un 90 -> 7 silenzioso): la schermata resta quella di prima.
+        Stessi dati sintetici della schermata, marcati demo; nessuna nuova fixture, nessun fetch.
+      */}
+      {chartsPeriod !== null ? (
+        <TrendChartsPanel idPrefix="trends" series={data.trends} period={chartsPeriod} locale={ui} isDemo={true} copy={copy} text={t} />
       ) : null}
 
       <div className={TRENDS_GRID}>
