@@ -18,6 +18,12 @@ const FREQUENCY_BULLET =
 const RESTORE_PROMISE =
   /ripristin|restor|restaur|wieder her|restabelec|rétabli|przywróc|çöz|herstel|復旧|복구|återställ|genopret/i;
 const API_TOKEN = /\bAPI\b|OAuth|API-/i;
+// Roadmap/rinvio senza data (CS-1 X2): la regex trimestrale non basta, anche «in roadmap» non datato e'
+// una promessa di integrazione diretta. Una voce per lingua presente nel post (11 TS + sv/da).
+const ROADMAP_PROMISE =
+  /roadmap|in arrivo|prossimamente|coming soon|upcoming|planned|próximamente|en camino|demnächst|bald verfügbar|geplant|em breve|em desenvolvimento|bientôt|prochainement|à venir|wkrótce|w planach|yakında|planlanıyor|binnenkort|gepland|近日公開|近日中|まもなく|予定|곧 출시|예정|kommer snart|planerad|på vej|planlagt/i;
+// Normalizzazione unica (CS-1 X1): cifre, % e lettere a larghezza piena («９５％») valgono come i caratteri normali.
+const norm = (s: string): string => s.normalize("NFKC");
 
 describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 varianti)", () => {
   describe("6 Varianti autorizzate ad avanzare", () => {
@@ -178,14 +184,14 @@ describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 vari
 
       // Verifica hero.subtitle
       for (const [lang, val] of Object.entries(post.hero.subtitle)) {
-        expect(val, `hero.subtitle.${lang} contains 95%`).not.toMatch(PCT_CLAIM);
-        expect(val, `hero.subtitle.${lang} contains 30s`).not.toMatch(TIME_PROMISE);
+        expect(norm(val), `hero.subtitle.${lang} contains 95%`).not.toMatch(PCT_CLAIM);
+        expect(norm(val), `hero.subtitle.${lang} contains 30s`).not.toMatch(TIME_PROMISE);
       }
 
       // Verifica metaDescription
       for (const [lang, val] of Object.entries(post.metaDescription)) {
-        expect(val, `metaDescription.${lang} contains 95%`).not.toMatch(PCT_CLAIM);
-        expect(val, `metaDescription.${lang} contains 30s`).not.toMatch(TIME_PROMISE);
+        expect(norm(val), `metaDescription.${lang} contains 95%`).not.toMatch(PCT_CLAIM);
+        expect(norm(val), `metaDescription.${lang} contains 30s`).not.toMatch(TIME_PROMISE);
       }
 
       // Verifica overlay nordico: i campi DEVONO esistere per sv e da (nessun `if` che renda vuota la prova)
@@ -195,8 +201,8 @@ describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 vari
         for (const l of ["sv", "da"]) {
           const v = nordic[field]?.[l] as string;
           expect(typeof v, `overlay ${field}.${l}`).toBe("string");
-          expect(v, `overlay ${field}.${l} 95%`).not.toMatch(PCT_CLAIM);
-          expect(v, `overlay ${field}.${l} tempo`).not.toMatch(TIME_PROMISE);
+          expect(norm(v), `overlay ${field}.${l} 95%`).not.toMatch(PCT_CLAIM);
+          expect(norm(v), `overlay ${field}.${l} tempo`).not.toMatch(TIME_PROMISE);
         }
       }
     });
@@ -217,11 +223,17 @@ describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 vari
         }
       }
 
-      // Sezione 8 e Sezione 11 non devono attribuire a FitMesh l'integrazione diretta SDK
-      const bodyStr = JSON.stringify(post.body);
-      expect(bodyStr).not.toContain("FitMesh si interfaccia con il Samsung Health Data SDK");
-      expect(bodyStr).not.toContain("FitMesh interfaces with the Samsung Health Data SDK");
-      expect(bodyStr).not.toContain("FitMesh verbindet sich über das Samsung Health Data SDK");
+      // CS-3: le tre frasi fisse che stavano qui («FitMesh si interfaccia con il Samsung Health Data SDK»
+      // ecc.) non erano presenti ne' su main ne' sul parent: asserzioni vuote, verdi per costruzione.
+      // Sostituite da una guardia generica su TUTTI i campi (TS, hero, tldr, body, faq, flussi) delle
+      // lingue non protette: nessuna frase accosta FitMesh e il Samsung Health SDK, in nessun ordine.
+      // E' una guardia di non-regressione (sul testo corrente passa, il mutante che la viola e' rosso),
+      // non la prova della correzione G1/G2/G5: quella sta nei test «G1/G2/G5» e «ogni campo» sotto.
+      const fitmeshSamsungSdk =
+        /FitMesh[^.!?\n]{0,80}Samsung[^.!?\n]{0,20}SDK|Samsung[^.!?\n]{0,20}SDK[^.!?\n]{0,80}FitMesh/i;
+      const ghCells = collectCells("google-health-google-fit").filter((c) => c.lang !== "en");
+      expect(ghCells.length).toBeGreaterThan(400);
+      for (const c of ghCells) expect(c.text, c.path).not.toMatch(fitmeshSamsungSdk);
     });
 
     it("Google Health G1/G2/G5: nessun SDK Samsung come sorgente FitMesh in nessun campo delle 10 lingue non protette", () => {
@@ -324,7 +336,7 @@ function collectCells(slug: string): Cell[] {
   const walk = (o: unknown, path: string[], src: string): void => {
     if (typeof o === "string") {
       const lang = [...path].reverse().find((k) => CONTENT_LANGS.has(k));
-      if (lang) out.push({ path: `${src}:${path.join(".")}`, lang, text: o });
+      if (lang) out.push({ path: `${src}:${path.join(".")}`, lang, text: norm(o) });
       return;
     }
     if (Array.isArray(o)) o.forEach((x, i) => walk(x, [...path, String(i)], src));
@@ -392,6 +404,35 @@ describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
         expect(t!.text, `tldr[0] ${l}`).toMatch(/Health Connect/);
         expect(t!.text, `tldr[0] ${l}`).not.toMatch(FREQUENCY_BULLET);
       }
+    });
+
+    it("frequenza: nessun marcatore «e' un problema frequente» in nessun campo (hero, tldr, body, faq, metadati, overlay)", () => {
+      // CS-1 X3: FREQUENCY_BULLET era applicato solo a tldr[0]; ora a OGNI cella di testo del post.
+      // Due precisazioni, entrambe nominali (nessuna esclusione per campo):
+      // 1) «多く» in giapponese vuol dire anche «molti» (多くのデバイス, 多くの人, 多くのガイド: ts:body.7/8):
+      //    nel test su tutti i campi vale la forma di frequenza, non il quantificatore;
+      // 2) l'H2 generico «Insidie comuni che bloccano la sincronizzazione» (body.6, gia' su main
+      //    c011056b) usa «häufig/fréquent/...» come etichetta di sezione, non come stima: ammesso solo
+      //    con il testo esatto, per cella. Qualunque altro titolo o frase con marcatore resta rosso.
+      const ALL_FIELDS_FREQUENCY = new RegExp(FREQUENCY_BULLET.source.replace("多く|", "多くの場合|よくある|頻繁|"), "i");
+      const sectionLabels: Record<string, string> = {
+        "ts:body.6.text.de": "Häufige Stolperfallen bei der Synchronisierung",
+        "ts:body.6.text.fr": "Erreurs fréquentes qui bloquent la synchronisation",
+        "ts:body.6.text.pl": "Częste pułapki, na które warto uważać",
+        "ts:body.6.text.nl": "Veelvoorkomende valkuilen die mensen struikelen",
+        "ts:body.6.text.ja": "よくある落とし穴",
+        "overlay:body.6.text.sv": "Vanliga fallgropar som många snubblar på",
+      };
+      const allowed = new Set<string>();
+      for (const c of cells) {
+        if (sectionLabels[c.path] === c.text) {
+          allowed.add(c.path);
+          continue;
+        }
+        expect(c.text, c.path).not.toMatch(ALL_FIELDS_FREQUENCY);
+      }
+      // le etichette ammesse esistono davvero (la lista non e' un'esenzione fantasma)
+      expect([...allowed].sort()).toEqual(Object.keys(sectionLabels).sort());
     });
 
     it("metaDescription e hero.subtitle: nessuna promessa di ripristino (13 lingue)", () => {
@@ -480,6 +521,10 @@ describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
       }
     });
 
+    it("nessuna roadmap di integrazione diretta, datata o no (CS-1 X2), in nessuna lingua e in nessun campo", () => {
+      for (const c of cells) expect(c.text, c.path).not.toMatch(ROADMAP_PROMISE);
+    });
+
     it("nessuna roadmap datata di integrazione diretta (Q3 2026 / T3 2026 / 3분기), in nessuna lingua", () => {
       const roadmap = /\bQ3\b|\bT3\b|3분기|第3四半期|3\.\s*(?:Quartal|kvartal)\w*|3[ºo°]\s*trimestre|3e\s*trimestre|3\.\s*çeyrek|üçüncü çeyrek|derde kwartaal|3\.\s*kwartał|tercer trimestre|terzo trimestre|third quarter/i;
       for (const c of cells) expect(c.text, c.path).not.toMatch(roadmap);
@@ -504,6 +549,43 @@ describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
         for (const it2 of ov["body.15.items"][l] as string[]) {
           expect(it2, `body.15.items.${l}`).not.toMatch(/officiellt stöder|officielt understøtter|Q3|kvartal/i);
         }
+      }
+    });
+
+    it("body.15.items[2] (FitMesh Sync), TS 11 lingue + sv/da: via Health Connect, nessuna promessa di integrazione ufficiale ne' obbligo API (CS-2, CS-1 X4)", () => {
+      // Asserisce la promessa, non la parola: tolta la sola clausola di negazione ammessa
+      // («non tramite l'API ufficiale Garmin Connect elencata sopra»), il resto della voce non puo'
+      // contenere API/OAuth/«ufficiale»/«integra*». Una frase «officiellt är integrerade med Garmin
+      // Connect API» o un beneficio da integrazione («centralt ställe ... utan att exportera») e' rossa.
+      const post: any = BLOG_POSTS_BY_SLUG["esportare-dati-garmin"];
+      const ov = (nordicOverlayJson as any)["esportare-dati-garmin"];
+      const negation: Record<string, RegExp> = {
+        it: /non tramite l'API ufficiale Garmin Connect elencata sopra/,
+        en: /not through the official Garmin Connect API listed above/,
+        es: /no mediante la API oficial de Garmin Connect mencionada arriba/,
+        de: /nicht über die oben genannte offizielle Garmin Connect API/,
+        pt: /não pela API oficial do Garmin Connect listada acima/,
+        fr: /et non via l'API officielle Garmin Connect mentionnée ci-dessus/,
+        pl: /a nie przez oficjalne API Garmin Connect wymienione powyżej/,
+        tr: /yukarıda listelenen resmi Garmin Connect API'si üzerinden değil/,
+        nl: /niet via de hierboven genoemde officiële Garmin Connect API/,
+        ja: /上記の公式Garmin Connect APIを使用しているわけではありません/,
+        ko: /위에 나열된 공식 Garmin Connect API를 통한 것이 아닙니다/,
+        sv: /och inte via det officiella Garmin Connect API som nämns ovan/,
+        da: /og ikke via det officielle Garmin Connect-API, der er nævnt ovenfor/,
+      };
+      const residualBan =
+        /\bAPI\b|API-|OAuth|ufficial|official|oficial|offiziell|officiel|officiell|officiël|resmi|公式|공식|oficjaln|integra|integr|統合|통합|entegr|godkänd|godkendt|approv|aprovad|zatwierdz/i;
+      const items: Array<[string, string]> = [];
+      for (const [l, arr] of Object.entries(post.body[15].items as Record<string, string[]>)) items.push([`ts.${l}`, arr[2]]);
+      for (const l of ["sv", "da"]) items.push([`overlay.${l}`, ov["body.15.items"][l][2]]);
+      expect(items.length).toBe(13);
+      for (const [where, raw] of items) {
+        const l = where.split(".")[1];
+        const t = norm(raw);
+        expect(t, where).toMatch(/Health[ -]Connect/);
+        expect(t, where).toMatch(negation[l]);
+        expect(t.replace(negation[l], ""), `${where} residuo`).not.toMatch(residualBan);
       }
     });
 
