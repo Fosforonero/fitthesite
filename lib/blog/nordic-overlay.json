@@ -4573,12 +4573,12 @@
       "sv": [
         "**Garmin Connect API**: kräver en OAuth-applikation som godkänts av Garmin. Du kan inte få tillgång till dina personuppgifter direkt via API utan att vara en godkänd utvecklare med en registrerad app. Godkännandeprocessen tar tid och omfattar vissa utvärderingskriterier.",
         "**Redan integrerade appar**: Strava, Training Peaks, Final Surge och några andra plattformar är redan officiellt integrerade. Du kan godkänna dessa appar via Garmin Connect → Anslutna appar och enheter → Hantera appar.",
-        "**FitMesh Sync**: läser idag dina Garmin-data via Health Connect och inte via det officiella Garmin Connect API som nämns ovan, vilket gör det möjligt att samla data på ett centralt ställe utan att behöva exportera dem manuellt varje gång."
+        "**FitMesh Sync**: läser idag dina Garmin-data via Health Connect och inte via det officiella Garmin Connect API som nämns ovan."
       ],
       "da": [
         "**Garmin Connect API**: kræver en OAuth-applikation, der er godkendt af Garmin. Du kan ikke få direkte adgang til dine personlige data via API’et, medmindre du er en godkendt udvikler med en registreret app. Godkendelsesprocessen tager tid og er underlagt bestemte vurderingskriterier.",
         "**Allerede integrerede apps**: Strava, Training Peaks, Final Surge og nogle andre platforme er allerede officielt integreret. Du kan godkende disse apps under Garmin Connect → Tilsluttede apps og enheder → Administrer apps.",
-        "**FitMesh Sync**: læser i dag dine Garmin-data via Health Connect og ikke via det officielle Garmin Connect-API, der er nævnt ovenfor, hvilket gør det muligt at samle dataene på ét sted uden at skulle eksportere dem manuelt hver gang."
+        "**FitMesh Sync**: læser i dag dine Garmin-data via Health Connect og ikke via det officielle Garmin Connect-API, der er nævnt ovenfor."
       ]
     },
     "body.18.items": {
