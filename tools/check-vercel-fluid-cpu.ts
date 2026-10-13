@@ -262,7 +262,15 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // statica: la baseline era rimasta indietro di una pagina, non un
 // regresso di questo sprint (verificato: `git diff origin/main --name-status`
 // di questo sprint non aggiunge ne' rimuove nessun page.tsx/route.ts).
-const DYNAMIC_ROUTES_BASELINE = 59;
+// 59 -> 60 (2026-10-13, riallineamento locale post-#102/#104, verificato
+// route per nome): nuova /[locale]/support/health-connect (guida Connessione
+// Salute IT/EN, aggiunta da #102 fec4b78b, screenshot EN in #104 ec5f7761).
+// E' l'UNICO page/route/layout aggiunto fra 7ae6379a (baseline 59) e
+// c011056b. Non e' CPU a richiesta: ha `dynamic = "force-static"` e
+// generateStaticParams() it/en, e il build la prerenderizza (HTML + RSC per
+// /it e /en nel prerender-manifest, fallback null); il manifest la conta fra
+// le dinamiche per il solo segmento [locale]. +1 di classificazione.
+const DYNAMIC_ROUTES_BASELINE = 60;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {
