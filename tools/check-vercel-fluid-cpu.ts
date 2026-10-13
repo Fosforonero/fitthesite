@@ -274,7 +274,15 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // solo segmento [locale], non perche' servano CPU: rispondono 404 fuori dal cancello. Verificato col
 // build di questo ramo: 62 route dinamiche; nessun HTML prerenderizzato per /*/app/dashboard
 // (solo page.js sotto .next/server/app).
-const DYNAMIC_ROUTES_BASELINE = 62;
+// 62 -> 63 (13/10/2026, micro-gate grafici dashboard L1; NON causato dal micro-gate): +1 ereditato da
+// main per la guida Health Connect (/[locale]/support/health-connect, #102; force-static con
+// generateStaticParams it/en, classificata fra le dinamiche per il solo segmento [locale]; vedi la
+// corsia M, baseline di main 59 -> 60). Le altre 3 route dashboard (/[locale]/app/dashboard,
+// /[locale]/dashboard-preview, /[locale]/dashboard-preview/[screen]) erano gia' dichiarate in #98.
+// Verifica NOMINALE sul build di questo ramo: 63 route = le 60 di main + esattamente queste 3, nessuna
+// altra differenza; nessuna entry in prerender-manifest e nessun HTML sotto .next/server/app per le
+// route dashboard (solo page.js); la preview risponde 404 fuori dal cancello.
+const DYNAMIC_ROUTES_BASELINE = 63;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {
