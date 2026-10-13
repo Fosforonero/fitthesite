@@ -50,7 +50,9 @@ export interface TrendsCopy {
     extremePartial: string;
     total: string;
     totalAllDays: (m: number) => string;
-    totalPartialBasis: (withData: number, complete: number, m: number) => string;
+    /** Accanto al chip «Dati incompleti» del totale: il NUMERO di giorni pieni, mai una percentuale. */
+    totalCompleteDays: (complete: number, m: number) => string;
+    totalPartialBasis: (withData: number) => string;
   };
   meanLegend: string;
 
@@ -62,7 +64,8 @@ export interface TrendsCopy {
   };
 
   summary: {
-    stats: (avg: string, min: string, max: string) => string;
+    /** `partials` > 0: media, minimo e massimo includono giorni parziali, e si dice. */
+    stats: (avg: string, min: string, max: string, partials?: number) => string;
     insufficient: (title: string, n: number, m: number) => string;
   };
 
@@ -106,13 +109,13 @@ const IT: TrendsCopy = {
     max: 'Massimo',
     avgBasis: (n, partials) =>
       partials > 0
-        ? `Sui ${n} giorni con dato, inclusi ${days(partials, 'parziale', 'parziali')}: può risultare più bassa.`
+        ? `Sui ${n} giorni con dato, inclusi ${days(partials, 'giorno parziale', 'giorni parziali')}: può risultare più bassa.`
         : `Sui ${n} giorni con dato.`,
     extremePartial: 'Giorno parziale',
     total: 'Totale del periodo',
     totalAllDays: (m) => `Somma di tutti i ${m} giorni.`,
-    totalPartialBasis: (withData, complete, m) =>
-      `Somma dei ${withData} giorni con dato. Giorni completi: ${complete} su ${m}. I giorni senza dato non sono contati come zero.`,
+    totalCompleteDays: (complete, m) => `Giorni completi: ${complete} su ${m}`,
+    totalPartialBasis: (withData) => `Somma dei ${withData} giorni con dato. I giorni senza dato non sono contati come zero.`,
   },
   meanLegend: 'Media dei giorni con dato',
 
@@ -133,7 +136,8 @@ const IT: TrendsCopy = {
   },
 
   summary: {
-    stats: (avg, min, max) => `Media ${avg}, minimo ${min}, massimo ${max}.`,
+    stats: (avg, min, max, partials = 0) =>
+      `Media ${avg}, minimo ${min}, massimo ${max}${partials > 0 ? `, inclusi ${days(partials, 'giorno parziale', 'giorni parziali')}` : ''}.`,
     insufficient: (title, n, m) =>
       `${title}: dati insufficienti, ${n === 0 ? 'nessun giorno' : days(n, 'giorno', 'giorni')} con dato su ${m}.`,
   },
@@ -176,13 +180,13 @@ const EN: TrendsCopy = {
     max: 'Maximum',
     avgBasis: (n, partials) =>
       partials > 0
-        ? `Over the ${n} days with data, including ${partials} partial: it may read lower.`
+        ? `Over the ${n} days with data, including ${days(partials, 'partial day', 'partial days')}: it may read lower.`
         : `Over the ${n} days with data.`,
     extremePartial: 'Partial day',
     total: 'Total for the period',
     totalAllDays: (m) => `Sum of all ${m} days.`,
-    totalPartialBasis: (withData, complete, m) =>
-      `Sum of the ${withData} days with data. Complete days: ${complete} of ${m}. Days with no data are not counted as zero.`,
+    totalCompleteDays: (complete, m) => `Complete days: ${complete} of ${m}`,
+    totalPartialBasis: (withData) => `Sum of the ${withData} days with data. Days with no data are not counted as zero.`,
   },
   meanLegend: 'Average of days with data',
 
@@ -203,7 +207,8 @@ const EN: TrendsCopy = {
   },
 
   summary: {
-    stats: (avg, min, max) => `Average ${avg}, minimum ${min}, maximum ${max}.`,
+    stats: (avg, min, max, partials = 0) =>
+      `Average ${avg}, minimum ${min}, maximum ${max}${partials > 0 ? `, including ${days(partials, 'partial day', 'partial days')}` : ''}.`,
     insufficient: (title, n, m) =>
       `${title}: not enough data, ${n === 0 ? 'no days' : days(n, 'day', 'days')} with data out of ${m}.`,
   },

@@ -1,5 +1,6 @@
 import type { SharedCopy } from '@/lib/web-dashboard/copy';
-import type { DashboardData } from '@/lib/web-dashboard/model';
+import type { Measure } from '@/lib/web-dashboard/measure';
+import type { DashboardData, Workout } from '@/lib/web-dashboard/model';
 
 import { CHART, MeasureValue, MetricTile, SkeletonBlock } from '../primitives';
 import type { ScreenProps } from '../screen-types';
@@ -38,6 +39,15 @@ export function WorkoutsScreen({ data, lc, ui, copy, href }: ScreenProps) {
 // ── riepilogo: sessioni, durata totale, calorie ─────────────────────────────
 function Summary({ data, lc, copy, t }: { data: DashboardData; lc: string; copy: SharedCopy; t: WorkoutsCopy }) {
   const s = summarize(data.workouts.sessions);
+  const st = listState(data.workouts.sessions);
+  /**
+   * Il totale di durata/calorie e' «parziale per quota di sessioni» se almeno una sessione non ha il
+   * campo pieno: allora la percentuale sarebbe sessioni piene / sessioni, non una copertura temporale.
+   * Si mostra «Dati incompleti» senza percentuale (il piede della scheda dice gia' «N su M»).
+   */
+  const incompleteChip = { chip: copy.measure.partial.incomplete_coverage };
+  const quota = (pick: (w: Workout) => Measure<number>) =>
+    st.kind === 'sessions' && st.sessions.some((w) => pick(w).kind !== 'value') ? { partialDisplay: incompleteChip } : {};
   /** Se manca il campo in qualche sessione il totale e' parziale: si dice su quante e' calcolato. */
   const sumNote = (c: Coverage | null) => (c ? t.summary.sumOf(c.present, c.total) : undefined);
   const tiles = [
@@ -48,9 +58,9 @@ function Summary({ data, lc, copy, t }: { data: DashboardData; lc: string; copy:
       dot: CHART.resting,
       m: s.duration,
       footer: sumNote(s.durationCover),
-      props: { unit: copy.units.min, format: (n: number) => durationParts(n, lc) },
+      props: { unit: copy.units.min, format: (n: number) => durationParts(n, lc), ...quota((w) => w.durationMin) },
     },
-    { key: 'calories', label: t.summary.calories, dot: CHART.calories, m: s.calories, footer: sumNote(s.caloriesCover), props: { unit: copy.units.kcal } },
+    { key: 'calories', label: t.summary.calories, dot: CHART.calories, m: s.calories, footer: sumNote(s.caloriesCover), props: { unit: copy.units.kcal, ...quota((w) => w.caloriesKcal) } },
   ];
   return (
     <section aria-labelledby="wk-summary-title">

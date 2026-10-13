@@ -44,19 +44,23 @@ export function SleepDurationChart({
   const totalMin = validPoints.reduce((acc, p) => acc + (p.value ?? 0), 0);
   const avgMin = validCount > 0 ? Math.round(totalMin / validCount) : 0;
 
+  // La media include le notti parziali: lo si dichiara nella stessa frase.
+  const inclIt = partialCount > 0 ? `, ${partialCount === 1 ? 'inclusa' : 'incluse'} ${partialCount} ${partialCount === 1 ? 'notte parziale' : 'notti parziali'}` : '';
+  const inclEn = partialCount > 0 ? `, including ${partialCount} ${partialCount === 1 ? 'partial night' : 'partial nights'}` : '';
+
   const summaryText = validCount === 0
     ? (isIt ? `Nessun dato registrato nel periodo di ${period} notti.` : `No data recorded in the ${period}-night period.`)
     : isIt
       ? `Grafico a barre della durata del sonno per ${period} notti. ` +
         `${validCount} notti con dato registrato su ${points.length}, ` +
-        `media di ${formatMinutesToHm(avgMin, 'it')} per notte. ` +
+        `media di ${formatMinutesToHm(avgMin, 'it')} per notte${inclIt}. ` +
         `${zeroCount > 0 ? `${zeroCount} notti con zero misurato. ` : ''}` +
         `${partialCount > 0 ? `${partialCount} notti con dati parziali. ` : ''}` +
         `${absentCount > 0 ? `${absentCount} notti senza dati. ` : ''}` +
         `${errorCount > 0 ? `${errorCount} notti con errore.` : ''}`
       : `Sleep duration bar chart for ${period} nights. ` +
         `${validCount} nights with recorded data out of ${points.length}, ` +
-        `average of ${formatMinutesToHm(avgMin, 'en')} per night. ` +
+        `average of ${formatMinutesToHm(avgMin, 'en')} per night${inclEn}. ` +
         `${zeroCount > 0 ? `${zeroCount} nights with measured zero. ` : ''}` +
         `${partialCount > 0 ? `${partialCount} nights with partial data. ` : ''}` +
         `${absentCount > 0 ? `${absentCount} nights with no data. ` : ''}` +

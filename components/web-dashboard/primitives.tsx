@@ -96,6 +96,7 @@ export function MeasureValue({
   decimals = 0,
   size = 'lg',
   format,
+  partialDisplay,
 }: {
   m: Measure<number>;
   unit?: string;
@@ -104,6 +105,13 @@ export function MeasureValue({
   decimals?: number;
   size?: 'md' | 'lg';
   format?: (n: number) => string;
+  /**
+   * Solo per i TOTALI aggregati (somma di piu' giorni o sessioni): la «copertura» di una
+   * somma e' una quota di elementi pieni, non una copertura temporale, e non si mostra come
+   * percentuale. `chip` sostituisce «Parziale NN%»; `detail` (se c'e') sostituisce la nota.
+   * Senza questa prop il comportamento e' quello di sempre.
+   */
+  partialDisplay?: { chip: string; detail?: string };
 }) {
   const p = presentNumber(m);
   const numClass = size === 'lg' ? 'font-display text-metric font-semibold tracking-tightest' : 'font-display text-xl font-semibold tracking-tightest';
@@ -136,9 +144,11 @@ export function MeasureValue({
       {p.state === 'partial' ? (
         <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
           <Chip tone="warning" title={copy.measure.partial[p.note]}>
-            {copy.measure.partialLabel} {fmtPercent(p.coverage, locale)}
+            {partialDisplay ? partialDisplay.chip : `${copy.measure.partialLabel} ${fmtPercent(p.coverage, locale)}`}
           </Chip>
-          <span className="text-text-muted">{copy.measure.partial[p.note]}</span>
+          {partialDisplay && partialDisplay.detail === undefined ? null : (
+            <span className="text-text-muted">{partialDisplay?.detail ?? copy.measure.partial[p.note]}</span>
+          )}
         </p>
       ) : null}
     </div>

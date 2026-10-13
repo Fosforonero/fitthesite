@@ -39,12 +39,16 @@ export function HeartRateTrendChart({
   const maxHr = validVals.length > 0 ? Math.max(...validVals) : 0;
   const avgHr = validVals.length > 0 ? Math.round(validVals.reduce((a, b) => a + b, 0) / validVals.length) : 0;
 
+  // Media, minimo e massimo includono i giorni parziali: lo si dichiara nella stessa frase.
+  const inclIt = partialCount > 0 ? `, inclusi ${partialCount} ${partialCount === 1 ? 'giorno parziale' : 'giorni parziali'}` : '';
+  const inclEn = partialCount > 0 ? `, including ${partialCount} ${partialCount === 1 ? 'partial day' : 'partial days'}` : '';
+
   const summaryText = validCount === 0
     ? (isIt ? `Nessun dato registrato nel periodo di ${period} giorni.` : `No data recorded in the ${period}-day period.`)
     : isIt
       ? `Grafico dell'andamento della frequenza cardiaca per ${period} giorni. ` +
         `${validCount} giorni con misurazione registrata su ${points.length}, ` +
-        `valore medio di ${avgHr} bpm, minimo ${minHr} bpm, massimo ${maxHr} bpm. ` +
+        `valore medio di ${avgHr} bpm, minimo ${minHr} bpm, massimo ${maxHr} bpm${inclIt}. ` +
         `Gli intervalli con dato assente non sono collegati da linee continue. ` +
         `${zeroCount > 0 ? `${zeroCount} giorni con zero misurato. ` : ''}` +
         `${partialCount > 0 ? `${partialCount} giorni con dati parziali. ` : ''}` +
@@ -52,7 +56,7 @@ export function HeartRateTrendChart({
         `${errorCount > 0 ? `${errorCount} giorni con errore.` : ''}`
       : `Heart rate trend chart for ${period} days. ` +
         `${validCount} days with recorded readings out of ${points.length}, ` +
-        `average value of ${avgHr} bpm, min ${minHr} bpm, max ${maxHr} bpm. ` +
+        `average value of ${avgHr} bpm, min ${minHr} bpm, max ${maxHr} bpm${inclEn}. ` +
         `Intervals without data remain disconnected. ` +
         `${zeroCount > 0 ? `${zeroCount} days with measured zero. ` : ''}` +
         `${partialCount > 0 ? `${partialCount} days with partial data. ` : ''}` +

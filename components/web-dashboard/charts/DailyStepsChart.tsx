@@ -40,19 +40,23 @@ export function DailyStepsChart({
   const totalSteps = validPoints.reduce((acc, p) => acc + (p.value ?? 0), 0);
   const avgSteps = validCount > 0 ? Math.round(totalSteps / validCount) : 0;
 
+  // Media (e totale) includono i giorni parziali: lo si dichiara nella stessa frase.
+  const inclIt = partialCount > 0 ? `, inclusi ${partialCount} ${partialCount === 1 ? 'giorno parziale' : 'giorni parziali'}` : '';
+  const inclEn = partialCount > 0 ? `, including ${partialCount} ${partialCount === 1 ? 'partial day' : 'partial days'}` : '';
+
   const summaryText = validCount === 0
     ? (isIt ? `Nessun dato registrato nel periodo di ${period} giorni.` : `No data recorded in the ${period}-day period.`)
     : isIt
       ? `Grafico a barre dei passi giornalieri per ${period} giorni. ` +
         `${validCount} giorni con misurazione registrata su ${points.length}, ` +
-        `media di ${formatSteps(avgSteps, 'it')} passi al giorno. ` +
+        `media di ${formatSteps(avgSteps, 'it')} passi al giorno${inclIt}. ` +
         `${zeroCount > 0 ? `${zeroCount} giorni con zero misurato. ` : ''}` +
         `${partialCount > 0 ? `${partialCount} giorni con dati parziali. ` : ''}` +
         `${absentCount > 0 ? `${absentCount} giorni senza dati. ` : ''}` +
         `${errorCount > 0 ? `${errorCount} giorni con errore.` : ''}`
       : `Daily steps bar chart for ${period} days. ` +
         `${validCount} days with recorded readings out of ${points.length}, ` +
-        `average of ${formatSteps(avgSteps, 'en')} steps per day. ` +
+        `average of ${formatSteps(avgSteps, 'en')} steps per day${inclEn}. ` +
         `${zeroCount > 0 ? `${zeroCount} days with measured zero. ` : ''}` +
         `${partialCount > 0 ? `${partialCount} days with partial data. ` : ''}` +
         `${absentCount > 0 ? `${absentCount} days with no data. ` : ''}` +

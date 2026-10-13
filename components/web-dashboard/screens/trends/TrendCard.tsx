@@ -208,7 +208,7 @@ function ChartCard({
   const summary = [
     `${m.perDay}. ${t.lastDays(n)}.`,
     `${headline}.`,
-    t.summary.stats(fmt.text(stats.mean as number), fmt.text(min.value), fmt.text(max.value)),
+    t.summary.stats(fmt.text(stats.mean as number), fmt.text(min.value), fmt.text(max.value), stats.partials),
     absentText,
     partialText,
     zeroText,
@@ -277,10 +277,17 @@ function ChartCard({
                 <div data-stat="total" className="mt-4 border-t border-divider pt-4">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">{t.coverage.total}</p>
                   <div className="mt-2">
-                    <MeasureValue m={stats.sum} unit={copy.units.steps} locale={lc} copy={copy} format={fmt.format} />
+                    <MeasureValue
+                      m={stats.sum}
+                      unit={copy.units.steps}
+                      locale={lc}
+                      copy={copy}
+                      format={fmt.format}
+                      partialDisplay={{ chip: copy.measure.partial.incomplete_coverage, detail: t.coverage.totalCompleteDays(stats.complete, stats.total) }}
+                    />
                   </div>
                   <p className="mt-2 text-xs text-text-muted">
-                    {stats.sum.kind === 'partial' ? t.coverage.totalPartialBasis(stats.withData, stats.complete, stats.total) : t.coverage.totalAllDays(stats.total)}
+                    {stats.sum.kind === 'partial' ? t.coverage.totalPartialBasis(stats.withData) : t.coverage.totalAllDays(stats.total)}
                   </p>
                 </div>
               ) : null}
