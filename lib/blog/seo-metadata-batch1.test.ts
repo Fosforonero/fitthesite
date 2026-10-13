@@ -1,8 +1,23 @@
+import { createHash } from "node:crypto";
 import { describe, expect, it } from "vitest";
 import { BLOG_POSTS_BY_SLUG } from "@/lib/blog/data";
 import { blogSeoTitle, tl } from "@/lib/blog/types";
 import { applyNordicOverlay } from "@/lib/blog/nordic-overlay";
 import nordicOverlayJson from "@/lib/blog/nordic-overlay.json";
+
+// Regex condivise (T3): le frequenze e i tempi coprono tutte le 13 lingue, non solo IT/EN/ES/DE/NL.
+const PCT_CLAIM = /\d+\s*(?:%|percent|per\s*cento|por\s*(?:ciento|cento)|pour\s*cent|Prozent|procent|퍼센트|パーセント)|%\s*\d+|yüzde\s*\d+/i;
+const TIME_PROMISE =
+  /\b\d+\s*(?:secondi|seconds?|segundos?|Sekunden|seconden|secondes?|sekunder|sekunde|sekund\w*|saniye\w*|sec\b|s\b)|\d+\s*(?:秒|초)/i;
+const UNIVERSAL_FREQUENCY =
+  /quasi sempre|almost always|casi siempre|fast immer|quase sempre|presque toujours|prawie zawsze|neredeyse her zaman|bijna altijd|ほぼ常に|거의 항상|nästan alltid|næsten altid|nesten alltid|melkein aina/i;
+const PERSONAL_COUNT =
+  /decine di volte|dozens of times|decenas de veces|dutzende?\s*male|dezenas de vezes|des dizaines de fois|dziesiątki razy|onlarca kez|tientallen keren|何十回|수십 번|dussintals gånger|utallige gange/i;
+const FREQUENCY_BULLET =
+  /frequente|frequent|habitual|häufig|comum|fréquent|częst|yaygın|veelvoorkomend|vaak|多く|많습니다|흔|vanlig|almindelig/i;
+const RESTORE_PROMISE =
+  /ripristin|restor|restaur|wieder her|restabelec|rétabli|przywróc|çöz|herstel|復旧|복구|återställ|genopret/i;
+const API_TOKEN = /\bAPI\b|OAuth|API-/i;
 
 describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 varianti)", () => {
   describe("6 Varianti autorizzate ad avanzare", () => {
@@ -163,30 +178,25 @@ describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 vari
 
       // Verifica hero.subtitle
       for (const [lang, val] of Object.entries(post.hero.subtitle)) {
-        expect(val, `hero.subtitle.${lang} contains 95%`).not.toContain("95%");
-        expect(val, `hero.subtitle.${lang} contains 30s`).not.toMatch(/30\s*(secondi|seconds|segundos|Sekunden|seconden|sekund)/i);
+        expect(val, `hero.subtitle.${lang} contains 95%`).not.toMatch(PCT_CLAIM);
+        expect(val, `hero.subtitle.${lang} contains 30s`).not.toMatch(TIME_PROMISE);
       }
 
       // Verifica metaDescription
       for (const [lang, val] of Object.entries(post.metaDescription)) {
-        expect(val, `metaDescription.${lang} contains 95%`).not.toContain("95%");
-        expect(val, `metaDescription.${lang} contains 30s`).not.toMatch(/30\s*(secondi|seconds|segundos|Sekunden|seconden|sekund)/i);
+        expect(val, `metaDescription.${lang} contains 95%`).not.toMatch(PCT_CLAIM);
+        expect(val, `metaDescription.${lang} contains 30s`).not.toMatch(TIME_PROMISE);
       }
 
-      // Verifica overlay nordico
+      // Verifica overlay nordico: i campi DEVONO esistere per sv e da (nessun `if` che renda vuota la prova)
       const nordic = (nordicOverlayJson as any)["fitbit-data-not-syncing-android"];
-      if (nordic) {
-        if (nordic["hero.subtitle"]) {
-          for (const [l, v] of Object.entries(nordic["hero.subtitle"])) {
-            expect(v as string).not.toContain("95%");
-            expect(v as string).not.toMatch(/30\s*sekund/i);
-          }
-        }
-        if (nordic["metaDescription"]) {
-          for (const [l, v] of Object.entries(nordic["metaDescription"])) {
-            expect(v as string).not.toContain("95%");
-            expect(v as string).not.toMatch(/30\s*sekund/i);
-          }
+      expect(nordic, "overlay nordico Fitbit presente").toBeDefined();
+      for (const field of ["hero.subtitle", "metaDescription"]) {
+        for (const l of ["sv", "da"]) {
+          const v = nordic[field]?.[l] as string;
+          expect(typeof v, `overlay ${field}.${l}`).toBe("string");
+          expect(v, `overlay ${field}.${l} 95%`).not.toMatch(PCT_CLAIM);
+          expect(v, `overlay ${field}.${l} tempo`).not.toMatch(TIME_PROMISE);
         }
       }
     });
@@ -257,21 +267,17 @@ describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 vari
       check(post, []);
     });
 
-    it("Garmin: nessun obbligo generale di API per attività GPS e corretta distinzione export web vs API", () => {
+    it("Garmin: nessun obbligo generale di API per attivita' GPS (TLDR e In sintesi, 11 lingue + sv/da)", () => {
       const post = BLOG_POSTS_BY_SLUG["esportare-dati-garmin"];
       expect(post).toBeDefined();
-
-      // TLDR bullet 4 non deve asserire obbligo generale di API per le attività GPS
       expect(post.tldr).toBeDefined();
+      // Il vecchio controllo cercava due sole stringhe (it/en): per le altre 9 lingue era vuoto.
+      // Ora: il bullet 4 di ogni lingua non nomina API/OAuth e non dichiara cosa Garmin trasferisce.
       for (const [lang, items] of Object.entries(post.tldr!)) {
-        expect(items[3], `tldr[3].${lang}`).not.toContain("per le attività GPS serve l'integrazione diretta con la Garmin Connect API");
-        expect(items[3], `tldr[3].${lang}`).not.toContain("for GPS activities you need direct Garmin Connect API integration");
+        expect(items[3], `tldr[3].${lang}`).toBeTruthy();
+        expect(items[3], `tldr[3].${lang}`).not.toMatch(API_TOKEN);
+        expect(items[3], `tldr[3].${lang}`).toMatch(/Health Connect/);
       }
-
-      // "In sintesi" lista bullet 4
-      const bodyStr = JSON.stringify(post.body);
-      expect(bodyStr).not.toContain("per le attività GPS serve l'integrazione diretta con la Garmin Connect API");
-      expect(bodyStr).not.toContain("for GPS activities you need direct Garmin Connect API integration");
     });
   });
 
@@ -302,6 +308,229 @@ describe("SPRINT SEO-METADATA-02: Chiusura delle promesse e dei metadati (6 vari
         const desc = tl(post.metaDescription, lang as any);
         expect(desc, `${slug}.${lang} metaDescription contains em dash`).not.toContain(emDash);
       }
+    });
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+// SEGUITO FINDING 83cb361 (S4): prove sul CONTENUTO, non solo sulle description.
+// Ogni stringa del post (TS) e ogni voce dell'overlay nordico sv/da e' visitata con la sua lingua.
+// ---------------------------------------------------------------------------------------------
+const CONTENT_LANGS = new Set(["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da", "no", "fi"]);
+type Cell = { path: string; lang: string; text: string };
+
+function collectCells(slug: string): Cell[] {
+  const out: Cell[] = [];
+  const walk = (o: unknown, path: string[], src: string): void => {
+    if (typeof o === "string") {
+      const lang = [...path].reverse().find((k) => CONTENT_LANGS.has(k));
+      if (lang) out.push({ path: `${src}:${path.join(".")}`, lang, text: o });
+      return;
+    }
+    if (Array.isArray(o)) o.forEach((x, i) => walk(x, [...path, String(i)], src));
+    else if (o && typeof o === "object") {
+      for (const [k, v] of Object.entries(o)) walk(v, [...path, k], src);
+    }
+  };
+  walk(BLOG_POSTS_BY_SLUG[slug], [], "ts");
+  walk((nordicOverlayJson as any)[slug] ?? {}, [], "overlay");
+  return out;
+}
+
+function projectLang(v: unknown, lang: string): unknown {
+  if (Array.isArray(v)) return v.map((x) => projectLang(x, lang));
+  if (v && typeof v === "object") {
+    const entries = Object.entries(v as Record<string, unknown>);
+    if (entries.length > 0 && entries.every(([k]) => CONTENT_LANGS.has(k))) {
+      const picked = (v as Record<string, unknown>)[lang];
+      return picked === undefined ? null : projectLang(picked, lang);
+    }
+    return Object.fromEntries(entries.map(([k, x]) => [k, projectLang(x, lang)]));
+  }
+  return v;
+}
+
+const sha = (slug: string, lang: string) =>
+  createHash("sha256").update(JSON.stringify(projectLang(BLOG_POSTS_BY_SLUG[slug], lang))).digest("hex");
+
+describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
+  describe("Fitbit (11 lingue TS + sv/da overlay, ogni campo)", () => {
+    const cells = collectCells("fitbit-data-not-syncing-android");
+
+    it("copertura: 11 lingue TS e sv/da overlay sono davvero visitate", () => {
+      const langs = new Set(cells.map((c) => c.lang));
+      for (const l of ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da"]) {
+        expect(langs.has(l), l).toBe(true);
+      }
+      expect(cells.filter((c) => c.path.startsWith("overlay:")).length).toBeGreaterThan(20);
+      expect(cells.filter((c) => c.path.startsWith("ts:body.0.text")).length).toBe(11);
+    });
+
+    it("nessuna percentuale ne' tempo garantito in nessun campo, in nessuna lingua", () => {
+      for (const c of cells) {
+        expect(c.text, `${c.path}`).not.toMatch(PCT_CLAIM);
+        expect(c.text, `${c.path}`).not.toMatch(TIME_PROMISE);
+      }
+    });
+
+    it("body[0], frequenza universale e conteggio personale assenti dappertutto", () => {
+      for (const c of cells) {
+        expect(c.text, `${c.path}`).not.toMatch(UNIVERSAL_FREQUENCY);
+        expect(c.text, `${c.path}`).not.toMatch(PERSONAL_COUNT);
+      }
+      for (const l of ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da"]) {
+        const intro = cells.find((c) => c.path === `ts:body.0.text.${l}` || c.path === `overlay:body.0.text.${l}`);
+        expect(intro, `body[0] ${l}`).toBeDefined();
+        expect(intro!.text, `body[0] ${l}`).toMatch(/Health Connect/);
+      }
+    });
+
+    it("TLDR[0]: istruzione sui permessi, non un claim di frequenza (13 lingue)", () => {
+      for (const l of ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da"]) {
+        const t = cells.find((c) => c.path === `ts:tldr.${l}.0` || c.path === `overlay:tldr.${l}.0`);
+        expect(t, `tldr[0] ${l}`).toBeDefined();
+        expect(t!.text, `tldr[0] ${l}`).toMatch(/Health Connect/);
+        expect(t!.text, `tldr[0] ${l}`).not.toMatch(FREQUENCY_BULLET);
+      }
+    });
+
+    it("metaDescription e hero.subtitle: nessuna promessa di ripristino (13 lingue)", () => {
+      for (const c of cells) {
+        if (/metaDescription|hero\.subtitle/.test(c.path)) {
+          expect(c.text, `${c.path}`).not.toMatch(RESTORE_PROMISE);
+        }
+      }
+    });
+  });
+
+  describe("Google Health (10 lingue non protette, ogni campo)", () => {
+    const cells = collectCells("google-health-google-fit").filter((c) => c.lang !== "en");
+
+    it("nessuna sorgente Samsung diretta di FitMesh, in nessun campo, 10 lingue", () => {
+      expect(cells.length).toBeGreaterThan(400);
+      const sdk = /Samsung Health( Data)? ?SDK|SDK de Samsung|SDK Samsung|Samsung Health-SDK|SDK from Samsung|Samsung.{0,12}SDK|SDK.{0,12}Samsung/i;
+      for (const c of cells) expect(c.text, c.path).not.toMatch(sdk);
+    });
+
+    it("schema 'percorso verificato' (flow-diagram): primo passo senza Samsung, solo Health Connect/Apple Health/Bluetooth", () => {
+      const post: any = BLOG_POSTS_BY_SLUG["google-health-google-fit"];
+      const flow = post.body.find(
+        (s: any) => s.type === "flow-diagram" && JSON.stringify(s).includes("percorso verificato"),
+      );
+      expect(flow, "flow-diagram con 'percorso verificato'").toBeDefined();
+      const verified = flow.flows.find((f: any) =>
+        Object.values(f.steps as Record<string, string[]>).some((arr) => arr.some((x) => /verific|verified|verifi|doğrulan|検証|확인/i.test(x))),
+      );
+      expect(verified, "percorso FitMesh verificato").toBeDefined();
+      for (const [lang, steps] of Object.entries(verified.steps as Record<string, string[]>)) {
+        if (lang === "en") continue;
+        const first = steps[0];
+        expect(first, `flow.${lang}[0]`).toMatch(/Health Connect/);
+        expect(first, `flow.${lang}[0]`).toMatch(/Apple Health/);
+        expect(first, `flow.${lang}[0]`).not.toMatch(/Samsung/);
+      }
+    });
+
+    it("TLDR FitMesh: nessuna menzione Samsung come sorgente (tutte le lingue non protette)", () => {
+      const post = BLOG_POSTS_BY_SLUG["google-health-google-fit"];
+      for (const [lang, items] of Object.entries(post.tldr!)) {
+        if (lang === "en") continue;
+        const fitmesh = items.filter((x) => /FitMesh/.test(x));
+        expect(fitmesh.length, `tldr.${lang} bullet FitMesh`).toBeGreaterThan(0);
+        for (const x of fitmesh) expect(x, `tldr.${lang}`).not.toMatch(/Samsung/);
+      }
+    });
+
+    it("hero.subtitle: Samsung Health non e' una sorgente elencata (10 lingue)", () => {
+      const post = BLOG_POSTS_BY_SLUG["google-health-google-fit"];
+      for (const [lang, val] of Object.entries(post.hero.subtitle)) {
+        if (lang === "en") continue;
+        expect(val, `hero.subtitle.${lang}`).not.toMatch(/Samsung/);
+      }
+    });
+  });
+
+  describe("URL CTR protette: contenuto renderizzato byte-identico a main c011056b", () => {
+    // Impronte della proiezione sulla lingua protetta dell'INTERO oggetto post (hero, seoTitle,
+    // metaDescription, tldr, body, faq, flussi, campi non localizzati), calcolate sul post di
+    // main c011056b0c2091b9282b530799fdf96972476695. Se Matteo decide (D2/D3) di cambiare una
+    // di queste pagine, l'impronta va rigenerata con quella decisione scritta nel commit.
+    const PROTECTED: Array<[string, string, string]> = [
+      ["google-health-google-fit", "en", "646a51d2ffe65910d02ac0f00cf1bad6563e331025a71655cc41828166efbcf0"],
+      ["galaxy-ring-android-health-connect", "en", "442ecef3ee722df4393fdc63f1092ad6b4d629a95ac2e0a44800dbc2c9f369cd"],
+      ["galaxy-ring-android-health-connect", "it", "11a692f8138312499c119cd32ca3a19706f2a6bb3963a1ce59a75c45e56b33e8"],
+      ["oura-ring-health-connect-android", "en", "f67531b98db56bec28741e3a71f0f3d3330877e7770441121d02bde300c2677d"],
+      ["garmin-samsung-health-sync-guide", "it", "14d2cb6bd54987e3cd3253a5b48bd19e61c816133d8ba4e26bcb694251765dae"],
+    ];
+    it.each(PROTECTED)("%s [%s] invariato rispetto a main", (slug, lang, expected) => {
+      expect(BLOG_POSTS_BY_SLUG[slug], slug).toBeDefined();
+      expect(sha(slug, lang)).toBe(expected);
+    });
+  });
+
+  describe("Garmin (11 lingue TS + sv/da overlay, ogni campo)", () => {
+    const cells = collectCells("esportare-dati-garmin");
+
+    it("copertura: overlay sv/da di TLDR, body.20, body.21, body.24 e body.15 presenti", () => {
+      const ov = (nordicOverlayJson as any)["esportare-dati-garmin"];
+      for (const key of ["tldr", "body.20.text", "body.21.text", "body.24.items", "body.15.items"]) {
+        expect(ov[key], key).toBeDefined();
+        expect(ov[key].sv, `${key}.sv`).toBeTruthy();
+        expect(ov[key].da, `${key}.da`).toBeTruthy();
+      }
+    });
+
+    it("nessuna roadmap datata di integrazione diretta (Q3 2026 / T3 2026 / 3분기), in nessuna lingua", () => {
+      const roadmap = /\bQ3\b|\bT3\b|3분기|第3四半期|3\.\s*(?:Quartal|kvartal)\w*|3[ºo°]\s*trimestre|3e\s*trimestre|3\.\s*çeyrek|üçüncü çeyrek|derde kwartaal|3\.\s*kwartał|tercer trimestre|terzo trimestre|third quarter/i;
+      for (const c of cells) expect(c.text, c.path).not.toMatch(roadmap);
+    });
+
+    it("TLDR[3] / In sintesi / body.20 / body.21 senza obbligo API ne' OAuth ne' 'Garmin non trasferisce' (13 lingue)", () => {
+      const notTransfer = /non trasferisce|does not transfer|doesn't transfer|überträgt nicht|nicht übertr|no transfiere|não transfere|ne transfère pas|nie przesyła|aktarmaz|draagt .* niet over|転送しません|전송하지 않|överför inte|overfører ikke/i;
+      const targets = /^(ts:tldr\.[a-z]{2}\.3|overlay:tldr\.(sv|da)\.3|ts:body\.20\.text\.[a-z]{2}|overlay:body\.20\.text\.(sv|da)|ts:body\.21\.text\.[a-z]{2}|overlay:body\.21\.text\.(sv|da)|ts:body\.24\.items\.[a-z]{2}\.3|overlay:body\.24\.items\.(sv|da)\.3)$/;
+      const hit = cells.filter((c) => targets.test(c.path));
+      // 4 campi x 11 lingue TS + 4 campi x 2 lingue overlay
+      expect(hit.length).toBe(4 * 11 + 4 * 2);
+      for (const c of hit) {
+        expect(c.text, c.path).not.toMatch(API_TOKEN);
+        expect(c.text, c.path).not.toMatch(notTransfer);
+      }
+    });
+
+    it("overlay sv/da allineato al TS: tldr[3] == body.24.items[3] e nessun 'officiellt stöder'", () => {
+      const ov = (nordicOverlayJson as any)["esportare-dati-garmin"];
+      for (const l of ["sv", "da"]) {
+        expect(ov["tldr"][l][3], l).toBe(ov["body.24.items"][l][3]);
+        for (const it2 of ov["body.15.items"][l] as string[]) {
+          expect(it2, `body.15.items.${l}`).not.toMatch(/officiellt stöder|officielt understøtter|Q3|kvartal/i);
+        }
+      }
+    });
+
+    it("body.20: dichiara l'assenza di fonte primaria invece di elencare metriche scritte (11 lingue)", () => {
+      const post: any = BLOG_POSTS_BY_SLUG["esportare-dati-garmin"];
+      for (const [lang, text] of Object.entries(post.body[20].text as Record<string, string>)) {
+        expect(text, `body[20].${lang}`).toMatch(/Health Connect/);
+        expect(text, `body[20].${lang}`).not.toMatch(/maggio 2026|May 2026|mayo de 2026|Mai 2026|maio de 2026|mai 2026|maj 2026|5月|2026년 5월|mayıs 2026|mei 2026/i);
+      }
+    });
+  });
+
+  describe("Overlay Garmin/Google Health/Fitbit: nessuna regressione fra TS e sv/da", () => {
+    it("ogni chiave overlay dei tre post ha sv e da non vuoti", () => {
+      for (const slug of ["esportare-dati-garmin", "fitbit-data-not-syncing-android"]) {
+        const ov = (nordicOverlayJson as any)[slug];
+        expect(ov, slug).toBeDefined();
+        for (const [key, val] of Object.entries(ov as Record<string, any>)) {
+          for (const l of ["sv", "da"]) {
+            const v = val[l];
+            expect(v, `${slug} ${key}.${l}`).toBeTruthy();
+            if (Array.isArray(v)) for (const x of v) expect(String(x).length, `${slug} ${key}.${l}`).toBeGreaterThan(0);
+          }
+        }
+      }
+      // Google Health non ha voci overlay: se qualcuno le aggiunge, la sweep sopra va estesa a sv/da.
+      expect((nordicOverlayJson as any)["google-health-google-fit"]).toBeUndefined();
     });
   });
 });
