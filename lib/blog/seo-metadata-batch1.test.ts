@@ -815,6 +815,22 @@ const GA_PRED_INTEGRATION = stemRe([
   "verbonden", "koppel", "gekoppeld", "koppling", "kopplad", "kopplar", "ansluter", "ansluten", "anslutning",
   "forbinder", "forbundet", "tilslut", "kobler", "koblet", "yhdistä", "yhdistet",
 ]);
+// Lessico aggiunto nel giro 3 (F10): «link»/«connector» come nomi di collegamento (con confini di parola: «LinkedIn» no).
+const GA_PRED_LINK =
+  /(?<![\p{L}\p{N}])(?:link(?:s|ed|ing)?|connector\p{L}*|connettor\p{L}*|conector\p{L}*|connecteur\p{L}*|konnektor\p{L}*|konektör\p{L}*)(?![\p{L}\p{N}])/iu;
+// Avallo, raccomandazione e collaborazione (F9). SOLO con Garmin come autore dell'avallo o forma di collaborazione
+// con FitMesh: «FitMesh consiglia di esportare da Garmin» NON e' un avallo di Garmin.
+const GA_ENDORSE_VERB =
+  "recommend|endors|approv|certif|sanction|raccomand|consigli|approv|certific|empfiehl|empfohl|empfehl|zertifiz|recommand|approuv|recomend|recomiend|aprob|polec|zatwierdz|önerir|tavsiye|aanbevel|aanbev|rekommender|anbefal|推奨|推薦|おすすめ|추천";
+const GA_PRED_ENDORSE = new RegExp(
+  `(?<![\\p{L}\\p{N}])Garmin(?:['’]s)?\\s+(?:\\p{L}+\\s+){0,2}(?:${GA_ENDORSE_VERB})\\p{L}*` +
+    `|(?<![\\p{L}\\p{N}])(?:${GA_ENDORSE_VERB})\\p{L}*\\s+(?:by|da|von|par|por|door|przez|av|af|tarafından)\\s+(?:la\\s+)?Garmin` +
+    `|Garmin(?:['’]s|\\s+tarafından)\\s+(?:\\p{L}+\\s+){0,2}(?:${GA_ENDORSE_VERB})\\p{L}*` +
+    `|(?<![\\p{L}\\p{N}])(?:teamed\\s+up|team(?:s|ed)?\\s+up|joined\\s+forces|partnered|partners\\s+with|collaborat\\p{L}*\\s+with|` +
+    `in\\s+collaborazione\\s+con|in\\s+collaboration\\s+with|en\\s+colaboraci[óo]n\\s+con|en\\s+collaboration\\s+avec|in\\s+Zusammenarbeit\\s+mit|` +
+    `em\\s+parceria\\s+com|w\\s+współpracy\\s+z|iş\\s+birliği)`,
+  "iu",
+);
 const GA_PRED_INTEGRATION_CONNECT_TO = /(?<![\p{L}\p{N}])connect\s+(?:to|with)\b/iu;
 const GA_PRED_INTEGRATION_CJK = /統合|連携|接続|つなが|繋が|統合|통합|연동|연결/u;
 // Supporto: SOLO forme verbali/aggettivali (il sostantivo «supporto Garmin» e' anche l'assistenza di Garmin)
@@ -861,7 +877,8 @@ const GA_PRED_API = new RegExp(
 const GA_SYNC = stemRe(["sincronizz", "sincroniz", "sync", "synchron", "synkron", "senkron", "synchroniz", "synchronis"]);
 const GA_SYNC_CJK = /同期|동기화/u;
 const GA_OFFICIAL = /(?<![\p{L}\p{N}])(?:ufficial|official|oficial|offiziell|officiel|officiell|officiël|officieel|resmi|resmen|oficjaln)\p{L}*|公式|公認|공식/iu;
-const GA_DIRECT = /(?<![\p{L}\p{N}])(?:dirett|direct|direkt|nativ|native)\p{L}*|直接|直結|ネイティブ|직접|네이티브/iu;
+const GA_DIRECT =
+  /(?<![\p{L}\p{N}])(?:dirett|direct|direkt|nativ|native|rechtstreeks|bezpośred|doğrudan|dogrudan|unmittelbar|straight)\p{L}*|(?<![\p{L}\p{N}])diret(?:a|as|o|os|amente)(?![\p{L}\p{N}])|直接|直結|ネイティブ|직접|네이티브/iu;
 // Sincronizzazione ufficiale/diretta: sync e ufficiale/diretto ADIACENTI (max 2 parole in mezzo, entrambi gli ordini)
 const GA_SYNC_OFFICIAL = new RegExp(
   `(?:${GA_SYNC.source})(?:\\s+\\p{L}+){0,2}?\\s+(?:${GA_OFFICIAL.source}|${GA_DIRECT.source})` +
@@ -870,7 +887,7 @@ const GA_SYNC_OFFICIAL = new RegExp(
   "iu",
 );
 const GA_FUTURE = new RegExp(
-  `${LB}(?:previst\\p{L}*|prévu\\p{L}*|vorgesehen|in\\s+futuro|nel\\s+futuro|a\\s+futuro|in\\s+the\\s+future|in\\s+future|dans\\s+le\\s+futur|à\\s+l'avenir|ileride|in\\s+Zukunft|zukünftig|künftig|en\\s+el\\s+futuro|en\\s+futuro|no\\s+futuro|futuramente|w\\s+przyszłości|przyszł\\p{L}*|gelecekte|gelecek|in\\s+de\\s+toekomst|toekomst|today\\s+not|stiamo\\s+lavorando|we\\s+are\\s+working|we're\\s+working|work\\s+in\\s+progress|will\\s+(?:be|soon|support|integrate|connect|work)|sarà|sara'|saranno|arriverà|verrà|coming\\s+soon|coming|upcoming|soon|roadmap|planned|planerad\\p{L}*|planlagt|geplant|planlanıyor|kommer\\s+att|kommer\\s+snart|kommer\\s+i\\s+(?:framtiden|fremtiden)|kommt\\s+bald|en\\s+préparation|bientôt|prochainement|in\\s+arrivo|prossimamente|llegará|será|próximamente|em\\s+breve|wkrótce|yakında|binnenkort|pian)${RB}|将来|今後|予定|향후|앞으로|예정`,
+  `${LB}(?:previst\\p{L}*|prévu\\p{L}*|vorgesehen|in\\s+futuro|nel\\s+futuro|a\\s+futuro|in\\s+the\\s+future|in\\s+future|dans\\s+le\\s+futur|à\\s+l'avenir|ileride|in\\s+Zukunft|zukünftig|künftig|en\\s+el\\s+futuro|en\\s+futuro|no\\s+futuro|futuramente|w\\s+przyszłości|przyszł\\p{L}*|gelecekte|gelecek|in\\s+de\\s+toekomst|toekomst|today\\s+not|stiamo\\s+lavorando|we\\s+are\\s+working|we're\\s+working|work\\s+in\\s+progress|will\\s+(?:\\p{L}+\\s+)?(?:be|soon|support|integrate|connect|work|read|import|sync\\p{L}*|offer|get|have|add|bring|include|allow|launch|release|provide)|(?:are|is|we're|we\\s+are)\\s+(?:currently\\s+)?(?:working|building|developing)|lavoriamo|lavorando|in\\s+sviluppo|in\\s+development|preparando|preparing|préparons|bereiten\\s+vor|przygotowujemy|hazırlıyoruz|voorbereiden|förbereder|forbereder|en\\s+desarrollo|en\\s+développement|in\\s+Entwicklung|em\\s+desenvolvimento|trabajando|trabalhando|travaillons|arbeiten\\s+daran|pracujemy|çalışıyoruz|werken\\s+eraan|arbetar\\s+på|arbejder\\s+på|sarà|sara'|saranno|arriverà|verrà|coming\\s+soon|coming|upcoming|soon|roadmap|planned|planerad\\p{L}*|planlagt|geplant|planlanıyor|kommer\\s+att|kommer\\s+snart|kommer\\s+i\\s+(?:framtiden|fremtiden)|kommt\\s+bald|en\\s+préparation|bientôt|prochainement|in\\s+arrivo|prossimamente|llegará|será|próximamente|em\\s+breve|wkrótce|yakında|binnenkort|pian)${RB}|将来|今後|予定|開発中|準備中|향후|앞으로|예정|작업 중|준비 중|개발 중`,
   "iu",
 );
 const GA_NEGATION_WORDS = new RegExp(
@@ -879,6 +896,29 @@ const GA_NEGATION_WORDS = new RegExp(
 );
 const GA_NEGATION_CJK = /ない|ません|ではなく|ではありません|いません|아니|않|없|못|안\s/u;
 const GA_NEGATION_TR = /(?<![\p{L}\p{N}])(?:değil\p{L}*|yok)(?![\p{L}\p{N}])/iu;
+// Morfologia negativa turca (F5): «kullanmaz», «desteklemez», «kullanmıyor», «sunmuyor», «yapmadı», «olmayacak».
+// Almeno due lettere di radice: «mayor» (es) non e' una forma turca.
+const GA_NEGATION_TR_MORPH =
+  /(?<![\p{L}\p{N}])\p{L}{2,}(?:m[ae]z(?:ler|lar)?|m[ıiuü]yor(?:uz|lar|sunuz)?|m[ae]d[ıi](?:k|m|n|nız|niz|lar|ler)?|m[ae]yacak(?:tır|lar)?|m[ae]yecek(?:tir|ler)?|m[ae]mekted[ıi]r|m[ae]maktad[ıi]r|m[ae]yan|m[ae]yen)(?![\p{L}\p{N}])/iu;
+// Negazione/indisponibilita' DOPO il predicato, nella stessa clausola (F1): «non e' disponibile», «is not available»,
+// «n'est pas disponible», «no esta disponible», «nicht verfuegbar», «not supported», «impossibile».
+const GA_AVAIL_WORD =
+  "disponibil\\p{L}*|disponible|available|previst\\p{L}*|supportat\\p{L}*|supported|possibil\\p{L}*|possible|offert\\p{L}*|offered|ofrecid\\p{L}*|prévu\\p{L}*|proposé\\p{L}*|" +
+  "disponível|disponíve\\p{L}*|suportad\\p{L}*|verfügbar|vorgesehen|möglich|unterstützt|angeboten|dostępn\\p{L}*|przewidzian\\p{L}*|mevcut|beschikbaar|" +
+  "voorzien|tillgäng\\p{L}*|tilgængelig|tilgjengelig|offerto|incluso|incluid\\p{L}*|inclus\\p{L}*|incluíd\\p{L}*|included|attiv\\p{L}*|activ\\p{L}*|active|" +
+  "abilitat\\p{L}*|enabled|live|presente|presentes|present|exist\\p{L}*|esist\\p{L}*|existe\\p{L}*|implementat\\p{L}*|implemented|implementad\\p{L}*|" +
+  "implémenté\\p{L}*|integrat\\p{L}*|integrad\\p{L}*|intégr\\p{L}*|integriert|zintegrowan\\p{L}*|entegre|geïntegreerd|geintegreerd|" +
+  "ready|pronto|pronta|listo|lista|prêt|prête|bereit|gotow\\p{L}*|hazır|klaar|redo|klar|sviluppat\\p{L}*|developed|ofrece|offre|bietet|oferece|oferuje|sunuyor|biedt";
+const GA_AFTER_NEGATION = new RegExp(
+  `(?<![\\p{L}\\p{N}])(?:non|not|no|n't|pas|nicht|kein\\p{L}*|nie|não|nao|niet|geen|inte|ikke|ej|ei|ni|nunca|mai|never|jamais|nigdy|nooit|aldrig|nie)(?![\\p{L}\\p{N}])(?:\\s+\\p{L}+['’]?\\p{L}*){0,3}?\\s+(?:${GA_AVAIL_WORD})(?![\\p{L}\\p{N}])` +
+    `|(?<![\\p{L}\\p{N}])(?:impossibil\\p{L}*|impossible|impossível|imposible|unmöglich|onmogelijk|niemożliw\\p{L}*|imkansız|omöjlig\\p{L}*|umulig|unavailable|unsupported|indisponibil\\p{L}*|indisponible|indisponível|nicht\\s*verfügbar|non\\s*disponibil\\p{L}*|non\\s*supportat\\p{L}*|` +
+    `not\\s+yet|non\\s+ancora|noch\\s+nicht|pas\\s+encore|todavía\\s+no|aún\\s+no|ainda\\s+não|jeszcze\\s+nie|henüz|nog\\s+niet|ännu\\s+inte|endnu\\s+ikke|ennå\\s+ikke|no\\s+longer|non\\s+più|plus\\s+(?:de|d')|nicht\\s+mehr|ya\\s+no|não\\s+mais|już\\s+nie|artık|niet\\s+meer|inte\\s+längre|ikke\\s+længere)(?![\\p{L}\\p{N}])` +
+    `|未対応|未サポート|非対応|ありません|できません|提供されていません|利用できません|미지원|지원되지|불가|제공되지|사용할 수 없|할 수 없`,
+  "iu",
+);
+// Predicati negativi lessicali PRIMA del predicato («Impossibile collegare Garmin», «unable to connect»).
+const GA_LEXICAL_NEGATIVE =
+  /(?<![\p{L}\p{N}])(?:impossibil\p{L}*|impossible|impossível|imposible|unmöglich|onmogelijk|niemożliw\p{L}*|imkansız|omöjlig\p{L}*|umulig|unable|incapable|incapaz|incapace|nicht\s+möglich)(?![\p{L}\p{N}])/iu;
 const GA_CJK_CHARS = /[぀-ヿ㐀-鿿가-힯]/u;
 const GA_CLAUSE_BOUND = /[,，、:：]|\s(?:ma|but|however|though|mais|aber|doch|pero|mas|ale|ancak|maar|men|sondern|però|invece|whereas|while|tuttavia)\s|が、|けど|けれど|지만/giu;
 const GA_THIRD_PARTY =
@@ -910,6 +950,7 @@ function gaPredicateMatches(s: string): GaMatch[] {
   };
   addOn(GA_PRED_INTEGRATION, "A");
   addOn(GA_PRED_INTEGRATION_CONNECT_TO, "A");
+  addOn(GA_PRED_LINK, "A");
   addOn(GA_PRED_INTEGRATION_CJK, "A");
   addOn(GA_PRED_SUPPORT, "B");
   addOn(GA_PRED_SUPPORT_CJK, "B");
@@ -921,6 +962,10 @@ function gaPredicateMatches(s: string): GaMatch[] {
   addOn(GA_PRED_WILL_SUPPORT, "B");
   addOn(GA_PRED_WORKS, "W");
   if (/FitMesh/i.test(s)) {
+    // la negazione puo' stare DENTRO la locuzione («Garmin does not endorse FitMesh», «Garmin never recommended»)
+    for (const x of t.matchAll(new RegExp(GA_PRED_ENDORSE.source, "giu"))) {
+      if (!GA_NEGATION_WORDS.test(x[0])) m.push({ idx: x.index ?? 0, kind: "P" });
+    }
     addOn(GA_PRED_STATUS_LOOSE, "S");
     addOn(GA_PRED_SUPPORT_NOUN, "B");
   }
@@ -939,12 +984,95 @@ function gaNegated(s: string, idx: number): boolean {
   }
   const clause = s.slice(start, end);
   if (GA_CJK_CHARS.test(clause) && GA_NEGATION_CJK.test(clause)) return true;
-  if (GA_NEGATION_TR.test(clause)) return true;
+  if (GA_NEGATION_TR.test(clause) || GA_NEGATION_TR_MORPH.test(clause)) return true;
+  // F1: negazione/indisponibilita' DOPO il predicato, nella stessa clausola
+  if (GA_AFTER_NEGATION.test(s.slice(idx, end))) return true;
   const before = s.slice(start, idx).split(/\s+/).filter(Boolean).slice(-7).join(" ");
-  if (GA_NEGATION_WORDS.test(before)) return true;
+  if (GA_NEGATION_WORDS.test(before) || GA_LEXICAL_NEGATIVE.test(before)) return true;
   // lingue V2 (de/sv/da/nl): «unterstützt Garmin nicht», «stöder inte», «understøtter ikke»: negazione DOPO il verbo
   const after = s.slice(idx, end).split(/\s+/).filter(Boolean).slice(1, 5).join(" ");
   return /(?<![\p{L}\p{N}])(?:nicht|inte|ikke|ej|niet)(?![\p{L}\p{N}])/iu.test(after);
+}
+
+// F4: «senza/without ... accordo/approvazione» con incapacita' = negazione onesta («Senza un accordo con Garmin,
+// FitMesh non puo' usare l'API ufficiale»). Resta promessa «integrato ufficialmente senza export manuale».
+const GA_WITHOUT_AGREEMENT = new RegExp(
+  `${LB}(?:without|senza|sin|sans|ohne|sem|bez|zonder|utan|uden|ilman)\\s+(?:\\p{L}+['’]?\\p{L}*\\s+){0,4}?(?:agreement|approval|partnership|authori[sz]ation|permission|accord\\p{L}*|acuerdo|vereinbarung|abkommen|genehmigung|zustimmung|aprova\\p{L}*|autoriz\\p{L}*|autoris\\p{L}*|approv\\p{L}*|partner\\p{L}*|umow\\p{L}*|zgod\\p{L}*|overeenkomst|avtal|aftale|godkänn\\p{L}*|godkend\\p{L}*|onay)`,
+  "iu",
+);
+const GA_INCAPACITY = new RegExp(
+  `${LB}(?:cannot|can't|can\\s?not|unable|non\\s+(?:può|puo'|possono|possiamo|riesce|riesce|è\\s+possibile|e'\\s+possibile)|no\\s+(?:puede|pueden|podemos|es\\s+posible)|ne\\s+(?:peut|peuvent|pouvons)|kann\\s+(?:\\p{L}+\\s+){0,6}?nicht|können\\s+(?:\\p{L}+\\s+){0,6}?nicht|nie\\s+(?:może|mogą|możemy)|não\\s+(?:pode|podem|podemos)|niet\\s+(?:kan|kunnen)|kan\\s+(?:inte|ikke)|yapamaz|kullanamaz|couldn't|won't)${RB}|できません|할 수 없|수 없`,
+  "iu",
+);
+// «FitMesh avrebbe bisogno dell'approvazione di Garmin ... e non ce l'ha»: bisogno + negazione in coda = negazione.
+const GA_NEED_APPROVAL = new RegExp(
+  `${LB}(?:would\\s+need|needs?|needed|requires?|required|richiede|richiederebbe|necessita|servirebbe|serve|occorre|ha\\s+bisogno|avrebbe\\s+bisogno|braucht|benötigt|necesita|nécessite|a\\s+besoin|precisa|wymaga|gerektirir|heeft\\s+nodig|behöver|kræver)${RB}(?:\\s+\\p{L}+['’]?\\p{L}*){0,5}?\\s+(?:approval|agreement|authori[sz]ation|partnership|approvazione|accordo|autorizzazione|aprobación|acuerdo|autorización|autorisation|accord|Genehmigung|Zustimmung|Vereinbarung|aprovação|zgod\\p{L}*|onay|goedkeuring|godkännande|godkendelse)`,
+  "iu",
+);
+// F8: lettura/import/sync/collegamento DIRETTO da Garmin al presente, con FitMesh (o «noi») come soggetto.
+const GA_READ_VERB = new RegExp(
+  `${LB}(?:legg\\p{L}*|import\\p{L}*|scaric\\p{L}*|recuper\\p{L}*|prelev\\p{L}*|sincroniz\\p{L}*|si\\s+sincroniz\\p{L}*|acced\\p{L}*|raccogli\\p{L}*|acquisisc\\p{L}*|` +
+    `reads?|pulls?|fetch\\p{L}*|download\\p{L}*|gets?|retriev\\p{L}*|collects?|accesses|syncs?|synchroni[sz]\\p{L}*|imports?|connects?|` +
+    `liest|lesen|importiert|holt|lädt|synchronisiert|verbindet|greift|` +
+    `lit|lisent|importe|importent|récupère|synchronise|se\\s+synchronise|se\\s+connecte|télécharge|` +
+    `lee|leen|descarga|se\\s+sincroniza|sincroniza|obtiene|se\\s+conecta|` +
+    `lê|leem|baixa|sincronizam|czyta|importuje|pobiera|synchronizuje|okur|içe\\s+aktar\\p{L}*|alır|senkronize\\s+(?:olur|eder)|` +
+    `leest|importeert|haalt|synchroniseert|läser|importerar|hämtar|synkroniserar|læser|importerer|henter|synkroniserer)${RB}` +
+    `|読み込|取得|同期|取り込|インポート|가져|불러|동기화|읽`,
+  "iu",
+);
+const GA_HC_RE = /Health[ -]Connect|\bHC\b/i;
+const GA_REALTIME =
+  /in\s+tempo\s+reale|real[- ]?time|en\s+tiempo\s+real|en\s+temps\s+réel|in\s+Echtzeit|em\s+tempo\s+real|w\s+czasie\s+rzeczywistym|gerçek\s+zamanlı|realtid|realtime|リアルタイム|실시간/iu;
+// «senza/without ... Health Connect»: la lettura SALTA la mediazione, quindi e' diretta
+const GA_HC_BYPASS = new RegExp(
+  `(?:without|senza|sin|sans|ohne|sem|bez|zonder|utan|uden)\\s+(?:(?:going|passing|passare|pasar|passer|gehen)\\s+(?:through|per|da|por|par|über)\\s+|(?:using|usare|usar|utiliser|nutzen|bisogno\\s+di|need\\s+for|the\\s+need\\s+for)\\s+|(?:il\\s+|the\\s+|den\\s+|el\\s+|le\\s+)?(?:passaggio\\s+(?:da|per)\\s+|Umweg\\s+über\\s+)?)?Health[ -]Connect|Health[ -]Connect\\s*(?:olmadan|なし|없이)|Health[ -]Connect\\s*を(?:介さ|経由せ)`,
+  "iu",
+);
+const GA_SUBJECT_DET = new Set([
+  "il", "lo", "la", "le", "i", "gli", "l", "un", "una", "uno", "questa", "questo", "quest", "quella", "quel", "the", "this", "that",
+  "our", "an", "a", "it", "its", "der", "die", "das", "dieser", "diese", "dieses", "ein", "eine", "unsere", "unser", "el", "los",
+  "las", "este", "esta", "nuestra", "nuestro", "les", "ce", "cette", "notre", "nos", "o", "os", "as", "nossa", "nosso", "ta",
+  "ten", "te", "nasza", "nasz", "bu", "bizim", "de", "het", "deze", "dit", "onze", "den", "det", "vår", "vårt", "vores",
+  "noi", "we", "wir", "nous", "nosotros", "nós", "biz", "wij", "vi", "si", "se", "s", "ci", "sich", "es", "also", "now", "already",
+]);
+function gaClauseBounds(s: string, idx: number): { start: number; end: number } {
+  let start = 0;
+  let end = s.length;
+  for (const b of s.matchAll(GA_CLAUSE_BOUND)) {
+    const bi = b[0].length > 0 ? (b.index ?? 0) : 0;
+    if (bi + b[0].length <= idx) start = Math.max(start, bi + b[0].length);
+    else if (bi > idx) end = Math.min(end, bi);
+  }
+  return { start, end };
+}
+// F7: il soggetto davanti al predicato e' un nome proprio sconosciuto («Runna integra...», «Stryd si integra...»): terza
+// parte. Prima parola maiuscola, non determinante/pronome di prodotto, non FitMesh/Garmin; le altre minuscole/non latine.
+function gaUnknownSubject(s: string, idx: number): boolean {
+  const { start } = gaClauseBounds(s, idx);
+  const toks = s.slice(start, idx).split(/\s+/).filter(Boolean);
+  if (toks.length === 0 || toks.length > 4) return false;
+  const first = toks[0].replace(/^[«"“(]+/, "");
+  if (!/^\p{Lu}/u.test(first)) return false;
+  if (GA_SUBJECT_DET.has(first.toLowerCase().replace(/['’].*$/, ""))) return false;
+  if (/^(?:FitMesh|Garmin)/i.test(first)) return false;
+  return toks.slice(1).every((w) => /^\p{Ll}/u.test(w) || !/\p{Script=Latin}/u.test(w));
+}
+function gaDirectRead(s: string): boolean {
+  if (!/FitMesh/i.test(s) && !GA_FIRST_PERSON.test(s)) return false;
+  const g = new RegExp(GA_READ_VERB.source, "giu");
+  for (const m of s.matchAll(g)) {
+    const idx = m.index ?? 0;
+    const { start, end } = gaClauseBounds(s, idx);
+    const clause = s.slice(start, end);
+    if (!/Garmin/i.test(clause)) continue;
+    const bypass = GA_HC_BYPASS.test(clause);
+    if (GA_HC_RE.test(clause) && !bypass) continue; // «da/via Health Connect»: mediata
+    if (!(GA_DIRECT.test(clause) || GA_REALTIME.test(clause) || bypass)) continue;
+    if (gaNegated(s, idx)) continue;
+    return true;
+  }
+  return false;
 }
 
 // Motivi (vuoto = nessuna promessa) per UNA cella: segmenta in frasi e valuta ciascuna nel suo contesto.
@@ -956,21 +1084,28 @@ function garminPromiseProblems(text: string): string[] {
     const raw = sents[si];
     if (isQuestion(raw)) continue; // domanda: non afferma
     const s = raw;
+    // F4: condizione negativa («senza accordo») + incapacita', o bisogno di approvazione + negazione in coda
+    if (GA_WITHOUT_AGREEMENT.test(s) && GA_INCAPACITY.test(s)) continue;
+    const needM = GA_NEED_APPROVAL.exec(s);
+    if (needM && GA_NEGATION_WORDS.test(s.slice(needM.index + needM[0].length))) continue;
+    // F8: FitMesh legge/importa/sincronizza DIRETTAMENTE da Garmin (al presente, frase positiva)
+    if (gaDirectRead(s)) {
+      out.push(`integrazione/ufficialita'/supporto diretto: ${raw.slice(0, 80)}`);
+      continue;
+    }
     const hasOfficialOrDirect = GA_OFFICIAL.test(s) || GA_DIRECT.test(s);
     const preds = gaPredicateMatches(s).filter(
       (p) => !gaNegated(s, p.idx) && !(p.kind === "W" && !hasOfficialOrDirect), // «funziona con Garmin» e' vago
     );
     // previsione su FitMesh + Garmin anche senza un verbo di integrazione («In futuro FitMesh leggera' Garmin
     // direttamente»), purche' la frase non sia negata e non parli di un terzo
-    if (
-      preds.length === 0 &&
-      GA_FUTURE.test(s) &&
-      /FitMesh/i.test(s) &&
-      /Garmin/i.test(s) &&
-      (GA_OFFICIAL.test(s) || GA_DIRECT.test(s)) &&
-      !GA_NEGATION_WORDS.test(s) &&
-      !GA_NEGATION_CJK.test(s)
-    ) {
+    // Per CLAUSOLA: «FitMesh non offre Garmin diretto, ma lo stiamo preparando» e' negata solo nella prima clausola.
+    const futureClause = (): boolean => {
+      if (!/FitMesh/i.test(s) || !/Garmin/i.test(s)) return false;
+      const cl = s.split(GA_CLAUSE_BOUND).filter((c) => c && c.trim().length > 0);
+      return cl.some((c) => GA_FUTURE.test(c) && !GA_NEGATION_WORDS.test(c) && !GA_NEGATION_CJK.test(c) && !GA_NEGATION_TR.test(c));
+    };
+    if (preds.length === 0 && futureClause()) {
       out.push(`integrazione prevista/futura: ${raw.slice(0, 80)}`);
       continue;
     }
@@ -990,7 +1125,7 @@ function garminPromiseProblems(text: string): string[] {
     const carriesOver = (official || kinds.has("P") || kinds.has("S")) && /Garmin|FitMesh/i.test(prev) && !GA_THIRD_PARTY.test(prev);
     if (!hasGarmin && !(strong && carriesOver)) continue;
     const mine = GA_FIRST_PERSON.test(s);
-    const third = GA_THIRD_PARTY.test(s);
+    const third = GA_THIRD_PARTY.test(s) || (!mine && gaUnknownSubject(s, preds[0].idx));
     if (!mine) {
       if (third) continue; // «Strava ha un'integrazione ufficiale con Garmin»: predicato di un terzo
       if (hasGarmin && garminIdx < preds[0].idx) continue; // Garmin e' il soggetto: «Garmin Connect si integra con...»
