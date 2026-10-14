@@ -135,7 +135,7 @@ const IT: WorkoutsCopy = {
     subtitle:
       'Durata totale e numero di allenamenti per giorno, calcolati solo sugli allenamenti ricevuti. Un giorno senza allenamenti ricevuti non è uno zero: non sappiamo se ce ne sono stati.',
     summary: (c) =>
-      `Durata degli allenamenti negli ultimi 7 giorni: ${c.measured} giorni con durata completa${c.zero > 0 ? `, di cui ${c.zero} con zero misurato` : ''}, ${c.partial} parziali, ${c.absent} senza dato.`,
+      `Durata degli allenamenti negli ultimi 7 giorni: ${c.measured === 1 ? '1 giorno' : `${c.measured} giorni`} con durata completa${c.zero > 0 ? `, di cui ${c.zero} con zero misurato` : ''}, ${c.partial === 1 ? '1 parziale' : `${c.partial} parziali`}, ${c.absent} senza dato.`,
     total: 'Totale dei giorni con durata completa',
     totalOver: (n) => (n === 1 ? 'su 1 giorno' : `su ${n} giorni`),
     totalNone: 'Nessun giorno con durata completa',
@@ -198,7 +198,7 @@ const EN: WorkoutsCopy = {
     subtitle:
       'Total duration and number of workouts per day, calculated only on the workouts received. A day with no workouts received is not a zero: we do not know whether there were any.',
     summary: (c) =>
-      `Workout duration over the last 7 days: ${c.measured} days with complete duration${c.zero > 0 ? `, ${c.zero} of them a measured zero` : ''}, ${c.partial} partial, ${c.absent} with no data.`,
+      `Workout duration over the last 7 days: ${c.measured === 1 ? '1 day' : `${c.measured} days`} with complete duration${c.zero > 0 ? `, ${c.zero} of them a measured zero` : ''}, ${c.partial} partial, ${c.absent} with no data.`,
     total: 'Total of the days with complete duration',
     totalOver: (n) => (n === 1 ? 'over 1 day' : `over ${n} days`),
     totalNone: 'No day with complete duration',
