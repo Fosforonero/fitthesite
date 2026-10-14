@@ -5,6 +5,9 @@ import { InteractiveChart } from './InteractiveChart';
 import { normalizeChartPoints } from './normalize-points';
 import { CHART } from '../primitives';
 
+// Accordo singolare/plurale del conteggio: 1 resta singolare, 0 e N plurale.
+const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+
 function formatMinutesToHm(totalMin: number, locale: string): string {
   const rounded = Math.round(totalMin);
   const h = Math.floor(rounded / 60);
@@ -31,8 +34,8 @@ export function SleepDurationChart({
   const unit = isIt ? 'ore/minuti' : 'hours/minutes';
   const defaultTitle = isIt ? 'Durata del sonno' : 'Sleep duration';
   const defaultSubtitle = isIt
-    ? `Andamento notturno a barre (${period} notti)`
-    : `Nightly sleep duration bars (${period} nights)`;
+    ? `Andamento notturno a barre (${plural(period, 'notte', 'notti')})`
+    : `Nightly sleep duration bars (${plural(period, 'night', 'nights')})`;
 
   const validPoints = points.filter((p) => p.value !== null && p.state !== 'absent' && p.state !== 'error');
   const validCount = validPoints.length;
@@ -49,22 +52,22 @@ export function SleepDurationChart({
   const inclEn = partialCount > 0 ? `, including ${partialCount} ${partialCount === 1 ? 'partial night' : 'partial nights'}` : '';
 
   const summaryText = validCount === 0
-    ? (isIt ? `Nessun dato registrato nel periodo di ${period} notti.` : `No data recorded in the ${period}-night period.`)
+    ? (isIt ? `Nessun dato registrato nel periodo di ${plural(period, 'notte', 'notti')}.` : `No data recorded in the ${period}-night period.`)
     : isIt
-      ? `Grafico a barre della durata del sonno per ${period} notti. ` +
-        `${validCount} notti con dato registrato su ${points.length}, ` +
+      ? `Grafico a barre della durata del sonno per ${plural(period, 'notte', 'notti')}. ` +
+        `${plural(validCount, 'notte', 'notti')} con dato registrato su ${points.length}, ` +
         `media di ${formatMinutesToHm(avgMin, 'it')} per notte${inclIt}. ` +
-        `${zeroCount > 0 ? `${zeroCount} notti con zero misurato. ` : ''}` +
-        `${partialCount > 0 ? `${partialCount} notti con dati parziali. ` : ''}` +
-        `${absentCount > 0 ? `${absentCount} notti senza dati. ` : ''}` +
-        `${errorCount > 0 ? `${errorCount} notti con errore.` : ''}`
-      : `Sleep duration bar chart for ${period} nights. ` +
-        `${validCount} nights with recorded data out of ${points.length}, ` +
+        `${zeroCount > 0 ? `${plural(zeroCount, 'notte', 'notti')} con zero misurato. ` : ''}` +
+        `${partialCount > 0 ? `${plural(partialCount, 'notte', 'notti')} con dati parziali. ` : ''}` +
+        `${absentCount > 0 ? `${plural(absentCount, 'notte', 'notti')} senza dati. ` : ''}` +
+        `${errorCount > 0 ? `${plural(errorCount, 'notte', 'notti')} con errore.` : ''}`
+      : `Sleep duration bar chart for ${plural(period, 'night', 'nights')}. ` +
+        `${plural(validCount, 'night', 'nights')} with recorded data out of ${points.length}, ` +
         `average of ${formatMinutesToHm(avgMin, 'en')} per night${inclEn}. ` +
-        `${zeroCount > 0 ? `${zeroCount} nights with measured zero. ` : ''}` +
-        `${partialCount > 0 ? `${partialCount} nights with partial data. ` : ''}` +
-        `${absentCount > 0 ? `${absentCount} nights with no data. ` : ''}` +
-        `${errorCount > 0 ? `${errorCount} nights with error.` : ''}`;
+        `${zeroCount > 0 ? `${plural(zeroCount, 'night', 'nights')} with measured zero. ` : ''}` +
+        `${partialCount > 0 ? `${plural(partialCount, 'night', 'nights')} with partial data. ` : ''}` +
+        `${absentCount > 0 ? `${plural(absentCount, 'night', 'nights')} with no data. ` : ''}` +
+        `${errorCount > 0 ? `${plural(errorCount, 'night', 'nights')} with error.` : ''}`;
 
   // Y axis ticks in hours: 2h (120), 4h (240), 6h (360), 8h (480), 10h (600)
   const rawMax = Math.max(660, goalMinutes !== undefined && Number.isFinite(goalMinutes) ? goalMinutes : 0, ...validPoints.map((p) => p.value as number));

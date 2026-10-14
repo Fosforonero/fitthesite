@@ -21,6 +21,7 @@ import { TrendsScreen } from './screens/TrendsScreen';
 import { WorkoutsScreen } from './screens/WorkoutsScreen';
 import type { Workout } from '@/lib/web-dashboard/model';
 import { screenProps } from './screens/test-utils';
+import type { ChartDataPoint } from './charts/types';
 import { toChartPoints } from '@/lib/web-dashboard/charts/measure-adapter';
 import { sharedCopy } from '@/lib/web-dashboard/copy';
 
@@ -189,5 +190,82 @@ describe.each(['it', 'en'] as const)('riepilogo allenamenti, totale per quota di
     const { container } = render1({ kind: 'partial', value: [mk({ id: 'a' })], coverage: 0.6, note: 'incomplete_coverage' });
     const dur = container.querySelector('[data-metric="duration"]') as HTMLElement;
     expect(dur.textContent).toContain('60%');
+  });
+});
+
+/**
+ * Accordi singolare/plurale (C2-1, C2-2): asserzioni ESATTE sul testo reso dei tre grafici,
+ * con n = 1 e n = 2, IT ed EN. 0 resta plurale (non coperto da un conteggio: la clausola sparisce).
+ */
+describe.each(['it', 'en'] as const)('accordi dei riepiloghi dei grafici, n = 1 e n = 2 %s', (lc) => {
+  const isIt = lc === 'it';
+  const pt = (state: 'measured' | 'measured-zero' | 'partial' | 'absent' | 'error', i: number): ChartDataPoint => {
+    const date = dayOf(i);
+    switch (state) {
+      case 'measured': return { date, value: 100 + i, state };
+      case 'measured-zero': return { date, value: 0, state };
+      case 'partial': return { date, value: 50, state, coverage: 0.3, partialNote: 'x' };
+      case 'absent': return { date, value: null, state, absentReason: 'x' };
+      default: return { date, value: null, state: 'error', absentReason: 'x' };
+    }
+  };
+  const build = (spec: Array<[ChartDataPoint['state'], number]>): ChartDataPoint[] => {
+    const out: ChartDataPoint[] = [];
+    for (const [st, n] of spec) for (let k = 0; k < n; k++) out.push(pt(st as never, out.length));
+    return out;
+  };
+  const summaries = (pts: ChartDataPoint[], period: number) => {
+    const { container } = render(
+      <div>
+        <DailyStepsChart id="s" title="t" points={pts} period={period} locale={lc} />
+        <HeartRateTrendChart id="h" title="t" points={pts} period={period} locale={lc} />
+        <SleepDurationChart id="z" title="t" points={pts} period={period} locale={lc} />
+      </div>,
+    );
+    const g = (id: string) => container.querySelector(`#${id}-summary`)?.textContent ?? '';
+    return { s: g('s'), h: g('h'), z: g('z') };
+  };
+  const day = (n: number) => (isIt ? (n === 1 ? '1 giorno' : `${n} giorni`) : n === 1 ? '1 day' : `${n} days`);
+  const night = (n: number) => (isIt ? (n === 1 ? '1 notte' : `${n} notti`) : n === 1 ? '1 night' : `${n} nights`);
+  const BAD = /\b1 (giorni|notti|days|nights)\b/;
+
+  it.each([1, 2])('n = %i: zero misurato, parziali, senza dati, errore', (n) => {
+    const { s, h, z } = summaries(build([['measured', 3], ['measured-zero', n], ['partial', n], ['absent', n], ['error', n]]), 7);
+    const stepsHr = isIt
+      ? [`${day(n)} con zero misurato. `, `${day(n)} con dati parziali. `, `${day(n)} senza dati. `, `${day(n)} con errore.`]
+      : [`${day(n)} with measured zero. `, `${day(n)} with partial data. `, `${day(n)} with no data. `, `${day(n)} with error.`];
+    const sleep = isIt
+      ? [`${night(n)} con zero misurato. `, `${night(n)} con dati parziali. `, `${night(n)} senza dati. `, `${night(n)} con errore.`]
+      : [`${night(n)} with measured zero. `, `${night(n)} with partial data. `, `${night(n)} with no data. `, `${night(n)} with error.`];
+    for (const f of stepsHr) { expect(s, 's').toContain(f); expect(h, 'h').toContain(f); }
+    for (const f of sleep) expect(z, 'z').toContain(f);
+    for (const t of [s, h, z]) expect(t).not.toMatch(BAD);
+  });
+
+  it.each([1, 2])('n = %i: giorni/notti con dato registrato', (n) => {
+    const { s, h, z } = summaries(build([['measured', n], ['absent', 1]]), 7);
+    const M = n + 1;
+    expect(s).toContain(isIt ? `${day(n)} con misurazione registrata su ${M}, ` : `${day(n)} with recorded readings out of ${M}, `);
+    expect(h).toContain(isIt ? `${day(n)} con misurazione registrata su ${M}, ` : `${day(n)} with recorded readings out of ${M}, `);
+    expect(z).toContain(isIt ? `${night(n)} con dato registrato su ${M}, ` : `${night(n)} with recorded data out of ${M}, `);
+    for (const t of [s, h, z]) expect(t).not.toMatch(BAD);
+  });
+
+  it.each([1, 2])('n = %i: parziali inclusi (steps, cuore, sonno)', (n) => {
+    const { s, h, z } = summaries(build([['measured', 3], ['partial', n]]), 7);
+    const incl = (noun: string, incluso: string) => (isIt ? `, ${incluso} ${noun}` : `, including ${noun}`);
+    const inclDay = incl(isIt ? (n === 1 ? '1 giorno parziale' : `${n} giorni parziali`) : n === 1 ? '1 partial day' : `${n} partial days`, n === 1 ? 'incluso' : 'inclusi');
+    const inclNight = incl(isIt ? (n === 1 ? '1 notte parziale' : `${n} notti parziali`) : n === 1 ? '1 partial night' : `${n} partial nights`, n === 1 ? 'inclusa' : 'incluse');
+    expect(s).toContain(inclDay + '. ');
+    expect(h).toContain(inclDay + '. ');
+    expect(z).toContain(inclNight + '. ');
+  });
+
+  it('periodo di 1: «per 1 giorno»/«for 1 day», «1 notte»/«1 night»', () => {
+    const { s, h, z } = summaries(build([['measured', 1]]), 1);
+    expect(s).toContain(isIt ? 'per 1 giorno. ' : 'for 1 day. ');
+    expect(h).toContain(isIt ? 'per 1 giorno. ' : 'for 1 day. ');
+    expect(z).toContain(isIt ? 'per 1 notte. ' : 'for 1 night. ');
+    for (const t of [s, h, z]) expect(t).not.toMatch(BAD);
   });
 });

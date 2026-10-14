@@ -5,6 +5,9 @@ import { InteractiveChart } from './InteractiveChart';
 import { normalizeChartPoints } from './normalize-points';
 import { CHART } from '../primitives';
 
+// Accordo singolare/plurale del conteggio: 1 resta singolare, 0 e N plurale.
+const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
+
 export function DailyStepsChart({
   id = 'daily-steps-chart',
   title = 'Passi giornalieri',
@@ -22,8 +25,8 @@ export function DailyStepsChart({
   const unit = isIt ? 'passi' : 'steps';
   const defaultTitle = isIt ? 'Passi giornalieri' : 'Daily steps';
   const defaultSubtitle = isIt
-    ? `Andamento a barre (${period} giorni)`
-    : `Daily bar chart (${period} days)`;
+    ? `Andamento a barre (${plural(period, 'giorno', 'giorni')})`
+    : `Daily bar chart (${plural(period, 'day', 'days')})`;
 
   const formatSteps = (val: number, loc: string) =>
     new Intl.NumberFormat(loc === 'it' ? 'it-IT' : 'en-US', {
@@ -45,22 +48,22 @@ export function DailyStepsChart({
   const inclEn = partialCount > 0 ? `, including ${partialCount} ${partialCount === 1 ? 'partial day' : 'partial days'}` : '';
 
   const summaryText = validCount === 0
-    ? (isIt ? `Nessun dato registrato nel periodo di ${period} giorni.` : `No data recorded in the ${period}-day period.`)
+    ? (isIt ? `Nessun dato registrato nel periodo di ${plural(period, 'giorno', 'giorni')}.` : `No data recorded in the ${period}-day period.`)
     : isIt
-      ? `Grafico a barre dei passi giornalieri per ${period} giorni. ` +
-        `${validCount} giorni con misurazione registrata su ${points.length}, ` +
+      ? `Grafico a barre dei passi giornalieri per ${plural(period, 'giorno', 'giorni')}. ` +
+        `${plural(validCount, 'giorno', 'giorni')} con misurazione registrata su ${points.length}, ` +
         `media di ${formatSteps(avgSteps, 'it')} passi al giorno${inclIt}. ` +
-        `${zeroCount > 0 ? `${zeroCount} giorni con zero misurato. ` : ''}` +
-        `${partialCount > 0 ? `${partialCount} giorni con dati parziali. ` : ''}` +
-        `${absentCount > 0 ? `${absentCount} giorni senza dati. ` : ''}` +
-        `${errorCount > 0 ? `${errorCount} giorni con errore.` : ''}`
-      : `Daily steps bar chart for ${period} days. ` +
-        `${validCount} days with recorded readings out of ${points.length}, ` +
+        `${zeroCount > 0 ? `${plural(zeroCount, 'giorno', 'giorni')} con zero misurato. ` : ''}` +
+        `${partialCount > 0 ? `${plural(partialCount, 'giorno', 'giorni')} con dati parziali. ` : ''}` +
+        `${absentCount > 0 ? `${plural(absentCount, 'giorno', 'giorni')} senza dati. ` : ''}` +
+        `${errorCount > 0 ? `${plural(errorCount, 'giorno', 'giorni')} con errore.` : ''}`
+      : `Daily steps bar chart for ${plural(period, 'day', 'days')}. ` +
+        `${plural(validCount, 'day', 'days')} with recorded readings out of ${points.length}, ` +
         `average of ${formatSteps(avgSteps, 'en')} steps per day${inclEn}. ` +
-        `${zeroCount > 0 ? `${zeroCount} days with measured zero. ` : ''}` +
-        `${partialCount > 0 ? `${partialCount} days with partial data. ` : ''}` +
-        `${absentCount > 0 ? `${absentCount} days with no data. ` : ''}` +
-        `${errorCount > 0 ? `${errorCount} days with error.` : ''}`;
+        `${zeroCount > 0 ? `${plural(zeroCount, 'day', 'days')} with measured zero. ` : ''}` +
+        `${partialCount > 0 ? `${plural(partialCount, 'day', 'days')} with partial data. ` : ''}` +
+        `${absentCount > 0 ? `${plural(absentCount, 'day', 'days')} with no data. ` : ''}` +
+        `${errorCount > 0 ? `${plural(errorCount, 'day', 'days')} with error.` : ''}`;
 
   return (
     <div id={id} data-chart-wrapper="steps" className={className}>
