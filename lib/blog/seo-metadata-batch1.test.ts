@@ -619,3 +619,130 @@ describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
     });
   });
 });
+
+// ---------------------------------------------------------------------------------------------
+// SEGUITO S2 (CS2-1): guardia di frequenza Fitbit.
+// «Spesso/Often/Souvent il problema sono i permessi» in una FAQ passava, perche' FREQUENCY_BULLET non
+// conteneva gli avverbi di frequenza. Qui la forma di frequenza e' estesa a 15 lingue, su OGNI cella.
+// Principio: si riconosce la frequenza di OCCORRENZA, non la quantita' di persone/guide (controlli positivi).
+// Nessun contenuto e' modificato da questo blocco.
+// ---------------------------------------------------------------------------------------------
+
+// Frequenza di OCCORRENZA («spesso», «often», ...). Non le quantita' di persone/guide («大部分の人», «대부분의 사람들»,
+// «la maggior parte delle guide»), che non dicono quanto spesso accade il problema.
+const FREQ_LATIN_WORDS = [
+  // it
+  "spesso", "sovente", "di frequente", "frequentemente", "di solito", "solitamente", "generalmente", "in genere",
+  "di norma", "normalmente", "per lo più", "perlopiù", "nella maggior parte dei casi", "la maggior parte delle volte",
+  "molte volte", "tante volte", "di consueto", "abitualmente", "comunemente", "tipicamente", "di regola",
+  // en
+  "often", "oftentimes", "frequently", "commonly", "usually", "typically", "generally", "normally", "most of the time",
+  "in most cases", "more often than not", "tends? to", "tend to", "as a rule", "habitually",
+  // es
+  "a menudo", "con frecuencia", "frecuentemente", "por lo general", "habitualmente", "muchas veces",
+  "la mayoría de las veces", "en la mayoría de los casos", "suele", "suelen", "típicamente", "comúnmente", "usualmente",
+  // fr
+  "souvent", "fréquemment", "en général", "habituellement", "d'habitude", "la plupart du temps",
+  "dans la plupart des cas", "couramment", "typiquement", "d'ordinaire", "le plus souvent",
+  // de
+  "oft", "öfter", "oftmals", "meist", "meistens", "in den meisten Fällen", "normalerweise", "in der Regel",
+  "üblicherweise", "gewöhnlich", "typischerweise", "generell", "im Regelfall",
+  // pt
+  "muitas vezes", "geralmente", "com frequência", "na maioria das vezes", "na maioria dos casos", "costuma",
+  "costumam", "usualmente", "comumente",
+  // pl
+  "zwykle", "zazwyczaj", "na ogół", "przeważnie", "zwyczajowo", "bywa", "w większości przypadków", "nierzadko", "typowo",
+  // tr
+  "sık sık", "sıklıkla", "sıkça", "sık", "genellikle", "genelde", "çoğunlukla", "çoğu zaman", "çoğu durumda",
+  "normalde", "tipik olarak", "çoğu kez",
+  // nl
+  "meestal", "doorgaans", "gewoonlijk", "veelal", "dikwijls", "in de meeste gevallen", "normaal gesproken",
+  "meestentijds", "vaker", "in de regel",
+  // sv / da / no / fi
+  "ofta", "oftast", "vanligtvis", "generellt", "normalt", "brukar", "för det mesta", "i de flesta fall", "typiskt",
+  "som regel", "ofte", "oftest", "plejer", "for det meste", "i de fleste tilfælde", "typisk", "sædvanligvis",
+  "pleier", "vanligvis", "i de fleste tilfeller", "usein", "yleensä", "tavallisesti", "useimmiten", "monesti",
+];
+const FREQ_CJK_WORDS = [
+  "よく", "頻繁", "しばしば", "たいてい", "大抵", "多くの場合", "ほとんどの場合", "通常は", "一般的に", "普通は",
+  "ことが多", "がちです", "자주", "종종", "흔히", "보통", "대개", "주로", "대부분의 경우", "일반적으로", "빈번",
+  "경우가 많", "때가 많",
+];
+const FREQUENCY_OCCURRENCE = new RegExp(
+  `(?<![\\p{L}\\p{N}])(?:${FREQ_LATIN_WORDS.map((w) => w.replace(/ /g, "\\s+")).join("|")})(?![\\p{L}\\p{N}])|${FREQ_CJK_WORDS.join("|")}`,
+  "iu",
+);
+// Etichette di sezione (titolo H2 «insidie comuni»), non stime di frequenza. Ammesse SOLO con il testo esatto,
+// per cella. Sono le 6 gia' ammesse dal test «frequenza» piu' le due che il marcatore esteso fa emergere (tr, ko).
+const SECTION_LABELS_EXTENDED: Record<string, string> = {
+  "ts:body.6.text.ja": "よくある落とし穴",
+  "ts:body.6.text.tr": "Sık yapılan hatalar",
+  "ts:body.6.text.ko": "사람들이 자주 걸리는 함정",
+};
+
+
+describe("SEGUITO S2: guardia di frequenza (Fitbit), CS2-1", () => {
+  describe("Fitbit: frequenza di occorrenza in OGNI cella (11 lingue TS + sv/da overlay)", () => {
+    const cells = collectCells("fitbit-data-not-syncing-android");
+
+    it("riconoscimento per lingua: la forma «spesso/often/souvent/...» e' rossa in tutte le 13 lingue (e no/fi)", () => {
+      // Se la regex perde una lingua, questo test e' rosso prima che lo diventi un mutante.
+      const flagged: Record<string, string> = {
+        it: "Spesso il problema sono i permessi.",
+        en: "This often happens because of permissions.",
+        es: "A menudo el problema son los permisos.",
+        de: "Meistens liegt es an den Berechtigungen.",
+        pt: "Muitas vezes o problema são as permissões.",
+        fr: "Le problème vient souvent des autorisations.",
+        pl: "Zazwyczaj problemem są uprawnienia.",
+        tr: "Genellikle sorun izinlerden kaynaklanır.",
+        nl: "Meestal zijn het de machtigingen.",
+        ja: "多くの場合は権限が原因です。",
+        ko: "문제는 보통 권한입니다.",
+        sv: "Oftast är det behörigheterna.",
+        da: "Det er som regel tilladelserne.",
+        no: "Det er ofte tillatelsene.",
+        fi: "Usein ongelma ovat oikeudet.",
+      };
+      for (const [l, t] of Object.entries(flagged)) expect(norm(t), l).toMatch(FREQUENCY_OCCURRENCE);
+    });
+
+    it("nessuna cella afferma quanto spesso accade il problema (hero, tldr, body, faq, metadati, overlay)", () => {
+      const allowed = new Set<string>();
+      for (const c of cells) {
+        if (SECTION_LABELS_EXTENDED[c.path] === c.text) {
+          allowed.add(c.path);
+          continue;
+        }
+        expect(c.text, c.path).not.toMatch(FREQUENCY_OCCURRENCE);
+      }
+      // etichette di sezione davvero presenti con quel testo esatto (nessuna esenzione fantasma)
+      expect([...allowed].sort()).toEqual(Object.keys(SECTION_LABELS_EXTENDED).sort());
+    });
+
+    it("controlli positivi: frasi legittime che il marcatore NON deve fermare (non si vieta la parola in blocco)", () => {
+      // (a) gia' nel contenuto: quantita' di persone/guide, non frequenza dell'evento (ko body.3 e body.8, = main)
+      const ko3 = cells.find((c) => c.path === "ts:body.3.text.ko");
+      const ko8 = cells.find((c) => c.path === "ts:body.8.body.ko");
+      expect(ko3?.text).toMatch(/대부분의 사람들/);
+      expect(ko8?.text).toMatch(/대부분의 문제 해결 가이드/);
+      expect(ko3!.text).not.toMatch(FREQUENCY_OCCURRENCE);
+      expect(ko8!.text).not.toMatch(FREQUENCY_OCCURRENCE);
+      // (b) il «多く» di body.7/8 ja e' un quantificatore («多くのデバイス»): non e' frequenza
+      expect(norm("多くのデバイスは、Health Connectの権限を個別に管理します。")).not.toMatch(FREQUENCY_OCCURRENCE);
+      // (c) causa e rimedio senza stima di frequenza: stessa materia (permessi, problema), nessun avverbio
+      for (const t of [
+        "Il problema sono i permessi: controllali prima di reinstallare l'app.",
+        "Check the Health Connect permissions first; if the problem persists, restart the phone.",
+        "Ogni volta che installi un'app nuova, apri Health Connect e verifica i permessi.",
+        "Si le problème persiste après la vérification des autorisations, redémarrez le téléphone.",
+      ]) {
+        expect(norm(t), t).not.toMatch(FREQUENCY_OCCURRENCE);
+      }
+      // (d) parole che CONTENGONO un marcatore ma non lo sono: confini di parola
+      for (const t of ["Software update", "Soft permissions", "oftware", "Das ist die Sprache.", "sıkıştırma ayarı"]) {
+        expect(norm(t), t).not.toMatch(FREQUENCY_OCCURRENCE);
+      }
+    });
+  });
+});
