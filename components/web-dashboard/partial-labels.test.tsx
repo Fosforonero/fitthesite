@@ -21,7 +21,7 @@ import { TrendsScreen } from './screens/TrendsScreen';
 import { WorkoutsScreen } from './screens/WorkoutsScreen';
 import type { Workout } from '@/lib/web-dashboard/model';
 import { screenProps } from './screens/test-utils';
-import type { ChartDataPoint } from './charts/types';
+import type { ChartDataPoint, ChartPeriod } from './charts/types';
 import { toChartPoints } from '@/lib/web-dashboard/charts/measure-adapter';
 import { sharedCopy } from '@/lib/web-dashboard/copy';
 import { trendsCopy } from './screens/TrendsScreen.copy';
@@ -215,7 +215,9 @@ describe.each(['it', 'en'] as const)('accordi dei riepiloghi dei grafici, n = 1 
     for (const [st, n] of spec) for (let k = 0; k < n; k++) out.push(pt(st as never, out.length));
     return out;
   };
-  const summaries = (pts: ChartDataPoint[], period: number) => {
+  // Il periodo 1 non e' un ChartPeriod (7 | 30): serve apposta per il caso al singolare.
+  const summaries = (pts: ChartDataPoint[], periodDays: number) => {
+    const period = periodDays as ChartPeriod;
     const { container } = render(
       <div>
         <DailyStepsChart id="s" title="t" points={pts} period={period} locale={lc} />
