@@ -52,6 +52,8 @@ export interface OverviewCopy {
   hourly: {
     title: string;
     peak: (hour: string, steps: string) => string;
+    /** Unita' al singolare, per «1 passo» nelle frasi composte con l'unita' condivisa. */
+    oneStep: string;
     summary: (o: { measured: number; zero: number; partial: number; absent: number; peak: string | null }) => string;
     range: (from: string, to: string, single: boolean) => string;
     hours: (n: number) => string;
@@ -119,11 +121,12 @@ const IT: OverviewCopy = {
   },
   hourly: {
     title: 'Passi ora per ora',
-    peak: (hour, steps) => `Ora di punta ${hour}, ${steps} passi`,
+    oneStep: 'passo',
+    peak: (hour, steps) => `Ora di punta ${hour}, ${steps} ${steps === '1' ? 'passo' : 'passi'}`,
     summary: ({ measured, zero, partial, absent, peak }) => {
-      const parts = [`${measured} ore con passi`];
+      const parts = [measured === 1 ? '1 ora con passi' : `${measured} ore con passi`];
       if (zero) parts.push(`${zero} a zero misurato`);
-      if (partial) parts.push(`${partial} parziali`);
+      if (partial) parts.push(partial === 1 ? '1 parziale' : `${partial} parziali`);
       if (absent) parts.push(`${absent} senza dato`);
       return `Passi ora per ora: ${parts.join(', ')}.${peak ? ` Ora di punta ${peak}.` : ''}`;
     },
@@ -147,7 +150,7 @@ const IT: OverviewCopy = {
     title: 'Ultimi 7 giorni',
     rows: { steps: 'Passi', sleep: 'Sonno', restingHr: 'FC a riposo' },
     avg: (v) => `Media ${v}`,
-    measuredOf: (n, of) => `${n} di ${of} giorni misurati`,
+    measuredOf: (n, of) => `${n} di ${of === 1 ? '1 giorno misurato' : `${of} giorni misurati`}`,
     range: (lo, hi) => `da ${lo} a ${hi} bpm`,
     noneComplete: 'Nessun giorno con dato completo',
     partialDays: (n) => (n === 1 ? '1 giorno parziale' : `${n} giorni parziali`),
@@ -209,9 +212,10 @@ const EN: OverviewCopy = {
   },
   hourly: {
     title: 'Steps by hour',
-    peak: (hour, steps) => `Peak hour ${hour}, ${steps} steps`,
+    oneStep: 'step',
+    peak: (hour, steps) => `Peak hour ${hour}, ${steps} ${steps === '1' ? 'step' : 'steps'}`,
     summary: ({ measured, zero, partial, absent, peak }) => {
-      const parts = [`${measured} hours with steps`];
+      const parts = [measured === 1 ? '1 hour with steps' : `${measured} hours with steps`];
       if (zero) parts.push(`${zero} at measured zero`);
       if (partial) parts.push(`${partial} partial`);
       if (absent) parts.push(`${absent} without data`);
@@ -237,7 +241,7 @@ const EN: OverviewCopy = {
     title: 'Last 7 days',
     rows: { steps: 'Steps', sleep: 'Sleep', restingHr: 'Resting HR' },
     avg: (v) => `Average ${v}`,
-    measuredOf: (n, of) => `${n} of ${of} days measured`,
+    measuredOf: (n, of) => `${n} of ${of === 1 ? '1 day measured' : `${of} days measured`}`,
     range: (lo, hi) => `${lo} to ${hi} bpm`,
     noneComplete: 'No day with complete data',
     partialDays: (n) => (n === 1 ? '1 partial day' : `${n} partial days`),

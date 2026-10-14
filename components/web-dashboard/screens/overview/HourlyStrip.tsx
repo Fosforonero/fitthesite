@@ -39,11 +39,12 @@ export function HourlyStrip({ ctx }: { ctx: OverviewCtx }) {
 
   const whole = runs.length === 1 && runs[0].state === 'absent' && runs[0].from === 0 && runs[0].to === n - 1 ? runs[0] : null;
 
+  const stepsUnit = (v: number) => (v === 1 ? oc.hourly.oneStep : copy.units.steps);
   const tip = (m: Measure<number>, h: number) => {
     const t = `${hh(h)}:00`;
     if (m.kind === 'absent') return `${t}: ${copy.measure.noData}, ${copy.measure.absent[m.reason]}`;
-    if (m.kind === 'partial') return `${t}: ${fmtInt(m.value, ui)} ${copy.units.steps}, ${copy.measure.partialLabel} ${fmtPercent(m.coverage, ui)}`;
-    return m.value === 0 ? `${t}: 0 ${copy.units.steps}, ${copy.measure.zeroMeasured}` : `${t}: ${fmtInt(m.value, ui)} ${copy.units.steps}`;
+    if (m.kind === 'partial') return `${t}: ${fmtInt(m.value, ui)} ${stepsUnit(m.value)}, ${copy.measure.partialLabel} ${fmtPercent(m.coverage, ui)}`;
+    return m.value === 0 ? `${t}: 0 ${copy.units.steps}, ${copy.measure.zeroMeasured}` : `${t}: ${fmtInt(m.value, ui)} ${stepsUnit(m.value)}`;
   };
 
   const summary = oc.hourly.summary({
@@ -51,7 +52,7 @@ export function HourlyStrip({ ctx }: { ctx: OverviewCtx }) {
     zero: counts.zero,
     partial: counts.partial,
     absent: counts.absent,
-    peak: peak ? `${hh(peak.hour)}:00, ${fmtInt(peak.steps, ui)} ${copy.units.steps}` : null,
+    peak: peak ? `${hh(peak.hour)}:00, ${fmtInt(peak.steps, ui)} ${stepsUnit(peak.steps)}` : null,
   });
 
   // la legenda nomina solo cio' che e' disegnato: una voce senza esempio e' rumore
