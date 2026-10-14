@@ -24,6 +24,7 @@ import { screenProps } from './screens/test-utils';
 import type { ChartDataPoint } from './charts/types';
 import { toChartPoints } from '@/lib/web-dashboard/charts/measure-adapter';
 import { sharedCopy } from '@/lib/web-dashboard/copy';
+import { trendsCopy } from './screens/TrendsScreen.copy';
 
 afterEach(cleanup);
 
@@ -267,5 +268,88 @@ describe.each(['it', 'en'] as const)('accordi dei riepiloghi dei grafici, n = 1 
     expect(h).toContain(isIt ? 'per 1 giorno. ' : 'for 1 day. ');
     expect(z).toContain(isIt ? 'per 1 notte. ' : 'for 1 night. ');
     for (const t of [s, h, z]) expect(t).not.toMatch(BAD);
+  });
+});
+
+/** Accordi della schermata Trend (C2-1): funzioni di copy con asserzioni esatte, poi il testo reso. */
+describe('accordi della schermata Trend, n = 1 e n = 2', () => {
+  const it_ = trendsCopy('it');
+  const en = trendsCopy('en');
+  const BAD = /\b1 (giorni|notti|days|nights)\b|Sui 1 |Over the 1 days/;
+
+  it('IT: base della media e stat con conteggio di parziali', () => {
+    expect(it_.coverage.avgBasis(1, 0)).toBe('Su 1 giorno con dato.');
+    expect(it_.coverage.avgBasis(2, 0)).toBe('Sui 2 giorni con dato.');
+    expect(it_.coverage.avgBasis(1, 1)).toBe('Su 1 giorno con dato, incluso 1 giorno parziale: può risultare più bassa.');
+    expect(it_.coverage.avgBasis(2, 2)).toBe('Sui 2 giorni con dato, inclusi 2 giorni parziali: può risultare più bassa.');
+    expect(it_.coverage.avgBasis(0, 0)).toBe('Sui 0 giorni con dato.');
+    expect(it_.summary.stats('1', '2', '3', 1)).toBe('Media 1, minimo 2, massimo 3, incluso 1 giorno parziale.');
+    expect(it_.summary.stats('1', '2', '3', 2)).toBe('Media 1, minimo 2, massimo 3, inclusi 2 giorni parziali.');
+  });
+
+  it('EN: base della media e stat con conteggio di parziali', () => {
+    expect(en.coverage.avgBasis(1, 0)).toBe('Over the 1 day with data.');
+    expect(en.coverage.avgBasis(2, 0)).toBe('Over the 2 days with data.');
+    expect(en.coverage.avgBasis(1, 1)).toBe('Over the 1 day with data, including 1 partial day: it may read lower.');
+    expect(en.coverage.avgBasis(2, 2)).toBe('Over the 2 days with data, including 2 partial days: it may read lower.');
+    expect(en.coverage.avgBasis(0, 0)).toBe('Over the 0 days with data.');
+    expect(en.summary.stats('1', '2', '3', 1)).toBe('Average 1, minimum 2, maximum 3, including 1 partial day.');
+    expect(en.summary.stats('1', '2', '3', 2)).toBe('Average 1, minimum 2, maximum 3, including 2 partial days.');
+  });
+
+  it('IT/EN: copertura, assenti, parziali, zero, somma, intestazione', () => {
+    expect(it_.coverage.headline(1, 7)).toBe('1 giorno su 7 con dato');
+    expect(it_.coverage.headline(2, 7)).toBe('2 giorni su 7 con dato');
+    expect(en.coverage.headline(1, 7)).toBe('1 of 7 days with data');
+    expect(en.coverage.headline(1, 1)).toBe('1 of 1 day with data');
+    expect(it_.coverage.absent(1, 'x')).toBe('1 giorno senza dato: x. Non contano come zero.');
+    expect(it_.coverage.absent(2, 'x')).toBe('2 giorni senza dato: x. Non contano come zero.');
+    expect(en.coverage.absent(1, 'x')).toBe('1 day with no data: x. They do not count as zero.');
+    expect(en.coverage.absent(2, 'x')).toBe('2 days with no data: x. They do not count as zero.');
+    expect(it_.coverage.partial(1, 'x')).toBe('1 giorno parziale: x. Il valore copre solo una parte del giorno.');
+    expect(it_.coverage.partial(2, 'x')).toBe('2 giorni parziali: x. Il valore copre solo una parte del giorno.');
+    expect(en.coverage.partial(1, 'x')).toBe('1 partial day: x. The value covers only part of the day.');
+    expect(en.coverage.partial(2, 'x')).toBe('2 partial days: x. The value covers only part of the day.');
+    expect(it_.coverage.zero(1)).toBe('1 giorno a zero misurato.');
+    expect(it_.coverage.zero(2)).toBe('2 giorni a zero misurato.');
+    expect(en.coverage.zero(1)).toBe('1 day at measured zero.');
+    expect(en.coverage.zero(2)).toBe('2 days at measured zero.');
+    expect(it_.coverage.totalAllDays(1)).toBe('Somma di 1 giorno.');
+    expect(it_.coverage.totalAllDays(2)).toBe('Somma di tutti i 2 giorni.');
+    expect(en.coverage.totalAllDays(1)).toBe('Sum of the 1 day.');
+    expect(en.coverage.totalAllDays(2)).toBe('Sum of all 2 days.');
+    expect(it_.coverage.totalPartialBasis(1)).toBe('Somma di 1 giorno con dato. I giorni senza dato non sono contati come zero.');
+    expect(it_.coverage.totalPartialBasis(2)).toBe('Somma dei 2 giorni con dato. I giorni senza dato non sono contati come zero.');
+    expect(en.coverage.totalPartialBasis(1)).toBe('Sum of the 1 day with data. Days with no data are not counted as zero.');
+    expect(en.coverage.totalPartialBasis(2)).toBe('Sum of the 2 days with data. Days with no data are not counted as zero.');
+    expect(it_.lastDays(1)).toBe('Ultimo giorno');
+    expect(it_.lastDays(7)).toBe('Ultimi 7 giorni');
+    expect(en.lastDays(1)).toBe('Last day');
+    expect(en.lastDays(7)).toBe('Last 7 days');
+  });
+
+  it('IT/EN: dati insufficienti e riepilogo', () => {
+    expect(it_.insufficient.need(2, 1, 7)).toBe('Servono almeno 2 giorni con dato per mostrare un andamento. In questi 7 giorni ce n’è uno.');
+    expect(it_.insufficient.need(1, 0, 1)).toBe('Serve almeno 1 giorno con dato per mostrare un andamento. In questo giorno non ce n’è nessuno.');
+    expect(en.insufficient.need(2, 1, 7)).toBe('At least 2 days with data are needed to show a trend. In these 7 days there is one.');
+    expect(en.insufficient.need(1, 0, 1)).toBe('At least 1 day with data is needed to show a trend. In this 1 day there are none.');
+    expect(it_.summary.insufficient('T', 1, 7)).toBe('T: dati insufficienti, 1 giorno con dato su 7.');
+    expect(it_.summary.insufficient('T', 2, 7)).toBe('T: dati insufficienti, 2 giorni con dato su 7.');
+    expect(en.summary.insufficient('T', 1, 7)).toBe('T: not enough data, 1 day with data out of 7.');
+    expect(en.summary.insufficient('T', 2, 7)).toBe('T: not enough data, 2 days with data out of 7.');
+  });
+
+  it.each(['it', 'en'] as const)('testo reso %s: un solo giorno con dato, nessun «1 giorni»', (lc) => {
+    const { container } = renderTrends(lc, [abs, abs, abs, abs, abs, abs, val(8000)]);
+    const card = container.querySelector('[data-trend-card="steps"]') as HTMLElement;
+    expect(card.textContent).not.toMatch(BAD);
+    expect(container.textContent).not.toMatch(BAD);
+  });
+
+  it.each(['it', 'en'] as const)('testo reso %s: quattro giorni con dato, uno parziale', (lc) => {
+    const { container } = renderTrends(lc, [abs, abs, abs, val(8000), val(9000), val(7000), part(3000, 0.3)]);
+    const avg = (container.querySelector('[data-trend-card="steps"] [data-stat="avg"]') as HTMLElement).textContent ?? '';
+    expect(avg).toContain(lc === 'it' ? 'Sui 4 giorni con dato, incluso 1 giorno parziale' : 'Over the 4 days with data, including 1 partial day');
+    expect(container.textContent).not.toMatch(BAD);
   });
 });

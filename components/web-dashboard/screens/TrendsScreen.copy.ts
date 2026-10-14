@@ -84,7 +84,7 @@ const IT: TrendsCopy = {
   rangeLabel: 'Periodo',
   ranges: { 7: '7 giorni', 30: '30 giorni', 90: '90 giorni' },
   period: (from, to) => `Dal ${from} al ${to}. Il giorno scelto è l’ultimo.`,
-  lastDays: (n) => `Ultimi ${n} giorni`,
+  lastDays: (n) => (n === 1 ? 'Ultimo giorno' : `Ultimi ${n} giorni`),
 
   noSource: {
     title: 'Servono giorni sincronizzati',
@@ -109,22 +109,23 @@ const IT: TrendsCopy = {
     max: 'Massimo',
     avgBasis: (n, partials) =>
       partials > 0
-        ? `Sui ${n} giorni con dato, ${partials === 1 ? 'incluso' : 'inclusi'} ${days(partials, 'giorno parziale', 'giorni parziali')}: può risultare più bassa.`
-        : `Sui ${n} giorni con dato.`,
+        ? `${n === 1 ? 'Su' : 'Sui'} ${days(n, 'giorno', 'giorni')} con dato, ${partials === 1 ? 'incluso' : 'inclusi'} ${days(partials, 'giorno parziale', 'giorni parziali')}: può risultare più bassa.`
+        : `${n === 1 ? 'Su' : 'Sui'} ${days(n, 'giorno', 'giorni')} con dato.`,
     extremePartial: 'Giorno parziale',
     total: 'Totale del periodo',
-    totalAllDays: (m) => `Somma di tutti i ${m} giorni.`,
+    totalAllDays: (m) => (m === 1 ? 'Somma di 1 giorno.' : `Somma di tutti i ${m} giorni.`),
     totalCompleteDays: (complete, m) => `Giorni completi: ${complete} su ${m}`,
-    totalPartialBasis: (withData) => `Somma dei ${withData} giorni con dato. I giorni senza dato non sono contati come zero.`,
+    totalPartialBasis: (withData) =>
+      `${withData === 1 ? 'Somma di 1 giorno' : `Somma dei ${withData} giorni`} con dato. I giorni senza dato non sono contati come zero.`,
   },
   meanLegend: 'Media dei giorni con dato',
 
   insufficient: {
     title: 'Dati insufficienti',
     need: (min, n, m) =>
-      `Servono almeno ${min} giorni con dato per mostrare un andamento. In questi ${m} giorni ${
-        n === 0 ? 'non ce n’è nessuno' : n === 1 ? 'ce n’è uno' : `ce ne sono ${n}`
-      }.`,
+      `${min === 1 ? 'Serve almeno 1 giorno con dato' : `Servono almeno ${min} giorni con dato`} per mostrare un andamento. ${
+        m === 1 ? 'In questo giorno' : `In questi ${m} giorni`
+      } ${n === 0 ? 'non ce n’è nessuno' : n === 1 ? 'ce n’è uno' : `ce ne sono ${n}`}.`,
     body: {
       no_data_received: 'Non è arrivato nessun dato: non c’è nulla da tracciare.',
       not_synced_yet: 'Per questi giorni non è arrivato nessun dato. Non sono giorni a zero.',
@@ -155,7 +156,7 @@ const EN: TrendsCopy = {
   rangeLabel: 'Period',
   ranges: { 7: '7 days', 30: '30 days', 90: '90 days' },
   period: (from, to) => `From ${from} to ${to}. The chosen day is the last one.`,
-  lastDays: (n) => `Last ${n} days`,
+  lastDays: (n) => (n === 1 ? 'Last day' : `Last ${n} days`),
 
   noSource: {
     title: 'Trends need synced days',
@@ -170,7 +171,7 @@ const EN: TrendsCopy = {
   openDetail: 'Open',
 
   coverage: {
-    headline: (n, m) => `${n} of ${m} days with data`,
+    headline: (n, m) => `${n} of ${days(m, 'day', 'days')} with data`,
     absent: (n, reasons) => `${days(n, 'day', 'days')} with no data: ${reasons}. They do not count as zero.`,
     partial: (n, notes) => `${days(n, 'partial day', 'partial days')}: ${notes}. The value covers only part of the day.`,
     zero: (n) => `${days(n, 'day', 'days')} at measured zero.`,
@@ -180,22 +181,22 @@ const EN: TrendsCopy = {
     max: 'Maximum',
     avgBasis: (n, partials) =>
       partials > 0
-        ? `Over the ${n} days with data, including ${days(partials, 'partial day', 'partial days')}: it may read lower.`
-        : `Over the ${n} days with data.`,
+        ? `Over the ${days(n, 'day', 'days')} with data, including ${days(partials, 'partial day', 'partial days')}: it may read lower.`
+        : `Over the ${days(n, 'day', 'days')} with data.`,
     extremePartial: 'Partial day',
     total: 'Total for the period',
-    totalAllDays: (m) => `Sum of all ${m} days.`,
+    totalAllDays: (m) => (m === 1 ? 'Sum of the 1 day.' : `Sum of all ${m} days.`),
     totalCompleteDays: (complete, m) => `Complete days: ${complete} of ${m}`,
-    totalPartialBasis: (withData) => `Sum of the ${withData} days with data. Days with no data are not counted as zero.`,
+    totalPartialBasis: (withData) => `Sum of the ${days(withData, 'day', 'days')} with data. Days with no data are not counted as zero.`,
   },
   meanLegend: 'Average of days with data',
 
   insufficient: {
     title: 'Not enough data',
     need: (min, n, m) =>
-      `At least ${min} days with data are needed to show a trend. In these ${m} days there ${
-        n === 0 ? 'are none' : n === 1 ? 'is one' : `are ${n}`
-      }.`,
+      `At least ${days(min, 'day', 'days')} with data ${min === 1 ? 'is' : 'are'} needed to show a trend. ${
+        m === 1 ? 'In this 1 day' : `In these ${m} days`
+      } there ${n === 0 ? 'are none' : n === 1 ? 'is one' : `are ${n}`}.`,
     body: {
       no_data_received: 'No data has arrived: there is nothing to track.',
       not_synced_yet: 'No data has arrived for these days. They are not zero days.',
