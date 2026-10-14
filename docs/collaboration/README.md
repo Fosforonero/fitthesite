@@ -6,6 +6,7 @@ autorizza rilasci e non certifica funzionalita, sicurezza o conformita legale.
 - Sito: https://github.com/Fosforonero/fitthesite (repository pubblico).
 - App: https://github.com/Fosforonero/fitmeshsync (repository privato separato).
 - Stato fissato: [STATE-2026-10-14.md](STATE-2026-10-14.md).
+- Registro dell'allineamento Git (SHA, PR, prove, residui): [HANDOFF-GIT-01-2026-10-14.md](HANDOFF-GIT-01-2026-10-14.md).
 - Inventario leggibile da strumenti: [branches.json](branches.json).
 
 ## Da dove iniziare
