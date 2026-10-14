@@ -1,8 +1,25 @@
 import { describe, expect, it } from "vitest";
 import { CLAIM_TIPI } from "@/lib/blog/claims/claim-detectors";
-import { COVERED_POSTS, claimSentences } from "@/lib/blog/claims/claim-cells";
-import { classifyClaim } from "@/lib/blog/claims/claim-classify";
+import { COVERED_POSTS, segmentCell } from "@/lib/blog/claims/claim-cells";
+import {
+  classifyPostClaims,
+  claimSystemVerdict,
+  equivalentCellKey,
+  harmonizeEquivalentCells,
+  isPolicyViolation,
+  type ClassifiedSentence,
+} from "@/lib/blog/claims/claim-classify";
 import { CLAIM_REGISTRY, FONTI, STATI_REVISIONE, type ClaimEntry } from "@/lib/blog/claims/claim-registry";
+import openFindingsJson from "@/lib/blog/claims/claim-open-findings.json";
+import {
+  S6_CLAIMS,
+  S6_FREQ,
+  S6_LEGIT,
+  S6_LIMITI_NOTI,
+  S6_OWN_CLAIMS,
+  S6_OWN_LEGIT,
+  type S6Post,
+} from "@/lib/blog/claims/claim-corpus-s6";
 
 // ---------------------------------------------------------------------------------------------
 // REGISTRO DEI CLAIM (SD): ogni frase dei tre post coperti (Garmin, Fitbit, Google Health; 11 lingue TS + sv/da
@@ -15,47 +32,28 @@ const key = (slug: string, ambito: string, impronta: string): string => `${slug}
 
 type Live = { post: string; slug: string; path: string; lang: string; testo: string; impronta: string; tipo: string; polarita: string };
 const LIVE: Live[] = [];
-for (const [post, slug] of POSTS) {
-  const seen = new Set<string>();
-  for (const s of claimSentences(slug)) {
-    const d = classifyClaim(post, s.path, s.testo);
-    if (!d || seen.has(key(slug, s.path, s.impronta))) continue;
-    seen.add(key(slug, s.path, s.impronta));
-    LIVE.push({ post, slug, path: s.path, lang: s.lang, testo: s.testo, impronta: s.impronta, tipo: d.tipo, polarita: d.polarita });
+for (const [post] of POSTS) {
+  // classificazione per frase, poi coerenza per cella equivalente (S6-04): la stessa del generatore
+  for (const c of classifyPostClaims(post)) {
+    LIVE.push({ post, slug: c.slug, path: c.path, lang: c.lang, testo: c.testo, impronta: c.impronta, tipo: c.det.tipo, polarita: c.det.polarita });
   }
 }
 const REG_BY_KEY = new Map(CLAIM_REGISTRY.map((e) => [key(e.slug, e.ambito, e.impronta), e]));
 const LIVE_BY_KEY = new Map(LIVE.map((l) => [key(l.slug, l.path, l.impronta), l]));
 
-// Findings APERTI sul contenuto corrente, dichiarati per id (nessun testo cambia in questo sprint): frequenza
-// attribuita a una causa/un problema nel post Google Health, senza fonte e senza decisione di Matteo. Non e' una
-// whitelist: l'elenco e' chiuso, ogni voce DEVE ancora essere una violazione (una voce risolta fa fallire il test e va
-// tolta) e nessuna nuova voce puo' aggiungersi senza comparire qui. Vedi SD-REGISTRO-CLAIM.md.
-const OPEN_FINDINGS = new Set<string>([
-  "google-health/ts:body.22.text.de#5",
-  "google-health/ts:body.22.text.it#0",
-  "google-health/ts:body.22.text.ja#0",
-  "google-health/ts:body.22.text.nl#5",
-  "google-health/ts:body.22.text.pl#5",
-  "google-health/ts:body.22.text.tr#6",
-  "google-health/ts:faq.5.a.de#0",
-  "google-health/ts:faq.5.a.fr#0",
-  "google-health/ts:faq.5.a.ja#0",
-  "google-health/ts:faq.5.a.ko#0",
-  "google-health/ts:faq.5.a.pl#0",
-  "google-health/ts:faq.5.a.pt#0",
-  "google-health/ts:faq.5.a.tr#0",
-  "google-health/ts:faq.7.a.fr#0",
-  "google-health/ts:faq.7.a.nl#0",
-  "google-health/ts:faq.7.a.tr#0",
-]);
+// Findings APERTI sul contenuto corrente, dichiarati per id E per impronta della frase (S6-09): frequenza attribuita
+// a una causa/un problema nel post Google Health, senza fonte e senza decisione di Matteo. Non e' una whitelist:
+// l'elenco e' chiuso (claim-open-findings.json, id -> SHA-256 della frase), ogni voce DEVE ancora essere una
+// violazione (una voce risolta fa fallire il test e va tolta), e un'altra frase nella stessa posizione (impronta
+// diversa) NON e' esentata: torna rossa. Nessun testo cambia in questo sprint. Vedi SD2-CORREZIONI-REGISTRO.md.
+const OPEN_FINDINGS = new Map<string, string>(Object.entries(openFindingsJson as Record<string, string>));
+const OPEN_FINDINGS_COUNT = 33; // numero REALE dopo il ricalcolo S6-04 su tutte le lingue (erano 16, sottostimati)
+
+const isOpenFinding = (e: Pick<ClaimEntry, "id" | "impronta">): boolean => OPEN_FINDINGS.get(e.id) === e.impronta;
 
 const isViolation = (e: ClaimEntry): boolean => {
   if (e.fonte !== "nessuna" || e.statoRevisione === "rivisto-da-matteo") return false;
-  if (e.polarita !== "afferma") return false; // negazioni, domande, etichette, frasi neutre: ammesse
-  if (e.tipo === "frequenza") return true; // frequenza attribuita a una causa/un problema
-  const ufficiale = e.marcatori.some((m) => ["ufficiale", "diretta", "partnership"].includes(m));
-  return e.soggetto === "fitmesh" && ufficiale && ["integrazione", "roadmap", "disponibilita"].includes(e.tipo);
+  return isPolicyViolation(e);
 };
 
 describe("REGISTRO DEI CLAIM: completezza", () => {
@@ -160,7 +158,8 @@ describe("REGISTRO DEI CLAIM: integrita'", () => {
 describe("REGISTRO DEI CLAIM: politica", () => {
   it("nessuna affermazione positiva di frequenza o di integrazione ufficiale/diretta/partnership senza fonte e senza decisione (salvo i finding aperti)", () => {
     const violations = CLAIM_REGISTRY.filter(isViolation).map((e) => e.id);
-    const unexpected = violations.filter((id) => !OPEN_FINDINGS.has(id));
+    const byId = new Map(CLAIM_REGISTRY.map((e) => [e.id, e]));
+    const unexpected = violations.filter((id) => !isOpenFinding(byId.get(id)!));
     expect(
       unexpected,
       "claim di frequenza/integrazione ufficiale senza fonte ne' decisione: dai una fonte primaria, o fallo decidere a Matteo, o riformula",
@@ -169,8 +168,12 @@ describe("REGISTRO DEI CLAIM: politica", () => {
 
   it("i finding aperti sono ancora violazioni (una voce risolta va tolta dall'elenco: nessuna esenzione fantasma)", () => {
     const violations = new Set(CLAIM_REGISTRY.filter(isViolation).map((e) => e.id));
-    expect([...OPEN_FINDINGS].filter((id) => !violations.has(id)).sort()).toEqual([]);
-    expect(OPEN_FINDINGS.size).toBe(16);
+    expect([...OPEN_FINDINGS.keys()].filter((id) => !violations.has(id)).sort()).toEqual([]);
+    expect(OPEN_FINDINGS.size).toBe(OPEN_FINDINGS_COUNT);
+    expect(violations.size).toBe(OPEN_FINDINGS_COUNT);
+    // ogni id esentato ha ancora la sua impronta: la frase e' quella dichiarata (S6-09)
+    const byId = new Map(CLAIM_REGISTRY.map((e) => [e.id, e]));
+    expect([...OPEN_FINDINGS].filter(([id, imp]) => byId.get(id)?.impronta !== imp).map(([id]) => id)).toEqual([]);
   });
 
   it("le negazioni e gli stati onesti ammessi hanno fonte «comportamento del prodotto» e testo registrato (body.15.items[2] Garmin, 13 lingue)", () => {
@@ -194,6 +197,139 @@ describe("REGISTRO DEI CLAIM: politica", () => {
     const off: ClaimEntry = { ...freq, tipo: "integrazione", soggetto: "fitmesh", marcatori: ["ufficiale"] };
     expect(isViolation(off)).toBe(true);
     expect(isViolation({ ...off, soggetto: "terza-parte" })).toBe(false); // fatto di una terza parte: da rivedere, non bloccato
+  });
+});
+
+describe("REGISTRO DEI CLAIM: correzioni S6 (CONTROLLO-S6)", () => {
+  it("S6-09: un finding aperto e' esentato per id E impronta: un'altra frase nella stessa posizione torna rossa", () => {
+    const [id, impronta] = [...OPEN_FINDINGS][0];
+    const entry = CLAIM_REGISTRY.find((e) => e.id === id)!;
+    expect(isOpenFinding(entry)).toBe(true);
+    const sostituita: ClaimEntry = { ...entry, impronta: "f".repeat(64) }; // stessa cella, frase diversa
+    expect(isOpenFinding(sostituita)).toBe(false);
+    expect(isViolation(sostituita)).toBe(true); // violazione e non esentata: il test della politica la riporta
+    expect(impronta).toBe(entry.impronta);
+  });
+
+  it("S6-09: ogni finding aperto e' una violazione con fonte «nessuna» e nessuna decisione di Matteo, nel solo post Google Health", () => {
+    for (const [id] of OPEN_FINDINGS) {
+      const e = CLAIM_REGISTRY.find((x) => x.id === id)!;
+      expect(e.post, id).toBe("google-health");
+      expect(e.fonte, id).toBe("nessuna");
+      expect(isViolation(e), id).toBe(true);
+    }
+  });
+
+  it("S6-04: stessa frase tradotta = stessa classificazione (cella equivalente): un fratello afferma, l'altro neutro diventa afferma", () => {
+    const mk = (lang: string, polarita: "afferma" | "neutra" | "domanda", tipo = "frequenza"): ClassifiedSentence =>
+      ({
+        path: `ts:faq.7.a.${lang}`, lang, indice: 0, testo: lang, impronta: lang, post: "google-health", slug: "x", raised: false,
+        det: { tipo, soggetto: "generico", polarita, marcatori: [] },
+      }) as ClassifiedSentence;
+    const g = harmonizeEquivalentCells([mk("it", "neutra"), mk("de", "afferma"), mk("en", "neutra"), mk("fr", "domanda"), mk("ja", "neutra", "capacita")]);
+    const by = Object.fromEntries(g.map((c) => [c.lang, c.det.polarita]));
+    expect(by).toEqual({ it: "afferma", de: "afferma", en: "afferma", fr: "domanda", ja: "neutra" }); // domanda e altro tipo intatti
+    expect(g.filter((c) => c.raised).map((c) => c.lang).sort()).toEqual(["en", "it"]);
+    // posizioni diverse non si contaminano
+    const altro = { ...mk("pl", "neutra"), path: "ts:faq.8.a.pl" };
+    expect(harmonizeEquivalentCells([mk("de", "afferma"), altro]).find((c) => c.lang === "pl")!.det.polarita).toBe("neutra");
+    expect(equivalentCellKey("ts:faq.7.a.de", "de", 2)).toBe(equivalentCellKey("ts:faq.7.a.ko", "ko", 2));
+    expect(equivalentCellKey("overlay:body.0.text.sv", "sv", 0)).toBe(equivalentCellKey("ts:body.0.text.it", "it", 0));
+  });
+
+  it("S6-04: sul contenuto reale nessuna cella equivalente mescola frequenza «afferma» e frequenza «neutra»", () => {
+    const groups = new Map<string, Set<string>>();
+    for (const [post] of POSTS) {
+      for (const c of classifyPostClaims(post)) {
+        if (c.det.tipo !== "frequenza") continue;
+        const k = `${post}|${equivalentCellKey(c.path, c.lang, c.indice)}`;
+        if (!groups.has(k)) groups.set(k, new Set());
+        groups.get(k)!.add(c.det.polarita);
+      }
+    }
+    const mixed = [...groups].filter(([, v]) => v.has("afferma") && v.has("neutra")).map(([k]) => k);
+    expect(mixed).toEqual([]);
+  });
+
+  it("S6-08: si segmenta PRIMA di normalizzare: una riga senza punteggiatura non si fonde con la frase seguente", () => {
+    expect(segmentCell("Häufig gestellte Fragen\nDie Option findest du normalerweise unter Einstellungen > Apps.")).toEqual([
+      "Häufig gestellte Fragen",
+      "Die Option findest du normalerweise unter Einstellungen > Apps.",
+    ]);
+    expect(segmentCell("Prima riga\n\nSeconda riga. Terza riga!")).toEqual(["Prima riga", "Seconda riga.", "Terza riga!"]);
+    expect(segmentCell("Una frase sola senza newline.")).toEqual(["Una frase sola senza newline."]);
+  });
+
+  it("S6-02: la politica «integrazione ufficiale/diretta/partnership/certificazione di FitMesh senza fonte» vale su TUTTI i post coperti", () => {
+    // (il post Garmin ha in piu' la propria guardia di promessa, verificata dal corpus S6: C01-C14)
+    for (const post of ["fitbit", "google-health"]) {
+      for (const t of [
+        "FitMesh is officially integrated with Fitbit.",
+        "FitMesh connects directly to your Fitbit account.",
+        "FitMesh is an official Fitbit partner.",
+        "Google has certified FitMesh for Fitbit data.",
+        "Soon FitMesh will integrate with Fitbit.",
+      ]) {
+        expect(claimSystemVerdict(post, "ts:body.0.text.en", t).policy.length, `${post}: ${t}`).toBeGreaterThan(0);
+      }
+    }
+    // stesse eccezioni documentate: negazione, domanda, terza parte, lettura da Health Connect restano verdi
+    for (const t of ["FitMesh is not an official Fitbit partner.", "Is FitMesh officially integrated with Fitbit?", "Strava offers an official integration with Fitbit.", "FitMesh reads your data directly from Health Connect."]) {
+      for (const post of ["fitbit", "google-health"]) expect(claimSystemVerdict(post, "ts:body.0.text.en", t).policy, `${post}: ${t}`).toEqual([]);
+    }
+  });
+});
+
+// ---------------------------------------------------------------------------------------------
+// CORPUS S6 (CONTROLLO-S6, SD2): le frasi del revisore VERBATIM (matrici .tsv, log di iniezione, L30, C14, C27-C29,
+// C41, le 42 claim e le 40 legittime, i 54 casi di frequenza) piu' voci proprie. Verdetto = quello di sistema: la
+// guardia di cella del post piu' la politica del registro, frase per frase. Verde meccanico != conformita': i
+// LIMITI-NOTI sono dichiarati (S6-10), non nascosti.
+// ---------------------------------------------------------------------------------------------
+describe("CORPUS S6: ogni frase del controllo e' un test nominato; LIMITI-NOTI dichiarati", () => {
+  const KEY: Record<S6Post, string> = { GA: "garmin", FB: "fitbit", GH: "google-health" };
+  const pathOf = (lang: string): string => (lang === "sv" || lang === "da" ? `overlay:body.0.text.${lang}` : `ts:body.0.text.${lang}`);
+  const red = (post: S6Post, lang: string, text: string): boolean => {
+    const v = claimSystemVerdict(KEY[post], pathOf(lang), text);
+    return v.guard.length > 0 || v.policy.length > 0;
+  };
+
+  it("copertura: 42 claim + 40 legittime + 54 frequenze del revisore, ciascuna nel corpus o nei LIMITI-NOTI, con id unici", () => {
+    const limitiC = S6_LIMITI_NOTI.filter((l) => /^C\d+$/.test(l.id));
+    expect(S6_CLAIMS.length + limitiC.length).toBe(42);
+    expect(S6_LEGIT.length).toBe(40);
+    expect(S6_FREQ.length).toBe(54);
+    const ids = [...S6_CLAIMS, ...S6_LEGIT, ...S6_OWN_CLAIMS, ...S6_OWN_LEGIT].map((r) => r[0]).concat(S6_LIMITI_NOTI.map((l) => l.id));
+    expect(new Set(ids).size).toBe(ids.length);
+    for (const l of S6_LIMITI_NOTI) expect(l.why.length, l.id).toBeGreaterThan(30);
+    const langs = new Set([...S6_CLAIMS, ...S6_LEGIT, ...S6_FREQ.map(([, l, t]) => ["", "", l, t])].map((r) => r[2]));
+    for (const l of ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da"]) expect(langs.has(l), `lingua ${l}`).toBe(true);
+  });
+
+  it.each(S6_CLAIMS.map((r) => [`DEVE-FALLIRE ${r[0]} ${r[1]} ${r[2]}: ${r[3].slice(0, 60)}`, r] as const))("%s", (_n, [id, post, lang, text]) => {
+    expect(red(post, lang, text), `${id} deve essere rosso`).toBe(true);
+  });
+  it.each(S6_LEGIT.map((r) => [`DEVE-PASSARE ${r[0]} ${r[1]} ${r[2]}: ${r[3].slice(0, 60)}`, r] as const))("%s", (_n, [id, post, lang, text]) => {
+    const v = claimSystemVerdict(KEY[post], pathOf(lang), text);
+    expect([...v.guard, ...v.policy], id).toEqual([]);
+  });
+  it.each(S6_OWN_CLAIMS.map((r) => [`DEVE-FALLIRE (proprio) ${r[0]} ${r[1]} ${r[2]}: ${r[3].slice(0, 60)}`, r] as const))("%s", (_n, [id, post, lang, text]) => {
+    expect(red(post, lang, text), `${id} deve essere rosso`).toBe(true);
+  });
+  it.each(S6_OWN_LEGIT.map((r) => [`DEVE-PASSARE (proprio) ${r[0]} ${r[1]} ${r[2]}: ${r[3].replace(/\n/g, " / ").slice(0, 60)}`, r] as const))("%s", (_n, [id, post, lang, text]) => {
+    const v = claimSystemVerdict(KEY[post], pathOf(lang), text);
+    expect([...v.guard, ...v.policy], id).toEqual([]);
+  });
+  it.each(S6_FREQ.map((r) => [`FREQUENZA ${r[0]} ${r[1]}: ${r[2].slice(0, 60)}`, r] as const))("%s", (_n, [cls, lang, text]) => {
+    const v = claimSystemVerdict("fitbit", pathOf(lang), text);
+    // P = occorrenza, K = common/causa: rosse. N = legittima, D = presa di distanza: verdi
+    if (cls === "P" || cls === "K") expect(v.guard.length, text).toBeGreaterThan(0);
+    else expect(v.guard, text).toEqual([]);
+  });
+  it.each(S6_LIMITI_NOTI.map((l) => [`LIMITE-NOTO ${l.id} (${l.post} ${l.lang}, verde osservato)`, l] as const))("%s", (_n, l) => {
+    const v = claimSystemVerdict(KEY[l.post], pathOf(l.lang), l.text);
+    // se il sistema comincia a vederla, il limite sparisce: va promosso nel corpus (nessun falso positivo accettato)
+    expect([...v.guard, ...v.policy], `${l.id}: ${l.why}`).toEqual([]);
   });
 });
 

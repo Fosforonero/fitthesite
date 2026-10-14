@@ -7,7 +7,9 @@
  *
  * LIMITI (dichiarati, vedi SD-REGISTRO-CLAIM.md): lessici scritti da un agente non madrelingua; una frase
  * che riformula un claim senza nessuna delle radici elencate NON e' vista; la classificazione e' per regola,
- * non per comprensione.
+ * non per comprensione. Classi note NON catturate (SD2-CORREZIONI-REGISTRO.md §LIMITI): idiomi di collaborazione,
+ * frequenza espressa come quantita' di persone («tanti utenti»), letture al presente di FitMesh senza marcatore di
+ * ufficialita' (e' il comportamento del prodotto), verbi e sinonimi fuori lessico, claim in lingue senza madrelingua.
  */
 import { createHash } from "node:crypto";
 
@@ -45,6 +47,12 @@ export const ENTITY = stems([
   "Samsung", "FitMesh", "Strava", "Polar", "Xiaomi", "Amazfit", "Oura", "Withings", "Pixel\\s+Watch", "Wear\\s+OS", "Connect\\s+IQ",
 ]);
 const FITMESH = /FitMesh/i;
+// Servizi di TERZE PARTI che una promessa di integrazione puo' nominare (non FitMesh e non i depositi locali
+// Health Connect/HealthKit/Apple Salute, da cui FitMesh legge davvero): «diretta» conta solo con uno di questi.
+export const THIRD_PARTY_SERVICE = stems([
+  "Garmin", "Fitbit", "Google\\s+(?:Health|Fit)", "Samsung", "Strava", "Polar", "Xiaomi", "Amazfit", "Oura", "Withings",
+  "Pixel\\s+Watch", "Connect\\s+IQ",
+]);
 
 const INTEGRATION = new RegExp(
   [
@@ -58,10 +66,10 @@ const INTEGRATION = new RegExp(
     raw(["パートナー", "파트너", "提携", "제휴"]).source,
     stems([
       "ufficial", "official", "oficial", "offiziell", "officiel", "officiell", "officiël", "officieel", "resmi", "oficjaln",
-      "dirett", "direct", "direkt", "direto", "rechtstreeks", "bezpośredn", "doğrudan", "native", "nativ", "nativ",
-      "avall", "endors", "genehmig", "approv", "aprob", "aprov", "zatwierdz", "onayl", "goedgekeur", "godkän", "godkend", "certific", "authori[sz]",
+      "dirett", "direct", "direkt", "direto", "rechtstreeks", "bezpośredn", "doğrudan", "native", "nativ", "straight",
+      "avall", "endors", "genehmig", "approv", "aprob", "aprov", "zatwierdz", "onayl", "goedgekeur", "godkän", "godkend", "certif", "zertifiz", "sertifik", "certyfik", "gecertific", "authori[sz]",
     ]).source,
-    raw(["公式", "公認", "공식", "直接", "직접"]).source,
+    raw(["公式", "公認", "공식", "直接", "직접", "認定", "認証済", "인증받", "인증된", "인증을 받"]).source,
   ].join("|"),
   "iu",
 );
@@ -94,6 +102,8 @@ const FREQUENCY = new RegExp(
       "多く", "よく", "頻繁", "しばしば", "たいてい", "大抵", "ほとんど", "一般的", "通常", "普通", "がちです", "자주", "종종", "흔", "많", "보통", "대개",
       "주로", "일반적", "빈번", "대부분", "ことが多",
     ]).source,
+    // S6-03: aggettivo «comune» (problema/causa comune) in tutte le lingue presenti, con confini di parola
+    "(?<![\\p{L}\\p{N}])(?:common|comune|comuni|comunes|común|courant|courante|courants|verbreitet\\p{L}*|gängig\\p{L}*|üblich\\p{L}*|powszechn\\p{L}*|pospolit\\p{L}*|utbredd\\p{L}*|udbredt\\p{L}*|vanligt|almindeligt|yaygındır)(?![\\p{L}\\p{N}])",
     "\\d+\\s*(?:%|percent|per\\s*cento|por\\s*(?:ciento|cento)|pour\\s*cent|Prozent|procent|퍼센트|パーセント)|%\\s*\\d+|yüzde\\s*\\d+",
     "decine di volte|dozens of times|decenas de veces|dutzende?\\s*male|dezenas de vezes|des dizaines de fois|dziesiątki razy|onlarca kez|tientallen keren|何十回|수십 번|dussintals gånger|utallige gange",
     "(?:\\d+|nove|nine|neuf|neun|nueve|nove)\\s+(?:su|out of|sur|von|de|em|na|z|van|av|af)\\s+(?:dieci|ten|dix|zehn|diez|dez|10)",
@@ -154,13 +164,19 @@ export type ClaimDetection = {
 const isQuestion = (s: string): boolean => /[?？]\s*$/.test(s);
 
 const MARK_OFFICIAL = stems(["ufficial", "official", "oficial", "offiziell", "officiel", "officiell", "officiël", "officieel", "resmi", "oficjaln", "avall", "endors"]);
-const MARK_DIRECT = stems(["dirett", "direct", "direkt", "direto", "rechtstreeks", "bezpośredn", "doğrudan", "native", "nativ"]);
+const MARK_DIRECT = stems(["dirett", "direct", "direkt", "direto", "rechtstreeks", "bezpośredn", "doğrudan", "native", "nativ", "straight"]);
+// S6-03: avallo/certificazione/raccomandazione («certified», «certificato», «zertifiziert», «approvata da»)
+const MARK_CERT = stems([
+  "certif", "zertifiz", "sertifik", "certyfik", "gecertific", "avall", "approv", "aprob", "aprov", "genehmig", "zatwierdz", "onayl",
+  "goedgekeur", "godkän", "godkend", "endors",
+]);
 const MARK_PARTNER = stems(["partner", "socio", "parceri", "partenaire", "partnerschap", "samarbe", "samarbej", "współprac", "ortak"]);
 const MARK_API = /(?<![\p{L}\p{N}])(?:API|OAuth|SDK)(?![\p{L}])/iu;
 const CJK_MARKS: Array<[string, RegExp]> = [
   ["ufficiale", /公式|公認|공식/u],
   ["diretta", /直接|직접/u],
   ["partnership", /パートナー|파트너|提携|제휴/u],
+  ["certificazione", /認定|認証済|인증받|인증된|인증을 받/u],
   ["integrazione", /統合|통합/u],
 ];
 
@@ -183,6 +199,7 @@ export function detectClaim(sentence: string): ClaimDetection | null {
   if (MARK_OFFICIAL.test(s)) marcatori.push("ufficiale");
   if (MARK_DIRECT.test(s)) marcatori.push("diretta");
   if (MARK_PARTNER.test(s)) marcatori.push("partnership");
+  if (MARK_CERT.test(s)) marcatori.push("certificazione");
   if (MARK_API.test(s)) marcatori.push("api");
   for (const [m, re] of CJK_MARKS) if (re.test(s) && !marcatori.includes(m)) marcatori.push(m);
   if (/integr|entegr|unific/i.test(s) && !marcatori.includes("integrazione")) marcatori.push("integrazione");

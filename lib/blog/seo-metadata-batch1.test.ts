@@ -23,6 +23,7 @@ import {
   norm,
   nz,
 } from "@/lib/blog/claims/text-guards-v3";
+import { S6_FREQ } from "@/lib/blog/claims/claim-corpus-s6";
 
 // Regex condivise (T3): le frequenze e i tempi coprono tutte le 13 lingue, non solo IT/EN/ES/DE/NL.
 
@@ -525,6 +526,68 @@ describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
       expect(oldBlocked).toBe(12);
     });
 
+    // S6 (CONTROLLO-S6 punto e, SD2): la protezione contestuale NON conservava la frequenza di OCCORRENZA con soggetto
+    // implicito («Succede di frequente dopo un aggiornamento», «It happens frequently...»), che il vecchio divieto di
+    // parole intere catturava. P = occorrenza (rosso), K = «common»/«comune»/causa (rosso), N = legittima e
+    // D = presa di distanza (verdi): 54 frasi VERBATIM del revisore, in 13 lingue. Il vecchio divieto e' calcolato
+    // per confronto: la protezione nuova prende le P che il vecchio prendeva, senza i suoi falsi positivi.
+    it("S6-01/03/05/06/07: occorrenza con soggetto implicito, common/comune, cause, prese di distanza e istruzioni (54 frasi del revisore)", () => {
+      expect(S6_FREQ.length).toBe(54);
+      expect(new Set(S6_FREQ.map(([, l]) => l)).size).toBe(13);
+      const path = (l: string): string => (l === "sv" || l === "da" ? `overlay:body.0.text.${l}` : `ts:body.0.text.${l}`);
+      const wrong: string[] = [];
+      let pRed = 0;
+      let nOld = 0;
+      for (const [cls, l, t] of S6_FREQ) {
+        const red = fitbitFrequencyVerdict(path(l), norm(t)).length > 0;
+        const want = cls === "P" || cls === "K";
+        if (red !== want) wrong.push(`${cls} ${l}: ${t}`);
+        if (cls === "P" && red) pRed += 1;
+        if ((cls === "N" || cls === "D") && OLD_ALL_FIELDS.test(norm(t))) nOld += 1;
+      }
+      expect(wrong).toEqual([]);
+      expect(pRed).toBe(16);
+      // il vecchio divieto fermava anche frasi legittime (N, D): il nuovo no
+      expect(nOld).toBeGreaterThan(10);
+    });
+
+    it("S6-01: le P senza nome di problema («Succede di frequente», «It happens frequently») sono rosse; con un soggetto nominale e scheduling restano verdi", () => {
+      const red = (t: string): number => fitbitFrequencyVerdict("x.en", norm(t)).length;
+      expect(red("It happens frequently after an Android update.")).toBeGreaterThan(0);
+      expect(red("Succede di frequente dopo un aggiornamento di Android.")).toBeGreaterThan(0);
+      expect(red("Dit gebeurt vaak na een Android-update.")).toBeGreaterThan(0);
+      expect(red("Android の更新後に頻繁に起きます。")).toBeGreaterThan(0);
+      expect(red("Sync usually happens in the background because Android allows it.")).toBe(0);
+      expect(red("How often does it happen?")).toBe(0);
+      expect(red("Fitbit sincronizza più volte al giorno.")).toBe(0);
+    });
+
+    it("S6-05: la presa di distanza vale in de/pl/tr/ja/ko/da, anche con la clausola subordinata dopo la virgola, e non copre la frase seguente", () => {
+      for (const t of [
+        "Wir können nicht sagen, dass es ein häufiges Problem ist.",
+        "Nie możemy powiedzieć, że to częsty problem.",
+        "Bunun yaygın bir sorun olduğunu söyleyemeyiz.",
+        "これがよくある問題だとは言えません。",
+        "이것이 흔한 문제라고 말할 수 없습니다.",
+        "Vi kan ikke sige, at det er et almindeligt problem.",
+      ]) {
+        expect(fitbitFrequencyVerdict("x", norm(t)), t).toEqual([]);
+      }
+      // la presa di distanza e' della sua frase: la frase seguente che afferma resta rossa
+      expect(fitbitFrequencyVerdict("x", norm("Wir können nicht sagen, wie viele es sind. Es ist ein häufiges Problem."))).not.toEqual([]);
+    });
+
+    it("S6-07: una frequenza riferita a un'AZIONE dell'utente (istruzione) non e' frequenza di causa; con un problema nominato torna rossa", () => {
+      for (const t of [
+        "Le autorizzazioni di Health Connect si controllano spesso dal menu Impostazioni del telefono.",
+        "Die Berechtigungen prüfst du am besten regelmäßig.",
+        "You should check the permissions in Health Connect regularly.",
+      ]) {
+        expect(fitbitFrequencyVerdict("x", norm(t)), t).toEqual([]);
+      }
+      expect(fitbitFrequencyVerdict("x", norm("Spesso il problema è che i permessi di Health Connect vanno controllati."))).not.toEqual([]);
+    });
+
     it("metaDescription e hero.subtitle: nessuna promessa di ripristino (13 lingue)", () => {
       for (const c of cells) {
         if (/metaDescription|hero\.subtitle/.test(c.path)) {
@@ -932,7 +995,7 @@ type CorpusEntry = {
   text: string; // frase da inserire (prepend), testo nuovo (set), oppure testo nuovo per replace
   from?: string; // replace: stringa esistente nella cella
   expect: "pass" | "fail";
-  src: "S3-L" | "S3-P" | "S3-K" | "S3-V" | "SA" | "S4-LF" | "S4-LG" | "S4-PF" | "S4-PG" | "S4-EX" | "SA3";
+  src: "S3-L" | "S3-P" | "S3-K" | "S3-V" | "SA" | "S4-LF" | "S4-LG" | "S4-PF" | "S4-PG" | "S4-EX" | "SA3" | "S6-LIM";
 };
 const FB_SLUG = "fitbit-data-not-syncing-android";
 const GA_SLUG = "esportare-dati-garmin";
@@ -1286,6 +1349,11 @@ const CORPUS_S4: CorpusEntry[] = [
   E("SA3", "pass", "SA3-G49", "GA", "ts:faq.0.a.fr", "Sans accord avec Garmin, FitMesh ne peut pas utiliser l'API officielle."),
   E("SA3", "pass", "SA3-G50", "GA", "ts:faq.0.a.de", "Ohne Vereinbarung mit Garmin kann FitMesh die offizielle API nicht nutzen."),
   E("SA3", "fail", "SA3-G51", "GA", "ts:faq.0.a.en", "FitMesh connects to Garmin without any export, officially."),
+  // Promossi dai LIMITI-NOTI (S6-01/S6-03/S6-04: connettivo causale dopo il marcatore, litote, rapporto «su dieci casi»):
+  // la guardia ora li vede, e il test dei limiti avrebbe fatto rosso se fossero rimasti elencati come «verde».
+  E("S6-LIM", "fail", "LIM-F1", "FB", "ts:faq.0.a.en", "It often happens because of the update."),
+  E("S6-LIM", "fail", "LIM-F2", "FB", "ts:faq.0.a.it", "Non è raro che il problema siano i permessi."),
+  E("S6-LIM", "fail", "LIM-F4", "FB", "ts:faq.0.a.it", "Su dieci casi, nove dipendono dai permessi."),
 ];
 
 // LIMITI-NOTI: frasi del revisore che la guardia classifica nel verso SBAGLIATO o non vede. Non sono nel corpus
@@ -1293,14 +1361,8 @@ const CORPUS_S4: CorpusEntry[] = [
 // nel corpus). Nessuna frase legittima e' qui con observed «rosso»: i falsi positivi non sono accettati.
 type KnownLimit = { id: string; post: "FB" | "GA"; path: string; text: string; observed: "verde" | "rosso"; truth: "legittima" | "promessa"; why: string };
 const LIMITI_NOTI: KnownLimit[] = [
-  { id: "LIM-F1", post: "FB", path: "ts:faq.0.a.en", text: "It often happens because of the update.", observed: "verde", truth: "promessa",
-    why: "«happens because» senza un nome di causa noto nel lessico di contesto non e' visto (la causa non e' nominata)." },
-  { id: "LIM-F2", post: "FB", path: "ts:faq.0.a.it", text: "Non è raro che il problema siano i permessi.", observed: "verde", truth: "promessa",
-    why: "litote («non e' raro»): la negazione di un contrario non e' un marcatore di frequenza." },
   { id: "LIM-F3", post: "FB", path: "ts:faq.0.a.en", text: "Permissions are the usual suspect.", observed: "verde", truth: "promessa",
     why: "«usual suspect» e' un idioma di frequenza senza avverbio ne' superlativo di causa." },
-  { id: "LIM-F4", post: "FB", path: "ts:faq.0.a.it", text: "Su dieci casi, nove dipendono dai permessi.", observed: "verde", truth: "promessa",
-    why: "rapporto costruito in forma «su N casi, M ...»: solo «N su dieci» e le forme equivalenti sono coperte." },
   { id: "LIM-F5", post: "FB", path: "ts:faq.0.a.it", text: "Il problema si ripresenta ogni giorno.", observed: "verde", truth: "promessa",
     why: "frequenza temporale («ogni giorno») non e' un marcatore: sarebbe indistinguibile dallo scheduling lecito." },
   { id: "LIM-G1", post: "GA", path: "ts:faq.0.a.it", text: "FitMesh dialoga con Garmin Connect.", observed: "verde", truth: "promessa",

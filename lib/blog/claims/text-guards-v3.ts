@@ -82,11 +82,20 @@ const FREQ_LATIN_WORDS = [
   "pleier", "vanligvis", "i de fleste tilfeller", "usein", "yleensä", "tavallisesti", "useimmiten", "monesti",
   "i många fall", "nästan alltid", "næsten altid", "i mange tilfælde", "nesten alltid", "melkein aina",
   "regelbundet", "regelmæssigt", "vanligaste", "mest vanliga", "mest almindelige", "hyppigste",
+  // S6-01: predicati «e' comune/e' vanligt/e' almindeligt/yaygın» con soggetto implicito
+  "vanligt", "almindeligt", "yaygın", "yaygındır",
+  // S6 (CONTROLLO-S6 C36/C37, LIM-F2/LIM-F4): litote e rapporti «nove volte su dieci»
+  "non è raro", "non e' raro", "non è insolito", "non di rado", "not uncommon", "not rare", "not unusual", "not infrequent",
+  "nicht selten", "nicht ungewöhnlich", "no es raro", "no es infrecuente", "pas rare", "não é raro", "nie jest rzadk\\p{L}*",
+  "niet zeldzaam", "inte ovanligt", "ikke ualmindeligt",
+  "(?:nine|eight|seven|ten)\\s+times\\s+(?:in|out\\s+of)\\s+ten", "su\\s+dieci\\s+(?:casi|volte)", "(?:nove|otto|sette)\\s+casi\\s+su\\s+dieci",
 ];
 const FREQ_CJK_WORDS = [
   "よく", "頻繁", "しばしば", "たいてい", "大抵", "多くの場合", "ほとんどの場合", "通常は", "一般的に", "普通は",
   "ことが多", "がちです", "ほぼ常に", "十中八九", "자주", "종종", "흔히", "보통", "대개", "주로", "대부분의 경우",
   "일반적으로", "빈번", "경우가 많", "때가 많", "거의 항상",
+  // S6-06: «대부분 배터리 최적화가 원인입니다» (senza «의 경우»); «대부분의 사용자» (di + persone) resta escluso
+  "대부분(?=\\s)", "대체로",
   // F11: proporzioni e superlativi in ja/ko
   "大半", "大多数", "ほとんどが", "ほとんどは", "最も多い", "一番多い", "最も一般的", "定期的", "しょっちゅう",
   "가장 흔한", "가장 많은", "가장 일반적인", "대부분은", "대부분이", "정기적으로", "규칙적으로",
@@ -124,7 +133,7 @@ const FREQ_CONTEXT_STEMS = [
   "manqu", "désactiv", "refus", "révoqu", "optimisation", "économie\\s+d'énergie", "vient", "provient", "dû\\b",
   // de
   "Problem", "Ursache", "Fehler", "fehl", "schuld", "Grund", "Gründe", "verantwortlich", "Berechtigung", "Verzögerung",
-  "blockier", "deaktiviert", "verweigert", "Energiespar", "Optimierung", "liegt", "daran", "wegen",
+  "blockier", "deaktiviert", "verweigert", "Energiespar", "Optimierung", "liegt", "daran", "wegen(?!\\s*[.,;]|\\s*$)",
   // pt
   "erro", "falh", "culp", "motivo", "razão", "responsável", "permiss", "atraso", "falta\\b", "negad", "desativ", "revog",
   "otimiza", "economia\\s+de\\s+energia", "devido",
@@ -135,6 +144,8 @@ const FREQ_CONTEXT_STEMS = [
   "sorun", "neden", "hata", "suç", "izin", "gecik", "kaynaklan", "pil\\s+tasarruf", "optimizasyon",
   // nl
   "probleem", "oorzaak", "fout", "schuld", "reden", "machtiging", "toestemming", "vertraging", "batterijbespar", "optimalisatie",
+  // S6-06: «Meestal ligt het aan...», «komt vaak doordat...»
+  "ligt\\s+(?:het|dat|dit)", "komt\\s+(?:het|dat|dit|door)", "doordat", "omdat",
   // sv / da / no / fi
   "orsak", "fel\\b", "skuld", "behörighet", "fördröj", "batterioptimer", "energisparande", "beror", "på grund", "årsag",
   "fejl", "tilladelse", "forsink", "skyldes", "tillatelse", "feil", "ongelma", "syy", "virhe", "oikeu", "optimoin", "optimer",
@@ -191,9 +202,116 @@ const FREQ_NEUTRAL_IDIOMS: RegExp[] = [
 // Posizione di un menu/impostazione: «di solito si trova nelle Impostazioni», «findest du normalerweise in den
 // Einstellungen». La frase dice DOVE, non quanto spesso accade un problema.
 const FREQ_LOCATION = new RegExp(
-  `${LB}(?:si\\s+trova|si\\s+trovano|trovi|trovate|puoi\\s+trovare|is\\s+(?:found|located|listed)|are\\s+(?:found|located|listed)|you\\s+(?:can\\s+)?find|findest|befindet\\s+sich|befinden\\s+sich|se\\s+encuentra|se\\s+encuentran|encuentras|se\\s+trouve|se\\s+trouvent|tu\\s+trouves|encontra|encontras|znajdziesz|znajduje|bulunur|bulabilirsin|vind\\s+je|te\\s+vinden|finns|hittar\\s+du|finder\\s+du|findes|ligger)${RB}|${LB}(?:in|under|nelle|nei|nella|in\\s+den|in\\s+der|dans\\s+les|dans\\s+le|en|em|w|içinde|onder|i|på|under)\\s+(?:the\\s+|le\\s+|las\\s+|los\\s+|den\\s+)?(?:Settings|Impostazioni|Einstellungen|Paramètres|Ajustes|Configuraciones|Configurações|Ustawieniach|Ayarlar|Instellingen|Inställningar|Indstillinger|Innstillinger)|(?<![一-鿿])設定(?:画面)?(?:に|で|には)|설정(?:에서|에)`,
+  `${LB}(?:si\\s+trova|si\\s+trovano|trovi|trovate|puoi\\s+trovare|is\\s+(?:found|located|listed)|are\\s+(?:found|located|listed)|you\\s+(?:can\\s+)?find|findest|befindet\\s+sich|befinden\\s+sich|se\\s+encuentra|se\\s+encuentran|encuentras|se\\s+trouve|se\\s+trouvent|tu\\s+trouves|encontra|encontras|znajdziesz|znajduje|bulunur|bulabilirsin|vind\\s+je|te\\s+vinden|finns|hittar\\s+du|finder\\s+du|findes|ligger)${RB}|${LB}(?:in|under|nelle|nei|nella|in\\s+den|in\\s+der|dans\\s+les|dans\\s+le|en|em|w|içinde|onder|i|på|under)\\s+(?:the\\s+|le\\s+|las\\s+|los\\s+|den\\s+)?(?:Settings|Impostazioni|Einstellungen|Paramètres|Ajustes|Configuraciones|Configurações|Ustawieniach|Ayarlar|Instellingen|Inställningar|Indstillinger|Innstillinger)|(?<![一-鿿])設定(?:画面)?(?:に|には|で(?!す))|설정(?:에서|에)`,
   "iu",
 );
+
+
+// ---- S6-01 / S6-04: soggetto implicito e connettivo causale subito dopo il marcatore ----
+// Parole che possono stare PRIMA del verbo senza essere un soggetto nominale: pronomi dimostrativi/impersonali,
+// copule, congiunzioni. «Succede», «It happens», «Das passiert», «Cela arrive», «c'est souvent parce que»: si'.
+// «Sync usually happens in the background», «Health Connect meist vorinstalliert, weil»: no (c'e' un nome).
+const IMPLICIT_WORDS = new Set([
+  "it", "this", "that", "they", "these", "those", "there", "such", "and", "but", "also", "then", "so", "now", "is", "are", "s", "t",
+  "ci", "ciò", "questo", "quello", "esso", "lo", "e", "ma", "anche", "poi", "è", "il", "si", "ne", "che", "non", "più", "molto",
+  "esto", "eso", "ello", "y", "pero", "también", "es", "está", "son", "lo",
+  "isso", "isto", "aquilo", "mas", "também", "é", "são", "o", "a",
+  "ça", "cela", "ceci", "ce", "c", "est", "il", "on", "mais", "et", "aussi", "y",
+  "das", "dies", "dieses", "es", "ist", "sind", "und", "aber", "auch", "dann", "so", "liegt", "kommt", "tritt", "man", "sich",
+  "to", "ono", "ten", "ta", "i", "ale", "też", "jest", "są", "się", "wynika", "bywa",
+  "bu", "şu", "o", "ve", "ama", "da", "de", "olur", "olarak",
+  "dit", "dat", "het", "ligt", "komt", "en", "maar", "ook", "is", "zijn",
+  "det", "den", "och", "men", "också", "är", "ofta", "er", "og", "også", "ikke", "ei", "ja",
+]);
+const GLOBAL_FREQ = new RegExp(FREQUENCY_OCCURRENCE.source, "giu");
+function implicitSubjectBefore(s: string, idx: number): boolean {
+  let pre = s.slice(0, idx);
+  const cut = Math.max(pre.lastIndexOf(","), pre.lastIndexOf(";"), pre.lastIndexOf(":"));
+  if (cut >= 0) pre = pre.slice(cut + 1);
+  pre = pre.replace(GLOBAL_FREQ, " ");
+  if (/[぀-ヿ㐀-鿿가-힯]/u.test(pre)) return true; // ja/ko: il soggetto non e' separato da spazi, non giudicabile qui
+  const toks = pre.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter((t) => t.length > 0);
+  return toks.length <= 3 && toks.every((t) => IMPLICIT_WORDS.has(t));
+}
+const CAUSE_LINK_WORDS =
+  "because|perché|perche'|poiché|siccome|dovut[oaie]|porque|ya\\s+que|parce\\s+que|car|weil|daran|dadurch|ponieważ|dlatego|wynika|bo|çünkü|nedeniyle|yüzünden|doordat|omdat|eftersom|för\\s+att|fordi|på\\s+grund";
+const CAUSE_LINK_AFTER = new RegExp(
+  `^[\\s,;:–-]*(?:(?:es|é|is|est|ist|è|er|är|jest|to|het|dat|dit)[\\s,]+)?(?:${CAUSE_LINK_WORDS})(?![\\p{L}\\p{N}])`,
+  "iu",
+);
+// ja/ko: il connettivo causale sta in fondo alla frase («...算出しているためで», «...계산하기 때문입니다»)
+const CAUSE_LINK_CJK = /ためで|ためです|からで(?:す|あ)|ことが原因|때문(?:입니다|이|에)|탓/u;
+function causeLinkedFrequency(s: string, mIdx: number, mLen: number): boolean {
+  const rest = s.slice(mIdx + mLen);
+  if (!/^[\s,;:–-]*[\p{L}]/u.test(rest) && !CAUSE_LINK_CJK.test(rest)) return false;
+  if (CAUSE_LINK_CJK.test(rest) && /[぀-ヿ㐀-鿿가-힯]/u.test(s)) return true;
+  return CAUSE_LINK_AFTER.test(rest) && implicitSubjectBefore(s, mIdx);
+}
+
+// ---- S6-05: presa di distanza ----
+// La clausola subordinata dopo il verbo di dire («Wir können nicht sagen, dass es ein häufiges Problem ist»,
+// «Nie możemy powiedzieć, że...», «Vi kan ikke sige, at...») non e' un'interruzione: la virgola davanti a
+// «dass/że/at/that/que/che/dat/att/ki» e' tolta prima del controllo di clausola.
+const FREQ_COMPLEMENTIZER = /,\s*(?:dass|daß|że|żeby|at|att|ki|that|que|che|dat|om|ob|ett|jo)(?![\p{L}\p{N}])/giu;
+// Forme con il verbo di dire DOPO il marcatore (tr, ja, ko: verbo in fondo): «Bunun yaygın bir sorun olduğunu
+// söyleyemeyiz», «これがよくある問題だとは言えません», «이것이 흔한 문제라고 말할 수 없습니다».
+const FREQ_DISTANCE_POST = /söyleyemeyiz|söyleyemem|kanıtlanmam\p{L}*|言えません|断言できません|言い切れません|証明されていません|말할 수 없|입증되지|확인되지/iu;
+function distanceRetracts(s: string, markerIdx: number, markerLen: number): boolean {
+  const d = FREQ_DISTANCE.exec(s);
+  if (d && d.index < markerIdx) {
+    const between = s.slice(d.index, markerIdx).replace(FREQ_COMPLEMENTIZER, " ");
+    if (!FREQ_CLAUSE_BREAK.test(between)) return true;
+  }
+  const after = s.slice(markerIdx + markerLen);
+  const p = FREQ_DISTANCE_POST.exec(after);
+  if (p) {
+    const between = after.slice(0, p.index);
+    if (!/[,;:.。]/.test(between.replace(/、/g, ""))) return true;
+  }
+  return false;
+}
+
+// ---- S6-07: la frequenza di un'AZIONE dell'utente (istruzione), non di un evento/una causa ----
+// «Le autorizzazioni di Health Connect si controllano spesso dal menu Impostazioni», «Die Berechtigungen prüfst
+// du am besten regelmäßig»: un verbo di verifica rivolto a chi legge e NESSUN nome/verbo di problema o di
+// fallimento (i soli nomi di permessi/autorizzazioni non bastano a fare un claim).
+const FREQ_CHECK_VERB = new RegExp(
+  `${LB}(?:controll|verific|verify|verifies|check|review|inspect|prüf|überprüf|kontrollier|comprueb|revis|vérifi|contrôl|sprawdz|kontrol\\s+et|controleer|kontrollera|kontroller|tjek|tarkist|確認|チェック|点検|확인|점검)\\p{L}*|確認|チェック|확인|점검`,
+  "iu",
+);
+const FREQ_PROBLEM_STATE = new RegExp(
+  `${LB}(?:problem|issue|error|errore|errori|errores|erreur|fehler|fail|fallisc|fallo|échec|échou|błąd|hata|fout|fel\\b|fejl|stuck|bloc|blocca|stops?|interromp|disattiv|disabled|desactiv|deaktiv|revoc|revok|ritard|delay|non\\s+si\\s+sincron|non\\s+funzion|caus|colp|culp|schuld|ursache|przyczyn|neden|oorzaak|orsak|årsag)|問題|原因|エラー|失敗|문제|원인|오류|실패`,
+  "iu",
+);
+const isUserInstruction = (s: string): boolean => FREQ_CHECK_VERB.test(s) && !FREQ_PROBLEM_STATE.test(s);
+
+// ---- S6-01: frequenza di OCCORRENZA con soggetto implicito ----
+// «Succede di frequente dopo un aggiornamento di Android», «It happens frequently after an Android update»,
+// «Das passiert häufig nach einem Android-Update», «Dit gebeurt vaak...», «頻繁に起きます»: l'evento e' il
+// problema anche se non e' nominato. Verbo di occorrenza + avverbio/locuzione di frequenza, oppure copula +
+// aggettivo di frequenza + ancora temporale («Es habitual tras actualizar Android», «Det er almindeligt efter...»).
+// (comprende l'efficacia di un rimedio con soggetto implicito: «Häufig hilft es, die App neu zu installieren»)
+const OCCURRENCE_VERB = new RegExp(
+  `${LB}(?:succed|capit(?:a|ano)\\b|accad|avvien|si\\s+verific|si\\s+present|si\\s+ripresent|si\\s+manifest|ricorr|happen|occur|arise|arises|crops?\\s+up|comes?\\s+up|shows?\\s+up|take(?:s)?\\s+place|is\\s+seen|ocurr|sucede|suceden|pasa\\b|pasan\\b|se\\s+produc|aparec|acontec|ocorr|arriv|se\\s+produi|survien|apparaî|passiert|passieren|geschieht|geschehen|vorkomm|auftret|tritt\\s+\\p{L}*\\s*auf|kommt\\s+\\p{L}*\\s*vor|zdarza|występuj|pojawia|dzieje\\s+się|trafia\\s+się|oluyor|olur\\b|olabilir|görül|yaşan|meydana|ortaya\\s+çık|rastlan|gebeurt|gebeuren|komt\\s+voor|treedt|doet\\s+zich|voorkomt|händer|inträffar|förekommer|uppstår|sker\\b|forekommer|opstår|indtræffer|skjer|tapahtuu|esiintyy|hilft|helfen|helps?|aiuta|basta|ayuda|ajuda|aide|pomaga|işe\\s+yarar|helpt|hjälper|hjælper)` +
+    `|起き|起こ|発生|生じ|見られ|見かけ|解決します|直ります|도움이|생깁|생기|생겨|발생|일어납|일어나|나타납|나타나|벌어`,
+  "iu",
+);
+const FREQ_COPULA_ADJ = new RegExp(
+  `${LB}(?:è|e'|es|está|é|est|c'est|is|are|ist|sind|jest|są|to\\s+jest|je|är|er|ir|on|ei|olur|olarak)${RB}\\s+(?:\\p{L}+\\s+){0,2}?(?:comun|common|frequen|fréquen|habitual|häufig|comum|frecuen|courant|verbreitet|gängig|üblich|częst|powszechn|yaygın|vaak|veelvoorkomend|vanlig|almindelig|usual|normal)`,
+  "iu",
+);
+const FREQ_TEMPORAL_ANCHOR = new RegExp(
+  `${LB}(?:dopo|after|tras|después|nach|depois|após|après|po|sonra|na|efter|etter|kun)${RB}|後|後に|후|뒤|이후|変更の?あと`,
+  "iu",
+);
+const FREQ_ADJ_TR = /yaygın\s+olarak\s+görül|sık\s+(?:olarak\s+)?(?:görül|yaşan|karşılaş)/iu;
+function implicitOccurrenceMatch(s: string): boolean {
+  const v = OCCURRENCE_VERB.exec(s);
+  if (v && implicitSubjectBefore(s, v.index)) return true;
+  const c = FREQ_COPULA_ADJ.exec(s);
+  if (c && FREQ_TEMPORAL_ANCHOR.test(s) && implicitSubjectBefore(s, c.index)) return true;
+  return FREQ_ADJ_TR.test(s);
+}
 
 // Problemi per cella (vuoto = nessuna espressione di frequenza del problema).
 export function fitbitFrequencyProblems(text: string): string[] {
@@ -207,10 +325,12 @@ export function fitbitFrequencyProblems(text: string): string[] {
     const m = FREQUENCY_OCCURRENCE.exec(s) ?? PCT_CLAIM.exec(s);
     if (!m) continue;
     if (FREQ_LOCATION.test(s)) continue;
-    if (!FREQ_CONTEXT.test(s)) continue;
-    // F3: presa di distanza PRIMA del marcatore, nella stessa clausola
-    const d = FREQ_DISTANCE.exec(s);
-    if (d && d.index < m.index && !FREQ_CLAUSE_BREAK.test(s.slice(d.index, m.index))) continue;
+    // S6-01: soggetto implicito. Un verbo di occorrenza o «e' comune dopo X» basta, senza nome di problema.
+    const implicit = implicitOccurrenceMatch(s) || causeLinkedFrequency(s, m.index, m[0].length);
+    if (!FREQ_CONTEXT.test(s) && !implicit) continue;
+    if (isUserInstruction(s) && !implicit) continue; // S6-07
+    // F3 + S6-05: presa di distanza (prima o, in tr/ja/ko, dopo il marcatore), nella stessa clausola
+    if (distanceRetracts(s, m.index, m[0].length)) continue;
     out.push(`frequenza del problema: ${raw.slice(0, 80)}`);
   }
   return out;
@@ -651,16 +771,21 @@ const FREQ_ADJECTIVE = new RegExp(
   "frequente|frequent|frecuent|habitual|häufig|comum|fréquent|częst|yaygın|veelvoorkomend|vaak|多くの場合|よくある|頻繁|많습니다|흔|vanlig|almindelig",
   "iu",
 );
+// S6-03: «common»/«comune»/«común»/«courant»/«verbreitet»... con confini di parola («comunicazione» non e' «comune»).
+const FREQ_ADJECTIVE_COMMON = new RegExp(
+  `${LB}(?:common|comuni?|comunes?|comuns|común|courant\\p{L}*(?!\\s*\\d)|verbreitet\\p{L}*|gängig\\p{L}*|üblich\\p{L}*|powszechn\\p{L}*|pospolit\\p{L}*|utbredd\\p{L}*|udbredt\\p{L}*|algemeen|algemene|vanligt|ordinary)${RB}|一般的な|ありふれた|일반적인`,
+  "iu",
+);
 export function frequentProblemAttributionProblems(text: string): string[] {
   const out: string[] = [];
   for (const raw of segmentSentences(nz(text))) {
     if (isQuestion(raw)) continue;
-    const m = FREQ_ADJECTIVE.exec(raw);
+    const m = FREQ_ADJECTIVE.exec(raw) ?? FREQ_ADJECTIVE_COMMON.exec(raw);
     if (!m) continue;
     if (FREQ_LOCATION.test(raw)) continue;
     if (!FREQ_CONTEXT.test(raw)) continue;
-    const d = FREQ_DISTANCE.exec(raw);
-    if (d && d.index < m.index && !FREQ_CLAUSE_BREAK.test(raw.slice(d.index, m.index))) continue;
+    if (isUserInstruction(raw)) continue; // S6-07
+    if (distanceRetracts(raw, m.index, m[0].length)) continue; // S6-05
     out.push(`frequenza attribuita a un problema o a una causa: ${raw.slice(0, 80)}`);
   }
   return out;
@@ -677,6 +802,11 @@ export const SECTION_LABELS_FREQ_ALL: Record<string, string> = {
   "ts:body.6.text.nl": "Veelvoorkomende valkuilen die mensen struikelen",
   "ts:body.6.text.ja": "よくある落とし穴",
   "overlay:body.6.text.sv": "Vanliga fallgropar som många snubblar på",
+  // S6-03: «comune/común/comum» ora e' un aggettivo di frequenza rilevato. Stessa H2 «insidie comuni» delle sei sopra,
+  // nelle tre lingue in cui l'aggettivo e' «comune/comun/comum»: etichetta di sezione a testo esatto, non una stima.
+  "ts:body.6.text.it": "Insidie comuni che bloccano la sincronizzazione",
+  "ts:body.6.text.es": "Errores comunes que bloquean la sincronización",
+  "ts:body.6.text.pt": "Armadilhas comuns que bloqueiam a sincronização",
 };
 export function fitbitFrequencyVerdict(path: string, text: string): string[] {
   if (SECTION_LABELS_FREQ_ALL[path] === text) return [];
