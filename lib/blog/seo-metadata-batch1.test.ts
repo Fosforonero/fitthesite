@@ -683,22 +683,240 @@ const SECTION_LABELS_EXTENDED: Record<string, string> = {
   "ts:body.6.text.ko": "사람들이 자주 걸리는 함정",
 };
 
-// Promessa Garmin: soggetto FitMesh + affermazione di integrazione/ufficialita'/API/partnership/supporto.
-const GA_INTEGRATION =
-  /integra|integr|intégr|integrier|zintegr|entegr|統合|連携|통합|연동|ansluten|koppl|official|ufficial|oficial|offiziell|officiel|officiell|officiël|resmi|公式|공식|oficjaln|\bAPI\b|API-|OAuth|partner|partenar|socio\b|ortak|パートナー|파트너|certific|zertifiz|approved|godkänd|godkendt|zatwierdz|onaylı|aprovad|aprobad|genehmigt|goedgekeurd|承認|승인|compatib|kompatib|supporta|supports|soporta|unterstützt|prend en charge|obsługuje|destekler|ondersteunt|stöder|understøtter|対応|지원/i;
-// Ufficialita' + integrazione nella STESSA frase, in entrambi gli ordini (soggetto non nominato: «L'app e' integrata
-// ufficialmente con l'API Garmin Connect»).
-const GA_INTEGR_STEM = /integra|integr|intégr|integrier|zintegr|entegr|統合|連携|통합|연동|ansluten|koppl/i;
-const GA_OFFICIAL_STEM = /official|ufficial|oficial|offiziell|officiel|officiell|officiël|resmi|公式|공식|oficjaln/i;
-const GA_THIRD_PARTY = /Strava|Training\s?Peaks|Final Surge|Tapiriik|GarminDB|Intervals|Runalyze/i;
-// Promessa futura/datata o «prevista» (CS2-4): estende ROADMAP_PROMISE, ma solo in una frase che parla di
-// FitMesh o di integrazione/API, cosi' «reimportare in futuro» (body.8, legittimo) non e' un falso positivo.
-const GA_FUTURE_PLAN =
-  /previst|prévu|vorgesehen|in Zukunft|en el futuro|no futuro|w przyszłości|gelecekte|in de toekomst|将来|今後|향후|i framtiden|i fremtiden|stiamo lavorando|we are working|work in progress|will be (?:available|supported|added)|sarà (?:disponibile|supportat\w*|aggiunt\w*)|arriverà|verrà (?:aggiunt\w*|introdott\w*)|llegará|kommt bald|en préparation|in arrivo|de toekomst/i;
-const sentencesOf = (t: string): string[] => t.split(/(?<=[.!?。！？])\s*|\n+/).filter((s) => s.trim().length > 0);
+
+const nz = (s: string): string => norm(s).replace(/[‘’]/g, "'");
+const LB = "(?<![\\p{L}\\p{N}])";
+const RB = "(?![\\p{L}\\p{N}])";
+const stemRe = (list: string[]): RegExp =>
+  new RegExp(`${LB}(?:${list.map((w) => w.replace(/ /g, "\\s+")).join("|")})\\p{L}*`, "iu");
+
+// Segmenta in frasi: . ! ? ; newline e, per ja/ko, 。！？. La punteggiatura finale resta nella frase (domande).
+function segmentSentences(t: string): string[] {
+  const out: string[] = [];
+  for (const line of t.split(/\n+/)) {
+    // «.», «!», «?», «;» seguiti da spazio (un punto dentro «Intervals.icu» o «1.5» non separa); «。！？» sempre
+    for (const s of line.split(/(?<=[.!?;])\s+|(?<=[。！？])/u)) if (s.trim().length > 0) out.push(s.trim());
+  }
+  return out;
+}
+const isQuestion = (s: string): boolean => /[?？]\s*$/.test(s);
+
+
+// ---- G1: promessa Garmin (frase positiva, predicato di integrazione/ufficialita'/supporto DIRETTO su Garmin) ----
+// Predicati. Radici con confine di parola a sinistra (nessun «imprevisto» -> «previst»), suffisso libero.
+const GA_PRED_INTEGRATION = stemRe([
+  // it/en/es/pt/fr/de/pl/tr/nl/sv/da/no/fi: integrazione e collegamento (verbi e nomi)
+  "integr(?!al|it)", "intégr(?!al|it)", "integrier", "zintegr", "entegr", "geïntegr", "ïntegr", "integroi", "geintegr",
+  "collega", "collegat", "collegament", "connett", "conness", "connects", "connected", "connecting", "connection",
+  "connecter", "connecte", "connectée", "connecté", "connectent", "conecta", "conectad", "conexi", "conexão", "vincula", "enlaza", "ligad", "relie", "relié", "lié", "liaison",
+  "verbind", "verknüpf", "anbindung", "angebunden", "anknüpf", "łączy", "połącz", "bağlan", "bağlı", "bağlantı",
+  "verbonden", "koppel", "gekoppeld", "koppling", "kopplad", "kopplar", "ansluter", "ansluten", "anslutning",
+  "forbinder", "forbundet", "tilslut", "kobler", "koblet", "yhdistä", "yhdistet",
+]);
+const GA_PRED_INTEGRATION_CONNECT_TO = /(?<![\p{L}\p{N}])connect\s+(?:to|with)\b/iu;
+const GA_PRED_INTEGRATION_CJK = /統合|連携|接続|つなが|繋が|統合|통합|연동|연결/u;
+// Supporto: SOLO forme verbali/aggettivali (il sostantivo «supporto Garmin» e' anche l'assistenza di Garmin)
+const GA_PRED_SUPPORT = stemRe([
+  "supporta", "supports", "supported", "supporting", "soporta", "unterstützt", "unterstützen", "prend en charge",
+  "prennent en charge", "supporte", "suporta", "obsługuje", "wspiera", "destekler", "destekliyor", "ondersteunt",
+  "stöder", "støtter", "understøtter", "compatib", "kompatib", "kompatyb", "uyumlu", "tukee", "kompatibel",
+]);
+const GA_PRED_SUPPORT_CJK = /対応|サポート|지원/u;
+const GA_PRED_PARTNER = stemRe([
+  "partner", "partenar", "socio", "socia", "socios", "socias", "ortak", "partnerschaft", "partnerskap", "kumppan",
+  "accordo", "agreement", "acuerdo", "accord", "vereinbarung", "abkommen", "overeenkomst", "avtal", "aftale", "anlaşma", "umowa",
+  "collaborazion", "collaboration", "colaboraci", "zusammenarbeit", "kooperation", "cooperation",
+]);
+const GA_PRED_PARTNER_CJK = /パートナー|파트너|提携|제휴/u;
+// Stato: certificato/approvato DA Garmin / «Garmin-approved»
+const GA_PRED_STATUS = new RegExp(
+  `${LB}(?:certific\\p{L}*|zertifiz\\p{L}*|certifi\\p{L}*|(?:approved|authori[sz]ed|autorizzat\\p{L}*|approvat\\p{L}*|aprovad\\p{L}*|aprobad\\p{L}*|godkänd|godkendt|genehmigt|zatwierdzon\\p{L}*|goedgekeurd)\\s+(?:by|da|von|por|par|av|af|door|przez))`,
+  "iu",
+);
+// Stato con FitMesh come oggetto: «Garmin ha approvato FitMesh», «FitMesh e' approvata»
+const GA_PRED_STATUS_LOOSE = stemRe(["approv", "aprob", "aprov", "genehmig", "godkän", "godkend", "zatwierdz", "goedgekeurd", "authori[sz]", "autorizz"]);
+// «funziona/works with» + diretto/ufficiale; sostantivo «supporto» con FitMesh soggetto
+const GA_PRED_WORKS = new RegExp(
+  `${LB}(?:funziona|funzionano|works?|funktioniert|funktionieren|fonctionne|fonctionnent|funciona|funcionan|działa|werkt|fungerar|fungerer|toimii)(?:\\s+\\p{L}+)?\\s+(?:con|with|mit|avec|z|met|med|com|ile)${RB}|ile\\s+çalışır`,
+  "iu",
+);
+const GA_PRED_SUPPORT_NOUN = stemRe(["support", "supporto", "soporte", "unterstützung", "stöd", "støtte", "destek", "ondersteuning", "wsparcie", "suporte"]);
+const GA_PRED_WILL_SUPPORT = /(?<![\p{L}\p{N}])(?:will|to|can|could|would|may)(?:\s+(?:soon|also|now|natively|officially))?\s+support(?![\p{L}])/iu;
+const GA_PRED_STATUS_CJK = /公認|認定|인증/u;
+// Uso dell'API: «usa/uses ... API» e «tramite/through ... API» (anche posposto in ja/ko/tr). Il tratto fra verbo
+// e API non attraversa virgole/due punti e non contiene un'altra preposizione di mezzo: «via HC e non via l'API»
+// ha DUE predicati, il secondo e' negato.
+const GA_VIA =
+  "tramite|attraverso|mediante|via|through|über|à\\s+travers|a\\s+través\\s+de|przez|aracılığıyla|genom|gennem|ved\\s+hjælp\\s+af|pela|pelo";
+const GA_USE =
+  "usa|usano|usiamo|utilizza|utilizziamo|uses?|using|utilis[ea]\\p{L}*|nutzt|nutzen|verwendet|verwenden|utiliza|usan|używa|kullanır|kullanıyor|gebruikt|använder|bruger|accede|accesses|greift|bedient|chiama|calls";
+const GA_GAP = `(?:(?!${LB}(?:${GA_VIA}|${GA_USE})${RB})[^.。;,:，、]){0,60}?`;
+const GA_PRED_API = new RegExp(
+  `${LB}(?:${GA_USE}|${GA_VIA})${RB}${GA_GAP}\\bAPI\\b` +
+    `|\\bAPI\\b[^.。;]{0,24}(?:を使用|を利用|を通じ|を介|를\\s*통|을\\s*통|를\\s*사용|을\\s*사용|üzerinden|kullan)`,
+  "iu",
+);
+const GA_SYNC = stemRe(["sincronizz", "sincroniz", "sync", "synchron", "synkron", "senkron", "synchroniz", "synchronis"]);
+const GA_SYNC_CJK = /同期|동기화/u;
+const GA_OFFICIAL = /(?<![\p{L}\p{N}])(?:ufficial|official|oficial|offiziell|officiel|officiell|officiël|officieel|resmi|resmen|oficjaln)\p{L}*|公式|公認|공식/iu;
+const GA_DIRECT = /(?<![\p{L}\p{N}])(?:dirett|direct|direkt|nativ|native)\p{L}*|直接|直結|ネイティブ|직접|네이티브/iu;
+// Sincronizzazione ufficiale/diretta: sync e ufficiale/diretto ADIACENTI (max 2 parole in mezzo, entrambi gli ordini)
+const GA_SYNC_OFFICIAL = new RegExp(
+  `(?:${GA_SYNC.source})(?:\\s+\\p{L}+){0,2}?\\s+(?:${GA_OFFICIAL.source}|${GA_DIRECT.source})` +
+    `|(?:${GA_OFFICIAL.source}|${GA_DIRECT.source})(?:\\s+\\p{L}+){0,2}?\\s+(?:${GA_SYNC.source})` +
+    `|(?:公式|公認|공식|直接|직접)[^。、,]{0,6}(?:同期|동기화)|(?:同期|동기화)[^。、,]{0,6}(?:公式|공식|直接|직접)`,
+  "iu",
+);
+const GA_FUTURE = new RegExp(
+  `${LB}(?:previst\\p{L}*|prévu\\p{L}*|vorgesehen|in\\s+futuro|nel\\s+futuro|a\\s+futuro|in\\s+the\\s+future|in\\s+future|dans\\s+le\\s+futur|à\\s+l'avenir|ileride|in\\s+Zukunft|zukünftig|künftig|en\\s+el\\s+futuro|en\\s+futuro|no\\s+futuro|futuramente|w\\s+przyszłości|przyszł\\p{L}*|gelecekte|gelecek|in\\s+de\\s+toekomst|toekomst|today\\s+not|stiamo\\s+lavorando|we\\s+are\\s+working|we're\\s+working|work\\s+in\\s+progress|will\\s+(?:be|soon|support|integrate|connect|work)|sarà|sara'|saranno|arriverà|verrà|coming\\s+soon|coming|upcoming|soon|roadmap|planned|planerad\\p{L}*|planlagt|geplant|planlanıyor|kommer\\s+att|kommer\\s+snart|kommer\\s+i\\s+(?:framtiden|fremtiden)|kommt\\s+bald|en\\s+préparation|bientôt|prochainement|in\\s+arrivo|prossimamente|llegará|será|próximamente|em\\s+breve|wkrótce|yakında|binnenkort|pian)${RB}|将来|今後|予定|향후|앞으로|예정`,
+  "iu",
+);
+const GA_NEGATION_WORDS = new RegExp(
+  `${LB}(?:non|né|nessun\\p{L}*|mai|niente|not|no|never|neither|nor|cannot|nunca|ni|tampoco|ne|pas|jamais|aucun\\p{L}*|nicht|kein\\p{L}*|nie|weder|não|nem|nenhum\\p{L}*|żaden|nigdy|niet|geen|nooit|inte|ingen|inget|aldrig|ej|ikke|intet|ei|eivät|emme|ole)${RB}|${LB}n'(?=\\p{L})|\\p{L}+n't`,
+  "iu",
+);
+const GA_NEGATION_CJK = /ない|ません|ではなく|ではありません|いません|아니|않|없|못|안\s/u;
+const GA_NEGATION_TR = /(?<![\p{L}\p{N}])(?:değil\p{L}*|yok)(?![\p{L}\p{N}])/iu;
+const GA_CJK_CHARS = /[぀-ヿ㐀-鿿가-힯]/u;
+const GA_CLAUSE_BOUND = /[,，、:：]|\s(?:ma|but|however|though|mais|aber|doch|pero|mas|ale|ancak|maar|men|sondern|però|invece|whereas|while|tuttavia)\s|が、|けど|けれど|지만/giu;
+const GA_THIRD_PARTY =
+  /(?<![\p{L}\p{N}])(?:Strava|Training\s?Peaks|Final\s?Surge|Tapiriik|GarminDB|Intervals|Runalyze|Apple|Google|Samsung|Fitbit|Polar|Suunto|Coros|Wahoo|Zwift|MyFitnessPal|Komoot|Runkeeper|Oura|Whoop|Withings|Health\s?Connect|HealthKit|Salute)/iu;
+const GA_FIRST_PERSON =
+  /(?<![\p{L}\p{N}])FitMesh|(?<![\p{L}\p{N}])(?:noi|siamo|abbiamo|nostr\p{L}*|we're|our|wir|unser\p{L}*|nous|notre|nosotros|somos|nuestr\p{L}*|nós|nosso\p{L}*|nasz\p{L}*|jesteśmy|biz|bizim|wij|onze|vår\p{L}*|vores)(?![\p{L}\p{N}])|(?<![\p{L}\p{N}])we\s+(?:are|were|have|work|support|integrate|connect|offer|do|did|will|can|use|read|sync|plan|partner)(?![\p{L}])|私たち|当社|弊社|우리|저희/iu;
+// FitMesh legge attraverso Health Connect: «FitMesh collega Garmin tramite Health Connect» non e' integrazione diretta
+const GA_MEDIATED =
+  /(?:tramite|attraverso|mediante|via|through|über|à\s+travers|a\s+través\s+de|przez|aracılığıyla|genom|gennem|pela|pelo|経由|を通じて|を介して|통해)\s+(?:il\s+|la\s+|the\s+|le\s+|el\s+|den\s+|das\s+|dem\s+|l')?(?:pass-through\s+|relais\s+)?(?:Health[ -]Connect|HC)/iu;
+// Benefici di integrazione/automazione (G3), per lingua. Radici; confine di parola a sinistra.
+const GA_BENEFIT = new RegExp(
+  `${LB}(?:automat\\p{L}*|in\\s+automatico|tutt[oaie]\\b|un\\s+(?:solo|unico)\\s+posto|in\\s+un\\s+posto|centralizz\\p{L}*|export\\s+manuale|senza\\s+(?:dover\\s+)?esport\\p{L}*` +
+    `|everything|all\\s+(?:of\\s+)?(?:your|the)|in\\s+one\\s+place|one\\s+place|single\\s+place|manual\\s+export|hands-free|seamless\\p{L}*|one-click` +
+    `|todos?\\b|todas?\\b|en\\s+un\\s+solo\\s+lugar|sin\\s+exportar|tout\\b|tous\\b|toutes\\b|en\\s+un\\s+seul\\s+endroit|sans\\s+export\\p{L}*` +
+    `|alles\\b|alle\\b|an\\s+einem\\s+Ort|ohne\\s+(?:manuellen\\s+)?Export|tudo\\b|em\\s+um\\s+só\\s+lugar|num\\s+só\\s+lugar|sem\\s+exportar` +
+    `|wszystk\\p{L}*|w\\s+jednym\\s+miejscu|otomatik\\p{L}*|tüm\\b|hepsi|her\\s+şey|tek\\s+yerde|op\\s+één\\s+plek|zonder\\s+handmatige` +
+    `|allt\\b|alla\\b|på\\s+ett\\s+ställe|utan\\s+manuell|alt\\b|ét\\s+sted|et\\s+sted|uden\\s+manuel)${RB}|自動|すべて|全て|全部|一か所|一箇所|자동|모든|전부|한 곳`,
+  "iu",
+);
+
+type GaMatch = { idx: number; kind: "A" | "B" | "P" | "S" | "E" | "Y" | "W" };
+function gaPredicateMatches(s: string): GaMatch[] {
+  const m: GaMatch[] = [];
+  // «FitMesh Sync» e' un nome di prodotto, non un verbo di sincronizzazione
+  const t = s.replace(/FitMesh\s+Sync/giu, "FitMesh_____");
+  const addOn = (re: RegExp, kind: GaMatch["kind"]) => {
+    const g = new RegExp(re.source, re.flags.includes("g") ? re.flags : re.flags + "g");
+    for (const x of t.matchAll(g)) m.push({ idx: x.index ?? 0, kind });
+  };
+  addOn(GA_PRED_INTEGRATION, "A");
+  addOn(GA_PRED_INTEGRATION_CONNECT_TO, "A");
+  addOn(GA_PRED_INTEGRATION_CJK, "A");
+  addOn(GA_PRED_SUPPORT, "B");
+  addOn(GA_PRED_SUPPORT_CJK, "B");
+  addOn(GA_PRED_PARTNER, "P");
+  addOn(GA_PRED_PARTNER_CJK, "P");
+  addOn(GA_PRED_STATUS, "S");
+  addOn(GA_PRED_STATUS_CJK, "S");
+  addOn(GA_PRED_API, "E");
+  addOn(GA_PRED_WILL_SUPPORT, "B");
+  addOn(GA_PRED_WORKS, "W");
+  if (/FitMesh/i.test(s)) {
+    addOn(GA_PRED_STATUS_LOOSE, "S");
+    addOn(GA_PRED_SUPPORT_NOUN, "B");
+  }
+  addOn(GA_SYNC_OFFICIAL, "Y");
+  return m.sort((x, y) => x.idx - y.idx);
+}
+// Negazione del predicato in posizione idx: stessa clausola, finestra di 7 parole PRIMA (lingue SVO);
+// tutta la clausola per ja/ko e per tr (negazione dopo il predicato).
+function gaNegated(s: string, idx: number): boolean {
+  let start = 0;
+  let end = s.length;
+  for (const b of s.matchAll(GA_CLAUSE_BOUND)) {
+    const bi = b[0].length > 0 ? (b.index ?? 0) : 0;
+    if (bi + b[0].length <= idx) start = Math.max(start, bi + b[0].length);
+    else if (bi > idx) end = Math.min(end, bi);
+  }
+  const clause = s.slice(start, end);
+  if (GA_CJK_CHARS.test(clause) && GA_NEGATION_CJK.test(clause)) return true;
+  if (GA_NEGATION_TR.test(clause)) return true;
+  const before = s.slice(start, idx).split(/\s+/).filter(Boolean).slice(-7).join(" ");
+  if (GA_NEGATION_WORDS.test(before)) return true;
+  // lingue V2 (de/sv/da/nl): «unterstützt Garmin nicht», «stöder inte», «understøtter ikke»: negazione DOPO il verbo
+  const after = s.slice(idx, end).split(/\s+/).filter(Boolean).slice(1, 5).join(" ");
+  return /(?<![\p{L}\p{N}])(?:nicht|inte|ikke|ej|niet)(?![\p{L}\p{N}])/iu.test(after);
+}
+
+// Motivi (vuoto = nessuna promessa) per UNA cella: segmenta in frasi e valuta ciascuna nel suo contesto.
+function garminPromiseProblems(text: string): string[] {
+  const out: string[] = [];
+  const cell = nz(text);
+  const sents = segmentSentences(cell);
+  for (let si = 0; si < sents.length; si++) {
+    const raw = sents[si];
+    if (isQuestion(raw)) continue; // domanda: non afferma
+    const s = raw;
+    const hasOfficialOrDirect = GA_OFFICIAL.test(s) || GA_DIRECT.test(s);
+    const preds = gaPredicateMatches(s).filter(
+      (p) => !gaNegated(s, p.idx) && !(p.kind === "W" && !hasOfficialOrDirect), // «funziona con Garmin» e' vago
+    );
+    // previsione su FitMesh + Garmin anche senza un verbo di integrazione («In futuro FitMesh leggera' Garmin
+    // direttamente»), purche' la frase non sia negata e non parli di un terzo
+    if (
+      preds.length === 0 &&
+      GA_FUTURE.test(s) &&
+      /FitMesh/i.test(s) &&
+      /Garmin/i.test(s) &&
+      (GA_OFFICIAL.test(s) || GA_DIRECT.test(s)) &&
+      !GA_NEGATION_WORDS.test(s) &&
+      !GA_NEGATION_CJK.test(s)
+    ) {
+      out.push(`integrazione prevista/futura: ${raw.slice(0, 80)}`);
+      continue;
+    }
+    if (preds.length === 0) continue;
+    const official = GA_OFFICIAL.test(s);
+    const direct = GA_DIRECT.test(s);
+    const kinds = new Set(preds.map((p) => p.kind));
+    // «FitMesh collega Garmin tramite Health Connect»: integrazione mediata, non diretta ne' ufficiale
+    const onlyPlain = [...kinds].every((k) => k === "A" || k === "B");
+    if (onlyPlain && GA_MEDIATED.test(s) && !official && !direct) continue;
+    const strong = kinds.has("W") || kinds.has("P") || kinds.has("S") || kinds.has("Y") || ((kinds.has("A") || kinds.has("B")) && (official || direct));
+    const garminIdx = s.search(/Garmin/i);
+    const hasGarmin = garminIdx >= 0;
+    // Senza «Garmin» nella frase («Si integra ufficialmente.») conta solo se e' ufficiale/partner e la frase
+    // PRECEDENTE parla di Garmin o FitMesh senza nominare un terzo (altrimenti «integrazione diretta» e' di Strava).
+    const prev = si > 0 ? sents[si - 1] : "";
+    const carriesOver = (official || kinds.has("P") || kinds.has("S")) && /Garmin|FitMesh/i.test(prev) && !GA_THIRD_PARTY.test(prev);
+    if (!hasGarmin && !(strong && carriesOver)) continue;
+    const mine = GA_FIRST_PERSON.test(s);
+    const third = GA_THIRD_PARTY.test(s);
+    if (!mine) {
+      if (third) continue; // «Strava ha un'integrazione ufficiale con Garmin»: predicato di un terzo
+      if (hasGarmin && garminIdx < preds[0].idx) continue; // Garmin e' il soggetto: «Garmin Connect si integra con...»
+    }
+    const future = GA_FUTURE.test(s);
+    // senza FitMesh/noi nella frase serve un predicato forte (ufficiale/diretto/partner/stato) o una previsione:
+    // «Al conectar un Garmin nuevo a la cuenta...» e' un'istruzione all'utente, non una promessa
+    if (!mine && !strong && !future) continue;
+    out.push(`${future ? "integrazione prevista/futura" : "integrazione/ufficialita'/supporto diretto"}: ${raw.slice(0, 80)}`);
+  }
+  return out;
+}
+// G3: beneficio affermato in una frase POSITIVA della voce (la clausola di negazione ammessa e' tolta prima).
+function garminBenefitProblems(text: string, neg: RegExp): string[] {
+  const out: string[] = [];
+  const rest = nz(text).replace(neg, " ");
+  for (const raw of segmentSentences(rest)) {
+    if (isQuestion(raw)) continue;
+    if (GA_BENEFIT.test(raw)) out.push(`beneficio di integrazione/automazione affermato: ${raw.slice(0, 80)}`);
+  }
+  return out;
+}
+
+const cellLang = (path: string): string => path.split(".").reverse().find((k) => CONTENT_LANGS.has(k)) ?? "";
 
 // Esenzioni Garmin DOCUMENTATE, ciascuna verificata nel test (nessuna e' una esenzione fantasma):
 // (i) body.15.items[2]: la clausola di negazione «FitMesh legge via Health Connect e NON tramite l'API ufficiale».
+// Non e' una esenzione dalla guardia: la voce e' valutata dalla guardia di frase e in piu' dalla regola G3 (beneficio).
 const GA_NEGATION: Record<string, RegExp> = {
   it: /non tramite l'API ufficiale Garmin Connect elencata sopra/,
   en: /not through the official Garmin Connect API listed above/,
@@ -714,51 +932,23 @@ const GA_NEGATION: Record<string, RegExp> = {
   sv: /och inte via det officiella Garmin Connect API som nämns ovan/,
   da: /og ikke via det officielle Garmin Connect-API, der er nævnt ovenfor/,
 };
-// Lessico di beneficio/integrazione che NON puo' stare nella testa della voce (prima di «Health Connect»):
-// la testa e' solo «FitMesh Sync: [oggi] legge i tuoi dati Garmin ...» (CS2-3: P4sv metteva il beneficio in testa).
-const GA_HEAD_BENEFIT =
-  /automat|\balla\b|\ball\b|tutt|todo|tous|toute|\balle\b|wszystk|tüm|全て|すべて|모든|centr|un posto|one place|un solo|ställe|\bsted\b|manuell|manual|export|esport|eksport|one-click|con un clic|gratuit|senza server|\bsenza\b|\bwithout\b|\bsin\b|\bohne\b|\bsans\b|utan\b|uden\b/i;
-const GA_HEAD_MAX = 80;
-// Testa ammessa, per lingua: SOLO queste parole (verbo di lettura, «oggi», possessivo, «dati Garmin», mezzo).
-// Una parola di beneficio nuova («allt», «alles», «everything», «automatiskt», ...) non e' nell'elenco: rosso, senza
-// dover prevedere ogni parola da vietare. Cambiare la resa di questa voce (es. revisione madrelingua SV/DA)
-// richiede di aggiornare l'elenco: e' voluto, e' la voce che e' stata corretta due volte.
-const GA_HEAD_ALLOWED: Record<string, string[]> = {
-  it: ["oggi", "legge", "i", "tuoi", "dati", "garmin", "tramite", "il", "pass-through"],
-  en: ["today", "reads", "your", "garmin", "data", "through", "the"],
-  es: ["hoy", "lee", "tus", "datos", "de", "garmin", "a", "través", "del", "paso", "intermedio"],
-  de: ["liest", "deine", "garmin-daten", "heute", "über", "den"],
-  pt: ["hoje", "lê", "seus", "dados", "da", "garmin", "através", "do", "pass-through"],
-  fr: ["lit", "aujourd'hui", "vos", "données", "garmin", "via", "le", "relais"],
-  pl: ["dziś", "odczytuje", "twoje", "dane", "garmin", "przez", "pośrednictwo"],
-  tr: ["bugün", "garmin", "verilerinizi"],
-  nl: ["leest", "uw", "garmin-gegevens", "vandaag", "via", "de"],
-  ja: ["現在は"],
-  ko: ["현재는"],
-  sv: ["läser", "idag", "dina", "garmin-data", "via"],
-  da: ["læser", "i", "dag", "dine", "garmin-data", "via"],
-};
+// Voce body.15.items[2]: forma attesa (prefisso, una frase [ja/ko due], chiusura sulla negazione, Health Connect),
+// NESSUNA lista chiusa di parole ammesse in testa (G3): la testa e' valutata dal lessico di beneficio e dalla
+// guardia di frase, cosi' una resa diversa (revisione madrelingua SV/DA) non diventa rossa per costruzione.
 function isFitmeshSyncNegationCell(lang: string, raw: string): boolean {
-  const t = norm(raw).trim();
+  const t = nz(raw).trim();
   const neg = GA_NEGATION[lang];
   if (!neg || !neg.test(t)) return false;
   if (!new RegExp(neg.source + "[.。]$").test(t)) return false; // finisce con la negazione
-  // una sola frase; in ja/ko due: la lettura via Health Connect e, da sola, la frase di negazione
-  const ss = sentencesOf(t);
+  const ss = segmentSentences(t);
   const wanted = lang === "ja" || lang === "ko" ? 2 : 1;
   if (ss.length !== wanted) return false;
   if (wanted === 2 && !neg.test(ss[1])) return false;
-  const hc = t.search(/Health[ -]Connect/);
-  if (hc < 0) return false;
-  const prefix = t.match(/^\*\*FitMesh Sync\*\*[:：] ?/);
-  if (!prefix) return false;
-  const head = t.slice(prefix[0].length, hc);
-  if (head.length > GA_HEAD_MAX || GA_HEAD_BENEFIT.test(head)) return false;
-  const allowed = new Set(GA_HEAD_ALLOWED[lang] ?? []);
-  for (const w of head.toLowerCase().split(/\s+/).filter(Boolean)) if (!allowed.has(w)) return false;
-  if (!/Garmin/.test(t.slice(prefix[0].length))) return false;
-  const tail = t.slice(hc).replace(neg, "");
-  return !GA_INTEGRATION.test(tail) && !GA_FUTURE_PLAN.test(tail);
+  if (!/Health[ -]Connect/.test(t)) return false;
+  if (!/^\*\*FitMesh Sync\*\*[:：] ?/.test(t)) return false;
+  if (!/Garmin/.test(t.replace(/^\*\*FitMesh Sync\*\*[:：] ?/, ""))) return false;
+  if (garminBenefitProblems(t, neg).length > 0) return false; // G3: beneficio in testa (o in coda)
+  return garminPromiseProblems(t).length === 0; // G1: nessuna promessa affermata nella voce
 }
 // (ii) CTA in riga rossa (body.25.ctaLabel): testo esatto, uguale a main c011056b (verificato nel referto).
 const GA_CTA_LABELS: Record<string, string> = {
@@ -776,24 +966,17 @@ const GA_CTA_LABELS: Record<string, string> = {
   sv: "Se Garmin integration på FitMesh →",
   da: "Se Garmin integration på FitMesh →",
 };
-// Motivi per cella (vuoto = nessuna promessa/affermazione). Vale per ogni campo di testo del post.
-function garminPromiseProblems(text: string): string[] {
-  const out: string[] = [];
-  if (/FitMesh/i.test(text) && GA_INTEGRATION.test(text)) {
-    out.push("FitMesh e integrazione/ufficiale/API/partner/supporto nella stessa cella");
+const GA_NEG_PATH = /^(?:ts|overlay):body\.15\.items\.[a-z]{2}\.2$/;
+const GA_CTA_PATH = /^(?:ts|overlay):body\.25\.ctaLabel\.[a-z]{2}$/;
+// Verdetto UNICO per cella, usato sia dal test sul contenuto sia dal corpus (vero percorso di guardia).
+function garminCellVerdict(path: string, text: string): string[] {
+  const lang = cellLang(path);
+  if (GA_NEG_PATH.test(path)) {
+    return isFitmeshSyncNegationCell(lang, text) ? [] : ["voce body.15.items[2]: forma/negazione/beneficio non conforme"];
   }
-  for (const s of sentencesOf(text)) {
-    const thirdPartyOnly = GA_THIRD_PARTY.test(s) && !/FitMesh/i.test(s);
-    if (GA_INTEGR_STEM.test(s) && GA_OFFICIAL_STEM.test(s) && !thirdPartyOnly) {
-      out.push(`integrazione ufficiale in una frase non riferita a terze parti: ${s.slice(0, 80)}`);
-    }
-    if (GA_FUTURE_PLAN.test(s) && (/FitMesh/i.test(s) || GA_INTEGRATION.test(s))) {
-      out.push(`integrazione prevista/futura: ${s.slice(0, 80)}`);
-    }
-  }
-  return out;
+  if (GA_CTA_PATH.test(path) && text === nz(GA_CTA_LABELS[lang])) return []; // (ii)
+  return garminPromiseProblems(text);
 }
-const cellLang = (path: string): string => path.split(".").reverse().find((k) => CONTENT_LANGS.has(k)) ?? "";
 
 describe("SEGUITO S2: guardie di frequenza (Fitbit) e di promessa (Garmin), CS2-1..CS2-4", () => {
   describe("Fitbit: frequenza di occorrenza in OGNI cella (11 lingue TS + sv/da overlay)", () => {
@@ -862,33 +1045,25 @@ describe("SEGUITO S2: guardie di frequenza (Fitbit) e di promessa (Garmin), CS2-
 
   describe("Garmin: promessa e non parola, in OGNI cella (11 lingue TS + sv/da overlay)", () => {
     const cells = collectCells("esportare-dati-garmin");
-    const NEG_PATH = /^(?:ts|overlay):body\.15\.items\.[a-z]{2}\.2$/;
-    const CTA_PATH = /^(?:ts|overlay):body\.25\.ctaLabel\.[a-z]{2}$/;
 
     it("copertura: 13 voci body.15.items[2] e 13 etichette CTA davvero visitate; esenzioni verificate", () => {
-      const neg = cells.filter((c) => NEG_PATH.test(c.path));
-      const cta = cells.filter((c) => CTA_PATH.test(c.path));
+      const neg = cells.filter((c) => GA_NEG_PATH.test(c.path));
+      const cta = cells.filter((c) => GA_CTA_PATH.test(c.path));
       expect(neg.length).toBe(13);
       expect(cta.length).toBe(13);
       expect(cells.length).toBeGreaterThan(900);
       for (const c of neg) {
         expect(isFitmeshSyncNegationCell(c.lang, c.text), `negazione ${c.path}`).toBe(true);
       }
-      for (const c of cta) expect(c.text, c.path).toBe(norm(GA_CTA_LABELS[c.lang]));
+      for (const c of cta) expect(c.text, c.path).toBe(nz(GA_CTA_LABELS[c.lang]));
     });
 
     it("nessuna cella promette integrazione ufficiale/API/partnership/supporto di FitMesh, ne' integrazione prevista", () => {
-      for (const c of cells) {
-        if (NEG_PATH.test(c.path) && isFitmeshSyncNegationCell(c.lang, c.text)) continue; // (i)
-        if (CTA_PATH.test(c.path) && c.text === norm(GA_CTA_LABELS[c.lang])) continue; // (ii)
-        expect(garminPromiseProblems(c.text), c.path).toEqual([]);
-      }
+      for (const c of cells) expect(garminCellVerdict(c.path, c.text), c.path).toEqual([]);
     });
 
-    it("body.15.items[2]: la TESTA della voce e' solo la lettura via Health Connect, senza beneficio (CS2-3)", () => {
-      // La coda era gia' bloccata dal test precedente («CS-2»); qui la testa: P4sv («samlar automatiskt alla dina
-      // Garmin-data på ett ställe ...») rientrava dall'inizio. isFitmeshSyncNegationCell la respinge per lessico e
-      // lunghezza della testa.
+    it("body.15.items[2]: nessun beneficio affermato nella voce, ne' in testa ne' in coda (CS2-3, G3)", () => {
+      // P4sv («samlar automatiskt alla dina Garmin-data på ett ställe ...») rientrava dall'inizio.
       const benefit: Record<string, string> = {
         sv: "**FitMesh Sync**: samlar automatiskt alla dina Garmin-data på ett ställe utan manuell export och läser idag dina Garmin-data via Health Connect och inte via det officiella Garmin Connect API som nämns ovan.",
         it: "**FitMesh Sync**: raccoglie in automatico tutto in un posto e oggi legge i tuoi dati Garmin tramite il pass-through Health Connect, non tramite l'API ufficiale Garmin Connect elencata sopra.",
@@ -901,6 +1076,13 @@ describe("SEGUITO S2: guardie di frequenza (Fitbit) e di promessa (Garmin), CS2-
       expect(isFitmeshSyncNegationCell("it", real)).toBe(true);
       expect(isFitmeshSyncNegationCell("it", `${real} Garmin e FitMesh sono partner.`)).toBe(false);
       expect(isFitmeshSyncNegationCell("it", real.replace(/\.$/, ", ed è integrata ufficialmente."))).toBe(false);
+      // la resa corrente NON e' vincolata da una lista di parole: una resa neutra diversa resta ammessa
+      expect(
+        isFitmeshSyncNegationCell(
+          "sv",
+          "**FitMesh Sync**: hämtar idag dina Garmin-uppgifter via Health Connect och inte via det officiella Garmin Connect API som nämns ovan.",
+        ),
+      ).toBe(true);
     });
 
     it("controlli positivi: frasi vere e legittime (gia' nel contenuto) che la guardia NON ferma", () => {
@@ -929,8 +1111,10 @@ describe("SEGUITO S2: guardie di frequenza (Fitbit) e di promessa (Garmin), CS2-
         expect(garminPromiseProblems(t), t).toEqual([]);
       }
       // (e) le due esenzioni NON sono un varco generale: la stessa etichetta con altro testo e' rossa
+      expect(garminCellVerdict("ts:body.25.ctaLabel.it", "Vedi integrazione Garmin su FitMesh →").length).toBe(0);
       expect(garminPromiseProblems("Vedi integrazione Garmin su FitMesh →").length).toBeGreaterThan(0);
-      expect(norm("Vedi integrazione ufficiale Garmin su FitMesh →")).not.toBe(norm(GA_CTA_LABELS.it));
+      expect(garminCellVerdict("ts:body.25.ctaLabel.it", "Vedi integrazione ufficiale Garmin su FitMesh →").length).toBeGreaterThan(0);
+      expect(nz("Vedi integrazione ufficiale Garmin su FitMesh →")).not.toBe(nz(GA_CTA_LABELS.it));
     });
 
     it("riconoscimento: le promesse (anche senza nominare FitMesh, anche «prevista») sono rosse in piu' lingue", () => {
