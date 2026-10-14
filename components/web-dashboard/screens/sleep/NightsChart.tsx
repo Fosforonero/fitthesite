@@ -80,7 +80,7 @@ export function NightsChart({
 
   const countText = [
     count('measured') + count('measured-zero') > 0 ? fill(c.nights.countMeasured, { n: count('measured') + count('measured-zero') }) : null,
-    count('partial') > 0 ? fill(c.nights.countPartial, { n: count('partial') }) : null,
+    count('partial') > 0 ? fill(count('partial') === 1 ? c.nights.countPartialOne : c.nights.countPartial, { n: count('partial') }) : null,
     count('absent') > 0 ? fill(c.nights.countAbsent, { n: count('absent') }) : null,
   ]
     .filter(Boolean)
@@ -119,7 +119,7 @@ export function NightsChart({
                 <p data-measure-state="measured" className="mt-1 font-display text-xl font-semibold tracking-tightest text-text-primary">
                   {fmtMinutes(average, ui)}
                 </p>
-                <p className="text-xs text-text-muted">{fill(c.nights.averageBasis, { n: complete.length, total: nights.length })}</p>
+                <p className="text-xs text-text-muted">{fill(complete.length === 1 ? c.nights.averageBasisOne : c.nights.averageBasis, { n: complete.length, total: nights.length })}</p>
               </>
             )}
           </div>

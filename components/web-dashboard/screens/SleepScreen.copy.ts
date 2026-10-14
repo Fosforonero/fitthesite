@@ -59,6 +59,8 @@ export interface SleepCopy {
     averageNone: string;
     /** «{n}» notti complete su «{total}». */
     averageBasis: string;
+    /** Come averageBasis, con una sola notte completa. */
+    averageBasisOne: string;
     reference: string;
     referenceAxis: string;
     selected: string;
@@ -71,6 +73,8 @@ export interface SleepCopy {
     summary: string;
     countMeasured: string;
     countPartial: string;
+    /** Come countPartial, con una sola notte parziale. */
+    countPartialOne: string;
     countAbsent: string;
   };
   /** Spiegazione lunga per ogni motivo per cui la notte manca. */
@@ -116,6 +120,7 @@ const IT: SleepCopy = {
     average: 'Media sonno',
     averageNone: 'Media non disponibile',
     averageBasis: '{n} notti complete su {total}',
+    averageBasisOne: '{n} notte completa su {total}',
     reference: 'Riferimento 7 h: un punto di confronto, non un obiettivo medico',
     referenceAxis: 'riferimento',
     selected: 'notte selezionata',
@@ -127,6 +132,7 @@ const IT: SleepCopy = {
     summary: 'Durata del sonno nelle ultime 7 notti: {counts}. Linea di riferimento a 7 ore.',
     countMeasured: '{n} con dato',
     countPartial: '{n} parziali',
+    countPartialOne: '{n} parziale',
     countAbsent: '{n} senza dato',
   },
   absentBody: {
@@ -180,6 +186,7 @@ const EN: SleepCopy = {
     average: 'Avg sleep',
     averageNone: 'Average not available',
     averageBasis: '{n} complete nights of {total}',
+    averageBasisOne: '{n} complete night of {total}',
     reference: '7 h reference: a point of comparison, not a medical target',
     referenceAxis: 'reference',
     selected: 'selected night',
@@ -191,6 +198,7 @@ const EN: SleepCopy = {
     summary: 'Sleep duration over the last 7 nights: {counts}. Reference line at 7 hours.',
     countMeasured: '{n} with data',
     countPartial: '{n} partial',
+    countPartialOne: '{n} partial',
     countAbsent: '{n} without data',
   },
   absentBody: {
