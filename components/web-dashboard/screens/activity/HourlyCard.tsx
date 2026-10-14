@@ -1,4 +1,4 @@
-import type { SharedCopy } from '@/lib/web-dashboard/copy';
+import { stepsUnit, type SharedCopy } from '@/lib/web-dashboard/copy';
 import { fmtInt, fmtPercent } from '@/lib/web-dashboard/format';
 
 import { ChartFrame, PatternDefs, StateLegend } from '../../chart-kit';
@@ -33,7 +33,6 @@ export function HourlyCard({ slots, lc, copy, t }: { slots: Slot[]; lc: string; 
   const y = (v: number) => BASE - (hasScale ? (v / top) * PLOT_H : 0);
   const runs = absentRuns(slots);
   const peak = peakSlot(slots);
-  const unit = copy.units.steps;
 
   // Asse Y: con almeno un dato, i tick tondi; con soli zeri, il solo «0»; senza alcun dato, niente cifre.
   const anyPresent = slots.some((s) => s.value !== null);
@@ -149,7 +148,7 @@ export function HourlyCard({ slots, lc, copy, t }: { slots: Slot[]; lc: string; 
                 if (s.state === 'absent' || s.value === null) return null;
                 const x = pc(s.index * SLOT_W + SLOT_W * 0.16);
                 const width = pc(SLOT_W * 0.68);
-                const label = `${hh(s.index)}:00 ${fmtInt(s.value, lc)} ${unit}`;
+                const label = `${hh(s.index)}:00 ${fmtInt(s.value, lc)} ${stepsUnit(copy, s.value)}`;
                 if (s.value === 0) {
                   // Tacca sulla linea di base: il dato c'e', vale zero. Piu' bassa e sottile di qualunque barra misurata.
                   return (

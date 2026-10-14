@@ -62,6 +62,7 @@ interface Fmt {
   axis: (n: number) => string;
   /** Per MeasureValue: unita' separata oppure formattatore completo. */
   unit?: string;
+  unitOne?: string;
   format: (n: number) => string;
 }
 
@@ -71,9 +72,10 @@ function formatterFor(metric: TrendMetric, lc: string, ui: UiLocale, copy: Share
     return { text: f, format: f, axis: (n) => `${fmtInt(n / 60, lc)} h` };
   }
   const unit = metric === 'steps' ? copy.units.steps : metric === 'restingHr' ? copy.units.bpm : copy.units.min;
+  const unitOne = metric === 'steps' ? copy.units.stepOne : undefined;
   // In italiano fmtInt non raggruppa i numeri a quattro cifre («8261» accanto a «12.960»): qui si raggruppa sempre.
   const f = (n: number) => new Intl.NumberFormat(lc, { maximumFractionDigits: 0, useGrouping: 'always' }).format(Math.round(n));
-  return { text: (n) => `${f(n)} ${unit}`, format: f, axis: f, unit };
+  return { text: (n) => `${f(n)} ${unitOne && Math.round(n) === 1 ? unitOne : unit}`, format: f, axis: f, unit, unitOne };
 }
 
 /** «Nessun campione (2), Non ancora sincronizzato (1)»: cio' che manca e perche', per numero di giorni. */
@@ -260,15 +262,15 @@ function ChartCard({
 
               <dl className="mt-4 grid gap-3 border-t border-divider pt-4 sm:grid-cols-3">
                 <StatCell label={t.coverage.avg} statId="avg">
-                  <MeasureValue m={value(stats.mean as number)} unit={fmt.unit} locale={lc} copy={copy} size="md" format={fmt.format} />
+                  <MeasureValue m={value(stats.mean as number)} unit={fmt.unit} unitOne={fmt.unitOne} locale={lc} copy={copy} size="md" format={fmt.format} />
                   <p className="mt-1 text-xs text-text-muted sm:max-w-[16ch]">{t.coverage.avgBasis(stats.withData, stats.partials)}</p>
                 </StatCell>
                 <StatCell label={t.coverage.min} statId="min">
-                  <MeasureValue m={extremeMeasure(min)} unit={fmt.unit} locale={lc} copy={copy} size="md" format={fmt.format} />
+                  <MeasureValue m={extremeMeasure(min)} unit={fmt.unit} unitOne={fmt.unitOne} locale={lc} copy={copy} size="md" format={fmt.format} />
                   <p className="mt-1 text-xs text-text-muted">{fmtDayShort(min.date, ui)}</p>
                 </StatCell>
                 <StatCell label={t.coverage.max} statId="max">
-                  <MeasureValue m={extremeMeasure(max)} unit={fmt.unit} locale={lc} copy={copy} size="md" format={fmt.format} />
+                  <MeasureValue m={extremeMeasure(max)} unit={fmt.unit} unitOne={fmt.unitOne} locale={lc} copy={copy} size="md" format={fmt.format} />
                   <p className="mt-1 text-xs text-text-muted">{fmtDayShort(max.date, ui)}</p>
                 </StatCell>
               </dl>
@@ -280,6 +282,7 @@ function ChartCard({
                     <MeasureValue
                       m={stats.sum}
                       unit={copy.units.steps}
+                      unitOne={copy.units.stepOne}
                       locale={lc}
                       copy={copy}
                       format={fmt.format}

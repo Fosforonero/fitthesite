@@ -48,7 +48,7 @@ export interface SharedCopy {
     partialBody: string;
   };
   preview: { scenarios: Record<ScenarioKey, string>; viewers: Record<string, string>; scenarioLabel: string; viewerLabel: string };
-  units: { steps: string; km: string; kcal: string; bpm: string; ms: string; min: string };
+  units: { steps: string; stepOne: string; km: string; kcal: string; bpm: string; ms: string; min: string };
   gates: {
     login: { title: string; body: string; email: string; emailPlaceholder: string; captcha: string; submit: string; note: string; forgot: string };
     paywall: {
@@ -145,7 +145,7 @@ const IT: SharedCopy = {
       lifetime: 'Lifetime',
     },
   },
-  units: { steps: 'passi', km: 'km', kcal: 'kcal', bpm: 'bpm', ms: 'ms', min: 'min' },
+  units: { steps: 'passi', stepOne: 'passo', km: 'km', kcal: 'kcal', bpm: 'bpm', ms: 'ms', min: 'min' },
   gates: {
     login: {
       title: 'Accedi a FitMesh',
@@ -266,7 +266,7 @@ const EN: SharedCopy = {
       lifetime: 'Lifetime',
     },
   },
-  units: { steps: 'steps', km: 'km', kcal: 'kcal', bpm: 'bpm', ms: 'ms', min: 'min' },
+  units: { steps: 'steps', stepOne: 'step', km: 'km', kcal: 'kcal', bpm: 'bpm', ms: 'ms', min: 'min' },
   gates: {
     login: {
       title: 'Sign in to FitMesh',
@@ -307,6 +307,14 @@ const EN: SharedCopy = {
     },
   },
 };
+
+/**
+ * Unita' dei passi per un valore: singolare quando il numero MOSTRATO (arrotondato
+ * all'intero, come lo formatta la dashboard) e' 1. Il valore non cambia.
+ */
+export function stepsUnit(copy: Pick<SharedCopy, 'units'>, value: number): string {
+  return Math.round(value) === 1 ? copy.units.stepOne : copy.units.steps;
+}
 
 export function sharedCopy(l: UiLocale): SharedCopy {
   return l === 'it' ? IT : EN;

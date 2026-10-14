@@ -1,4 +1,4 @@
-import type { SharedCopy } from '@/lib/web-dashboard/copy';
+import { stepsUnit, type SharedCopy } from '@/lib/web-dashboard/copy';
 import { fmtDayShort, fmtDec, fmtInt, fmtPercent, fmtWeekdayShort } from '@/lib/web-dashboard/format';
 import { value } from '@/lib/web-dashboard/measure';
 
@@ -96,7 +96,7 @@ export function WeekCard({
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-text-muted">{t.week.average}</p>
           {mean ? (
             <>
-              <MeasureValue m={value(Math.round(mean.mean))} unit={copy.units.steps} locale={lc} copy={copy} size="md" />
+              <MeasureValue m={value(Math.round(mean.mean))} unit={copy.units.steps} unitOne={copy.units.stepOne} locale={lc} copy={copy} size="md" />
               <p className="mt-0.5 text-xs text-text-muted">{t.week.averageOver(mean.n)}</p>
             </>
           ) : (
@@ -164,7 +164,7 @@ export function WeekCard({
               const fill = s.state === 'partial' ? 'url(#act-week-partial)' : CHART.steps;
               return (
                 <g key={d.date} data-chart-slot={s.state} data-date={d.date} data-selected={d.selected ? 'true' : undefined} opacity={d.selected ? 1 : 0.72}>
-                  <title>{`${dayLabel(d)}: ${fmtInt(s.value, lc)} ${copy.units.steps}${s.state === 'partial' ? `, ${copy.measure.partialLabel} ${fmtPercent(s.coverage ?? 0, lc)}` : isTick ? `, ${copy.measure.zeroMeasured}` : ''}`}</title>
+                  <title>{`${dayLabel(d)}: ${fmtInt(s.value, lc)} ${stepsUnit(copy, s.value)}${s.state === 'partial' ? `, ${copy.measure.partialLabel} ${fmtPercent(s.coverage ?? 0, lc)}` : isTick ? `, ${copy.measure.zeroMeasured}` : ''}`}</title>
                   <rect
                     x={x}
                     width={width}
@@ -197,7 +197,7 @@ export function WeekCard({
                   ? copy.measure.noData
                   : s.state === 'measured-zero'
                     ? `${copy.measure.zeroMeasured}`
-                    : `${fmtInt(s.value ?? 0, lc)} ${copy.units.steps}${s.state === 'partial' ? `, ${copy.measure.partialLabel}` : ''}`;
+                    : `${fmtInt(s.value ?? 0, lc)} ${stepsUnit(copy, s.value ?? 0)}${s.state === 'partial' ? `, ${copy.measure.partialLabel}` : ''}`;
               const inner = (
                 <>
                   <span className="text-[11px] uppercase tracking-wide text-text-muted">{fmtWeekdayShort(d.date, lc)}</span>

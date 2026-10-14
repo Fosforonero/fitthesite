@@ -67,7 +67,7 @@ function Hero({ a, lc, copy, t }: { a: ActivityDay; lc: string; copy: SharedCopy
       <div className="mt-4 flex items-center gap-5">
         <GoalRing state={ringState} fraction={fraction} pctLabel={value !== null && hasGoal ? pct : null} copy={copy} />
         <div className="min-w-0 space-y-2">
-          <MeasureValue m={a.steps} unit={copy.units.steps} locale={lc} copy={copy} />
+          <MeasureValue m={a.steps} unit={copy.units.steps} unitOne={copy.units.stepOne} locale={lc} copy={copy} />
           <p data-goal-caption className="text-sm text-text-secondary">{caption}</p>
           {met ? (
             <Chip tone="success" icon="check">{t.hero.goalMet}</Chip>

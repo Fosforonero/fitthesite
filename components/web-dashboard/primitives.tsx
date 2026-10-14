@@ -91,6 +91,7 @@ export function AbsentMark({ className = '' }: { className?: string }) {
 export function MeasureValue({
   m,
   unit,
+  unitOne,
   locale,
   copy,
   decimals = 0,
@@ -100,6 +101,8 @@ export function MeasureValue({
 }: {
   m: Measure<number>;
   unit?: string;
+  /** Unita' al singolare, usata quando il numero mostrato e' 1 (solo per i passi). */
+  unitOne?: string;
   locale: string;
   copy: SharedCopy;
   decimals?: number;
@@ -133,7 +136,7 @@ export function MeasureValue({
     <div data-measure-state={p.state}>
       <p className={`${numClass} text-text-primary`}>
         {fmt(p.value)}
-        {unit ? <span className="ml-1.5 text-sm font-medium tracking-normal text-text-muted">{unit}</span> : null}
+        {unit ? <span className="ml-1.5 text-sm font-medium tracking-normal text-text-muted">{unitOne && Math.round(p.value) === 1 ? unitOne : unit}</span> : null}
       </p>
       {p.state === 'measured-zero' ? (
         <p className="mt-1 inline-flex items-center gap-1 text-xs text-text-secondary">

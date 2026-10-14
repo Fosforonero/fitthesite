@@ -11,6 +11,8 @@ export interface InteractiveChartProps {
   title: string;
   subtitle?: string;
   unit: string;
+  /** Unita' al singolare per un valore che vale 1 (solo per i passi). */
+  unitOne?: string;
   metricKind: 'bars' | 'line';
   color: string;
   points: ChartDataPoint[];
@@ -84,6 +86,7 @@ export function InteractiveChart({
   title,
   subtitle,
   unit,
+  unitOne,
   metricKind,
   color,
   points,
@@ -395,7 +398,7 @@ export function InteractiveChart({
                       fontSize="10"
                       className="font-medium"
                     >
-                      {goalLabel ?? `${safeGoal} ${unit}`}
+                      {goalLabel ?? `${safeGoal} ${unitOne && Math.round(safeGoal) === 1 ? unitOne : unit}`}
                     </text>
                   </g>
                 )}
@@ -535,7 +538,7 @@ export function InteractiveChart({
                   const fullDate = formatDateLong(p.date, locale);
                   const valStr = p.value !== null ? formatValue(p.value, locale) : (isIt ? 'Nessun dato' : 'No data');
                   const stateStr = stateLabels[p.state] ?? p.state;
-                  const accessibleLabel = `${fullDate}: ${valStr} ${unit}, ${stateStr}`;
+                  const accessibleLabel = `${fullDate}: ${valStr} ${unitOne && p.value !== null && Math.round(p.value) === 1 ? unitOne : unit}, ${stateStr}`;
 
                   return (
                     <button

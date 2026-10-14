@@ -1,3 +1,4 @@
+import { stepsUnit } from '@/lib/web-dashboard/copy';
 import { fmtDayShort, fmtInt, fmtMinutes, fmtPercent, fmtWeekdayShort } from '@/lib/web-dashboard/format';
 import { presentNumber } from '@/lib/web-dashboard/measure';
 import type { TrendPoint } from '@/lib/web-dashboard/model';
@@ -45,7 +46,7 @@ export function WeekCard({ ctx }: { ctx: OverviewCtx }) {
       label: oc.week.rows.steps,
       color: CHART.steps,
       shape: 'bars',
-      fmt: (v) => `${fmtInt(v, ui)} ${copy.units.steps}`,
+      fmt: (v) => `${fmtInt(v, ui)} ${stepsUnit(copy, v)}`,
       goal: data.activity.goalSteps,
     },
     { key: 'sleep', metric: 'sleepMinutes', label: oc.week.rows.sleep, color: CHART.sleep, shape: 'bars', fmt: (v) => fmtMinutes(v, ui) },

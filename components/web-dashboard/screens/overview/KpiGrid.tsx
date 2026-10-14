@@ -114,7 +114,7 @@ export function KpiGrid({ ctx }: { ctx: OverviewCtx }) {
       <ul className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:gap-5">
         <li data-kpi="steps" className={cell}>
           <MetricTile label={oc.tiles.steps} dot={CHART.steps} icon="steps" href={href('activity')} footer={stepsGoalFooter(ctx)}>
-            <MeasureValue m={data.activity.steps} unit={copy.units.steps} locale={ui} copy={copy} />
+            <MeasureValue m={data.activity.steps} unit={copy.units.steps} unitOne={copy.units.stepOne} locale={ui} copy={copy} />
           </MetricTile>
         </li>
 

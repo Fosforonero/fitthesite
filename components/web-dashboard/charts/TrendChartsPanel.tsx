@@ -1,4 +1,4 @@
-import type { SharedCopy } from '@/lib/web-dashboard/copy';
+import { stepsUnit, type SharedCopy } from '@/lib/web-dashboard/copy';
 import type { TrendMetric, TrendSeries } from '@/lib/web-dashboard/model';
 import { toChartPoints } from '@/lib/web-dashboard/charts/measure-adapter';
 import { fmtDayShort, fmtInt, fmtMinutes, fmtPercent } from '@/lib/web-dashboard/format';
@@ -51,7 +51,7 @@ export function TrendChartsPanel({ idPrefix, series, period, locale, isDemo, cop
                     <thead><tr><th scope="col">{text.table.day}</th><th scope="col">{text.table.value}</th><th scope="col">{text.table.state}</th></tr></thead>
                     <tbody>{points.map((p) => <tr key={p.date} data-date={p.date} data-slot-state={p.state}>
                       <th scope="row">{fmtDayShort(p.date, locale)}</th>
-                      <td>{p.value === null ? copy.measure.noData : metric === 'sleepMinutes' ? fmtMinutes(p.value, locale) : `${fmtInt(p.value, locale)} ${metric === 'steps' ? copy.units.steps : copy.units.bpm}`}</td>
+                      <td>{p.value === null ? copy.measure.noData : metric === 'sleepMinutes' ? fmtMinutes(p.value, locale) : `${fmtInt(p.value, locale)} ${metric === 'steps' ? stepsUnit(copy, p.value) : copy.units.bpm}`}</td>
                       <td>{p.absentReason ?? (p.state === 'partial' ? `${copy.measure.partialLabel}${p.coverage !== undefined ? ` ${fmtPercent(p.coverage, locale)}` : ''}${p.partialNote ? `, ${p.partialNote}` : ''}` : p.state === 'measured-zero' ? copy.measure.zeroMeasured : copy.legend.measured)}</td>
                     </tr>)}</tbody>
                   </table>

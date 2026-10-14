@@ -23,6 +23,7 @@ export function DailyStepsChart({
   const points = normalizeChartPoints(rawPoints);
   const isIt = locale === 'it';
   const unit = isIt ? 'passi' : 'steps';
+  const unitOne = isIt ? 'passo' : 'step';
   const defaultTitle = isIt ? 'Passi giornalieri' : 'Daily steps';
   const defaultSubtitle = isIt
     ? `Andamento a barre (${plural(period, 'giorno', 'giorni')})`
@@ -52,14 +53,14 @@ export function DailyStepsChart({
     : isIt
       ? `Grafico a barre dei passi giornalieri per ${plural(period, 'giorno', 'giorni')}. ` +
         `${plural(validCount, 'giorno', 'giorni')} con misurazione registrata su ${points.length}, ` +
-        `media di ${formatSteps(avgSteps, 'it')} passi al giorno${inclIt}. ` +
+        `media di ${formatSteps(avgSteps, 'it')} ${avgSteps === 1 ? 'passo' : 'passi'} al giorno${inclIt}. ` +
         `${zeroCount > 0 ? `${plural(zeroCount, 'giorno', 'giorni')} con zero misurato. ` : ''}` +
         `${partialCount > 0 ? `${plural(partialCount, 'giorno', 'giorni')} con dati parziali. ` : ''}` +
         `${absentCount > 0 ? `${plural(absentCount, 'giorno', 'giorni')} senza dati. ` : ''}` +
         `${errorCount > 0 ? `${plural(errorCount, 'giorno', 'giorni')} con errore.` : ''}`
       : `Daily steps bar chart for ${plural(period, 'day', 'days')}. ` +
         `${plural(validCount, 'day', 'days')} with recorded readings out of ${points.length}, ` +
-        `average of ${formatSteps(avgSteps, 'en')} steps per day${inclEn}. ` +
+        `average of ${formatSteps(avgSteps, 'en')} ${avgSteps === 1 ? 'step' : 'steps'} per day${inclEn}. ` +
         `${zeroCount > 0 ? `${plural(zeroCount, 'day', 'days')} with measured zero. ` : ''}` +
         `${partialCount > 0 ? `${plural(partialCount, 'day', 'days')} with partial data. ` : ''}` +
         `${absentCount > 0 ? `${plural(absentCount, 'day', 'days')} with no data. ` : ''}` +
@@ -72,6 +73,7 @@ export function DailyStepsChart({
         title={title || defaultTitle}
         subtitle={subtitle || defaultSubtitle}
         unit={unit}
+        unitOne={unitOne}
         metricKind="bars"
         color={CHART.steps}
         points={points}
