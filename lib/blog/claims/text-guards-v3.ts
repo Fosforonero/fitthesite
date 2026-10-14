@@ -638,3 +638,47 @@ export function fitbitCellVerdict(path: string, text: string): string[] {
   if (SECTION_LABELS_EXTENDED[path] === text) return []; // etichette gia' ammesse a testo esatto
   return fitbitFrequencyProblems(text);
 }
+
+// ---- SD: aggettivo di frequenza attribuito a un problema o a una causa («un problema frequente», «a frequent
+// problem», «ein häufiges Problem», «흔한 문제») ----
+// Le guardie v3 sopra leggono avverbi, proporzioni e superlativi di causa; per scelta (F6) trattano come etichetta
+// l'aggettivo attributivo. Il divieto a parole intere di FREQUENCY_BULLET catturava invece anche «e' un problema
+// frequente»: qui quella cattura e' conservata, ma solo quando l'aggettivo sta in una frase dichiarativa insieme a un
+// nome/stato di problema o causa (stesso lessico di contesto delle guardie v3), non in una domanda, non come posizione
+// di un menu, non dopo una presa di distanza. Non e' un divieto della parola: «frequente» in una frase di scheduling
+// o di descrizione della sincronizzazione («si aggiorna a intervalli frequenti») non e' un problema ne' una causa.
+const FREQ_ADJECTIVE = new RegExp(
+  "frequente|frequent|frecuent|habitual|häufig|comum|fréquent|częst|yaygın|veelvoorkomend|vaak|多くの場合|よくある|頻繁|많습니다|흔|vanlig|almindelig",
+  "iu",
+);
+export function frequentProblemAttributionProblems(text: string): string[] {
+  const out: string[] = [];
+  for (const raw of segmentSentences(nz(text))) {
+    if (isQuestion(raw)) continue;
+    const m = FREQ_ADJECTIVE.exec(raw);
+    if (!m) continue;
+    if (FREQ_LOCATION.test(raw)) continue;
+    if (!FREQ_CONTEXT.test(raw)) continue;
+    const d = FREQ_DISTANCE.exec(raw);
+    if (d && d.index < m.index && !FREQ_CLAUSE_BREAK.test(raw.slice(d.index, m.index))) continue;
+    out.push(`frequenza attribuita a un problema o a una causa: ${raw.slice(0, 80)}`);
+  }
+  return out;
+}
+// Verdetto di frequenza completo: guardie v3 piu' attribuzione attributiva. Le etichette a testo esatto restano
+// ammesse come prima (SECTION_LABELS_EXTENDED).
+// Etichette di sezione a testo esatto, per cella: le 6 che il vecchio divieto a parole intere ammetteva (H2 generico
+// «insidie comuni», gia' su main c011056b) piu' le 3 delle guardie v3. Nessuna nuova.
+export const SECTION_LABELS_FREQ_ALL: Record<string, string> = {
+  ...SECTION_LABELS_EXTENDED,
+  "ts:body.6.text.de": "Häufige Stolperfallen bei der Synchronisierung",
+  "ts:body.6.text.fr": "Erreurs fréquentes qui bloquent la synchronisation",
+  "ts:body.6.text.pl": "Częste pułapki, na które warto uważać",
+  "ts:body.6.text.nl": "Veelvoorkomende valkuilen die mensen struikelen",
+  "ts:body.6.text.ja": "よくある落とし穴",
+  "overlay:body.6.text.sv": "Vanliga fallgropar som många snubblar på",
+};
+export function fitbitFrequencyVerdict(path: string, text: string): string[] {
+  if (SECTION_LABELS_FREQ_ALL[path] === text) return [];
+  return [...fitbitFrequencyProblems(text), ...frequentProblemAttributionProblems(text)];
+}

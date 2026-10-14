@@ -12,9 +12,11 @@ import {
   GA_NEG_PATH,
   PCT_CLAIM,
   SECTION_LABELS_EXTENDED,
+  SECTION_LABELS_FREQ_ALL,
   cellLang,
   fitbitCellVerdict,
   fitbitFrequencyProblems,
+  fitbitFrequencyVerdict,
   garminCellVerdict,
   garminPromiseProblems,
   isFitmeshSyncNegationCell,
@@ -423,33 +425,104 @@ describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
       }
     });
 
-    it("frequenza: nessun marcatore «e' un problema frequente» in nessun campo (hero, tldr, body, faq, metadati, overlay)", () => {
-      // CS-1 X3: FREQUENCY_BULLET era applicato solo a tldr[0]; ora a OGNI cella di testo del post.
-      // Due precisazioni, entrambe nominali (nessuna esclusione per campo):
-      // 1) «多く» in giapponese vuol dire anche «molti» (多くのデバイス, 多くの人, 多くのガイド: ts:body.7/8):
-      //    nel test su tutti i campi vale la forma di frequenza, non il quantificatore;
-      // 2) l'H2 generico «Insidie comuni che bloccano la sincronizzazione» (body.6, gia' su main
-      //    c011056b) usa «häufig/fréquent/...» come etichetta di sezione, non come stima: ammesso solo
-      //    con il testo esatto, per cella. Qualunque altro titolo o frase con marcatore resta rosso.
-      const ALL_FIELDS_FREQUENCY = new RegExp(FREQUENCY_BULLET.source.replace("多く|", "多くの場合|よくある|頻繁|"), "i");
-      const sectionLabels: Record<string, string> = {
-        "ts:body.6.text.de": "Häufige Stolperfallen bei der Synchronisierung",
-        "ts:body.6.text.fr": "Erreurs fréquentes qui bloquent la synchronisation",
-        "ts:body.6.text.pl": "Częste pułapki, na które warto uważać",
-        "ts:body.6.text.nl": "Veelvoorkomende valkuilen die mensen struikelen",
-        "ts:body.6.text.ja": "よくある落とし穴",
-        "overlay:body.6.text.sv": "Vanliga fallgropar som många snubblar på",
-      };
+    // PROTEZIONE CONTESTUALE (SD). Prima: divieto di parole intere (FREQUENCY_BULLET) in ogni cella, con 6 etichette a
+    // testo esatto. Vietava anche frasi vere sullo scheduling e sulla descrizione della sincronizzazione («vaak»,
+    // «häufig» in «si sincronizza a intervalli frequenti») e non vedeva «es frecuente». Ora il test guarda la frase:
+    // frequenza attribuita a una causa/un problema (avverbi, proporzioni, superlativi: guardie v3; aggettivo
+    // attributivo «un problema frequente»: attribuzione SD), con domande, posizioni di menu, prese di distanza ed
+    // etichette a testo esatto escluse. Le forme che il vecchio test catturava restano catturate (POSITIVI).
+    const OLD_ALL_FIELDS = new RegExp(FREQUENCY_BULLET.source.replace("多く|", "多くの場合|よくある|頻繁|"), "i");
+    const POSITIVI: Array<[string, string]> = [
+      ["it", "È un problema frequente: i permessi di Health Connect risultano disattivati."],
+      ["it", "La causa più frequente è l'ottimizzazione della batteria."],
+      ["it", "Il blocco della sincronizzazione è frequente dopo un aggiornamento."],
+      ["en", "This is a frequent problem: Health Connect permissions are turned off."],
+      ["en", "The most frequent cause is battery optimization."],
+      ["en", "Sync failures are frequent after an update."],
+      ["es", "Es un problema frecuente: los permisos de Health Connect están desactivados."],
+      ["es", "La causa más frecuente es la optimización de batería."],
+      ["de", "Das ist ein häufiges Problem: Die Berechtigungen in Health Connect sind deaktiviert."],
+      ["de", "Die häufigste Ursache ist die Akkuoptimierung."],
+      ["fr", "C'est un problème fréquent : les autorisations de Health Connect sont désactivées."],
+      ["fr", "La cause la plus fréquente est l'optimisation de la batterie."],
+      ["pt", "É um problema comum: as permissões do Health Connect estão desativadas."],
+      ["pt", "A causa mais comum é a otimização de bateria."],
+      ["pl", "To częsty problem: uprawnienia Health Connect są wyłączone."],
+      ["pl", "Najczęstszą przyczyną jest optymalizacja baterii."],
+      ["tr", "Bu yaygın bir sorundur: Health Connect izinleri kapalıdır."],
+      ["tr", "En yaygın neden pil optimizasyonudur."],
+      ["nl", "Dit is een veelvoorkomend probleem: de machtigingen van Health Connect staan uit."],
+      ["nl", "De meest voorkomende oorzaak is batterijoptimalisatie."],
+      ["nl", "Het probleem komt vaak door de batterijoptimalisatie."],
+      ["ja", "これはよくある問題です。Health Connect の権限がオフになっています。"],
+      ["ja", "多くの場合、原因はバッテリーの最適化です。"],
+      ["ja", "頻繁に起きる問題で、権限が原因です。"],
+      ["ko", "흔한 문제입니다. Health Connect 권한이 꺼져 있습니다."],
+      ["ko", "가장 흔한 원인은 배터리 최적화입니다."],
+      ["ko", "권한 문제가 많습니다."],
+      ["sv", "Det är ett vanligt problem: behörigheterna i Health Connect är avstängda."],
+      ["sv", "Den vanligaste orsaken är batterioptimering."],
+      ["da", "Det er et almindeligt problem: tilladelserne i Health Connect er slået fra."],
+      ["da", "Den mest almindelige årsag er batterioptimering."],
+    ];
+    const NEGATIVI: Array<[string, string]> = [
+      ["it", "FitMesh si aggiorna a intervalli frequenti durante la giornata."],
+      ["it", "Health Connect legge i dati più volte al giorno, in genere in background."],
+      ["en", "The Fitbit app syncs with your phone at frequent intervals during the day."],
+      ["en", "How often does Fitbit sync? Is this a frequent problem?"],
+      ["es", "Fitbit se sincroniza con la app a intervalos frecuentes durante el día."],
+      ["de", "Die Fitbit-App synchronisiert sich tagsüber in häufigen Abständen."],
+      ["fr", "L'application Fitbit se synchronise à intervalles fréquents pendant la journée."],
+      ["pt", "O app Fitbit sincroniza em intervalos frequentes ao longo do dia."],
+      ["pl", "Aplikacja Fitbit synchronizuje się w częstych odstępach w ciągu dnia."],
+      ["nl", "De Fitbit-app synchroniseert overdag vaak met je telefoon."],
+      ["nl", "Een nieuw horloge koppel je vaak binnen enkele minuten via de Fitbit-app."],
+      ["ja", "Fitbit アプリは一日を通して頻繁に同期します。"],
+      ["ko", "Fitbit 앱은 하루 동안 자주 동기화됩니다."],
+      ["sv", "Fitbit-appen synkroniserar ofta under dagen."],
+      ["da", "Fitbit-appen synkroniserer ofte i løbet af dagen."],
+      ["it", "Non possiamo dire che sia un problema frequente: verifica ogni passaggio."],
+      ["en", "We cannot say that this is a frequent problem, so check every step."],
+      ["it", "Health Connect di solito si trova nelle Impostazioni di Android."],
+    ];
+    it("frequenza: nessuna frequenza attribuita a una causa o a un problema in nessun campo (protezione contestuale, non parole intere)", () => {
       const allowed = new Set<string>();
       for (const c of cells) {
-        if (sectionLabels[c.path] === c.text) {
+        if (SECTION_LABELS_FREQ_ALL[c.path] === c.text) {
           allowed.add(c.path);
           continue;
         }
-        expect(c.text, c.path).not.toMatch(ALL_FIELDS_FREQUENCY);
+        expect(fitbitFrequencyVerdict(c.path, c.text), c.path).toEqual([]);
       }
-      // le etichette ammesse esistono davvero (la lista non e' un'esenzione fantasma)
-      expect([...allowed].sort()).toEqual(Object.keys(sectionLabels).sort());
+      // le etichette a testo esatto esistono davvero (nessuna esenzione fantasma) e nessuna e' nuova rispetto a prima
+      expect([...allowed].sort()).toEqual(Object.keys(SECTION_LABELS_FREQ_ALL).sort());
+    });
+
+    it("POSITIVI: ogni forma di causa-frequenza e' catturata, in 13 lingue; quelle che il vecchio test catturava restano catturate", () => {
+      expect(new Set(POSITIVI.map(([l]) => l)).size).toBe(13);
+      const oldMissed: string[] = [];
+      for (const [l, t] of POSITIVI) {
+        expect(fitbitFrequencyVerdict(`positivo.${l}`, norm(t)).length, `${l}: ${t}`).toBeGreaterThan(0);
+        if (!OLD_ALL_FIELDS.test(norm(t))) oldMissed.push(`${l}: ${t}`);
+      }
+      // il vecchio divieto non vedeva «frecuente» (es) ne' «meest voorkomende» (nl); il nuovo le prende tutte
+      expect(oldMissed).toEqual([
+        "es: Es un problema frecuente: los permisos de Health Connect están desactivados.",
+        "es: La causa más frecuente es la optimización de batería.",
+        "nl: De meest voorkomende oorzaak is batterijoptimalisatie.",
+      ]);
+    });
+
+    it("NEGATIVI: frasi vere (scheduling, descrizione della sincronizzazione, domande, prese di distanza) che il vecchio divieto fermava e il nuovo ammette", () => {
+      let oldBlocked = 0;
+      for (const [l, t] of NEGATIVI) {
+        expect(fitbitFrequencyVerdict(`negativo.${l}`, norm(t)), `${l}: ${t}`).toEqual([]);
+        if (OLD_ALL_FIELDS.test(norm(t))) oldBlocked += 1;
+      }
+      expect(NEGATIVI.length).toBe(18);
+      // 12 su 18 contengono una parola intera che il vecchio test avrebbe rifiutato in qualunque campo (le altre sei
+      // usano forme che il vecchio elenco non aveva: «frecuentes», «ofta», «ofte», «자주», «di solito», «in genere»: controllo)
+      expect(oldBlocked).toBe(12);
     });
 
     it("metaDescription e hero.subtitle: nessuna promessa di ripristino (13 lingue)", () => {
