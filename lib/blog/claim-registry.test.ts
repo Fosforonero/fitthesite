@@ -33,6 +33,8 @@ const LIVE_BY_KEY = new Map(LIVE.map((l) => [key(l.slug, l.path, l.impronta), l]
 // tolta) e nessuna nuova voce puo' aggiungersi senza comparire qui. Vedi SD-REGISTRO-CLAIM.md.
 const OPEN_FINDINGS = new Set<string>([
   "google-health/ts:body.22.text.de#5",
+  "google-health/ts:body.22.text.it#0",
+  "google-health/ts:body.22.text.ja#0",
   "google-health/ts:body.22.text.nl#5",
   "google-health/ts:body.22.text.pl#5",
   "google-health/ts:body.22.text.tr#6",
@@ -168,7 +170,7 @@ describe("REGISTRO DEI CLAIM: politica", () => {
   it("i finding aperti sono ancora violazioni (una voce risolta va tolta dall'elenco: nessuna esenzione fantasma)", () => {
     const violations = new Set(CLAIM_REGISTRY.filter(isViolation).map((e) => e.id));
     expect([...OPEN_FINDINGS].filter((id) => !violations.has(id)).sort()).toEqual([]);
-    expect(OPEN_FINDINGS.size).toBe(14);
+    expect(OPEN_FINDINGS.size).toBe(16);
   });
 
   it("le negazioni e gli stati onesti ammessi hanno fonte «comportamento del prodotto» e testo registrato (body.15.items[2] Garmin, 13 lingue)", () => {
