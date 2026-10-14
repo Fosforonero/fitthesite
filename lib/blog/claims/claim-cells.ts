@@ -34,11 +34,26 @@ export function collectClaimCells(slug: string): ClaimCell[] {
   return out;
 }
 
+// S6-08: SEGMENTA PRIMA di normalizzare. La normalizzazione comprime ogni spazio (anche «\n») in uno spazio singolo: una
+// riga senza punteggiatura finale («Häufig gestellte Fragen») si fondeva con la frase seguente. Ora ogni riga e'
+// normalizzata da sola, poi segmentata: il newline e' un confine di frase.
+export function segmentCell(text: string): string[] {
+  const out: string[] = [];
+  for (const line of text.split(/\n+/)) {
+    const n = normalizeClaimText(line);
+    if (n.length === 0) continue;
+    for (const s of segmentClaimSentences(n)) {
+      const t = normalizeClaimText(s);
+      if (t.length > 0) out.push(t);
+    }
+  }
+  return out;
+}
+
 export function claimSentences(slug: string): ClaimSentence[] {
   const out: ClaimSentence[] = [];
   for (const c of collectClaimCells(slug)) {
-    segmentClaimSentences(normalizeClaimText(c.text)).forEach((s, i) => {
-      const testo = normalizeClaimText(s);
+    segmentCell(c.text).forEach((testo, i) => {
       out.push({ path: c.path, lang: c.lang, indice: i, testo, impronta: fingerprint(testo) });
     });
   }
