@@ -621,68 +621,32 @@ describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-// SEGUITO S2 (CS2-1..CS2-4): due buchi delle guardie, dimostrati da mutanti sopravvissuti.
-// BUCO 1 (Fitbit): «Spesso/Often/Souvent il problema sono i permessi» in una FAQ passava, perche'
-//   FREQUENCY_BULLET non conteneva gli avverbi di frequenza. Qui la forma di frequenza e' estesa a 15 lingue.
-// BUCO 2 (Garmin): la promessa «FitMesh e' integrata ufficialmente con l'API», «e' prevista», o un beneficio
-//   in TESTA alla voce body.15.items[2] passavano, perche' la guardia vedeva solo la coda di quella voce.
-// Principio: si riconosce la PROMESSA nel contesto (frase), non la parola in blocco. I controlli positivi
-// (sezione «controlli positivi») mostrano frasi legittime, gia' nel contenuto, che passano.
-// Nessun contenuto e' modificato da questo blocco: se un'esenzione servisse, sarebbe un finding.
+// SEGUITO S2 (CS2-1..CS2-4), RIPROGETTATO nel giro 2 (SA-GUARDIE-V2): le due guardie riconoscono una
+// AFFERMAZIONE nel suo contesto di FRASE, non una parola in blocco.
+//  - Fitbit: una espressione di frequenza/proporzione NELLA STESSA FRASE di un contesto di problema/causa/
+//    sincronizzazione/permesso, in una frase dichiarativa (non domanda, non posizione di un menu, non modo).
+//  - Garmin: una frase POSITIVA (nessuna negazione prima/attorno al predicato) in cui un predicato di
+//    integrazione/collegamento/ufficialita'/partnership/supporto DIRETTO ha per oggetto Garmin, e il soggetto non
+//    e' un terzo; anche le previsioni di tale integrazione.
+//  - Beneficio in testa a body.15.items[2]: una frase positiva che affermi beneficio da integrazione/automazione.
+// LIMITI NOTI (sono euristiche di testo, non semantica; non vengono nascosti):
+//  - lessici scritti da un agente non madrelingua; copertura ragionevole, non completa, per lingua;
+//  - una promessa senza «Garmin» nella frase e senza predicato forte nella stessa frase (es. «E' prevista.»
+//    riferita a una frase precedente) non e' vista; idem un oggetto nominato solo con un pronome;
+//  - la segmentazione spezza anche su abbreviazioni/decimali e su «;»: una frase divisa a meta' perde il contesto;
+//  - la negazione e' cercata nella clausola (finestra di 7 parole prima del predicato; tutta la clausola per
+//    ja/ko/tr): «senza», «without» NON sono negazioni del predicato, «no» davanti a un sostantivo lo e' (falso
+//    negativo possibile: «with no manual export» davanti al predicato nella stessa clausola);
+//  - le domande retoriche in forma interrogativa passano (voluto dal mandato), anche se promettono;
+//  - «compatibile con Garmin» e' trattato come supporto; la citazione di una terza parte e' una lista, non un NER;
+//  - non catturati (verificati con sonde, vedi SA-GUARDIE-V2): «Permissions are the usual suspect.», «Su dieci casi,
+//    nove dipendono dai permessi.», «Il problema si ripresenta ogni giorno.», «FitMesh dialoga con Garmin Connect.»
+//    (verbo non in lessico), «FitMesh funziona con Garmin.» (vago: lasciato ammesso di proposito), frasi senza
+//    «Garmin» e senza «FitMesh»/predicato forte, promesse espresse con pronomi («Lo supporta.»);
+//  - lessici di frequenza: nessuna garanzia su sinonimi non elencati, ne' su costruzioni analitiche («one in
+//    two cases», «nel 90% dei casi» e' preso dal test PCT_CLAIM, non da qui).
+// Nessun contenuto e' modificato da questo blocco: se la guardia segnalasse contenuto corrente sarebbe un FINDING.
 // ---------------------------------------------------------------------------------------------
-
-// Frequenza di OCCORRENZA («spesso», «often», ...). Non le quantita' di persone/guide («大部分の人», «대부분의 사람들»,
-// «la maggior parte delle guide»), che non dicono quanto spesso accade il problema.
-const FREQ_LATIN_WORDS = [
-  // it
-  "spesso", "sovente", "di frequente", "frequentemente", "di solito", "solitamente", "generalmente", "in genere",
-  "di norma", "normalmente", "per lo più", "perlopiù", "nella maggior parte dei casi", "la maggior parte delle volte",
-  "molte volte", "tante volte", "di consueto", "abitualmente", "comunemente", "tipicamente", "di regola",
-  // en
-  "often", "oftentimes", "frequently", "commonly", "usually", "typically", "generally", "normally", "most of the time",
-  "in most cases", "more often than not", "tends? to", "tend to", "as a rule", "habitually",
-  // es
-  "a menudo", "con frecuencia", "frecuentemente", "por lo general", "habitualmente", "muchas veces",
-  "la mayoría de las veces", "en la mayoría de los casos", "suele", "suelen", "típicamente", "comúnmente", "usualmente",
-  // fr
-  "souvent", "fréquemment", "en général", "habituellement", "d'habitude", "la plupart du temps",
-  "dans la plupart des cas", "couramment", "typiquement", "d'ordinaire", "le plus souvent",
-  // de
-  "oft", "öfter", "oftmals", "meist", "meistens", "in den meisten Fällen", "normalerweise", "in der Regel",
-  "üblicherweise", "gewöhnlich", "typischerweise", "generell", "im Regelfall",
-  // pt
-  "muitas vezes", "geralmente", "com frequência", "na maioria das vezes", "na maioria dos casos", "costuma",
-  "costumam", "usualmente", "comumente",
-  // pl
-  "zwykle", "zazwyczaj", "na ogół", "przeważnie", "zwyczajowo", "bywa", "w większości przypadków", "nierzadko", "typowo",
-  // tr
-  "sık sık", "sıklıkla", "sıkça", "sık", "genellikle", "genelde", "çoğunlukla", "çoğu zaman", "çoğu durumda",
-  "normalde", "tipik olarak", "çoğu kez",
-  // nl
-  "meestal", "doorgaans", "gewoonlijk", "veelal", "dikwijls", "in de meeste gevallen", "normaal gesproken",
-  "meestentijds", "vaker", "in de regel",
-  // sv / da / no / fi
-  "ofta", "oftast", "vanligtvis", "generellt", "normalt", "brukar", "för det mesta", "i de flesta fall", "typiskt",
-  "som regel", "ofte", "oftest", "plejer", "for det meste", "i de fleste tilfælde", "typisk", "sædvanligvis",
-  "pleier", "vanligvis", "i de fleste tilfeller", "usein", "yleensä", "tavallisesti", "useimmiten", "monesti",
-];
-const FREQ_CJK_WORDS = [
-  "よく", "頻繁", "しばしば", "たいてい", "大抵", "多くの場合", "ほとんどの場合", "通常は", "一般的に", "普通は",
-  "ことが多", "がちです", "자주", "종종", "흔히", "보통", "대개", "주로", "대부분의 경우", "일반적으로", "빈번",
-  "경우가 많", "때가 많",
-];
-const FREQUENCY_OCCURRENCE = new RegExp(
-  `(?<![\\p{L}\\p{N}])(?:${FREQ_LATIN_WORDS.map((w) => w.replace(/ /g, "\\s+")).join("|")})(?![\\p{L}\\p{N}])|${FREQ_CJK_WORDS.join("|")}`,
-  "iu",
-);
-// Etichette di sezione (titolo H2 «insidie comuni»), non stime di frequenza. Ammesse SOLO con il testo esatto,
-// per cella. Sono le 6 gia' ammesse dal test «frequenza» piu' le due che il marcatore esteso fa emergere (tr, ko).
-const SECTION_LABELS_EXTENDED: Record<string, string> = {
-  "ts:body.6.text.ja": "よくある落とし穴",
-  "ts:body.6.text.tr": "Sık yapılan hatalar",
-  "ts:body.6.text.ko": "사람들이 자주 걸리는 함정",
-};
-
 
 const nz = (s: string): string => norm(s).replace(/[‘’]/g, "'");
 const LB = "(?<![\\p{L}\\p{N}])";
@@ -701,6 +665,144 @@ function segmentSentences(t: string): string[] {
 }
 const isQuestion = (s: string): boolean => /[?？]\s*$/.test(s);
 
+// ---- G2: frequenza di occorrenza (Fitbit) ----
+// Marcatori: avverbi e locuzioni di frequenza/proporzione. Da soli NON bastano: serve un contesto di problema.
+const FREQ_LATIN_WORDS = [
+  // it
+  "spesso", "spessissimo", "sovente", "di frequente", "frequentemente", "di solito", "solitamente", "generalmente",
+  "in genere", "di norma", "normalmente", "per lo più", "perlopiù", "nella maggior parte dei casi",
+  "la maggior parte delle volte", "molte volte", "tante volte", "di consueto", "abitualmente", "comunemente",
+  "tipicamente", "di regola", "in molti casi", "in tanti casi", "il più delle volte", "la più parte delle volte",
+  "quasi sempre", "nove volte su dieci", "molto spesso",
+  // en
+  "often", "oftentimes", "frequently", "commonly", "usually", "typically", "generally", "normally", "most of the time",
+  "in most cases", "more often than not", "tends? to", "as a rule", "habitually", "in many cases", "in a lot of cases",
+  "nine times out of ten", "almost always", "many times", "much of the time", "in the majority of cases",
+  // es
+  "a menudo", "con frecuencia", "frecuentemente", "por lo general", "habitualmente", "muchas veces",
+  "la mayoría de las veces", "en la mayoría de los casos", "suele", "suelen", "típicamente", "comúnmente", "usualmente",
+  "en muchos casos", "casi siempre", "nueve de cada diez veces",
+  // fr
+  "souvent", "fréquemment", "en général", "habituellement", "d'habitude", "la plupart du temps",
+  "dans la plupart des cas", "couramment", "typiquement", "d'ordinaire", "le plus souvent", "bien souvent",
+  "dans de nombreux cas", "dans bien des cas", "presque toujours", "neuf fois sur dix",
+  // de
+  "oft", "öfter", "oftmals", "meist", "meistens", "in den meisten Fällen", "normalerweise", "in der Regel",
+  "üblicherweise", "gewöhnlich", "typischerweise", "generell", "im Regelfall", "häufig", "haeufig",
+  "in vielen Fällen", "fast immer", "neun von zehn Mal", "größtenteils", "meistenteils",
+  // pt
+  "muitas vezes", "geralmente", "com frequência", "na maioria das vezes", "na maioria dos casos", "costuma",
+  "costumam", "usualmente", "comumente", "em muitos casos", "quase sempre", "frequentemente", "habitualmente",
+  // pl
+  "zwykle", "zazwyczaj", "na ogół", "przeważnie", "zwyczajowo", "bywa", "w większości przypadków", "nierzadko",
+  "typowo", "często", "w wielu przypadkach", "prawie zawsze", "najczęściej",
+  // tr
+  "sık sık", "sıklıkla", "sıkça", "sık", "genellikle", "genelde", "çoğunlukla", "çoğu zaman", "çoğu durumda",
+  "normalde", "tipik olarak", "çoğu kez", "birçok durumda", "neredeyse her zaman", "en sık",
+  // nl
+  "meestal", "doorgaans", "gewoonlijk", "veelal", "dikwijls", "in de meeste gevallen", "normaal gesproken",
+  "meestentijds", "vaker", "in de regel", "vaak", "in veel gevallen", "bijna altijd", "negen van de tien keer",
+  // sv / da / no / fi
+  "ofta", "oftast", "vanligtvis", "generellt", "normalt", "brukar", "för det mesta", "i de flesta fall", "typiskt",
+  "som regel", "ofte", "oftest", "plejer", "for det meste", "i de fleste tilfælde", "typisk", "sædvanligvis",
+  "pleier", "vanligvis", "i de fleste tilfeller", "usein", "yleensä", "tavallisesti", "useimmiten", "monesti",
+  "i många fall", "nästan alltid", "næsten altid", "i mange tilfælde", "nesten alltid", "melkein aina",
+];
+const FREQ_CJK_WORDS = [
+  "よく", "頻繁", "しばしば", "たいてい", "大抵", "多くの場合", "ほとんどの場合", "通常は", "一般的に", "普通は",
+  "ことが多", "がちです", "ほぼ常に", "十中八九", "자주", "종종", "흔히", "보통", "대개", "주로", "대부분의 경우",
+  "일반적으로", "빈번", "경우가 많", "때가 많", "거의 항상",
+];
+// Proporzione di problemi/casi («la maggior parte dei problemi», «most sync failures»): non «la maggior parte
+// delle persone/guide», che non dice quanto spesso accade l'evento.
+const FREQ_PROPORTION =
+  `${LB}(?:la\\s+maggior\\s+parte|la\\s+mayor[ií]a|la\\s+plupart|die\\s+meisten|a\\s+maioria|większość|çoğu|de\\s+meeste|de\\s+flesta|de\\s+fleste|most|the\\s+majority)\\s+(?:(?:dei|delle|degli|di|of|de|des|der|von|las|los|les|the|d')\\s*){0,2}(?:problem|issue|failure|error|cases?\\b|casi\\b|caso\\b|errori|errores|erreurs|fehler|fälle|casos|przypadk|sorun|durum|fout|gevallen|tilfælde|fall\\b|sync\\s+(?:problem|issue|failure))`;
+// Marcatore lessicale (invariato nella forma, esteso): NON e' di per se' una violazione.
+const FREQUENCY_OCCURRENCE = new RegExp(
+  `${LB}(?:${FREQ_LATIN_WORDS.map((w) => w.replace(/ /g, "\\s+")).join("|")})${RB}|${FREQ_PROPORTION}|${FREQ_CJK_WORDS.join("|")}`,
+  "iu",
+);
+// Contesto: problema, causa, sincronizzazione, permesso (per lingua, per RADICE; sinonimi non elencati sfuggono).
+const FREQ_CONTEXT_STEMS = [
+  // it
+  "problem", "caus", "errore", "error", "permess", "autorizz", "sincroniz", "non si sincron", "non funzion", "fallisc",
+  "blocc", "ritard", "batteria", "perch", "dipend", "dovut",
+  // en
+  "issue", "fail", "permission", "sync", "delay", "stuck", "missing", "battery", "because", "due to", "reason", "why",
+  "happens", "occurs", "responsible", "culprit", "breaks?", "stops?",
+  // es
+  "causa", "fall[ao]", "permiso", "sincroniz", "retras", "bloque", "batería", "porque", "debido", "motivo",
+  // fr
+  "problème", "erreur", "échec", "échou", "autorisation", "synchronis", "retard", "bloqu", "batterie", "parce que",
+  "en raison", "à cause", "vient", "provient",
+  // de
+  "Problem", "Ursache", "Fehler", "fehl", "Berechtigung", "synchronisier", "Verzögerung", "blockier", "Akku", "weil",
+  "liegt", "wegen", "daran", "Grund",
+  // pt
+  "erro", "falh", "permiss", "atraso", "bateria", "devido", "motivo", "acontece",
+  // pl
+  "przyczyn", "błąd", "błęd", "uprawnie", "synchroniz", "opóźni", "blokuj", "bateri", "ponieważ", "powodu",
+  // tr
+  "sorun", "neden", "hata", "izin", "senkroniz", "gecik", "pil\\b", "çünkü", "kaynaklan",
+  // nl
+  "probleem", "oorzaak", "fout", "machtiging", "toestemming", "synchronis", "vertraging", "batterij", "omdat",
+  "doordat", "gebeurt",
+  // sv / da / no / fi
+  "orsak", "fel\\b", "behörighet", "synkronis", "fördröj", "batteri", "eftersom", "beror", "på grund", "årsag",
+  "fejl", "tilladelse", "forsink", "fordi", "skyldes", "tillatelse", "feil", "ongelma", "syy", "virhe", "oikeu",
+  "synkronoi", "akku", "akun", "koska",
+];
+const FREQ_CONTEXT_CJK = [
+  "問題", "原因", "エラー", "失敗", "権限", "許可", "同期", "遅延", "バッテリー", "ため", "起こ",
+  "문제", "원인", "오류", "실패", "권한", "동기화", "지연", "배터리", "때문", "발생",
+];
+const FREQ_CONTEXT = new RegExp(
+  `${LB}(?:${FREQ_CONTEXT_STEMS.map((w) => w.replace(/ /g, "\\s+")).join("|")})|${FREQ_CONTEXT_CJK.join("|")}`,
+  "iu",
+);
+// Usi NON frequenziali (mandato G2): il marcatore dentro questi idiomi e' rimosso prima del controllo.
+const FREQ_NEUTRAL_IDIOMS: RegExp[] = [
+  // interrogativi: «How often...», «Wie oft...», «Quanto spesso...» (frase indiretta compresa)
+  /(?:how\s+often|how\s+frequently|wie\s+oft|wie\s+häufig|quanto\s+spesso|con\s+quale\s+frequenza|con\s+che\s+frequenza|con\s+qu[eé]\s+frecuencia|cada\s+cu[aá]nto|à\s+quelle\s+fréquence|combien\s+de\s+fois|com\s+que\s+frequência|jak\s+często|ne\s+sıklıkla|ne\s+sıklıkta|hoe\s+vaak|hur\s+ofta|hvor\s+ofte|kuinka\s+usein|どのくらいの頻度|どれくらいの頻度|どのくらい頻繁|얼마나\s+자주)/giu,
+  // «domande frequenti» e simili (FAQ standard)
+  /(?:sık\s+sorulan(?:\s+sorular)?|sıkça\s+sorulan(?:\s+sorular)?|よくある(?:ご)?質問|자주\s+묻는\s+질문|häufig\s+gestellte\s+fragen|oft\s+gestellte\s+fragen|foire\s+aux\s+questions|preguntas\s+frecuentes|domande\s+frequenti|frequently\s+asked\s+questions|perguntas\s+frequentes|często\s+zadawane\s+pytania|veelgestelde\s+vragen|vanliga\s+frågor|ofte\s+stillede\s+spørgsmål|ofte\s+stilte\s+spørsmål|usein\s+kysytyt\s+kysymykset)/giu,
+  // modo/stato «normale» (non frequenza)
+  /(?:normalt\s+läge|normalt\s+tilstand|normal(?:e|t)?\s+(?:mode|modus|modo|tilstand|läge)|normalmodus|normaal\s+modus|tryb\s+normalny|normal\s+mod|보통\s+(?:모드|상태|설정)|通常(?:は)?モード|通常の(?:モード|状態))/giu,
+  // «controlla bene», «leggi con attenzione»
+  /よく(?=確認|読|見|チェック|調べ|考え|理解|注意|聞)/gu,
+  // scheduling: «più volte al giorno», «several times a day»
+  /(?:\p{L}+\s+){0,2}(?:volte|times|veces|fois|vezes|mal|razy|kez|keer|gånger|gange)\s+(?:al|a|ao|per|par|pro|por|am|na|w|om|i|på|per)\s+(?:giorno|day|día|dia|jour|tag|dzień|dag|dygn|gün)/giu,
+  /(?:毎日|1日に?\s*\d+回|하루\s*\d+번|매일)/gu,
+];
+// Posizione di un menu/impostazione: «di solito si trova nelle Impostazioni», «findest du normalerweise in den
+// Einstellungen». La frase dice DOVE, non quanto spesso accade un problema.
+const FREQ_LOCATION = new RegExp(
+  `${LB}(?:si\\s+trova|si\\s+trovano|trovi|trovate|puoi\\s+trovare|is\\s+(?:found|located|listed)|are\\s+(?:found|located|listed)|you\\s+(?:can\\s+)?find|findest|befindet\\s+sich|befinden\\s+sich|se\\s+encuentra|se\\s+encuentran|encuentras|se\\s+trouve|se\\s+trouvent|tu\\s+trouves|encontra|encontras|znajdziesz|znajduje|bulunur|bulabilirsin|vind\\s+je|te\\s+vinden|finns|hittar\\s+du|finder\\s+du|findes|ligger)${RB}|${LB}(?:in|under|nelle|nei|nella|in\\s+den|in\\s+der|dans\\s+les|dans\\s+le|en|em|w|içinde|onder|i|på|under)\\s+(?:the\\s+|le\\s+|las\\s+|los\\s+|den\\s+)?(?:Settings|Impostazioni|Einstellungen|Paramètres|Ajustes|Configuraciones|Configurações|Ustawieniach|Ayarlar|Instellingen|Inställningar|Indstillinger|Innstillinger)|(?:設定|설정)(?:画面)?(?:に|で|には|에서|에)`,
+  "iu",
+);
+
+// Problemi per cella (vuoto = nessuna espressione di frequenza del problema).
+function fitbitFrequencyProblems(text: string): string[] {
+  const out: string[] = [];
+  for (const raw of segmentSentences(nz(text))) {
+    if (isQuestion(raw)) continue; // domanda: non afferma
+    let s = raw;
+    for (const idiom of FREQ_NEUTRAL_IDIOMS) s = s.replace(idiom, " ");
+    if (!FREQUENCY_OCCURRENCE.test(s)) continue;
+    if (FREQ_LOCATION.test(s)) continue;
+    if (!FREQ_CONTEXT.test(s)) continue;
+    out.push(`frequenza del problema: ${raw.slice(0, 80)}`);
+  }
+  return out;
+}
+
+// Etichette di sezione (titolo H2 «insidie comuni»), non stime di frequenza. Ammesse SOLO con il testo esatto,
+// per cella: sono le 3 gia' presenti e documentate (nessuna nuova).
+const SECTION_LABELS_EXTENDED: Record<string, string> = {
+  "ts:body.6.text.ja": "よくある落とし穴",
+  "ts:body.6.text.tr": "Sık yapılan hatalar",
+  "ts:body.6.text.ko": "사람들이 자주 걸리는 함정",
+};
 
 // ---- G1: promessa Garmin (frase positiva, predicato di integrazione/ufficialita'/supporto DIRETTO su Garmin) ----
 // Predicati. Radici con confine di parola a sinistra (nessun «imprevisto» -> «previst»), suffisso libero.
@@ -977,13 +1079,16 @@ function garminCellVerdict(path: string, text: string): string[] {
   if (GA_CTA_PATH.test(path) && text === nz(GA_CTA_LABELS[lang])) return []; // (ii)
   return garminPromiseProblems(text);
 }
+function fitbitCellVerdict(path: string, text: string): string[] {
+  if (SECTION_LABELS_EXTENDED[path] === text) return []; // etichette gia' ammesse a testo esatto
+  return fitbitFrequencyProblems(text);
+}
 
-describe("SEGUITO S2: guardie di frequenza (Fitbit) e di promessa (Garmin), CS2-1..CS2-4", () => {
-  describe("Fitbit: frequenza di occorrenza in OGNI cella (11 lingue TS + sv/da overlay)", () => {
+describe("SEGUITO S2 (riprogettato): guardie di frequenza (Fitbit) e di promessa (Garmin), per frase", () => {
+  describe("Fitbit: frequenza di occorrenza del problema in OGNI cella (11 lingue TS + sv/da overlay)", () => {
     const cells = collectCells("fitbit-data-not-syncing-android");
 
     it("riconoscimento per lingua: la forma «spesso/often/souvent/...» e' rossa in tutte le 13 lingue (e no/fi)", () => {
-      // Se la regex perde una lingua, questo test e' rosso prima che lo diventi un mutante.
       const flagged: Record<string, string> = {
         it: "Spesso il problema sono i permessi.",
         en: "This often happens because of permissions.",
@@ -1001,7 +1106,10 @@ describe("SEGUITO S2: guardie di frequenza (Fitbit) e di promessa (Garmin), CS2-
         no: "Det er ofte tillatelsene.",
         fi: "Usein ongelma ovat oikeudet.",
       };
-      for (const [l, t] of Object.entries(flagged)) expect(norm(t), l).toMatch(FREQUENCY_OCCURRENCE);
+      for (const [l, t] of Object.entries(flagged)) {
+        expect(norm(t), l).toMatch(FREQUENCY_OCCURRENCE);
+        expect(fitbitFrequencyProblems(t).length, `${l} frase di frequenza del problema`).toBeGreaterThan(0);
+      }
     });
 
     it("nessuna cella afferma quanto spesso accade il problema (hero, tldr, body, faq, metadati, overlay)", () => {
@@ -1011,7 +1119,7 @@ describe("SEGUITO S2: guardie di frequenza (Fitbit) e di promessa (Garmin), CS2-
           allowed.add(c.path);
           continue;
         }
-        expect(c.text, c.path).not.toMatch(FREQUENCY_OCCURRENCE);
+        expect(fitbitFrequencyProblems(c.text), c.path).toEqual([]);
       }
       // etichette di sezione davvero presenti con quel testo esatto (nessuna esenzione fantasma)
       expect([...allowed].sort()).toEqual(Object.keys(SECTION_LABELS_EXTENDED).sort());
@@ -1039,6 +1147,14 @@ describe("SEGUITO S2: guardie di frequenza (Fitbit) e di promessa (Garmin), CS2-
       // (d) parole che CONTENGONO un marcatore ma non lo sono: confini di parola
       for (const t of ["Software update", "Soft permissions", "oftware", "Das ist die Sprache.", "sıkıştırma ayarı"]) {
         expect(norm(t), t).not.toMatch(FREQUENCY_OCCURRENCE);
+      }
+      // (e) il marcatore da solo non e' una violazione: serve il contesto di problema nella stessa frase
+      for (const t of [
+        "Health Connect di solito si trova nelle Impostazioni di Android.",
+        "How often does Fitbit sync with Health Connect?",
+        "Sık sorulan sorular bölümüne de bakın.",
+      ]) {
+        expect(fitbitFrequencyProblems(t), t).toEqual([]);
       }
     });
   });
