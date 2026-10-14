@@ -72,6 +72,8 @@ export interface ActivityCopy {
 }
 
 const num = (n: number, one: string, many: string) => (n === 1 ? `${n} ${one}` : `${n} ${many}`);
+// «n» e' gia' formattato con fmtInt: solo la stringa «1» e' singolare (1000 si scrive «1.000»).
+const isOne = (n: string) => n === '1';
 
 const IT: ActivityCopy = {
   hero: {
@@ -82,7 +84,7 @@ const IT: ActivityCopy = {
       incomplete_coverage: (pct, goal) => `${pct} dell’obiettivo di ${goal} passi, calcolato sui passi ricevuti`,
     },
     goalMet: 'Obiettivo passi raggiunto',
-    remaining: (n) => `Mancano ${n} passi`,
+    remaining: (n) => (isOne(n) ? `Manca ${n} passo` : `Mancano ${n} passi`),
     goalAbsent: (goal) => `Obiettivo: ${goal} passi. Senza il dato dei passi non si calcola il progresso.`,
   },
   tiles: {
@@ -104,7 +106,7 @@ const IT: ActivityCopy = {
       parts.push(c.measured > 0 ? `${num(c.measured, 'ora misurata', 'ore misurate')}${c.zero > 0 ? `, di cui ${c.zero} con zero passi` : ''}` : 'nessuna ora misurata');
       if (c.partial > 0) parts.push(num(c.partial, 'ora parziale', 'ore parziali'));
       if (c.absent > 0) parts.push(num(c.absent, 'ora senza dato', 'ore senza dato'));
-      return `Passi ora per ora: ${parts.join('; ')}.${peak ? ` Ora più attiva: le ${peak.hour}, ${peak.steps} passi.` : ''}`;
+      return `Passi ora per ora: ${parts.join('; ')}.${peak ? ` Ora più attiva: le ${peak.hour}, ${peak.steps} ${isOne(peak.steps) ? 'passo' : 'passi'}.` : ''}`;
     },
     yAxis: 'Passi nell’ora',
     tableLabel: 'Tabella dei dati orari',
@@ -146,7 +148,7 @@ const EN: ActivityCopy = {
       incomplete_coverage: (pct, goal) => `${pct} of the ${goal} steps goal, calculated on the steps received`,
     },
     goalMet: 'Steps goal reached',
-    remaining: (n) => `${n} steps to go`,
+    remaining: (n) => `${n} ${isOne(n) ? 'step' : 'steps'} to go`,
     goalAbsent: (goal) => `Goal: ${goal} steps. Progress cannot be worked out without step data.`,
   },
   tiles: {
@@ -168,7 +170,7 @@ const EN: ActivityCopy = {
       parts.push(c.measured > 0 ? `${num(c.measured, 'hour measured', 'hours measured')}${c.zero > 0 ? `, of which ${c.zero} at zero steps` : ''}` : 'no hour measured');
       if (c.partial > 0) parts.push(num(c.partial, 'partial hour', 'partial hours'));
       if (c.absent > 0) parts.push(num(c.absent, 'hour with no data', 'hours with no data'));
-      return `Steps by hour: ${parts.join('; ')}.${peak ? ` Most active hour: ${peak.hour}, ${peak.steps} steps.` : ''}`;
+      return `Steps by hour: ${parts.join('; ')}.${peak ? ` Most active hour: ${peak.hour}, ${peak.steps} ${isOne(peak.steps) ? 'step' : 'steps'}.` : ''}`;
     },
     yAxis: 'Steps in the hour',
     tableLabel: 'Hourly data table',
