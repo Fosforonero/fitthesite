@@ -67,6 +67,20 @@ export { REDDIT_COMMUNITY_LIVE };
  */
 export const INSTAGRAM_URL = "https://www.instagram.com/fitmesh_sync/";
 
+/**
+ * Profilo Facebook FitMesh Sync. URL fornito da Matteo (14/10/2026): NON
+ * verificato in modo indipendente da rete in questo repository.
+ * Fonte di verita' condivisa per Footer e sameAs in OrganizationJsonLd.
+ */
+export const FACEBOOK_URL = "https://www.facebook.com/fitmeshsync/";
+
+/**
+ * Pagina LinkedIn FitMesh (pagina pubblica "Fitmesh", con riferimento a
+ * fitmesh.fit, verificata da Codex il 14/10/2026). URL pubblico senza /home/.
+ * Fonte di verita' condivisa per Footer e sameAs in OrganizationJsonLd.
+ */
+export const LINKEDIN_URL = "https://www.linkedin.com/company/fitmesh/";
+
 // ── Disponibilità piattaforme ───────────────────────────────────────────────
 /**
  * Android: live ovunque, nessuna limitazione geografica. Legge da Health
