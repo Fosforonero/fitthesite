@@ -574,7 +574,7 @@ export const cellLang = (path: string): string => path.split(".").reverse().find
 // Esenzioni Garmin DOCUMENTATE, ciascuna verificata nel test (nessuna e' una esenzione fantasma):
 // (i) body.15.items[2]: la clausola di negazione «FitMesh legge via Health Connect e NON tramite l'API ufficiale».
 // Non e' una esenzione dalla guardia: la voce e' valutata dalla guardia di frase e in piu' dalla regola G3 (beneficio).
-const GA_NEGATION: Record<string, RegExp> = {
+export const GA_NEGATION: Record<string, RegExp> = {
   it: /non tramite l'API ufficiale Garmin Connect elencata sopra/,
   en: /not through the official Garmin Connect API listed above/,
   es: /no mediante la API oficial de Garmin Connect mencionada arriba/,
