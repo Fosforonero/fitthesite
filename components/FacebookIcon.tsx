@@ -3,8 +3,10 @@
  * Origine del tracciato: progetto simple-icons, pacchetto npm "simple-icons",
  * file icons/facebook.svg. L'attributo d e' identico byte per byte a quello delle
  * versioni 11.0.0, 13.0.0 e 16.35.0 (confronto del 14/10/2026; la 9.0.0 differisce).
- * Licenza del pacchetto: CC0-1.0. Il logo e' un marchio del rispettivo titolare:
- * usato solo come riferimento al nostro profilo ufficiale linkato.
+ * Licenza del pacchetto: CC0-1.0.
+ * Il logo e' un marchio del rispettivo titolare e qui indica il collegamento al
+ * profilo FitMesh indicato dal sito; nessuna dichiarazione di autorizzazione,
+ * verifica o titolarita'.
  * viewBox 0 0 24 24, proporzioni non distorte, colore di marca #0866FF.
  * Sempre `aria-hidden="true"` e `focusable="false"`: il nome accessibile del link
  * proviene esclusivamente dal testo visibile adiacente (mai icon-only).
