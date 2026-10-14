@@ -674,92 +674,147 @@ const FREQ_LATIN_WORDS = [
   "la maggior parte delle volte", "molte volte", "tante volte", "di consueto", "abitualmente", "comunemente",
   "tipicamente", "di regola", "in molti casi", "in tanti casi", "il più delle volte", "la più parte delle volte",
   "quasi sempre", "nove volte su dieci", "molto spesso",
+  // F11 (giro 3): superlativi e proporzioni di cause, regolarita'
+  "regolarmente", "stragrande maggioranza", "di gran lunga", "più comune", "più comunemente", "più frequente",
+  "più frequentemente", "più diffusa", "più diffuso", "più comuni", "più frequenti", "capita di frequente",
+  "è comune", "è frequente",
   // en
   "often", "oftentimes", "frequently", "commonly", "usually", "typically", "generally", "normally", "most of the time",
   "in most cases", "more often than not", "tends? to", "as a rule", "habitually", "in many cases", "in a lot of cases",
   "nine times out of ten", "almost always", "many times", "much of the time", "in the majority of cases",
+  "regularly", "most common", "most commonly", "most frequent", "most frequently", "the vast majority", "vast majority",
+  "overwhelming majority", "is common", "are common",
   // es
   "a menudo", "con frecuencia", "frecuentemente", "por lo general", "habitualmente", "muchas veces",
   "la mayoría de las veces", "en la mayoría de los casos", "suele", "suelen", "típicamente", "comúnmente", "usualmente",
   "en muchos casos", "casi siempre", "nueve de cada diez veces",
+  "regularmente", "lo más habitual", "lo más común", "lo más frecuente", "más común", "más habitual", "más frecuente",
+  "es común", "es habitual", "es frecuente", "la gran mayoría",
   // fr
   "souvent", "fréquemment", "en général", "habituellement", "d'habitude", "la plupart du temps",
   "dans la plupart des cas", "couramment", "typiquement", "d'ordinaire", "le plus souvent", "bien souvent",
   "dans de nombreux cas", "dans bien des cas", "presque toujours", "neuf fois sur dix",
+  "régulièrement", "le plus courant", "la plus courante", "le plus fréquent", "la plus fréquente", "la grande majorité",
+  "dans la majorité des cas",
   // de
   "oft", "öfter", "oftmals", "meist", "meistens", "in den meisten Fällen", "normalerweise", "in der Regel",
   "üblicherweise", "gewöhnlich", "typischerweise", "generell", "im Regelfall", "häufig", "haeufig",
   "in vielen Fällen", "fast immer", "neun von zehn Mal", "größtenteils", "meistenteils",
+  "regelmäßig", "regelmässig", "am häufigsten", "häufigste", "häufigsten", "überwiegend", "mehrheitlich",
   // pt
   "muitas vezes", "geralmente", "com frequência", "na maioria das vezes", "na maioria dos casos", "costuma",
   "costumam", "usualmente", "comumente", "em muitos casos", "quase sempre", "frequentemente", "habitualmente",
+  "regularmente", "mais comum", "mais frequente", "é comum", "é frequente", "grande maioria", "maioria dos casos",
   // pl
   "zwykle", "zazwyczaj", "na ogół", "przeważnie", "zwyczajowo", "bywa", "w większości przypadków", "nierzadko",
   "typowo", "często", "w wielu przypadkach", "prawie zawsze", "najczęściej",
+  "regularnie", "najczęstsza", "najczęstszy", "najczęstszą", "najczęstsze", "w zdecydowanej większości",
   // tr
   "sık sık", "sıklıkla", "sıkça", "sık", "genellikle", "genelde", "çoğunlukla", "çoğu zaman", "çoğu durumda",
   "normalde", "tipik olarak", "çoğu kez", "birçok durumda", "neredeyse her zaman", "en sık",
+  "düzenli olarak", "en yaygın", "büyük çoğunlukla",
   // nl
   "meestal", "doorgaans", "gewoonlijk", "veelal", "dikwijls", "in de meeste gevallen", "normaal gesproken",
   "meestentijds", "vaker", "in de regel", "vaak", "in veel gevallen", "bijna altijd", "negen van de tien keer",
+  "regelmatig", "meest voorkomende", "meestvoorkomende", "vaakst", "overgrote meerderheid",
   // sv / da / no / fi
   "ofta", "oftast", "vanligtvis", "generellt", "normalt", "brukar", "för det mesta", "i de flesta fall", "typiskt",
   "som regel", "ofte", "oftest", "plejer", "for det meste", "i de fleste tilfælde", "typisk", "sædvanligvis",
   "pleier", "vanligvis", "i de fleste tilfeller", "usein", "yleensä", "tavallisesti", "useimmiten", "monesti",
   "i många fall", "nästan alltid", "næsten altid", "i mange tilfælde", "nesten alltid", "melkein aina",
+  "regelbundet", "regelmæssigt", "vanligaste", "mest vanliga", "mest almindelige", "hyppigste",
 ];
 const FREQ_CJK_WORDS = [
   "よく", "頻繁", "しばしば", "たいてい", "大抵", "多くの場合", "ほとんどの場合", "通常は", "一般的に", "普通は",
   "ことが多", "がちです", "ほぼ常に", "十中八九", "자주", "종종", "흔히", "보통", "대개", "주로", "대부분의 경우",
   "일반적으로", "빈번", "경우가 많", "때가 많", "거의 항상",
+  // F11: proporzioni e superlativi in ja/ko
+  "大半", "大多数", "ほとんどが", "ほとんどは", "最も多い", "一番多い", "最も一般的", "定期的", "しょっちゅう",
+  "가장 흔한", "가장 많은", "가장 일반적인", "대부분은", "대부분이", "정기적으로", "규칙적으로",
 ];
 // Proporzione di problemi/casi («la maggior parte dei problemi», «most sync failures»): non «la maggior parte
 // delle persone/guide», che non dice quanto spesso accade l'evento.
 const FREQ_PROPORTION =
   `${LB}(?:la\\s+maggior\\s+parte|la\\s+mayor[ií]a|la\\s+plupart|die\\s+meisten|a\\s+maioria|większość|çoğu|de\\s+meeste|de\\s+flesta|de\\s+fleste|most|the\\s+majority)\\s+(?:(?:dei|delle|degli|di|of|de|des|der|von|las|los|les|the|d')\\s*){0,2}(?:problem|issue|failure|error|cases?\\b|casi\\b|caso\\b|errori|errores|erreurs|fehler|fälle|casos|przypadk|sorun|durum|fout|gevallen|tilfælde|fall\\b|sync\\s+(?:problem|issue|failure))`;
+// Rapporti «nove su dieci» («Nine out of ten sync problems», «Dans neuf cas sur dix»): frequenza di CASI.
+const FREQ_RATIO =
+  `${LB}(?:\\d+|one|two|three|four|five|six|seven|eight|nine|uno|due|tre|quattro|cinque|sei|sette|otto|nove|un|dos|tres|cuatro|cinco|seis|siete|ocho|nueve|trois|quatre|cinq|sept|huit|neuf|drei|vier|fünf|sechs|sieben|acht|neun|três|quatro|oito|nove|trzy|cztery|pięć|osiem|dziewięć|negen|acht|zeven|nio|ni|ni)\\s+(?:(?:cas|casi|casos|Fällen|Fälle|fois|volte|vezes|veces|keer|razy|kez|gånger|gange|times|cases)\\s+)?(?:out\\s+of|sur|su|de\\s+cada|von|van\\s+de|em\\s+cada|z|av|ud\\s+af)\\s+(?:ten|10|dix|dieci|diez|zehn|tien|dez|dziesięciu|tio|ti)${RB}`;
 // Marcatore lessicale (invariato nella forma, esteso): NON e' di per se' una violazione.
 const FREQUENCY_OCCURRENCE = new RegExp(
-  `${LB}(?:${FREQ_LATIN_WORDS.map((w) => w.replace(/ /g, "\\s+")).join("|")})${RB}|${FREQ_PROPORTION}|${FREQ_CJK_WORDS.join("|")}`,
+  `${LB}(?:${FREQ_LATIN_WORDS.map((w) => w.replace(/ /g, "\\s+")).join("|")})${RB}|${FREQ_PROPORTION}|${FREQ_RATIO}|${FREQ_CJK_WORDS.join("|")}`,
   "iu",
 );
-// Contesto: problema, causa, sincronizzazione, permesso (per lingua, per RADICE; sinonimi non elencati sfuggono).
+// Contesto (giro 3, F2): il bersaglio e' l'ATTRIBUZIONE DI FREQUENZA A UNA CAUSA O A UN PROBLEMA, non una frase
+// sulla sincronizzazione, la batteria o il sistema. Radici per lingua di: nomi di problema/causa/colpa/motivo, stati
+// di problema (disattivato, negato, mancante), cause note (permessi, ottimizzazione/risparmio energetico) e verbi di
+// problema/causa (fallisce, blocca, dipende da, viene da). «sync», «batteria», «perche'/because/weil» NON bastano.
 const FREQ_CONTEXT_STEMS = [
   // it
-  "problem", "caus", "errore", "error", "permess", "autorizz", "sincroniz", "non si sincron", "non funzion", "fallisc",
-  "blocc", "ritard", "batteria", "perch", "dipend", "dovut",
+  "problem", "caus", "errore", "errori", "error", "colp", "motivo", "motivi", "ragion", "responsabil", "inconvenient", "difett",
+  "guasto", "anomali", "permess", "autorizz", "non si sincron", "non funzion", "fallisc", "blocc", "ritard", "dipend", "dovut",
+  "disattiv", "mancan", "negat", "revoc", "ottimizz", "risparmio energetic",
   // en
-  "issue", "fail", "permission", "sync", "delay", "stuck", "missing", "battery", "because", "due to", "reason", "why",
-  "happens", "occurs", "responsible", "culprit", "breaks?", "stops?",
+  "issue", "fail", "permission", "delay", "stuck", "missing", "reason", "responsible", "culprit", "fault", "blame",
+  "trouble", "glitch", "breaks?", "stops?", "kills?", "killed", "denied", "disabled", "revoked", "due to", "caused",
+  "stems?\\s+from", "comes?\\s+from", "come\\s+from", "optimi[sz]", "battery\\s+saver", "power[- ]saving", "restrict",
   // es
-  "causa", "fall[ao]", "permiso", "sincroniz", "retras", "bloque", "batería", "porque", "debido", "motivo",
+  "problema", "causa", "culp", "motivo", "razón", "razones", "responsable", "fall[ao]", "permiso", "retras", "bloque",
+  "falten", "faltan", "falta\\b", "denegad", "desactivad", "revoc", "optimizaci", "ahorro\\s+de\\s+energ", "debido", "provoc",
   // fr
-  "problème", "erreur", "échec", "échou", "autorisation", "synchronis", "retard", "bloqu", "batterie", "parce que",
-  "en raison", "à cause", "vient", "provient",
+  "problème", "erreur", "échec", "échou", "faute", "coupable", "responsable", "raison", "autorisation", "retard", "bloqu",
+  "manqu", "désactiv", "refus", "révoqu", "optimisation", "économie\\s+d'énergie", "vient", "provient", "dû\\b",
   // de
-  "Problem", "Ursache", "Fehler", "fehl", "Berechtigung", "synchronisier", "Verzögerung", "blockier", "Akku", "weil",
-  "liegt", "wegen", "daran", "Grund",
+  "Problem", "Ursache", "Fehler", "fehl", "schuld", "Grund", "Gründe", "verantwortlich", "Berechtigung", "Verzögerung",
+  "blockier", "deaktiviert", "verweigert", "Energiespar", "Optimierung", "liegt", "daran", "wegen",
   // pt
-  "erro", "falh", "permiss", "atraso", "bateria", "devido", "motivo", "acontece",
+  "erro", "falh", "culp", "motivo", "razão", "responsável", "permiss", "atraso", "falta\\b", "negad", "desativ", "revog",
+  "otimiza", "economia\\s+de\\s+energia", "devido",
   // pl
-  "przyczyn", "błąd", "błęd", "uprawnie", "synchroniz", "opóźni", "blokuj", "bateri", "ponieważ", "powodu",
+  "przyczyn", "błąd", "błęd", "winn", "wina\\b", "powód", "powodu", "uprawnie", "opóźni", "blokuj", "optymaliz",
+  "oszczędzani",
   // tr
-  "sorun", "neden", "hata", "izin", "senkroniz", "gecik", "pil\\b", "çünkü", "kaynaklan",
+  "sorun", "neden", "hata", "suç", "izin", "gecik", "kaynaklan", "pil\\s+tasarruf", "optimizasyon",
   // nl
-  "probleem", "oorzaak", "fout", "machtiging", "toestemming", "synchronis", "vertraging", "batterij", "omdat",
-  "doordat", "gebeurt",
+  "probleem", "oorzaak", "fout", "schuld", "reden", "machtiging", "toestemming", "vertraging", "batterijbespar", "optimalisatie",
   // sv / da / no / fi
-  "orsak", "fel\\b", "behörighet", "synkronis", "fördröj", "batteri", "eftersom", "beror", "på grund", "årsag",
-  "fejl", "tilladelse", "forsink", "fordi", "skyldes", "tillatelse", "feil", "ongelma", "syy", "virhe", "oikeu",
-  "synkronoi", "akku", "akun", "koska",
+  "orsak", "fel\\b", "skuld", "behörighet", "fördröj", "batterioptimer", "energisparande", "beror", "på grund", "årsag",
+  "fejl", "tilladelse", "forsink", "skyldes", "tillatelse", "feil", "ongelma", "syy", "virhe", "oikeu", "optimoin", "optimer",
+  "optimal",
+  // verbi di chiusura/interruzione forzata (F11: «Capita di frequente che Android chiuda Fitbit»)
+  "chiud", "interromp", "termin", "clos(?:e|es|ed|ing)\\b", "interrupt", "shut", "cierr", "cerr", "ferm", "beend", "schließ",
+  "fecha", "zamyka", "kapat", "sluit", "stäng", "lukker",
 ];
 const FREQ_CONTEXT_CJK = [
-  "問題", "原因", "エラー", "失敗", "権限", "許可", "同期", "遅延", "バッテリー", "ため", "起こ",
-  "문제", "원인", "오류", "실패", "권한", "동기화", "지연", "배터리", "때문", "발생",
+  "問題", "原因", "エラー", "失敗", "権限", "許可", "遅延", "起こ", "発生", "最適化", "省電力",
+  "문제", "원인", "오류", "실패", "권한", "지연", "발생", "최적화", "절전",
 ];
 const FREQ_CONTEXT = new RegExp(
   `${LB}(?:${FREQ_CONTEXT_STEMS.map((w) => w.replace(/ /g, "\\s+")).join("|")})|${FREQ_CONTEXT_CJK.join("|")}`,
   "iu",
 );
+// F3: presa di distanza/negazione davanti al marcatore: «non possiamo dire che ... spesso», «cannot say ... usually»,
+// «non e' dimostrato», «not proven», «kein Beleg»: l'affermazione e' ritirata. Vale solo per la stessa clausola.
+const FREQ_DISTANCE = new RegExp(
+  `${LB}(?:non\\s+possiamo\\s+(?:dire|affermare|sapere|garantire|dimostrare|stabilire)|non\\s+(?:è|e'|e)\\s+(?:dimostrat\\p{L}*|provat\\p{L}*|documentat\\p{L}*|noto|certo|stabilit\\p{L}*)|nessun(?:a)?\\s+(?:prova|evidenza|dato|dimostrazione)|` +
+    `(?:we|i)\\s+(?:cannot|can't|can\\s?not|do\\s+not|don't)\\s+(?:say|claim|tell|know|prove|confirm|state|assert)|cannot\\s+(?:say|claim|tell|prove|confirm)|(?:is|are|was|has\\s+not\\s+been)\\s+not\\s+(?:proven|documented|established|known|confirmed)|no\\s+evidence|not\\s+proven|unproven|` +
+    `no\\s+podemos\\s+(?:decir|afirmar|asegurar|saber)|no\\s+(?:está|esta)\\s+(?:demostrad\\p{L}*|probad\\p{L}*|documentad\\p{L}*)|sin\\s+evidencia|` +
+    `nous\\s+ne\\s+pouvons\\s+pas\\s+(?:dire|affirmer|savoir)|n'est\\s+pas\\s+(?:démontré\\p{L}*|prouvé\\p{L}*|documenté\\p{L}*)|aucune\\s+preuve|` +
+    `kein(?:e)?\\s+(?:Beleg\\p{L}*|Beweis\\p{L}*|Nachweis\\p{L}*|Daten)|nicht\\s+(?:belegt|bewiesen|nachgewiesen|dokumentiert)|wir\\s+können\\s+nicht\\s+sagen|` +
+    `não\\s+podemos\\s+(?:dizer|afirmar|garantir)|não\\s+(?:está|e|é)\\s+(?:comprovad\\p{L}*|demonstrad\\p{L}*|provad\\p{L}*)|` +
+    `nie\\s+możemy\\s+(?:powiedzieć|twierdzić|stwierdzić)|nie\\s+ma\\s+dowod\\p{L}*|söyleyemeyiz|kanıtlanmam\\p{L}*|kunnen\\s+niet\\s+(?:zeggen|stellen)|niet\\s+bewezen|` +
+    `kan\\s+inte\\s+säga|inte\\s+bevisat|kan\\s+ikke\\s+sige|ikke\\s+bevist)${RB}|言えません|断言できません|証明されていません|言い切れません|말할 수 없|입증되지|확인되지`,
+  "iu",
+);
+const FREQ_CLAUSE_BREAK = /[,;:]|\s(?:ma|but|però|however|aber|mais|pero|mas|ale|ancak|maar|men|sondern|tuttavia|però)\s|が、|けど|지만/iu;
+// Etichette di sezione attributive (F6): «よくある同期エラーと対処法», «자주 발생하는 동기화 문제», «Sık karşılaşılan ...».
+// Valgono SOLO se la frase non termina con un verbo/copula (non c'e' predicato): «よくある問題は権限です。» resta rossa.
+const FREQ_VERB_FINAL =
+  /(?:です|ます|ました|でした|ません|である|する|した|いる|ある|なる|れる|ない|だ|다|요|니다|까|ır|ir|ur|ür|dır|dir|dur|dür|tır|tir|yor|iyor|ıyor|uyor|üyor|ecek|acak|dı|di|du|dü|mış|miş|muş|müş)\s*[.!。]?\s*$/iu;
+const FREQ_ATTRIBUTIVE_IDIOMS: RegExp[] = [
+  /よくある(?=[一-鿿ァ-ヿ])/gu,
+  /자주\s+[가-힣]*[는은]\s+(?=[가-힣])/gu,
+  /(?<![\p{L}\p{N}])sık\s+\p{L}*(?:ılan|ilen|ulan|ülen|an|en)\s+(?=\p{L})/giu,
+];
 // Usi NON frequenziali (mandato G2): il marcatore dentro questi idiomi e' rimosso prima del controllo.
 const FREQ_NEUTRAL_IDIOMS: RegExp[] = [
   // interrogativi: «How often...», «Wie oft...», «Quanto spesso...» (frase indiretta compresa)
@@ -771,13 +826,13 @@ const FREQ_NEUTRAL_IDIOMS: RegExp[] = [
   // «controlla bene», «leggi con attenzione»
   /よく(?=確認|読|見|チェック|調べ|考え|理解|注意|聞)/gu,
   // scheduling: «più volte al giorno», «several times a day»
-  /(?:\p{L}+\s+){0,2}(?:volte|times|veces|fois|vezes|mal|razy|kez|keer|gånger|gange)\s+(?:al|a|ao|per|par|pro|por|am|na|w|om|i|på|per)\s+(?:giorno|day|día|dia|jour|tag|dzień|dag|dygn|gün)/giu,
+  /(?:\p{L}+\s+)?(?:volte|times|veces|fois|vezes|mal|razy|kez|keer|gånger|gange)\s+(?:al|a|ao|per|par|pro|por|am|na|w|om|i|på|per)\s+(?:giorno|day|día|dia|jour|tag|dzień|dag|dygn|gün)/giu,
   /(?:毎日|1日に?\s*\d+回|하루\s*\d+번|매일)/gu,
 ];
 // Posizione di un menu/impostazione: «di solito si trova nelle Impostazioni», «findest du normalerweise in den
 // Einstellungen». La frase dice DOVE, non quanto spesso accade un problema.
 const FREQ_LOCATION = new RegExp(
-  `${LB}(?:si\\s+trova|si\\s+trovano|trovi|trovate|puoi\\s+trovare|is\\s+(?:found|located|listed)|are\\s+(?:found|located|listed)|you\\s+(?:can\\s+)?find|findest|befindet\\s+sich|befinden\\s+sich|se\\s+encuentra|se\\s+encuentran|encuentras|se\\s+trouve|se\\s+trouvent|tu\\s+trouves|encontra|encontras|znajdziesz|znajduje|bulunur|bulabilirsin|vind\\s+je|te\\s+vinden|finns|hittar\\s+du|finder\\s+du|findes|ligger)${RB}|${LB}(?:in|under|nelle|nei|nella|in\\s+den|in\\s+der|dans\\s+les|dans\\s+le|en|em|w|içinde|onder|i|på|under)\\s+(?:the\\s+|le\\s+|las\\s+|los\\s+|den\\s+)?(?:Settings|Impostazioni|Einstellungen|Paramètres|Ajustes|Configuraciones|Configurações|Ustawieniach|Ayarlar|Instellingen|Inställningar|Indstillinger|Innstillinger)|(?:設定|설정)(?:画面)?(?:に|で|には|에서|에)`,
+  `${LB}(?:si\\s+trova|si\\s+trovano|trovi|trovate|puoi\\s+trovare|is\\s+(?:found|located|listed)|are\\s+(?:found|located|listed)|you\\s+(?:can\\s+)?find|findest|befindet\\s+sich|befinden\\s+sich|se\\s+encuentra|se\\s+encuentran|encuentras|se\\s+trouve|se\\s+trouvent|tu\\s+trouves|encontra|encontras|znajdziesz|znajduje|bulunur|bulabilirsin|vind\\s+je|te\\s+vinden|finns|hittar\\s+du|finder\\s+du|findes|ligger)${RB}|${LB}(?:in|under|nelle|nei|nella|in\\s+den|in\\s+der|dans\\s+les|dans\\s+le|en|em|w|içinde|onder|i|på|under)\\s+(?:the\\s+|le\\s+|las\\s+|los\\s+|den\\s+)?(?:Settings|Impostazioni|Einstellungen|Paramètres|Ajustes|Configuraciones|Configurações|Ustawieniach|Ayarlar|Instellingen|Inställningar|Indstillinger|Innstillinger)|(?<![一-鿿])設定(?:画面)?(?:に|で|には)|설정(?:에서|에)`,
   "iu",
 );
 
@@ -787,10 +842,16 @@ function fitbitFrequencyProblems(text: string): string[] {
   for (const raw of segmentSentences(nz(text))) {
     if (isQuestion(raw)) continue; // domanda: non afferma
     let s = raw;
+    if (!FREQ_VERB_FINAL.test(raw)) for (const idiom of FREQ_ATTRIBUTIVE_IDIOMS) s = s.replace(idiom, " ");
     for (const idiom of FREQ_NEUTRAL_IDIOMS) s = s.replace(idiom, " ");
-    if (!FREQUENCY_OCCURRENCE.test(s)) continue;
+    // percentuale = frequenza dichiarata («roughly 80 percent of cases»): stesso trattamento del marcatore
+    const m = FREQUENCY_OCCURRENCE.exec(s) ?? PCT_CLAIM.exec(s);
+    if (!m) continue;
     if (FREQ_LOCATION.test(s)) continue;
     if (!FREQ_CONTEXT.test(s)) continue;
+    // F3: presa di distanza PRIMA del marcatore, nella stessa clausola
+    const d = FREQ_DISTANCE.exec(s);
+    if (d && d.index < m.index && !FREQ_CLAUSE_BREAK.test(s.slice(d.index, m.index))) continue;
     out.push(`frequenza del problema: ${raw.slice(0, 80)}`);
   }
   return out;
