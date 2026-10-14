@@ -1250,3 +1250,193 @@ describe("SEGUITO S2 (riprogettato): guardie di frequenza (Fitbit) e di promessa
     });
   });
 });
+
+// ---------------------------------------------------------------------------------------------
+// CORPUS data-driven (misura la QUALITA' delle due guardie, non solo le regole).
+// Ogni voce e' un test nominato. La frase e' inserita in una cella REALE del post (di norma in testa a una FAQ,
+// come nel controllo indipendente S3) e la cella risultante passa dal vero percorso di guardia
+// (fitbitCellVerdict / garminCellVerdict, gli stessi del test sul contenuto). Prima della verifica si controlla
+// che la cella originale sia verde, cosi' un rosso/verde non dipende dal contenuto di partenza.
+//   DEVE-PASSARE: frasi vere e non promissorie (L1-L18 verbatim dal controllo S3, piu' voci proprie).
+//   DEVE-FALLIRE: i mutanti del controllo S3 (P*, K*, V1-V9) piu' voci proprie (altre lingue, altri campi).
+// ---------------------------------------------------------------------------------------------
+type CorpusEntry = {
+  id: string;
+  post: "FB" | "GA";
+  path: string; // cella reale (collectCells), lingua inclusa
+  mode?: "prepend" | "set" | "replace";
+  text: string; // frase da inserire (prepend), testo nuovo (set), oppure testo nuovo per replace
+  from?: string; // replace: stringa esistente nella cella
+  expect: "pass" | "fail";
+  src: "S3-L" | "S3-P" | "S3-K" | "S3-V" | "SA";
+};
+const FB_SLUG = "fitbit-data-not-syncing-android";
+const GA_SLUG = "esportare-dati-garmin";
+const ITEM_NEG_SV = "**FitMesh Sync**: samlar automatiskt alla dina Garmin-data på ett ställe utan manuell export och läser idag dina Garmin-data via Health Connect och inte via det officiella Garmin Connect API som nämns ovan.";
+const E = (
+  src: CorpusEntry["src"],
+  expectV: CorpusEntry["expect"],
+  id: string,
+  post: CorpusEntry["post"],
+  path: string,
+  text: string,
+  extra: Partial<CorpusEntry> = {},
+): CorpusEntry => ({ id, post, path, text, expect: expectV, src, ...extra });
+const CORPUS: CorpusEntry[] = [
+  // ---- DEVE-FALLIRE: mutanti dichiarati da AS (CONTROLLO-S3 §b) ----
+  E("S3-P", "fail", "P1it", "FB", "ts:faq.0.a.it", "Spesso il problema sono i permessi."),
+  E("S3-P", "fail", "P2fr", "FB", "ts:faq.0.a.fr", "Le problème vient souvent des autorisations."),
+  E("S3-P", "fail", "P2en", "FB", "ts:faq.0.a.en", "This often happens because of permissions."),
+  E("S3-P", "fail", "P3it", "GA", "ts:faq.0.a.it", "L'integrazione diretta di FitMesh con Garmin è prevista."),
+  E("S3-P", "fail", "P4sv", "GA", "overlay:body.15.items.sv.2", ITEM_NEG_SV, { mode: "set" }),
+  E("S3-P", "fail", "P5it", "GA", "ts:faq.0.a.it", "FitMesh è integrata ufficialmente con l'API Garmin Connect."),
+  // ---- DEVE-FALLIRE: mutanti nuovi del controllo S3 ----
+  E("S3-K", "fail", "K1ja", "FB", "ts:faq.0.a.ja", "この問題はよく権限が原因で起こります。"),
+  E("S3-K", "fail", "K2ko", "FB", "ts:faq.0.a.ko", "이 문제는 자주 권한 때문에 발생합니다."),
+  E("S3-K", "fail", "K3tr", "FB", "ts:faq.0.a.tr", "Bu sorun sık sık izinlerden kaynaklanır."),
+  E("S3-K", "fail", "K4pl", "FB", "ts:faq.0.a.pl", "Zwykle problemem są uprawnienia."),
+  E("S3-K", "fail", "K5sv", "GA", "overlay:faq.0.a.sv", "FitMesh är officiellt integrerat med Garmin Connect API."),
+  E("S3-K", "fail", "K6da", "GA", "overlay:faq.0.a.da", "FitMesh understøtter Garmin Connect direkte."),
+  E("S3-K", "fail", "K7da", "GA", "overlay:body.15.items.da.2",
+    "**FitMesh Sync**: samler automatisk alt og læser i dag dine Garmin-data via Health Connect og ikke via det officielle Garmin Connect-API, der er nævnt ovenfor.", { mode: "set" }),
+  E("S3-K", "fail", "K8it", "GA", "ts:body.15.items.it.2", "**FitMesh Sync**: oggi legge tutti i tuoi dati Garmin",
+    { mode: "replace", from: "**FitMesh Sync**: oggi legge i tuoi dati Garmin" }),
+  E("S3-K", "fail", "K9de", "GA", "ts:faq.0.a.de", "Eine direkte Anbindung an die Garmin API kommt in Zukunft."),
+  E("S3-K", "fail", "K10ko", "GA", "ts:faq.0.a.ko", "FitMesh와 Garmin의 직접 연동은 향후 제공됩니다."),
+  E("S3-K", "fail", "K11it", "GA", "ts:hero.subtitle.it", "FitMesh si collega ufficialmente a Garmin."),
+  E("S3-K", "fail", "K12en", "GA", "ts:hero.subtitle.en", "FitMesh is officially connected to Garmin."),
+  // ---- DEVE-FALLIRE: forme sorelle V1-V9 (sopravvivevano a 469e2447) ----
+  E("S3-V", "fail", "V1it", "FB", "ts:faq.0.a.it", "In molti casi il problema sono i permessi."),
+  E("S3-V", "fail", "V2en", "FB", "ts:faq.0.a.en", "In many cases, permissions are the cause."),
+  E("S3-V", "fail", "V3it", "FB", "ts:faq.0.a.it", "Il più delle volte il problema sono i permessi."),
+  E("S3-V", "fail", "V4it", "FB", "ts:faq.0.a.it", "Spessissimo il problema sono i permessi."),
+  E("S3-V", "fail", "V5en", "FB", "ts:faq.0.a.en", "Nine times out of ten, permissions are the cause."),
+  E("S3-V", "fail", "V6it", "GA", "ts:hero.subtitle.it", "Sincronizzazione ufficiale con Garmin Connect, senza export manuale."),
+  E("S3-V", "fail", "V7it", "GA", "ts:faq.0.a.it", "Siamo partner ufficiali di Garmin."),
+  E("S3-V", "fail", "V8en", "GA", "ts:hero.subtitle.en", "Officially syncs with Garmin Connect."),
+  E("S3-V", "fail", "V9ja", "GA", "ts:faq.0.a.ja", "FitMesh は Garmin 公認のアプリです。"),
+  // ---- DEVE-PASSARE: L1-L18 VERBATIM dal controllo S3 (frasi legittime) ----
+  E("S3-L", "pass", "L1it", "FB", "ts:faq.0.a.it", "Quando apri l'app, FitMesh legge i nuovi dati da Health Connect."),
+  E("S3-L", "pass", "L2it", "FB", "ts:faq.0.a.it", "La sincronizzazione in background può avvenire più volte al giorno."),
+  E("S3-L", "pass", "L3it", "FB", "ts:faq.0.a.it", "Health Connect di solito si trova nelle Impostazioni di Android."),
+  E("S3-L", "pass", "L4ja", "FB", "ts:faq.0.a.ja", "設定画面をよく確認してください。"),
+  E("S3-L", "pass", "L5ko", "FB", "ts:faq.0.a.ko", "절전 모드를 끄고 보통 모드로 되돌리세요."),
+  E("S3-L", "pass", "L6sv", "FB", "overlay:faq.0.a.sv", "Starta om telefonen och återgå till normalt läge."),
+  E("S3-L", "pass", "L7en", "FB", "ts:faq.0.a.en", "How often does Fitbit sync with Health Connect? It depends on the Fitbit app."),
+  E("S3-L", "pass", "L8de", "FB", "ts:faq.0.a.de", "Wie oft Fitbit synchronisiert, legt die Fitbit-App fest."),
+  E("S3-L", "pass", "L9tr", "FB", "ts:faq.0.a.tr", "Sık sorulan sorular bölümüne de bakın."),
+  E("S3-L", "pass", "L10it", "GA", "ts:faq.0.a.it", "FitMesh non usa l'API Garmin Connect: legge da Health Connect."),
+  E("S3-L", "pass", "L11en", "GA", "ts:faq.0.a.en", "FitMesh does not use the Garmin Connect API."),
+  E("S3-L", "pass", "L12it", "GA", "ts:faq.0.a.it", "In FitMesh apri la sezione Integrazioni e attiva Health Connect."),
+  E("S3-L", "pass", "L13it", "GA", "ts:faq.0.a.it", "L'app ufficiale Garmin Connect si integra con Apple Salute su iPhone."),
+  E("S3-L", "pass", "L14it", "GA", "ts:faq.0.a.it", "Se il servizio restituisce un errore imprevisto con l'API, riprova più tardi."),
+  E("S3-L", "pass", "L15en", "GA", "ts:faq.0.a.en", "FitMesh reads Garmin data only through Health Connect, the official Android health data hub."),
+  E("S3-L", "pass", "L16it", "GA", "ts:faq.0.a.it", "Garmin Connect è il servizio ufficiale di Garmin; FitMesh non vi si collega direttamente."),
+  E("S3-L", "pass", "L17it", "GA", "ts:faq.0.a.it", "FitMesh è compatibile con Health Connect."),
+  E("S3-L", "pass", "L18en", "GA", "ts:faq.0.a.en", "Garmin's official API is available to approved business developers."),
+  // ---- DEVE-PASSARE: voci proprie (negazioni in tutte le lingue, terze parti, domande, etichette, usi non frequenziali) ----
+  E("SA", "pass", "N1es", "GA", "ts:faq.0.a.es", "FitMesh no se integra oficialmente con Garmin; lee los datos a través de Health Connect."),
+  E("SA", "pass", "N2fr", "GA", "ts:faq.0.a.fr", "FitMesh n'est pas intégré officiellement à Garmin Connect."),
+  E("SA", "pass", "N3de", "GA", "ts:faq.0.a.de", "FitMesh ist nicht offiziell mit Garmin verbunden."),
+  E("SA", "pass", "N4sv", "GA", "overlay:faq.0.a.sv", "FitMesh är inte officiellt integrerat med Garmin."),
+  E("SA", "pass", "N5da", "GA", "overlay:faq.0.a.da", "FitMesh understøtter ikke Garmin direkte."),
+  E("SA", "pass", "N6pt", "GA", "ts:faq.0.a.pt", "O FitMesh não tem integração oficial com a Garmin."),
+  E("SA", "pass", "N7pl", "GA", "ts:faq.0.a.pl", "FitMesh nie jest oficjalnie zintegrowany z Garmin."),
+  E("SA", "pass", "N8tr", "GA", "ts:faq.0.a.tr", "FitMesh Garmin ile resmi olarak entegre değildir."),
+  E("SA", "pass", "N9nl", "GA", "ts:faq.0.a.nl", "FitMesh is niet officieel geïntegreerd met Garmin."),
+  E("SA", "pass", "N10ja", "GA", "ts:faq.0.a.ja", "FitMesh は Garmin と公式に連携していません。"),
+  E("SA", "pass", "N11ko", "GA", "ts:faq.0.a.ko", "FitMesh는 Garmin과 공식적으로 연동되지 않습니다."),
+  E("SA", "pass", "N12it", "GA", "ts:faq.0.a.it", "FitMesh non ha un'integrazione diretta con Garmin: legge i dati da Health Connect."),
+  E("SA", "pass", "T1it", "GA", "ts:faq.0.a.it", "Strava ha un'integrazione ufficiale con Garmin Connect."),
+  E("SA", "pass", "T2en", "GA", "ts:faq.0.a.en", "Intervals.icu connects directly to Garmin Connect."),
+  E("SA", "pass", "T3en", "GA", "ts:faq.0.a.en", "Garmin officially supports exporting activities as FIT files."),
+  E("SA", "pass", "T4sv", "GA", "overlay:faq.0.a.sv", "Garmin Connect är den officiella tjänsten från Garmin."),
+  E("SA", "pass", "Q1en", "GA", "ts:faq.0.a.en", "Is FitMesh officially integrated with Garmin?"),
+  E("SA", "pass", "Q2it", "GA", "ts:faq.0.a.it", "FitMesh è integrato ufficialmente con Garmin?"),
+  E("SA", "pass", "B1it", "GA", "ts:faq.0.a.it", "Integrazioni: Health Connect e Apple Salute."),
+  E("SA", "pass", "M1it", "GA", "ts:faq.0.a.it", "FitMesh si collega ai dati Garmin tramite Health Connect."),
+  E("SA", "pass", "F1fr", "FB", "ts:faq.0.a.fr", "Combien de fois par jour Fitbit se synchronise-t-il ? Cela dépend de l'application."),
+  E("SA", "pass", "F2es", "FB", "ts:faq.0.a.es", "¿Con qué frecuencia sincroniza Fitbit? Depende de la app de Fitbit."),
+  E("SA", "pass", "F3pt", "FB", "ts:faq.0.a.pt", "A sincronização em segundo plano pode ocorrer muitas vezes ao dia."),
+  E("SA", "pass", "F4nl", "FB", "ts:faq.0.a.nl", "Hoe vaak Fitbit synchroniseert, bepaalt de Fitbit-app."),
+  E("SA", "pass", "F5ja", "FB", "ts:faq.0.a.ja", "設定をよく確認してから、Health Connect の同期を再開してください。"),
+  E("SA", "pass", "F6ko", "FB", "ts:faq.0.a.ko", "보통 모드로 전환한 뒤 동기화를 다시 시도하세요."),
+  E("SA", "pass", "F7de", "FB", "ts:faq.0.a.de", "Die Berechtigungen findest du normalerweise in den Einstellungen."),
+  E("SA", "pass", "F8en", "FB", "ts:faq.0.a.en", "Permissions are usually listed under Settings in Health Connect."),
+  E("SA", "pass", "F9sv", "FB", "overlay:faq.0.a.sv", "Hur ofta Fitbit synkroniserar beror på Fitbit-appen."),
+  E("SA", "pass", "G1it", "GA", "ts:faq.0.a.it", "Contatta il supporto Garmin se il dispositivo non si accende."),
+  E("SA", "pass", "G2it", "GA", "ts:faq.0.a.it", "FitMesh non supporterà Garmin direttamente."),
+  E("SA", "pass", "G3fr", "GA", "ts:faq.0.a.fr", "FitMesh se connecte à Garmin via Health Connect."),
+  E("SA", "pass", "F10it", "FB", "ts:faq.0.a.it", "La maggior parte delle persone usa Health Connect."),
+  // ---- DEVE-FALLIRE: voci proprie (altre lingue, altri campi) ----
+  E("SA", "fail", "X1de", "FB", "ts:faq.0.a.de", "Häufig liegt das Problem an den Berechtigungen."),
+  E("SA", "fail", "X2pt", "FB", "ts:faq.0.a.pt", "Muitas vezes o problema são as permissões."),
+  E("SA", "fail", "X3es", "FB", "ts:faq.0.a.es", "En muchos casos el problema son los permisos."),
+  E("SA", "fail", "X4nl", "FB", "ts:faq.0.a.nl", "Vaak is het probleem een gebrek aan machtigingen."),
+  E("SA", "fail", "X5da", "FB", "overlay:faq.0.a.da", "Det er ofte tilladelserne, der er problemet."),
+  E("SA", "fail", "X6sv", "FB", "overlay:hero.subtitle.sv", "Ofta beror det på behörigheterna."),
+  E("SA", "fail", "X7it", "FB", "ts:hero.subtitle.it", "Quasi sempre la causa sono i permessi di Health Connect."),
+  E("SA", "fail", "X8ja", "FB", "ts:hero.subtitle.ja", "同期が止まる原因はしばしば権限です。"),
+  E("SA", "fail", "Y1it", "GA", "ts:hero.subtitle.it", "FitMesh integra direttamente l'API ufficiale di Garmin."),
+  E("SA", "fail", "Y2es", "GA", "ts:faq.0.a.es", "FitMesh es compatible de forma nativa con Garmin Connect."),
+  E("SA", "fail", "Y3fr", "GA", "ts:faq.0.a.fr", "FitMesh sera bientôt intégré directement à Garmin."),
+  E("SA", "fail", "Y4pl", "GA", "ts:faq.0.a.pl", "FitMesh jest oficjalnym partnerem Garmin."),
+  E("SA", "fail", "Y5tr", "GA", "ts:faq.0.a.tr", "FitMesh Garmin ile resmi olarak entegredir."),
+  E("SA", "fail", "Y6nl", "GA", "ts:faq.0.a.nl", "FitMesh is een officiële partner van Garmin."),
+  E("SA", "fail", "Y7da", "GA", "overlay:hero.subtitle.da", "FitMesh er officielt integreret med Garmin."),
+  E("SA", "fail", "Y8ko", "GA", "ts:hero.subtitle.ko", "FitMesh는 Garmin과 공식적으로 연동됩니다."),
+  E("SA", "fail", "Y9it", "GA", "ts:faq.0.a.it", "FitMesh legge i dati Garmin. Si integra ufficialmente."),
+  E("SA", "fail", "Y10de", "GA", "ts:body.15.items.de.2",
+    "**FitMesh Sync**: liest alle deine Garmin-Daten automatisch über Health Connect und nicht über die oben genannte offizielle Garmin Connect API.", { mode: "set" }),
+  E("SA", "fail", "Y11en", "GA", "ts:faq.0.a.en", "FitMesh uses the Garmin Connect API to read your activities."),
+  E("SA", "fail", "Y13it", "GA", "ts:faq.0.a.it", "Garmin ha approvato FitMesh."),
+  E("SA", "fail", "Y14it", "GA", "ts:faq.0.a.it", "FitMesh funziona direttamente con Garmin Connect."),
+  E("SA", "fail", "Y15it", "GA", "ts:faq.0.a.it", "In futuro FitMesh leggerà Garmin direttamente."),
+  E("SA", "fail", "Y16it", "GA", "ts:faq.0.a.it", "FitMesh ha un accordo con Garmin."),
+  E("SA", "fail", "X9it", "FB", "ts:faq.0.a.it", "La maggior parte dei problemi dipende dai permessi."),
+  E("SA", "fail", "X10fi", "FB", "ts:hero.subtitle.en", "Se on usein akun optimointi."),
+  E("SA", "fail", "Y12it", "GA", "ts:faq.0.a.it", "FitMesh non richiede export manuali, e legge i dati tramite l'API ufficiale Garmin Connect."),
+];
+
+describe("CORPUS delle guardie Fitbit/Garmin (SA-GUARDIE-V2): ogni voce e' un test nominato", () => {
+  const cellsBy: Record<"FB" | "GA", Map<string, string>> = {
+    FB: new Map(collectCells(FB_SLUG).map((c) => [c.path, c.text])),
+    GA: new Map(collectCells(GA_SLUG).map((c) => [c.path, c.text])),
+  };
+  const verdict = (post: "FB" | "GA", path: string, text: string): string[] =>
+    post === "FB" ? fitbitCellVerdict(path, nz(text)) : garminCellVerdict(path, nz(text));
+
+  it("copertura del corpus: 18 L + 6 P + 12 K + 9 V dal controllo S3, piu' voci proprie in tutte le lingue", () => {
+    const by = (s: CorpusEntry["src"]) => CORPUS.filter((e) => e.src === s).length;
+    expect(by("S3-L")).toBe(18);
+    expect(by("S3-P")).toBe(6);
+    expect(by("S3-K")).toBe(12);
+    expect(by("S3-V")).toBe(9);
+    expect(CORPUS.filter((e) => e.src === "SA" && e.expect === "pass").length).toBeGreaterThanOrEqual(12);
+    expect(CORPUS.filter((e) => e.src === "SA" && e.expect === "fail").length).toBeGreaterThanOrEqual(8);
+    expect(new Set(CORPUS.map((e) => e.id)).size).toBe(CORPUS.length);
+    const langs = new Set(CORPUS.map((e) => cellLang(e.path)));
+    for (const l of ["it", "en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko", "sv", "da"]) {
+      expect(langs.has(l), `lingua ${l} nel corpus`).toBe(true);
+    }
+  });
+
+  it.each(CORPUS.map((e) => [`${e.expect === "pass" ? "DEVE-PASSARE" : "DEVE-FALLIRE"} ${e.src} ${e.id} ${e.path}`, e] as const))(
+    "%s",
+    (_name, e) => {
+      const original = cellsBy[e.post].get(e.path);
+      expect(original, `cella ${e.path}`).toBeDefined();
+      // il contenuto di partenza e' verde: l'esito dipende dalla sola frase inserita
+      expect(verdict(e.post, e.path, original!), `cella originale ${e.path}`).toEqual([]);
+      let mutated: string;
+      if (e.mode === "set") mutated = e.text;
+      else if (e.mode === "replace") {
+        expect(original!.includes(nz(e.from!)), `ancora ${e.id}`).toBe(true);
+        mutated = original!.replace(nz(e.from!), () => e.text);
+      } else mutated = `${e.text} ${original}`;
+      const problems = verdict(e.post, e.path, mutated);
+      if (e.expect === "pass") expect(problems, e.id).toEqual([]);
+      else expect(problems.length, `${e.id} deve essere rosso`).toBeGreaterThan(0);
+    },
+  );
+});
