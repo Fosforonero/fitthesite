@@ -7,10 +7,12 @@ import { landingLinkHref } from "@/lib/landing/indexability";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 import { famigliaLinkHref } from "@/lib/content/static-page-locales";
 import { isFeatureAvailable } from "@/lib/feature-status";
-import { REDDIT_URL, REDDIT_COMMUNITY_LIVE, INSTAGRAM_URL } from "@/lib/product-facts";
+import { REDDIT_URL, REDDIT_COMMUNITY_LIVE, INSTAGRAM_URL, FACEBOOK_URL, LINKEDIN_URL } from "@/lib/product-facts";
 import { COMMUNITY_PLACEMENTS } from "@/lib/analytics/cta";
 import RedditIcon from "@/components/RedditIcon";
 import InstagramIcon from "@/components/InstagramIcon";
+import FacebookIcon from "@/components/FacebookIcon";
+import LinkedInIcon from "@/components/LinkedInIcon";
 import ConsentPreferencesButton from "@/components/ConsentPreferencesButton";
 
 export const SOCIAL_SECTION_TITLE: Record<Locale, string> = {
@@ -101,6 +103,28 @@ export default function Footer({
                 >
                   <InstagramIcon className="h-4 w-4 flex-shrink-0" />
                   <span>Instagram</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={FACEBOOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 min-h-[44px] min-w-[44px] py-2.5 px-2 -mx-2 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
+                >
+                  <FacebookIcon className="h-4 w-4 flex-shrink-0" />
+                  <span>Facebook</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={LINKEDIN_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2.5 min-h-[44px] min-w-[44px] py-2.5 px-2 -mx-2 text-text-secondary hover:text-text-primary transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-aqua rounded-sm"
+                >
+                  <LinkedInIcon className="h-4 w-4 flex-shrink-0" />
+                  <span>LinkedIn</span>
                 </a>
               </li>
             </ul>

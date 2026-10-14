@@ -11,6 +11,8 @@ import {
   REDDIT_URL,
   REDDIT_COMMUNITY_LIVE,
   INSTAGRAM_URL,
+  FACEBOOK_URL,
+  LINKEDIN_URL,
 } from "@/lib/product-facts";
 
 /**
@@ -71,6 +73,8 @@ export function organizationJsonLdData(locale: Locale) {
       "https://www.fosforonero.com",
       INSTAGRAM_URL,
       ...(REDDIT_COMMUNITY_LIVE ? [REDDIT_URL] : []),
+      FACEBOOK_URL,
+      LINKEDIN_URL,
     ],
     email: "hello@fitmesh.fit",
     founder: authorPersonNode(locale),
