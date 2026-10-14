@@ -1,7 +1,7 @@
 import { describe, expect, it, vi, afterEach } from "vitest";
-import { execFileSync } from "node:child_process";
 
 import { organizationJsonLdData } from "./OrganizationJsonLd";
+import { AUTHOR } from "@/lib/seo/entities";
 import {
   PLAY_STORE_URL,
   AVAILABILITY,
@@ -52,15 +52,20 @@ describe("Organization sameAs: Facebook e LinkedIn", () => {
     });
   }
 
-  it("identita' invariata rispetto a main (c011056)", () => {
-    const src = execFileSync(
-      "git",
-      ["--no-optional-locks", "show", "c011056b0c2091b9282b530799fdf96972476695:components/seo/OrganizationJsonLd.tsx"],
-      { encoding: "utf8" },
-    );
-    expect(src).toContain('"@id": `${SITE_URL}#organization`');
-    expect(src).toContain("name: PRODUCT_NAME,");
-    expect(src).toContain("url: SITE_URL,");
+  it("identita' dell'Organization invariata e profili sociali fuori da AUTHOR.sameAs", () => {
+    // Valori dell'Organization di main (c011056): niente `git show`, il test
+    // deve reggere anche in un estratto senza storia.
+    const d = organizationJsonLdData("it");
+    expect(d["@type"]).toBe("Organization");
+    expect(d["@id"]).toBe(`${SITE_URL}#organization`);
+    expect(d.name).toBe(PRODUCT_NAME);
+    expect(d.alternateName).toEqual(["FitMesh"]);
+    expect(d.url).toBe(SITE_URL);
+    expect(d.email).toBe("hello@fitmesh.fit");
+    expect(d.foundingDate).toBe("2026-04");
+    // i due profili sono dell'Organization, non della persona autore
+    expect(AUTHOR.sameAs).not.toContain(FACEBOOK);
+    expect(AUTHOR.sameAs).not.toContain(LINKEDIN);
   });
 
   it("col gate Reddit spento sameAs perde solo Reddit", async () => {

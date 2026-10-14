@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -11,6 +12,25 @@ const FACEBOOK = "https://www.facebook.com/fitmeshsync/";
 const LINKEDIN = "https://www.linkedin.com/company/fitmesh/";
 const REDDIT = "https://www.reddit.com/r/FitMesh/";
 const INSTAGRAM = "https://www.instagram.com/fitmesh_sync/";
+
+// Titolo della sezione Social in main (c011056): la corsia F non lo tocca.
+const SOCIAL_TITLES_MAIN: Record<Locale, string> = {
+  it: "Social",
+  en: "Social",
+  es: "Redes sociales",
+  de: "Social Media",
+  fr: "Réseaux sociaux",
+  pt: "Redes sociais",
+  pl: "Social media",
+  tr: "Sosyal medya",
+  nl: "Sociale media",
+  ja: "公式SNS",
+  ko: "소셜 미디어",
+  sv: "Sociala medier",
+  da: "Sociale medier",
+  no: "Sosiale medier",
+  fi: "Sosiaalinen media",
+};
 
 async function socialAnchors(locale: Locale) {
   const { default: Footer, SOCIAL_SECTION_TITLE } = await import("./Footer");
@@ -36,7 +56,7 @@ afterEach(() => {
 describe("Footer social: Facebook e LinkedIn", () => {
   for (const locale of locales) {
     it(`[${locale}] ordine Reddit, Instagram, Facebook, LinkedIn con attributi corretti`, async () => {
-      const { anchors, ul, title } = await socialAnchors(locale);
+      const { anchors, ul, html, title } = await socialAnchors(locale);
       expect(title.length).toBeGreaterThan(0);
       expect(anchors.map((a) => a.href)).toEqual([REDDIT, INSTAGRAM, FACEBOOK, LINKEDIN]);
       expect(anchors.map((a) => a.text)).toEqual(["Reddit", "Instagram", "Facebook", "LinkedIn"]);
@@ -59,8 +79,25 @@ describe("Footer social: Facebook e LinkedIn", () => {
       expect(anchors[1].attrs).not.toContain("data-cta-placement");
       expect(anchors[2].attrs).not.toContain("data-cta-placement");
       expect(anchors[3].attrs).not.toContain("data-cta-placement");
-      // nessuna risorsa remota incorporata
+      // nessuna risorsa remota incorporata (nella sezione e in tutto il footer)
       expect(ul).not.toMatch(/<(iframe|script|img|link|embed|object)\b/i);
+      expect(html).not.toMatch(/<(iframe|embed|object)\b/i);
+      expect(html).not.toMatch(/connect\.facebook\.net|facebook\.com\/tr|platform\.linkedin\.com|snap\.licdn\.com|fbq\(|_linkedin_partner_id/i);
+      // nome accessibile = testo visibile: nessun aria-label divergente sul link
+      for (const a of anchors) expect(a.attrs).not.toContain("aria-label");
+      // l'icona di ciascun link e' quella del suo canale (non scambiata)
+      const { default: FacebookIcon } = await import("./FacebookIcon");
+      const { default: LinkedInIcon } = await import("./LinkedInIcon");
+      const { default: InstagramIcon } = await import("./InstagramIcon");
+      const { default: RedditIcon } = await import("./RedditIcon");
+      const svgOf = (el: ReactElement) => renderToStaticMarkup(el);
+      const cls = "h-4 w-4 flex-shrink-0";
+      expect(anchors[0].inner).toContain(svgOf(<RedditIcon className={cls} />));
+      expect(anchors[1].inner).toContain(svgOf(<InstagramIcon className={cls} />));
+      expect(anchors[2].inner).toContain(svgOf(<FacebookIcon className={cls} />));
+      expect(anchors[3].inner).toContain(svgOf(<LinkedInIcon className={cls} />));
+      // il titolo Social localizzato e' quello di main per ogni locale
+      expect(title).toBe(SOCIAL_TITLES_MAIN[locale]);
     });
   }
 
