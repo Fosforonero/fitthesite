@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "snapshotDate": "2026-10-14",
+  "repository": "Fosforonero/fitthesite",
+  "remote": "origin",
+  "main": "c011056b0c2091b9282b530799fdf96972476695",
+  "candidates": [
+    { "lane": "C", "branch": "feat/web-dashboard-l1-microgate-grafici-13ott", "sha": "da5776b1f5baf7336f3c6f4521bc0a6da631aeb6", "state": "local-final-gates-running", "migrationIncluded": true },
+    { "lane": "M", "branch": "chore/fluid-cpu-baseline-60-guida-hc-13ott", "sha": "60759c77969eafcdaa54c990403e9c73b049bdd9", "state": "local-final-gates-running", "migrationIncluded": false },
+    { "lane": "S", "branch": "seo/metadata-02-seguito-finding-13ott", "sha": "17ec8e652dcd673b4e05f1aafb262261bb205a85", "state": "local-final-gates-running", "migrationIncluded": false },
+    { "lane": "F", "branch": "feat/footer-social-facebook-linkedin-14ott", "sha": "e20b98d8c3d7dbfacb559a1f76480338b78dd0b0", "state": "local-in-progress-not-final", "migrationIncluded": false }
+  ],
+  "remoteDashboardPr": { "number": 98, "sha": "2a1f289124d7d8bd0dbe5af464305e41ffb7878d", "state": "draft-stale-relative-to-C" },
+  "releaseAuthorizedByThisDocument": false
+}
