@@ -1,15 +1,21 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "snapshotDate": "2026-10-14",
   "repository": "Fosforonero/fitthesite",
   "remote": "origin",
   "main": "c011056b0c2091b9282b530799fdf96972476695",
+  "note": "Un push di branch non equivale a merge ne' a rilascio. Le prove valgono per lo SHA indicato. Vedi HANDOFF-GIT-01-2026-10-14.md.",
   "candidates": [
-    { "lane": "C", "branch": "feat/web-dashboard-l1-microgate-grafici-13ott", "sha": "da5776b1f5baf7336f3c6f4521bc0a6da631aeb6", "state": "local-final-gates-running", "migrationIncluded": true },
-    { "lane": "M", "branch": "chore/fluid-cpu-baseline-60-guida-hc-13ott", "sha": "60759c77969eafcdaa54c990403e9c73b049bdd9", "state": "local-final-gates-running", "migrationIncluded": false },
-    { "lane": "S", "branch": "seo/metadata-02-seguito-finding-13ott", "sha": "17ec8e652dcd673b4e05f1aafb262261bb205a85", "state": "local-final-gates-running", "migrationIncluded": false },
-    { "lane": "F", "branch": "feat/footer-social-facebook-linkedin-14ott", "sha": "e20b98d8c3d7dbfacb559a1f76480338b78dd0b0", "state": "local-in-progress-not-final", "migrationIncluded": false }
+    { "lane": "M", "branch": "chore/fluid-cpu-baseline-60-guida-hc-13ott", "sha": "60759c77969eafcdaa54c990403e9c73b049bdd9", "state": "pushed-draft-pr", "pr": 105, "migrationIncluded": false },
+    { "lane": "F", "branch": "feat/footer-social-facebook-linkedin-14ott", "sha": "85b29c700c661b19319af511c57e7e9fc5a1f6e7", "state": "pushed-draft-pr", "pr": 106, "migrationIncluded": false },
+    { "lane": "C", "branch": "feat/web-dashboard-l1-microgate-grafici-14ott", "sha": "d7cc54f73e53829d809b0c47a863dbf37f77baa6", "state": "local-not-pushed-migration-automation-to-verify", "pr": null, "migrationIncluded": true },
+    { "lane": "S", "branch": "seo/metadata-02-guardie-rinforzo-14ott", "sha": "bdb84a71f1aca38376e7974186a58ddd7906ff6f", "state": "local-not-pushed-independent-review-nonconforming", "pr": null, "migrationIncluded": false }
+  ],
+  "preservedOriginals": [
+    { "lane": "C", "branch": "feat/web-dashboard-l1-microgate-grafici-13ott", "sha": "da5776b1f5baf7336f3c6f4521bc0a6da631aeb6" },
+    { "lane": "S", "branch": "seo/metadata-02-seguito-finding-13ott", "sha": "17ec8e652dcd673b4e05f1aafb262261bb205a85" }
   ],
   "remoteDashboardPr": { "number": 98, "sha": "2a1f289124d7d8bd0dbe5af464305e41ffb7878d", "state": "draft-stale-relative-to-C" },
+  "proposedOrder": ["M", "F"],
   "releaseAuthorizedByThisDocument": false
 }
