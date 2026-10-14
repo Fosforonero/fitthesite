@@ -9,6 +9,9 @@ import { afterEach, describe, expect, it } from 'vitest';
 
 import type { Measure } from '@/lib/web-dashboard/measure';
 import type { TrendSeries } from '@/lib/web-dashboard/model';
+import { TrendChartsPanel } from './charts/TrendChartsPanel';
+import { sharedCopy } from '@/lib/web-dashboard/copy';
+import { trendsCopy } from './screens/TrendsScreen.copy';
 import { ActivityScreen } from './screens/ActivityScreen';
 import { OverviewScreen } from './screens/OverviewScreen';
 import { TrendsScreen } from './screens/TrendsScreen';
@@ -27,6 +30,11 @@ function allText(container: HTMLElement): string {
     }
   });
   return parts.join('\n');
+}
+
+/** Testo con uno spazio al posto di ogni tag: le celle di tabella non si incollano al numero precedente. */
+function spaced(container: HTMLElement): string {
+  return container.innerHTML.replace(/<[^>]+>/g, ' ');
 }
 
 function build(lc: 'it' | 'en', n: number) {
@@ -80,5 +88,25 @@ describe.each(['it', 'en'] as const)('passo/step singolare %s', (lc) => {
     const t = allText(container);
     expect(t).toMatch(lc === 'it' ? /media di 2 passi al giorno/ : /average of 2 steps per day/);
     expect(t).toMatch(lc === 'it' ? /Media 2 passi, minimo 2 passi, massimo 2 passi/ : /Average 2 steps, minimum 2 steps, maximum 2 steps/);
+  });
+});
+
+describe.each(['it', 'en'] as const)('tabella accessibile con pochi giorni (TrendChartsPanel) %s', (lc) => {
+  const renderPanel = (n: number) => {
+    const absent: Measure<number> = { kind: 'absent', reason: 'no_data_received' };
+    const ms = [val(n), val(n), absent, absent, absent, absent, absent];
+    const days = ms.map((m, i) => ({ date: `2026-09-${String(17 + i).padStart(2, '0')}`, m }));
+    const series: TrendSeries[] = [{ metric: 'steps', days } as TrendSeries];
+    return render(
+      <TrendChartsPanel idPrefix="p" series={series} period={7} locale={lc} isDemo={true} copy={sharedCopy(lc)} text={trendsCopy(lc)} />,
+    );
+  };
+  it('n = 1: singolare nella tabella', () => {
+    const t = spaced(renderPanel(1).container);
+    expect(t).not.toMatch(SINGULAR(lc));
+    expect(t).toMatch(ONE(lc));
+  });
+  it('n = 2: plurale nella tabella', () => {
+    expect(spaced(renderPanel(2).container)).toMatch(TWO(lc));
   });
 });
