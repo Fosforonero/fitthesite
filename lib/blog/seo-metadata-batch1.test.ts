@@ -621,28 +621,37 @@ describe("SEGUITO 83cb361: contenuto, non solo metadati", () => {
 });
 
 // ---------------------------------------------------------------------------------------------
-// SEGUITO S2 (CS2-1..CS2-4), RIPROGETTATO nel giro 2 (SA-GUARDIE-V2): le due guardie riconoscono una
-// AFFERMAZIONE nel suo contesto di FRASE, non una parola in blocco.
-//  - Fitbit: una espressione di frequenza/proporzione NELLA STESSA FRASE di un contesto di problema/causa/
-//    sincronizzazione/permesso, in una frase dichiarativa (non domanda, non posizione di un menu, non modo).
-//  - Garmin: una frase POSITIVA (nessuna negazione prima/attorno al predicato) in cui un predicato di
-//    integrazione/collegamento/ufficialita'/partnership/supporto DIRETTO ha per oggetto Garmin, e il soggetto non
-//    e' un terzo; anche le previsioni di tale integrazione.
+// SEGUITO S2 (CS2-1..CS2-4), RIPROGETTATO nel giro 2 (SA-GUARDIE-V2) e RISTRETTO nel giro 3 (SA-GUARDIE-V3): le due
+// guardie riconoscono una AFFERMAZIONE nel suo contesto di FRASE, non una parola in blocco.
+//  - Fitbit: una espressione di frequenza/proporzione/superlativo di causa NELLA STESSA FRASE di un nome o stato di
+//    problema/causa/colpa/motivo, di una causa nota (permessi, ottimizzazione/risparmio energetico) o di un verbo di
+//    problema (fallisce, blocca, chiude, dipende da), in frase dichiarativa (non domanda, non posizione di un menu, non
+//    modo, non scheduling «piu' volte al giorno», non etichetta attributiva senza predicato, non presa di distanza).
+//    «sync», «batteria», «perche'/because/weil» NON sono da soli un contesto di problema (V3, F2).
+//  - Garmin: una frase POSITIVA (nessuna negazione prima O dopo il predicato, nella clausola) in cui un predicato di
+//    integrazione/collegamento/ufficialita'/partnership/avallo/supporto DIRETTO ha per oggetto Garmin e FitMesh (o
+//    «noi») e' il soggetto; la lettura/import/sync DIRETTA da Garmin al presente; le previsioni e le roadmap.
 //  - Beneficio in testa a body.15.items[2]: una frase positiva che affermi beneficio da integrazione/automazione.
-// LIMITI NOTI (sono euristiche di testo, non semantica; non vengono nascosti):
+// LIMITI NOTI (sono euristiche di testo, non semantica; non vengono nascosti; le frasi sono nel test LIMITI-NOTI):
 //  - lessici scritti da un agente non madrelingua; copertura ragionevole, non completa, per lingua;
 //  - una promessa senza «Garmin» nella frase e senza predicato forte nella stessa frase (es. «E' prevista.»
-//    riferita a una frase precedente) non e' vista; idem un oggetto nominato solo con un pronome;
+//    riferita a una frase precedente) non e' vista; idem un oggetto nominato solo con un pronome («Lo supporta.»);
 //  - la segmentazione spezza anche su abbreviazioni/decimali e su «;»: una frase divisa a meta' perde il contesto;
-//  - la negazione e' cercata nella clausola (finestra di 7 parole prima del predicato; tutta la clausola per
-//    ja/ko/tr): «senza», «without» NON sono negazioni del predicato, «no» davanti a un sostantivo lo e' (falso
-//    negativo possibile: «with no manual export» davanti al predicato nella stessa clausola);
+//  - la negazione Garmin e' cercata nella clausola: 7 parole PRIMA del predicato, e DOPO il predicato solo come
+//    «negazione + (0-3 parole) + parola di disponibilita'/previsione» o lessema negativo (impossibile, not yet...);
+//    «senza/without» NON sono negazioni del predicato, tranne «senza/without ... accordo/approvazione» con
+//    incapacita' («non puo'», «cannot») e «avrebbe bisogno dell'approvazione ... e non ce l'ha»;
+//  - una frase senza FitMesh con un nome proprio sconosciuto davanti al predicato e' letta come terza parte («Runna
+//    integra...»); un sostantivo iniziale maiuscolo seguito dal predicato puo' dare un falso negativo;
 //  - le domande retoriche in forma interrogativa passano (voluto dal mandato), anche se promettono;
+//  - la distanza/negazione Fitbit («non possiamo dire che ... spesso») ritira l'affermazione solo se precede il
+//    marcatore nella stessa clausola; non copre ipotesi («potrebbe essere spesso...»);
+//  - «stops/blocca/chiude/kills» + frequenza e' una frequenza di EVENTO-PROBLEMA: «Fitbit usually stops syncing when
+//    the phone is off» e' rossa per scelta (indistinguibile da «often stops»);
 //  - «compatibile con Garmin» e' trattato come supporto; la citazione di una terza parte e' una lista, non un NER;
-//  - non catturati (verificati con sonde, vedi SA-GUARDIE-V2): «Permissions are the usual suspect.», «Su dieci casi,
-//    nove dipendono dai permessi.», «Il problema si ripresenta ogni giorno.», «FitMesh dialoga con Garmin Connect.»
-//    (verbo non in lessico), «FitMesh funziona con Garmin.» (vago: lasciato ammesso di proposito), frasi senza
-//    «Garmin» e senza «FitMesh»/predicato forte, promesse espresse con pronomi («Lo supporta.»);
+//  - non catturati (sonde del giro 3, vedi LIMITI-NOTI): litote («non e' raro che»), «usual suspect», «su dieci casi,
+//    nove...», frequenze temporali («ogni giorno»), «dialoga con Garmin Connect», flussi senza verbo di lettura
+//    («flows directly into FitMesh»), frasi con soli pronomi; «FitMesh funziona con Garmin.» (vago: ammesso);
 //  - lessici di frequenza: nessuna garanzia su sinonimi non elencati, ne' su costruzioni analitiche («one in
 //    two cases», «nel 90% dei casi» e' preso dal test PCT_CLAIM, non da qui).
 // Nessun contenuto e' modificato da questo blocco: se la guardia segnalasse contenuto corrente sarebbe un FINDING.
@@ -1464,7 +1473,7 @@ type CorpusEntry = {
   text: string; // frase da inserire (prepend), testo nuovo (set), oppure testo nuovo per replace
   from?: string; // replace: stringa esistente nella cella
   expect: "pass" | "fail";
-  src: "S3-L" | "S3-P" | "S3-K" | "S3-V" | "SA";
+  src: "S3-L" | "S3-P" | "S3-K" | "S3-V" | "SA" | "S4-LF" | "S4-LG" | "S4-PF" | "S4-PG" | "S4-EX" | "SA3";
 };
 const FB_SLUG = "fitbit-data-not-syncing-android";
 const GA_SLUG = "esportare-dati-garmin";
@@ -1635,4 +1644,252 @@ describe("CORPUS delle guardie Fitbit/Garmin (SA-GUARDIE-V2): ogni voce e' un te
       else expect(problems.length, `${e.id} deve essere rosso`).toBeGreaterThan(0);
     },
   );
+});
+
+// ---------------------------------------------------------------------------------------------
+// CORPUS S4 (giro 3, SA-GUARDIE-V3): le frasi del controllo indipendente CONTROLLO-S4 (giro 2), VERBATIM, con il
+// ruolo che il revisore ha dato: LF*/LG* = legittime (DEVE-PASSARE), PF*/PG* = promesse/frequenze (DEVE-FALLIRE),
+// EX = sonde aggiuntive dello scheduling. Una frase che la guardia non riesce a classificare nel verso giusto
+// senza falsi positivi NON sta qui: sta in LIMITI_NOTI, con la motivazione e l'esito osservato.
+// ---------------------------------------------------------------------------------------------
+const CORPUS_S4: CorpusEntry[] = [
+  E("S4-LF", "pass", "S4-LF01it", "FB", "ts:faq.0.a.it", "Di solito i permessi si trovano nella scheda Autorizzazioni di Health Connect."),
+  E("S4-LF", "pass", "S4-LF02de", "FB", "ts:faq.0.a.de", "Normalerweise findest du Health Connect unter Einstellungen > Apps."),
+  E("S4-LF", "pass", "S4-LF03pl", "FB", "ts:faq.0.a.pl", "Uprawnienia znajdziesz zwykle w Ustawieniach."),
+  E("S4-LF", "pass", "S4-LF04tr", "FB", "ts:faq.0.a.tr", "İzinler genellikle Ayarlar içinde bulunur."),
+  E("S4-LF", "pass", "S4-LF05ko", "FB", "ts:faq.0.a.ko", "보통 설정에서 권한을 확인할 수 있습니다."),
+  E("S4-LF", "pass", "S4-LF06fr", "FB", "ts:faq.0.a.fr", "Le problème vient-il souvent des autorisations ?"),
+  E("S4-LF", "pass", "S4-LF07it", "FB", "ts:faq.0.a.it", "Non possiamo dire che il problema sia spesso nei permessi: verifica ogni passaggio."),
+  E("S4-LF", "pass", "S4-LF08en", "FB", "ts:faq.0.a.en", "We cannot say that permissions are usually the cause, so check every step."),
+  E("S4-LF", "pass", "S4-LF09it", "FB", "ts:faq.0.a.it", "Con la sincronizzazione continua attiva, l'app Fitbit sincronizza spesso durante la giornata."),
+  E("S4-LF", "pass", "S4-LF10it", "FB", "ts:faq.0.a.it", "La batteria di un Fitbit di solito dura diversi giorni."),
+  E("S4-LF", "pass", "S4-LF11en", "FB", "ts:faq.0.a.en", "On Android 14 Health Connect is usually already installed because it is part of the system."),
+  E("S4-LF", "pass", "S4-LF12de", "FB", "ts:faq.0.a.de", "Ab Android 14 ist Health Connect meist vorinstalliert, weil es Teil des Systems ist."),
+  E("S4-LF", "pass", "S4-LF13ja", "FB", "ts:body.6.text.ja", "よくある同期エラーと対処法", { mode: "set" }),
+  E("S4-LF", "pass", "S4-LF14ko", "FB", "ts:body.6.text.ko", "자주 발생하는 동기화 문제", { mode: "set" }),
+  E("S4-LF", "pass", "S4-LF15tr", "FB", "ts:body.6.text.tr", "Sık karşılaşılan senkronizasyon sorunları", { mode: "set" }),
+  E("S4-LF", "pass", "S4-LF16es", "FB", "ts:faq.0.a.es", "Normalmente la opción está en Ajustes > Aplicaciones > Health Connect."),
+  E("S4-LF", "pass", "S4-LF17nl", "FB", "ts:faq.0.a.nl", "Meestal staat Health Connect onder Instellingen."),
+  E("S4-LF", "pass", "S4-LF18sv", "FB", "overlay:faq.0.a.sv", "Behörigheterna hittar du oftast under Inställningar."),
+  E("S4-LF", "pass", "S4-LF19da", "FB", "overlay:faq.0.a.da", "Tilladelserne finder du typisk under Indstillinger."),
+  E("S4-LF", "pass", "S4-LF20pt", "FB", "ts:faq.0.a.pt", "O Fitbit geralmente sincroniza várias vezes por dia em segundo plano."),
+  E("S4-LF", "pass", "S4-LF21en", "FB", "ts:faq.0.a.en", "Fitbit usually syncs in the background when All-Day Sync is on."),
+  E("S4-LF", "pass", "S4-LF22ja", "FB", "ts:faq.0.a.ja", "権限が原因かどうかは、設定画面をよく見て判断してください。"),
+  E("S4-LG", "pass", "S4-LG01it", "GA", "ts:faq.0.a.it", "FitMesh non è un partner ufficiale di Garmin."),
+  E("S4-LG", "pass", "S4-LG02en", "GA", "ts:faq.0.a.en", "FitMesh has no partnership with Garmin."),
+  E("S4-LG", "pass", "S4-LG03fr", "GA", "ts:faq.0.a.fr", "L'application Garmin Connect se synchronise directement avec la montre."),
+  E("S4-LG", "pass", "S4-LG04it", "GA", "ts:faq.0.a.it", "Garmin Connect si sincronizza direttamente con l'orologio via Bluetooth."),
+  E("S4-LG", "pass", "S4-LG05en", "GA", "ts:faq.0.a.en", "Runna integrates directly with Garmin Connect."),
+  E("S4-LG", "pass", "S4-LG06it", "GA", "ts:faq.0.a.it", "Stryd si integra ufficialmente con Garmin Connect IQ."),
+  E("S4-LG", "pass", "S4-LG07pt", "GA", "ts:faq.0.a.pt", "O FitMesh não se conecta diretamente à Garmin."),
+  E("S4-LG", "pass", "S4-LG08tr", "GA", "ts:faq.0.a.tr", "FitMesh, Garmin'in resmi API'sini kullanmaz."),
+  E("S4-LG", "pass", "S4-LG09ja", "GA", "ts:faq.0.a.ja", "FitMesh は Garmin の公式 API を使用していません。"),
+  E("S4-LG", "pass", "S4-LG10ko", "GA", "ts:faq.0.a.ko", "FitMesh는 Garmin 공식 API를 사용하지 않습니다."),
+  E("S4-LG", "pass", "S4-LG11nl", "GA", "ts:faq.0.a.nl", "FitMesh is geen officiële partner van Garmin."),
+  E("S4-LG", "pass", "S4-LG12de", "GA", "ts:faq.0.a.de", "FitMesh ist kein offizieller Garmin-Partner."),
+  E("S4-LG", "pass", "S4-LG13en", "GA", "ts:faq.0.a.en", "Without an official API agreement, FitMesh cannot connect to Garmin directly."),
+  E("S4-LG", "pass", "S4-LG14it", "GA", "ts:faq.0.a.it", "Senza un accordo con Garmin, FitMesh non può usare l'API ufficiale."),
+  E("S4-LG", "pass", "S4-LG15en", "GA", "ts:faq.0.a.en", "FitMesh would need Garmin's approval to use the official API, and it does not have it."),
+  E("S4-LG", "pass", "S4-LG16it", "GA", "ts:faq.0.a.it", "Il collegamento diretto a Garmin non è disponibile in FitMesh."),
+  E("S4-LG", "pass", "S4-LG17en", "GA", "ts:faq.0.a.en", "Direct Garmin integration is not available in FitMesh."),
+  E("S4-LG", "pass", "S4-LG18fr", "GA", "ts:faq.0.a.fr", "L'intégration officielle avec Garmin n'est pas disponible dans FitMesh."),
+  E("S4-LG", "pass", "S4-LG19es", "GA", "ts:faq.0.a.es", "La integración directa con Garmin no está disponible en FitMesh."),
+  E("S4-LG", "pass", "S4-LG20en", "GA", "ts:faq.0.a.en", "Why doesn't FitMesh connect directly to Garmin? Garmin's API is reserved for approved business partners."),
+  E("S4-LG", "pass", "S4-LG21sv", "GA", "overlay:faq.0.a.sv", "FitMesh är inte en officiell partner till Garmin."),
+  E("S4-LG", "pass", "S4-LG22da", "GA", "overlay:faq.0.a.da", "FitMesh er ikke en officiel partner til Garmin."),
+  E("S4-LG", "pass", "S4-LG23it", "GA", "ts:faq.0.a.it", "Integrazione Garmin: come funziona oggi."),
+  E("S4-LG", "pass", "S4-LG24pl", "GA", "ts:faq.0.a.pl", "FitMesh nie jest oficjalnym partnerem Garmin."),
+  E("S4-LG", "pass", "S4-LG25en", "GA", "ts:faq.0.a.en", "FitMesh is not certified by Garmin."),
+  E("S4-LG", "pass", "S4-LG26de", "GA", "ts:faq.0.a.de", "Eine direkte Garmin-Anbindung bietet FitMesh nicht an."),
+  E("S4-PF", "fail", "S4-PF01it", "FB", "ts:faq.0.a.it", "Nella stragrande maggioranza dei casi il colpevole è l'ottimizzazione della batteria."),
+  E("S4-PF", "fail", "S4-PF02en", "FB", "ts:faq.0.a.en", "Battery optimization is the most common cause."),
+  E("S4-PF", "fail", "S4-PF03en", "FB", "ts:faq.0.a.en", "Permissions are behind the majority of sync failures."),
+  E("S4-PF", "fail", "S4-PF04de", "FB", "ts:faq.0.a.de", "Meist ist der Energiesparmodus schuld."),
+  E("S4-PF", "fail", "S4-PF05fr", "FB", "ts:faq.0.a.fr", "Dans neuf cas sur dix, c'est l'optimisation de la batterie."),
+  E("S4-PF", "fail", "S4-PF06es", "FB", "ts:faq.0.a.es", "Lo más habitual es que falten permisos."),
+  E("S4-PF", "fail", "S4-PF07pt", "FB", "ts:faq.0.a.pt", "É comum que o problema seja a otimização de bateria."),
+  E("S4-PF", "fail", "S4-PF08nl", "FB", "ts:faq.0.a.nl", "Het probleem zit bijna altijd in de batterijbesparing."),
+  E("S4-PF", "fail", "S4-PF09sv", "FB", "overlay:faq.0.a.sv", "Oftast handlar det om batterioptimering."),
+  E("S4-PF", "fail", "S4-PF10da", "FB", "overlay:faq.0.a.da", "Problemet skyldes typisk batterioptimering."),
+  E("S4-PF", "fail", "S4-PF11pl", "FB", "ts:faq.0.a.pl", "Najczęściej winna jest optymalizacja baterii."),
+  E("S4-PF", "fail", "S4-PF12tr", "FB", "ts:faq.0.a.tr", "Sorun çoğunlukla pil tasarrufundan kaynaklanır."),
+  E("S4-PF", "fail", "S4-PF13ja", "FB", "ts:faq.0.a.ja", "同期の問題の大半は権限設定によるものです。"),
+  E("S4-PF", "fail", "S4-PF14ko", "FB", "ts:faq.0.a.ko", "동기화 문제의 대부분은 권한 설정 때문입니다."),
+  E("S4-PF", "fail", "S4-PF15en", "FB", "ts:faq.0.a.en", "Nine out of ten sync problems come from battery settings."),
+  E("S4-PF", "fail", "S4-PF16it", "FB", "ts:faq.0.a.it", "Capita di frequente che Android chiuda Fitbit in background."),
+  E("S4-PF", "fail", "S4-PF17en", "FB", "ts:faq.0.a.en", "Android regularly kills the Fitbit app in the background, which stops syncing."),
+  E("S4-PF", "fail", "S4-PF18en", "FB", "ts:faq.0.a.en", "Permission issues account for roughly 80 percent of cases."),
+  E("S4-PG", "fail", "S4-PG01it", "GA", "ts:faq.0.a.it", "FitMesh è un'app certificata Garmin."),
+  E("S4-PG", "fail", "S4-PG02en", "GA", "ts:faq.0.a.en", "FitMesh is Garmin's recommended companion app."),
+  E("S4-PG", "fail", "S4-PG03en", "GA", "ts:faq.0.a.en", "FitMesh pulls your Garmin activities straight from Garmin Connect."),
+  E("S4-PG", "fail", "S4-PG04it", "GA", "ts:faq.0.a.it", "FitMesh importa le attività direttamente da Garmin Connect."),
+  E("S4-PG", "fail", "S4-PG05de", "GA", "ts:faq.0.a.de", "FitMesh liest deine Garmin-Daten direkt aus Garmin Connect."),
+  E("S4-PG", "fail", "S4-PG06es", "GA", "ts:faq.0.a.es", "FitMesh se sincroniza con Garmin Connect en tiempo real."),
+  E("S4-PG", "fail", "S4-PG07fr", "GA", "ts:faq.0.a.fr", "Connectez votre compte Garmin à FitMesh en un clic."),
+  E("S4-PG", "fail", "S4-PG08en", "GA", "ts:faq.0.a.en", "Log in with your Garmin account to link it to FitMesh."),
+  E("S4-PG", "fail", "S4-PG09it", "GA", "ts:faq.0.a.it", "Accedi con il tuo account Garmin per collegarlo a FitMesh."),
+  E("S4-PG", "fail", "S4-PG10en", "GA", "ts:faq.0.a.en", "FitMesh is endorsed by Garmin."),
+  E("S4-PG", "fail", "S4-PG11en", "GA", "ts:faq.0.a.en", "Garmin and FitMesh teamed up to bring your data together."),
+  E("S4-PG", "fail", "S4-PG12pl", "GA", "ts:faq.0.a.pl", "Bezpośrednia synchronizacja z Garmin pojawi się wkrótce w FitMesh."),
+  E("S4-PG", "fail", "S4-PG13sv", "GA", "overlay:faq.0.a.sv", "Direktsynk med Garmin kommer snart till FitMesh."),
+  E("S4-PG", "fail", "S4-PG14nl", "GA", "ts:faq.0.a.nl", "FitMesh krijgt binnenkort een directe koppeling met Garmin."),
+  E("S4-PG", "fail", "S4-PG15tr", "GA", "ts:faq.0.a.tr", "FitMesh yakında Garmin ile doğrudan senkronize olacak."),
+  E("S4-PG", "fail", "S4-PG16ja", "GA", "ts:faq.0.a.ja", "FitMesh は Garmin Connect と直接同期します。"),
+  E("S4-PG", "fail", "S4-PG17ko", "GA", "ts:faq.0.a.ko", "FitMesh는 곧 Garmin 계정 연결을 지원합니다."),
+  E("S4-PG", "fail", "S4-PG18en", "GA", "ts:faq.0.a.en", "Our Garmin integration launches next month."),
+  E("S4-PG", "fail", "S4-PG19en", "GA", "ts:faq.0.a.en", "Garmin sync is on our roadmap for FitMesh."),
+  E("S4-PG", "fail", "S4-PG20it", "GA", "ts:faq.0.a.it", "Stiamo lavorando per portare Garmin su FitMesh."),
+  E("S4-PG", "fail", "S4-PG21en", "GA", "ts:faq.0.a.en", "FitMesh reads your Garmin data without Health Connect."),
+  E("S4-PG", "fail", "S4-PG22en", "GA", "ts:faq.0.a.en", "FitMesh's Garmin connector is live."),
+  E("S4-PG", "fail", "S4-PG23fr", "GA", "ts:faq.0.a.fr", "FitMesh fonctionne nativement avec Garmin."),
+  E("S4-PG", "fail", "S4-PG24en", "GA", "ts:faq.0.a.en", "Garmin officially recommends FitMesh."),
+  E("S4-PG", "fail", "S4-PG25pt", "GA", "ts:faq.0.a.pt", "O FitMesh terá integração direta com a Garmin no próximo ano."),
+  E("S4-PG", "fail", "S4-PG26ko", "GA", "ts:faq.0.a.ko", "FitMesh는 Garmin Connect와 직접 동기화됩니다."),
+  E("S4-PG", "fail", "S4-PG27da", "GA", "overlay:faq.0.a.da", "FitMesh synkroniserer direkte med Garmin Connect."),
+  E("S4-PG", "fail", "S4-PG28it", "GA", "ts:faq.0.a.it", "Presto potrai collegare Garmin a FitMesh senza passare da Health Connect."),
+  E("S4-EX", "fail", "S4-EX1", "FB", "ts:faq.0.a.it", "Spesso si blocca più volte al giorno."),
+  E("S4-EX", "fail", "S4-EX2", "FB", "ts:faq.0.a.en", "It often stops several times a day."),
+  E("S4-EX", "fail", "S4-EX3", "FB", "ts:faq.0.a.it", "Spesso il problema sono i permessi, più volte al giorno."),
+  E("SA3", "pass", "SA3-F01", "FB", "ts:faq.0.a.en", "Fitbit syncs often when the app is open."),
+  E("SA3", "pass", "SA3-F02", "FB", "ts:faq.0.a.it", "L'app Fitbit si aggiorna spesso se la sincronizzazione continua è attiva."),
+  E("SA3", "pass", "SA3-F03", "FB", "ts:faq.0.a.de", "Fitbit synchronisiert meist im Hintergrund, wenn die App läuft."),
+  E("SA3", "pass", "SA3-F04", "FB", "ts:faq.0.a.en", "Health Connect is often preinstalled on newer phones."),
+  E("SA3", "pass", "SA3-F05", "FB", "ts:faq.0.a.en", "The battery usually lasts about five days."),
+  E("SA3", "pass", "SA3-F06", "FB", "ts:faq.0.a.es", "La batería suele durar varios días."),
+  E("SA3", "pass", "SA3-F07", "FB", "ts:faq.0.a.en", "Fitbit typically syncs every 15 minutes."),
+  E("SA3", "pass", "SA3-F08", "FB", "ts:faq.0.a.en", "Android often limits background apps."),
+  E("SA3", "pass", "SA3-F09", "FB", "ts:faq.0.a.pt", "Fitbit sincroniza frequentemente quando o app está aberto."),
+  E("SA3", "pass", "SA3-F10", "FB", "ts:faq.0.a.fr", "Le Fitbit se synchronise souvent en arrière-plan."),
+  E("SA3", "pass", "SA3-F11", "FB", "overlay:faq.0.a.da", "Fitbit synkroniserer ofte i baggrunden."),
+  E("SA3", "pass", "SA3-F12", "FB", "ts:faq.0.a.tr", "Fitbit senkronizasyonu genellikle arka planda yapar."),
+  E("SA3", "pass", "SA3-F13", "FB", "ts:faq.0.a.en", "Sync usually happens in the background because Android allows it."),
+  E("SA3", "pass", "SA3-F14", "FB", "ts:faq.0.a.en", "Fitbit usually syncs every few minutes, so wait a bit."),
+  E("SA3", "pass", "SA3-F15", "FB", "ts:faq.0.a.it", "Il Fitbit di solito si sincronizza ogni 15 minuti in background."),
+  E("SA3", "pass", "SA3-F16", "FB", "ts:faq.0.a.it", "Spesso Android limita le app in background per risparmiare batteria."),
+  E("SA3", "fail", "SA3-F20", "FB", "ts:faq.0.a.it", "Spesso è colpa delle autorizzazioni."),
+  E("SA3", "fail", "SA3-F21", "FB", "ts:faq.0.a.en", "Most of the time it's the permissions."),
+  E("SA3", "fail", "SA3-F22", "FB", "ts:faq.0.a.it", "La causa più comune è l'ottimizzazione della batteria."),
+  E("SA3", "fail", "SA3-F23", "FB", "ts:faq.0.a.en", "Typically the culprit is Doze mode."),
+  E("SA3", "fail", "SA3-F24", "FB", "ts:faq.0.a.de", "Meistens sind die Berechtigungen schuld."),
+  E("SA3", "fail", "SA3-F25", "FB", "ts:faq.0.a.it", "Il problema si presenta spesso dopo gli aggiornamenti."),
+  E("SA3", "fail", "SA3-F26", "FB", "ts:faq.0.a.en", "Fitbit often fails to sync because of battery saver."),
+  E("SA3", "fail", "SA3-F27", "FB", "ts:faq.0.a.en", "Frequently, sync stops after an Android update."),
+  E("SA3", "fail", "SA3-F28", "FB", "ts:faq.0.a.fr", "La plupart du temps, c'est une question d'autorisations."),
+  E("SA3", "fail", "SA3-F29", "FB", "ts:faq.0.a.pt", "Muitas vezes o erro vem das permissões."),
+  E("SA3", "fail", "SA3-F30", "FB", "ts:faq.0.a.en", "Sync problems usually come from battery optimization."),
+  E("SA3", "fail", "SA3-F31", "FB", "ts:faq.0.a.it", "I permessi sono spesso disattivati dopo un aggiornamento."),
+  E("SA3", "fail", "SA3-F32", "FB", "ts:faq.0.a.it", "Non possiamo dire quanto sia frequente, ma di solito è colpa dei permessi."),
+  E("SA3", "fail", "SA3-F33", "FB", "ts:faq.0.a.en", "Of course, most often it is the permissions."),
+  E("SA3", "fail", "SA3-F34", "FB", "ts:faq.0.a.it", "Il problema potrebbe essere spesso nei permessi."),
+  E("SA3", "pass", "SA3-G01", "GA", "ts:faq.0.a.it", "FitMesh importa i file FIT esportati da Garmin Connect."),
+  E("SA3", "pass", "SA3-G02", "GA", "ts:faq.0.a.it", "Puoi esportare i dati da Garmin Connect e importarli in FitMesh."),
+  E("SA3", "pass", "SA3-G03", "GA", "ts:faq.0.a.it", "FitMesh non importa direttamente da Garmin Connect."),
+  E("SA3", "pass", "SA3-G04", "GA", "ts:faq.0.a.en", "FitMesh doesn't read data straight from Garmin."),
+  E("SA3", "pass", "SA3-G05", "GA", "ts:faq.0.a.en", "FitMesh reads your Garmin data directly from Health Connect."),
+  E("SA3", "pass", "SA3-G06", "GA", "ts:faq.0.a.en", "We don't offer a direct Garmin sync."),
+  E("SA3", "pass", "SA3-G07", "GA", "ts:faq.0.a.de", "Dies ist keine direkte Garmin-Integration."),
+  E("SA3", "pass", "SA3-G08", "GA", "ts:faq.0.a.en", "Garmin Connect is not integrated with FitMesh."),
+  E("SA3", "pass", "SA3-G09", "GA", "ts:faq.0.a.en", "Direct sync with Garmin is currently not offered by FitMesh."),
+  E("SA3", "pass", "SA3-G10", "GA", "ts:faq.0.a.en", "FitMesh is not Garmin's recommended app."),
+  E("SA3", "pass", "SA3-G11", "GA", "ts:faq.0.a.en", "Garmin does not endorse FitMesh."),
+  E("SA3", "pass", "SA3-G12", "GA", "ts:faq.0.a.it", "FitMesh consiglia di esportare i dati da Garmin in formato FIT."),
+  E("SA3", "pass", "SA3-G13", "GA", "ts:faq.0.a.en", "Garmin never recommended FitMesh."),
+  E("SA3", "pass", "SA3-G14", "GA", "ts:faq.0.a.en", "Garmin Connect syncs with your watch in real time."),
+  E("SA3", "pass", "SA3-G15", "GA", "ts:faq.0.a.en", "FitMesh is available for Garmin users."),
+  E("SA3", "pass", "SA3-G16", "GA", "ts:faq.0.a.en", "FitMesh will not support Garmin directly."),
+  E("SA3", "pass", "SA3-G17", "GA", "ts:faq.0.a.en", "The Garmin integration is unavailable in FitMesh."),
+  E("SA3", "pass", "SA3-G18", "GA", "ts:faq.0.a.tr", "Garmin entegrasyonu FitMesh'te mevcut değil."),
+  E("SA3", "pass", "SA3-G19", "GA", "ts:faq.0.a.tr", "FitMesh Garmin'i doğrudan desteklemiyor."),
+  E("SA3", "pass", "SA3-G20", "GA", "ts:faq.0.a.it", "Impossibile collegare Garmin direttamente a FitMesh."),
+  E("SA3", "pass", "SA3-G21", "GA", "ts:faq.0.a.ja", "FitMesh は Garmin と直接連携していません。"),
+  E("SA3", "pass", "SA3-G22", "GA", "ts:faq.0.a.ko", "FitMesh는 Garmin과 직접 연동하지 않습니다."),
+  E("SA3", "pass", "SA3-G23", "GA", "ts:faq.0.a.tr", "FitMesh Garmin ile doğrudan entegre değil."),
+  E("SA3", "pass", "SA3-G24", "GA", "ts:faq.0.a.en", "FitMesh doesn't yet support Garmin directly."),
+  E("SA3", "fail", "SA3-G30", "GA", "ts:faq.0.a.en", "FitMesh syncs your Garmin data in real time."),
+  E("SA3", "fail", "SA3-G31", "GA", "ts:faq.0.a.it", "FitMesh si connette a Garmin con un clic."),
+  E("SA3", "fail", "SA3-G32", "GA", "ts:faq.0.a.it", "Garmin è supportato da FitMesh."),
+  E("SA3", "fail", "SA3-G33", "GA", "ts:faq.0.a.it", "FitMesh recupera le attività da Garmin Connect direttamente."),
+  E("SA3", "fail", "SA3-G34", "GA", "ts:faq.0.a.fr", "FitMesh récupère vos activités directement depuis Garmin Connect."),
+  E("SA3", "fail", "SA3-G35", "GA", "ts:faq.0.a.pl", "FitMesh pobiera dane z Garmin Connect bezpośrednio."),
+  E("SA3", "fail", "SA3-G36", "GA", "ts:faq.0.a.tr", "FitMesh Garmin Connect'ten verileri doğrudan alır."),
+  E("SA3", "fail", "SA3-G37", "GA", "ts:faq.0.a.en", "Garmin has certified FitMesh."),
+  E("SA3", "fail", "SA3-G38", "GA", "ts:faq.0.a.en", "FitMesh is in collaboration with Garmin."),
+  E("SA3", "fail", "SA3-G39", "GA", "ts:faq.0.a.it", "Garmin sarà presto disponibile in FitMesh."),
+  E("SA3", "fail", "SA3-G40", "GA", "ts:faq.0.a.en", "We're building the Garmin connector for FitMesh."),
+  E("SA3", "fail", "SA3-G41", "GA", "ts:faq.0.a.en", "FitMesh will read your Garmin data natively."),
+  E("SA3", "fail", "SA3-G42", "GA", "ts:faq.0.a.en", "Without Health Connect, FitMesh reads Garmin data directly."),
+  E("SA3", "fail", "SA3-G43", "GA", "ts:faq.0.a.it", "FitMesh legge i dati Garmin direttamente da Garmin Connect, non via Health Connect."),
+  E("SA3", "fail", "SA3-G44", "GA", "ts:faq.0.a.en", "FitMesh is an official Garmin partner, not a third-party tool."),
+  E("SA3", "fail", "SA3-G45", "GA", "ts:faq.0.a.es", "FitMesh no ofrece integración directa con Garmin, pero lo estamos preparando."),
+  E("SA3", "fail", "SA3-G46", "GA", "ts:faq.0.a.en", "FitMesh offers direct Garmin sync. This is not available on iOS."),
+  E("SA3", "fail", "SA3-G47", "GA", "ts:faq.0.a.tr", "FitMesh Garmin'i doğrudan destekler."),
+  E("SA3", "pass", "SA3-G48", "GA", "ts:faq.0.a.en", "Without an official partnership, FitMesh cannot offer a direct Garmin sync."),
+  E("SA3", "pass", "SA3-G49", "GA", "ts:faq.0.a.fr", "Sans accord avec Garmin, FitMesh ne peut pas utiliser l'API officielle."),
+  E("SA3", "pass", "SA3-G50", "GA", "ts:faq.0.a.de", "Ohne Vereinbarung mit Garmin kann FitMesh die offizielle API nicht nutzen."),
+  E("SA3", "fail", "SA3-G51", "GA", "ts:faq.0.a.en", "FitMesh connects to Garmin without any export, officially."),
+];
+
+// LIMITI-NOTI: frasi del revisore che la guardia classifica nel verso SBAGLIATO o non vede. Non sono nel corpus
+// pass/fail. `observed` e' l'esito reale della guardia (il test lo verifica: se un limite sparisce, va promosso
+// nel corpus). Nessuna frase legittima e' qui con observed «rosso»: i falsi positivi non sono accettati.
+type KnownLimit = { id: string; post: "FB" | "GA"; path: string; text: string; observed: "verde" | "rosso"; truth: "legittima" | "promessa"; why: string };
+const LIMITI_NOTI: KnownLimit[] = [
+  { id: "LIM-F1", post: "FB", path: "ts:faq.0.a.en", text: "It often happens because of the update.", observed: "verde", truth: "promessa",
+    why: "«happens because» senza un nome di causa noto nel lessico di contesto non e' visto (la causa non e' nominata)." },
+  { id: "LIM-F2", post: "FB", path: "ts:faq.0.a.it", text: "Non è raro che il problema siano i permessi.", observed: "verde", truth: "promessa",
+    why: "litote («non e' raro»): la negazione di un contrario non e' un marcatore di frequenza." },
+  { id: "LIM-F3", post: "FB", path: "ts:faq.0.a.en", text: "Permissions are the usual suspect.", observed: "verde", truth: "promessa",
+    why: "«usual suspect» e' un idioma di frequenza senza avverbio ne' superlativo di causa." },
+  { id: "LIM-F4", post: "FB", path: "ts:faq.0.a.it", text: "Su dieci casi, nove dipendono dai permessi.", observed: "verde", truth: "promessa",
+    why: "rapporto costruito in forma «su N casi, M ...»: solo «N su dieci» e le forme equivalenti sono coperte." },
+  { id: "LIM-F5", post: "FB", path: "ts:faq.0.a.it", text: "Il problema si ripresenta ogni giorno.", observed: "verde", truth: "promessa",
+    why: "frequenza temporale («ogni giorno») non e' un marcatore: sarebbe indistinguibile dallo scheduling lecito." },
+  { id: "LIM-G1", post: "GA", path: "ts:faq.0.a.it", text: "FitMesh dialoga con Garmin Connect.", observed: "verde", truth: "promessa",
+    why: "verbo («dialoga») fuori lessico di integrazione/lettura; senza «diretto/ufficiale» la frase e' vaga." },
+  { id: "LIM-G2", post: "GA", path: "ts:faq.0.a.en", text: "Garmin data flows directly into FitMesh.", observed: "verde", truth: "promessa",
+    why: "FitMesh non e' il soggetto e non c'e' un verbo di lettura/integrazione: il flusso e' espresso con «flows into»." },
+  { id: "LIM-G3", post: "GA", path: "ts:faq.0.a.it", text: "Lo supporta ufficialmente.", observed: "verde", truth: "promessa",
+    why: "frase con solo pronome, senza «Garmin» ne' «FitMesh»: l'oggetto e' nella frase precedente (limite dichiarato da V2)." },
+
+];
+
+describe("CORPUS S4 (CONTROLLO-S4, giro 2): ogni frase del revisore e' un test nominato; LIMITI-NOTI dichiarati", () => {
+  const cellsBy: Record<"FB" | "GA", Map<string, string>> = {
+    FB: new Map(collectCells(FB_SLUG).map((c) => [c.path, c.text])),
+    GA: new Map(collectCells(GA_SLUG).map((c) => [c.path, c.text])),
+  };
+  const verdict = (post: "FB" | "GA", path: string, text: string): string[] =>
+    post === "FB" ? fitbitCellVerdict(path, nz(text)) : garminCellVerdict(path, nz(text));
+  const build = (e: { post: "FB" | "GA"; path: string; text: string; mode?: CorpusEntry["mode"]; from?: string }): string => {
+    const original = cellsBy[e.post].get(e.path);
+    expect(original, `cella ${e.path}`).toBeDefined();
+    expect(verdict(e.post, e.path, original!), `cella originale ${e.path}`).toEqual([]);
+    if (e.mode === "set") return e.text;
+    return `${e.text} ${original}`;
+  };
+
+  it("copertura: 94 frasi della matrice del revisore + 3 sonde, ciascuna nel corpus o in LIMITI-NOTI, con id unici", () => {
+    const ids = [...CORPUS_S4.map((e) => e.id), ...LIMITI_NOTI.map((e) => e.id)];
+    expect(ids.length).toBe(CORPUS_S4.length + LIMITI_NOTI.length);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(new Set([...ids, ...CORPUS.map((e) => e.id)]).size).toBe(ids.length + CORPUS.length);
+    expect(CORPUS_S4.filter((e) => e.src.startsWith("S4-")).length + LIMITI_NOTI.filter((e) => e.id.startsWith("S4-")).length).toBe(97);
+    for (const l of LIMITI_NOTI) expect(l.why.length, l.id).toBeGreaterThan(10);
+    // nessun falso positivo accettato: un limite «rosso» non puo' essere una frase legittima
+    for (const l of LIMITI_NOTI) expect(l.observed === "rosso" && l.truth === "legittima", l.id).toBe(false);
+  });
+
+  it.each(CORPUS_S4.map((e) => [`${e.expect === "pass" ? "DEVE-PASSARE" : "DEVE-FALLIRE"} ${e.src} ${e.id} ${e.path}`, e] as const))(
+    "%s",
+    (_name, e) => {
+      const problems = verdict(e.post, e.path, build(e));
+      if (e.expect === "pass") expect(problems, e.id).toEqual([]);
+      else expect(problems.length, `${e.id} deve essere rosso`).toBeGreaterThan(0);
+    },
+  );
+
+  it.each(LIMITI_NOTI.map((e) => [`LIMITE-NOTO ${e.id} (${e.truth}, guardia ${e.observed})`, e] as const))("%s", (_n, e) => {
+    const problems = verdict(e.post, e.path, build(e));
+    expect(problems.length > 0 ? "rosso" : "verde", `${e.id}: ${e.why}`).toBe(e.observed);
+  });
 });
