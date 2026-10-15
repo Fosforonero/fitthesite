@@ -39,7 +39,7 @@ export const DEFAULT_OUT = path.join(os.tmpdir(), 'fitmesh-trends-charts-probe')
  * Cartella di uscita senza --out: FITMESH_PROBE_OUT (percorso assoluto o relativo alla directory
  * corrente) se valorizzata e non vuota, altrimenti DEFAULT_OUT. Nessun percorso fisso della macchina.
  */
-export function defaultOut(env: NodeJS.ProcessEnv): string {
+export function defaultOut(env: Readonly<Record<string, string | undefined>>): string {
   const fromEnv = env[OUT_ENV]?.trim();
   return fromEnv ? path.resolve(fromEnv) : DEFAULT_OUT;
 }
@@ -76,7 +76,7 @@ export interface ProbeArgs {
  * --out <dir> --port <n> --name <base>. Senza --out vale FITMESH_PROBE_OUT, poi DEFAULT_OUT.
  * Rifiuta argomenti sconosciuti e un'uscita dentro il repository, anche se arriva dall'ambiente.
  */
-export function parseArgs(argv: readonly string[], repoRoot: string, env: NodeJS.ProcessEnv = process.env): ProbeArgs {
+export function parseArgs(argv: readonly string[], repoRoot: string, env: Readonly<Record<string, string | undefined>> = process.env): ProbeArgs {
   const args: ProbeArgs = { out: defaultOut(env), port: DEFAULT_PORT, name: 'report' };
   for (let i = 0; i < argv.length; i++) {
     const key = argv[i];
