@@ -181,8 +181,11 @@ describe('owner reader -> qualified series -> chart adapter (synthetic only)', (
 
   it('propagates a server error without calling qualification or exposing its message', async () => {
     const resolver = vi.fn(() => empty());
-    await expect(readAndAssemble(database([], { error: true }).client, daysFrom(), resolver))
-      .rejects.toMatchObject({ codice: 'errore_server', message: 'lettura non riuscita (SYNTHETIC)' });
+    const failure = await readAndAssemble(database([], { error: true }).client, daysFrom(), resolver).catch(e => e);
+    expect(failure).toMatchObject({ codice: 'errore_server' });
+    // Only the server error CODE travels; never the server's own message text.
+    expect(String(failure.message)).toMatch(/\(SYNTHETIC\)$/);
+    expect(String(failure.message)).not.toContain('fixture-private-field');
     expect(resolver).not.toHaveBeenCalled();
   });
 });
