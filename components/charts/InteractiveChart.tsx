@@ -78,8 +78,10 @@ export function resolveStateLabels(locale: string, override?: ChartStateTexts): 
   return out;
 }
 
-/** Glifo (non solo colore) per gli slot senza valore che non sono ne' assenti ne' errori. */
+/** Glifo (non solo colore) per gli slot senza valore diversi dall'assenza: l'assenza e' il solo tratteggio nudo. */
 const NULL_GLYPH: Partial<Record<ChartSlotState, string>> = {
+  // B3d D3: l'errore non e' piu' indistinguibile dall'assenza (stesso tratteggio, nessun glifo).
+  error: '!',
   ambiguous: '\u2260',
   undetermined: '?',
   placeholder: '\u2013',
@@ -136,7 +138,6 @@ function LegendSwatch({ state, color }: { state: ChartSlotState; color: string }
       // Identico alla barra (che non ha bordo): la legenda non promette una differenza non disegnata.
       return <span className="inline-block w-3.5 h-2.5 rounded-sm" style={{ backgroundColor: color }} />;
     case 'absent':
-    case 'error':
       return (
         <span
           className="inline-block w-3.5 h-2.5 rounded-sm border border-dashed border-text-muted/60"
@@ -146,6 +147,7 @@ function LegendSwatch({ state, color }: { state: ChartSlotState; color: string }
           }}
         />
       );
+    case 'error':
     case 'ambiguous':
     case 'undetermined':
     case 'placeholder':
@@ -179,6 +181,76 @@ function formatDateLong(dateStr: string, locale: string): string {
     // fallback
   }
   return dateStr;
+}
+
+/**
+ * Etichetta dell'asse X per le serie brevi (fino a 7 giorni): giorno della settimana e numero,
+ * senza mese («gio 8» / «Thu 8»). La data piena resta nel tooltip, nell'etichetta accessibile e
+ * nella tabella; sull'asse, a 320/390 px, «gio 8 ott» era piu' largo dello slot (B3d, D1).
+ */
+function formatDateAxis(dateStr: string, locale: string): string {
+  try {
+    const parts = dateStr.split('-');
+    if (parts.length === 3) {
+      const d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+      const p = new Intl.DateTimeFormat(locale === 'it' ? 'it-IT' : 'en-US', {
+        weekday: 'short',
+        day: 'numeric',
+      }).formatToParts(d);
+      const wd = p.find((x) => x.type === 'weekday')?.value;
+      const dd = p.find((x) => x.type === 'day')?.value;
+      if (wd && dd) return `${wd} ${dd}`;
+    }
+  } catch {
+    // fallback
+  }
+  return dateStr;
+}
+
+/** Stima prudente della larghezza di un carattere dell'asse (10-11 px, cifre tabulari) e spazio minimo fra due etichette. */
+const X_CHAR_PX = 7;
+const X_GAP_PX = 1;
+
+export interface XAxisLabelBox {
+  index: number;
+  /** Bordo sinistro e destro stimati, in px dall'inizio dell'area del grafico. */
+  da: number;
+  a: number;
+}
+
+/**
+ * Regola di diradamento dell'asse X (deterministica, verificabile con la sola geometria): ogni etichetta
+ * occupa una scatola stimata sul suo slot (la prima allineata a sinistra, l'ultima a destra, le altre
+ * centrate); si tengono le candidate da sinistra se non toccano la scatola precedente e l'ultima ha la
+ * precedenza (toglie le scatole che le si sovrappongono). `candidates` default: tutti gli indici.
+ */
+export function planXAxisLabels(texts: readonly string[], width: number, candidates?: readonly number[]): XAxisLabelBox[] {
+  const n = texts.length;
+  if (n === 0) return [];
+  const slotW = width / n;
+  const box = (i: number): XAxisLabelBox => {
+    const w = texts[i].length * X_CHAR_PX;
+    if (i === n - 1 && n > 1) return { index: i, da: width - w, a: width };
+    if (i === 0) return { index: i, da: 0, a: w };
+    const c = (i + 0.5) * slotW;
+    return { index: i, da: c - w / 2, a: c + w / 2 };
+  };
+  const ids = (candidates ?? texts.map((_, i) => i)).filter((i) => i >= 0 && i < n);
+  const kept: XAxisLabelBox[] = [];
+  const last = n - 1;
+  for (const i of ids) {
+    if (i === last && n > 1) continue; // trattata dopo: ha la precedenza
+    const b = box(i);
+    const prev = kept[kept.length - 1];
+    if (!prev || b.da >= prev.a + X_GAP_PX) kept.push(b);
+  }
+  if (ids.includes(last) && n > 1) {
+    const b = box(last);
+    while (kept.length > 1 && kept[kept.length - 1].a + X_GAP_PX > b.da) kept.pop();
+    if (kept.length === 1 && kept[0].a + X_GAP_PX > b.da && kept[0].index !== last) kept.pop();
+    kept.push(b);
+  }
+  return kept;
 }
 
 function formatDateShort(dateStr: string, locale: string): string {
@@ -229,7 +301,10 @@ export function InteractiveChart({
   const nullValueText = (state: ChartSlotState): string => {
     const own: unknown = valueLabels?.[state];
     if (typeof own === 'string' && own.trim() !== '') return own;
-    return state === 'absent' ? (isIt ? 'Nessun dato' : 'No data') : stateLabels[state];
+    if (state === 'absent') return isIt ? 'Nessun dato' : 'No data';
+    // B3d D5: un zero grezzo non determinabile e' una parola, mai la cifra 0.
+    if (state === 'undetermined') return isIt ? 'Zero non determinabile' : 'Zero not determinable';
+    return stateLabels[state];
   };
   const valueText = (p: ChartDataPoint): string =>
     p.value !== null ? formatValue(p.value, locale) : nullValueText(p.state);
@@ -365,11 +440,16 @@ export function InteractiveChart({
   const activePoint = activeIdx !== null ? normalizedPoints[activeIdx] : null;
   const presentStates = new Set<ChartSlotState>(normalizedPoints.map((p) => p.state));
 
-  // Indici delle etichette asse X
-  const xLabelIndices =
+  // Etichette asse X: formato corto per le serie brevi, candidate sparse per le lunghe, poi la regola di
+  // diradamento geometrica (B3d D1): nessuna etichetta tocca la vicina, la data piena sta nel tooltip e nella tabella.
+  const xTexts = normalizedPoints.map((p) =>
+    totalPoints <= 7 ? formatDateAxis(p.date, locale) : formatDateShort(p.date, locale),
+  );
+  const xCandidates =
     totalPoints <= 7
       ? normalizedPoints.map((_, i) => i)
       : [0, Math.floor(totalPoints / 4), Math.floor(totalPoints / 2), Math.floor((totalPoints * 3) / 4), totalPoints - 1];
+  const xLabelIndices = planXAxisLabels(xTexts, chartWidth, xCandidates).map((b) => b.index);
 
   return (
     <Card aria-labelledby={`${id}-heading`}>
@@ -414,19 +494,22 @@ export function InteractiveChart({
                   <span className="font-mono text-sm font-semibold text-brand-aqua">
                     {valueText(activePoint)}
                   </span>
-                  {(activePoint.value !== null || activePoint.state === 'absent') && (
+                  {activePoint.value !== null && (
                     <span className="text-text-muted">({unit})</span>
                   )}
                 </div>
                 <div className="flex items-center gap-2">
-                  <span
-                    className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium ${badgeClass(activePoint.state)}`}
-                  >
-                    {stateLabels[activePoint.state]}
-                    {activePoint.coverage !== undefined
-                      ? ` (${Math.round(activePoint.coverage * 100)}%)`
-                      : ''}
-                  </span>
+                  {/* B3d D6: se il testo del valore e' gia' lo stato, non lo si ripete. */}
+                  {!(activePoint.value === null && valueText(activePoint) === stateLabels[activePoint.state]) && (
+                    <span
+                      className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium ${badgeClass(activePoint.state)}`}
+                    >
+                      {stateLabels[activePoint.state]}
+                      {activePoint.coverage !== undefined
+                        ? ` (${Math.round(activePoint.coverage * 100)}%)`
+                        : ''}
+                    </span>
+                  )}
                   {activePoint.absentReason && (
                     <span className="text-[11px] text-text-muted">
                       {activePoint.absentReason}
@@ -680,12 +763,14 @@ export function InteractiveChart({
                   const fullDate = formatDateLong(p.date, locale);
                   const valStr = valueText(p);
                   const stateStr = stateLabels[p.state];
-                  // Stato senza valore (non «assente»): niente unita' dopo il testo nullo, come il tooltip;
-                  // senza testo del chiamante l'unica cosa detta e' lo stato (mai «0 passi»).
-                  const nullo = p.value === null && p.state !== 'absent';
+                  // Stato senza valore: mai l'unita' dopo il testo nullo (B3d D4: nemmeno per l'assente),
+                  // come il tooltip. L'assente dice il proprio testo («Nessun dato»); gli altri, senza testo
+                  // del chiamante, dicono solo lo stato (mai «0 passi»). Testo uguale allo stato: una volta (D6).
+                  const nullo = p.value === null;
                   const haTestoNullo = typeof valueLabels?.[p.state] === 'string' && valueLabels[p.state]!.trim() !== '';
+                  const dicoValore = p.state === 'absent' || p.state === 'undetermined' || haTestoNullo;
                   const accessibleLabel = nullo
-                    ? haTestoNullo
+                    ? dicoValore && valStr !== stateStr
                       ? `${fullDate}: ${valStr}, ${stateStr}`
                       : `${fullDate}: ${stateStr}`
                     : `${fullDate}: ${valStr} ${unitOne && p.value !== null && Math.round(p.value) === 1 ? unitOne : unit}, ${stateStr}`;
@@ -768,7 +853,7 @@ export function InteractiveChart({
                       }`}
                       style={alignStyle}
                     >
-                      {totalPoints <= 7 ? formatDateLong(p.date, locale) : formatDateShort(p.date, locale)}
+                      {xTexts[i]}
                     </span>
                   );
                 })}

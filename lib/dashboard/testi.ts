@@ -237,7 +237,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
       absent: 'Nessun dato',
       error: 'Non disponibile',
       ambiguous: 'Più righe',
-      undetermined: '0 non determinabile',
+      undetermined: 'Zero non determinabile',
       placeholder: 'Segnaposto',
     },
     spiegazioni: {
@@ -295,7 +295,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
       absent: 'No data',
       error: 'Not available',
       ambiguous: 'Several rows',
-      undetermined: '0 not determinable',
+      undetermined: 'Zero not determinable',
       placeholder: 'Placeholder',
     },
     spiegazioni: {
