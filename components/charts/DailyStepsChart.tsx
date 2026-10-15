@@ -1,7 +1,7 @@
 'use client';
 
 import type { DailyStepsChartProps } from './types';
-import { InteractiveChart } from './InteractiveChart';
+import { InteractiveChart, resolveStateLabels } from './InteractiveChart';
 import { normalizeChartPoints } from './normalize-points';
 import { CHART } from './primitives';
 
@@ -63,8 +63,27 @@ export function DailyStepsChart({
     (placeholderCount > 0 ? ` ${plural(placeholderCount, 'day', 'days')} with placeholder.` : '');
   const extraCount = receivedCount + ambiguousCount + undeterminedCount + placeholderCount;
 
-  const totalSteps = validPoints.reduce((acc, p) => acc + (p.value ?? 0), 0);
-  const avgSteps = validCount > 0 ? Math.round(totalSteps / validCount) : 0;
+  // Percorso reale (isDemo=false): la completezza delle righe non e' dimostrata, quindi nessuna media,
+  // nessun totale e nessuna «misurazione registrata»: solo il conteggio dei giorni per stato.
+  const labels = resolveStateLabels(locale, stateLabels);
+  const countsSummary = (): string => {
+    const stati = ['measured', 'measured-zero', 'partial', 'received', 'absent', 'error', 'ambiguous', 'undetermined', 'placeholder'] as const;
+    const parti = stati
+      .map((st) => [st, points.filter((p) => p.state === st).length] as const)
+      .filter(([, n]) => n > 0)
+      .map(([st, n]) => `${labels[st]}: ${n}`);
+    const head = isIt
+      ? `Grafico a barre dei passi giornalieri per ${plural(period, 'giorno', 'giorni')}.`
+      : `Daily steps bar chart for ${plural(period, 'day', 'days')}.`;
+    const body = parti.length > 0 ? parti.join('; ') + '.' : (isIt ? 'Nessun giorno nella serie.' : 'No days in the series.');
+    return `${head} ${body}`;
+  };
+
+  // La media si calcola solo per l'anteprima: sul percorso reale non esiste nemmeno come numero.
+  const avgSteps =
+    isDemo && validCount > 0
+      ? Math.round(validPoints.reduce((acc, p) => acc + (p.value ?? 0), 0) / validCount)
+      : 0;
 
   // Media (e totale) includono i giorni parziali: lo si dichiara nella stessa frase.
   const inclIt = partialCount > 0 ? `, ${partialCount === 1 ? 'incluso' : 'inclusi'} ${partialCount} ${partialCount === 1 ? 'giorno parziale' : 'giorni parziali'}` : '';
@@ -94,7 +113,7 @@ export function DailyStepsChart({
         `${errorCount > 0 ? `${plural(errorCount, 'day', 'days')} with error.` : ''}` +
         extraEn;
   // Gli spazi si normalizzano solo quando il riepilogo contiene frasi dei nuovi stati.
-  const summaryText = summaryOverride ?? (extraCount > 0 ? generatedSummary.replace(/ {2,}/g, ' ').trim() : generatedSummary);
+  const summaryText = summaryOverride ?? (!isDemo ? countsSummary() : extraCount > 0 ? generatedSummary.replace(/ {2,}/g, ' ').trim() : generatedSummary);
 
   return (
     <div id={id} data-chart-wrapper="steps" className={className}>
@@ -117,8 +136,8 @@ export function DailyStepsChart({
         goalLabel={
           goalSteps !== undefined
             ? isIt
-              ? `Obiettivo di esempio: ${formatSteps(goalSteps, 'it')} ${unit}`
-              : `Example goal: ${formatSteps(goalSteps, 'en')} ${unit}`
+              ? `${isDemo ? 'Obiettivo di esempio' : 'Obiettivo'}: ${formatSteps(goalSteps, 'it')} ${unit}`
+              : `${isDemo ? 'Example goal' : 'Goal'}: ${formatSteps(goalSteps, 'en')} ${unit}`
             : undefined
         }
         summaryText={summaryText}

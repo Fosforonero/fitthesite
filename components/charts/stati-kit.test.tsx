@@ -175,9 +175,11 @@ describe('riepilogo', () => {
   it('un giorno ricevuto non e\' contato come misurato ne\' entra nella media', () => {
     const { container } = monta(['measured', 'received', 'undetermined']);
     const t = container.querySelector('#t-summary')!.textContent!;
-    expect(t).toContain('1 giorno con valore ricevuto');
-    expect(t).toContain('1 giorno con zero non determinabile');
-    expect(t).toMatch(/media di 4\.?000 passi/);
+    // Percorso non dimostrativo (B3b-2): conteggi per stato, nessuna media.
+    expect(t).toContain('Ricevuto: 1');
+    expect(t).toContain('Non determinabile: 1');
+    expect(t).toContain('Misurato: 1');
+    expect(t).not.toMatch(/media/);
   });
   it('summaryText del chiamante ha la precedenza', () => {
     const { container } = monta(['received'], { summaryText: 'Testo del percorso reale.' });

@@ -60,6 +60,24 @@ const STATE_TEXT: Record<'it' | 'en', Record<ChartSlotState, string>> = {
   },
 };
 
+const NEUTRAL_LABEL: Record<'it' | 'en', string> = { it: 'Stato non disponibile', en: 'State unavailable' };
+
+/**
+ * Etichette di stato effettive: quelle del chiamante solo se sono stringhe non vuote, altrimenti
+ * quelle del kit. Una chiave grezza non diventa mai testo; se persino il kit mancasse, etichetta neutra.
+ */
+export function resolveStateLabels(locale: string, override?: ChartStateTexts): Record<ChartSlotState, string> {
+  const lc = locale === 'it' ? 'it' : 'en';
+  const base = STATE_TEXT[lc];
+  const out = {} as Record<ChartSlotState, string>;
+  for (const state of Object.keys(base) as ChartSlotState[]) {
+    const mine: unknown = override?.[state];
+    const own = typeof mine === 'string' && mine.trim() !== '' ? mine : undefined;
+    out[state] = own ?? (base[state] || NEUTRAL_LABEL[lc]);
+  }
+  return out;
+}
+
 /** Glifo (non solo colore) per gli slot senza valore che non sono ne' assenti ne' errori. */
 const NULL_GLYPH: Partial<Record<ChartSlotState, string>> = {
   ambiguous: '\u2260',
@@ -83,6 +101,60 @@ function badgeClass(state: ChartSlotState): string {
     case 'undetermined':
     case 'placeholder':
       return 'bg-white/5 text-text-muted';
+    default: {
+      const mai: never = state;
+      return mai;
+    }
+  }
+}
+
+/** Ordine della legenda: solo gli stati presenti nella serie vengono mostrati. */
+const LEGEND_ORDER: readonly ChartSlotState[] = [
+  'measured', 'measured-zero', 'partial', 'received', 'absent', 'error', 'ambiguous', 'undetermined', 'placeholder',
+];
+
+function LegendSwatch({ state, color }: { state: ChartSlotState; color: string }) {
+  switch (state) {
+    case 'measured':
+      return <span className="inline-block w-3.5 h-2.5 rounded-sm" style={{ backgroundColor: color }} />;
+    case 'measured-zero':
+      return <span className="inline-block w-3.5 h-1 rounded-sm" style={{ backgroundColor: color }} />;
+    case 'partial':
+      return (
+        <span
+          className="inline-block w-3.5 h-2.5 rounded-sm border border-warning/60"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(45deg, #FFB547, #FFB547 2px, transparent 2px, transparent 5px)',
+          }}
+        />
+      );
+    case 'received':
+      return (
+        <span className="inline-block w-3.5 h-2.5 rounded-sm border border-text-muted/60" style={{ backgroundColor: color }} />
+      );
+    case 'absent':
+    case 'error':
+      return (
+        <span
+          className="inline-block w-3.5 h-2.5 rounded-sm border border-dashed border-text-muted/60"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(45deg, rgba(255,255,255,0.08), rgba(255,255,255,0.08) 2px, transparent 2px, transparent 5px)',
+          }}
+        />
+      );
+    case 'ambiguous':
+    case 'undetermined':
+    case 'placeholder':
+      return (
+        <span
+          aria-hidden="true"
+          className="inline-flex w-3.5 h-2.5 items-center justify-center rounded-sm border border-dashed border-text-muted/60 text-[9px] leading-none text-text-muted"
+        >
+          {NULL_GLYPH[state]}
+        </span>
+      );
     default: {
       const mai: never = state;
       return mai;
@@ -149,15 +221,14 @@ export function InteractiveChart({
   valueLabels,
 }: InteractiveChartProps) {
   const isIt = locale === 'it';
-  const stateLabels: Record<ChartSlotState, string> = {
-    ...(isIt ? STATE_TEXT.it : STATE_TEXT.en),
-    ...stateLabelsOverride,
+  const stateLabels = resolveStateLabels(locale, stateLabelsOverride);
+  // Testo al posto del valore, per STATO: «Nessun dato» e' solo dell'assenza; errore, ambiguo, non
+  // determinabile e segnaposto mostrano ciascuno la propria etichetta (mai 0). Il chiamante puo' sostituirlo.
+  const nullValueText = (state: ChartSlotState): string => {
+    const own: unknown = valueLabels?.[state];
+    if (typeof own === 'string' && own.trim() !== '') return own;
+    return state === 'absent' ? (isIt ? 'Nessun dato' : 'No data') : stateLabels[state];
   };
-  // Testo al posto del valore: assente/errore restano «Nessun dato»; i nuovi stati nulli
-  // mostrano la propria etichetta (mai «nessun dato», mai 0). Il chiamante puo' sostituirlo.
-  const nullValueText = (state: ChartSlotState): string =>
-    valueLabels?.[state] ??
-    (state === 'absent' || state === 'error' ? (isIt ? 'Nessun dato' : 'No data') : stateLabels[state]);
   const valueText = (p: ChartDataPoint): string =>
     p.value !== null ? formatValue(p.value, locale) : nullValueText(p.state);
   const tooltipElementId = `${id}-tooltip`;
@@ -290,6 +361,7 @@ export function InteractiveChart({
   }
 
   const activePoint = activeIdx !== null ? normalizedPoints[activeIdx] : null;
+  const presentStates = new Set<ChartSlotState>(normalizedPoints.map((p) => p.state));
 
   // Indici delle etichette asse X
   const xLabelIndices =
@@ -340,7 +412,9 @@ export function InteractiveChart({
                   <span className="font-mono text-sm font-semibold text-brand-aqua">
                     {valueText(activePoint)}
                   </span>
-                  <span className="text-text-muted">({unit})</span>
+                  {(activePoint.value !== null || activePoint.state === 'absent') && (
+                    <span className="text-text-muted">({unit})</span>
+                  )}
                 </div>
                 <div className="flex items-center gap-2">
                   <span
@@ -606,7 +680,7 @@ export function InteractiveChart({
                   const stateStr = stateLabels[p.state];
                   // Stato nuovo senza valore: l'etichetta dello stato e' l'unica cosa detta (mai «0 passi»).
                   const soloStato =
-                    p.value === null && p.state !== 'absent' && p.state !== 'error' && valueLabels?.[p.state] === undefined;
+                    p.value === null && p.state !== 'absent' && !(typeof valueLabels?.[p.state] === 'string' && valueLabels[p.state]!.trim() !== '');
                   const accessibleLabel = soloStato
                     ? `${fullDate}: ${stateStr}`
                     : `${fullDate}: ${valStr} ${unitOne && p.value !== null && Math.round(p.value) === 1 ? unitOne : unit}, ${stateStr}`;
@@ -700,57 +774,13 @@ export function InteractiveChart({
 
           {/* Legenda visiva */}
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-text-secondary">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="inline-block w-3.5 h-2.5 rounded-sm" style={{ backgroundColor: color }} />
-              {stateLabels.measured}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="inline-block w-3.5 h-1 rounded-sm" style={{ backgroundColor: color }} />
-              {stateLabels['measured-zero']}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span
-                className="inline-block w-3.5 h-2.5 rounded-sm border border-warning/60"
-                style={{
-                  backgroundImage:
-                    'repeating-linear-gradient(45deg, #FFB547, #FFB547 2px, transparent 2px, transparent 5px)',
-                }}
-              />
-              {stateLabels.partial}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span
-                className="inline-block w-3.5 h-2.5 rounded-sm border border-dashed border-text-muted/60"
-                style={{
-                  backgroundImage:
-                    'repeating-linear-gradient(45deg, rgba(255,255,255,0.08), rgba(255,255,255,0.08) 2px, transparent 2px, transparent 5px)',
-                }}
-              />
-              {stateLabels.absent}
-            </span>
-            {/* Voci aggiunte solo se lo stato e' presente nella serie: la legenda non promette cio' che non c'e'. */}
-            {normalizedPoints.some((p) => p.state === 'received') && (
-              <span className="inline-flex items-center gap-1.5" data-legend-state="received">
-                <span
-                  className="inline-block w-3.5 h-2.5 rounded-sm border border-text-muted/60"
-                  style={{ backgroundColor: color }}
-                />
-                {stateLabels.received}
+            {/* Solo gli stati presenti nella serie: la legenda non promette cio' che non c'e'. */}
+            {LEGEND_ORDER.filter((st) => presentStates.has(st)).map((st) => (
+              <span key={`legend-${st}`} className="inline-flex items-center gap-1.5" data-legend-state={st}>
+                <LegendSwatch state={st} color={color} />
+                {stateLabels[st]}
               </span>
-            )}
-            {(['ambiguous', 'undetermined', 'placeholder'] as const).map((st) =>
-              normalizedPoints.some((p) => p.state === st) ? (
-                <span key={`legend-${st}`} className="inline-flex items-center gap-1.5" data-legend-state={st}>
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex w-3.5 h-2.5 items-center justify-center rounded-sm border border-dashed border-text-muted/60 text-[9px] leading-none text-text-muted"
-                  >
-                    {NULL_GLYPH[st]}
-                  </span>
-                  {stateLabels[st]}
-                </span>
-              ) : null,
-            )}
+            ))}
           </div>
         </figure>
 
