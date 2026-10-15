@@ -37,9 +37,12 @@
  * e, per `ricevuto`, `passi`.
  *
  * Il giorno si attribuisce per UGUAGLIANZA ESATTA di `local_day_key` con una data della
- * finestra: una chiave malformata (spazi, ora, altro formato) non e' attribuita a nessun
- * giorno. LIMITE: una riga cosi non genera ne ambiguita ne valore, quindi il giorno a cui
- * «doveva» appartenere puo' risultare nessun_dato. Il database la ammette (colonna di testo).
+ * finestra. Una chiave NON esatta che INIZIA con la data di un giorno della finestra (spazio
+ * finale, ora, suffisso: la lettura gte/lte e' lessicografica e la include) non e' scartata
+ * in silenzio: quel giorno diventa non_disponibile (mai ricevuto, mai nessun_dato, mai
+ * ambiguo; nessun valore estratto). Una chiave che non assomiglia a nessun giorno della
+ * finestra resta ignorata. Il database ammette chiavi cosi (colonna di testo).
+ * Un intero oltre 2147483647 (colonna int4) e' non_disponibile: non e' un valore plausibile.
  *
  * Modulo puro: nessuno stato di modulo, nessuna cache, input mai modificato, risultato
  * congelato. L'unica lettura dell'orologio e' la verifica che la finestra sia conclusa.
@@ -71,10 +74,14 @@ export type GiornoPassi =
   | { readonly giorno: string; readonly stato: 'nessun_dato' };
 
 /**
- * Le sole sorgenti il cui `steps = 0` e' PROVATAMENTE un segnaposto: il codice dell'app
- * scrive il letterale `steps: 0` nello snapshot, che porta solo exercise_sessions
- * (strava_oauth) o sonno e HRV (oura_oauth), in providers.dart, funzioni _stravaSnapshot e
- * _ouraSnapshot. Confronto di testo ESATTO, maiuscole comprese: un testo diverso non e'
+ * Le sole sorgenti il cui `steps = 0` e' PROVATAMENTE un segnaposto: nelle release 188-191 il
+ * codice dell'app scrive il letterale `steps: 0` nello snapshot, che porta solo
+ * exercise_sessions (strava_oauth) o sonno e HRV (oura_oauth), in providers.dart, funzioni
+ * _stravaSnapshot e _ouraSnapshot. DALLA 192 l'app scrive `steps` null per queste due
+ * sorgenti: la whitelist vale per le righe STORICHE (null -> nessun_dato, come ogni null).
+ * DECISIONE APERTA D1: queste righe contano comunque come candidate (ambiguita' con una
+ * riga del telefono) mentre l'app 192.1 vieta per policy di leggere/combinare Strava; il
+ * trattamento NON e' cambiato qui. Confronto di testo ESATTO, maiuscole comprese: un testo diverso non e'
  * provato. NON aggiungere voci senza la stessa prova (file e riga) nel referto.
  */
 export const SORGENTI_CON_ZERO_SEGNAPOSTO: readonly string[] = Object.freeze(['strava_oauth', 'oura_oauth']);
@@ -84,12 +91,17 @@ type RigaLetta = Readonly<Partial<Pick<RigaMetrica, 'local_day_key' | 'steps' | 
 
 type Candidata = { readonly steps: unknown; readonly segnaposto: boolean };
 
-function qualificaGiorno(giorno: string, candidate: readonly Candidata[]): GiornoPassi {
+/** Massimo della colonna int4: oltre non e' un valore plausibile (non corretto, non troncato). */
+const MASSIMO_INT4 = 2147483647;
+const LUNGHEZZA_DATA = 10;
+
+function qualificaGiorno(giorno: string, candidate: readonly Candidata[], chiaveNonEsatta: boolean): GiornoPassi {
+  if (chiaveNonEsatta) return Object.freeze({ giorno, stato: 'non_disponibile' });
   if (candidate.length === 0) return Object.freeze({ giorno, stato: 'nessun_dato' });
   if (candidate.length > 1) return Object.freeze({ giorno, stato: 'ambiguo' });
   const { steps, segnaposto } = candidate[0];
   if (steps === null || steps === undefined) return Object.freeze({ giorno, stato: 'nessun_dato' });
-  if (typeof steps !== 'number' || !Number.isSafeInteger(steps) || steps < 0) {
+  if (typeof steps !== 'number' || !Number.isSafeInteger(steps) || steps < 0 || steps > MASSIMO_INT4) {
     return Object.freeze({ giorno, stato: 'non_disponibile' });
   }
   if (steps > 0) return Object.freeze({ giorno, stato: 'ricevuto', passi: steps });
@@ -105,22 +117,42 @@ function qualificaGiorno(giorno: string, candidate: readonly Candidata[]): Giorn
  */
 export function qualificaPassi(righe: readonly RigaLetta[], finestra: FinestraGiorni): readonly GiornoPassi[] {
   if (!Array.isArray(righe)) throw new TypeError('le righe devono essere un array');
-  if (!eFinestraConclusaValida(finestra)) {
+  // La finestra si legge UNA volta: si valida e si usa solo la copia (nessun TOCTOU).
+  const letta = finestra as Partial<FinestraGiorni> | null | undefined;
+  let copia: unknown = letta;
+  if (typeof letta === 'object' && letta !== null) {
+    const primo = letta.primo;
+    const ultimo = letta.ultimo;
+    const giorni: unknown = letta.giorni;
+    copia = { primo, ultimo, giorni: Array.isArray(giorni) ? [...giorni] : giorni };
+  }
+  if (!eFinestraConclusaValida(copia)) {
     throw new RangeError('finestra dei giorni non valida o con un giorno non concluso');
   }
+  const giorniFinestra: readonly string[] = Object.freeze([...copia.giorni]);
   const perGiorno = new Map<string, Candidata[]>();
-  for (const giorno of finestra.giorni) perGiorno.set(giorno, []);
+  const nonEsatti = new Set<string>();
+  for (const giorno of giorniFinestra) perGiorno.set(giorno, []);
   for (const riga of righe) {
     if (typeof riga !== 'object' || riga === null) continue;
     const giorno = riga.local_day_key;
     if (typeof giorno !== 'string') continue;
     const lista = perGiorno.get(giorno);
-    if (!lista) continue; // fuori finestra, o chiave non identica a una data della finestra
+    if (!lista) {
+      // Chiave non esatta: se inizia con la data di un giorno della finestra, quel giorno non si valuta.
+      if (giorno.length > LUNGHEZZA_DATA) {
+        const prefisso = giorno.slice(0, LUNGHEZZA_DATA);
+        if (perGiorno.has(prefisso)) nonEsatti.add(prefisso);
+      }
+      continue; // fuori finestra, o chiave che non assomiglia a un giorno della finestra
+    }
     const { source } = riga;
     lista.push({
       steps: riga.steps,
       segnaposto: typeof source === 'string' && SORGENTI_CON_ZERO_SEGNAPOSTO.includes(source),
     });
   }
-  return Object.freeze(finestra.giorni.map((giorno) => qualificaGiorno(giorno, perGiorno.get(giorno) ?? [])));
+  return Object.freeze(
+    giorniFinestra.map((giorno) => qualificaGiorno(giorno, perGiorno.get(giorno) ?? [], nonEsatti.has(giorno))),
+  );
 }

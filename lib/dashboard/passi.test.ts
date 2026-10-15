@@ -251,7 +251,7 @@ describe('righe fuori finestra e giorno non concluso', () => {
 
   it('local_day_key che non e esattamente una data della finestra non attribuisce nulla', () => {
     const strane = [
-      riga('2026-10-08T00:00:00Z', 111), riga(' 2026-10-08', 222), riga('2026-10-08 ', 333), riga('20261008', 444),
+      riga('2026-10-01T00:00:00Z', 111), riga(' 2026-10-08', 222), riga('2026-10-15 ', 333), riga('20261008', 444),
       riga('ieri', 555), riga(null, 666), riga(undefined, 777), riga(20261008, 888), riga('', 999),
     ];
     const r = qualificaPassi(strane as never, FINESTRA);
