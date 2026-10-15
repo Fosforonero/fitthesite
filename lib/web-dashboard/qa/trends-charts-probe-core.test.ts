@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
 import { describe, expect, it } from 'vitest';
@@ -5,7 +7,9 @@ import { describe, expect, it } from 'vitest';
 import {
   DEFAULT_OUT,
   DEFAULT_PORT,
+  OUT_ENV,
   comboName,
+  defaultOut,
   isInside,
   layoutFailures,
   matrix,
@@ -23,9 +27,36 @@ const REPO = path.resolve(__dirname, '../../..');
 
 describe('argomenti della sonda', () => {
   it('default: porta 3191 e uscita fuori dal repository', () => {
-    const a = parseArgs([], REPO);
+    const a = parseArgs([], REPO, {});
     expect(a).toEqual({ out: DEFAULT_OUT, port: DEFAULT_PORT, name: 'report' });
     expect(isInside(REPO, a.out)).toBe(false);
+  });
+
+  it('uscita configurabile: --out vince su FITMESH_PROBE_OUT, che vince sul ripiego', () => {
+    const fromEnv = path.join(os.tmpdir(), 'sonda-da-ambiente');
+    expect(parseArgs([], REPO, { [OUT_ENV]: fromEnv }).out).toBe(fromEnv);
+    expect(parseArgs(['--out', '/tmp/da-argomento'], REPO, { [OUT_ENV]: fromEnv }).out).toBe('/tmp/da-argomento');
+    expect(defaultOut({})).toBe(DEFAULT_OUT);
+  });
+
+  it('FITMESH_PROBE_OUT vuota o fatta di spazi vale come assente e un percorso relativo diventa assoluto', () => {
+    expect(parseArgs([], REPO, { [OUT_ENV]: '' }).out).toBe(DEFAULT_OUT);
+    expect(parseArgs([], REPO, { [OUT_ENV]: '   ' }).out).toBe(DEFAULT_OUT);
+    const rel = parseArgs([], REPO, { [OUT_ENV]: '../../fuori-repo-probe' }).out;
+    expect(path.isAbsolute(rel)).toBe(true);
+    expect(rel).toBe(path.resolve('../../fuori-repo-probe'));
+  });
+
+  it("rifiuta un'uscita dentro il repository anche quando arriva dall'ambiente", () => {
+    expect(() => parseArgs([], REPO, { [OUT_ENV]: path.join(REPO, 'docs/qa') })).toThrow(/dentro il repository/);
+    expect(() => parseArgs([], REPO, { [OUT_ENV]: REPO })).toThrow(/dentro il repository/);
+  });
+
+  it('il sorgente della sonda non contiene percorsi fissi della macchina di chi scrive', () => {
+    for (const f of ['trends-charts-probe-core.ts', 'verify-trends-charts-mounted.ts']) {
+      const src = fs.readFileSync(path.join(__dirname, f), 'utf8');
+      expect(src, f).not.toMatch(/\/Volumes\/|\/Users\/[A-Za-z0-9._-]+\/|[A-Z]:\\Users\\/);
+    }
   });
 
   it('rifiuta un --out dentro il repository, argomenti sconosciuti e porte non valide', () => {

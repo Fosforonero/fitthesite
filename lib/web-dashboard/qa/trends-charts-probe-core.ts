@@ -5,6 +5,7 @@
  * misure prese nel browser. La sonda vera e' verify-trends-charts-mounted.ts.
  * Nessuna rotta reale importa questo file: vive nel namespace privato della preview.
  */
+import os from 'node:os';
 import path from 'node:path';
 
 export type ProbeLocale = 'it' | 'en';
@@ -29,8 +30,19 @@ export const Y_AXIS_PX = 48;
 export const EPS = 0.05;
 
 export const DEFAULT_PORT = 3191;
-export const DEFAULT_OUT =
-  '/Volumes/LOS ANGELES/Matteo/Dev Roba Mia/App Orologio/.claude/stato-lavoro/ripartenza-sito-13ott/14-microgate/03-montaggio-sonda/probe-out';
+/** Variabile d'ambiente che sceglie la cartella di uscita quando manca --out. */
+export const OUT_ENV = 'FITMESH_PROBE_OUT';
+/** Uscita di ripiego: sempre fuori dal repository e senza percorsi della macchina di chi scrive. */
+export const DEFAULT_OUT = path.join(os.tmpdir(), 'fitmesh-trends-charts-probe');
+
+/**
+ * Cartella di uscita senza --out: FITMESH_PROBE_OUT (percorso assoluto o relativo alla directory
+ * corrente) se valorizzata e non vuota, altrimenti DEFAULT_OUT. Nessun percorso fisso della macchina.
+ */
+export function defaultOut(env: NodeJS.ProcessEnv): string {
+  const fromEnv = env[OUT_ENV]?.trim();
+  return fromEnv ? path.resolve(fromEnv) : DEFAULT_OUT;
+}
 
 export function matrix(): ProbeCombo[] {
   const out: ProbeCombo[] = [];
@@ -60,9 +72,12 @@ export interface ProbeArgs {
   name: string;
 }
 
-/** --out <dir> --port <n> --name <base>. Rifiuta argomenti sconosciuti e un --out dentro il repository. */
-export function parseArgs(argv: readonly string[], repoRoot: string): ProbeArgs {
-  const args: ProbeArgs = { out: DEFAULT_OUT, port: DEFAULT_PORT, name: 'report' };
+/**
+ * --out <dir> --port <n> --name <base>. Senza --out vale FITMESH_PROBE_OUT, poi DEFAULT_OUT.
+ * Rifiuta argomenti sconosciuti e un'uscita dentro il repository, anche se arriva dall'ambiente.
+ */
+export function parseArgs(argv: readonly string[], repoRoot: string, env: NodeJS.ProcessEnv = process.env): ProbeArgs {
+  const args: ProbeArgs = { out: defaultOut(env), port: DEFAULT_PORT, name: 'report' };
   for (let i = 0; i < argv.length; i++) {
     const key = argv[i];
     const val = argv[i + 1];
