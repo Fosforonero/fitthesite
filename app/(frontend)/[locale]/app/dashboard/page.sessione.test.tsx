@@ -173,7 +173,7 @@ function clientDi(
         range: async () => {
           await attendi(ritardi.lettura);
           chiamata.restituite = righe;
-          return { data: righe, error: null };
+          return { data: righe, error: null, count: righe.length };
         },
       };
       return f;

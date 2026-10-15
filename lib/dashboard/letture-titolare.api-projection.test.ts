@@ -24,7 +24,7 @@ async function accesso(): Promise<AccessoConcesso> {
 function fakeClient(righe: Record<string, unknown>[]): ClientLetture {
   const filtro: FiltroLetture = {
     eq: () => filtro, gte: () => filtro, lte: () => filtro, lt: () => filtro, order: () => filtro,
-    range: async () => ({ data: righe, error: null }),
+    range: async () => ({ data: righe, error: null, count: righe.length }),
   };
   return { from: () => ({ select: () => filtro }) };
 }

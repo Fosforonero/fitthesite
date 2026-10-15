@@ -112,7 +112,7 @@ function supabaseFinto(opzioni: {
         lt: () => f,
         order: () => f,
         range: () =>
-          Promise.resolve(opzioni.erroreLettura ? { data: null, error: { code: 'XX000' } } : { data: righe, error: null }),
+          Promise.resolve(opzioni.erroreLettura ? { data: null, error: { code: 'XX000' } } : { data: righe, error: null, count: righe.length }),
       };
       return f;
     },

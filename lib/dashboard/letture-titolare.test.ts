@@ -76,7 +76,8 @@ function finto(tabelle: Record<string, Riga[]>, opzioni: { ignoraFiltroProprieta
               });
               const cols = colonne.split(',');
               const pagina = ordinate.slice(da, a + 1).map((r) => Object.fromEntries(cols.map((k) => [k, r[k]])));
-              return Promise.resolve({ data: pagina, error: null });
+              // il conteggio di PostgREST con count=exact: le righe dopo i filtri, prima della pagina
+              return Promise.resolve({ data: pagina, error: null, count: ordinate.length });
             },
           };
           return filtro;

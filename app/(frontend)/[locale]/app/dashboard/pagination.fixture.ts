@@ -16,11 +16,14 @@ export function paginationFixture(scenario: PaginationScenario) {
   }));
   const eq = vi.fn((_column: string, _value: string) => query);
   const range = vi.fn(async (from: number, _to: number) => {
-    if (from === 0 || scenario === 'limit') return { data: rows, error: null };
+    // Declared count (count: 'exact'): 1000 for the later-page faults (a second page is expected),
+    // 25000 (> 40 pages x 500) for the limit scenario so the loop stops at the page limit, not by count.
+    const count = scenario === 'limit' ? 25_000 : 1000;
+    if (from === 0 || scenario === 'limit') return { data: rows, error: null, count };
     if (scenario === 'later-error') return {
       data: null, error: { code: 'SYNTHETIC', message: SERVER_DIAGNOSTIC },
     };
-    return { data: [{ ...rows[0], user_id: OTHER }], error: null };
+    return { data: [{ ...rows[0], user_id: OTHER }], error: null, count };
   });
   // Intentionally does not filter the foreign row: the real reader must reject it.
   // Rows already have a fixed valid day. No server filtering/sorting is certified.

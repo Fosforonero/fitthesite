@@ -66,7 +66,7 @@ function database(rows: Record<string, unknown>[], options: { ignoreOwner?: bool
             // Deliberately return unsolicited columns to test the reader projection.
             return options.error
               ? { data: null, error: { code: 'SYNTHETIC', message: 'fixture-private-field' } }
-              : { data: candidates.slice(from, to + 1), error: null };
+              : { data: candidates.slice(from, to + 1), error: null, count: candidates.length };
           },
         };
         return query;
@@ -107,7 +107,9 @@ describe('owner reader -> qualified series -> chart adapter (synthetic only)', (
   });
 
   it('passes incomplete pagination to the assembler and never invokes qualification', async () => {
-    const fixture = database(Array.from({ length: 500 }, () => row('2026-10-01', 100)));
+    // 501 righe e una sola pagina da 500: il conteggio dichiarato (501) supera le righe lette. Con 500 righe e
+    // conteggio 500 la lettura sarebbe COMPLETA (una pagina piena che esaurisce il conteggio).
+    const fixture = database(Array.from({ length: 501 }, () => row('2026-10-01', 100)));
     const resolver = vi.fn(() => empty());
     const { reading, assembly } = await readAndAssemble(fixture.client, daysFrom(), resolver, 1);
     expect(reading.completo).toBe(false);

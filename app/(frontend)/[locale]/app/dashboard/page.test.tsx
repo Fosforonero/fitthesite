@@ -50,7 +50,7 @@ function supabaseFinto(opzioni: { utente?: boolean; rpc: Rpc; metriche?: Record<
           Promise.resolve(
             opzioni.metriche === 'errore'
               ? { data: null, error: { code: 'XX000' } }
-              : { data: righe, error: null },
+              : { data: righe, error: null, count: righe.length },
           ),
       };
       return f;
