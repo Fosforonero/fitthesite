@@ -62,19 +62,44 @@ describe('a) isDemo: il markup reale non contiene testi dimostrativi', () => {
 
 /** Radice del repository (questo file sta in components/charts). */
 const RADICE = path.resolve(__dirname, '../..');
-const IMPORTA_GRAFICO = /from\s+['"][^'"]*\/(DailyStepsChart|InteractiveChart)['"]/;
+const MODULO_GRAFICO = /['"][^'"]*\/(DailyStepsChart|InteractiveChart)['"]/;
+/** Ogni tag di apertura JSX del grafico condiviso (le graffe annidate non chiudono il tag). */
+const APERTURA_GRAFICO = /<(DailyStepsChart|InteractiveChart)\b((?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|[^>{}])*)>/g;
 
-/** True se il sorgente importa il grafico condiviso ma non passa mai isDemo={false}. */
+/**
+ * True se il sorgente fa riferimento al grafico condiviso in un modo che non dimostra isDemo={false}:
+ * (1) import dinamico, require o ri-esportazione (non verificabili: vietati);
+ * (2) qualunque montaggio JSX senza isDemo={false}, o con uno spread DOPO il flag.
+ * Il controllo e' per montaggio, non per file.
+ */
 function dimenticaIsDemoFalse(sorgente: string): boolean {
-  return IMPORTA_GRAFICO.test(sorgente) && !/isDemo=\{false\}/.test(sorgente);
+  const lineeModulo = sorgente.split('\n').filter((l) => MODULO_GRAFICO.test(l));
+  const nonVerificabile = lineeModulo.some(
+    (l) => /\bimport\s*\(|\brequire\s*\(|\bexport\b[^;]*\bfrom\b/.test(l),
+  );
+  if (nonVerificabile) return true;
+  for (const m of sorgente.matchAll(APERTURA_GRAFICO)) {
+    const attributi = m[2];
+    const idx = attributi.indexOf('isDemo={false}');
+    if (idx < 0) return true;
+    if (/\{\s*\.\.\./.test(attributi.slice(idx))) return true;
+  }
+  return false;
 }
+
+/** File dell'implementazione del kit e dell'anteprima (consumatore che usa il default): unici esenti, per nome. */
+const ESENTI = new Set([
+  'components/charts/DailyStepsChart.tsx',
+  'components/charts/InteractiveChart.tsx',
+]);
+const ESENTI_PREFISSO = ['components/web-dashboard/charts/'];
 
 function sorgentiProduzione(dir: string, out: string[] = []): string[] {
   for (const nome of readdirSync(path.join(RADICE, dir))) {
     if (nome === 'node_modules' || nome.startsWith('.')) continue;
     const rel = `${dir}/${nome}`;
     if (statSync(path.join(RADICE, rel)).isDirectory()) sorgentiProduzione(rel, out);
-    else if (/\.tsx$/.test(nome) && !/\.test\.tsx$/.test(nome)) out.push(rel);
+    else if (/\.tsx?$/.test(nome) && !/\.test\.tsx?$/.test(nome)) out.push(rel);
   }
   return out;
 }
@@ -87,11 +112,32 @@ describe('a) guardia sul punto d\'ingresso del percorso reale', () => {
     expect(dimenticaIsDemoFalse('export const x = 1;')).toBe(false);
   });
 
-  it('nessun file di produzione fuori dal kit e dall\'anteprima monta il grafico senza isDemo={false}', () => {
+  it('il rilevatore e\' per montaggio, non per file (M06): un solo isDemo={false} non salva un secondo montaggio', () => {
+    const src = [
+      "import { DailyStepsChart } from '@/components/charts/DailyStepsChart';",
+      '<DailyStepsChart points={a} isDemo={false} />',
+      '<DailyStepsChart points={b} />',
+    ].join('\n');
+    expect(dimenticaIsDemoFalse(src)).toBe(true);
+  });
+
+  it('il rilevatore vede import dinamici, require e ri-esportazioni (M12): non verificabili = vietati', () => {
+    expect(dimenticaIsDemoFalse("const C = dynamic(() => import('@/components/charts/DailyStepsChart'));")).toBe(true);
+    expect(dimenticaIsDemoFalse("const C = require('./InteractiveChart');")).toBe(true);
+    expect(dimenticaIsDemoFalse("export { DailyStepsChart } from './DailyStepsChart';")).toBe(true);
+  });
+
+  it('il rilevatore rifiuta uno spread che puo\' riportare isDemo a true dopo il flag', () => {
+    const importa = "import { InteractiveChart } from '@/components/charts/InteractiveChart';\n";
+    expect(dimenticaIsDemoFalse(`${importa}<InteractiveChart isDemo={false} {...props} />`)).toBe(true);
+    expect(dimenticaIsDemoFalse(`${importa}<InteractiveChart {...props} isDemo={false} />`)).toBe(false);
+  });
+
+  it('nessun file di produzione (kit compreso, salvo i due file di implementazione e l\'anteprima) monta il grafico senza isDemo={false}', () => {
     const cartelle = ['app', 'components', 'lib'];
     const file = cartelle.flatMap((d) => sorgentiProduzione(d));
     const candidati = file.filter(
-      (f) => !f.startsWith('components/charts/') && !f.startsWith('components/web-dashboard/'),
+      (f) => !ESENTI.has(f) && !ESENTI_PREFISSO.some((p) => f.startsWith(p)),
     );
     const colpevoli = candidati.filter((f) => dimenticaIsDemoFalse(readFileSync(path.join(RADICE, f), 'utf8')));
     expect(colpevoli).toEqual([]);
