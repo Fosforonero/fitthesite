@@ -2,10 +2,10 @@ import { describe, expect, it, vi } from 'vitest';
 import {
   COLONNE_METRICHE, leggiMetricheDelTitolare,
   type ClientLetture, type FiltroLetture, type RigaMetrica,
-} from './letture-titolare';
-import { leggiVerdettoDashboard, type AccessoConcesso } from './verdetto';
-import { assembleTrendSeries, type QualifiedDay } from '../web-dashboard/charts/trend-series-from-rows';
-import { toChartPoints, type ChartPointLabels } from '../web-dashboard/charts/measure-adapter';
+} from '@/lib/dashboard/letture-titolare';
+import { leggiVerdettoDashboard, type AccessoConcesso } from '@/lib/dashboard/verdetto';
+import { assembleTrendSeries, type QualifiedDay } from './trend-series-from-rows';
+import { toChartPoints, type ChartPointLabels } from './measure-adapter';
 
 // Synthetic contract integration, not a database/RLS or live source test.
 const OWNER = 'dd000000-0000-4000-8000-000000000002';
