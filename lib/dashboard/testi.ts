@@ -124,7 +124,9 @@ export type TestiPassi = {
   etichette: Record<StatoTestoPassi, string>;
   /** Testo al posto del valore per gli stati senza valore (props valueLabels). */
   valori: Record<'absent' | 'error' | 'ambiguous' | 'undetermined' | 'placeholder', string>;
-  /** Spiegazione per stato, per tooltip e tabella. */
+  /** Intestazione dell'elenco delle spiegazioni nella pagina (HTML lato server). */
+  comeLeggere: string;
+  /** Spiegazione per stato: e' mostrata nell'elenco «come leggere i giorni» della pagina. */
   spiegazioni: Record<'absent' | 'error' | 'ambiguous' | 'undetermined' | 'placeholder' | 'received', string>;
   graficoNonDisponibile: string;
   nessunDatoRicevuto: string;
@@ -249,6 +251,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
       received:
         'Valore ricevuto. La completezza della giornata non è verificata: una sincronizzazione tardiva può cambiarla.',
     },
+    comeLeggere: 'Come leggere i giorni',
     graficoNonDisponibile: 'Il grafico dei passi non è disponibile in questo momento.',
     nessunDatoRicevuto: 'Nessun valore dei passi per questi sette giorni.',
     letturaNonVerificata: TESTI_DASHBOARD.it.conteggioParziale,
@@ -306,6 +309,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
       placeholder: 'The source does not provide steps for this day.',
       received: 'Value received. Whether the day is complete is not verified: a late sync can change it.',
     },
+    comeLeggere: 'How to read the days',
     graficoNonDisponibile: 'The steps chart is not available right now.',
     nessunDatoRicevuto: 'No step value for these seven days.',
     letturaNonVerificata: TESTI_DASHBOARD.en.conteggioParziale,

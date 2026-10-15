@@ -355,6 +355,114 @@ describe('pagina reale: la finestra mostrata e\' dentro l\'intervallo letto', ()
   });
 });
 
+
+/* ------------------------------------------------------------------------------------------
+ * B3e F2: «Come leggere i giorni». Le spiegazioni degli stati arrivano all'utente come HTML
+ * lato server nella PAGINA (mai nell'albero del componente client), solo per gli stati presenti
+ * nella finestra, in ordine fisso.
+ * ---------------------------------------------------------------------------------------- */
+const ORDINE_ELENCO = ['received', 'ambiguous', 'undetermined', 'placeholder', 'error', 'absent'] as const;
+
+function elencoComeLeggere(html: string): Array<{ etichetta: string; spiegazione: string }> | null {
+  const sez = /<section[^>]*data-elenco="come-leggere"[^>]*>([\s\S]*?)<\/section>/.exec(html);
+  if (!sez) return null;
+  return [...sez[1].matchAll(/<dt[^>]*data-stato="([a-z-]+)"[^>]*>([\s\S]*?)<\/dt>\s*<dd[^>]*>([\s\S]*?)<\/dd>/g)].map(
+    (m) => ({ etichetta: m[2].replace(/<[^>]*>/g, '').trim(), spiegazione: m[3].replace(/<[^>]*>/g, '').trim(), stato: m[1] }),
+  );
+}
+
+/** L'idea: «non sappiamo se» lo zero significa nessun passo o passi non letti (non solo «nessun passo»). */
+function dicePerDavveroLIdeaDelloZero(lingua: 'it' | 'en', testo: string): boolean {
+  return lingua === 'it'
+    ? /non sappiamo se/i.test(testo) && /nessun passo/i.test(testo) && /passi non letti/i.test(testo)
+    : /do not know whether/i.test(testo) && /no steps/i.test(testo) && /not read/i.test(testo);
+}
+
+describe.each(['it', 'en'] as const)('pagina reale: «Come leggere i giorni» (%s)', (locale) => {
+  const tp = testiPassiPer(locale)!;
+
+  it('intestazione e un elemento per ogni stato presente, con etichetta e spiegazione; ordine fisso', async () => {
+    const { html } = await rendi(locale, {
+      fitness_metrics: [
+        riga('2026-10-08', 5000),
+        riga('2026-10-10', 111, 'phone'),
+        riga('2026-10-10', 222, 'ring'),
+        riga('2026-10-11', 0, 'phone'),
+        riga('2026-10-12', 0, 'strava_oauth'),
+        riga('2026-10-13', 1.5),
+      ],
+    });
+    expect(html).toContain(tp.comeLeggere);
+    const elenco = elencoComeLeggere(html);
+    expect(elenco).not.toBeNull();
+    const chiavi = [...html.matchAll(/<dt[^>]*data-stato="([a-z-]+)"/g)].map((m) => m[1]);
+    expect(chiavi).toEqual([...ORDINE_ELENCO]);
+    for (const k of ORDINE_ELENCO) {
+      const voce = elenco![chiavi.indexOf(k)];
+      expect(voce.etichetta).toBe(tp.etichette[k]);
+      expect(voce.spiegazione).toBe(tp.spiegazioni[k]);
+    }
+  });
+
+  it.each([
+    ['received', riga('2026-10-14', 8000)],
+    ['ambiguous', null],
+    ['undetermined', riga('2026-10-14', 0, 'phone')],
+    ['placeholder', riga('2026-10-14', 0, 'strava_oauth')],
+    ['error', riga('2026-10-14', -3)],
+  ] as const)('solo lo stato presente: %s (gli assenti degli altri giorni compaiono, gli altri no)', async (stato, r) => {
+    const righe = stato === 'ambiguous' ? [riga('2026-10-14', 1, 'phone'), riga('2026-10-14', 2, 'ring')] : [r!];
+    const { html } = await rendi(locale, { fitness_metrics: righe });
+    const chiavi = [...html.matchAll(/<dt[^>]*data-stato="([a-z-]+)"/g)].map((m) => m[1]);
+    expect(chiavi).toEqual([stato, 'absent']);
+    const elenco = elencoComeLeggere(html)!;
+    expect(elenco[0].spiegazione).toBe(tp.spiegazioni[stato]);
+    expect(elenco[1].spiegazione).toBe(tp.spiegazioni.absent);
+  });
+
+  it('assenza totale: solo la spiegazione dell\'assenza; mai «ricevuto», mai zero', async () => {
+    const { html } = await rendi(locale, { fitness_metrics: [] });
+    const chiavi = [...html.matchAll(/<dt[^>]*data-stato="([a-z-]+)"/g)].map((m) => m[1]);
+    expect(chiavi).toEqual(['absent']);
+    expect(elencoComeLeggere(html)![0].spiegazione).not.toMatch(/ricevut|received|\bzero\b/i);
+  });
+
+  it('F1 in pagina: riga ricevuta con steps null su tutti i giorni, nessun «non ricevuto» accanto a «Giorni con dati: 1»', async () => {
+    const righe = finestraAttesa(ORA_DI_BASE).map((g) => riga(g, null));
+    const { html } = await rendi(locale, { fitness_metrics: righe });
+    expect(statiDelGrafico(html).map(([, s]) => s)).toEqual(Array(7).fill('absent'));
+    const testo = testoVisibile(html);
+    expect(testo).not.toMatch(/nessun dato ricevuto|no data received|senza dati ricevuti|with no data received/i);
+    expect(html).toContain(tp.nessunDatoRicevuto);
+  });
+
+  it('la spiegazione dello zero non determinabile dice che non sappiamo (non «nessun passo»)', async () => {
+    const { html } = await rendi(locale, { fitness_metrics: [riga('2026-10-12', 0, 'phone')] });
+    const voce = elencoComeLeggere(html)!.find((v) => v.etichetta === tp.etichette.undetermined)!;
+    expect(dicePerDavveroLIdeaDelloZero(locale, voce.spiegazione)).toBe(true);
+    expect(voce.spiegazione).not.toBe(locale === 'it' ? 'Nessun passo.' : 'No steps.');
+  });
+
+  it('mutante: la frase cambiata in «Nessun passo.» / «No steps.» fa fallire il controllo', () => {
+    expect(dicePerDavveroLIdeaDelloZero(locale, tp.spiegazioni.undetermined)).toBe(true);
+    expect(dicePerDavveroLIdeaDelloZero('it', 'Nessun passo.')).toBe(false);
+    expect(dicePerDavveroLIdeaDelloZero('en', 'No steps.')).toBe(false);
+    expect(dicePerDavveroLIdeaDelloZero('it', '0 ricevuto: nessun passo.')).toBe(false);
+  });
+
+  it('nessuna percentuale, nessuna promessa di completezza, nessuna copertura nell\'elenco', async () => {
+    const { html } = await rendi(locale, { fitness_metrics: [riga('2026-10-14', 8000)] });
+    const sez = /<section[^>]*data-elenco="come-leggere"[\s\S]*?<\/section>/.exec(html)![0];
+    const testo = testoVisibile(sez);
+    expect(testo).not.toMatch(/%|copertur|coverage|complet[oa] al|\bsempre\b|\balways\b/i);
+  });
+
+  it('pagina non completa: nessun grafico e nessun elenco', async () => {
+    const { html } = await rendi(locale, { fitness_metrics: [riga('2026-10-14', 8000)], maxRows: 20, conteggio: 'malformato' } as Opzioni);
+    expect(html).not.toContain('data-elenco="come-leggere"');
+  });
+});
+
 describe('pagina reale: il payload verso il client e\' minimo', () => {
   /** Espande i componenti della pagina (funzioni senza hook) e si ferma al grafico client. */
   function trovaGrafico(nodo: unknown): Record<string, unknown> | null {
@@ -408,6 +516,12 @@ describe('pagina reale: il payload verso il client e\' minimo', () => {
       'absent', 'absent', 'error', 'undetermined', 'ambiguous', 'placeholder', 'received',
     ]);
     const serializzato = JSON.stringify(props);
+    // B3e F2: le spiegazioni e l'intestazione dell'elenco vivono solo nell'HTML della pagina.
+    for (const l of ['it'] as const) {
+      const tpp = testiPassiPer(l)!;
+      expect(serializzato).not.toContain(tpp.comeLeggere);
+      for (const sp of Object.values(tpp.spiegazioni)) expect(serializzato).not.toContain(sp);
+    }
     for (const vietato of [
       FONTE_SENTINELLA, 'strava_oauth', OWNER, OTHER, NOME_DISPOSITIVO, 'dev-sentinella', 'user_id', 'source',
       'blood_glucose', 'device', String(GLICEMIA), 'sintetico@example.invalid',

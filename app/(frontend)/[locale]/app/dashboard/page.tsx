@@ -154,8 +154,43 @@ function SezionePassi({ passi, tp, locale }: { passi: readonly GiornoPassi[]; tp
         summaryText={riepilogo === '' ? undefined : riepilogo}
       />
       {c.assenti === passi.length && <p className="mt-3 text-text-secondary">{tp.nessunDatoRicevuto}</p>}
+      <ComeLeggere passi={passi} tp={tp} />
       <p className="mt-3 text-sm text-text-muted">{tp.giorniConclusi}</p>
       <p className="mt-2 text-sm text-text-muted">{tp.completezzaNonVerificata}</p>
+    </section>
+  );
+}
+
+/** Gli stati dei punti nell'ordine fisso dell'elenco, con lo stato di dominio che li produce. */
+const ORDINE_SPIEGAZIONI = [
+  ['received', 'ricevuto'],
+  ['ambiguous', 'ambiguo'],
+  ['undetermined', 'non_determinabile'],
+  ['placeholder', 'segnaposto'],
+  ['error', 'non_disponibile'],
+  ['absent', 'nessun_dato'],
+] as const;
+
+/**
+ * «Come leggere i giorni»: HTML del SERVER, solo per gli stati presenti nella finestra, in ordine
+ * fisso. Nessun campo verso il componente client: le spiegazioni non entrano mai nel suo albero.
+ */
+function ComeLeggere({ passi, tp }: { passi: readonly GiornoPassi[]; tp: TestiPassi }) {
+  const presenti = ORDINE_SPIEGAZIONI.filter(([, dominio]) => passi.some((g) => g.stato === dominio));
+  if (presenti.length === 0) return null;
+  return (
+    <section className="mt-4" data-elenco="come-leggere" aria-label={tp.comeLeggere}>
+      <h3 className="text-sm font-semibold text-text-primary">{tp.comeLeggere}</h3>
+      <dl className="mt-2 space-y-2 text-sm text-text-muted">
+        {presenti.map(([chiave]) => (
+          <div key={chiave}>
+            <dt data-stato={chiave} className="font-medium text-text-secondary">
+              {tp.etichette[chiave]}
+            </dt>
+            <dd>{tp.spiegazioni[chiave]}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }
