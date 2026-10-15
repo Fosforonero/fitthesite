@@ -89,8 +89,11 @@ const NULL_GLYPH: Partial<Record<ChartSlotState, string>> = {
 function badgeClass(state: ChartSlotState): string {
   switch (state) {
     case 'measured':
-    case 'received':
       return 'bg-success/15 text-success';
+    case 'received':
+      // Stessa barra di `measured` (un valore c'e'), ma il verde di una misura valida no:
+      // un valore solo ricevuto non e' una misura provata (decisione B3c-0, F4).
+      return 'bg-white/10 text-text-secondary';
     case 'measured-zero':
       return 'bg-white/10 text-text-secondary';
     case 'partial':
@@ -130,9 +133,8 @@ function LegendSwatch({ state, color }: { state: ChartSlotState; color: string }
         />
       );
     case 'received':
-      return (
-        <span className="inline-block w-3.5 h-2.5 rounded-sm border border-text-muted/60" style={{ backgroundColor: color }} />
-      );
+      // Identico alla barra (che non ha bordo): la legenda non promette una differenza non disegnata.
+      return <span className="inline-block w-3.5 h-2.5 rounded-sm" style={{ backgroundColor: color }} />;
     case 'absent':
     case 'error':
       return (
@@ -678,11 +680,14 @@ export function InteractiveChart({
                   const fullDate = formatDateLong(p.date, locale);
                   const valStr = valueText(p);
                   const stateStr = stateLabels[p.state];
-                  // Stato nuovo senza valore: l'etichetta dello stato e' l'unica cosa detta (mai «0 passi»).
-                  const soloStato =
-                    p.value === null && p.state !== 'absent' && !(typeof valueLabels?.[p.state] === 'string' && valueLabels[p.state]!.trim() !== '');
-                  const accessibleLabel = soloStato
-                    ? `${fullDate}: ${stateStr}`
+                  // Stato senza valore (non «assente»): niente unita' dopo il testo nullo, come il tooltip;
+                  // senza testo del chiamante l'unica cosa detta e' lo stato (mai «0 passi»).
+                  const nullo = p.value === null && p.state !== 'absent';
+                  const haTestoNullo = typeof valueLabels?.[p.state] === 'string' && valueLabels[p.state]!.trim() !== '';
+                  const accessibleLabel = nullo
+                    ? haTestoNullo
+                      ? `${fullDate}: ${valStr}, ${stateStr}`
+                      : `${fullDate}: ${stateStr}`
                     : `${fullDate}: ${valStr} ${unitOne && p.value !== null && Math.round(p.value) === 1 ? unitOne : unit}, ${stateStr}`;
 
                   return (
