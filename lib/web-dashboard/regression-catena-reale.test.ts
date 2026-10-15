@@ -112,7 +112,8 @@ describe('catena reale: nessuno stato di modulo in lib/dashboard', () => {
 describe('catena reale: nessuna fixture, anteprima o schermata demo nella pagina e in lib/dashboard', () => {
   const VIETATI = /dashboard-preview|\.fixture['"]|TrendChartsPanel|components\/web-dashboard|lib\/web-dashboard|\/demo[\w./-]*['"]|\bdemo[-_]?data\b/i;
   function importi(src: string): string[] {
-    return [...senzaCommenti(src).matchAll(/(?:from\s+|import\(\s*|require\(\s*)['"]([^'"]+)['"]/g)]
+    // `from 'x'`, `import('x')`, `require('x')` e l'import per effetto collaterale `import 'x'`.
+    return [...senzaCommenti(src).matchAll(/(?:from\s+|import\s*\(?\s*|require\(\s*)['"]([^'"]+)['"]/g)]
       .map((m) => m[1])
       .filter((s) => VIETATI.test(`${s}'`));
   }
@@ -122,6 +123,7 @@ describe('catena reale: nessuna fixture, anteprima o schermata demo nella pagina
     expect(importi("import x from './a.fixture';")).toHaveLength(1);
     expect(importi("import { T } from '@/components/web-dashboard/TrendChartsPanel';")).toHaveLength(1);
     expect(importi("const m = await import('@/lib/web-dashboard/model');")).toHaveLength(1);
+    expect(importi("import '@/lib/dashboard/postgrest-fedele.fixture';")).toHaveLength(1);
     expect(importi("import { c } from '@/components/charts/DailyStepsChart';\n// import a from './x.fixture';")).toEqual([]);
   });
 
