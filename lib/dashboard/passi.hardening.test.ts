@@ -72,9 +72,57 @@ describe('m1: una chiave non esatta che inizia con la data di un giorno della fi
   });
   it('una chiave che non assomiglia a nessun giorno della finestra resta ignorata', () => {
     const out = qualificaPassi(
-      [r('2026-10-01T00:00:00Z', 1), r('2026-10-15 ', 2), r(' 2026-10-09', 3), r('20261009', 4), r('ieri', 5), r('', 6)] as never,
+      // B3e N1: prima c'era anche r(' 2026-10-09', 3) fra le ignorate; ora, tolti gli spazi, coincide con
+      // un giorno della finestra e rende quel giorno non disponibile (test sotto). Dichiarato nel commit.
+      [r('2026-10-01T00:00:00Z', 1), r('2026-10-15 ', 2), r('20261009', 4), r('ieri', 5), r('', 6)] as never,
       FINESTRA,
     );
     expect(out.map((g) => g.stato)).toEqual(Array(7).fill('nessun_dato'));
+  });
+});
+
+describe('N1 (B3e): una chiave non esatta che, normalizzata, coincide con un giorno della finestra', () => {
+  it.each([
+    ['mese e giorno senza zero', '2026-10-9', 1],
+    ['mese 1 senza zero: gennaio, fuori finestra', '2026-1-09', null],
+    ['spazio iniziale', ' 2026-10-09', 1],
+    ['spazi attorno e senza zero', ' 2026-10-9 ', 1],
+    ['tabulazione finale', '2026-10-09\t', 1],
+    ['giorno 8 senza zero', '2026-10-8', 0],
+    ['ultimo giorno senza zero e spazio', '2026-10-14 ', 6],
+  ])('%s (%j): quel giorno e\' non disponibile, mai ricevuto, mai nessun dato, nessun valore', (_n, chiave, indice) => {
+    const out = qualificaPassi([r(chiave, 4321)] as never, FINESTRA);
+    if (indice === null) {
+      // normalizzata e' 2026-01-09: non e' un giorno della finestra, resta ignorata
+      expect(out.map((g) => g.stato)).toEqual(Array(7).fill('nessun_dato'));
+      return;
+    }
+    expect(out[indice]).toEqual({ giorno: GIORNI[indice], stato: 'non_disponibile' });
+    expect(JSON.stringify(out)).not.toContain('4321');
+    expect(out.filter((_, i) => i !== indice).map((g) => g.stato)).toEqual(Array(6).fill('nessun_dato'));
+  });
+  it('con una riga esatta buona nello stesso giorno, il giorno resta non disponibile (la riga buona non vince)', () => {
+    const out = qualificaPassi([r(GIORNI[1], 100), r('2026-10-9', 200)] as never, FINESTRA);
+    expect(out[1]).toEqual({ giorno: GIORNI[1], stato: 'non_disponibile' });
+    expect(JSON.stringify(out)).not.toMatch(/100|200/);
+  });
+  it('anche con piu righe esatte (ambiguo) la chiave non standard prevale: non disponibile', () => {
+    const out = qualificaPassi([r(GIORNI[2], 1), r(GIORNI[2], 2, 'ring'), r('2026-10-10 ', 3)] as never, FINESTRA);
+    expect(out[2]).toEqual({ giorno: GIORNI[2], stato: 'non_disponibile' });
+  });
+  it('fuori finestra e chiavi che non assomigliano a un giorno restano ignorate', () => {
+    const out = qualificaPassi(
+      [r('2026-10-7', 1), r('2026-10-15', 2), r(' 2026-10-15 ', 3), r('2026/10/09', 4), r('20261009', 5), r('2026-10-009', 6), r('2026-010-09', 7), r('9-10-2026', 8), r('', 9), r('   ', 10)] as never,
+      FINESTRA,
+    );
+    expect(out.map((g) => g.stato)).toEqual(Array(7).fill('nessun_dato'));
+  });
+  it('input non modificato e risultato congelato', () => {
+    const righe = [r('2026-10-9', 5)];
+    const copia = JSON.stringify(righe);
+    const out = qualificaPassi(righe as never, FINESTRA);
+    expect(JSON.stringify(righe)).toBe(copia);
+    expect(Object.isFrozen(out)).toBe(true);
+    expect(Object.isFrozen(out[1])).toBe(true);
   });
 });

@@ -40,8 +40,9 @@
  * finestra. Una chiave NON esatta che INIZIA con la data di un giorno della finestra (spazio
  * finale, ora, suffisso: la lettura gte/lte e' lessicografica e la include) non e' scartata
  * in silenzio: quel giorno diventa non_disponibile (mai ricevuto, mai nessun_dato, mai
- * ambiguo; nessun valore estratto). Una chiave che non assomiglia a nessun giorno della
- * finestra resta ignorata. Il database ammette chiavi cosi (colonna di testo).
+ * ambiguo; nessun valore estratto). Lo stesso vale per una chiave che, normalizzata (spazi
+ * tolti, mese e giorno con lo zero: '2026-10-9', ' 2026-10-09'), coincide con un giorno della
+ * finestra. Una chiave che non assomiglia a nessun giorno della finestra resta ignorata. Il database ammette chiavi cosi (colonna di testo).
  * Un intero oltre 2147483647 (colonna int4) e' non_disponibile: non e' un valore plausibile.
  *
  * Modulo puro: nessuno stato di modulo, nessuna cache, input mai modificato, risultato
@@ -95,6 +96,15 @@ type Candidata = { readonly steps: unknown; readonly segnaposto: boolean };
 const MASSIMO_INT4 = 2147483647;
 const LUNGHEZZA_DATA = 10;
 
+const CHIAVE_NORMALIZZABILE = /^(\d{4})-(\d{1,2})-(\d{1,2})$/;
+
+/** AAAA-M-G con spazi attorno -> AAAA-MM-GG; null se non ha quella forma. Nessun controllo di calendario. */
+function normalizzaChiave(chiave: string): string | null {
+  const m = CHIAVE_NORMALIZZABILE.exec(chiave.trim());
+  if (!m) return null;
+  return `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}`;
+}
+
 function qualificaGiorno(giorno: string, candidate: readonly Candidata[], chiaveNonEsatta: boolean): GiornoPassi {
   if (chiaveNonEsatta) return Object.freeze({ giorno, stato: 'non_disponibile' });
   if (candidate.length === 0) return Object.freeze({ giorno, stato: 'nessun_dato' });
@@ -144,6 +154,10 @@ export function qualificaPassi(righe: readonly RigaLetta[], finestra: FinestraGi
         const prefisso = giorno.slice(0, LUNGHEZZA_DATA);
         if (perGiorno.has(prefisso)) nonEsatti.add(prefisso);
       }
+      // Chiave non standard che, normalizzata (spazi tolti, mese e giorno con lo zero), e' un giorno
+      // della finestra: la lettura lessicografica la include, quel giorno non si valuta.
+      const normalizzata = normalizzaChiave(giorno);
+      if (normalizzata !== null && perGiorno.has(normalizzata)) nonEsatti.add(normalizzata);
       continue; // fuori finestra, o chiave che non assomiglia a un giorno della finestra
     }
     const { source } = riga;

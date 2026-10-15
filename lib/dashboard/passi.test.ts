@@ -251,12 +251,14 @@ describe('righe fuori finestra e giorno non concluso', () => {
 
   it('local_day_key che non e esattamente una data della finestra non attribuisce nulla', () => {
     const strane = [
-      riga('2026-10-01T00:00:00Z', 111), riga(' 2026-10-08', 222), riga('2026-10-15 ', 333), riga('20261008', 444),
+      // B3e N1: riga(' 2026-10-08', 222) non e' piu' qui: con gli spazi tolti coincide con il primo giorno e lo
+      // rende non disponibile (passi.hardening.test.ts). Test cambiato e dichiarato nel commit.
+      riga('2026-10-01T00:00:00Z', 111), riga('2026-10-15 ', 333), riga('20261008', 444),
       riga('ieri', 555), riga(null, 666), riga(undefined, 777), riga(20261008, 888), riga('', 999),
     ];
     const r = qualificaPassi(strane as never, FINESTRA);
     expect(r.map((g) => g.stato)).toEqual(Array(7).fill('nessun_dato'));
-    expect(JSON.stringify(r)).not.toMatch(/111|222|333|444|555|666|777|888|999/);
+    expect(JSON.stringify(r)).not.toMatch(/111|333|444|555|666|777|888|999/);
   });
 
   it('elementi che non sono oggetti vengono ignorati, la lettura non si rompe', () => {
