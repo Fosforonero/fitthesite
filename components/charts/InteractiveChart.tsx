@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef, useEffect, type ReactNode } from 'react';
-import type { ChartDataPoint, ChartPeriod } from './types';
+import type { ChartDataPoint, ChartPeriod, ChartSlotState, ChartStateTexts } from './types';
 import { normalizeChartPoints } from './normalize-points';
 import { CHART, Card, SectionLabel, Chip } from './primitives';
 import { PatternDefs } from './chart-kit';
@@ -29,15 +29,23 @@ export interface InteractiveChartProps {
   yTicks?: number[];
   headerAction?: ReactNode;
   summaryText: string;
+  /** Etichette di stato del chiamante: sostituiscono quelle del kit, per stato. */
+  stateLabels?: ChartStateTexts;
+  /** Testo al posto del valore per gli stati senza valore, per stato. */
+  valueLabels?: ChartStateTexts;
 }
 
-const STATE_TEXT: Record<'it' | 'en', Record<string, string>> = {
+const STATE_TEXT: Record<'it' | 'en', Record<ChartSlotState, string>> = {
   it: {
     measured: 'Misurato',
     'measured-zero': 'Zero misurato',
     partial: 'Parziale',
     absent: 'Dato assente',
     error: 'Errore',
+    received: 'Ricevuto',
+    ambiguous: 'Ambiguo',
+    undetermined: 'Non determinabile',
+    placeholder: 'Segnaposto',
   },
   en: {
     measured: 'Measured',
@@ -45,8 +53,42 @@ const STATE_TEXT: Record<'it' | 'en', Record<string, string>> = {
     partial: 'Partial',
     absent: 'No data',
     error: 'Error',
+    received: 'Received',
+    ambiguous: 'Ambiguous',
+    undetermined: 'Undetermined',
+    placeholder: 'Placeholder',
   },
 };
+
+/** Glifo (non solo colore) per gli slot senza valore che non sono ne' assenti ne' errori. */
+const NULL_GLYPH: Partial<Record<ChartSlotState, string>> = {
+  ambiguous: '\u2260',
+  undetermined: '?',
+  placeholder: '\u2013',
+};
+
+/** Classi del distintivo di stato: switch esaustivo, un caso mancante non compila. */
+function badgeClass(state: ChartSlotState): string {
+  switch (state) {
+    case 'measured':
+    case 'received':
+      return 'bg-success/15 text-success';
+    case 'measured-zero':
+      return 'bg-white/10 text-text-secondary';
+    case 'partial':
+      return 'bg-warning/15 text-warning';
+    case 'absent':
+    case 'error':
+    case 'ambiguous':
+    case 'undetermined':
+    case 'placeholder':
+      return 'bg-white/5 text-text-muted';
+    default: {
+      const mai: never = state;
+      return mai;
+    }
+  }
+}
 
 function formatDateLong(dateStr: string, locale: string): string {
   try {
@@ -103,9 +145,21 @@ export function InteractiveChart({
   yTicks: customYTicks,
   headerAction,
   summaryText,
+  stateLabels: stateLabelsOverride,
+  valueLabels,
 }: InteractiveChartProps) {
   const isIt = locale === 'it';
-  const stateLabels = isIt ? STATE_TEXT.it : STATE_TEXT.en;
+  const stateLabels: Record<ChartSlotState, string> = {
+    ...(isIt ? STATE_TEXT.it : STATE_TEXT.en),
+    ...stateLabelsOverride,
+  };
+  // Testo al posto del valore: assente/errore restano «Nessun dato»; i nuovi stati nulli
+  // mostrano la propria etichetta (mai «nessun dato», mai 0). Il chiamante puo' sostituirlo.
+  const nullValueText = (state: ChartSlotState): string =>
+    valueLabels?.[state] ??
+    (state === 'absent' || state === 'error' ? (isIt ? 'Nessun dato' : 'No data') : stateLabels[state]);
+  const valueText = (p: ChartDataPoint): string =>
+    p.value !== null ? formatValue(p.value, locale) : nullValueText(p.state);
   const tooltipElementId = `${id}-tooltip`;
 
   // Normalizzazione difensiva dei dati
@@ -284,23 +338,15 @@ export function InteractiveChart({
                     {formatDateLong(activePoint.date, locale)}:
                   </span>
                   <span className="font-mono text-sm font-semibold text-brand-aqua">
-                    {activePoint.value !== null ? formatValue(activePoint.value, locale) : (isIt ? 'Nessun dato' : 'No data')}
+                    {valueText(activePoint)}
                   </span>
                   <span className="text-text-muted">({unit})</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span
-                    className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium ${
-                      activePoint.state === 'measured'
-                        ? 'bg-success/15 text-success'
-                        : activePoint.state === 'measured-zero'
-                          ? 'bg-white/10 text-text-secondary'
-                          : activePoint.state === 'partial'
-                            ? 'bg-warning/15 text-warning'
-                            : 'bg-white/5 text-text-muted'
-                    }`}
+                    className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium ${badgeClass(activePoint.state)}`}
                   >
-                    {stateLabels[activePoint.state] ?? activePoint.state}
+                    {stateLabels[activePoint.state]}
                     {activePoint.coverage !== undefined
                       ? ` (${Math.round(activePoint.coverage * 100)}%)`
                       : ''}
@@ -403,9 +449,9 @@ export function InteractiveChart({
                   </g>
                 )}
 
-                {/* Sfondo tratteggiato per dati assenti o errori */}
+                {/* Sfondo tratteggiato per gli slot senza valore: assente, errore, ambiguo, non determinabile, segnaposto */}
                 {normalizedPoints.map((p, idx) => {
-                  if (p.state !== 'absent' && p.state !== 'error') return null;
+                  if (p.value !== null) return null;
                   const xCoord = Number((idx * slotW).toFixed(2));
                   const widthCoord = Number(slotW.toFixed(2));
                   return (
@@ -425,10 +471,30 @@ export function InteractiveChart({
                   );
                 })}
 
+                {/* Glifo degli slot senza valore che non sono assenti ne' errori: non solo colore */}
+                {normalizedPoints.map((p, idx) => {
+                  const glyph = p.value === null ? NULL_GLYPH[p.state] : undefined;
+                  if (glyph === undefined) return null;
+                  return (
+                    <text
+                      key={`null-glyph-${p.date}`}
+                      data-null-glyph={p.state}
+                      x={Number(((idx + 0.5) * slotW).toFixed(2))}
+                      y={BASE_Y - PLOT_H / 2}
+                      textAnchor="middle"
+                      fontSize="14"
+                      aria-hidden="true"
+                      className="fill-text-muted"
+                    >
+                      {glyph}
+                    </text>
+                  );
+                })}
+
                 {/* Barre verticali con coordinate numeriche pure */}
                 {metricKind === 'bars' &&
                   normalizedPoints.map((p, idx) => {
-                    if (p.value === null || p.state === 'absent' || p.state === 'error') return null;
+                    if (p.value === null) return null;
                     const barWidthFactor = totalPoints <= 7 ? 0.5 : totalPoints <= 14 ? 0.65 : 0.78;
                     const barW = Number((slotW * barWidthFactor).toFixed(2));
                     const barX = Number((idx * slotW + (slotW - barW) / 2).toFixed(2));
@@ -536,9 +602,14 @@ export function InteractiveChart({
                 {normalizedPoints.map((p, idx) => {
                   const isActive = activeIdx === idx;
                   const fullDate = formatDateLong(p.date, locale);
-                  const valStr = p.value !== null ? formatValue(p.value, locale) : (isIt ? 'Nessun dato' : 'No data');
-                  const stateStr = stateLabels[p.state] ?? p.state;
-                  const accessibleLabel = `${fullDate}: ${valStr} ${unitOne && p.value !== null && Math.round(p.value) === 1 ? unitOne : unit}, ${stateStr}`;
+                  const valStr = valueText(p);
+                  const stateStr = stateLabels[p.state];
+                  // Stato nuovo senza valore: l'etichetta dello stato e' l'unica cosa detta (mai «0 passi»).
+                  const soloStato =
+                    p.value === null && p.state !== 'absent' && p.state !== 'error' && valueLabels?.[p.state] === undefined;
+                  const accessibleLabel = soloStato
+                    ? `${fullDate}: ${stateStr}`
+                    : `${fullDate}: ${valStr} ${unitOne && p.value !== null && Math.round(p.value) === 1 ? unitOne : unit}, ${stateStr}`;
 
                   return (
                     <button
@@ -657,6 +728,29 @@ export function InteractiveChart({
               />
               {stateLabels.absent}
             </span>
+            {/* Voci aggiunte solo se lo stato e' presente nella serie: la legenda non promette cio' che non c'e'. */}
+            {normalizedPoints.some((p) => p.state === 'received') && (
+              <span className="inline-flex items-center gap-1.5" data-legend-state="received">
+                <span
+                  className="inline-block w-3.5 h-2.5 rounded-sm border border-text-muted/60"
+                  style={{ backgroundColor: color }}
+                />
+                {stateLabels.received}
+              </span>
+            )}
+            {(['ambiguous', 'undetermined', 'placeholder'] as const).map((st) =>
+              normalizedPoints.some((p) => p.state === st) ? (
+                <span key={`legend-${st}`} className="inline-flex items-center gap-1.5" data-legend-state={st}>
+                  <span
+                    aria-hidden="true"
+                    className="inline-flex w-3.5 h-2.5 items-center justify-center rounded-sm border border-dashed border-text-muted/60 text-[9px] leading-none text-text-muted"
+                  >
+                    {NULL_GLYPH[st]}
+                  </span>
+                  {stateLabels[st]}
+                </span>
+              ) : null,
+            )}
           </div>
         </figure>
 
@@ -691,10 +785,10 @@ export function InteractiveChart({
                   <tr key={`row-${p.date}`} data-date={p.date} data-slot-state={p.state} className="border-b border-divider/40">
                     <td className="py-1.5 pr-3 font-mono">{p.date}</td>
                     <td className="py-1.5 pr-3 tabular-nums font-medium text-text-primary">
-                      {p.value !== null ? formatValue(p.value, locale) : (isIt ? 'Nessun dato' : 'No data')}
+                      {valueText(p)}
                     </td>
                     <td className="py-1.5 pr-3">
-                      {stateLabels[p.state] ?? p.state}
+                      {stateLabels[p.state]}
                     </td>
                     <td className="py-1.5 text-text-muted">
                       {p.coverage !== undefined ? `${Math.round(p.coverage * 100)}%` : ''}

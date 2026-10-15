@@ -6,6 +6,10 @@ const ALLOWED_STATES: readonly ChartSlotState[] = [
   'partial',
   'absent',
   'error',
+  'received',
+  'ambiguous',
+  'undetermined',
+  'placeholder',
 ];
 
 function isAllowedState(state: unknown): state is ChartSlotState {
@@ -44,7 +48,15 @@ function normalizeOne(point: ChartDataPoint): ChartDataPoint {
   const state: unknown = point.state;
   if (!isAllowedState(state)) return toError(point);
 
-  if (state === 'absent' || state === 'error') {
+  // Stati senza valore: value e' sempre null, anche se il chiamante ne ha passato uno
+  // (un zero non determinabile non deve mai poter essere disegnato come barra a zero).
+  if (
+    state === 'absent' ||
+    state === 'error' ||
+    state === 'ambiguous' ||
+    state === 'undetermined' ||
+    state === 'placeholder'
+  ) {
     return buildPoint(point, state, null, { keepAbsentReason: true });
   }
 
@@ -54,6 +66,12 @@ function normalizeOne(point: ChartDataPoint): ChartDataPoint {
   if (state === 'measured-zero') {
     if (value !== 0) return toError(point);
     return buildPoint(point, 'measured-zero', 0, { keepAbsentReason: false });
+  }
+
+  // received: solo un valore ricevuto > 0; nessuna copertura, nessuna nota di parzialita'.
+  if (state === 'received') {
+    if (value <= 0) return toError(point);
+    return buildPoint(point, 'received', value, { keepAbsentReason: false });
   }
 
   if (state === 'partial') {

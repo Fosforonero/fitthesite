@@ -8,14 +8,33 @@
  *     - measured-zero: valore zero misurato dalla sorgente (es. 0 passi effettivi);
  *     - partial: dato presente ma incompleto (copertura parziale con nota esplicita);
  *     - absent: nessun dato ricevuto per l'intervallo (buco temporale);
- *     - error: errore di lettura o dato non disponibile.
+ *     - error: errore di lettura o dato non disponibile;
+ *     - received: valore ricevuto (> 0) senza evidenza di giornata completa e senza copertura;
+ *     - ambiguous: piu' righe per lo stesso giorno, nessun valore scelto (value null);
+ *     - undetermined: zero grezzo senza evidenza del suo significato (value null, mai 0);
+ *     - placeholder: segnaposto della sorgente (value null).
  *  3. Nessuna interpolazione arbitraria: gli intervalli senza dati NON vengono
  *     collegati da linee continue.
  *  4. Accessibilita': tooltip navigabili da tastiera e touch, tabelle dati alternative,
  *     e nessuna informazione affidata al solo colore.
  */
 
-export type ChartSlotState = 'measured' | 'measured-zero' | 'partial' | 'absent' | 'error';
+export type ChartSlotState =
+  | 'measured'
+  | 'measured-zero'
+  | 'partial'
+  | 'absent'
+  | 'error'
+  | 'received'
+  | 'ambiguous'
+  | 'undetermined'
+  | 'placeholder';
+
+/** Stati che non portano mai un valore: value e' sempre null, mai 0. */
+export type ChartNullSlotState = 'absent' | 'error' | 'ambiguous' | 'undetermined' | 'placeholder';
+
+/** Testi sostitutivi passati dal chiamante: il kit non li duplica, li usa al posto dei propri. */
+export type ChartStateTexts = Partial<Record<ChartSlotState, string>>;
 
 export type ChartPeriod = 7 | 30;
 
@@ -60,11 +79,17 @@ export interface BaseChartProps {
   tableLabel?: string;
   /** Flag esplicito per indicare dati dimostrativi (default: true). */
   isDemo?: boolean;
+  /** Etichette di stato del chiamante (sostituiscono quelle del kit, per stato). */
+  stateLabels?: ChartStateTexts;
+  /** Testo mostrato al posto del valore per gli stati senza valore (per stato). */
+  valueLabels?: ChartStateTexts;
 }
 
 export interface DailyStepsChartProps extends BaseChartProps {
   /** Obiettivo giornaliero passi (opzionale). */
   goalSteps?: number;
+  /** Riepilogo accessibile del chiamante: se presente sostituisce quello generato. */
+  summaryText?: string;
 }
 
 export interface HeartRateChartProps extends BaseChartProps {
