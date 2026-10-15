@@ -380,6 +380,9 @@ describe('pagina reale: il payload verso il client e\' minimo', () => {
           riga('2026-10-13', 0, 'strava_oauth'),
           riga('2026-10-12', 5, 'a'),
           riga('2026-10-12', 6, 'b'),
+          // zero non determinabile ed errore: anche questi non portano mai un numero al client
+          riga('2026-10-11', 0, 'phone'),
+          riga('2026-10-10', -1),
         ],
       },
     });
@@ -401,6 +404,9 @@ describe('pagina reale: il payload verso il client e\' minimo', () => {
       expect(p.value === null || typeof p.value === 'number').toBe(true);
       if (p.state !== 'received') expect(p.value).toBeNull();
     }
+    expect(punti.map((p) => p.state)).toEqual([
+      'absent', 'absent', 'error', 'undetermined', 'ambiguous', 'placeholder', 'received',
+    ]);
     const serializzato = JSON.stringify(props);
     for (const vietato of [
       FONTE_SENTINELLA, 'strava_oauth', OWNER, OTHER, NOME_DISPOSITIVO, 'dev-sentinella', 'user_id', 'source',
