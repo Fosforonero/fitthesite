@@ -366,3 +366,29 @@ describe('dashboard web: solo lato server, anche indirettamente', () => {
   });
 });
 
+/**
+ * I doppi di prova (`*.fixture.ts`) non entrano mai nel codice di produzione.
+ *
+ * Il doppio fedele di PostgREST (postgrest-fedele.fixture.ts) e le fixture delle pagine vivono accanto al
+ * codice che provano, ma sono per le prove: un sorgente che non e' un test ne' una fixture e che ne importi
+ * una porterebbe nel bundle un finto database. Il controllo RESTRINGE, non allenta nulla.
+ */
+describe('dashboard web: nessun sorgente di produzione importa una fixture', () => {
+  const importaUnaFixture = (sorgente: string) =>
+    [...senzaCommenti(sorgente).matchAll(/(?:from\s+|import\(\s*|require\(\s*)['"]([^'"]*\.fixture)['"]/g)].map((m) => m[1]);
+
+  it('controprova: il rilevatore vede un import di fixture e non scatta sul resto', () => {
+    expect(importaUnaFixture(`import { x } from './postgrest-fedele.fixture';`)).toEqual(['./postgrest-fedele.fixture']);
+    expect(importaUnaFixture(`const m = await import('@/lib/dashboard/x.fixture');`)).toEqual(['@/lib/dashboard/x.fixture']);
+    expect(importaUnaFixture(`// import { x } from './y.fixture';\nimport { z } from './fixtures-non-un-file';`)).toEqual([]);
+  });
+
+  it('nessun file di app, components e lib (non test, non fixture) importa un *.fixture', () => {
+    const colpevoli = ['app', 'components', 'lib']
+      .flatMap(fileSotto)
+      .filter((rel) => !/\.fixture\.tsx?$/.test(rel))
+      .map((rel) => ({ rel, fixture: importaUnaFixture(leggi(rel)) }))
+      .filter((x) => x.fixture.length > 0);
+    expect(colpevoli).toEqual([]);
+  });
+});
