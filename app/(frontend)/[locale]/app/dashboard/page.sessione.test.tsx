@@ -11,8 +11,8 @@
  * Cosa si guarda, per ogni richiesta:
  *   - l'HTML reso (renderToStaticMarkup), attributi compresi;
  *   - l'albero React restituito dalla pagina, espanso e serializzato con TUTTE le props. E' cio' da cui
- *     Next costruisce il payload RSC di navigazione (`?_rsc=`): la pagina non ha componenti client, quindi
- *     il payload e' la serializzazione di questo albero. Il flusso RSC vero non si produce qui (serve il
+ *     Next costruisce il payload RSC di navigazione (`?_rsc=`): l'unico componente client e' il grafico del
+ *     kit (le sue props vengono serializzate, non eseguite): il payload e' la serializzazione di questo albero. Il flusso RSC vero non si produce qui (serve il
  *     runtime `react-server` di Next): e' dichiarato nel resoconto. `__NEXT_DATA__` non esiste nell'App
  *     Router;
  *   - per un redirect, il messaggio e l'oggetto dell'errore lanciato (la destinazione).
@@ -42,6 +42,7 @@ vi.mock('next/navigation', () => ({
 }));
 vi.mock('@/lib/supabase/server', () => ({ createClient: vi.fn() }));
 
+import { DailyStepsChart } from '@/components/charts/DailyStepsChart';
 import { createClient } from '@/lib/supabase/server';
 
 import DashboardWebPage from './page';
@@ -194,6 +195,9 @@ function espandi(nodo: unknown): unknown {
   if (Array.isArray(nodo)) return nodo.map(espandi);
   if (isValidElement(nodo)) {
     const { type, props } = nodo as ReactElement<Record<string, unknown>>;
+    // Confine client (B3c): il grafico del kit e' 'use client' e usa hook, non si chiama. Nel payload
+    // RSC ci vanno le sue PROPS serializzate: e' esattamente cio' che qui si cerca per sentinella.
+    if (type === DailyStepsChart) return { tipo: 'DailyStepsChart', attributi: props };
     if (typeof type === 'function') return espandi((type as (p: unknown) => unknown)(props));
     const { children, ...attributi } = props;
     return { tipo: typeof type === 'string' ? type : String(type), attributi, figli: espandi(children) };

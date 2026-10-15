@@ -1,9 +1,19 @@
 import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 
+import { DailyStepsChart } from '@/components/charts/DailyStepsChart';
+import type { ChartDataPoint } from '@/components/charts/types';
+import { finestraSetteGiorni } from '@/lib/dashboard/finestra';
 import { dashboardWebAttiva } from '@/lib/dashboard/interruttore';
 import { leggiMetricheDelTitolare, type ClientLetture } from '@/lib/dashboard/letture-titolare';
-import { testiPer, type TestiDashboard } from '@/lib/dashboard/testi';
+import { qualificaPassi, type GiornoPassi } from '@/lib/dashboard/passi';
+import {
+  testiPassiPer,
+  testiPer,
+  type ConteggiGiorniPassi,
+  type TestiDashboard,
+  type TestiPassi,
+} from '@/lib/dashboard/testi';
 import { leggiVerdettoDashboard, type ClientVerdetto } from '@/lib/dashboard/verdetto';
 import { createClient } from '@/lib/supabase/server';
 
@@ -56,6 +66,7 @@ export default async function DashboardWebPage({
   const inizio = new Date(oggi.getTime() - (GIORNI_RIEPILOGO - 1) * 86_400_000);
   let giorni: number;
   let completo: boolean;
+  let passi: readonly GiornoPassi[] | null = null;
   try {
     const lettura = await leggiMetricheDelTitolare(
       supabase as unknown as ClientLetture,
@@ -64,17 +75,88 @@ export default async function DashboardWebPage({
     );
     giorni = new Set(lettura.righe.map((r) => r.local_day_key)).size;
     completo = lettura.completo;
+    // Lo STESSO insieme di righe gia' letto (nessuna seconda lettura). Una lettura non completa
+    // non produce nessun grafico: le righe parziali non si qualificano.
+    if (lettura.completo) passi = qualificaPassi(lettura.righe, finestraSetteGiorni());
   } catch {
     // Una lettura non riuscita non e' un diniego: l'accesso c'e', i dati no.
     return <NonDisponibile t={t} percorso={percorso} />;
   }
 
+  const tp = testiPassiPer(locale);
   return (
     <Cornice t={t}>
       <p className="mt-2 text-text-secondary">{t.concessoPer(user.email ?? '')}</p>
       <p className="mt-6 text-text-primary">{t.giorniConDati(giorni)}</p>
       {!completo && <p className="mt-2 text-sm text-text-muted">{t.conteggioParziale}</p>}
+      {!completo && tp && <p className="mt-2 text-sm text-text-muted">{tp.graficoNonMostrato}</p>}
+      {passi && tp && <SezionePassi passi={passi} tp={tp} locale={locale} />}
     </Cornice>
+  );
+}
+
+/**
+ * Dal dominio al kit. NESSUN stato di misura: `measured`, `measured-zero` e `partial` non si
+ * producono mai qui (nessuna sorgente fornisce la prova di una giornata completa o di uno zero
+ * letterale). Al client vanno SOLO data, valore (numero o null), stato ed etichette.
+ */
+function puntoDelKit(g: GiornoPassi): ChartDataPoint {
+  switch (g.stato) {
+    case 'ricevuto':
+      return { date: g.giorno, value: g.passi, state: 'received' };
+    case 'ambiguo':
+      return { date: g.giorno, value: null, state: 'ambiguous' };
+    case 'non_determinabile':
+      return { date: g.giorno, value: null, state: 'undetermined' };
+    case 'segnaposto':
+      return { date: g.giorno, value: null, state: 'placeholder' };
+    case 'non_disponibile':
+      return { date: g.giorno, value: null, state: 'error' };
+    case 'nessun_dato':
+      return { date: g.giorno, value: null, state: 'absent' };
+  }
+}
+
+function conteggi(passi: readonly GiornoPassi[]): ConteggiGiorniPassi {
+  const n = (s: GiornoPassi['stato']) => passi.filter((g) => g.stato === s).length;
+  return {
+    ricevuti: n('ricevuto'),
+    ambigui: n('ambiguo'),
+    nonDeterminabili: n('non_determinabile'),
+    segnaposto: n('segnaposto'),
+    assenti: n('nessun_dato'),
+    nonDisponibili: n('non_disponibile'),
+  };
+}
+
+function SezionePassi({ passi, tp, locale }: { passi: readonly GiornoPassi[]; tp: TestiPassi; locale: string }) {
+  const primo = passi[0]?.giorno;
+  const ultimo = passi[passi.length - 1]?.giorno;
+  const intestazione = primo && ultimo ? tp.finestra(primo, ultimo) : null;
+  if (!intestazione) {
+    return <p className="mt-6 text-text-secondary">{tp.graficoNonDisponibile}</p>;
+  }
+  const punti = passi.map(puntoDelKit);
+  const c = conteggi(passi);
+  const riepilogo = tp.riepilogo(c);
+  return (
+    <section className="mt-8" data-sezione="passi">
+      <DailyStepsChart
+        id="passi-giornalieri"
+        title={tp.titolo}
+        subtitle={intestazione}
+        points={punti}
+        period={7}
+        locale={locale}
+        isDemo={false}
+        stateLabels={tp.etichette}
+        valueLabels={tp.valori}
+        summaryText={riepilogo === '' ? undefined : riepilogo}
+      />
+      {c.assenti === passi.length && <p className="mt-3 text-text-secondary">{tp.nessunDatoRicevuto}</p>}
+      <p className="mt-3 text-sm text-text-muted">{tp.giorniConclusi}</p>
+      <p className="mt-2 text-sm text-text-muted">{tp.completezzaNonVerificata}</p>
+    </section>
   );
 }
 
