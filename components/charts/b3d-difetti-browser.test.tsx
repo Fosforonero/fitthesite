@@ -209,7 +209,12 @@ describe('D6: il testo di stato non e\' ripetuto nel tooltip', () => {
     const { container, bottoni } = monta([P(0, null, 'absent')], { stateLabels: t.etichette, valueLabels: t.valori });
     fireEvent.click(bottoni[0]);
     const tip = container.querySelector('#t-tooltip')!.textContent!;
-    expect(tip).toContain('Nessun dato');
-    expect(tip).toContain('Nessun dato ricevuto');
+    // B3e F1: il testo di prima («Nessun dato» / «Nessun dato ricevuto») fissava la forma sbagliata.
+    // Valore ed etichetta restano entrambi nel tooltip; l'etichetta compare una sola volta.
+    expect(tip).toContain(t.valori.absent);
+    expect(tip).toContain(t.etichette.absent);
+    expect(t.valori.absent).toBe('Nessun valore');
+    expect(t.etichette.absent).toBe('Nessun valore dei passi');
+    expect(tip.split(t.etichette.absent).length - 1).toBe(1);
   });
 });

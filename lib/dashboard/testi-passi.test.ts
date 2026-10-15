@@ -99,11 +99,52 @@ describe('testi del grafico passi', () => {
     expect(it.intervallo('2028-02-24', '2028-03-01')).toBe('dal 24 febbraio al 1° marzo');
     expect(it.intervallo('2028-02-23', '2028-02-29')).toBe('dal 23 al 29 febbraio');
     expect(it.intervallo('2026-03-08', '2026-03-14')).toBe('dall’8 al 14 marzo');
-    expect(it.intervallo('2026-03-12', '2026-03-18')).toBe('dal 12 all’18 marzo');
+    // B3e F3: diciotto NON si elide (prima il test fissava «all’18», forma sbagliata).
+    expect(it.intervallo('2026-03-12', '2026-03-18')).toBe('dal 12 al 18 marzo');
+    expect(it.intervallo('2026-03-18', '2026-03-24')).toBe('dal 18 al 24 marzo');
     expect(en.intervallo('2026-03-05', '2026-03-11')).toBe('5 to 11 March');
     expect(en.intervallo('2026-02-28', '2026-03-06')).toBe('28 February to 6 March');
     expect(en.intervallo('2026-12-29', '2027-01-04')).toBe('29 December 2026 to 4 January 2027');
     expect(en.finestra('2028-02-23', '2028-02-29')).toBe('Steps, 23 to 29 February');
+  });
+
+  it('B3e F3: elisione italiana solo per 8 e 11; 1 resta «1°»; 18, 28, 29, 30, 31 non elidono', () => {
+    const it = TESTI_PASSI.it;
+    expect(it.intervallo('2026-03-08', '2026-03-14')).toBe('dall’8 al 14 marzo');
+    expect(it.intervallo('2026-03-11', '2026-03-17')).toBe('dall’11 al 17 marzo');
+    expect(it.intervallo('2026-03-02', '2026-03-08')).toBe('dal 2 all’8 marzo');
+    expect(it.intervallo('2026-03-05', '2026-03-11')).toBe('dal 5 all’11 marzo');
+    expect(it.intervallo('2026-03-01', '2026-03-07')).toBe('dal 1° al 7 marzo');
+    expect(it.intervallo('2026-03-12', '2026-03-18')).toBe('dal 12 al 18 marzo');
+    expect(it.intervallo('2026-03-18', '2026-03-24')).toBe('dal 18 al 24 marzo');
+    expect(it.intervallo('2026-03-22', '2026-03-28')).toBe('dal 22 al 28 marzo');
+    expect(it.intervallo('2026-03-28', '2026-04-03')).toBe('dal 28 marzo al 3 aprile');
+    expect(it.intervallo('2026-03-29', '2026-04-04')).toBe('dal 29 marzo al 4 aprile');
+    expect(it.intervallo('2026-03-30', '2026-04-05')).toBe('dal 30 marzo al 5 aprile');
+    expect(it.intervallo('2026-03-31', '2026-04-06')).toBe('dal 31 marzo al 6 aprile');
+    expect(it.intervallo('2026-03-25', '2026-03-31')).toBe('dal 25 al 31 marzo');
+    expect(it.intervallo('2026-03-18', '2026-04-08')).toBe('dal 18 marzo all’8 aprile');
+  });
+
+  it('B3e F1: un giorno senza valore dei passi non dice «non ricevuto» (riga assente o steps null)', () => {
+    for (const l of LINGUE_DASHBOARD) {
+      const t = TESTI_PASSI[l];
+      const testi = [
+        t.etichette.absent, t.valori.absent, t.spiegazioni.absent, t.nessunDatoRicevuto,
+        t.riepilogo({ ricevuti: 0, ambigui: 0, nonDeterminabili: 0, segnaposto: 0, assenti: 3, nonDisponibili: 0 }),
+      ];
+      for (const s of testi) {
+        expect(s).not.toMatch(/ricevut|received|\bzero\b|\b0\b/i);
+      }
+    }
+    expect(TESTI_PASSI.it.spiegazioni.absent).toBe('Nessun valore dei passi per questo giorno.');
+    expect(TESTI_PASSI.en.spiegazioni.absent).toBe('No step value for this day.');
+    expect(TESTI_PASSI.it.nessunDatoRicevuto).toBe('Nessun valore dei passi per questi sette giorni.');
+    expect(TESTI_PASSI.en.nessunDatoRicevuto).toBe('No step value for these seven days.');
+    expect(TESTI_PASSI.it.riepilogo({ ricevuti: 0, ambigui: 0, nonDeterminabili: 0, segnaposto: 0, assenti: 2, nonDisponibili: 0 }))
+      .toBe('2 giorni senza valore dei passi.');
+    expect(TESTI_PASSI.en.riepilogo({ ricevuti: 0, ambigui: 0, nonDeterminabili: 0, segnaposto: 0, assenti: 1, nonDisponibili: 0 }))
+      .toBe('1 day with no step value.');
   });
 
   it('date non valide: null, mai una data inventata', () => {

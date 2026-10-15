@@ -170,9 +170,9 @@ const MESI_EN = [
   'July', 'August', 'September', 'October', 'November', 'December',
 ] as const;
 
-/** Giorno in italiano: 1 -> «1°»; 8, 11 e 18 vogliono l'apostrofo dopo «al»/«dal». */
+/** Giorno in italiano: 1 -> «1°»; solo 8 e 11 (l'8, l'11) vogliono l'apostrofo dopo «al»/«dal». */
 const giornoIt = (d: number): string => (d === 1 ? '1°' : String(d));
-const elisoIt = (d: number): boolean => d === 8 || d === 11 || d === 18;
+const elisoIt = (d: number): boolean => d === 8 || d === 11;
 
 const DATI: Record<LinguaDashboard, LinguaData> = {
   it: {
@@ -226,7 +226,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
       measured: 'Misurato',
       'measured-zero': 'Zero misurato',
       partial: 'Parziale',
-      absent: 'Nessun dato ricevuto',
+      absent: 'Nessun valore dei passi',
       error: 'Non disponibile',
       received: 'Valore ricevuto',
       ambiguous: 'Più righe',
@@ -234,14 +234,14 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
       placeholder: 'Segnaposto',
     },
     valori: {
-      absent: 'Nessun dato',
+      absent: 'Nessun valore',
       error: 'Non disponibile',
       ambiguous: 'Più righe',
       undetermined: 'Zero non determinabile',
       placeholder: 'Segnaposto',
     },
     spiegazioni: {
-      absent: 'Nessun dato ricevuto per questo giorno.',
+      absent: 'Nessun valore dei passi per questo giorno.',
       error: 'Questo giorno non è disponibile in questo momento.',
       ambiguous: 'Più righe per questo giorno: non scegliamo per te.',
       undetermined: '0 ricevuto, ma non sappiamo se significa nessun passo o passi non letti.',
@@ -250,7 +250,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
         'Valore ricevuto. La completezza della giornata non è verificata: una sincronizzazione tardiva può cambiarla.',
     },
     graficoNonDisponibile: 'Il grafico dei passi non è disponibile in questo momento.',
-    nessunDatoRicevuto: 'Nessun dato ricevuto per questi sette giorni.',
+    nessunDatoRicevuto: 'Nessun valore dei passi per questi sette giorni.',
     letturaNonVerificata: TESTI_DASHBOARD.it.conteggioParziale,
     graficoNonMostrato: 'Il grafico dei passi non è mostrato perché la lettura non è completa.',
     passi: (n) => `${raggruppa(n, '.')} ${n === 1 ? 'passo' : 'passi'}`,
@@ -263,7 +263,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
           [c.ambigui, `${g(c.ambigui)} con più righe`],
           [c.nonDeterminabili, `${g(c.nonDeterminabili)} con zero non determinabile`],
           [c.segnaposto, `${g(c.segnaposto)} con segnaposto`],
-          [c.assenti, `${g(c.assenti)} senza dati ricevuti`],
+          [c.assenti, `${g(c.assenti)} senza valore dei passi`],
           [c.nonDisponibili, `${g(c.nonDisponibili)} ${c.nonDisponibili === 1 ? 'non disponibile' : 'non disponibili'}`],
         ],
         '.',
@@ -284,7 +284,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
       measured: 'Measured',
       'measured-zero': 'Measured zero',
       partial: 'Partial',
-      absent: 'No data received',
+      absent: 'No step value',
       error: 'Not available',
       received: 'Value received',
       ambiguous: 'Several rows',
@@ -292,14 +292,14 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
       placeholder: 'Placeholder',
     },
     valori: {
-      absent: 'No data',
+      absent: 'No value',
       error: 'Not available',
       ambiguous: 'Several rows',
       undetermined: 'Zero not determinable',
       placeholder: 'Placeholder',
     },
     spiegazioni: {
-      absent: 'No data received for this day.',
+      absent: 'No step value for this day.',
       error: 'This day is not available right now.',
       ambiguous: 'Several rows for this day: we do not choose for you.',
       undetermined: '0 received, but we do not know whether it means no steps or steps that were not read.',
@@ -307,7 +307,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
       received: 'Value received. Whether the day is complete is not verified: a late sync can change it.',
     },
     graficoNonDisponibile: 'The steps chart is not available right now.',
-    nessunDatoRicevuto: 'No data received for these seven days.',
+    nessunDatoRicevuto: 'No step value for these seven days.',
     letturaNonVerificata: TESTI_DASHBOARD.en.conteggioParziale,
     graficoNonMostrato: 'The steps chart is not shown because the read is not complete.',
     passi: (n) => `${raggruppa(n, ',')} ${n === 1 ? 'step' : 'steps'}`,
@@ -320,7 +320,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
           [c.ambigui, `${g(c.ambigui)} with several rows`],
           [c.nonDeterminabili, `${g(c.nonDeterminabili)} with a zero not determinable`],
           [c.segnaposto, `${g(c.segnaposto)} with a placeholder`],
-          [c.assenti, `${g(c.assenti)} with no data received`],
+          [c.assenti, `${g(c.assenti)} with no step value`],
           [c.nonDisponibili, `${g(c.nonDisponibili)} not available`],
         ],
         '.',
