@@ -4,7 +4,7 @@ import { Icon, type IconName } from './Icon';
 
 /**
  * Mattoni visivi neutri dei grafici (sede condivisa `components/charts`): nessun testo,
- * nessun modello, nessuna fixture e nessun import dall'anteprima.
+ * nessun modello, nessun dato di prova e nessun import dall'anteprima.
  */
 
 /**

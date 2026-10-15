@@ -57,12 +57,13 @@ function hits(list: ReadonlyArray<{ name: string; re: RegExp }>, files: string[]
 }
 
 describe('la scansione vede davvero i sorgenti', () => {
-  it('trova i file delle tre cartelle e non i file di regressione', () => {
+  it('trova i file delle cartelle scansionate e non i file di regressione', () => {
     expect(FILES.length).toBeGreaterThan(40);
     for (const root of SCAN_ROOTS) expect(FILES.some((f) => f.startsWith(`${root}/`)), root).toBe(true);
     expect(FILES.some(isRegressionFile)).toBe(false);
     expect(FILES).toContain('lib/web-dashboard/model.ts');
     expect(FILES).toContain('components/web-dashboard/Gates.tsx');
+    expect(FILES).toContain('components/charts/InteractiveChart.tsx');
   });
 
   it('i pattern riconoscono cio che devono (controprova: una scansione che non trova nulla non prova nulla)', () => {
@@ -244,6 +245,91 @@ describe('le rotte reali non importano l anteprima (spec U03, F06)', () => {
     const foundation = [...walk(path.join(ROOT, 'lib/dashboard')), ...walk(path.join(ROOT, 'app/(frontend)/[locale]/app/dashboard'))].map(rel);
     expect(foundation.length).toBeGreaterThan(3);
     for (const f of foundation) expect(read(f), f).not.toMatch(/web-dashboard|parsePreviewParams|SYNTHETIC_VIEWERS|buildDashboardResult/);
+  });
+
+  describe('il ramo foundation importa solo cio che e ammesso e non raggiunge l anteprima', () => {
+    // Lista chiusa degli specificatori ammessi: la sede condivisa dei grafici, il ramo stesso, il client
+    // server-side, il cancello di funzionalita', next e react. Un import nuovo fa cadere la prova: si aggiunge
+    // qui SOLO dopo aver letto che cosa porta, e si dice perche' nel commit.
+    const AMMESSI = [
+      /^@\/components\/charts\/[\w./-]+$/,
+      /^@\/lib\/dashboard\/[\w./-]+$/,
+      /^\.\/[\w.-]+$/,
+      /^@\/lib\/supabase\/server$/,
+      /^@\/lib\/feature-status$/,
+      /^next(\/[\w-]+)*$/,
+      /^react$/,
+    ];
+    // Cio' che non deve MAI stare nella chiusura degli import del ramo foundation.
+    const ANTEPRIMA = /^lib\/web-dashboard\/|^components\/web-dashboard\/|dashboard-preview|(^|\/)fixtures?(\/|\.)|(^|\/)synthetic(\/|\.)|(^|\/)screens\//;
+    const noComments = (src: string) => src.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+    const specifiers = (src: string): string[] => {
+      const c = noComments(src);
+      const out: string[] = [];
+      for (const m of c.matchAll(/(?:^|[;\n])\s*(?:import|export)\s+(?:[^'";]*?\sfrom\s+)?['"]([^'"]+)['"]/g)) out.push(m[1]);
+      for (const m of c.matchAll(/(?:import|require)\(\s*['"]([^'"]+)['"]\s*\)/g)) out.push(m[1]);
+      return out;
+    };
+    const resolveLocal = (from: string, spec: string, exists: (r: string) => boolean): string | null => {
+      const base = spec.startsWith('@/') ? spec.slice(2) : spec.startsWith('.') ? path.posix.normalize(path.posix.join(path.posix.dirname(from), spec)) : null;
+      if (base === null) return null;
+      return [base, `${base}.ts`, `${base}.tsx`, `${base}/index.ts`, `${base}/index.tsx`].find(exists) ?? base;
+    };
+    const closure = (start: string, readFile: (r: string) => string | null): Set<string> => {
+      const seen = new Set<string>();
+      const queue = [start];
+      while (queue.length > 0) {
+        const cur = queue.pop()!;
+        const src = readFile(cur);
+        if (src === null) continue;
+        for (const spec of specifiers(src)) {
+          const dest = resolveLocal(cur, spec, (r) => readFile(r) !== null);
+          if (dest && !seen.has(dest)) {
+            seen.add(dest);
+            queue.push(dest);
+          }
+        }
+      }
+      return seen;
+    };
+    const readRepo = (r: string): string | null => {
+      try {
+        return fs.statSync(path.join(ROOT, r)).isFile() ? read(r) : null;
+      } catch {
+        return null;
+      }
+    };
+    const foundationSources = (): string[] =>
+      [...walk(path.join(ROOT, 'lib/dashboard')), ...walk(path.join(ROOT, 'app/(frontend)/[locale]/app/dashboard'))]
+        .map(rel)
+        .filter((f) => !/\.test\.tsx?$/.test(f) && !/\.fixture\.tsx?$/.test(f));
+
+    it('controprova: la lista chiusa e il rilevatore di chiusura vedono cio che devono', () => {
+      const ok = (s: string) => AMMESSI.some((re) => re.test(s));
+      for (const s of ['@/components/charts/DailyStepsChart', '@/lib/dashboard/verdetto', './verdetto', '@/lib/supabase/server', 'next/navigation', 'next', 'react']) expect(ok(s), s).toBe(true);
+      for (const s of ['@/components/web-dashboard/primitives', '@/lib/web-dashboard/format', '@/lib/web-dashboard/fixtures/charts-fixtures', '../../dashboard-preview/x', 'lodash', '@/lib/other']) expect(ok(s), s).toBe(false);
+      const graph: Record<string, string> = {
+        'app/page.tsx': "import { C } from '@/components/charts/C';",
+        'components/charts/C.tsx': "import { f } from '@/lib/web-dashboard/fixtures/charts-fixtures';",
+        'lib/web-dashboard/fixtures/charts-fixtures.ts': 'export const f = 1;',
+      };
+      const reached = [...closure('app/page.tsx', (r) => graph[r] ?? null)];
+      expect(reached.filter((r) => ANTEPRIMA.test(r))).toEqual(['lib/web-dashboard/fixtures/charts-fixtures.ts']);
+    });
+
+    it('ogni import dei sorgenti di lib/dashboard e della pagina reale sta nella lista chiusa', () => {
+      const sources = foundationSources();
+      expect(sources.length).toBeGreaterThan(3);
+      expect(sources).toContain('lib/dashboard/letture-titolare.ts');
+      expect(sources).toContain('app/(frontend)/[locale]/app/dashboard/page.tsx');
+      const fuori = sources.flatMap((f) => specifiers(read(f)).filter((s) => !AMMESSI.some((re) => re.test(s))).map((s) => `${f}: ${s}`));
+      expect(fuori).toEqual([]);
+    });
+
+    it('la chiusura transitiva dei loro import non raggiunge anteprima, fixture, dati sintetici o schermate', () => {
+      const raggiunti = foundationSources().flatMap((f) => [...closure(f, readRepo)].filter((r) => ANTEPRIMA.test(r)).map((r) => `${f} -> ${r}`));
+      expect(raggiunti).toEqual([]);
+    });
   });
 
   it('ogni pagina di anteprima chiude il cancello PRIMA di toccare parametri, accesso o dati', () => {

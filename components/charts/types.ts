@@ -2,7 +2,7 @@
  * Contratto dei dati per i componenti grafici della dashboard web.
  *
  * Principi architetturali (SPRINT DASHBOARD-CHARTS-01):
- *  1. Dati dimostrativi: le fixture sono puramente sintetiche e deterministiche.
+ *  1. Dati dimostrativi: i punti dimostrativi sono puramente sintetici e deterministici.
  *  2. Distinzione degli stati:
  *     - measured: valore valido presente (> 0);
  *     - measured-zero: valore zero misurato dalla sorgente (es. 0 passi effettivi);
@@ -40,7 +40,7 @@ export interface ChartSeriesMetadata {
   metric: 'steps' | 'heart_rate' | 'sleep_duration';
   title: string;
   unit: string;
-  /** Fuso orario della serie (es. Europe/Rome). */
+  /** Nome del fuso orario a cui si riferiscono le date della serie (identificatore IANA). */
   timezone: string;
   /** Flag esplicito per dati dimostrativi sintetici. */
   isDemo: boolean;
@@ -58,7 +58,7 @@ export interface BaseChartProps {
   className?: string;
   /** Etichetta personalizzata per la tabella dati alternativa. */
   tableLabel?: string;
-  /** Flag esplicito per indicare fixture dimostrativa (default: true). */
+  /** Flag esplicito per indicare dati dimostrativi (default: true). */
   isDemo?: boolean;
 }
 

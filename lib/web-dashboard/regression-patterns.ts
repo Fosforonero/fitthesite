@@ -128,7 +128,13 @@ export const FORBIDDEN_PAYWALL: ReadonlyArray<{ name: string; re: RegExp }> = [
 ];
 
 /** Cartelle e file scansionati (relativi alla radice del repository). */
-export const SCAN_ROOTS = ['lib/web-dashboard', 'components/web-dashboard', 'app/(frontend)/[locale]/dashboard-preview'] as const;
+export const SCAN_ROOTS = [
+  'lib/web-dashboard',
+  'components/web-dashboard',
+  'app/(frontend)/[locale]/dashboard-preview',
+  // Sede condivisa dei grafici (estratta dal prototipo): scansionata come il resto, nessuna esenzione.
+  'components/charts',
+] as const;
 
 /** Chi contiene le stringhe vietate per mestiere: questo elenco e i due test di regressione. */
 export const isRegressionFile = (file: string): boolean => /(^|\/)regression[^/]*$/.test(file);

@@ -68,6 +68,10 @@ describe('dashboard web: niente chiave di servizio, niente select(*)', () => {
 });
 
 describe('dashboard web: solo lato server', () => {
+  it('il perimetro di questa prova comprende la sede condivisa dei grafici (components/charts)', () => {
+    expect(fileSotto('components/charts').length).toBeGreaterThanOrEqual(7);
+  });
+
   it('nessun componente client importa il verdetto o le letture', () => {
     const colpevoli = ['app', 'components', 'lib']
       .flatMap(fileSotto)
