@@ -78,11 +78,12 @@ export type GiornoPassi =
  * Le sole sorgenti il cui `steps = 0` e' PROVATAMENTE un segnaposto: nelle release 188-191 il
  * codice dell'app scrive il letterale `steps: 0` nello snapshot, che porta solo
  * exercise_sessions (strava_oauth) o sonno e HRV (oura_oauth), in providers.dart, funzioni
- * _stravaSnapshot e _ouraSnapshot. Nell'app 192.1 (letto a bcd6ffab, non provato a runtime):
+ * _stravaSnapshot e _ouraSnapshot. Nell'app 192.1 (letto nel repository DELL'APP, ref `192.1/cand-final`
+ * = bcd6ffab, che NON esiste in questo repository; non provato a runtime):
  * Strava NON raggiunge il server (cancello di persistenza, quindi nessuna riga nuova) e Oura
  * scrive `steps` null (-> nessun_dato, come ogni null). Lo `steps: 0` letterale resta quindi
- * possibile per le righe storiche E per i client 188-191 ancora in circolazione: non e' solo
- * storia. Quante righe esistano in produzione NON e' noto.
+ * possibile per le righe storiche E per i client 188-191 SE ancora in circolazione (non verificato):
+ * non e' detto che sia solo storia. Quante righe esistano in produzione NON e' noto.
  * DECISIONE APERTA D1 (prodotto): queste righe contano comunque come candidate (ambiguita' con
  * una riga del telefono, anche se la fonte non porta passi) mentre l'app 192.1 vieta per policy
  * di leggere/combinare Strava; il trattamento NON e' cambiato. Il testo di `ambiguous` dice
