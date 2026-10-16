@@ -54,6 +54,7 @@ declare -a ATTESI=(
   "20-secdef-senza-controllo.sh"       # che nessuna SECURITY DEFINER resti senza controllo
   "21-nessuna-transazione-nelle-migration.sh"  # che nessuna migration apra transazioni nude
   "22-sentinella-solo-harness.sh"      # che la sentinella del banco non finisca in produzione
+  "24-rollback-verdetto-dashboard.sh"  # che il rollback di 20260924120000 sia davvero provato (7 mutanti; richiede PG17 del banco)
 )
 
 scopri() {
