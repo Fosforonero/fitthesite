@@ -261,6 +261,27 @@ describe('righe fuori finestra e giorno non concluso', () => {
     expect(JSON.stringify(r)).not.toMatch(/111|333|444|555|666|777|888|999/);
   });
 
+  // 0f290885 (m1): le chiavi '2026-10-08T00:00:00Z' e '2026-10-08 ' erano nel caso sopra fra le «ignorate»; dentro la
+  // finestra per prefisso, oggi rendono il PRIMO giorno non disponibile. Gli input si preservano qui, un caso per chiave
+  // (insieme, la normalizzazione dello spazio finale coprirebbe il percorso a prefisso), con l'attesa del contratto m1.
+  it.each([
+    ['ora, primo giorno', '2026-10-08T00:00:00Z', 0, 111],
+    ['spazio finale, primo giorno', '2026-10-08 ', 0, 333],
+    ['ora, ultimo giorno', '2026-10-14T23:59:59Z', 6, 222],
+  ])('chiave non esatta con il prefisso di un giorno di bordo (%s): quel giorno non disponibile, nessun valore', (_n, chiave, indice, valore) => {
+    const r = qualificaPassi([riga(chiave, valore)] as never, FINESTRA);
+    expect(r[indice]).toEqual({ giorno: GIORNI[indice], stato: 'non_disponibile' });
+    expect(r.filter((_, i) => i !== indice).map((g) => g.stato)).toEqual(Array(6).fill('nessun_dato'));
+    expect(JSON.stringify(r)).not.toContain(String(valore));
+  });
+
+  it('chiave con l ora sul primo giorno accanto a una riga esatta valida: non disponibile, nessun valore scelto', () => {
+    const r = qualificaPassi([riga(primo, 5000), riga('2026-10-08T00:00:00Z', 8000)] as never, FINESTRA);
+    expect(r[0]).toEqual({ giorno: primo, stato: 'non_disponibile' });
+    expect(r[0]).not.toHaveProperty('passi');
+    expect(JSON.stringify(r)).not.toMatch(/5000|8000/);
+  });
+
   it('elementi che non sono oggetti vengono ignorati, la lettura non si rompe', () => {
     const r = qualificaPassi([null, undefined, 5, 'x', [], riga(primo, 10)] as never, FINESTRA);
     expect(r[0]).toEqual({ giorno: primo, stato: 'ricevuto', passi: 10 });
