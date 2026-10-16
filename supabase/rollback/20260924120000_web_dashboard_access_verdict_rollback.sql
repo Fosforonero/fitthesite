@@ -31,7 +31,8 @@
 --   P-2  Le dipendenze del corpo (tabelle, colonne, funzioni, ruoli) devono esistere:
 --        la funzione e' plpgsql e un oggetto mancante esplode solo a runtime.
 --        Controllate dallo stesso script.
---   P-3  Chi esegue deve essere il proprietario delle due funzioni (altrimenti DROP
+--   P-3  (informativo, nello stesso script) la versione 20260924120000 nel registro delle migration.
+--   P-4  Chi esegue deve essere il proprietario delle due funzioni (altrimenti DROP
 --        fallisce con «must be owner» e non cambia niente).
 --
 -- COSA GARANTISCE (provato sul banco: gate 18 in due modalita', gate 24)
@@ -44,6 +45,8 @@
 --       public.get_web_dashboard_access 414fa2d0e1949db74672d6e4d688c1ff
 --     Se la migration cambia, questi due valori vanno rimisurati (il gate 24 lo pretende).
 --   - nessun CASCADE: se un oggetto dipende dalle funzioni il DROP fallisce e non cambia niente.
+--   - le funzioni si individuano per firma ESATTA (`public.get_web_dashboard_access()`, `private.web_dashboard_verdict(uuid)`):
+--     un overload o un omonimo con altra firma e' uno stato anomalo e RIFIUTA.
 --   - lock_timeout 5s sul DDL: se una sessione tiene un lock sulle funzioni il rollback
 --     fallisce invece di mettersi in coda e bloccare chi chiama.
 --
@@ -54,36 +57,39 @@
 --     rollback significa «applicata» con le funzioni assenti: scegliere la versione del
 --     file evita il drift «stesso nome, versione diversa».
 --   - Le funzioni gia' eseguite non lasciano tracce da annullare: il verdetto e' di sola lettura.
+--   - Un `create or replace` concorrente fra il controllo e il DROP: non c'e' un lock sugli oggetti funzione (rischio
+--     teorico; il rollback si esegue in una finestra decisa, con un solo operatore).
 -- ============================================================================
 do $rollback$
 declare
   c_md5_pub  constant text := '414fa2d0e1949db74672d6e4d688c1ff';  -- public.get_web_dashboard_access()
   c_md5_priv constant text := 'cd85f5bf937bc069571b1738e5a55d90';  -- private.web_dashboard_verdict(uuid)
-  v_n    int;
+  v_n      int;
+  v_exact  int;
   v_pub  text;
   v_priv text;
 begin
-  -- Vale per questa sola istruzione (is_local = true): in autocommit si azzera da sola.
+  -- is_local = true: vale fino alla fine della transazione corrente. In autocommit e' questa sola istruzione;
+  -- dentro una transazione esterna (--single-transaction, begin; ...) resta fino alla fine di QUELLA transazione.
   perform pg_catalog.set_config('lock_timeout', '5s', true);
 
+  -- Per nome (qualunque overload) e per firma ESATTA: un overload o un omonimo con altra firma non e' «una delle due».
   select count(*) into v_n
   from pg_catalog.pg_proc p join pg_catalog.pg_namespace n on n.oid = p.pronamespace
   where (n.nspname, p.proname) in (('public', 'get_web_dashboard_access'), ('private', 'web_dashboard_verdict'));
+  v_exact := (pg_catalog.to_regprocedure('public.get_web_dashboard_access()') is not null)::int
+           + (pg_catalog.to_regprocedure('private.web_dashboard_verdict(uuid)') is not null)::int;
 
   if v_n = 0 then
     raise notice 'ROLLBACK: nessuna delle due funzioni esiste, niente da fare (idempotente)';
     return;
   end if;
-  if v_n <> 2 then
-    raise exception 'ROLLBACK RIFIUTATO: attese 0 o 2 funzioni, trovate %.', v_n;
+  if v_n <> 2 or v_exact <> 2 then
+    raise exception 'ROLLBACK RIFIUTATO: attese 0 o 2 funzioni con le firme esatte, trovate % per nome e % con la firma esatta (stato parziale, omonimo o overload).', v_n, v_exact;
   end if;
 
-  select pg_catalog.md5(p.prosrc) into v_pub
-  from pg_catalog.pg_proc p join pg_catalog.pg_namespace n on n.oid = p.pronamespace
-  where n.nspname = 'public' and p.proname = 'get_web_dashboard_access' and p.pronargs = 0;
-  select pg_catalog.md5(p.prosrc) into v_priv
-  from pg_catalog.pg_proc p join pg_catalog.pg_namespace n on n.oid = p.pronamespace
-  where n.nspname = 'private' and p.proname = 'web_dashboard_verdict' and p.pronargs = 1;
+  select pg_catalog.md5(p.prosrc) into v_pub  from pg_catalog.pg_proc p where p.oid = pg_catalog.to_regprocedure('public.get_web_dashboard_access()');
+  select pg_catalog.md5(p.prosrc) into v_priv from pg_catalog.pg_proc p where p.oid = pg_catalog.to_regprocedure('private.web_dashboard_verdict(uuid)');
 
   if v_pub is distinct from c_md5_pub or v_priv is distinct from c_md5_priv then
     raise exception 'ROLLBACK RIFIUTATO: il corpo delle funzioni non e'' quello di 20260924120000 (omonima preesistente o modificata): non si cancella alla cieca (pub=%, priv=%).', v_pub, v_priv;

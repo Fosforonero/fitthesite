@@ -22,6 +22,7 @@
 --        lo schema private, i ruoli anon e authenticated. La funzione e' plpgsql: un
 --        oggetto mancante o con un altro tipo esplode solo alla prima chiamata.
 --   P-3  informativo: versione 20260924120000 nel registro delle migration, se leggibile.
+--        (La verifica del PROPRIETARIO delle funzioni, che nel rollback e' P-4, non e' qui: riguarda chi esegue il rollback.)
 -- NON controlla: i dati (nessuna riga utente viene letta), la collation, i privilegi di chi esegue.
 -- ============================================================================
 do $precondizioni$
@@ -30,6 +31,7 @@ declare
   r record;
   v_tipo text;
   v_n int;
+  v_oid oid;
   v_registro text;
 begin
   -- P-1: le due funzioni non devono esistere
@@ -87,6 +89,33 @@ begin
   if not exists (select 1 from unnest(v_falle) f where f like 'P-2%') then
     raise notice 'P-2 ok: schema, ruoli, funzioni, colonne e tipi attesi presenti';
   end if;
+
+  -- P-2 (seguito): tipi di ritorno e valori enum. Un valore enum assente o un tipo diverso esplode alla prima chiamata.
+  if pg_catalog.to_regprocedure('auth.uid()') is not null
+     and (select p.prorettype::regtype::text from pg_catalog.pg_proc p where p.oid = pg_catalog.to_regprocedure('auth.uid()')) <> 'uuid' then
+    v_falle := v_falle || 'P-2: auth.uid() non restituisce uuid';
+  end if;
+  if pg_catalog.to_regprocedure('public.is_b2c_lifetime(public.b2c_subscriptions)') is not null
+     and (select p.prorettype::regtype::text from pg_catalog.pg_proc p where p.oid = pg_catalog.to_regprocedure('public.is_b2c_lifetime(public.b2c_subscriptions)')) <> 'boolean' then
+    v_falle := v_falle || 'P-2: public.is_b2c_lifetime(public.b2c_subscriptions) non restituisce boolean';
+  end if;
+  for r in
+    select * from (values
+      ('public', 'user_roles', 'role', 'pro'), ('public', 'user_roles', 'role', 'admin'),
+      ('public', 'b2c_subscriptions', 'state', 'active'), ('public', 'b2c_subscriptions', 'state', 'grace'), ('public', 'b2c_subscriptions', 'state', 'on_hold'),
+      ('public', 'b2c_subscriptions', 'billing_source', 'trial'), ('public', 'b2c_subscriptions', 'billing_source', 'founder_grant')
+    ) as t(s, tab, col, etichetta)
+  loop
+    -- Solo se la colonna e' un enum: per un testo qualunque valore e' ammesso e non c'e' niente da controllare.
+    select a.atttypid into v_oid
+    from pg_catalog.pg_attribute a join pg_catalog.pg_class c on c.oid = a.attrelid join pg_catalog.pg_namespace n on n.oid = c.relnamespace
+    where n.nspname = r.s and c.relname = r.tab and a.attname = r.col and a.attnum > 0 and not a.attisdropped;
+    if v_oid is not null and exists (select 1 from pg_catalog.pg_type t where t.oid = v_oid and t.typtype = 'e')
+       and not exists (select 1 from pg_catalog.pg_enum e where e.enumtypid = v_oid and e.enumlabel = r.etichetta) then
+      v_falle := v_falle || format('P-2: l''enum di %s.%s.%s non ha l''etichetta %L', r.s, r.tab, r.col, r.etichetta);
+    end if;
+    v_oid := null;
+  end loop;
 
   -- P-3: informativo (il registro puo' non esistere o non essere leggibile da questo ruolo)
   begin

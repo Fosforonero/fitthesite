@@ -4,7 +4,7 @@
 #
 # PERCHE' ESISTE
 # --------------
-# Sei gate di questa cartella sanno mettersi alla prova da soli: lanciati con
+# Sette gate di questa cartella sanno mettersi alla prova da soli: lanciati con
 # `--autocontrollo` rompono di proposito la propria difesa e pretendono di
 # diventare rossi. E' la sola cosa che distingue un cancello da una
 # decorazione.
