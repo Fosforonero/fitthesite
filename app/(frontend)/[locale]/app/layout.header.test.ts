@@ -20,8 +20,12 @@ describe('layout dell\'area riservata: l\'header non sfora a 320 px', () => {
   });
 
   it('i cinque elementi essenziali restano nell\'ordine del DOM: logo, Dashboard, Dispositivi, Impostazioni, Esci', () => {
-    const ordine = ['/app`}', '/app/devices`}', '/app/settings`}', '/auth/logout`}'].map((s) => layout.indexOf(s));
-    expect(ordine.every((i) => i > 0)).toBe(true);
-    expect([...ordine].sort((a, b) => a - b)).toEqual(ordine);
+    // Logo e «Dashboard» puntano alla stessa pagina: due href /app, poi /app/devices, poi /app/settings, poi il logout.
+    const href = /href=\{`\/\$\{lc\}\/app(\/devices|\/settings)?`\}/g;
+    const link = [...layout.matchAll(href)].map((m) => ({ pagina: m[1] ?? '', i: m.index ?? -1 }));
+    expect(link.map((l) => l.pagina)).toEqual(['', '', '/devices', '/settings']);
+    const logout = layout.indexOf('/auth/logout`}');
+    expect(logout).toBeGreaterThan(link[3].i);
+    expect([...link.map((l) => l.i), logout].every((v, k, a) => k === 0 || v > a[k - 1])).toBe(true);
   });
 });
