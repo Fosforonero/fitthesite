@@ -15,7 +15,7 @@ const P = (i: number, value: number | null, state: ChartDataPoint['state']): Cha
   state,
 });
 
-function monta(points: ChartDataPoint[], extra: Record<string, unknown> = {}, locale = 'it') {
+function monta(points: ChartDataPoint[], extra: { isDemo: boolean } & Record<string, unknown>, locale = 'it') {
   const { container } = render(
     <DailyStepsChart id="t" title="Passi" points={points} period={30} locale={locale} {...extra} />,
   );

@@ -106,9 +106,9 @@ describe.each(['it', 'en'] as const)('parziali, etichette %s', (lc) => {
     const pts = toChartPoints(toDays(MIXED), labels);
     const { container } = render(
       <div>
-        <DailyStepsChart id="s" title="t" points={pts} period={7} locale={lc} />
-        <HeartRateTrendChart id="h" title="t" points={pts} period={7} locale={lc} />
-        <SleepDurationChart id="z" title="t" points={pts} period={7} locale={lc} />
+        <DailyStepsChart id="s" title="t" points={pts} period={7} locale={lc} isDemo />
+        <HeartRateTrendChart id="h" title="t" points={pts} period={7} locale={lc} isDemo />
+        <SleepDurationChart id="z" title="t" points={pts} period={7} locale={lc} isDemo />
       </div>,
     );
     for (const id of ['s', 'h', 'z']) {
@@ -129,9 +129,9 @@ describe.each(['it', 'en'] as const)('parziali, etichette %s', (lc) => {
     const pts = toChartPoints(toDays(FULL), labels);
     const { container } = render(
       <div>
-        <DailyStepsChart id="s" title="t" points={pts} period={7} locale={lc} />
-        <HeartRateTrendChart id="h" title="t" points={pts} period={7} locale={lc} />
-        <SleepDurationChart id="z" title="t" points={pts} period={7} locale={lc} />
+        <DailyStepsChart id="s" title="t" points={pts} period={7} locale={lc} isDemo />
+        <HeartRateTrendChart id="h" title="t" points={pts} period={7} locale={lc} isDemo />
+        <SleepDurationChart id="z" title="t" points={pts} period={7} locale={lc} isDemo />
       </div>,
     );
     for (const id of ['s', 'h', 'z']) {
@@ -220,9 +220,9 @@ describe.each(['it', 'en'] as const)('accordi dei riepiloghi dei grafici, n = 1 
     const period = periodDays as ChartPeriod;
     const { container } = render(
       <div>
-        <DailyStepsChart id="s" title="t" points={pts} period={period} locale={lc} />
-        <HeartRateTrendChart id="h" title="t" points={pts} period={period} locale={lc} />
-        <SleepDurationChart id="z" title="t" points={pts} period={period} locale={lc} />
+        <DailyStepsChart id="s" title="t" points={pts} period={period} locale={lc} isDemo />
+        <HeartRateTrendChart id="h" title="t" points={pts} period={period} locale={lc} isDemo />
+        <SleepDurationChart id="z" title="t" points={pts} period={period} locale={lc} isDemo />
       </div>,
     );
     const g = (id: string) => container.querySelector(`#${id}-summary`)?.textContent ?? '';

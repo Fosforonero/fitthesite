@@ -12,9 +12,10 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 
 import { cleanup, fireEvent, render } from '@testing-library/react';
-import { afterEach, describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import { DailyStepsChart } from './DailyStepsChart';
+import { InteractiveChart } from './InteractiveChart';
 import type { ChartDataPoint, ChartSlotState } from './types';
 
 afterEach(cleanup);
@@ -51,12 +52,67 @@ describe('a) isDemo: il markup reale non contiene testi dimostrativi', () => {
     expect(testo).toMatch(lc === 'it' ? /8\.?000 passi/ : /8,000 steps/);
   });
 
-  it('decisione documentata: il default del kit resta isDemo=true (l\'anteprima lo usa), il flag esplicito lo spegne', () => {
+  it('isDemo={true} esplicito: chip «Dati dimostrativi» e obiettivo di esempio (il ramo dimostrativo resta coperto)', () => {
     const { container } = render(
-      <DailyStepsChart id="d" title="Passi" points={serie(['measured'])} period={7} locale="it" goalSteps={8000} />,
+      <DailyStepsChart id="d" title="Passi" points={serie(['measured'])} period={7} locale="it" isDemo goalSteps={8000} />,
     );
     expect(container.textContent).toContain('Dati dimostrativi');
     expect(container.textContent).toContain('Obiettivo di esempio');
+  });
+});
+
+describe('a) contratto D2: nessun default fra dato reale e dimostrativo, la scelta e\' esplicita', () => {
+  // Una scelta mancante NON diventa ne' «reale» ne' «dimostrativo»: il kit rifiuta di disegnare (fail-closed).
+  const senzaScelta = undefined as unknown as boolean;
+
+  it('DailyStepsChart senza una scelta esplicita lancia invece di scegliere da solo', () => {
+    const silenzio = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      expect(() =>
+        render(<DailyStepsChart id="d" title="Passi" points={serie(['measured'])} period={7} locale="it" isDemo={senzaScelta} />),
+      ).toThrow(/isDemo/);
+    } finally {
+      silenzio.mockRestore();
+    }
+  });
+
+  it('InteractiveChart senza una scelta esplicita lancia invece di scegliere da solo', () => {
+    const silenzio = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      expect(() =>
+        render(
+          <InteractiveChart
+            id="l" title="L" unit="u" metricKind="line" color="#0af" points={serie(['received'])} period={30}
+            locale="it" isDemo={senzaScelta} formatValue={(v: number) => String(v)} summaryText="s"
+          />,
+        ),
+      ).toThrow(/isDemo/);
+    } finally {
+      silenzio.mockRestore();
+    }
+  });
+
+  it.each([['null', null], ['stringa', 'false'], ['numero', 0]])('un valore non booleano (%s) e\' rifiutato come una scelta mancante', (_n, valore) => {
+    const silenzio = vi.spyOn(console, 'error').mockImplementation(() => {});
+    try {
+      expect(() =>
+        render(<DailyStepsChart id="d" title="Passi" points={serie(['measured'])} period={7} locale="it" isDemo={valore as unknown as boolean} />),
+      ).toThrow(/isDemo/);
+    } finally {
+      silenzio.mockRestore();
+    }
+  });
+
+  it('contratto di tipo (mai eseguito): omettere isDemo, o passarne uno non booleano, non compila', () => {
+    const mai = false as boolean;
+    if (mai) {
+      // @ts-expect-error isDemo e' obbligatorio: nessun default, nessuna scelta implicita
+      render(<DailyStepsChart id="x" title="t" points={[]} period={7} locale="it" />);
+      // @ts-expect-error isDemo e' obbligatorio anche sul grafico interattivo
+      render(<InteractiveChart id="x" title="t" unit="u" metricKind="line" color="#0af" points={[]} period={7} locale="it" formatValue={String} summaryText="s" />);
+      // @ts-expect-error undefined non e' una scelta: il tipo lo vieta
+      render(<DailyStepsChart id="x" title="t" points={[]} period={7} locale="it" isDemo={undefined} />);
+    }
   });
 });
 
@@ -140,6 +196,46 @@ describe('a) guardia sul punto d\'ingresso del percorso reale', () => {
       (f) => !ESENTI.has(f) && !ESENTI_PREFISSO.some((p) => f.startsWith(p)),
     );
     const colpevoli = candidati.filter((f) => dimenticaIsDemoFalse(readFileSync(path.join(RADICE, f), 'utf8')));
+    expect(colpevoli).toEqual([]);
+  });
+});
+
+/** Ogni tag di apertura JSX del pannello dell'anteprima (stesso schema di APERTURA_GRAFICO). */
+const APERTURA_PANNELLO = /<TrendChartsPanel\b((?:\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}|[^>{}])*)>/g;
+
+/**
+ * Lato opposto del confine (D2): una FIXTURE non puo' sembrare reale. Il pannello e' dell'anteprima (la pagina reale
+ * non puo' importare da components/web-dashboard: regression.test.ts), quindi ogni suo montaggio nei sorgenti di
+ * produzione deve dichiarare letteralmente isDemo={true}, senza uno spread dopo che possa riportarlo a un'altra scelta.
+ */
+function dimenticaIsDemoTrue(sorgente: string): boolean {
+  for (const m of sorgente.matchAll(APERTURA_PANNELLO)) {
+    const attributi = m[1];
+    const idx = attributi.indexOf('isDemo={true}');
+    if (idx < 0) return true;
+    if (/\{\s*\.\.\./.test(attributi.slice(idx))) return true;
+  }
+  return false;
+}
+
+describe('a) guardia gemella: una fixture non puo\' sembrare reale', () => {
+  it('il rilevatore distingue chi passa isDemo={true} dal pannello senza scelta o con isDemo={false}', () => {
+    expect(dimenticaIsDemoTrue('<TrendChartsPanel idPrefix="t" series={s} isDemo={true} />')).toBe(false);
+    expect(dimenticaIsDemoTrue('<TrendChartsPanel idPrefix="t" series={s} />')).toBe(true);
+    expect(dimenticaIsDemoTrue('<TrendChartsPanel idPrefix="t" series={s} isDemo={false} />')).toBe(true);
+    expect(dimenticaIsDemoTrue('export const x = 1;')).toBe(false);
+  });
+
+  it('il rilevatore e\' per montaggio e rifiuta uno spread dopo il flag', () => {
+    const due = '<TrendChartsPanel isDemo={true} series={a} />\n<TrendChartsPanel series={b} />';
+    expect(dimenticaIsDemoTrue(due)).toBe(true);
+    expect(dimenticaIsDemoTrue('<TrendChartsPanel isDemo={true} {...props} />')).toBe(true);
+    expect(dimenticaIsDemoTrue('<TrendChartsPanel {...props} isDemo={true} />')).toBe(false);
+  });
+
+  it('nessun sorgente di produzione monta il pannello dell\'anteprima senza isDemo={true}', () => {
+    const file = ['app', 'components', 'lib'].flatMap((d) => sorgentiProduzione(d));
+    const colpevoli = file.filter((f) => dimenticaIsDemoTrue(readFileSync(path.join(RADICE, f), 'utf8')));
     expect(colpevoli).toEqual([]);
   });
 });

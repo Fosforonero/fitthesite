@@ -31,7 +31,7 @@ function setup(id: string) {
   const { container } = render(
     <div>
       <input data-outside />
-      <DailyStepsChart id={id} title="Passi F-1" points={pts} period={7} locale="it" />
+      <DailyStepsChart id={id} title="Passi F-1" points={pts} period={7} locale="it" isDemo />
     </div>,
   );
   const tooltip = container.querySelector(`#${id}-tooltip`)!;

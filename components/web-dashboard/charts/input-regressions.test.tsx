@@ -7,7 +7,7 @@ import type { ChartDataPoint } from './types';
 
 afterEach(cleanup);
 const point = (date: string, value: number): ChartDataPoint => ({ date, value, state: 'measured' });
-const props = { id: 'input-chart', title: 'Synthetic chart', period: 7 as const, locale: 'en' };
+const props = { id: 'input-chart', title: 'Synthetic chart', period: 7 as const, locale: 'en', isDemo: true };
 
 describe('defensive chart inputs and series changes', () => {
   it.each([NaN, Infinity, -Infinity, -1])('treats invalid numeric input %s as an error and a line gap', (bad) => {

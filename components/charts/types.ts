@@ -77,8 +77,11 @@ export interface BaseChartProps {
   className?: string;
   /** Etichetta personalizzata per la tabella dati alternativa. */
   tableLabel?: string;
-  /** Flag esplicito per indicare dati dimostrativi (default: true). */
-  isDemo?: boolean;
+  /**
+   * Scelta ESPLICITA al confine fra dati reali (false) e dimostrativi/fixture (true). Obbligatoria: nessun default,
+   * nessuna scelta implicita in nessuna direzione. Un valore non booleano e' rifiutato a runtime dal kit.
+   */
+  isDemo: boolean;
   /** Etichette di stato del chiamante (sostituiscono quelle del kit, per stato). */
   stateLabels?: ChartStateTexts;
   /** Testo mostrato al posto del valore per gli stati senza valore (per stato). */

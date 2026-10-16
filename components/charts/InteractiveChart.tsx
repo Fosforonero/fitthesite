@@ -18,7 +18,8 @@ export interface InteractiveChartProps {
   points: ChartDataPoint[];
   period: ChartPeriod;
   locale: string;
-  isDemo?: boolean;
+  /** Obbligatorio, senza default: vedi BaseChartProps.isDemo. */
+  isDemo: boolean;
   tableLabel?: string;
   formatValue: (val: number, locale: string) => string;
   formatAxisTick?: (val: number, locale: string) => string;
@@ -280,7 +281,7 @@ export function InteractiveChart({
   points,
   period,
   locale,
-  isDemo = true,
+  isDemo,
   tableLabel,
   formatValue,
   formatAxisTick,
@@ -294,6 +295,8 @@ export function InteractiveChart({
   stateLabels: stateLabelsOverride,
   valueLabels,
 }: InteractiveChartProps) {
+  // D2: la scelta fra dato reale e dimostrativo e' esplicita; una scelta mancante o non booleana non diventa un default.
+  if (typeof isDemo !== 'boolean') throw new Error('isDemo: scelta esplicita obbligatoria (true = dimostrativo, false = reale)');
   const isIt = locale === 'it';
   const stateLabels = resolveStateLabels(locale, stateLabelsOverride);
   // Testo al posto del valore, per STATO: «Nessun dato» e' solo dell'assenza; errore, ambiguo, non

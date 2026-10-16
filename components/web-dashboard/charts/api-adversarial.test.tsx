@@ -18,7 +18,7 @@ describe('HeartRateTrendChart adversarial regressions', () => {
       measured('2024-01-05', 90),
     ];
     const { container } = render(
-      <HeartRateTrendChart id="api-test-heart" title="Synthetic heart" points={points} period={7} locale="en" />,
+      <HeartRateTrendChart id="api-test-heart" title="Synthetic heart" points={points} period={7} locale="en" isDemo />,
     );
     const paths = Array.from(container.querySelectorAll('svg path[stroke]')).filter(
       (p) => !p.closest('defs'),
@@ -43,7 +43,7 @@ describe('HeartRateTrendChart adversarial regressions', () => {
         { date: '2024-01-02', value: null, state },
       ];
       const { container } = render(
-        <HeartRateTrendChart id="api-test-heart" title="Synthetic heart" points={points} period={7} locale="en" />,
+        <HeartRateTrendChart id="api-test-heart" title="Synthetic heart" points={points} period={7} locale="en" isDemo />,
       );
       const summaryEl = container.querySelector('#api-test-heart-summary') ?? container.querySelector('figcaption');
       expect(summaryEl).not.toBeNull();
@@ -57,7 +57,7 @@ describe('HeartRateTrendChart adversarial regressions', () => {
   it('resolves aria-describedby on focus to a node inside the chart showing the reading', () => {
     const points = [measured('2024-01-01', 60), measured('2024-01-02', 70)];
     const { container } = render(
-      <HeartRateTrendChart id="api-test-heart" title="Synthetic heart" points={points} period={7} locale="en" />,
+      <HeartRateTrendChart id="api-test-heart" title="Synthetic heart" points={points} period={7} locale="en" isDemo />,
     );
     const button = container.querySelector('button[aria-label]') as HTMLButtonElement;
     expect(button).not.toBeNull();

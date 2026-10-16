@@ -83,6 +83,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts7 = getStepsFixture(7, 'complete');
       const { container: c7 } = render(
         <DailyStepsChart
+          isDemo
           id="steps-test-7"
           title="Passi 7 giorni"
           points={pts7}
@@ -100,6 +101,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts30 = getStepsFixture(30, 'complete');
       const { container: c30 } = render(
         <DailyStepsChart
+          isDemo
           id="steps-test-30"
           title="Passi 30 giorni"
           points={pts30}
@@ -114,6 +116,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getStepsFixture(7, 'zeros');
       const { container } = render(
         <DailyStepsChart
+          isDemo
           id="steps-zeros"
           title="Passi con zeri"
           points={pts}
@@ -140,6 +143,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getStepsFixture(7, 'partial');
       const { container } = render(
         <DailyStepsChart
+          isDemo
           id="steps-partial"
           title="Passi parziali"
           points={pts}
@@ -156,6 +160,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getStepsFixture(7, 'empty');
       const { container } = render(
         <DailyStepsChart
+          isDemo
           id="steps-empty"
           title="Passi vuoti"
           points={pts}
@@ -174,6 +179,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getStepsFixture(7, 'error');
       const { container } = render(
         <DailyStepsChart
+          isDemo
           id="steps-err"
           title="Passi con errori"
           points={pts}
@@ -198,6 +204,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
 
       const { container } = render(
         <DailyStepsChart
+          isDemo
           id="steps-defensive"
           title="Difensivo"
           points={badData}
@@ -219,6 +226,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getHeartRateFixture(7, 'complete');
       const { container } = render(
         <HeartRateTrendChart
+          isDemo
           id="hr-test"
           title="Frequenza cardiaca"
           points={pts}
@@ -245,6 +253,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getHeartRateFixture(7, 'partial');
       const { container } = render(
         <HeartRateTrendChart
+          isDemo
           id="hr-partial"
           title="Frequenza cardiaca con buchi"
           points={pts}
@@ -292,6 +301,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getHeartRateFixture(7, 'empty');
       const { container } = render(
         <HeartRateTrendChart
+          isDemo
           id="hr-empty"
           title="Frequenza cardiaca vuota"
           points={pts}
@@ -312,6 +322,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getSleepFixture(7, 'complete');
       const { container } = render(
         <SleepDurationChart
+          isDemo
           id="sleep-test"
           title="Durata sonno"
           points={pts}
@@ -330,6 +341,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getSleepFixture(7, 'zeros');
       const { container } = render(
         <SleepDurationChart
+          isDemo
           id="sleep-zeros"
           title="Sonno con zero"
           points={pts}
@@ -346,6 +358,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getSleepFixture(7, 'empty');
       const { container } = render(
         <SleepDurationChart
+          isDemo
           id="sleep-empty"
           title="Sonno vuoto"
           points={pts}
@@ -365,6 +378,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getStepsFixture(7, 'complete');
       const { container } = render(
         <DailyStepsChart
+          isDemo
           id="a11y-steps"
           title="Passi A11y"
           points={pts}
@@ -399,6 +413,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getStepsFixture(7, 'complete');
       const { container } = render(
         <DailyStepsChart
+          isDemo
           id="aria-test"
           title="Aria Test"
           points={pts}
@@ -422,6 +437,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getStepsFixture(7, 'complete');
       const { container } = render(
         <DailyStepsChart
+          isDemo
           id="details-table"
           title="Passi Tabella"
           points={pts}
@@ -439,6 +455,7 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const pts = getStepsFixture(7, 'partial');
       const { container } = render(
         <DailyStepsChart
+          isDemo
           id="gov-test"
           title="Governance Test"
           points={pts}

@@ -18,11 +18,12 @@ export function DailyStepsChart({
   className = '',
   tableLabel,
   goalSteps,
-  isDemo = true,
+  isDemo,
   stateLabels,
   valueLabels,
   summaryText: summaryOverride,
 }: DailyStepsChartProps) {
+  // D2: nessun default per isDemo; la scelta mancante o non booleana e' rifiutata da InteractiveChart, che questo grafico monta sempre.
   const points = normalizeChartPoints(rawPoints);
   const isIt = locale === 'it';
   const unit = isIt ? 'passi' : 'steps';
