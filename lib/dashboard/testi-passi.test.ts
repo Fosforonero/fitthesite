@@ -65,6 +65,14 @@ describe('testi del grafico passi', () => {
     expect(TESTI_PASSI.it.spiegazioni.ambiguous).toContain('non scegliamo per te');
   });
 
+  it('l ambiguita dice che fra le righe possono esserci fonti che non forniscono i passi, senza nominare sorgenti (D1)', () => {
+    expect(TESTI_PASSI.it.spiegazioni.ambiguous).toContain('fonti che non forniscono i passi');
+    expect(TESTI_PASSI.en.spiegazioni.ambiguous).toContain('sources that do not provide steps');
+    for (const l of LINGUE_DASHBOARD) {
+      expect(TESTI_PASSI[l].spiegazioni.ambiguous).not.toMatch(/strava|oura|health/i);
+    }
+  });
+
   it('singolare e plurale: 1 passo / 2 passi, 1 step / 2 steps, 1 giorno / N giorni', () => {
     expect(TESTI_PASSI.it.passi(1)).toBe('1 passo');
     expect(TESTI_PASSI.it.passi(0)).toBe('0 passi');

@@ -78,12 +78,17 @@ export type GiornoPassi =
  * Le sole sorgenti il cui `steps = 0` e' PROVATAMENTE un segnaposto: nelle release 188-191 il
  * codice dell'app scrive il letterale `steps: 0` nello snapshot, che porta solo
  * exercise_sessions (strava_oauth) o sonno e HRV (oura_oauth), in providers.dart, funzioni
- * _stravaSnapshot e _ouraSnapshot. DALLA 192 l'app scrive `steps` null per queste due
- * sorgenti: la whitelist vale per le righe STORICHE (null -> nessun_dato, come ogni null).
- * DECISIONE APERTA D1: queste righe contano comunque come candidate (ambiguita' con una
- * riga del telefono) mentre l'app 192.1 vieta per policy di leggere/combinare Strava; il
- * trattamento NON e' cambiato qui. Confronto di testo ESATTO, maiuscole comprese: un testo diverso non e'
- * provato. NON aggiungere voci senza la stessa prova (file e riga) nel referto.
+ * _stravaSnapshot e _ouraSnapshot. Nell'app 192.1 (letto a bcd6ffab, non provato a runtime):
+ * Strava NON raggiunge il server (cancello di persistenza, quindi nessuna riga nuova) e Oura
+ * scrive `steps` null (-> nessun_dato, come ogni null). Lo `steps: 0` letterale resta quindi
+ * possibile per le righe storiche E per i client 188-191 ancora in circolazione: non e' solo
+ * storia. Quante righe esistano in produzione NON e' noto.
+ * DECISIONE APERTA D1 (prodotto): queste righe contano comunque come candidate (ambiguita' con
+ * una riga del telefono, anche se la fonte non porta passi) mentre l'app 192.1 vieta per policy
+ * di leggere/combinare Strava; il trattamento NON e' cambiato. Il testo di `ambiguous` dice
+ * soltanto che alcune righe possono essere di fonti senza passi. Confronto di testo ESATTO,
+ * maiuscole comprese: un testo diverso non e' provato. NON aggiungere voci senza la stessa
+ * prova (file e riga) nel referto.
  */
 export const SORGENTI_CON_ZERO_SEGNAPOSTO: readonly string[] = Object.freeze(['strava_oauth', 'oura_oauth']);
 

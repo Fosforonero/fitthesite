@@ -245,7 +245,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
     spiegazioni: {
       absent: 'Nessun valore dei passi per questo giorno.',
       error: 'Questo giorno non è disponibile in questo momento.',
-      ambiguous: 'Più righe per questo giorno: non scegliamo per te.',
+      ambiguous: 'Più righe per questo giorno, alcune forse di fonti che non forniscono i passi: non scegliamo per te.',
       undetermined: '0 ricevuto, ma non sappiamo se significa nessun passo o passi non letti.',
       placeholder: 'La fonte non fornisce i passi per questo giorno.',
       received:
@@ -304,7 +304,7 @@ export const TESTI_PASSI: Record<LinguaDashboard, TestiPassi> = {
     spiegazioni: {
       absent: 'No step value for this day.',
       error: 'This day is not available right now.',
-      ambiguous: 'Several rows for this day: we do not choose for you.',
+      ambiguous: 'Several rows for this day, some possibly from sources that do not provide steps: we do not choose for you.',
       undetermined: '0 received, but we do not know whether it means no steps or steps that were not read.',
       placeholder: 'The source does not provide steps for this day.',
       received: 'Value received. Whether the day is complete is not verified: a late sync can change it.',

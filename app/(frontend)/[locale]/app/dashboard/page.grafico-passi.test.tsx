@@ -143,6 +143,18 @@ describe.each(['it', 'en'] as const)('pagina reale: il grafico dei passi (%s)', 
     expect(html).toContain(tp.valori.ambiguous);
   });
 
+  it('ambiguita\' con una riga di una fonte senza passi (steps null) e una del telefono: nessun valore scelto, e la spiegazione lo dice senza nominare sorgenti (D1)', async () => {
+    const { html } = await rendi(locale, {
+      fitness_metrics: [riga('2026-10-13', null, 'oura_oauth'), riga('2026-10-13', 8000, 'phone')],
+    });
+    expect(statiDelGrafico(html)[5]).toEqual(['2026-10-13', 'ambiguous']);
+    expect(html).not.toMatch(numero(8000));
+    const voce = elencoComeLeggere(html)!.find((v) => v.etichetta === tp.etichette.ambiguous)!;
+    expect(voce.spiegazione).toBe(tp.spiegazioni.ambiguous);
+    expect(voce.spiegazione).toMatch(locale === 'it' ? /fonti che non forniscono i passi/ : /sources that do not provide steps/);
+    expect(voce.spiegazione).not.toMatch(/strava|oura|health/i);
+  });
+
   it('zero non determinabile: una riga a zero da una sorgente senza prova', async () => {
     const { html } = await rendi(locale, { fitness_metrics: [riga('2026-10-12', 0, 'phone')] });
     expect(statiDelGrafico(html)[4]).toEqual(['2026-10-12', 'undetermined']);
