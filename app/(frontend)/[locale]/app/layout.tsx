@@ -45,11 +45,11 @@ export default async function AppLayout({
   return (
     <div className="min-h-screen flex flex-col">
       <header className="border-b border-divider bg-bg-secondary/40 backdrop-blur sticky top-0 z-30">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
           <Link href={`/${lc}/app`} className="font-display font-semibold text-text-primary">
             FitMesh
           </Link>
-          <nav className="flex items-center gap-1 text-sm">
+          <nav className="flex flex-wrap items-center gap-1 text-sm">
             <Link
               href={`/${lc}/app`}
               className="px-3 py-2 rounded-pill hover:bg-white/5 text-text-primary"
