@@ -6,6 +6,19 @@ export const post: BlogPost = {
   publishedAt: "2026-05-30",
   updatedAt: "2026-05-30",
   readMinutes: 7,
+  coverAlt: {
+    it: "Una donna riordina documenti in una cartella su un tavolo, con il telefono accanto.",
+    en: "A woman organizes papers in a folder on a table with her phone nearby.",
+    es: "Una mujer organiza documentos en una carpeta sobre una mesa, con su teléfono al lado.",
+    de: "Eine Frau ordnet Unterlagen in einer Mappe auf einem Tisch, daneben ihr Smartphone.",
+    pt: "Uma mulher organiza documentos em uma pasta sobre uma mesa, com o telefone ao lado.",
+    fr: "Une femme organise des documents dans un classeur sur une table, avec son téléphone à côté.",
+    pl: "Kobieta porządkuje dokumenty w teczce na stole, mając telefon obok.",
+    tr: "Bir kadın masadaki bir klasörde belgeleri düzenliyor, yanında telefonu duruyor.",
+    nl: "Een vrouw ordent documenten in een map op een tafel, met haar telefoon ernaast.",
+    ja: "テーブルの上のフォルダーに書類を整理する女性と、傍らにあるスマートフォン。",
+    ko: "테이블 위 폴더에 문서를 정리하는 여성과 옆에 놓인 스마트폰.",
+  },
   tldr: {
     it: [
       "Il metodo più completo è l'export XML nativo (Salute → profilo → Esporta tutti i dati): contiene ogni record, ma il file può pesare fino a 2 GB e non è leggibile direttamente.",
