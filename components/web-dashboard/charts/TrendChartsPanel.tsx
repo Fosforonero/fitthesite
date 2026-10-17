@@ -45,7 +45,7 @@ export function TrendChartsPanel({ idPrefix, series, period, locale, isDemo, cop
                 {isDemo && <p className="text-xs text-warning">{copy.previewBannerShort}</p>}
                 <p className="mt-3 text-sm text-text-secondary">{text.insufficient.need(MIN_DAYS, present, days.length)}</p>
                 <details className="mt-3">
-                  <summary className="min-h-[44px] cursor-pointer text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-aqua">{text.table.label}</summary>
+                  <summary className="flex items-center min-h-[44px] w-full cursor-pointer text-sm font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-aqua rounded px-1">{text.table.label}</summary>
                   <table className="w-full text-left text-xs">
                     <caption className="sr-only">{text.table.caption}</caption>
                     <thead><tr><th scope="col">{text.table.day}</th><th scope="col">{text.table.value}</th><th scope="col">{text.table.state}</th></tr></thead>

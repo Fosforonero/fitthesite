@@ -142,7 +142,7 @@ export function ChartFrame({
       {legend ? <div className="mt-3">{legend}</div> : null}
       {table ? (
         <details className="mt-3 group">
-          <summary className="cursor-pointer text-xs text-text-muted hover:text-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-aqua rounded">
+          <summary className="flex items-center min-h-[44px] w-full cursor-pointer text-xs font-medium text-text-muted hover:text-text-secondary select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-aqua rounded">
             {tableLabel ?? 'Data'}
           </summary>
           <div className="mt-2 overflow-x-auto">{table}</div>

@@ -83,7 +83,7 @@ export function WeekCard({ ctx }: { ctx: OverviewCtx }) {
       </div>
 
       <details className="group mt-1">
-        <summary className="cursor-pointer rounded py-3.5 text-xs text-text-muted hover:text-text-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-aqua">
+        <summary className="flex items-center min-h-[44px] w-full cursor-pointer rounded text-xs font-medium text-text-muted hover:text-text-secondary select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-aqua">
           {oc.week.tableLabel}
         </summary>
         <div className="mt-2 overflow-x-auto">

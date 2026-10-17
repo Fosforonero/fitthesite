@@ -879,7 +879,7 @@ export function InteractiveChart({
 
         {/* Tabella accessibile alternativa */}
         <details className="group rounded-lg border border-divider/60 bg-bg-elevated/40 p-3 text-xs">
-          <summary className="min-h-[44px] cursor-pointer font-medium text-text-secondary hover:text-text-primary select-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-brand-aqua">
+          <summary className="flex items-center min-h-[44px] w-full cursor-pointer font-medium text-text-secondary hover:text-text-primary select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-aqua rounded">
             {tableLabel ?? (isIt ? 'Mostra tabella dati accessibile' : 'Show accessible data table')}
           </summary>
           <div className="mt-3 overflow-x-auto">

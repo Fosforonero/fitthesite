@@ -236,7 +236,7 @@ export function WeekStrip({ days, lc, copy, t, href }: { days: WeekDay[]; lc: st
       </div>
 
       <details className="mt-3 group">
-        <summary className={`cursor-pointer rounded text-xs text-text-muted hover:text-text-secondary ${focusRing}`}>{t.week.tableLabel}</summary>
+        <summary className="flex items-center min-h-[44px] w-full cursor-pointer rounded text-xs font-medium text-text-muted hover:text-text-secondary select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-aqua">{t.week.tableLabel}</summary>
         <div className="mt-2 overflow-x-auto">
           <table className="w-full min-w-[320px] border-collapse text-left text-xs" data-table="week-workout-duration">
             <caption className="sr-only">{t.week.tableCaption}</caption>
