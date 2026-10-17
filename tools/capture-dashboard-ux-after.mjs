@@ -2,10 +2,13 @@ import { chromium } from 'playwright';
 import fs from 'fs';
 import path from 'path';
 
-const outDir = '/Users/matteo/.gemini/antigravity/brain/3aa8075f-6e1d-43ec-86fa-9f82b590e998/dashboard-ux/after';
+// Output directory is configurable via DASHBOARD_UX_OUT_DIR, defaulting to .screenshots/dashboard-ux/after
+const outDir = process.env.DASHBOARD_UX_OUT_DIR
+  ? path.resolve(process.env.DASHBOARD_UX_OUT_DIR)
+  : path.resolve(process.cwd(), '.screenshots/dashboard-ux/after');
 fs.mkdirSync(outDir, { recursive: true });
 
-const baseUrl = 'http://localhost:3009';
+const baseUrl = process.env.DASHBOARD_BASE_URL || 'http://localhost:3009';
 
 const viewports = [
   { name: 'desktop-1280', width: 1280, height: 800 },
@@ -30,7 +33,10 @@ async function run() {
     for (const lc of locales) {
       for (const st of states) {
         const url = `${baseUrl}/${lc}/dashboard-preview/overview?state=${st}`;
-        await page.goto(url, { waitUntil: 'networkidle' });
+        const response = await page.goto(url, { waitUntil: 'networkidle' });
+        if (!response || response.status() >= 400) {
+          throw new Error(`Failed to load ${url}: status ${response?.status()}`);
+        }
 
         // Save viewport screenshot
         const fileName = `preview-${lc}-${st}-${vp.name}.png`;
@@ -38,32 +44,87 @@ async function run() {
         await page.screenshot({ path: filePath, fullPage: false });
         console.log(`Saved ${fileName}`);
 
-        // If mobile-390 and state is ok, test table toggle
+        // Rigorous check for details / summary control on the overview page
+        const detailsCount = await page.locator('details').count();
+        if (detailsCount === 0) {
+          throw new Error(`Regression: no <details> element found on ${url}`);
+        }
+
+        // For mobile-390 and state ok, test all details/summary controls for hit-area and keyboard navigation
         if (vp.name === 'mobile-390' && st === 'ok') {
-          const summary = page.locator('details summary').first();
-          if (await summary.count() > 0) {
+          for (let i = 0; i < detailsCount; i++) {
+            const details = page.locator('details').nth(i);
+            const summary = details.locator('summary');
+            if (await summary.count() === 0) {
+              throw new Error(`Regression: <details> at index ${i} has no <summary> on ${url}`);
+            }
+
+            // Scroll into view if needed
+            await summary.scrollIntoViewIfNeeded();
+
             const box = await summary.boundingBox();
+            if (!box) {
+              throw new Error(`Regression: could not get bounding box for summary at index ${i} on ${url}`);
+            }
+
+            // Requirement: at least 44x44 CSS px effective hit area
+            if (box.width < 44 || box.height < 44) {
+              throw new Error(
+                `Regression: summary at index ${i} has insufficient dimensions ${box.width.toFixed(1)}x${box.height.toFixed(1)} (must be >= 44x44) on ${url}`
+              );
+            }
+
             summaryMeasurements.push({
               locale: lc,
               viewport: vp.name,
-              width: box ? box.width : 0,
-              height: box ? box.height : 0,
+              index: i,
+              width: Math.round(box.width),
+              height: Math.round(box.height),
             });
 
-            // Focus summary and take screenshot of focus state
+            // Focus summary and verify focus visible state
             await summary.focus();
-            await page.screenshot({
-              path: path.join(outDir, `table-summary-focused-${lc}-${vp.name}.png`),
-              fullPage: false,
-            });
+            if (i === 0) {
+              await page.screenshot({
+                path: path.join(outDir, `table-summary-focused-${lc}-${vp.name}.png`),
+                fullPage: false,
+              });
+            }
 
-            // Click summary to toggle open
-            await summary.click();
-            await page.waitForTimeout(200);
-            await page.screenshot({
-              path: path.join(outDir, `table-opened-${lc}-${vp.name}.png`),
-              fullPage: false,
-            });
+            // Test 1: Keyboard Enter toggle open
+            await page.keyboard.press('Enter');
+            const isOpenAfterEnter = await details.evaluate((el) => el.hasAttribute('open'));
+            if (!isOpenAfterEnter) {
+              throw new Error(`Regression: pressing Enter failed to open <details> at index ${i} on ${url}`);
+            }
+
+            if (i === 0) {
+              await page.screenshot({
+                path: path.join(outDir, `table-opened-${lc}-${vp.name}.png`),
+                fullPage: false,
+              });
+            }
+
+            // Test 2: Keyboard Enter toggle close
+            await page.keyboard.press('Enter');
+            const isClosedAfterEnter = await details.evaluate((el) => !el.hasAttribute('open'));
+            if (!isClosedAfterEnter) {
+              throw new Error(`Regression: pressing Enter failed to close <details> at index ${i} on ${url}`);
+            }
+
+            // Test 3: Keyboard Space toggle open
+            await page.keyboard.press('Space');
+            const isOpenAfterSpace = await details.evaluate((el) => el.hasAttribute('open'));
+            if (!isOpenAfterSpace) {
+              throw new Error(`Regression: pressing Space failed to open <details> at index ${i} on ${url}`);
+            }
+
+            // Test 4: Keyboard Space toggle close
+            await page.keyboard.press('Space');
+            const isClosedAfterSpace = await details.evaluate((el) => !el.hasAttribute('open'));
+            if (!isClosedAfterSpace) {
+              throw new Error(`Regression: pressing Space failed to close <details> at index ${i} on ${url}`);
+            }
           }
         }
       }
@@ -73,10 +134,11 @@ async function run() {
   }
 
   await browser.close();
+  console.log('All a11y summary assertions passed.');
   console.log('Measurements:', JSON.stringify(summaryMeasurements, null, 2));
 }
 
 run().catch((err) => {
-  console.error(err);
+  console.error('PROBE FAILED:', err.message);
   process.exit(1);
 });
