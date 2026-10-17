@@ -88,11 +88,11 @@ export function MeasureValue({
       ) : null}
       {p.state === 'partial' ? (
         <p className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
-          <Chip tone="warning" title={copy.measure.partial[p.note]}>
+          <Chip tone="warning" title={copy.measure.partial[p.note] ?? copy.measure.fallbackPartial}>
             {partialDisplay ? partialDisplay.chip : `${copy.measure.partialLabel} ${fmtPercent(p.coverage, locale)}`}
           </Chip>
           {partialDisplay && partialDisplay.detail === undefined ? null : (
-            <span className="text-text-muted">{partialDisplay?.detail ?? copy.measure.partial[p.note]}</span>
+            <span className="text-text-muted">{partialDisplay?.detail ?? copy.measure.partial[p.note] ?? copy.measure.fallbackPartial}</span>
           )}
         </p>
       ) : null}

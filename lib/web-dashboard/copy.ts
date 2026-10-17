@@ -31,6 +31,8 @@ export interface SharedCopy {
     noData: string;
     zeroMeasured: string;
     partialLabel: string;
+    fallbackPartial: string;
+    emptySlot: (hour: string) => string;
     absent: Record<AbsentReason, string>;
     partial: Record<PartialNote, string>;
   };
@@ -99,6 +101,8 @@ const IT: SharedCopy = {
     noData: 'Nessun dato',
     zeroMeasured: 'Zero misurato',
     partialLabel: 'Parziale',
+    fallbackPartial: 'Dati parziali. Il totale potrebbe essere incompleto.',
+    emptySlot: (hour: string) => `Ore ${hour}: nessun dato disponibile.`,
     absent: {
       no_data_received: 'Nessun dato ricevuto',
       not_synced_yet: 'Non ancora sincronizzato',
@@ -220,6 +224,8 @@ const EN: SharedCopy = {
     noData: 'No data',
     zeroMeasured: 'Measured zero',
     partialLabel: 'Partial',
+    fallbackPartial: 'Partial data. The total may be incomplete.',
+    emptySlot: (hour: string) => `${hour}: no data available.`,
     absent: {
       no_data_received: 'No data received',
       not_synced_yet: 'Not synced yet',

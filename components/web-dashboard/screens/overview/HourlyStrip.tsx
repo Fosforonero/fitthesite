@@ -42,8 +42,11 @@ export function HourlyStrip({ ctx }: { ctx: OverviewCtx }) {
   const stepsUnit = (v: number) => (v === 1 ? oc.hourly.oneStep : copy.units.steps);
   const tip = (m: Measure<number>, h: number) => {
     const t = `${hh(h)}:00`;
-    if (m.kind === 'absent') return `${t}: ${copy.measure.noData}, ${copy.measure.absent[m.reason]}`;
-    if (m.kind === 'partial') return `${t}: ${fmtInt(m.value, ui)} ${stepsUnit(m.value)}, ${copy.measure.partialLabel} ${fmtPercent(m.coverage, ui)}`;
+    if (m.kind === 'absent') {
+      const slotStr = copy.measure.emptySlot ? copy.measure.emptySlot(t) : (ui === 'it' ? `Ore ${t}: nessun dato disponibile.` : `${t}: no data available.`);
+      return `${slotStr} (${copy.measure.absent[m.reason]})`;
+    }
+    if (m.kind === 'partial') return `${t}: ${fmtInt(m.value, ui)} ${stepsUnit(m.value)}, ${copy.measure.fallbackPartial}`;
     return m.value === 0 ? `${t}: 0 ${copy.units.steps}, ${copy.measure.zeroMeasured}` : `${t}: ${fmtInt(m.value, ui)} ${stepsUnit(m.value)}`;
   };
 
@@ -156,17 +159,18 @@ export function HourlyStrip({ ctx }: { ctx: OverviewCtx }) {
       <tbody>
         {slots.map((m, h) => {
           const st = slotState(m);
+          const t = `${hh(h)}:00`;
           return (
             <tr key={h} data-measure-state={MEASURE_STATE[st]} className="border-t border-divider">
-              <td className="py-1 pr-3 text-text-secondary">{hh(h)}:00</td>
+              <td className="py-1 pr-3 text-text-secondary">{t}</td>
               <td className={`py-1 pr-3 ${st === 'absent' ? 'text-text-muted' : 'text-text-primary'}`}>
                 {m.kind === 'absent' ? copy.measure.noData : fmtInt(m.value, ui)}
               </td>
               <td className="py-1 text-text-secondary">
                 {m.kind === 'absent'
-                  ? copy.measure.absent[m.reason]
+                  ? (copy.measure.emptySlot ? copy.measure.emptySlot(t) : (ui === 'it' ? `Ore ${t}: nessun dato disponibile.` : `${t}: no data available.`))
                   : m.kind === 'partial'
-                    ? `${copy.measure.partialLabel} ${fmtPercent(m.coverage, ui)}: ${copy.measure.partial[m.note]}`
+                    ? copy.measure.fallbackPartial
                     : m.value === 0
                       ? copy.measure.zeroMeasured
                       : copy.legend.measured}
