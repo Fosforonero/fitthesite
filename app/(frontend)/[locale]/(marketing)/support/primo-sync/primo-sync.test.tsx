@@ -50,8 +50,10 @@ describe("PrimoSyncPage (/support/primo-sync)", () => {
     expect(html).not.toContain("Polar Flow");
     expect(html).not.toContain("Suunto");
 
-    // Verifiche privacy e nessun timing non misurato
+    // Verifiche privacy, formulazione operativa sync e nessun timing non misurato
     expect(html).toContain("I dati sanitari restano nell&#x27;archivio salute locale del dispositivo");
+    expect(html).toContain("Per verificare la sincronizzazione, apri FitMesh e usa il comando di sincronizzazione disponibile");
+    expect(html).toContain("Le attività in background dipendono dalla piattaforma");
     expect(html).not.toContain("pochi secondi");
     expect(html).not.toContain("a intervalli regolari");
 
@@ -89,6 +91,8 @@ describe("PrimoSyncPage (/support/primo-sync)", () => {
     expect(html).toContain("Health Connect");
     expect(html).toContain("Apple Health");
     expect(html).toContain("Four steps to your first connection");
+    expect(html).toContain("To check syncing, open FitMesh and use the sync control available in the app");
+    expect(html).toContain("Background activity depends on the platform and available configuration");
 
     expect(html).not.toContain("Polar Flow");
     expect(html).not.toContain("Suunto");

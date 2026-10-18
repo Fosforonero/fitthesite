@@ -89,7 +89,7 @@ export default async function PrimoSyncPage({
         },
         {
           q: "Devo aprire FitMesh ogni volta che voglio sincronizzare?",
-          a: "L'app supporta la sincronizzazione in background in base ai vincoli e all'ottimizzazione energetica stabiliti dal sistema operativo Android o iOS. Puoi inoltre avviare una sincronizzazione manuale dall'app in qualsiasi momento toccando il pulsante di sync.",
+          a: "Per verificare la sincronizzazione, apri FitMesh e usa il comando di sincronizzazione disponibile nell'app. Controlla poi i dati e lo stato mostrati. Le attività in background dipendono dalla piattaforma e dalla configurazione disponibile.",
         },
         {
           q: "Cosa fare se non vedo i dati dell'orologio in FitMesh?",
@@ -103,7 +103,7 @@ export default async function PrimoSyncPage({
         },
         {
           q: "Do I need to open FitMesh every time I want to sync?",
-          a: "The app supports background synchronization subject to operating system constraints and battery management on Android and iOS. You can also trigger an immediate manual sync in the app at any time by tapping the sync button.",
+          a: "To check syncing, open FitMesh and use the sync control available in the app. Then check the displayed data and status. Background activity depends on the platform and available configuration.",
         },
         {
           q: "What should I do if my watch data does not show up in FitMesh?",
