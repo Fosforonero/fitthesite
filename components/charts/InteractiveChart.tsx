@@ -820,6 +820,18 @@ export function InteractiveChart({
                           setIsPinned(true);
                         }
                       }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          if (activeIdx === idx && isPinned) {
+                            setActiveIdx(null);
+                            setIsPinned(false);
+                          } else {
+                            setActiveIdx(idx);
+                            setIsPinned(true);
+                          }
+                        }
+                      }}
                       className="relative h-full flex-1 min-w-0 select-none p-0 border-0 bg-transparent cursor-pointer outline-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-aqua focus-visible:ring-offset-1 focus-visible:ring-offset-bg-card group"
                       style={{ minHeight: '44px' }}
                     >

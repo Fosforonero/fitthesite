@@ -436,9 +436,8 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       const tooltip = container.querySelector('#focus-test-tooltip');
       expect(tooltip).not.toBeNull();
 
-      // Attivazione da tastiera tramite Enter
+      // Attivazione da tastiera tramite solo Enter (nessun click che ne maschera il difetto)
       fireEvent.keyDown(buttons[1], { key: 'Enter' });
-      fireEvent.click(buttons[1]);
       expect(tooltip?.getAttribute('data-date')).toBe(pts[1].date);
     });
 
