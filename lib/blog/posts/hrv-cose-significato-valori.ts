@@ -6,6 +6,19 @@ export const post: BlogPost = {
   publishedAt: "2026-05-22",
   updatedAt: "2026-07-16",
   readMinutes: 10,
+  coverAlt: {
+    it: "Una scalatrice si riposa su un materasso da arrampicata indossando uno smartwatch.",
+    en: "A climber wearing a smartwatch rests on a climbing mat.",
+    es: "Una escaladora descansa sobre una colchoneta de escalada llevando un smartwatch.",
+    de: "Eine Kletterin ruht sich auf einer Bouldermatte aus und trägt eine Smartwatch.",
+    pt: "Uma escaladora descansa sobre um colchão de escalada usando um smartwatch.",
+    fr: "Une grimpeuse se repose sur un tapis d'escalade en portant une montre connectée.",
+    pl: "Wspinaczka odpoczywa na materacu wspinaczkowym, nosząc smartwatch.",
+    tr: "Bileğinde akıllı saat olan bir kadın dağcı tırmanış minderinde dinleniyor.",
+    nl: "Een klimster rust uit op een bouldermat terwijl ze een smartwatch draagt.",
+    ja: "クライミングマットの上でスマートウォッチを着けて休息する女性クライマー。",
+    ko: "스마트워치를 착용하고 클라이밍 매트 위에서 휴식을 취하는 여성 클라이머.",
+  },
   // SPRINT PRE-FERIE addendum Bing (2026-08-06): title FR/PT renderizzati
   // sopra 70 caratteri (Bing FailingUrls CSV, verificato live). H1/slug
   // invariati, solo <title>/og:title/twitter:title/BlogPosting.headline.
