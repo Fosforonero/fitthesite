@@ -280,23 +280,24 @@ export default async function HealthConnectGuidePage({
   const crumbSupport = isIt ? "Supporto" : "Support";
   const crumbCurrent = isIt ? "Guida Connessione Salute" : "Health Connect Guide";
 
-  // Structured Data (HowTo without arbitrary totalTime)
-  const howToJsonLd = {
+  // Mandato: TechArticle + BreadcrumbList (quest'ultimo emesso da <Breadcrumbs>),
+  // non HowTo. Date reali del ciclo di rilascio (pubblicazione 09/10/2026,
+  // revisione 19/10/2026). Autore e publisher: organizzazione.
+  const techArticleJsonLd = {
     "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: isIt
+    "@type": "TechArticle",
+    headline: isIt
       ? "Come configurare Connessione Salute con FitMesh Sync su Android"
       : "How to set up Health Connect with FitMesh Sync on Android",
     description: pageSubtitle,
     inLanguage: schemaLanguage(lc),
-    step: steps.map((s, idx) => ({
-      "@type": "HowToStep",
-      position: idx + 1,
-      name: s.title,
-      text: `${s.action} ${s.expected}`,
-      image: `${SITE_URL}${s.imageSrc}`,
-      url: `${SITE_URL}/${lc}/support/health-connect#passo-${s.id}`,
-    })),
+    url: `${SITE_URL}/${lc}/support/health-connect`,
+    mainEntityOfPage: `${SITE_URL}/${lc}/support/health-connect`,
+    image: `${SITE_URL}${steps[0].imageSrc}`,
+    datePublished: "2026-10-09",
+    dateModified: "2026-10-19",
+    author: { "@type": "Organization", name: "FitMesh Sync", url: SITE_URL },
+    publisher: { "@type": "Organization", name: "FitMesh Sync", url: SITE_URL },
   };
 
   return (
@@ -308,7 +309,7 @@ export default async function HealthConnectGuidePage({
         ]}
         locale={lc}
       />
-      <JsonLd data={howToJsonLd} />
+      <JsonLd data={techArticleJsonLd} />
 
       <header className="mb-12">
         <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
