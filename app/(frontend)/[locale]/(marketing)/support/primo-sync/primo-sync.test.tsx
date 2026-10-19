@@ -45,7 +45,7 @@ describe("PrimoSyncPage (/support/primo-sync)", () => {
 
     // Verifiche percorsi provati e assenza canali non verificati
     expect(html).toContain("Samsung Health");
-    expect(html).toContain("Garmin Connect");
+    expect(html).not.toContain("Garmin Connect");
     expect(html).not.toContain("Google Fit");
     expect(html).not.toContain("Polar Flow");
     expect(html).not.toContain("Suunto");

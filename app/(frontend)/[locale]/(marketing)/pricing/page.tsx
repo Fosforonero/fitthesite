@@ -24,8 +24,8 @@ function getPricingMeta(lc: SupportedLocale) {
     : "FitMesh Pricing: One-Time Purchase and Subscription";
 
   const description = isIt
-    ? "Prezzi FitMesh: 14 giorni di prova gratuita, poi acquisto unico a vita su iPhone o abbonamento su Android. Prezzo finale mostrato dal tuo store."
-    : "FitMesh pricing: 14-day free trial, then one-time purchase on iPhone or subscription on Android. Final price is shown by your local store.";
+    ? "FitMesh: prova gratuita di 14 giorni, poi acquisto unico a vita su iPhone e Android. Su Android anche abbonamento semestrale. Prezzi negli store."
+    : "FitMesh: 14-day free trial, then a one-time lifetime purchase on iPhone and Android. Android also offers a 6-month subscription. See store prices.";
 
   return { title, description };
 }

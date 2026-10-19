@@ -23,8 +23,8 @@ describe("PricingPage (/pricing)", () => {
   it("genera metadati corretti per it ed en con canonical e hreflang", async () => {
     const metaIt = await generateMetadata({ params: Promise.resolve({ locale: "it" }) });
     expect(metaIt.title).toContain("Prezzi");
-    expect(metaIt.description).toContain("14 giorni di prova");
-    expect(metaIt.description).toContain("acquisto unico");
+    expect(metaIt.description).toContain("prova gratuita di 14 giorni");
+    expect(metaIt.description).toContain("acquisto unico a vita su iPhone e Android");
     expect(metaIt.description!.length).toBeLessThanOrEqual(155);
     expect(metaIt.alternates?.canonical).toBe("https://www.fitmesh.fit/it/pricing");
     expect(metaIt.alternates?.languages).toHaveProperty("it", "https://www.fitmesh.fit/it/pricing");
@@ -34,7 +34,7 @@ describe("PricingPage (/pricing)", () => {
     const metaEn = await generateMetadata({ params: Promise.resolve({ locale: "en" }) });
     expect(metaEn.title).toContain("Pricing");
     expect(metaEn.description).toContain("14-day free trial");
-    expect(metaEn.description).toContain("one-time purchase");
+    expect(metaEn.description).toContain("one-time lifetime purchase on iPhone and Android");
     expect(metaEn.description!.length).toBeLessThanOrEqual(155);
     expect(metaEn.alternates?.canonical).toBe("https://www.fitmesh.fit/en/pricing");
   });
