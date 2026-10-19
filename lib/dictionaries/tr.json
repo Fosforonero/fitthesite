@@ -37,7 +37,7 @@
       },
       {
         "title": "Mesh Aile",
-        "desc": "Bir grup oluşturun ve adımlarınızı, uykunuzu ve kalp hızınızı ailenizle paylaşın: ebeveynler, partner, çocuklar. Herkes ne göstereceğine kendisi karar verir."
+        "desc": "Mesh Aile geliştirme aşamasındadır ve henüz kullanıma sunulmamıştır. Bir çıkış tarihi açıklamadık."
       }
     ]
   },
@@ -121,7 +121,6 @@
       "add_title": "Cihaz ekle",
       "add_body": "Yeni bir telefon bağlamak için kod oluşturun ve FitMesh Sync uygulamasına girin.",
       "add_cta": "Kod oluştur",
-      "coming_soon": "(yakında)",
       "list_title": "Bağlı cihazlar",
       "empty": "Henüz bağlı cihaz yok.",
       "error": "Cihazlar yüklenirken hata oluştu.",

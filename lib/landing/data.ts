@@ -1984,8 +1984,8 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         "android i iPhone taka sama aplikacja zdrowie",
         "synkronizować dane zdrowia android iPhone",
         "wypełnij pętle Android iPhone",
-        "dane smartwatch Android founder drzemka",
-        "wzmacniacz apple powitanie smartwatch\nfounder drzemka drzemki",
+        "dane smartwatch Android Apple Health",
+        "most Apple Health FitMesh",
         "panel nawigacyjny powitanie wielodostosowalne",
       ],
       tr: [
