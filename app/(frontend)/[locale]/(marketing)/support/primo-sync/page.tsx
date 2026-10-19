@@ -93,7 +93,7 @@ export default async function PrimoSyncPage({
         },
         {
           q: "Cosa fare se non vedo i dati dell'orologio in FitMesh?",
-          a: "Assicurati che l'app del tuo orologio (ad esempio Garmin Connect o Samsung Health) abbia già trasferito i dati nell'archivio centrale del telefono (Health Connect su Android o Apple Salute su iPhone). FitMesh legge le metriche autorizzate direttamente da questo archivio locale protetto.",
+          a: "Assicurati che l'app del tuo orologio (ad esempio Samsung Health) abbia già trasferito i dati nell'archivio centrale del telefono (Health Connect su Android o Apple Salute su iPhone). Per Garmin Connect su Android o iOS, verifica nell'app Garmin che la condivisione verso Health Connect o Apple Salute sia abilitata e supportata per le metriche desiderate. FitMesh legge le metriche autorizzate direttamente da questo archivio locale protetto.",
         },
       ]
     : [
@@ -107,7 +107,7 @@ export default async function PrimoSyncPage({
         },
         {
           q: "What should I do if my watch data does not show up in FitMesh?",
-          a: "Verify that your watch's companion app (such as Garmin Connect or Samsung Health) has transferred its data to your phone's central repository (Health Connect on Android or Apple Health on iPhone). FitMesh reads authorized metrics directly from this secure local repository.",
+          a: "Verify that your watch's companion app (such as Samsung Health) has transferred its data to your phone's central repository (Health Connect on Android or Apple Health on iPhone). For Garmin Connect on Android or iOS, verify in the Garmin app that sharing to Health Connect or Apple Health is enabled and supported for your desired metrics. FitMesh reads authorized metrics directly from this secure local repository.",
         },
       ];
 
@@ -187,8 +187,8 @@ export default async function PrimoSyncPage({
                 </h3>
                 <p className="text-sm text-text-secondary leading-relaxed mb-6">
                   {isIt
-                    ? "Su Android, FitMesh si collega a Connessione Salute per leggere le metriche registrate da app compatibili come Samsung Health, Garmin Connect e Google Fit."
-                    : "On Android, FitMesh connects to Health Connect to read metrics recorded by compatible apps such as Samsung Health, Garmin Connect, and Google Fit."}
+                    ? "Su Android FitMesh legge i dati da Health Connect: funziona con le app che ci scrivono, come Samsung Health."
+                    : "On Android, FitMesh reads your data from Health Connect, so it works with apps that write to it, such as Samsung Health."}
                 </p>
                 <ul className="space-y-2.5 text-xs text-text-muted mb-8">
                   <li>• {isIt ? "Permessi granulari di lettura gestiti da te" : "Granular read permissions controlled by you"}</li>
