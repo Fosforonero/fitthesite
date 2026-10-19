@@ -12986,9 +12986,9 @@
     "body.15.rows.1": {
       "sv": [
         "FitMesh Sync",
-        "Ja (HC-läsning, OAuth-plan)",
-        "Ja (webb + app)",
-        "Engångsbetalning, inga annonser"
+        "Ja (Health Connect / Apple Hälsa)",
+        "Nej (mobilapp)",
+        "14 dagars provperiod, sedan livstid; på Android även 6 månader."
       ]
     },
     "body.15.rows.2": {

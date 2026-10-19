@@ -682,10 +682,10 @@ export const post: BlogPost = {
           pt: ["FitMesh Sync", "Sim (Health Connect / Apple Saúde)", "Não (app móvel)", "Teste de 14 dias, depois vitalício; no Android também semestral."],
           fr: ["FitMesh Sync", "Oui (Health Connect / Apple Santé)", "Non (app mobile)", "Essai de 14 jours, puis accès à vie ; sur Android, aussi un abonnement de 6 mois."],
           pl: ["FitMesh Sync", "Tak (Health Connect / Apple Zdrowie)", "Nie (app mobilna)", "14 dni próbnie, potem dożywotnio; na Androidzie także 6 miesięcy."],
-          tr: ["FitMesh Sync", "Evet (Health Connect / Apple Sağlık)", "Hayır (mobil uygulama)", "14 gün deneme, sonra satın alma veya abonelik"],
+          tr: ["FitMesh Sync", "Evet (Health Connect / Apple Sağlık)", "Hayır (mobil uygulama)", "14 gün deneme, ardından ömür boyu; Android'de ayrıca 6 aylık abonelik."],
           nl: ["FitMesh Sync", "Ja (Health Connect / Apple Gezondheid)", "Nee (mobiele app)", "14 dagen proberen, daarna lifetime; op Android ook per half jaar."],
           ja: ["FitMesh Sync", "はい（Health Connect / Apple ヘルスケア）", "いいえ（モバイルアプリ）", "14日間の無料体験後、買い切り。Androidは6か月プランも選択可。"],
-          ko: ["FitMesh Sync", "예 (Health Connect / Apple 건강)", "아니오 (모바일 앱)", "14일 체험 후 구매 또는 구독"],
+          ko: ["FitMesh Sync", "예 (Health Connect / Apple 건강)", "아니오 (모바일 앱)", "14일 무료 체험 후 평생 이용; Android에서는 6개월 구독도 가능."],
         },
         {
           it: ["SyncMyTracks", "Sì (cloud-to-cloud)", "No", "Una tantum"],
