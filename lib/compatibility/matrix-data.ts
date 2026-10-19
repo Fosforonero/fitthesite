@@ -186,8 +186,8 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         de: "Garmin Support: Daten mit Health Connect teilen",
         fr: "Support Garmin : Partage de données avec Health Connect",
       },
-      url: "https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5",
-      verifiedDate: "2026-09-14",
+      url: "https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5",
+      verifiedDate: "2026-10-19",
       supportedClaim: {
         it: "Garmin Connect esporta passi, frequenza cardiaca, sonno, calorie, distanza e sessioni sportive verso Health Connect.",
         en: "Garmin Connect exports steps, heart rate, sleep, calories, distance, and workout sessions to Health Connect.",
@@ -290,8 +290,8 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         de: "Garmin Support: Apple Health Integration",
         fr: "Support Garmin : Intégration Apple Santé",
       },
-      url: "https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6",
-      verifiedDate: "2026-09-14",
+      url: "https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA",
+      verifiedDate: "2026-10-19",
       supportedClaim: {
         it: "Garmin Connect per iOS scrive passi, distanza, calorie, frequenza cardiaca, frequenza a riposo, sonno e allenamenti in Apple Health quando aperta in primo piano.",
         en: "Garmin Connect for iOS writes steps, distance, calories, heart rate, resting heart rate, sleep, and workouts to Apple Health when opened in foreground.",
@@ -395,8 +395,8 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         de: "Google Support: So verwenden Sie Health Connect mit Fitbit",
         fr: "Support Google : Comment utiliser Health Connect avec Fitbit ?",
       },
-      url: "https://support.google.com/fitbit/answer/13045614",
-      verifiedDate: "2026-09-14",
+      url: "https://support.google.com/googlehealth/answer/14506680",
+      verifiedDate: "2026-10-19",
       supportedClaim: {
         it: "L'app scrive passi, distanza, sonno, minuti in zona attiva, esercizi e calorie in Health Connect su Android.",
         en: "App writes steps, distance, sleep, active zone minutes, exercise, and calories to Health Connect on Android.",

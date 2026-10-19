@@ -680,6 +680,7 @@ export default async function ProviderLanding({
               <div className="mt-8">
                 <StoreButtonsRow
                   locale={lc}
+                  platforms={platforms}
                   iosDisabled={!platforms.includes("ios")}
                   ctaLocation={CTA_PLACEMENTS.syncProviderMidMatrix}
                 />
