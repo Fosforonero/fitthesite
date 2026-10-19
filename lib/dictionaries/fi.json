@@ -37,7 +37,7 @@
       },
       {
         "title": "Mesh Perhe",
-        "desc": "Luo ryhmä ja jaa askeleesi, unesi ja sykkeesi perheesi kanssa: vanhemmat, kumppani, lapset. Jokainen päättää itse, mitä näyttää."
+        "desc": "Family Mesh on kehitteillä, eikä se ole vielä saatavilla. Julkaisupäivää ei ole ilmoitettu."
       }
     ]
   },
@@ -121,7 +121,6 @@
       "add_title": "Lisää laite",
       "add_body": "Luo koodi ja syötä se FitMesh Sync -sovellukseen yhdistääksesi uuden puhelimen.",
       "add_cta": "Luo koodi",
-      "coming_soon": "(tulossa pian)",
       "list_title": "Yhdistetyt laitteet",
       "empty": "Ei vielä yhdistettyjä laitteita.",
       "error": "Virhe laitteiden lataamisessa.",
