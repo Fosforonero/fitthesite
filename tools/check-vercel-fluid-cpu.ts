@@ -274,7 +274,10 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // quel 404 NON e' verificata. Il manifest la conta fra le dinamiche per il
 // segmento [locale]: +1 nel conteggio, schema gia' in uso per le altre route
 // prerenderizzate di main (tutte con fallback null).
-const DYNAMIC_ROUTES_BASELINE = 60;
+// 18/10/2026: SPRINT PRICING-PAGE-01 aggiunge /[locale]/pricing e /[locale]/support/primo-sync
+// entrambe statiche con generateStaticParams su IT ed EN (force-static). Il manifest
+// le conta fra le dinamiche per il segmento [locale]: 60 -> 62.
+const DYNAMIC_ROUTES_BASELINE = 62;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {
