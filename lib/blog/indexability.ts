@@ -168,6 +168,9 @@ export const REDIRECT_INCOMPLETE_LOCALE_SLUGS = new Set<string>([
   // iniziale it/en/de/ja/fr, redirect 307 verso /en/ per le restanti 10 lingue
   // incomplete (es/pt/pl/tr/nl/ko). Stesso meccanismo dei post sopra.
   "fitmesh-ultratleta-apple-watch-garmin-polar",
+  // 19/10/2026: confronto Apple Watch vs Galaxy Watch, pubblicazione IT/EN,
+  // redirect 307 verso /en/ per le restanti 13 lingue incomplete.
+  "apple-watch-galaxy-watch-dati-fitmesh",
 ]);
 
 /**

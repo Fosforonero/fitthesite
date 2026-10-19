@@ -47,7 +47,8 @@ export type CoverType =
   | "ultraAthleteDay"
   | "xiaomiAmazfitExport"
   | "polarHealthConnect"
-  | "garminBodyBattery";
+  | "garminBodyBattery"
+  | "watchDataComparison";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -146,6 +147,8 @@ export const COVER_FILE: Record<CoverType, string> = {
   polarHealthConnect: "polar-lake-swim-wearable.webp",
   // SPRINT PM COVER-LOTTO3-B (08/10/2026): cover dedicata per ciclista in sosta recupero su strada di montagna
   garminBodyBattery: "endurance-cycling-recovery.webp",
+  // 19/10/2026: cover dedicata per confronto Apple Watch vs Galaxy Watch
+  watchDataComparison: "watch-data-comparison-20261017.webp",
 };
 
 /**
@@ -279,6 +282,8 @@ export const POST_COVER: Record<string, CoverType> = {
   "galaxy-watch-sleep-tracking-health-connect": "galaxyWatchSleep",
   // 01/10/2026: guida ultratleta, cover dedicata (vedi COVER_FILE sopra).
   "fitmesh-ultratleta-apple-watch-garmin-polar": "ultraAthleteDay",
+  // 19/10/2026: confronto Apple Watch vs Galaxy Watch, cover dedicata.
+  "apple-watch-galaxy-watch-dati-fitmesh": "watchDataComparison",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */
