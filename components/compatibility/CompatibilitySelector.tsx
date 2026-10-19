@@ -14,6 +14,7 @@ import {
 
 interface CompatibilitySelectorProps {
   locale: "it" | "en";
+  guideLinks: Record<string, { it: string | null; en: string | null }>;
 }
 
 const UI_TEXT = {
@@ -81,7 +82,7 @@ const UI_TEXT = {
   },
 };
 
-export function CompatibilitySelector({ locale }: CompatibilitySelectorProps) {
+export function CompatibilitySelector({ locale, guideLinks }: CompatibilitySelectorProps) {
   const [os, setOs] = useState<SelectorPhoneOs>("android");
   const [device, setDevice] = useState<SelectorDevice>("garmin");
   const [metric, setMetric] = useState<SelectorMetric>("steps");
@@ -104,7 +105,12 @@ export function CompatibilitySelector({ locale }: CompatibilitySelectorProps) {
     }
   };
 
-  const localizedHref = result.cta.href ? result.cta.href[locale] : undefined;
+  const localizedHref =
+    result.cta.type === "guide" && result.cta.guideSlug
+      ? guideLinks[result.cta.guideSlug]?.[locale] ?? null
+      : result.cta.href
+        ? result.cta.href[locale]
+        : null;
 
   return (
     <div

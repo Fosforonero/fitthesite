@@ -1,6 +1,3 @@
-import { blogLinkHrefSync } from "@/lib/blog/indexability";
-import { localizedBlogSlug } from "@/lib/blog/slug-i18n";
-
 export type SelectorPhoneOs = "android" | "ios";
 
 export type SelectorDevice =
@@ -54,6 +51,7 @@ export interface SelectorResult {
   cta: {
     type: "guide" | "store" | "none";
     label: { it: string; en: string };
+    guideSlug?: string;
     href?: { it: string; en: string };
   };
 }
@@ -69,6 +67,21 @@ export interface MetricOption {
   label: { it: string; en: string };
   category: "activity" | "cardio" | "sleep" | "advanced";
 }
+
+export const SELECTOR_GUIDE_SLUGS: readonly string[] = [
+  "colmi-r02-setup",
+  "colmi-r09-temperatura-sviluppo",
+  "garmin-samsung-health-sync-guide",
+  "garmin-body-battery-health-connect",
+  "passi-non-si-sincronizzano-galaxy-watch",
+  "health-connect-vs-samsung-health",
+  "health-connect-not-syncing",
+  "fitbit-data-not-syncing-android",
+  "esportare-dati-fitbit-google",
+  "dati-pixel-watch-dashboard",
+  "how-to-export-apple-health-data",
+  "oura-ring-health-connect-android",
+];
 
 export const SELECTOR_DEVICES: readonly DeviceOption[] = [
   { id: "garmin", label: { it: "Garmin (Forerunner, Fenix, Venu)", en: "Garmin (Forerunner, Fenix, Venu)" }, category: "watch" },
@@ -98,16 +111,6 @@ export const SELECTOR_METRICS: readonly MetricOption[] = [
   { id: "vo2_max", label: { it: "VO2 Max stimato", en: "Estimated VO2 Max" }, category: "cardio" },
   { id: "workouts", label: { it: "Sessioni di allenamento e distanze", en: "Workout sessions and distance" }, category: "activity" },
 ];
-
-function resolveLocalizedGuideHref(canonicalSlug: string): { it: string; en: string } {
-  const itHref =
-    blogLinkHrefSync(canonicalSlug, "it") ??
-    `/it/blog/${localizedBlogSlug(canonicalSlug, "it")}`;
-  const enHref =
-    blogLinkHrefSync(canonicalSlug, "en") ??
-    `/en/blog/${localizedBlogSlug(canonicalSlug, "en")}`;
-  return { it: itHref, en: enHref };
-}
 
 const STORE_HREF = { it: "/it#download", en: "/en#download" };
 
@@ -173,15 +176,19 @@ function buildWorkoutsConditionalResult(
     cta: {
       type: "guide",
       label: guideLabel,
-      href: resolveLocalizedGuideHref(guideCanonicalSlug),
+      guideSlug: guideCanonicalSlug,
     },
   };
 }
 
 function buildColmiDirectVerified(os: SelectorPhoneOs): SelectorResult {
+  const matrixId = os === "ios" ? "colmi-ios" : "colmi-android";
   return {
     status: "direct_verified",
-    statusBadge: { it: "Collegamento diretto BLE verificato", en: "Verified direct BLE connection" },
+    statusBadge: {
+      it: "Connessione BLE diretta (documentata nel codice)",
+      en: "Direct BLE connection (documented in code)",
+    },
     route: {
       device: { it: "Colmi Smart Ring (R02, R06, R09)", en: "Colmi Smart Ring (R02, R06, R09)" },
       sourceApp: { it: "Nessuna app intermedia richiesta", en: "No intermediate app required" },
@@ -191,12 +198,12 @@ function buildColmiDirectVerified(os: SelectorPhoneOs): SelectorResult {
     explanation: {
       it:
         os === "ios"
-          ? "FitMesh Sync si collega direttamente all'anello Colmi via Bluetooth Low Energy (CoreBluetooth), leggendo passi, frequenza cardiaca e sonno senza app o cloud del produttore. Su iPhone è disponibile anche la scrittura opzionale verso Apple Salute per passi e frequenza a riposo."
-          : "FitMesh Sync si collega direttamente all'anello Colmi via Bluetooth Low Energy, leggendo passi in bucket da 15 minuti, frequenza cardiaca e sonno con stadi senza passare dall'app o dal cloud del produttore.",
+          ? "FitMesh Sync prevede il collegamento diretto all'anello Colmi via Bluetooth Low Energy (CoreBluetooth) per leggere passi, frequenza cardiaca e sonno senza app o cloud del produttore. Su iPhone è prevista anche la scrittura opzionale verso Apple Salute per passi e frequenza a riposo."
+          : "FitMesh Sync prevede il collegamento diretto all'anello Colmi via Bluetooth Low Energy per leggere passi in bucket da 15 minuti, frequenza cardiaca e sonno con stadi senza passare dall'app o dal cloud del produttore.",
       en:
         os === "ios"
-          ? "FitMesh Sync connects directly to the Colmi ring via Bluetooth Low Energy (CoreBluetooth), reading steps, heart rate, and sleep without the manufacturer app or cloud. Optional write-back to Apple Health is available on iPhone for steps and resting heart rate."
-          : "FitMesh Sync connects directly to the Colmi ring via Bluetooth Low Energy, reading 15-minute step buckets, heart rate, and sleep with stages without routing through the manufacturer app or cloud.",
+          ? "FitMesh Sync implements a direct Bluetooth Low Energy (CoreBluetooth) connection to the Colmi ring to read steps, heart rate, and sleep without the manufacturer app or cloud. Optional write-back to Apple Health is available on iPhone for steps and resting heart rate."
+          : "FitMesh Sync implements a direct Bluetooth Low Energy connection to the Colmi ring to read 15-minute step buckets, heart rate, and sleep with stages without routing through the manufacturer app or cloud.",
     },
     limitations: {
       it:
@@ -209,13 +216,13 @@ function buildColmiDirectVerified(os: SelectorPhoneOs): SelectorResult {
           : "Requires the ring to remain within Bluetooth range of the smartphone during sync. Automatic deduplication is not promised when wearing multiple devices simultaneously.",
     },
     evidence: {
-      it: "Driver BLE diretto FitMesh documentato nella matrice ufficiale (https://github.com/Fosforonero/fitthesite) e testato su hardware Colmi R02, R06 e R09.",
-      en: "FitMesh direct BLE driver documented in the official matrix (https://github.com/Fosforonero/fitthesite) and tested on Colmi R02, R06, and R09 hardware.",
+      it: `Specifiche del driver BLE diretto documentate nella scheda ${matrixId} di lib/compatibility/matrix-data.ts e in lib/providers/data.ts (colmi-ring).`,
+      en: `Direct BLE driver specifications documented in entry ${matrixId} of lib/compatibility/matrix-data.ts and in lib/providers/data.ts (colmi-ring).`,
     },
     cta: {
       type: "guide",
       label: { it: "Guida configurazione anello Colmi", en: "Colmi ring setup guide" },
-      href: resolveLocalizedGuideHref("colmi-r02-setup"),
+      guideSlug: "colmi-r02-setup",
     },
   };
 }
@@ -231,16 +238,16 @@ function buildColmiSpo2Conditional(): SelectorResult {
       fitmeshApp: { it: "FitMesh Sync (lettura BLE diretta)", en: "FitMesh Sync (direct BLE read)" },
     },
     explanation: {
-      it: "FitMesh legge le misurazioni di saturazione ossigeno (SpO2) dall'anello tramite Bluetooth Low Energy.",
-      en: "FitMesh reads blood oxygen (SpO2) measurements from the ring via Bluetooth Low Energy.",
+      it: "Il driver BLE di FitMesh supporta la lettura delle misurazioni di saturazione ossigeno (SpO2) dall'anello tramite Bluetooth Low Energy.",
+      en: "The FitMesh BLE driver supports reading blood oxygen (SpO2) measurements from the ring via Bluetooth Low Energy.",
     },
     limitations: {
       it: "In FitMesh la selezione della sorgente prioritaria si applica a passi, sonno, frequenza cardiaca, calorie e HRV; non si applica a SpO2, peso e distanza.",
       en: "In FitMesh, source priority selection applies to steps, sleep, heart rate, calories, and HRV; it does not apply to SpO2, weight, or distance.",
     },
     evidence: {
-      it: "Driver BLE diretto FitMesh e specifiche di priorità sorgente documentate in https://github.com/Fosforonero/fitthesite.",
-      en: "FitMesh direct BLE driver and source priority specifications documented in https://github.com/Fosforonero/fitthesite.",
+      it: "Specifiche del driver BLE e regole di priorità sorgente documentate in lib/compatibility/matrix-data.ts e lib/providers/data.ts (colmi-ring).",
+      en: "BLE driver specifications and source priority rules documented in lib/compatibility/matrix-data.ts and lib/providers/data.ts (colmi-ring).",
     },
     cta: {
       type: "store",
@@ -261,21 +268,21 @@ function buildColmiTemperatureConditional(): SelectorResult {
       fitmeshApp: { it: "FitMesh Sync (lettura BLE diretta)", en: "FitMesh Sync (direct BLE read)" },
     },
     explanation: {
-      it: "Il sensore di temperatura cutanea è presente sui modelli Colmi R02 e R09, mentre non è presente sul modello R06.",
-      en: "Skin temperature sensing is present on Colmi R02 and R09 hardware, whereas the R06 model lacks a physical thermal sensor.",
+      it: "Secondo la documentazione di compatibilità FitMesh, il sensore di temperatura cutanea è presente sui modelli Colmi R02 e R09, mentre non è presente sul modello R06.",
+      en: "Per FitMesh compatibility documentation, skin temperature sensing is present on Colmi R02 and R09 models, whereas the R06 model lacks a physical thermal sensor.",
     },
     limitations: {
       it: "Disponibile solo sui modelli dotati del sensore fisico; rileva le variazioni cutanee periferiche e non sostituisce un termometro clinico.",
       en: "Available only on models equipped with the physical sensor; tracks peripheral skin variation and does not replace a clinical thermometer.",
     },
     evidence: {
-      it: "Documentazione tecnica sensore Colmi R09 e driver BLE FitMesh (https://github.com/Fosforonero/fitthesite).",
-      en: "Colmi R09 sensor technical documentation and FitMesh BLE driver (https://github.com/Fosforonero/fitthesite).",
+      it: "Scheda tecnica in lib/compatibility/matrix-data.ts (colmi-android / colmi-ios) e approfondimento tecnico colmi-r09-temperatura-sviluppo in lib/blog/data.ts.",
+      en: "Technical specification in lib/compatibility/matrix-data.ts (colmi-android / colmi-ios) and technical analysis colmi-r09-temperatura-sviluppo in lib/blog/data.ts.",
     },
     cta: {
       type: "guide",
       label: { it: "Leggi l'approfondimento temperatura Colmi R09", en: "Read the Colmi R09 temperature guide" },
-      href: resolveLocalizedGuideHref("colmi-r09-temperatura-sviluppo"),
+      guideSlug: "colmi-r09-temperatura-sviluppo",
     },
   };
 }
@@ -327,7 +334,7 @@ function buildGarminSupportedOrConditional(
     cta: {
       type: "guide",
       label: { it: "Guida alla sincronizzazione Garmin", en: "Garmin synchronization guide" },
-      href: resolveLocalizedGuideHref("garmin-samsung-health-sync-guide"),
+      guideSlug: "garmin-samsung-health-sync-guide",
     },
   };
 }
@@ -364,7 +371,7 @@ function buildGarminBodyBatteryUnsupported(os: SelectorPhoneOs): SelectorResult 
     cta: {
       type: "guide",
       label: { it: "Approfondisci Body Battery e Health Connect", en: "Read the Body Battery and Health Connect analysis" },
-      href: resolveLocalizedGuideHref("garmin-body-battery-health-connect"),
+      guideSlug: "garmin-body-battery-health-connect",
     },
   };
 }
@@ -394,7 +401,7 @@ function buildSamsungAndroidHealthStore(): SelectorResult {
     cta: {
       type: "guide",
       label: { it: "Risoluzione passi Galaxy Watch non sincronizzati", en: "Fix Galaxy Watch steps not syncing" },
-      href: resolveLocalizedGuideHref("passi-non-si-sincronizzano-galaxy-watch"),
+      guideSlug: "passi-non-si-sincronizzano-galaxy-watch",
     },
   };
 }
@@ -414,8 +421,8 @@ function buildSamsungEnergyScoreUnsupported(): SelectorResult {
       en: "Samsung documents Energy Score access through its Samsung Health Data SDK, but does not export it via standard Health Connect. In FitMesh, Samsung synchronization operates via Health Connect and does not include Energy Score.",
     },
     limitations: {
-      it: "L'Energy Score resta consultabile esclusivamente nell'app Samsung Health.",
-      en: "Energy Score remains viewable exclusively inside the Samsung Health app.",
+      it: "L'Energy Score non transita nel percorso Health Connect utilizzato da FitMesh.",
+      en: "Energy Score does not transit through the Health Connect route used by FitMesh.",
     },
     evidence: {
       it: "Documentazione Samsung Health Data SDK (https://developer.samsung.com/health/data/guide/features/data-types.html) e Samsung Support ANS00091380.",
@@ -424,7 +431,7 @@ function buildSamsungEnergyScoreUnsupported(): SelectorResult {
     cta: {
       type: "guide",
       label: { it: "Guida sincronizzazione Samsung Health e Health Connect", en: "Samsung Health and Health Connect guide" },
-      href: resolveLocalizedGuideHref("health-connect-vs-samsung-health"),
+      guideSlug: "health-connect-vs-samsung-health",
     },
   };
 }
@@ -489,7 +496,7 @@ function buildFitbitAndroidResult(isConditionalStages: boolean): SelectorResult 
     cta: {
       type: "guide",
       label: { it: "Risoluzione problemi sincronizzazione Fitbit su Android", en: "Fix Fitbit data not syncing on Android" },
-      href: resolveLocalizedGuideHref("fitbit-data-not-syncing-android"),
+      guideSlug: "fitbit-data-not-syncing-android",
     },
   };
 }
@@ -519,7 +526,7 @@ function buildFitbitIosConditional(): SelectorResult {
     cta: {
       type: "guide",
       label: { it: "Guida esportazione dati Fitbit e Google", en: "Fitbit and Google data export guide" },
-      href: resolveLocalizedGuideHref("esportare-dati-fitbit-google"),
+      guideSlug: "esportare-dati-fitbit-google",
     },
   };
 }
@@ -549,7 +556,7 @@ function buildPixelAndroidHealthStore(): SelectorResult {
     cta: {
       type: "guide",
       label: { it: "Guida dati Pixel Watch su dashboard", en: "Pixel Watch data dashboard guide" },
-      href: resolveLocalizedGuideHref("dati-pixel-watch-dashboard"),
+      guideSlug: "dati-pixel-watch-dashboard",
     },
   };
 }
@@ -703,7 +710,7 @@ function buildOuraConditional(os: SelectorPhoneOs): SelectorResult {
     cta: {
       type: "guide",
       label: { it: "Guida Oura Ring e Health Connect", en: "Oura Ring and Health Connect guide" },
-      href: resolveLocalizedGuideHref("oura-ring-health-connect-android"),
+      guideSlug: "oura-ring-health-connect-android",
     },
   };
 }
@@ -718,93 +725,109 @@ function buildOuraReadinessUnsupported(os: SelectorPhoneOs): SelectorResult {
 
   return {
     status: "unsupported",
-    statusBadge: { it: `Non esportato da Oura verso ${storeIt}`, en: `Not exported by Oura to ${storeEn}` },
+    statusBadge: {
+      it: `Non disponibile nel percorso ${storeIt}`,
+      en: `Not available via ${storeEn} route`,
+    },
     route: {
       device: { it: "Oura Ring (Gen 3, Gen 4)", en: "Oura Ring (Gen 3, Gen 4)" },
       sourceApp: { it: "Oura App", en: "Oura App" },
-      healthStore: { it: `${storeIt} (Readiness Score escluso)`, en: `${storeEn} (Readiness Score excluded)` },
+      healthStore: {
+        it: `${storeIt} (Readiness non incluso nell'esportazione locale)`,
+        en: `${storeEn} (Readiness not included in local export)`,
+      },
       fitmeshApp: { it: "Percorso non disponibile", en: "Route not available" },
     },
     explanation: {
-      it: `La documentazione ufficiale Oura elenca i dati esportati verso ${storeIt}: il punteggio proprietario Readiness Score non viene esportato fuori dall'app Oura.`,
-      en: `Official Oura documentation lists the metrics exported to ${storeEn}: the proprietary Readiness Score is not exported outside the Oura app.`,
+      it: `La documentazione Oura per ${storeIt} non include il Readiness Score tra le metriche condivise con l'archivio salute del telefono. Sebbene le API Oura documentino riepiloghi di readiness, FitMesh acquisisce i dati Oura tramite ${storeIt} e non dispone di un'integrazione cloud diretta con Oura.`,
+      en: `Oura's documentation for ${storeEn} does not include Readiness Score among the metrics shared with the phone's health store. Although Oura APIs document readiness summaries, FitMesh reads Oura data via ${storeEn} and does not provide a direct Oura cloud integration.`,
     },
     limitations: {
-      it: "Il Readiness Score rimane consultabile esclusivamente nell'app ufficiale Oura.",
-      en: "Readiness Score remains viewable exclusively inside the official Oura app.",
+      it: `Il limite riguarda il percorso tramite ${storeIt} esaminato e le integrazioni effettivamente disponibili in FitMesh.`,
+      en: `This limitation applies to the examined ${storeEn} route and the integrations actually available in FitMesh.`,
     },
     evidence: {
-      it: `Documentazione ufficiale Oura Help Center (${docUrl}).`,
-      en: `Official Oura Help Center documentation (${docUrl}).`,
+      it: `Documentazione Oura Help Center (${docUrl}) e documentazione API Oura (https://cloud.ouraring.com/docs/authentication).`,
+      en: `Oura Help Center documentation (${docUrl}) and Oura API documentation (https://cloud.ouraring.com/docs/authentication).`,
     },
     cta: {
       type: "guide",
       label: { it: "Analisi Oura Ring e condivisione dati", en: "Oura Ring data sharing analysis" },
-      href: resolveLocalizedGuideHref("oura-ring-health-connect-android"),
+      guideSlug: "oura-ring-health-connect-android",
     },
   };
 }
 
-function buildPolarUnsupported(os: SelectorPhoneOs): SelectorResult {
-  const storeIt = os === "android" ? "Health Connect" : "Apple Salute";
-  const storeEn = os === "android" ? "Health Connect" : "Apple Health";
+function buildPolarIndirectUnverified(os: SelectorPhoneOs): SelectorResult {
+  const storeIt = os === "android" ? "Health Connect" : "Apple Salute (HealthKit)";
+  const storeEn = os === "android" ? "Health Connect" : "Apple Health (HealthKit)";
   return {
-    status: "unsupported",
-    statusBadge: { it: "Non integrato in FitMesh", en: "Not integrated in FitMesh" },
+    status: "unverified",
+    statusBadge: {
+      it: "Percorso indiretto non verificato",
+      en: "Indirect route unverified",
+    },
     route: {
       device: { it: "Sportwatch Polar", en: "Polar Sportwatch" },
       sourceApp: { it: "Polar Flow", en: "Polar Flow" },
       healthStore: { it: storeIt, en: storeEn },
-      fitmeshApp: { it: "Nessuna integrazione diretta", en: "No direct integration" },
+      fitmeshApp: {
+        it: "Verifica end-to-end non disponibile",
+        en: "End-to-end verification unavailable",
+      },
     },
     explanation: {
-      it: "Polar non è integrato nell'app FitMesh. Eventuali dati scritti da Polar Flow nell'archivio salute del telefono non dispongono di un percorso dedicato verificato in questa matrice.",
-      en: "Polar is not integrated in the FitMesh app. Any data written by Polar Flow to the phone's system health store does not have a dedicated verified route in this matrix.",
+      it: `Polar non ha un'integrazione diretta in FitMesh. L'assenza di un'integrazione diretta non esclude che Polar Flow possa scrivere alcune metriche standard su ${storeIt}, ma questo percorso indiretto non è verificato end-to-end nella presente matrice.`,
+      en: `Polar does not have a direct integration in FitMesh. The absence of a direct integration does not rule out Polar Flow writing standard metrics to ${storeEn}, but this indirect route is not verified end-to-end in this matrix.`,
     },
     limitations: {
-      it: "Nessun collegamento diretto con Polar Flow o Polar AccessLink e nessun supporto per metriche proprietarie Polar.",
-      en: "No direct connection with Polar Flow or Polar AccessLink and no support for proprietary Polar metrics.",
+      it: "Nessun collegamento diretto con Polar Flow e nessuna verifica end-to-end disponibile per il transito indiretto tramite l'archivio salute del telefono.",
+      en: "No direct connection with Polar Flow and no end-to-end verification available for indirect transit through the phone's health store.",
     },
     evidence: {
-      it: "Registro provider e matrice di compatibilità FitMesh (lib/providers/data.ts).",
-      en: "FitMesh provider registry and compatibility matrix (lib/providers/data.ts).",
+      it: "Registro provider FitMesh (lib/providers/data.ts) e criterio di verifica della matrice (lib/compatibility/matrix-data.ts).",
+      en: "FitMesh provider registry (lib/providers/data.ts) and matrix verification standard (lib/compatibility/matrix-data.ts).",
     },
     cta: {
-      type: "guide",
-      label: { it: "Approfondisci Polar e Health Connect", en: "Learn about Polar and Health Connect" },
-      href: resolveLocalizedGuideHref("polar-health-connect-sync"),
+      type: "none",
+      label: { it: "Percorso indiretto non ancora verificato", en: "Indirect route not yet verified" },
     },
   };
 }
 
-function buildGoogleFitUnsupported(os: SelectorPhoneOs): SelectorResult {
-  const storeIt = os === "android" ? "Health Connect" : "Apple Salute";
-  const storeEn = os === "android" ? "Health Connect" : "Apple Health";
+function buildGoogleFitIndirectUnverified(os: SelectorPhoneOs): SelectorResult {
+  const storeIt = os === "android" ? "Health Connect" : "Apple Salute (HealthKit)";
+  const storeEn = os === "android" ? "Health Connect" : "Apple Health (HealthKit)";
   return {
-    status: "unsupported",
-    statusBadge: { it: "Non è un'integrazione diretta", en: "Not a direct integration" },
+    status: "unverified",
+    statusBadge: {
+      it: "Percorso indiretto non verificato",
+      en: "Indirect route unverified",
+    },
     route: {
       device: { it: "Piattaforma Google Fit", en: "Google Fit Platform" },
-      sourceApp: { it: "Google Fit (API in dismissione)", en: "Google Fit (Deprecated APIs)" },
+      sourceApp: { it: "Google Fit", en: "Google Fit" },
       healthStore: { it: storeIt, en: storeEn },
-      fitmeshApp: { it: "Nessuna integrazione diretta Google Fit", en: "No direct Google Fit integration" },
+      fitmeshApp: {
+        it: "Verifica end-to-end non disponibile",
+        en: "End-to-end verification unavailable",
+      },
     },
     explanation: {
-      it: "Google Fit non è un'integrazione diretta dell'app FitMesh. Google ha avviato la dismissione delle API Google Fit a favore di Health Connect su Android.",
-      en: "Google Fit is not a direct integration of the FitMesh app. Google is deprecating Google Fit APIs in favor of Health Connect on Android.",
+      it: `Google Fit non è un'integrazione diretta di FitMesh e le relative API sono in dismissione da parte di Google. L'eventuale passaggio indiretto di metriche standard attraverso ${storeIt} non è verificato end-to-end in questa matrice.`,
+      en: `Google Fit is not a direct FitMesh integration and its APIs are being deprecated by Google. Any indirect transit of standard metrics through ${storeEn} is not verified end-to-end in this matrix.`,
     },
     limitations: {
-      it: "Per sincronizzare i dati su Android occorre collegare l'app del proprio dispositivo direttamente a Health Connect.",
-      en: "To synchronize data on Android, connect your wearable vendor's app directly to Health Connect.",
+      it: `Non esiste un connettore diretto Google Fit in FitMesh; l'eventuale transito tramite ${storeIt} dipende dalla singola app sorgente e non è certificato qui.`,
+      en: `There is no direct Google Fit connector in FitMesh; any transit through ${storeEn} depends on the individual source app and is not certified here.`,
     },
     evidence: {
-      it: "Guida ufficiale di migrazione Google Developers (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide).",
-      en: "Official Google Developers migration guide (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide).",
+      it: "Guida di migrazione Google Developers (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide) e registro provider FitMesh (lib/providers/data.ts).",
+      en: "Google Developers migration guide (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide) and FitMesh provider registry (lib/providers/data.ts).",
     },
     cta: {
-      type: "guide",
-      label: { it: "Guida alla transizione da Google Fit", en: "Google Fit transition guide" },
-      href: resolveLocalizedGuideHref("google-health-google-fit"),
+      type: "none",
+      label: { it: "Percorso indiretto non ancora verificato", en: "Indirect route not yet verified" },
     },
   };
 }
@@ -850,38 +873,86 @@ const SAMSUNG_SCORE_OWNER = { it: "Samsung Galaxy AI (Energy Score)", en: "Samsu
 const OURA_APPLE_SCORE_OWNER = { it: "Oura / Apple (Readiness)", en: "Oura / Apple (Readiness)" };
 
 function buildPolarMatrixForOs(os: SelectorPhoneOs): Record<SelectorMetric, SelectorResult> {
-  const entry = buildPolarUnsupported(os);
+  const indirectUnverified = buildPolarIndirectUnverified(os);
   return {
-    steps: entry,
-    heart_rate: entry,
-    sleep: entry,
-    sleep_stages: entry,
-    hrv: entry,
-    spo2: entry,
-    temperature: entry,
-    body_battery: entry,
-    energy_score: entry,
-    readiness: entry,
-    vo2_max: entry,
-    workouts: entry,
+    steps: indirectUnverified,
+    heart_rate: indirectUnverified,
+    sleep: indirectUnverified,
+    sleep_stages: indirectUnverified,
+    hrv: indirectUnverified,
+    spo2: indirectUnverified,
+    temperature: indirectUnverified,
+    vo2_max: indirectUnverified,
+    workouts: indirectUnverified,
+    body_battery: buildCrossVendorScoreUnsupported(
+      { it: "Sportwatch Polar", en: "Polar Sportwatch" },
+      { it: "Polar Flow", en: "Polar Flow" },
+      GARMIN_SCORE_OWNER,
+      {
+        it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
+        en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
+      }
+    ),
+    energy_score: buildCrossVendorScoreUnsupported(
+      { it: "Sportwatch Polar", en: "Polar Sportwatch" },
+      { it: "Polar Flow", en: "Polar Flow" },
+      SAMSUNG_SCORE_OWNER,
+      {
+        it: "Documentazione Samsung Health Data SDK (https://developer.samsung.com/health/data/guide/features/data-types.html).",
+        en: "Samsung Health Data SDK documentation (https://developer.samsung.com/health/data/guide/features/data-types.html).",
+      }
+    ),
+    readiness: buildCrossVendorScoreUnsupported(
+      { it: "Sportwatch Polar", en: "Polar Sportwatch" },
+      { it: "Polar Flow", en: "Polar Flow" },
+      OURA_APPLE_SCORE_OWNER,
+      {
+        it: "Documentazione Oura Help Center (https://support.ouraring.com/hc/en-us/articles/10786105824531-Health-Connect-by-Android-Integration).",
+        en: "Oura Help Center documentation (https://support.ouraring.com/hc/en-us/articles/10786105824531-Health-Connect-by-Android-Integration).",
+      }
+    ),
   };
 }
 
 function buildGoogleFitMatrixForOs(os: SelectorPhoneOs): Record<SelectorMetric, SelectorResult> {
-  const entry = buildGoogleFitUnsupported(os);
+  const indirectUnverified = buildGoogleFitIndirectUnverified(os);
   return {
-    steps: entry,
-    heart_rate: entry,
-    sleep: entry,
-    sleep_stages: entry,
-    hrv: entry,
-    spo2: entry,
-    temperature: entry,
-    body_battery: entry,
-    energy_score: entry,
-    readiness: entry,
-    vo2_max: entry,
-    workouts: entry,
+    steps: indirectUnverified,
+    heart_rate: indirectUnverified,
+    sleep: indirectUnverified,
+    sleep_stages: indirectUnverified,
+    hrv: indirectUnverified,
+    spo2: indirectUnverified,
+    temperature: indirectUnverified,
+    vo2_max: indirectUnverified,
+    workouts: indirectUnverified,
+    body_battery: buildCrossVendorScoreUnsupported(
+      { it: "Piattaforma Google Fit", en: "Google Fit Platform" },
+      { it: "Google Fit", en: "Google Fit" },
+      GARMIN_SCORE_OWNER,
+      {
+        it: "Guida di migrazione Google Developers (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide).",
+        en: "Google Developers migration guide (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide).",
+      }
+    ),
+    energy_score: buildCrossVendorScoreUnsupported(
+      { it: "Piattaforma Google Fit", en: "Google Fit Platform" },
+      { it: "Google Fit", en: "Google Fit" },
+      SAMSUNG_SCORE_OWNER,
+      {
+        it: "Guida di migrazione Google Developers (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide).",
+        en: "Google Developers migration guide (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide).",
+      }
+    ),
+    readiness: buildCrossVendorScoreUnsupported(
+      { it: "Piattaforma Google Fit", en: "Google Fit Platform" },
+      { it: "Google Fit", en: "Google Fit" },
+      OURA_APPLE_SCORE_OWNER,
+      {
+        it: "Guida di migrazione Google Developers (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide).",
+        en: "Google Developers migration guide (https://developer.android.com/health-and-fitness/guides/health-connect/migrate/comparison-guide).",
+      }
+    ),
   };
 }
 
@@ -961,8 +1032,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Connessione BLE", en: "BLE Connection" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Specifiche hardware Colmi BLE e documentazione Garmin Body Battery (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
-          en: "Colmi BLE hardware specifications and Garmin Body Battery documentation (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
+          it: "Specifiche hardware Colmi BLE in lib/compatibility/matrix-data.ts e documentazione Garmin Body Battery (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
+          en: "Colmi BLE hardware specifications in lib/compatibility/matrix-data.ts and Garmin Body Battery documentation (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -970,8 +1041,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Connessione BLE", en: "BLE Connection" },
         SAMSUNG_SCORE_OWNER,
         {
-          it: "Specifiche hardware Colmi BLE e documentazione Samsung Health Data SDK (https://developer.samsung.com/health/data/guide/features/data-types.html).",
-          en: "Colmi BLE hardware specifications and Samsung Health Data SDK documentation (https://developer.samsung.com/health/data/guide/features/data-types.html).",
+          it: "Specifiche hardware Colmi BLE in lib/compatibility/matrix-data.ts e documentazione Samsung Health Data SDK (https://developer.samsung.com/health/data/guide/features/data-types.html).",
+          en: "Colmi BLE hardware specifications in lib/compatibility/matrix-data.ts and Samsung Health Data SDK documentation (https://developer.samsung.com/health/data/guide/features/data-types.html).",
         }
       ),
       readiness: buildCrossVendorScoreUnsupported(
@@ -979,8 +1050,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Connessione BLE", en: "BLE Connection" },
         OURA_APPLE_SCORE_OWNER,
         {
-          it: "Specifiche hardware Colmi BLE documentate in https://github.com/Fosforonero/fitthesite.",
-          en: "Colmi BLE hardware specifications documented in https://github.com/Fosforonero/fitthesite.",
+          it: "Specifiche hardware Colmi BLE documentate in lib/compatibility/matrix-data.ts (colmi-android).",
+          en: "Colmi BLE hardware specifications documented in lib/compatibility/matrix-data.ts (colmi-android).",
         }
       ),
     },
@@ -1256,8 +1327,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Connessione BLE", en: "BLE Connection" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Specifiche hardware Colmi BLE e documentazione Garmin Body Battery (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
-          en: "Colmi BLE hardware specifications and Garmin Body Battery documentation (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
+          it: "Specifiche hardware Colmi BLE in lib/compatibility/matrix-data.ts e documentazione Garmin Body Battery (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
+          en: "Colmi BLE hardware specifications in lib/compatibility/matrix-data.ts and Garmin Body Battery documentation (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -1265,8 +1336,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Connessione BLE", en: "BLE Connection" },
         SAMSUNG_SCORE_OWNER,
         {
-          it: "Specifiche hardware Colmi BLE e documentazione Samsung Health Data SDK (https://developer.samsung.com/health/data/guide/features/data-types.html).",
-          en: "Colmi BLE hardware specifications and Samsung Health Data SDK documentation (https://developer.samsung.com/health/data/guide/features/data-types.html).",
+          it: "Specifiche hardware Colmi BLE in lib/compatibility/matrix-data.ts e documentazione Samsung Health Data SDK (https://developer.samsung.com/health/data/guide/features/data-types.html).",
+          en: "Colmi BLE hardware specifications in lib/compatibility/matrix-data.ts and Samsung Health Data SDK documentation (https://developer.samsung.com/health/data/guide/features/data-types.html).",
         }
       ),
       readiness: buildCrossVendorScoreUnsupported(
@@ -1274,8 +1345,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Connessione BLE", en: "BLE Connection" },
         OURA_APPLE_SCORE_OWNER,
         {
-          it: "Specifiche hardware Colmi BLE documentate in https://github.com/Fosforonero/fitthesite.",
-          en: "Colmi BLE hardware specifications documented in https://github.com/Fosforonero/fitthesite.",
+          it: "Specifiche hardware Colmi BLE documentate in lib/compatibility/matrix-data.ts (colmi-ios).",
+          en: "Colmi BLE hardware specifications documented in lib/compatibility/matrix-data.ts (colmi-ios).",
         }
       ),
     },

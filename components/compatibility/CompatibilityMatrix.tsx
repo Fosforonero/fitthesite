@@ -10,10 +10,12 @@ import {
   type PhoneOs,
 } from "@/lib/compatibility/matrix-data";
 import type { SupportedMatrixLocale } from "@/lib/compatibility/glossary-data";
-import { resolveGuideLink, resolveUnverifiedLink } from "@/lib/compatibility/matrix-links";
+import type { ResolvedMatrixLink } from "@/lib/compatibility/matrix-links";
 
 interface CompatibilityMatrixProps {
   locale: SupportedMatrixLocale;
+  guideLinksByPathId?: Record<string, ResolvedMatrixLink | null>;
+  unverifiedLinksByProviderSlug?: Record<string, ResolvedMatrixLink | null>;
 }
 
 type OsFilter = "all" | PhoneOs;
@@ -276,7 +278,11 @@ const OS_OPTIONS: readonly { id: OsFilter; label: Record<SupportedMatrixLocale, 
   },
 ];
 
-export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
+export function CompatibilityMatrix({
+  locale,
+  guideLinksByPathId = {},
+  unverifiedLinksByProviderSlug = {},
+}: CompatibilityMatrixProps) {
   const copy = UI_COPY[locale] || UI_COPY.en;
   const [selectedOs, setSelectedOs] = useState<OsFilter>("all");
   const [selectedFamily, setSelectedFamily] = useState<FamilyFilter>("all");
@@ -396,7 +402,7 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
             {unverifiedInfo.description[locale] || unverifiedInfo.description.en}
           </p>
           {(() => {
-            const unverifiedLink = resolveUnverifiedLink(unverifiedInfo.providerSlug, locale);
+            const unverifiedLink = unverifiedLinksByProviderSlug[unverifiedInfo.providerSlug] ?? null;
             if (!unverifiedLink) return null;
             return (
               <div className="mt-4 flex justify-center">
@@ -459,7 +465,7 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
             <tbody className="divide-y divide-border-subtle/60">
               {filteredPaths.map((p) => {
                 const isExpanded = expandedRow === p.id;
-                const guideLink = resolveGuideLink(p, locale);
+                const guideLink = guideLinksByPathId[p.id] ?? null;
                 return (
                   <tr
                     key={p.id}
@@ -598,7 +604,7 @@ export function CompatibilityMatrix({ locale }: CompatibilityMatrixProps) {
       <div className="lg:hidden space-y-4">
         {filteredPaths.map((p) => {
           const isExpanded = expandedRow === p.id;
-          const guideLink = resolveGuideLink(p, locale);
+          const guideLink = guideLinksByPathId[p.id] ?? null;
           return (
             <article
               key={p.id}
