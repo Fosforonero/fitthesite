@@ -7,6 +7,7 @@ import {
   type SupportedMatrixLocale,
 } from "@/lib/compatibility/glossary-data";
 import { CompatibilityMatrix } from "./CompatibilityMatrix";
+import { CompatibilitySelector } from "./CompatibilitySelector";
 import { EssentialGlossary } from "./EssentialGlossary";
 
 interface CompatibilitySectionProps {
@@ -44,6 +45,11 @@ export function CompatibilitySection({ locale }: CompatibilitySectionProps) {
         className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 border-t border-border-subtle/70"
         aria-labelledby="matrix-heading"
       >
+        {(locale === "it" || locale === "en") && (
+          <div className="mb-14">
+            <CompatibilitySelector locale={locale} />
+          </div>
+        )}
         <CompatibilityMatrix locale={locale} />
         <EssentialGlossary locale={locale} />
       </section>
