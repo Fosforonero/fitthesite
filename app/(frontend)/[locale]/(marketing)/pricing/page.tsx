@@ -17,6 +17,19 @@ export function generateStaticParams() {
   return [{ locale: "it" }, { locale: "en" }];
 }
 
+function getPricingMeta(lc: SupportedLocale) {
+  const isIt = lc === "it";
+  const title = isIt
+    ? "Prezzi FitMesh: acquisto unico e abbonamento"
+    : "FitMesh Pricing: One-Time Purchase and Subscription";
+
+  const description = isIt
+    ? "Prezzi FitMesh: 14 giorni di prova gratuita, poi acquisto unico a vita su iPhone o abbonamento su Android. Prezzo finale mostrato dal tuo store."
+    : "FitMesh pricing: 14-day free trial, then one-time purchase on iPhone or subscription on Android. Final price is shown by your local store.";
+
+  return { title, description };
+}
+
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
 ): Promise<Metadata> {
@@ -26,13 +39,7 @@ export async function generateMetadata(
   }
   const lc = locale as SupportedLocale;
 
-  const title = lc === "it"
-    ? "Prezzi e Piani FitMesh Pro: acquisto unico e abbonamento"
-    : "FitMesh Pro Pricing: Lifetime Purchase and Subscription";
-
-  const description = lc === "it"
-    ? "Scarica l'app gratis con 14 giorni di prova Pro. Poi acquisto unico a vita su iPhone o scelta tra acquisto unico e abbonamento semestrale su Android. Prezzi mostrati dallo store locale."
-    : "Download the app for free with a 14-day Pro trial. Lifetime purchase on iPhone; lifetime or 6-month subscription on Android. Prices shown by your local store.";
+  const { title, description } = getPricingMeta(lc);
 
   const canonicalUrl = `${SITE_URL}/${lc}/pricing`;
 
@@ -76,6 +83,7 @@ export default async function PricingPage({
   const lc = locale as SupportedLocale;
 
   const isIt = lc === "it";
+  const { description } = getPricingMeta(lc);
 
   const breadcrumbsItems = [
     { name: isIt ? "Prezzi" : "Pricing", path: `/${lc}/pricing` },
@@ -85,11 +93,11 @@ export default async function PricingPage({
     ? [
         {
           q: "Posso provare FitMesh prima di pagare?",
-          a: "Sì. Scaricare l'app è gratuito e include 14 giorni di prova Pro: per continuare a sincronizzare dopo la prova serve l'acquisto a vita (su Android puoi scegliere anche l'abbonamento semestrale). Non serve inserire alcuna carta di credito per iniziare la prova.",
+          a: "Sì. Scaricare l'app è gratuito e include 14 giorni di prova Pro: per continuare a sincronizzare dopo la prova serve l'acquisto a vita (su Android puoi scegliere anche l'abbonamento semestrale). Nessun addebito durante la prova. La prova riguarda solo l'app.",
         },
         {
           q: "Cosa succede quando finiscono i 14 giorni di prova?",
-          a: "Al termine della prova gratuita l'app mostra la schermata di acquisto: per continuare a sincronizzare i dispositivi serve completare l'acquisto. L'accesso alle funzioni di esportazione dati in formato JSON e la richiesta di cancellazione account restano sempre accessibili e gratuiti.",
+          a: "Al termine della prova gratuita la sincronizzazione si ferma finché non scegli un'opzione. I dati già sincronizzati restano nel tuo account: dall'app puoi esportare le metriche di salute o eliminare l'account. L'esportazione JSON e l'eliminazione dell'account restano sempre accessibili e gratuite, senza acquisto.",
         },
         {
           q: "Quali opzioni di acquisto ci sono su iPhone?",
@@ -111,11 +119,11 @@ export default async function PricingPage({
     : [
         {
           q: "Can I try FitMesh before purchasing?",
-          a: "Yes. Downloading the app is free and includes a 14-day Pro trial: continuing to sync after the trial requires a lifetime purchase (on Android you can also choose the 6-month subscription). No credit card is required to begin your trial.",
+          a: "Yes. Downloading the app is free and includes a 14-day Pro trial: continuing to sync after the trial requires a lifetime purchase (on Android you can also choose the 6-month subscription). You won't be charged during the trial. The trial covers the app only.",
         },
         {
           q: "What happens when the 14-day trial ends?",
-          a: "Once the free trial expires, the app presents the purchase screen: purchasing an unlock is required to continue syncing wearable data. Exporting your data in JSON format and requesting account deletion remain permanently free and accessible.",
+          a: "When the free trial ends, syncing pauses until you choose an option. Data already synced stays in your account: from the app you can export your health metrics or delete your account. JSON export and account deletion remain permanently free and accessible without a purchase.",
         },
         {
           q: "What purchase options are available on iPhone?",
@@ -152,11 +160,9 @@ export default async function PricingPage({
   const webPageJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: isIt ? "Prezzi FitMesh Pro" : "FitMesh Pro Pricing",
+    name: isIt ? "Prezzi di FitMesh" : "FitMesh pricing",
     url: `${SITE_URL}/${lc}/pricing`,
-    description: isIt
-      ? "Piani e prezzi trasparenti per FitMesh Pro: 14 giorni di prova Pro, acquisto a vita e abbonamento semestrale."
-      : "Transparent plans and pricing for FitMesh Pro: 14-day Pro trial, lifetime purchase, and 6-month subscription.",
+    description,
     inLanguage: schemaLanguage(lc),
     isPartOf: {
       "@type": "WebSite",
@@ -178,13 +184,16 @@ export default async function PricingPage({
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium bg-brand-aqua/10 text-brand-aqua border border-brand-aqua/20 mb-4">
             <span>{isIt ? "Trasparenza Commerciale" : "Transparent Pricing"}</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-text-primary mb-6">
-            {isIt ? "L'app si scarica gratis." : "The app is free to download."}
+          <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-text-primary mb-3">
+            {isIt ? "Prezzi di FitMesh" : "FitMesh pricing"}
           </h1>
+          <p className="text-xl font-medium text-brand-aqua mb-4">
+            {isIt ? "L'app si scarica gratis" : "The app is free to download"}
+          </p>
           <p className="text-lg text-text-secondary leading-relaxed mb-6">
             {isIt
-              ? "Inizia con 14 giorni di prova Pro per sincronizzare i tuoi dati salute e fitness. Poi per continuare a sincronizzare scegli l'opzione più adatta al tuo telefono sullo store ufficiale."
-              : "Start with a 14-day Pro trial to sync your health and fitness data. To continue syncing after the trial, choose the option that fits your phone best on the official store."}
+              ? "Inizia con 14 giorni di prova Pro per sincronizzare i tuoi dati salute e fitness. Nessun addebito durante la prova. La prova riguarda solo l'app. Per continuare a sincronizzare scegli l'opzione più adatta al tuo telefono sullo store ufficiale."
+              : "Start with a 14-day Pro trial to sync your health and fitness data. You won't be charged during the trial. The trial covers the app only. To continue syncing after the trial, choose the option that fits your phone best on the official store."}
           </p>
           <div className="flex justify-center">
             <StoreButtonsRow locale={lc} />
@@ -245,11 +254,11 @@ export default async function PricingPage({
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-brand-aqua font-bold" aria-hidden="true">✓</span>
-                    <span>{isIt ? "Sincronizzazione tramite Connessione Salute (Health Connect)" : "Sync via Health Connect and compatible apps"}</span>
+                    <span>{isIt ? "Sincronizzazione tramite Connessione Salute (Health Connect)" : "Sync via Health Connect"}</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-brand-aqua font-bold" aria-hidden="true">✓</span>
-                    <span>{isIt ? "Nessun limite al numero di dispositivi personali" : "No personal device limits"}</span>
+                    <span>{isIt ? "Disdici quando vuoi da Google Play." : "Cancel anytime in Google Play."}</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-brand-aqua font-bold" aria-hidden="true">✓</span>
@@ -343,12 +352,20 @@ export default async function PricingPage({
               </div>
             </div>
           </div>
+
+          <div className="mt-6 text-center text-xs text-text-muted">
+            <p>
+              {isIt
+                ? "Prezzi IVA inclusa. Il prezzo finale è quello mostrato da App Store o Google Play."
+                : "Prices include VAT. The final price is the one shown by the App Store or Google Play."}
+            </p>
+          </div>
         </section>
 
         {/* Product Truth & Commitments Banner */}
         <section aria-labelledby="guarantees-heading" className="rounded-2xl border border-white/[0.08] bg-white/[0.015] p-8 mb-20">
           <h2 id="guarantees-heading" className="text-xl font-bold text-text-primary mb-4">
-            {isIt ? "Cosa è incluso e cosa garantiamo" : "What is included and our commitments"}
+            {isIt ? "Cosa è incluso" : "What's included"}
           </h2>
           <div className="grid sm:grid-cols-2 gap-6 text-sm text-text-secondary">
             <div>
@@ -357,8 +374,8 @@ export default async function PricingPage({
               </h3>
               <p className="leading-relaxed">
                 {isIt
-                  ? "Se decidi di non acquistare al termine dei 14 giorni, la sincronizzazione dei dati si arresta senza alcun addebito a sorpresa. Puoi esportare tutti i tuoi dati in JSON o eliminare il tuo account in qualsiasi momento direttamente dall'app."
-                  : "If you decide not to purchase after the 14 days, data synchronization simply pauses without surprise charges. You can export all your data as JSON or delete your account at any time directly in the app."}
+                  ? "Al termine dei 14 giorni la sincronizzazione si ferma finché non scegli un'opzione, senza alcun addebito a sorpresa. I dati già sincronizzati restano nel tuo account: dall'app puoi esportare le metriche di salute o eliminare l'account."
+                  : "When the 14 days end, syncing pauses until you choose an option, with no surprise charges. Data already synced stays in your account: from the app you can export your health metrics or delete your account."}
               </p>
             </div>
             <div>
@@ -367,8 +384,8 @@ export default async function PricingPage({
               </h3>
               <p className="leading-relaxed">
                 {isIt
-                  ? "I dati sanitari risiedono nell'archivio salute locale del dispositivo (Connessione Salute o Apple Salute). L'app sincronizza con il tuo account FitMesh solo le metriche che hai scelto di collegare. Non vendiamo i tuoi dati sanitari, non inseriamo annunci pubblicitari o tracker commerciali e non promettiamo dashboard web personali o condivisioni familiari non disponibili."
-                  : "Health data resides in your device's local health storage (Health Connect or Apple Health). The app syncs to your FitMesh account only the metrics you choose to connect. We never sell your health metrics, include zero ads or commercial trackers, and do not promise unavailable personal web dashboards or family sharing features."}
+                  ? "I dati sanitari risiedono nell'archivio salute locale del dispositivo (Connessione Salute o Apple Salute). L'app sincronizza con il tuo account FitMesh solo le metriche che hai scelto di collegare. Non vendiamo i tuoi dati sanitari e non inseriamo annunci pubblicitari o tracker commerciali."
+                  : "Health data resides in your device's local health storage (Health Connect or Apple Health). The app syncs to your FitMesh account only the metrics you choose to connect. We never sell your health metrics and include zero ads or commercial trackers."}
               </p>
             </div>
           </div>

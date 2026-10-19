@@ -23,7 +23,9 @@ describe("PricingPage (/pricing)", () => {
   it("genera metadati corretti per it ed en con canonical e hreflang", async () => {
     const metaIt = await generateMetadata({ params: Promise.resolve({ locale: "it" }) });
     expect(metaIt.title).toContain("Prezzi");
-    expect(metaIt.description).toContain("14 giorni di prova Pro");
+    expect(metaIt.description).toContain("14 giorni di prova");
+    expect(metaIt.description).toContain("acquisto unico");
+    expect(metaIt.description!.length).toBeLessThanOrEqual(155);
     expect(metaIt.alternates?.canonical).toBe("https://www.fitmesh.fit/it/pricing");
     expect(metaIt.alternates?.languages).toHaveProperty("it", "https://www.fitmesh.fit/it/pricing");
     expect(metaIt.alternates?.languages).toHaveProperty("en", "https://www.fitmesh.fit/en/pricing");
@@ -31,7 +33,9 @@ describe("PricingPage (/pricing)", () => {
 
     const metaEn = await generateMetadata({ params: Promise.resolve({ locale: "en" }) });
     expect(metaEn.title).toContain("Pricing");
-    expect(metaEn.description).toContain("14-day Pro trial");
+    expect(metaEn.description).toContain("14-day free trial");
+    expect(metaEn.description).toContain("one-time purchase");
+    expect(metaEn.description!.length).toBeLessThanOrEqual(155);
     expect(metaEn.alternates?.canonical).toBe("https://www.fitmesh.fit/en/pricing");
   });
 
@@ -40,7 +44,8 @@ describe("PricingPage (/pricing)", () => {
       await PricingPage({ params: Promise.resolve({ locale: "it" }) })
     );
 
-    expect(html).toContain("L&#x27;app si scarica gratis.");
+    expect(html).toContain("Prezzi di FitMesh");
+    expect(html).toContain("L&#x27;app si scarica gratis");
     expect(html).toContain("FitMesh Pro per Android");
     expect(html).toContain("FitMesh Pro per iPhone");
 
@@ -49,7 +54,11 @@ describe("PricingPage (/pricing)", () => {
     expect(html).toContain("Prezzo indicato da Google Play");
     expect(html).toContain("Prezzo indicato da Apple App Store");
     expect(html).toContain("Solo acquisto unico a vita");
+    expect(html).toContain("Disdici quando vuoi da Google Play.");
+    expect(html).toContain("I dati già sincronizzati restano nel tuo account: dall&#x27;app puoi esportare le metriche di salute o eliminare l&#x27;account.");
     expect(html).toContain("I dati sanitari risiedono nell&#x27;archivio salute locale del dispositivo");
+    expect(html).not.toContain("Nessun limite al numero di dispositivi personali");
+    expect(html).not.toContain("dashboard web personali");
 
     // Collegamenti corretti
     expect(html).toContain('href="/it/support/health-connect"');
@@ -75,7 +84,7 @@ describe("PricingPage (/pricing)", () => {
 
     const webPage = jsonLdList.find((j) => j["@type"] === "WebPage");
     expect(webPage).toBeDefined();
-    expect(webPage.name).toBe("Prezzi FitMesh Pro");
+    expect(webPage.name).toBe("Prezzi di FitMesh");
     expect(webPage.inLanguage).toBe("it-IT");
 
     const faqPage = jsonLdList.find((j) => j["@type"] === "FAQPage");
@@ -86,6 +95,11 @@ describe("PricingPage (/pricing)", () => {
     const trialFaq = faqPage.mainEntity.find((q: any) => q.name.includes("provare"));
     expect(trialFaq).toBeDefined();
     expect(trialFaq.acceptedAnswer.text).toContain("14 giorni di prova Pro");
+    expect(trialFaq.acceptedAnswer.text).toContain("Nessun addebito durante la prova. La prova riguarda solo l'app.");
+
+    const endTrialFaq = faqPage.mainEntity.find((q: any) => q.name.includes("finiscono"));
+    expect(endTrialFaq).toBeDefined();
+    expect(endTrialFaq.acceptedAnswer.text).toContain("I dati già sincronizzati restano nel tuo account: dall'app puoi esportare le metriche di salute o eliminare l'account.");
 
     const founderFaq = faqPage.mainEntity.find((q: any) => q.name.includes("Founder"));
     expect(founderFaq).toBeDefined();
@@ -99,10 +113,13 @@ describe("PricingPage (/pricing)", () => {
       await PricingPage({ params: Promise.resolve({ locale: "en" }) })
     );
 
-    expect(html).toContain("The app is free to download.");
+    expect(html).toContain("FitMesh pricing");
+    expect(html).toContain("The app is free to download");
     expect(html).toContain("FitMesh Pro for Android");
     expect(html).toContain("FitMesh Pro for iPhone");
     expect(html).toContain("14-day Pro trial included");
+    expect(html).toContain("Cancel anytime in Google Play.");
+    expect(html).toContain("Data already synced stays in your account: from the app you can export your health metrics or delete your account.");
     expect(html).toContain("Health data resides in your device");
 
     expect(html).not.toContain("5,99");
@@ -112,9 +129,21 @@ describe("PricingPage (/pricing)", () => {
     const jsonLdList = extractJsonLd(html);
     expect(jsonLdList.length).toBe(3);
 
+    const webPage = jsonLdList.find((j) => j["@type"] === "WebPage");
+    expect(webPage).toBeDefined();
+    expect(webPage.name).toBe("FitMesh pricing");
+
     const faqPage = jsonLdList.find((j) => j["@type"] === "FAQPage");
     expect(faqPage).toBeDefined();
     expect(faqPage.inLanguage).toBe("en-US");
+
+    const trialFaq = faqPage.mainEntity.find((q: any) => q.name.includes("try"));
+    expect(trialFaq).toBeDefined();
+    expect(trialFaq.acceptedAnswer.text).toContain("You won't be charged during the trial. The trial covers the app only.");
+
+    const endTrialFaq = faqPage.mainEntity.find((q: any) => q.name.includes("trial ends"));
+    expect(endTrialFaq).toBeDefined();
+    expect(endTrialFaq.acceptedAnswer.text).toContain("Data already synced stays in your account: from the app you can export your health metrics or delete your account.");
 
     const founderFaq = faqPage.mainEntity.find((q: any) => q.name.includes("Founder"));
     expect(founderFaq).toBeDefined();
