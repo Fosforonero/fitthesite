@@ -57,18 +57,18 @@ const MODEL_GUIDES_HEADING: Record<string, string> = {
   ja: "モデル別ガイド",
   ko: "모델별 가이드",
 };
-const MODEL_GUIDES_INTRO: Record<string, (provider: string) => string> = {
-  it: (n) => `Una pagina dedicata a ciascun modello ${n}.`,
-  en: (n) => `A dedicated page for each ${n} model.`,
-  es: (n) => `Una página dedicada a cada modelo de ${n}.`,
-  de: (n) => `Eine eigene Seite für jedes ${n}-Modell.`,
-  pt: (n) => `Uma página dedicada a cada modelo ${n}.`,
-  fr: (n) => `Une page dédiée à chaque modèle ${n}.`,
-  pl: (n) => `Osobna strona dla każdego modelu ${n}.`,
-  tr: (n) => `Her ${n} modeli için ayrı bir sayfa.`,
-  nl: (n) => `Een eigen pagina voor elk ${n}-model.`,
-  ja: (n) => `${n} の各モデルに専用ページがあります。`,
-  ko: (n) => `${n}의 각 모델별 전용 페이지입니다.`,
+const MODEL_GUIDES_INTRO: Record<string, string> = {
+  it: "Una pagina dedicata a ciascun modello.",
+  en: "A dedicated page for each model.",
+  es: "Una página dedicada a cada modelo.",
+  de: "Eine eigene Seite für jedes Modell.",
+  pt: "Uma página dedicada a cada modelo.",
+  fr: "Une page dédiée à chaque modèle.",
+  pl: "Osobna strona dla każdego modelu.",
+  tr: "Her model için ayrı bir sayfa.",
+  nl: "Een eigen pagina voor elk model.",
+  ja: "各モデルに専用ページがあります。",
+  ko: "각 모델별 전용 페이지입니다.",
 };
 
 /**
@@ -1034,7 +1034,7 @@ export default async function ProviderLanding({
           .filter((x): x is { model: ProviderModel; href: string } => x.href !== null);
         if (modelLinks.length === 0) return null;
         const heading = MODEL_GUIDES_HEADING[lc] ?? MODEL_GUIDES_HEADING.en;
-        const intro = (MODEL_GUIDES_INTRO[lc] ?? MODEL_GUIDES_INTRO.en)(p.name);
+        const intro = MODEL_GUIDES_INTRO[lc] ?? MODEL_GUIDES_INTRO.en;
         return (
           <section
             aria-labelledby="modelli-provider-heading"
