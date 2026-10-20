@@ -12,6 +12,19 @@ export const post: BlogPost = {
   updatedAt: "2026-05-21",
   pillar: true,
   readMinutes: 15,
+  coverAlt: {
+    it: "Due smartwatch e un taccuino su un tavolo da picnic lungo un sentiero di montagna.",
+    en: "Two smartwatches and a notebook on a picnic table by a mountain trail.",
+    es: "Dos smartwatches y un cuaderno sobre una mesa de picnic junto a un sendero de montaña.",
+    de: "Zwei Smartwatches und ein Notizbuch auf einem Picknicktisch an einem Bergpfad.",
+    pt: "Dois smartwatches e um caderno sobre uma mesa de piquenique junto a uma trilha de montanha.",
+    fr: "Deux montres connectées et un carnet sur une table de pique-nique le long d'un sentier de montagne.",
+    pl: "Dwa smartwatche i notatnik na stole piknikowym przy górskim szlaku.",
+    tr: "Bir dağ patikasındaki piknik masasında duran iki akıllı saat ve bir not defteri.",
+    nl: "Twee smartwatches en een notitieboekje op een picknicktafel langs een bergpad.",
+    ja: "山道のピクニックテーブルの上に置かれた2本のスマートウォッチとノート。",
+    ko: "산길의 피크닉 테이블 위에 놓인 두 개의 스마트워치와 수첩.",
+  },
   tldr: {
     it: [
       "'Controllo dei dati' significa cinque cose distinte: esportabilità nativa, trasparenza pipeline, granularità permessi, interoperabilità e resilienza al cambio.",

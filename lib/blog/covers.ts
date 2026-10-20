@@ -47,7 +47,11 @@ export type CoverType =
   | "ultraAthleteDay"
   | "xiaomiAmazfitExport"
   | "polarHealthConnect"
-  | "garminBodyBattery";
+  | "garminBodyBattery"
+  | "hrvClimbing"
+  | "androidToIphoneEditorial"
+  | "appleHealthExportEditorial"
+  | "smartwatchChoiceTrail";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -146,6 +150,11 @@ export const COVER_FILE: Record<CoverType, string> = {
   polarHealthConnect: "polar-lake-swim-wearable.webp",
   // SPRINT PM COVER-LOTTO3-B (08/10/2026): cover dedicata per ciclista in sosta recupero su strada di montagna
   garminBodyBattery: "endurance-cycling-recovery.webp",
+  // SPRINT PM COVER-EDITORIAL-06 (17/10/2026): 4 cover dedicate riusate (Lotto B)
+  hrvClimbing: "hrv-climbing-recovery-wellness.webp",
+  androidToIphoneEditorial: "android-to-iphone-fitness-data-editorial.webp",
+  appleHealthExportEditorial: "apple-health-export-wellness-editorial.webp",
+  smartwatchChoiceTrail: "smartwatch-data-choice-trail.webp",
 };
 
 /**
@@ -162,7 +171,7 @@ export const POST_COVER: Record<string, CoverType> = {
   // health-connect-vs-samsung-health (che resta su "compare").
   "fitmesh-samsung-health-usarli-insieme": "samsungTogether",
   "scrivere-dati-android-su-apple-salute": "platform",
-  "da-android-a-iphone-dati-fitness": "platform",
+  "da-android-a-iphone-dati-fitness": "androidToIphoneEditorial",
   "anello-orologio-scenari-reali": "ring",
   "novita-fitmesh-su-app-store": "news",
   // P1.8C (2026-08-25): cover dedicata (google-health-multi-source-sync.webp)
@@ -211,16 +220,16 @@ export const POST_COVER: Record<string, CoverType> = {
   // post). Ora cover dedicata: il post ha appena avuto il micro-fix CTR DE
   // (P1.5B Fase A) e merita un'immagine propria invece di quella generica.
   "health-connect-not-syncing": "healthconnect",
-  "how-to-export-apple-health-data": "export",
+  "how-to-export-apple-health-data": "appleHealthExportEditorial",
   "smartwatch-per-anziani-guida": "compare",
   "esportare-dati-garmin": "export",
   "sync-samsung-health-google-fit": "sync",
   "best-smartwatch-for-elderly": "compare",
   "come-funziona-health-connect": "sync",
-  "hrv-cose-significato-valori": "metrics",
+  "hrv-cose-significato-valori": "hrvClimbing",
   "passi-non-si-sincronizzano-galaxy-watch": "galaxyWatchTroubleshooting",
   "guida-sync-wearable-2026": "sync",
-  "scegliere-smartwatch-dati-2026": "compare",
+  "scegliere-smartwatch-dati-2026": "smartwatchChoiceTrail",
   "health-connect-vs-samsung-health": "compare",
   "backup-galaxy-watch-pc": "export",
   "esportare-dati-fitbit-google": "export",
