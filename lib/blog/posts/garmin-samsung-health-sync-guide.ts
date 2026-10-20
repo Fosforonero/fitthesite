@@ -167,14 +167,14 @@ export const post: BlogPost = {
   tldr: {
       it: [
         "Garmin e Samsung Health non hanno integrazione diretta. Il ponte è Health Connect.",
-        "Hai bisogno di abilitare i permessi di scrittura per Health Connect in Garmin Connect, e i permessi di lettura in Samsung Health.",
-        "Una volta configurato, i passi, il sonno, la frequenza cardiaca e gli allenamenti si sincronizzano automaticamente ogni volta che il tuo dispositivo Garmin si sincronizza con il telefono e apri Samsung Health: non è un processo continuo in background.",
+        "Devi abilitare i permessi di scrittura per Health Connect in Garmin Connect e i permessi di lettura in Samsung Health. La condivisione con Health Connect di Garmin Connect richiede Android 14 o successivo.",
+        "Una volta configurato, i tipi di dato elencati da Garmin (passi, fasi del sonno, frequenza cardiaca e dati di attività come distanza e velocità) si sincronizzano automaticamente ogni volta che il tuo dispositivo Garmin si sincronizza con il telefono e apri Samsung Health: non è un processo continuo in background.",
         "FitMesh può mostrare i dati sia di un dispositivo Garmin che di un Galaxy Watch insieme: entrambi passano attraverso Health Connect.",
       ],
       en: [
         "Garmin and Samsung Health have no direct integration. The bridge is Health Connect.",
-        "You need to enable Health Connect write permissions in Garmin Connect, and read permissions in Samsung Health.",
-        "Once set up, steps, sleep, heart rate, and workouts sync automatically each time your Garmin device syncs with your phone and you open Samsung Health — it is not a continuous background process.",
+        "You need to enable Health Connect write permissions in Garmin Connect, and read permissions in Samsung Health. Garmin Connect's Health Connect sharing requires Android 14 or above.",
+        "Once set up, the data types Garmin lists (steps, sleep stages, heart rate, and activity data such as distance and speed) sync automatically each time your Garmin device syncs with your phone and you open Samsung Health. It is not a continuous background process.",
         "FitMesh can show data from both a Garmin device and a Galaxy Watch at once — both flow through Health Connect.",
       ],
       es: [
@@ -269,8 +269,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-          it: "Health Connect non è un'app che elabora i tuoi dati. È una base di dati locale sul tuo dispositivo Android in cui le app possono leggere e scrivere, con il tuo consenso. Garmin Connect scrive i tuoi allenamenti, il sonno e i dati sulla tua salute su Health Connect (in un solo senso: Garmin Connect non legge mai da Health Connect). Samsung Health può leggere quei dati da Health Connect, e a sua volta scriverci. La limitazione è che solo i tipi di dati supportati da Health Connect vengono sincronizzati. Le metriche Garmin specifiche come Body Battery, Stress e Intensity Minutes non fanno parte dei tipi di dati standard Health Connect, quindi rimangono all'interno di Garmin Connect. Fonte: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) e [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect), consultate il 25/08/2026.",
-          en: "Health Connect is not an app that processes your data. It is a local database on your Android device that apps can read from and write to, with your permission. Garmin Connect writes your workout, sleep, and health data to it (one-way only: Garmin Connect never reads from Health Connect). Samsung Health can read that data from it, and write to it too. The limitation is that only data types Health Connect supports are synced. Garmin-specific metrics like Body Battery, Stress, and Intensity Minutes are not part of the standard Health Connect data types, so they stay inside Garmin Connect only. Source: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) and [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect), consulted 2026-08-25.",
+          it: "Health Connect non è un'app che elabora i tuoi dati. È una base di dati locale sul tuo dispositivo Android in cui le app possono leggere e scrivere, con il tuo consenso. Garmin Connect scrive su Health Connect i tipi di dato di attività e benessere elencati da Garmin (in un solo senso: Garmin Connect non legge mai da Health Connect). Samsung Health può leggere quei dati da Health Connect, e a sua volta scriverci. La limitazione è che solo i tipi di dati supportati da Health Connect vengono sincronizzati. Le metriche Garmin specifiche come Body Battery, Stress e Intensity Minutes non fanno parte dei tipi di dati standard Health Connect, quindi rimangono all'interno di Garmin Connect. Fonte: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) e [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect), consultate il 25/08/2026.",
+          en: "Health Connect is not an app that processes your data. It is a local database on your Android device that apps can read from and write to, with your permission. Garmin Connect writes the activity and wellness data types Garmin lists to it (one-way only: Garmin Connect never reads from Health Connect). Samsung Health can read that data from it, and write to it too. The limitation is that only data types Health Connect supports are synced. Garmin-specific metrics like Body Battery, Stress, and Intensity Minutes are not part of the standard Health Connect data types, so they stay inside Garmin Connect only. Source: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) and [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect), consulted 2026-08-25.",
           es: "Health Connect no es una aplicación que procese tus datos. Es una base de datos local en tu dispositivo Android a la que las aplicaciones pueden leer y escribir con tu permiso. Garmin Connect escribe tus datos de entrenamiento, sueño y salud en ella (en un solo sentido: Garmin Connect nunca lee desde Health Connect). Samsung Health puede leer esos datos de ella, y también escribir en ella. La limitación es que solo se sincronizan los tipos de datos que Health Connect soporta. Las métricas Garmin específicas como Body Battery, Stress y Intensity Minutes no son parte de los tipos de datos estándar de Health Connect, por lo que permanecen dentro de Garmin Connect. Fuente: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) · [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect).",
           de: "Health Connect ist keine App, die Ihre Daten verarbeitet. Es handelt sich um eine lokale Datenbank auf Ihrem Android-Gerät, in die Apps mit Ihrer Genehmigung lesen und schreiben können. Garmin Connect schreibt Ihre Trainings-, Schlaf- und Gesundheitsdaten dorthin (nur in eine Richtung: Garmin Connect liest niemals aus Health Connect). Samsung Health kann diese Daten von dort lesen und auch dorthin schreiben. Die Einschränkung ist, dass nur die Datentypen synchronisiert werden, die Health Connect unterstützt. Garminspezifische Metriken wie Body Battery, Stress und Intensity Minutes sind nicht Teil der standardmäßigen Health Connect-Datentypen und bleiben daher ausschließlich in Garmin Connect. Quelle: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) · [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect).",
           pt: "O Health Connect não é um aplicativo que processa seus dados. É uma base de dados local no seu dispositivo Android que apps podem ler e escrever, com sua permissão. O Garmin Connect escreve seus treinos, sono e dados de saúde no Health Connect (em uma única direção: o Garmin Connect nunca lê do Health Connect). O Samsung Health pode ler esses dados do Health Connect, e também gravar nele. A limitação é que apenas os tipos de dados suportados pelo Health Connect são sincronizados. Métricas Garmin específicas como Body Battery, Stress e Intensity Minutes não fazem parte dos tipos de dados padrão do Health Connect, então permanecem dentro do Garmin Connect. Fonte: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) · [Samsung Developers — Accessing Samsung Health Data through Health Connect](https://developer.samsung.com/health/blog/en/accessing-samsung-health-data-through-health-connect).",
@@ -299,8 +299,8 @@ export const post: BlogPost = {
           ko: "동기화되는 것과 동기화되지 않는 것",
         },
       body: {
-          it: "Sincronizzato tramite Health Connect: passi, calorie, fasi del sonno, frequenza cardiaca, energia attiva, allenamenti (tipo, durata, distanza). Non si sincronizzano: Body Battery Garmin, punteggio Stress Garmin, Intensity Minutes, Carico di addestramento, Effetto di addestramento.",
-          en: "Syncs via Health Connect: steps, calories, sleep stages, heart rate, active energy, workouts (type, duration, distance). Does NOT sync: Garmin Body Battery, Garmin Stress score, Intensity Minutes, Training Load, Training Effect.",
+          it: "L'elenco di Garmin per Health Connect comprende: passi, calorie (attive e totali), frequenza cardiaca, distanza, velocità, dislivello positivo, piani saliti, fasi del sonno, peso e grasso corporeo, più cadenza di pedalata e bracciate per le attività. Non nomina le sedute di allenamento, Body Battery, punteggio Stress, Intensity Minutes, Carico di addestramento ed Effetto di addestramento.",
+          en: "Garmin's list for Health Connect includes: steps, calories (active and total), heart rate, distance, speed, elevation gained, floors climbed, sleep stages, weight and body fat, plus pedal cadence and swimming strokes for activities. It does not name workout sessions, Body Battery, Stress score, Intensity Minutes, Training Load or Training Effect.",
           es: "Sincronizado a través de Health Connect: pasos, calorías, fases del sueño, frecuencia cardíaca, energía activa, actividades (tipo, duración, distancia). No se sincronizan: Body Battery Garmin, puntuación de estrés Garmin, Intensity Minutes, Carga de entrenamiento, Efecto del entrenamiento.",
           de: "Synchronisiert über Health Connect: Schritte, Kalorien, Schlafphasen, Herzrate, aktive Energie, Trainingsdaten (Typ, Dauer, Strecke). Synchronisiert nicht: Garmin Body Battery, Garmin Stress Score, Intensität Minuten, Trainingsspanne, Trainingseffekt.",
           pt: "Sincronizado via Health Connect: passos, calorias, estágios do sono, frequência cardíaca, energia ativa, treinos (tipo, duração, distância). Não sincronizado: Body Battery do Garmin, pontuação de Stress do Garmin, Intensity Minutes, Carregamento de Treino, Efeito de Treino.",
@@ -332,8 +332,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-          it: "Su Android 14 e successive, Health Connect è un'applicazione di sistema già installata. Su Android 13 e inferiore, cercare 'Health Connect' nella Play Store e installare l'app ufficiale di Google. Aprire l'app una volta per inizializzare lo stock dati. Nota: l'opzione di condivisione dati verso Health Connect integrata in Garmin Connect stessa richiede specificamente Android 14 o successivo (fonte: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5): 'This feature is only available on Android 14 and above').",
-          en: "On Android 14 and above, Health Connect is a system app and is already installed. On Android 13 and below, search for 'Health Connect' in the Play Store and install the official Google app. Open it once to initialize the data store. Note: Garmin Connect's own Health Connect sharing option specifically requires Android 14 or above (source: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5): 'This feature is only available on Android 14 and above').",
+          it: "Su Android 14 e successive, Health Connect è un'applicazione di sistema già installata. Su Android 13 e precedenti, cerca 'Health Connect' nel Play Store e installa l'app ufficiale di Google. Aprila una volta per inizializzare l'archivio dati. Nota: l'opzione di condivisione con Health Connect integrata in Garmin Connect richiede specificamente Android 14 o successivo, quindi i passaggi di Garmin Connect qui sotto non valgono su Android 13 e precedenti (fonte: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5): 'This feature is only available on Android 14 and above').",
+          en: "On Android 14 and above, Health Connect is a system app and is already installed. On Android 13 and below, search for 'Health Connect' in the Play Store and install the official Google app. Open it once to initialize the data store. Note: Garmin Connect's own Health Connect sharing option specifically requires Android 14 or above, so the Garmin Connect steps below do not apply on Android 13 and below (source: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5): 'This feature is only available on Android 14 and above').",
           es: "En Android 14 y versiones superiores, Health Connect es una aplicación del sistema e está instalada. En Android 13 o versiones anteriores, busca 'Health Connect' en la Play Store e instala la aplicación oficial de Google. Úsala una vez para inicializar el almacén de datos. Nota: la opción de compartir datos con Health Connect integrada en el propio Garmin Connect requiere específicamente Android 14 o superior (fuente: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5): 'This feature is only available on Android 14 and above').",
           de: "Auf Android 14 und höher ist Health Connect ein Systemapp und installiert bereits. Auf Android 13 und niedriger suchst du im Play Store nach 'Health Connect' und installierst das offizielle Google-App. Öffne es einmal, um die Datenspeicherung zu initialisieren. Hinweis: Die eigene Health-Connect-Freigabeoption von Garmin Connect erfordert speziell Android 14 oder höher (Quelle: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5): 'This feature is only available on Android 14 and above').",
           pt: "No Android 14 ou superior, o Health Connect é um aplicativo do sistema e já está instalado. No Android 13 ou inferior, procure 'Health Connect' na Play Store e instale a aplicação oficial do Google. Abra-o uma vez para inicializar o armazenamento de dados. Observação: a própria opção de compartilhamento com o Health Connect dentro do Garmin Connect exige especificamente o Android 14 ou superior (fonte: [Garmin Support — Sharing Your Garmin Connect Data With Health Connect](https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5): 'This feature is only available on Android 14 and above').",
@@ -370,15 +370,15 @@ export const post: BlogPost = {
             "Aprire Garmin Connect sul telefono.",
             "Andare al menu principale (tre puntini o icona hamburger, in alto a sinistra).",
             "Toccare 'Health Connect' o cercarlo nelle impostazioni.",
-            "Toccare 'Connetti' e concedere tutti i permessi richiesti: passi, sonno, tassi di battito cardiaco, allenamenti, misurazioni corporee.",
-            "Garmin Connect inizierà a scrivere dati su Health Connect a partire da questo momento. In genere vengono recuperati anche alcuni dati storici, ma Garmin non documenta la quantità esatta né i tempi.",
+            "Toccare 'Connetti' e concedere tutti i permessi richiesti: passi, sonno, frequenza cardiaca, dati di attività, misurazioni corporee.",
+            "Garmin Connect inizierà a scrivere dati su Health Connect a partire da questo momento. Garmin non documenta se Garmin Connect invii anche i dati precedenti, né quanti e quando: non contarci.",
           ],
           en: [
             "Open Garmin Connect on your phone.",
             "Go to the main menu (three dots or hamburger icon, top left).",
             "Tap 'Health Connect' or search for it under Settings.",
-            "Tap 'Connect' and grant all the requested permissions: steps, sleep, heart rate, workouts, body measurements.",
-            "Garmin Connect will begin writing data to Health Connect from this point forward. Some historical data is typically backfilled too, but Garmin does not document the exact amount or timing.",
+            "Tap 'Connect' and grant all the requested permissions: steps, sleep, heart rate, activity data, body measurements.",
+            "Garmin Connect will begin writing data to Health Connect from this point forward. Whether Garmin Connect also sends earlier data, and how much and when, is not documented by Garmin: don't count on it.",
           ],
           es: [
             "Abre Garmin Connect en tu teléfono.",
@@ -572,7 +572,7 @@ export const post: BlogPost = {
             "Se i dati sono mancanti, aprire Health Connect, andare a 'Dati e accesso' e verificare che Garmin Connect sia elencato come fonte di dati con permessi di scrittura per ogni tipo di dato aspettato.",
           ],
           en: [
-            "Make sure your Garmin device has synced with the Garmin Connect app at least once, then open Samsung Health — sync isn't guaranteed by simply waiting.",
+            "Make sure your Garmin device has synced with the Garmin Connect app at least once, then open Samsung Health: sync isn't guaranteed by simply waiting.",
             "Open Samsung Health and navigate to Activity. You should see step counts from your Garmin device.",
             "Check the Samsung Health home screen for sleep data. If you slept with your Garmin device, last night's stages should appear.",
             "If data is missing, open Health Connect, go to 'Data and access', and check that Garmin Connect is listed as a data source with write permissions for each data type you expect.",
@@ -650,8 +650,8 @@ export const post: BlogPost = {
           ko: "Garmin 기기와 갤럭시 워치를 함께 사용하는 경우 데이터가 중복될 수 있음",
         },
       body: {
-          it: "Se entrambi i dispositivi sono attivi, Health Connect riceverà dati da entrambi. La maggior parte degli app non duplica i dati per fonte e priorità, ma potresti vedere conti doppi in alcuni posti. In FitMesh puoi impostare quale fonte prendere la priorità per ogni metrica per evitare questo problema.",
-          en: "If both devices are active, Health Connect will receive data from both. Most apps deduplicate by source and priority, but you may see double counts in some places. In FitMesh, you can set which source takes priority per metric to avoid this.",
+          it: "Se entrambi i dispositivi sono attivi, Health Connect riceverà dati da entrambi. Alcune app eliminano i duplicati per fonte e priorità, ma in alcuni punti potresti vedere conteggi doppi. In FitMesh puoi impostare quale fonte ha la priorità per ogni metrica per evitare questo problema.",
+          en: "If both devices are active, Health Connect will receive data from both. Some apps deduplicate by source and priority, but you may see double counts in some places. In FitMesh, you can set which source takes priority per metric to avoid this.",
           es: "Si ambos dispositivos están activos, Health Connect recibirá datos de ambos. La mayoría de las aplicaciones deduplican por fuente y prioridad, pero podrías ver dobles en algunos lugares. En FitMesh, puedes establecer qué fuente tiene prioridad por métrica para evitar esto.",
           de: "Wenn beide Geräte aktiv sind, erhält Health Connect Daten von beiden. Die meisten Apps dedupizieren nach Quelle und Priorität, aber Sie können in einigen Bereichen doppelte Zahlen sehen. In FitMesh können Sie pro Metrik festlegen, welche Quelle die Priorität hat, um dies zu vermeiden.",
           pt: "Se ambos os dispositivos estiverem ativos, a Health Connect receberá dados de ambos. A maioria das apps deduplica por fonte e prioridade, mas você pode ver contagens duplas em alguns lugares. No FitMesh, você pode definir qual fonte tem prioridade por métrica para evitar isso.",
@@ -684,16 +684,16 @@ export const post: BlogPost = {
       type: "list",
       items: {
           it: [
-            "**Dati non apparsi in Samsung Health:** controlla che entrambe le app abbiano disabilitata l'ottimizzazione della batteria. Android uccide aggressive gli app di sfondo; escludendole risolve la maggior parte dei problemi di sincronizzazione.",
+            "**Dati non apparsi in Samsung Health:** controlla che entrambe le app siano escluse dall'ottimizzazione della batteria. Android può limitare le app in background, e questo può ritardare o fermare la sincronizzazione. Nome e posizione dell'impostazione dipendono dalla marca del telefono e dalla versione di Android.",
             "**Garmin Connect visualizza 'Health Connect non disponibile':** aggiorna entrambi Garmin Connect e Health Connect alla versione più recente.",
             "**Passi doppi in Samsung Health:** potresti avere sia il contatore di passi incorporato in Samsung Health che Garmin che scrivono i passi nello stesso momento. Disabilita la tracciatura dei propri passi in Samsung Health nelle impostazioni per utilizzare Garmin come unica fonte.",
-            "**Allenamenti non apparsi:** gli allenamenti sono un tipo di dati diverso rispetto all'attività quotidiana. Assicurati che Garmin Connect abbia l'autorizzazione per scrivere 'Sedute di esercizio' in Health Connect.",
+            "**Allenamenti non apparsi:** l'elenco di Garmin cita dati di attività come distanza, velocità e frequenza cardiaca, ma non una seduta di allenamento a parte. In Health Connect controlla che Garmin Connect possa scrivere ogni tipo di dato che ti aspetti. Non abbiamo una fonte Garmin che dica che la seduta stessa debba comparire.",
           ],
           en: [
-            "**Data not appearing in Samsung Health:** check that both apps have battery optimization disabled. Android aggressively kills background apps; exempting them fixes most sync gaps.",
+            "**Data not appearing in Samsung Health:** check that both apps are excluded from battery optimization. Android can restrict background apps, which can delay or stop sync. The name and location of the setting depend on the phone brand and the Android version.",
             "**Garmin Connect shows 'Health Connect unavailable':** update both Garmin Connect and Health Connect to the latest version.",
             "**Steps doubled in Samsung Health:** you may have both Samsung Health's built-in step counter and Garmin writing steps at the same time. Disable Samsung Health's own step tracking under Settings to use Garmin as the single source.",
-            "**Workouts not appearing:** workouts are a different data type from daily activity. Make sure Garmin Connect has permission to write 'Exercise sessions' in Health Connect.",
+            "**Workouts not appearing:** Garmin's list names activity data such as distance, speed and heart rate, but not a separate workout session. In Health Connect, check that Garmin Connect may write each data type you expect. We have no Garmin source saying that a workout session itself should appear.",
           ],
           es: [
             "**Datos no apareciendo en Samsung Health:** verifica que ambas aplicaciones tengan la optimización de batería deshabilitada. Android mata agresivamente las aplicaciones de fondo; eximirlas soluciona la mayoría de los problemas de sincronización.",
@@ -780,8 +780,8 @@ export const post: BlogPost = {
         da: "Se dine Garmin- og Samsung-data ét sted",
       },
       body: {
-        it: "FitMesh non risolve i doppioni o i ritardi tra Garmin Connect e Samsung Health a monte — quello resta un problema di configurazione dei due. Ma legge da Health Connect in modo generico e mostra i dati di entrambi i dispositivi in un'unica vista, con la fonte indicata quando più di uno scrive lo stesso tipo di dato.",
-        en: "FitMesh doesn't fix duplicate or delayed data between Garmin Connect and Samsung Health upstream — that stays a configuration issue between the two. But it reads from Health Connect generically and shows both devices' data in one view, with the source shown when more than one writes the same data type.",
+        it: "FitMesh non risolve i doppioni o i ritardi tra Garmin Connect e Samsung Health a monte: quello resta un problema di configurazione dei due. Ma legge ciò che entrambe le app scrivono in Health Connect e mostra i dati di entrambi i dispositivi in un'unica vista, con la fonte indicata quando più di uno scrive lo stesso tipo di dato.",
+        en: "FitMesh doesn't fix duplicate or delayed data between Garmin Connect and Samsung Health upstream: that stays a configuration issue between the two. But it reads what both apps write to Health Connect and shows both devices' data in one view, with the source shown when more than one writes the same data type.",
         es: "FitMesh no soluciona los datos duplicados o retrasados entre Garmin Connect y Samsung Health en origen — eso sigue siendo un problema de configuración entre ambos. Pero lee desde Health Connect de forma genérica y muestra los datos de ambos dispositivos en una sola vista, indicando la fuente cuando más de uno escribe el mismo tipo de dato.",
         de: "FitMesh behebt keine doppelten oder verzögerten Daten zwischen Garmin Connect und Samsung Health an der Quelle — das bleibt ein Konfigurationsproblem zwischen den beiden. Es liest aber generisch aus Health Connect und zeigt die Daten beider Geräte in einer Ansicht, mit Quellenangabe, wenn mehr als eines denselben Datentyp schreibt.",
         pt: "O FitMesh não resolve dados duplicados ou atrasados entre o Garmin Connect e o Samsung Health na origem — isso continua a ser um problema de configuração entre os dois. Mas lê do Health Connect de forma genérica e mostra os dados de ambos os dispositivos numa só vista, com a origem indicada quando mais de um escreve o mesmo tipo de dado.",
@@ -796,13 +796,13 @@ export const post: BlogPost = {
       },
       benefits: {
         it: [
-          "Attribuzione della fonte: sai sempre da quale dispositivo viene ogni numero",
-          "Legge da Health Connect in modo generico, non con codice specifico per Garmin o Samsung",
+          "Attribuzione della fonte: ogni numero indica da quale dispositivo viene",
+          "Legge ciò che Garmin Connect e Samsung Health scrivono in Health Connect",
           "Provenienza chiara anche quando entrambi scrivono lo stesso tipo di dato (es. passi)",
         ],
         en: [
-          "Source attribution: you always know which device each number came from",
-          "Reads from Health Connect generically, not with Garmin- or Samsung-specific code",
+          "Source attribution: each number shows which device it came from",
+          "Reads what Garmin Connect and Samsung Health write to Health Connect",
           "Clear source even when both write the same data type (e.g. steps)",
         ],
         es: [
@@ -926,8 +926,8 @@ export const post: BlogPost = {
           ko: "이 설정을 완료하면 Garmin의 과거 데이터도 삼성 건강에 표시되나요?",
         },
       a: {
-          it: "Solitamente sì: Garmin Connect in genere recupera una parte dei dati storici verso Health Connect subito dopo aver abilitato l'integrazione per la prima volta, ma Garmin non documenta la quantità esatta né i tempi, quindi qualsiasi cifra specifica va considerata approssimativa.",
-          en: "Usually yes — Garmin Connect typically backfills some historical data after you first enable the integration, but Garmin does not document the exact amount or timing, so treat any specific number here as approximate.",
+          it: "Non è garantito. Garmin non documenta se Garmin Connect invii dati precedenti quando abiliti l'integrazione per la prima volta, né quanti e quando. Controlla Samsung Health dopo la prima sincronizzazione per vedere cosa è arrivato.",
+          en: "Not guaranteed. Garmin does not document whether Garmin Connect sends earlier data when you first enable the integration, or how much and when. Check Samsung Health after the first sync to see what arrived.",
           es: "Normalmente sí: Garmin Connect suele rellenar parte de los datos históricos hacia Health Connect poco después de habilitar la integración por primera vez, pero Garmin no documenta la cantidad exacta ni el tiempo que tarda, así que cualquier cifra concreta aquí debe tomarse como aproximada.",
           de: "Normalerweise ja: Garmin Connect füllt in der Regel einen Teil der historischen Daten in Health Connect nach, sobald Sie die Integration zum ersten Mal aktivieren. Garmin dokumentiert jedoch weder die genaue Menge noch den Zeitrahmen, daher ist jede hier genannte Zahl als ungefährer Richtwert zu verstehen.",
           pt: "Normalmente sim: o Garmin Connect costuma preencher parte dos dados históricos no Health Connect logo depois que você habilita a integração pela primeira vez, mas a Garmin não documenta a quantidade exata nem o tempo que isso leva, então qualquer número específico aqui deve ser tratado como aproximado.",
@@ -1010,8 +1010,8 @@ export const post: BlogPost = {
           ko: "Samsung Health의 걸음 수가 Garmin Connect보다 낮습니다. 왜 그런가요?",
         },
       a: {
-          it: "Garmin potrebbe contare i passi in modo diverso rispetto allo standard di Health Connect. Alcuni tipi di passi di Garmin non potrebbero mapparsi esattamente al formato del conteggio passi di Health Connect. Questo è normale. Usa un'applicazione come tua principale riferimento per la coerenza.",
-          en: "Garmin may count steps differently from Health Connect's standardization. Some Garmin step types may not map to the Health Connect step count format exactly. This is normal. Use one app as your primary reference for consistency.",
+          it: "Le due app possono mostrare totali diversi. Non abbiamo una fonte pubblicata su come il conteggio passi di Garmin corrisponda a quello di Health Connect, quindi questa guida non può dire quale numero sia più vicino al reale. Scegli un'app come riferimento e confronta giorno per giorno in quella.",
+          en: "The two apps can show different totals. We have no published source on how Garmin's step count maps to the Health Connect step count, so this guide can't say which number is closer. Pick one app as your reference and compare day to day in that app.",
           es: "Garmin puede contar los pasos de manera diferente a la standardización de Health Connect. Algunos tipos de pasos de Garmin pueden no corresponder exactamente con el formato de conteo de pasos de Health Connect. Esto es normal. Utilice una aplicación como referencia principal para mantener la consistencia.",
           de: "Garmin zählt Schritte möglicherweise anders als die Health Connect-Standardisierung. Einige Garmin-Schrittarten werden möglicherweise nicht genau auf den Health Connect-Schrittzählerformat zuordnen. Das ist normal. Nutze eine App als deinen primäre Referenz für Konsistenz.",
           pt: "A Garmin pode contar os passos de maneira diferente em relação ao padrão da Health Connect. Alguns tipos de passo da Garmin podem não mapear exatamente para o formato de contagem de passos da Health Connect. Isso é normal. Use uma única aplicativo como referência primária para consistência.",

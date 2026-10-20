@@ -148,10 +148,16 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
   // (no-Apple-Watch, matrice percorso dati, funzionalita' non replicate,
   // limiti onesti, chi non ha bisogno) senza alterare le 9 locale già
   // pubblicate e complete.
+  //
+  // `google-health-google-fit` e' la QUARTA (20/10/2026): un solo riquadro
+  // informativo sulla scadenza Fitbit Web API, solo it/en. Le altre locale non
+  // hanno una traduzione rivista del riquadro e restano con il contenuto
+  // precedente (vedi l'asserzione dedicata in coda al test sotto).
   const LOCALE_SCOPED_POST_SLUGS = new Set([
     "health-connect-vs-samsung-health",
     "come-funziona-fitmesh",
     "dati-anello-smart-apple-salute",
+    "google-health-google-fit",
   ]);
 
   it("per ogni post NON toccato da P1.3M/P1.5B-C, filterBlogContentForLocale non rimuove NULLA (stesso output di prima)", () => {
@@ -163,6 +169,15 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
         const filteredFaq = filterBlogContentForLocale(post.faq ?? [], lc);
         expect(filteredFaq.length, `${post.slug}/${lc}: faq non deve perdere domande`).toBe((post.faq ?? []).length);
       }
+    }
+    // Il riquadro Fitbit Web API di google-health-google-fit e' visibile solo a it/en;
+    // ogni altra locale vede esattamente una sezione in meno, mai di piu'.
+    const gh = BLOG_POSTS.find((p) => p.slug === "google-health-google-fit")!;
+    const ghIt = filterBlogContentForLocale(gh.body, "it").length;
+    expect(ghIt).toBe(gh.body.length);
+    expect(filterBlogContentForLocale(gh.body, "en").length).toBe(ghIt);
+    for (const lc of ["es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const) {
+      expect(filterBlogContentForLocale(gh.body, lc).length, `google-health-google-fit/${lc}`).toBe(ghIt - 1);
     }
   });
 
