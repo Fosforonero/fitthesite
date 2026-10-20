@@ -56,16 +56,34 @@ describe("apple-watch-galaxy-watch-dati-fitmesh (IT/EN smartwatch comparison)", 
     const raw = JSON.stringify(post);
     expect(raw).not.toContain("\u2014");
 
-    // 11:50 required candidate vs distributed separation in comparison table
-    expect(raw).toContain(
-      "Comportamento verificato nel candidato; disponibilità nella versione distribuita non verificata in questa analisi.",
-    );
-    expect(raw).toContain(
-      "Behavior verified in the candidate; availability in the distributed version was not verified in this analysis.",
-    );
+    const rawNoUrls = raw.replace(/https?:\/\/[^\s"')\]]+/g, "");
+    // Il testo pubblico non descrive il candidato di sviluppo ne' il diario delle verifiche
+    // interne, e non espone identificatori di codice.
+    for (const banned of [
+      "candidato di sviluppo",
+      "candidati di sviluppo",
+      "development candidate",
+      "ingestion",
+      "verificato nel candidato",
+      "HKQuantityTypeIdentifier",
+      "HeartRateVariabilityRmssdRecord",
+      "BodyFatRecord",
+      "lente trasparente",
+    ]) {
+      expect(rawNoUrls, banned).not.toContain(banned);
+    }
 
-    // Energy Score attributed to Samsung Health Data SDK, distinct from Health Connect and FitMesh
+    // Energy Score attribuito al Samsung Health Data SDK, senza intervallo di valori inventato
     expect(raw).toContain("Samsung Health Data SDK");
+    expect(raw).not.toContain("0-100");
+    expect(raw).not.toContain("0 to 100");
+    expect(raw).not.toContain("da 0 a 100");
+
+    // La CTA indica una prossima azione (selettore di compatibilita') e non una formula promozionale
+    expect(raw).not.toContain("senza formule inventate");
+    expect(raw).not.toContain("fabricated conversions");
+    expect(raw).toContain("/en/integrations#compatibility");
+    expect(raw).toContain("/it/integrations#compatibility");
 
     // Render IT and EN HTML via BlogRenderer
     const htmlIt = renderToStaticMarkup(
