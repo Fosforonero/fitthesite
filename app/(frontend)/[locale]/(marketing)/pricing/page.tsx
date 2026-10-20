@@ -356,8 +356,8 @@ export default async function PricingPage({
           <div className="mt-6 text-center text-xs text-text-muted">
             <p>
               {isIt
-                ? "Prezzi IVA inclusa. Il prezzo finale è quello mostrato da App Store o Google Play."
-                : "Prices include VAT. The final price is the one shown by the App Store or Google Play."}
+                ? "Il prezzo finale, con le imposte applicabili, è quello mostrato dallo store."
+                : "The final price, with any applicable taxes, is the one shown by the store."}
             </p>
           </div>
         </section>

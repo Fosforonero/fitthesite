@@ -150,4 +150,27 @@ describe("PricingPage (/pricing)", () => {
     expect(founderFaq.name).toBe("Do accounts with Founder status need to pay?");
     expect(founderFaq.acceptedAnswer.text).toContain("Accounts to which the Founder benefit was actually granted");
   });
+  it("imposte: frase neutra (nessuna IVA inclusa), nessuna cifra, formule per piattaforma confermate da Matteo il 20/10/2026", async () => {
+    for (const [lc, frase, vecchi] of [
+      ["it", "Il prezzo finale, con le imposte applicabili, è quello mostrato dallo store.", [/IVA inclusa/i, /App Store o Google Play\./]],
+      ["en", "The final price, with any applicable taxes, is the one shown by the store.", [/include VAT/i, /App Store or Google Play\./]],
+    ] as const) {
+      const html = renderToStaticMarkup(await PricingPage({ params: Promise.resolve({ locale: lc }) }));
+      const visibile = html.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " ").replace(/&#x27;/g, "'").replace(/\s+/g, " ");
+      expect(visibile, lc).toContain(frase);
+      for (const re of vecchi) expect(visibile, `${lc} ${re}`).not.toMatch(re);
+      // nessuna cifra monetaria e nessuno schema Offer: il prezzo e' solo quello dello store
+      expect(visibile, `${lc} cifre`).not.toMatch(/(€\s?\d|\d\s?€|\$\s?\d|\d\s?(USD|EUR))/);
+      const ld = JSON.stringify(extractJsonLd(html));
+      expect(ld).not.toMatch(/"@type":"(Offer|AggregateOffer)"/);
+      expect(ld).not.toMatch(/"price"|priceCurrency|\bVAT\b|\bIVA\b/i);
+      // iPhone: solo lifetime; Android: lifetime e abbonamento semestrale
+      const faq = extractJsonLd(html).find((j) => j["@type"] === "FAQPage").mainEntity.map((q: any) => q.acceptedAnswer.text as string);
+      const iphone = faq.find((t: string) => /iPhone/.test(t) && /(esclusivamente|exclusively)/.test(t))!;
+      const android = faq.find((t: string) => /Android/.test(t) && /(semestrale|6-month)/.test(t) && /(Lifetime|lifetime)/.test(t))!;
+      expect(iphone, lc).toBeDefined();
+      expect(iphone).toMatch(/(Non esiste alcun abbonamento|no recurring subscription)/i);
+      expect(android, lc).toBeDefined();
+    }
+  });
 });
