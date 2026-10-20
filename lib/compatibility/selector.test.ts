@@ -144,7 +144,7 @@ describe("FitMesh Compatibility Selector Registry & Server Link Resolver", () =>
   it("reflects Garmin Body Battery and Samsung Energy Score as unsupported via Health Connect without internal build numbers", () => {
     const garminBbAndroid = resolveCompatibilityPath("android", "garmin", "body_battery");
     expect(garminBbAndroid.status).toBe("unsupported");
-    expect(garminBbAndroid.evidence.en).toContain("lzpSWu5diM4vgrmUXP4nn5");
+    expect(garminBbAndroid.evidence.en).toContain("JToBEy0jfe6pIygark2Ui5");
     expect(garminBbAndroid.cta.guideSlug).toBe("garmin-body-battery-health-connect");
 
     const samsungSteps = resolveCompatibilityPath("android", "samsung", "steps");

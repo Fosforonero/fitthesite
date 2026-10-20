@@ -149,10 +149,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Garmin Connect enregistre l'historique complet et les analyses avancées sur les serveurs cloud Garmin.",
       },
       stepC: {
-        it: "Garmin Connect esporta verso Health Connect (trasferimento locale unidirezionale su Android 14+): passi, frequenza cardiaca, sonno (durata/stadi se supportati dal modello), calorie attive e totali, distanza, sessioni di allenamento.",
-        en: "Garmin Connect exports to Health Connect (local one-way sync on Android 14+): steps, heart rate, sleep (duration/stages if model supports), active & total calories, distance, workout sessions.",
-        de: "Garmin Connect exportiert an Health Connect (lokale Einweg-Synchronisation ab Android 14): Schritte, Puls, Schlaf (Dauer/Phasen je nach Modell), Aktiv- und Gesamtkalorien, Distanz, Workouts.",
-        fr: "Garmin Connect exporte vers Health Connect (synchronisation locale Android 14+) : pas, fréquence cardiaque, sommeil (durée/phases selon modèle), calories, distance, entraînements.",
+        it: "Garmin Connect esporta verso Health Connect (trasferimento locale unidirezionale su Android 14+), secondo l'elenco di Garmin: passi, frequenza cardiaca, fasi del sonno, calorie attive e totali, distanza, velocità, dislivello, piani saliti, peso e grasso corporeo; l'elenco non nomina le sedute di allenamento.",
+        en: "Garmin Connect exports to Health Connect (local one-way sync on Android 14+), per Garmin's list: steps, heart rate, sleep stages, active & total calories, distance, speed, elevation gained, floors climbed, weight and body fat; the list does not name workout sessions.",
+        de: "Garmin Connect exportiert an Health Connect (lokale Einweg-Synchronisation ab Android 14), laut Garmin-Liste: Schritte, Puls, Schlafphasen, Aktiv- und Gesamtkalorien, Distanz, Geschwindigkeit, Höhenmeter, Etagen, Gewicht und Körperfett; Trainingseinheiten nennt die Liste nicht.",
+        fr: "Garmin Connect exporte vers Health Connect (synchronisation locale à sens unique, Android 14+), selon la liste de Garmin : pas, fréquence cardiaque, phases du sommeil, calories actives et totales, distance, vitesse, dénivelé, étages, poids et masse grasse ; la liste ne mentionne pas les séances d'entraînement.",
       },
       stepD: {
         it: "FitMesh Android (release 3.10.0+191) legge da Health Connect i record supportati (STEPS, HEART_RATE, SLEEP, ACTIVE_ENERGY, WORKOUT) e li visualizza nella dashboard personale.",
@@ -162,10 +162,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       },
     },
     metricsSummary: {
-      it: "Passi, frequenza cardiaca, durata sonno, calorie attive, distanza, allenamenti",
-      en: "Steps, heart rate, sleep duration, active calories, distance, workouts",
-      de: "Schritte, Herzfrequenz, Schlafdauer, Aktivitätskalorien, Distanz, Workouts",
-      fr: "Pas, fréquence cardiaque, durée du sommeil, calories actives, distance, entraînements",
+      it: "Passi, frequenza cardiaca, fasi del sonno, calorie, distanza, velocità, dislivello (come da elenco Garmin)",
+      en: "Steps, heart rate, sleep stages, calories, distance, speed, elevation (as listed by Garmin)",
+      de: "Schritte, Herzfrequenz, Schlafphasen, Kalorien, Distanz, Geschwindigkeit, Höhenmeter (laut Garmin-Liste)",
+      fr: "Pas, fréquence cardiaque, phases du sommeil, calories, distance, vitesse, dénivelé (selon la liste de Garmin)",
     },
     requirements: {
       it: "Smartphone con Android 14 o superiore; app Garmin Connect installata con sincronizzazione Health Connect abilitata.",
@@ -174,10 +174,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       fr: "Smartphone sous Android 14 ou supérieur ; application Garmin Connect installée avec synchronisation Health Connect activée.",
     },
     limitations: {
-      it: "Le metriche proprietarie Garmin (Body Battery, Training Load, tempo di recupero) e le mappe dei percorsi GPS non vengono trasmesse a Health Connect.",
-      en: "Proprietary Garmin metrics (Body Battery, Training Load, Recovery Time) and GPS route maps are not transmitted to Health Connect.",
-      de: "Proprietäre Garmin-Metriken (Body Battery, Training Load, Erholungszeit) und GPS-Karten werden nicht an Health Connect übermittelt.",
-      fr: "Les métriques propriétaires Garmin (Body Battery, charge d'entraînement, temps de récupération) et les tracés GPS ne sont pas transmis à Health Connect.",
+      it: "L'elenco di Garmin per Health Connect non include le metriche proprietarie (Body Battery, Training Load, tempo di recupero) né le mappe dei percorsi GPS.",
+      en: "Garmin's list for Health Connect does not include proprietary metrics (Body Battery, Training Load, Recovery Time) or GPS route maps.",
+      de: "Die Garmin-Liste für Health Connect enthält weder proprietäre Metriken (Body Battery, Training Load, Erholungszeit) noch GPS-Karten.",
+      fr: "La liste de Garmin pour Health Connect n'inclut ni les métriques propriétaires (Body Battery, charge d'entraînement, temps de récupération) ni les tracés GPS.",
     },
     officialSource: {
       title: {
@@ -187,12 +187,12 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Support Garmin : Partage de données avec Health Connect",
       },
       url: "https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5",
-      verifiedDate: "2026-10-19",
+      verifiedDate: "2026-10-20",
       supportedClaim: {
-        it: "Garmin Connect esporta passi, frequenza cardiaca, sonno, calorie, distanza e sessioni sportive verso Health Connect.",
-        en: "Garmin Connect exports steps, heart rate, sleep, calories, distance, and workout sessions to Health Connect.",
-        de: "Garmin Connect exportiert Schritte, Herzfrequenz, Schlaf, Kalorien, Distanz und Trainingseinheiten an Health Connect.",
-        fr: "Garmin Connect exporte pas, fréquence cardiaque, sommeil, calories, distance et séances vers Health Connect.",
+        it: "Garmin Connect invia a Health Connect, in un solo senso e da Android 14, i tipi di dato elencati da Garmin (passi, frequenza cardiaca, fasi del sonno, calorie, distanza, velocità, dislivello e altri); le sedute di allenamento non sono nominate.",
+        en: "Garmin Connect sends the data types on Garmin's list (steps, heart rate, sleep stages, calories, distance, speed, elevation and others) to Health Connect, one-way and from Android 14; workout sessions are not named.",
+        de: "Garmin Connect sendet die in der Garmin-Liste genannten Datentypen (Schritte, Herzfrequenz, Schlafphasen, Kalorien, Distanz, Geschwindigkeit, Höhenmeter u. a.) einseitig ab Android 14 an Health Connect; Trainingseinheiten werden nicht genannt.",
+        fr: "Garmin Connect envoie à Health Connect, à sens unique et dès Android 14, les types de données de la liste Garmin (pas, fréquence cardiaque, phases du sommeil, calories, distance, vitesse, dénivelé et autres) ; les séances d'entraînement ne sont pas mentionnées.",
       },
     },
     evidence: {
@@ -253,10 +253,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "L'application Garmin Connect iOS synchronise les métriques avec le profil cloud Garmin.",
       },
       stepC: {
-        it: "Garmin Connect per iOS esporta verso Apple Health: passi, frequenza cardiaca, frequenza a riposo, sonno, calorie attive, distanza camminata/corsa, peso e sessioni di allenamento.",
-        en: "Garmin Connect for iOS exports to Apple Health: steps, heart rate, resting heart rate, sleep analysis, active energy, walking/running distance, weight, and workouts.",
-        de: "Garmin Connect für iOS exportiert an Apple Health: Schritte, Puls, Ruhepuls, Schlaf, Aktivitätsenergie, Geh-/Laufdistanz, Gewicht und Workouts.",
-        fr: "Garmin Connect pour iOS exporte vers Apple Santé : pas, fréquence cardiaque, fréquence au repos, sommeil, énergie active, distance, poids et entraînements.",
+        it: "Garmin Connect per iOS esporta verso Apple Health: passi, frequenza cardiaca, analisi del sonno, energia attiva e a riposo, distanza camminata/corsa, peso e allenamenti (senza il tracciato GPS).",
+        en: "Garmin Connect for iOS exports to Apple Health: steps, heart rate, sleep analysis, active and resting energy, walking/running distance, weight, and workouts (without the GPS track).",
+        de: "Garmin Connect für iOS exportiert an Apple Health: Schritte, Puls, Schlafanalyse, Aktiv- und Ruheenergie, Geh-/Laufdistanz, Gewicht und Workouts (ohne GPS-Strecke).",
+        fr: "Garmin Connect pour iOS exporte vers Apple Santé : pas, fréquence cardiaque, analyse du sommeil, énergie active et au repos, distance, poids et entraînements (sans le tracé GPS).",
       },
       stepD: {
         it: "FitMesh iOS (release 3.10.0+191) legge da HealthKit i record scritti da Garmin in Apple Health e li trasferisce alla dashboard personale.",
@@ -266,10 +266,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       },
     },
     metricsSummary: {
-      it: "Passi, frequenza cardiaca, frequenza a riposo, sonno, calorie attive, distanza, allenamenti",
-      en: "Steps, heart rate, resting heart rate, sleep, active energy, distance, workouts",
-      de: "Schritte, Herzfrequenz, Ruhepuls, Schlaf, Aktivitätskalorien, Distanz, Workouts",
-      fr: "Pas, fréquence cardiaque, fréquence au repos, sommeil, calories actives, distance, entraînements",
+      it: "Passi, frequenza cardiaca, sonno, energia attiva e a riposo, distanza, allenamenti",
+      en: "Steps, heart rate, sleep, active and resting energy, distance, workouts",
+      de: "Schritte, Herzfrequenz, Schlaf, Aktiv- und Ruheenergie, Distanz, Workouts",
+      fr: "Pas, fréquence cardiaque, sommeil, énergie active et au repos, distance, entraînements",
     },
     requirements: {
       it: "Garmin Connect per iOS installata; permessi di scrittura concessi ad Apple Health; Garmin Connect deve essere aperta in primo piano per completare il trasferimento.",
@@ -291,12 +291,12 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Support Garmin : Intégration Apple Santé",
       },
       url: "https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA",
-      verifiedDate: "2026-10-19",
+      verifiedDate: "2026-10-20",
       supportedClaim: {
-        it: "Garmin Connect per iOS scrive passi, distanza, calorie, frequenza cardiaca, frequenza a riposo, sonno e allenamenti in Apple Health quando aperta in primo piano.",
-        en: "Garmin Connect for iOS writes steps, distance, calories, heart rate, resting heart rate, sleep, and workouts to Apple Health when opened in foreground.",
-        de: "Garmin Connect für iOS schreibt Schritte, Distanz, Kalorien, Puls, Ruhepuls, Schlaf und Workouts in Apple Health, wenn die App im Vordergrund geöffnet wird.",
-        fr: "Garmin Connect pour iOS écrit les pas, la distance, les calories, le rythme cardiaque, le repos, le sommeil et les entraînements dans Apple Santé en premier plan.",
+        it: "Garmin Connect per iOS scrive in Apple Health passi, distanza, energia attiva e a riposo, frequenza cardiaca, sonno, peso e allenamenti; il trasferimento si completa con l'app aperta in primo piano.",
+        en: "Garmin Connect for iOS writes steps, distance, active and resting energy, heart rate, sleep, weight and workouts to Apple Health; the transfer completes while the app is open in the foreground.",
+        de: "Garmin Connect für iOS schreibt Schritte, Distanz, Aktiv- und Ruheenergie, Puls, Schlaf, Gewicht und Workouts in Apple Health; die Übertragung wird bei geöffneter App im Vordergrund abgeschlossen.",
+        fr: "Garmin Connect pour iOS écrit dans Apple Santé les pas, la distance, l'énergie active et au repos, le rythme cardiaque, le sommeil, le poids et les entraînements ; le transfert se termine app ouverte au premier plan.",
       },
     },
     evidence: {
@@ -390,18 +390,18 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
     },
     officialSource: {
       title: {
-        it: "Google Support: Come usare Health Connect con Fitbit",
-        en: "Google Support: How do I use Health Connect with Fitbit?",
-        de: "Google Support: So verwenden Sie Health Connect mit Fitbit",
-        fr: "Support Google : Comment utiliser Health Connect avec Fitbit ?",
+        it: "Google Health Help Center: Come usare Health Connect con l'app Google Health",
+        en: "Google Health Help Center: How do I use Health Connect with the Google Health app?",
+        de: "Google Health Help Center: So verwenden Sie Health Connect mit der Google Health App",
+        fr: "Centre d'aide Google Health : Comment utiliser Health Connect avec l'application Google Health ?",
       },
       url: "https://support.google.com/googlehealth/answer/14506680",
-      verifiedDate: "2026-10-19",
+      verifiedDate: "2026-10-20",
       supportedClaim: {
-        it: "L'app scrive passi, distanza, sonno, minuti in zona attiva, esercizi e calorie in Health Connect su Android.",
-        en: "App writes steps, distance, sleep, active zone minutes, exercise, and calories to Health Connect on Android.",
-        de: "App schreibt Schritte, Distanz, Schlaf, Aktivzonenminuten, Training und Kalorien in Health Connect auf Android.",
-        fr: "L'application écrit pas, distance, sommeil, minutes en zone active, exercices et calories dans Health Connect sur Android.",
+        it: "L'app Google Health scrive in Health Connect su Android, tra gli altri tipi elencati da Google, passi, distanza, esercizio, calorie totali, sonno (sessioni e fasi) e frequenza cardiaca, con consenso per ogni tipo di dato.",
+        en: "The Google Health app writes to Health Connect on Android, among the other types Google lists, steps, distance, exercise, total calories, sleep (sessions and stages) and heart rate, with consent for each data type.",
+        de: "Die Google Health App schreibt auf Android unter den von Google gelisteten Typen u. a. Schritte, Distanz, Training, Gesamtkalorien, Schlaf (Sitzungen und Phasen) und Herzfrequenz in Health Connect, mit Zustimmung je Datentyp.",
+        fr: "L'application Google Health écrit dans Health Connect sur Android, parmi les types listés par Google, les pas, la distance, l'exercice, les calories totales, le sommeil (sessions et phases) et la fréquence cardiaque, avec consentement pour chaque type de données.",
       },
     },
     evidence: {
@@ -494,13 +494,13 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
     },
     officialSource: {
       title: {
-        it: "Google Support: Condividere i dati con Apple Health",
-        en: "Google Support: Share Fitbit data with Apple Health",
-        de: "Google Support: Fitbit-Daten mit Apple Health teilen",
-        fr: "Support Google : Partager les données Fitbit avec Apple Santé",
+        it: "Google Health Help Center: Come usare Apple Health con l'app Google Health",
+        en: "Google Health Help Center: How do I use Apple Health with the Google Health app?",
+        de: "Google Health Help Center: So verwenden Sie Apple Health mit der Google Health App",
+        fr: "Centre d'aide Google Health : Comment utiliser Apple Santé avec l'application Google Health ?",
       },
-      url: "https://support.google.com/fitbit/answer/14144935",
-      verifiedDate: "2026-09-14",
+      url: "https://support.google.com/googlehealth/answer/17037331?hl=en",
+      verifiedDate: "2026-10-20",
       supportedClaim: {
         it: "Google Health per iOS supporta la scrittura in Apple Health di passi, distanza, sonno, sessioni di esercizio e frequenza cardiaca.",
         en: "Google Health for iOS supports writing steps, distance, sleep, exercise sessions, and heart rate to Apple Health.",
@@ -579,10 +579,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       },
     },
     metricsSummary: {
-      it: "Passi, frequenza cardiaca continua, sonno con stadi, calorie attive, distanza, allenamenti",
-      en: "Steps, continuous heart rate, sleep with stages, active calories, distance, workouts",
-      de: "Schritte, kontinuierlicher Puls, Schlaf mit Phasen, Aktivitätskalorien, Distanz, Workouts",
-      fr: "Pas, fréquence cardiaque continue, sommeil avec phases, calories actives, distance, entraînements",
+      it: "Passi, frequenza cardiaca, sonno con stadi, sedute di esercizio (calorie, distanza e velocità dell'exercise tracker)",
+      en: "Steps, heart rate, sleep with stages, exercise sessions (calories, distance and speed from the exercise tracker)",
+      de: "Schritte, Puls, Schlaf mit Phasen, Trainingseinheiten (Kalorien, Distanz und Geschwindigkeit des Exercise-Trackers)",
+      fr: "Pas, fréquence cardiaque, sommeil avec phases, séances d'exercice (calories, distance et vitesse du suivi d'exercice)",
     },
     requirements: {
       it: "Smartphone Android con app Samsung Health installata; sincronizzazione Health Connect abilitata in Samsung Health.",
@@ -591,10 +591,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
       fr: "Smartphone Android avec application Samsung Health installée ; synchronisation Health Connect activée dans Samsung Health.",
     },
     limitations: {
-      it: "Disponibile solo su Android. Le metriche cliniche proprietarie (composizione corporea BIA, pressione ed ECG) rimangono confinate all'interno di Samsung Health.",
-      en: "Available on Android only. Proprietary clinical metrics (BIA body composition, blood pressure, ECG) remain confined within Samsung Health.",
-      de: "Nur auf Android verfügbar. Proprietäre klinische Werte (BIA-Körperanalyse, Blutdruck, EKG) verbleiben innerhalb von Samsung Health.",
-      fr: "Disponible uniquement sur Android. Les métriques cliniques propriétaires (composition corporelle BIA, pression, ECG) restent dans Samsung Health.",
+      it: "Disponibile solo su Android. La tabella per sviluppatori di Samsung include pressione arteriosa, ossigeno nel sangue, peso, grasso corporeo e metabolismo basale tra i dati sincronizzabili, a seconda della versione di Samsung Health e dei permessi; ECG e dati del contapassi quotidiano non compaiono nell'elenco.",
+      en: "Available on Android only. Samsung's developer table lists blood pressure, blood oxygen, weight, body fat and basal metabolic rate among the data it can synchronize, depending on the Samsung Health version and permissions; ECG and all-day activity-tracker data are not on that list.",
+      de: "Nur auf Android verfügbar. Samsungs Entwicklertabelle nennt Blutdruck, Blutsauerstoff, Gewicht, Körperfett und Grundumsatz unter den synchronisierbaren Daten, je nach Samsung-Health-Version und Berechtigungen; EKG und Daten des Alltags-Aktivitätstrackers stehen nicht in dieser Liste.",
+      fr: "Disponible uniquement sur Android. Le tableau pour développeurs de Samsung cite la pression artérielle, l'oxygène sanguin, le poids, la masse grasse et le métabolisme de base parmi les données synchronisables, selon la version de Samsung Health et les autorisations ; l'ECG et les données du suivi d'activité quotidien ne figurent pas dans cette liste.",
     },
     subpaths: [
       {
@@ -618,10 +618,10 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
           fr: "Tout smartphone Android (Samsung ou autre marque avec Galaxy Wearable) ; Android 14+ avec Health Connect ; synchronisation activée dans Samsung Health.",
         },
         metricsRead: {
-          it: "Passi, frequenza cardiaca, sonno con stadi, calorie attive, distanza, sessioni di allenamento.",
-          en: "Steps, heart rate, sleep with stages, active calories, distance, workout sessions.",
-          de: "Schritte, Herzfrequenz, Schlaf mit Phasen, Aktivitätskalorien, Distanz, Trainingseinheiten.",
-          fr: "Pas, fréquence cardiaque, sommeil avec phases, calories actives, distance, séances d'entraînement.",
+          it: "Passi, frequenza cardiaca, sonno con stadi e sedute di esercizio (calorie, distanza e velocità dell'exercise tracker). Samsung elenca anche pressione arteriosa, ossigeno nel sangue, peso, grasso corporeo e metabolismo basale; l'ambito dipende dalla versione di Samsung Health e dai permessi.",
+          en: "Steps, heart rate, sleep with stages and exercise sessions (calories, distance and speed from the exercise tracker). Samsung also lists blood pressure, blood oxygen, weight, body fat and basal metabolic rate; scope depends on the Samsung Health version and permissions.",
+          de: "Schritte, Herzfrequenz, Schlaf mit Phasen und Trainingseinheiten (Kalorien, Distanz und Geschwindigkeit des Exercise-Trackers). Samsung nennt außerdem Blutdruck, Blutsauerstoff, Gewicht, Körperfett und Grundumsatz; der Umfang hängt von der Samsung-Health-Version und den Berechtigungen ab.",
+          fr: "Pas, fréquence cardiaque, sommeil avec phases et séances d'exercice (calories, distance et vitesse du suivi d'exercice). Samsung cite aussi la pression artérielle, l'oxygène sanguin, le poids, la masse grasse et le métabolisme de base ; l'étendue dépend de la version de Samsung Health et des autorisations.",
         },
         fallback: {
           it: "Percorso universale di riferimento; nessun fallback richiesto.",
@@ -690,18 +690,18 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
     ],
     officialSource: {
       title: {
-        it: "Samsung Support: Come sincronizzare Samsung Health con Health Connect",
-        en: "Samsung Support: How to sync Samsung Health with Health Connect",
-        de: "Samsung Support: Samsung Health mit Health Connect synchronisieren",
-        fr: "Support Samsung : Comment synchroniser Samsung Health avec Health Connect",
+        it: "Samsung Developer: Health Connect FAQ to Access Samsung Health Data (in inglese)",
+        en: "Samsung Developer: Health Connect FAQ to Access Samsung Health Data",
+        de: "Samsung Developer: Health Connect FAQ to Access Samsung Health Data (auf Englisch)",
+        fr: "Samsung Developer : Health Connect FAQ to Access Samsung Health Data (en anglais)",
       },
-      url: "https://www.samsung.com/us/support/answer/ANS00091380/",
-      verifiedDate: "2026-09-14",
+      url: "https://developer.samsung.com/health/health-connect-faq.html",
+      verifiedDate: "2026-10-20",
       supportedClaim: {
-        it: "Samsung Health scrive passi, sonno, frequenza cardiaca, allenamenti e calorie in Health Connect su dispositivi Android.",
-        en: "Samsung Health writes steps, sleep, heart rate, workouts, and calories to Health Connect on Android devices.",
-        de: "Samsung Health schreibt Schritte, Schlaf, Puls, Training und Kalorien in Health Connect auf Android-Geräten.",
-        fr: "Samsung Health écrit pas, sommeil, rythme cardiaque, entraînements et calories dans Health Connect sur Android.",
+        it: "Secondo le FAQ per sviluppatori di Samsung, dati di attività come passi ed esercizio, frequenza cardiaca e sonno vengono sincronizzati tra Samsung Health e Health Connect; i dati del Galaxy Watch arrivano a Health Connect in modo indiretto, tramite Samsung Health sul telefono.",
+        en: "Samsung's developer FAQ states that activity data such as steps and exercise, heart rate and sleep are synchronized between Samsung Health and Health Connect; Galaxy Watch data reaches Health Connect indirectly, through Samsung Health on the phone.",
+        de: "Laut Samsungs Entwickler-FAQ werden Aktivitätsdaten wie Schritte und Training, Herzfrequenz und Schlaf zwischen Samsung Health und Health Connect synchronisiert; Daten der Galaxy Watch gelangen indirekt über Samsung Health auf dem Smartphone zu Health Connect.",
+        fr: "Selon la FAQ développeurs de Samsung, les données d'activité comme les pas et l'exercice, la fréquence cardiaque et le sommeil sont synchronisées entre Samsung Health et Health Connect ; les données de la Galaxy Watch parviennent à Health Connect de façon indirecte, via Samsung Health sur le téléphone.",
       },
     },
     evidence: {
@@ -794,16 +794,16 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
     },
     officialSource: {
       title: {
-        it: "Google Support: Configurare e sincronizzare Google Pixel Watch",
-        en: "Google Support: Set up and sync Google Pixel Watch",
-        de: "Google Support: Google Pixel Watch einrichten und synchronisieren",
-        fr: "Support Google : Configurer et synchroniser la Google Pixel Watch",
+        it: "Google Pixel Watch Help: Set up and track activity and sleep with Google Health on Google Pixel Watch (in inglese)",
+        en: "Google Pixel Watch Help: Set up and track activity and sleep with Google Health on Google Pixel Watch",
+        de: "Google Pixel Watch Help: Set up and track activity and sleep with Google Health on Google Pixel Watch (auf Englisch)",
+        fr: "Aide Google Pixel Watch : Set up and track activity and sleep with Google Health on Google Pixel Watch (en anglais)",
       },
       url: "https://support.google.com/googlepixelwatch/answer/12759285",
-      verifiedDate: "2026-09-14",
+      verifiedDate: "2026-10-20",
       supportedClaim: {
         it: "Pixel Watch sincronizza i dati dei sensori con Google Health, che a sua volta li esporta verso Health Connect.",
-        en: "Pixel Watch syncs sensor data to Google Health, which in turn exports it to Health Connect.",
+        en: "The cited page says Pixel Watch tracks steps, calories and activity and shows them in the Google Health app. The second leg, Google Health writing steps, distance, exercise, total calories, sleep and heart rate to Health Connect, is documented on Google's Health Connect help page (answer 14506680).",
         de: "Die Pixel Watch synchronisiert Sensordaten mit Google Health, das sie wiederum an Health Connect exportiert.",
         fr: "La Pixel Watch synchronise les données avec Google Health, qui les exporte ensuite vers Health Connect.",
       },
@@ -904,7 +904,7 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Centre d'aide Oura : Intégration Health Connect sur Android",
       },
       url: "https://support.ouraring.com/hc/en-us/articles/10786105824531-Health-Connect-by-Android-Integration",
-      verifiedDate: "2026-09-14",
+      verifiedDate: "2026-10-20",
       supportedClaim: {
         it: "La documentazione ufficiale Oura indica l'esportazione verso Health Connect di calorie attive, distanza, esercizio/allenamenti, passi, altezza, peso, sonno, frequenza cardiaca e HRV.",
         en: "Official Oura documentation specifies export to Health Connect of active calories, distance, exercise/workouts, steps, height, weight, sleep, heart rate, and HRV.",
@@ -1008,7 +1008,7 @@ export const COMPATIBILITY_PATHS: readonly CompatibilityPath[] = [
         fr: "Centre d'aide Oura : Intégration Apple Santé",
       },
       url: "https://support.ouraring.com/hc/en-us/articles/360025438734-Apple-Health-Integration",
-      verifiedDate: "2026-09-14",
+      verifiedDate: "2026-10-20",
       supportedClaim: {
         it: "La documentazione ufficiale Oura per Apple Health elenca l'esportazione di sonno, frequenza cardiaca, frequenza respiratoria, calorie attive, passi e allenamenti; la frequenza a riposo non figura tra i dati esportati.",
         en: "Official Oura Apple Health documentation specifies export of sleep, heart rate, respiratory rate, active calories, steps, and workouts; resting heart rate is not listed among exported data.",

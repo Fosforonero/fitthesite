@@ -438,7 +438,9 @@ describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
       } else if (path.providerSlug === "fitbit" || path.id === "pixel-watch-android") {
         expect(parsedUrl.hostname).toBe("support.google.com");
       } else if (path.id === "galaxy-watch-android") {
-        expect(parsedUrl.hostname).toBe("www.samsung.com");
+        // 20/10/2026: la pagina di supporto www.samsung.com (ANS00091380) risponde 404; la
+        // fonte raggiungibile e' la documentazione ufficiale per sviluppatori di Samsung.
+        expect(parsedUrl.hostname).toBe("developer.samsung.com");
       } else if (path.id === "colmi-android") {
         expect(parsedUrl.hostname).toBe("github.com");
       } else if (path.id === "colmi-ios") {

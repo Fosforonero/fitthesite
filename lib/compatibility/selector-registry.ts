@@ -122,7 +122,7 @@ function buildCrossVendorScoreUnsupported(
 ): SelectorResult {
   return {
     status: "unsupported",
-    statusBadge: { it: "Non supportato (metrica di altro ecosistema)", en: "Unsupported (other ecosystem metric)" },
+    statusBadge: { it: "Non letta da FitMesh per questo dispositivo", en: "Not read by FitMesh for this device" },
     route: {
       device: deviceLabel,
       sourceApp: sourceAppLabel,
@@ -130,8 +130,8 @@ function buildCrossVendorScoreUnsupported(
       fitmeshApp: { it: "Percorso non disponibile", en: "Route not available" },
     },
     explanation: {
-      it: `Questa metrica proprietaria appartiene all'ecosistema ${scoreOwner.it} e non esiste sui dispositivi ${deviceLabel.it}.`,
-      en: `This proprietary metric belongs to the ${scoreOwner.en} ecosystem and does not exist on ${deviceLabel.en} devices.`,
+      it: `Questa e' una metrica proprietaria dell'ecosistema ${scoreOwner.it}. FitMesh non la legge per ${deviceLabel.it}: qui non risulta documentata un'esportazione equivalente verso l'archivio salute dello smartphone.`,
+      en: `This is a proprietary metric of the ${scoreOwner.en} ecosystem. FitMesh does not read it for ${deviceLabel.en}: no equivalent export to the phone's health store is documented here.`,
     },
     limitations: {
       it: "I punteggi sintetici proprietari non sono intercambiabili tra produttori diversi.",
@@ -140,7 +140,7 @@ function buildCrossVendorScoreUnsupported(
     evidence: referenceDoc,
     cta: {
       type: "none",
-      label: { it: "Metrica non prevista per questo produttore", en: "Metric not applicable to this vendor" },
+      label: { it: "Nessun percorso documentato per questo dispositivo", en: "No documented route for this device" },
     },
   };
 }
@@ -151,23 +151,31 @@ function buildWorkoutsConditionalResult(
   sourceAppLabel: { it: string; en: string },
   evidenceText: { it: string; en: string },
   guideCanonicalSlug: string,
-  guideLabel: { it: string; en: string }
+  guideLabel: { it: string; en: string },
+  sessionsNamedBySource = true
 ): SelectorResult {
   const storeIt = os === "android" ? "Health Connect" : "Apple Salute (HealthKit)";
   const storeEn = os === "android" ? "Health Connect" : "Apple Health (HealthKit)";
   return {
     status: "conditional",
-    statusBadge: { it: "Sessioni lette; distanze in verifica", en: "Sessions read; distances under verification" },
+    statusBadge: sessionsNamedBySource
+      ? { it: "Sessioni lette; distanze in verifica", en: "Sessions read; distances under verification" }
+      : { it: "Dati di attività letti; sedute non confermate dalla fonte", en: "Activity data read; sessions not confirmed by the source" },
     route: {
       device: deviceLabel,
       sourceApp: sourceAppLabel,
       healthStore: { it: storeIt, en: storeEn },
       fitmeshApp: { it: "FitMesh Sync (lettura locale)", en: "FitMesh Sync (local read)" },
     },
-    explanation: {
-      it: `${sourceAppLabel.it} esporta le sessioni di allenamento verso ${storeIt}, da dove FitMesh legge durata, calorie e attività. La precisione delle distanze degli allenamenti è attualmente in verifica.`,
-      en: `${sourceAppLabel.en} exports workout sessions to ${storeEn}, from which FitMesh reads duration, calories, and activity. Workout distance accuracy is currently under verification.`,
-    },
+    explanation: sessionsNamedBySource
+      ? {
+          it: `${sourceAppLabel.it} esporta le sessioni di allenamento verso ${storeIt}, da dove FitMesh legge durata, calorie e attività. La precisione delle distanze degli allenamenti è attualmente in verifica.`,
+          en: `${sourceAppLabel.en} exports workout sessions to ${storeEn}, from which FitMesh reads duration, calories, and activity. Workout distance accuracy is currently under verification.`,
+        }
+      : {
+          it: `L'elenco di ${sourceAppLabel.it} per ${storeIt} nomina dati di attività (distanza, velocità, frequenza cardiaca, calorie) ma non le sedute di allenamento come voce a parte. FitMesh legge le sedute se ${storeIt} le contiene; che ${sourceAppLabel.it} le scriva non è confermato dalla fonte. La precisione delle distanze è in verifica.`,
+          en: `${sourceAppLabel.en}'s list for ${storeEn} names activity data (distance, speed, heart rate, calories) but not workout sessions as a separate item. FitMesh reads sessions if ${storeEn} contains them; the source does not confirm that ${sourceAppLabel.en} writes them. Distance accuracy is under verification.`,
+        },
     limitations: {
       it: "Le distanze degli allenamenti sono in verifica e possono risultare sovrastimate quando più applicazioni registrano o esportano la stessa sessione. FitMesh non promette la deduplicazione automatica né applica la selezione della sorgente prioritaria alla distanza.",
       en: "Workout distances are under verification and may appear inflated when multiple applications record or export the same session. FitMesh does not promise automatic deduplication and does not apply source priority selection to distance.",
@@ -295,8 +303,8 @@ function buildGarminSupportedOrConditional(
   const storeIt = isAndroid ? "Health Connect" : "Apple Salute (HealthKit)";
   const storeEn = isAndroid ? "Health Connect" : "Apple Health (HealthKit)";
   const faqUrl = isAndroid
-    ? "https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5"
-    : "https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6";
+    ? "https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5"
+    : "https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA";
 
   const isConditional = !isAndroid || metric === "sleep_stages";
 
@@ -342,8 +350,8 @@ function buildGarminSupportedOrConditional(
 function buildGarminBodyBatteryUnsupported(os: SelectorPhoneOs): SelectorResult {
   const faqUrl =
     os === "android"
-      ? "https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5"
-      : "https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6";
+      ? "https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5"
+      : "https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA";
   const storeIt = os === "android" ? "Health Connect" : "Apple Salute";
   const storeEn = os === "android" ? "Health Connect" : "Apple Health";
 
@@ -395,8 +403,8 @@ function buildSamsungAndroidHealthStore(): SelectorResult {
       en: "In Samsung Health settings, data sharing with Health Connect must be enabled and read permissions granted to FitMesh.",
     },
     evidence: {
-      it: "Documentazione ufficiale Samsung Support (https://www.samsung.com/us/support/answer/ANS00091380/) e matrice di compatibilità FitMesh (lib/compatibility/matrix-data.ts).",
-      en: "Official Samsung Support documentation (https://www.samsung.com/us/support/answer/ANS00091380/) and FitMesh compatibility matrix (lib/compatibility/matrix-data.ts).",
+      it: "Documentazione ufficiale Samsung Developer (https://developer.samsung.com/health/health-connect-faq.html) e matrice di compatibilità FitMesh (lib/compatibility/matrix-data.ts).",
+      en: "Official Samsung Developer documentation (https://developer.samsung.com/health/health-connect-faq.html) and FitMesh compatibility matrix (lib/compatibility/matrix-data.ts).",
     },
     cta: {
       type: "guide",
@@ -425,8 +433,8 @@ function buildSamsungEnergyScoreUnsupported(): SelectorResult {
       en: "Energy Score does not transit through the Health Connect route used by FitMesh.",
     },
     evidence: {
-      it: "Documentazione Samsung Health Data SDK (https://developer.samsung.com/health/data/guide/features/data-types.html) e Samsung Support ANS00091380.",
-      en: "Samsung Health Data SDK documentation (https://developer.samsung.com/health/data/guide/features/data-types.html) and Samsung Support ANS00091380.",
+      it: "Documentazione Samsung Health Data SDK (https://developer.samsung.com/health/data/guide/features/data-types.html) e FAQ Samsung Developer per Health Connect (https://developer.samsung.com/health/health-connect-faq.html).",
+      en: "Samsung Health Data SDK documentation (https://developer.samsung.com/health/data/guide/features/data-types.html) and Samsung Developer Health Connect FAQ (https://developer.samsung.com/health/health-connect-faq.html).",
     },
     cta: {
       type: "guide",
@@ -490,8 +498,8 @@ function buildFitbitAndroidResult(isConditionalStages: boolean): SelectorResult 
         : "Requires Health Connect sync enabled in app settings. No direct polling of Fitbit cloud Web APIs.",
     },
     evidence: {
-      it: "Documentazione ufficiale Google Fitbit Support (https://support.google.com/fitbit/answer/13045614) e matrice di compatibilità FitMesh (lib/compatibility/matrix-data.ts).",
-      en: "Official Google Fitbit Support documentation (https://support.google.com/fitbit/answer/13045614) and FitMesh compatibility matrix (lib/compatibility/matrix-data.ts).",
+      it: "Documentazione ufficiale Google Health Help Center (https://support.google.com/googlehealth/answer/14506680) e matrice di compatibilità FitMesh (lib/compatibility/matrix-data.ts).",
+      en: "Official Google Health Help Center documentation (https://support.google.com/googlehealth/answer/14506680) and FitMesh compatibility matrix (lib/compatibility/matrix-data.ts).",
     },
     cta: {
       type: "guide",
@@ -520,8 +528,8 @@ function buildFitbitIosConditional(): SelectorResult {
       en: "This is not a direct cloud connection: it depends on the Google Health app syncing with Apple Health and permissions granted in HealthKit.",
     },
     evidence: {
-      it: "Documentazione ufficiale Google Support per Apple Health (https://support.google.com/fitbit/answer/14144935) e matrice di compatibilità FitMesh (lib/compatibility/matrix-data.ts).",
-      en: "Official Google Support documentation for Apple Health (https://support.google.com/fitbit/answer/14144935) and FitMesh compatibility matrix (lib/compatibility/matrix-data.ts).",
+      it: "Documentazione ufficiale Google Health Help Center per Apple Health (https://support.google.com/googlehealth/answer/17037331) e matrice di compatibilità FitMesh (lib/compatibility/matrix-data.ts).",
+      en: "Official Google Health Help Center documentation for Apple Health (https://support.google.com/googlehealth/answer/17037331) and FitMesh compatibility matrix (lib/compatibility/matrix-data.ts).",
     },
     cta: {
       type: "guide",
@@ -550,8 +558,8 @@ function buildPixelAndroidHealthStore(): SelectorResult {
       en: "Requires a compatible Android smartphone with Health Connect synchronization enabled.",
     },
     evidence: {
-      it: "Documentazione ufficiale Google Pixel Watch Support (https://support.google.com/googlepixelwatch/answer/12759285) e matrice di compatibilità FitMesh (lib/compatibility/matrix-data.ts).",
-      en: "Official Google Pixel Watch Support documentation (https://support.google.com/googlepixelwatch/answer/12759285) and FitMesh compatibility matrix (lib/compatibility/matrix-data.ts).",
+      it: "Documentazione ufficiale Google Pixel Watch Support (https://support.google.com/googlepixelwatch/answer/12759285), Google Health Help Center per la scrittura verso Health Connect (https://support.google.com/googlehealth/answer/14506680) e matrice di compatibilità FitMesh (lib/compatibility/matrix-data.ts).",
+      en: "Official Google Pixel Watch Support documentation (https://support.google.com/googlepixelwatch/answer/12759285), Google Health Help Center for the write to Health Connect (https://support.google.com/googlehealth/answer/14506680) and FitMesh compatibility matrix (lib/compatibility/matrix-data.ts).",
     },
     cta: {
       type: "guide",
@@ -889,8 +897,8 @@ function buildPolarMatrixForOs(os: SelectorPhoneOs): Record<SelectorMetric, Sele
       { it: "Polar Flow", en: "Polar Flow" },
       GARMIN_SCORE_OWNER,
       {
-        it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
-        en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
+        it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
+        en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
       }
     ),
     energy_score: buildCrossVendorScoreUnsupported(
@@ -1032,8 +1040,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Connessione BLE", en: "BLE Connection" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Specifiche hardware Colmi BLE in lib/compatibility/matrix-data.ts e documentazione Garmin Body Battery (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
-          en: "Colmi BLE hardware specifications in lib/compatibility/matrix-data.ts and Garmin Body Battery documentation (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
+          it: "Specifiche hardware Colmi BLE in lib/compatibility/matrix-data.ts e documentazione Garmin Body Battery (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
+          en: "Colmi BLE hardware specifications in lib/compatibility/matrix-data.ts and Garmin Body Battery documentation (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -1065,11 +1073,12 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Smartwatch Garmin", en: "Garmin Smartwatch" },
         { it: "Garmin Connect", en: "Garmin Connect" },
         {
-          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5) e verifica sessioni in FitMesh.",
-          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5) and FitMesh session verification.",
+          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) e verifica sessioni in FitMesh.",
+          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) and FitMesh session verification.",
         },
         "garmin-samsung-health-sync-guide",
-        { it: "Guida sincronizzazione Garmin", en: "Garmin synchronization guide" }
+        { it: "Guida sincronizzazione Garmin", en: "Garmin synchronization guide" },
+        false
       ),
       body_battery: buildGarminBodyBatteryUnsupported("android"),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -1077,8 +1086,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Garmin Connect", en: "Garmin Connect" },
         SAMSUNG_SCORE_OWNER,
         {
-          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5) e Samsung Health Data SDK.",
-          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5) and Samsung Health Data SDK.",
+          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) e Samsung Health Data SDK.",
+          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5) and Samsung Health Data SDK.",
         }
       ),
       readiness: buildCrossVendorScoreUnsupported(
@@ -1086,8 +1095,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Garmin Connect", en: "Garmin Connect" },
         OURA_APPLE_SCORE_OWNER,
         {
-          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
-          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
+          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
+          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
         }
       ),
     },
@@ -1101,8 +1110,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Samsung Galaxy Watch (Wear OS)", en: "Samsung Galaxy Watch (Wear OS)" },
         { it: "Samsung Health", en: "Samsung Health" },
         {
-          it: "Documentazione Samsung Support (https://www.samsung.com/us/support/answer/ANS00091380/) e verifica sessioni in FitMesh.",
-          en: "Samsung Support documentation (https://www.samsung.com/us/support/answer/ANS00091380/) and FitMesh session verification.",
+          it: "Documentazione Samsung Developer (https://developer.samsung.com/health/health-connect-faq.html) e verifica sessioni in FitMesh.",
+          en: "Samsung Developer documentation (https://developer.samsung.com/health/health-connect-faq.html) and FitMesh session verification.",
         },
         "health-connect-not-syncing",
         { it: "Guida risoluzione Health Connect", en: "Health Connect troubleshooting guide" }
@@ -1113,8 +1122,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Samsung Health", en: "Samsung Health" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Documentazione Samsung Support (https://www.samsung.com/us/support/answer/ANS00091380/) e Garmin Support.",
-          en: "Samsung Support documentation (https://www.samsung.com/us/support/answer/ANS00091380/) and Garmin Support.",
+          it: "Documentazione Samsung Developer (https://developer.samsung.com/health/health-connect-faq.html) e Garmin Support.",
+          en: "Samsung Developer documentation (https://developer.samsung.com/health/health-connect-faq.html) and Garmin Support.",
         }
       ),
       readiness: buildCrossVendorScoreUnsupported(
@@ -1122,8 +1131,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Samsung Health", en: "Samsung Health" },
         OURA_APPLE_SCORE_OWNER,
         {
-          it: "Documentazione Samsung Support (https://www.samsung.com/us/support/answer/ANS00091380/).",
-          en: "Samsung Support documentation (https://www.samsung.com/us/support/answer/ANS00091380/).",
+          it: "Documentazione Samsung Developer (https://developer.samsung.com/health/health-connect-faq.html).",
+          en: "Samsung Developer documentation (https://developer.samsung.com/health/health-connect-faq.html).",
         }
       ),
     },
@@ -1137,8 +1146,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Dispositivo Fitbit", en: "Fitbit Device" },
         { it: "App Fitbit / Google Health", en: "Fitbit / Google Health App" },
         {
-          it: "Documentazione Google Fitbit Support (https://support.google.com/fitbit/answer/13045614) e verifica sessioni in FitMesh.",
-          en: "Google Fitbit Support documentation (https://support.google.com/fitbit/answer/13045614) and FitMesh session verification.",
+          it: "Documentazione Google Health Help Center (https://support.google.com/googlehealth/answer/14506680) e verifica sessioni in FitMesh.",
+          en: "Google Health Help Center documentation (https://support.google.com/googlehealth/answer/14506680) and FitMesh session verification.",
         },
         "fitbit-data-not-syncing-android",
         { it: "Guida sincronizzazione Fitbit su Android", en: "Fitbit Android synchronization guide" }
@@ -1148,8 +1157,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "App Fitbit", en: "Fitbit App" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Documentazione Google Fitbit Support (https://support.google.com/fitbit/answer/13045614).",
-          en: "Google Fitbit Support documentation (https://support.google.com/fitbit/answer/13045614).",
+          it: "Documentazione Google Health Help Center (https://support.google.com/googlehealth/answer/14506680).",
+          en: "Google Health Help Center documentation (https://support.google.com/googlehealth/answer/14506680).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -1157,8 +1166,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "App Fitbit", en: "Fitbit App" },
         SAMSUNG_SCORE_OWNER,
         {
-          it: "Documentazione Google Fitbit Support (https://support.google.com/fitbit/answer/13045614).",
-          en: "Google Fitbit Support documentation (https://support.google.com/fitbit/answer/13045614).",
+          it: "Documentazione Google Health Help Center (https://support.google.com/googlehealth/answer/14506680).",
+          en: "Google Health Help Center documentation (https://support.google.com/googlehealth/answer/14506680).",
         }
       ),
       readiness: buildCrossVendorScoreUnsupported(
@@ -1166,8 +1175,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "App Fitbit", en: "Fitbit App" },
         OURA_APPLE_SCORE_OWNER,
         {
-          it: "Documentazione Google Fitbit Support (https://support.google.com/fitbit/answer/13045614): il Daily Readiness Score proprietario Fitbit non è esportato su Health Connect.",
-          en: "Google Fitbit Support documentation (https://support.google.com/fitbit/answer/13045614): Fitbit proprietary Daily Readiness Score is not exported to Health Connect.",
+          it: "Documentazione Google Health Help Center (https://support.google.com/googlehealth/answer/14506680): il Daily Readiness Score proprietario Fitbit non è esportato su Health Connect.",
+          en: "Google Health Help Center documentation (https://support.google.com/googlehealth/answer/14506680): Fitbit proprietary Daily Readiness Score is not exported to Health Connect.",
         }
       ),
     },
@@ -1210,8 +1219,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "App Google Pixel Watch / Google Health", en: "Google Pixel Watch / Google Health App" },
         OURA_APPLE_SCORE_OWNER,
         {
-          it: "Documentazione Google Pixel Watch Support (https://support.google.com/googlepixelwatch/answer/12759285) e Google Fitbit Support (https://support.google.com/fitbit/answer/13045614).",
-          en: "Google Pixel Watch Support documentation (https://support.google.com/googlepixelwatch/answer/12759285) and Google Fitbit Support (https://support.google.com/fitbit/answer/13045614).",
+          it: "Documentazione Google Pixel Watch Support (https://support.google.com/googlepixelwatch/answer/12759285) e Google Fitbit Support (https://support.google.com/googlehealth/answer/14506680).",
+          en: "Google Pixel Watch Support documentation (https://support.google.com/googlepixelwatch/answer/12759285) and Google Fitbit Support (https://support.google.com/googlehealth/answer/14506680).",
         }
       ),
     },
@@ -1261,8 +1270,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Whoop App", en: "Whoop App" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Specifiche ecosistema Garmin (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
-          en: "Garmin ecosystem specifications (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
+          it: "Specifiche ecosistema Garmin (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
+          en: "Garmin ecosystem specifications (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -1290,8 +1299,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Withings App", en: "Withings App" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Specifiche ecosistema Garmin (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
-          en: "Garmin ecosystem specifications (https://support.garmin.com/en-US/?faq=lzpSWu5diM4vgrmUXP4nn5).",
+          it: "Specifiche ecosistema Garmin (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
+          en: "Garmin ecosystem specifications (https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -1327,8 +1336,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Connessione BLE", en: "BLE Connection" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Specifiche hardware Colmi BLE in lib/compatibility/matrix-data.ts e documentazione Garmin Body Battery (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
-          en: "Colmi BLE hardware specifications in lib/compatibility/matrix-data.ts and Garmin Body Battery documentation (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
+          it: "Specifiche hardware Colmi BLE in lib/compatibility/matrix-data.ts e documentazione Garmin Body Battery (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA).",
+          en: "Colmi BLE hardware specifications in lib/compatibility/matrix-data.ts and Garmin Body Battery documentation (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -1359,8 +1368,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Smartwatch Garmin", en: "Garmin Smartwatch" },
         { it: "Garmin Connect", en: "Garmin Connect" },
         {
-          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6) e verifica sessioni in FitMesh.",
-          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6) and FitMesh session verification.",
+          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA) e verifica sessioni in FitMesh.",
+          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA) and FitMesh session verification.",
         },
         "garmin-samsung-health-sync-guide",
         { it: "Guida sincronizzazione Garmin", en: "Garmin synchronization guide" }
@@ -1371,8 +1380,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Garmin Connect", en: "Garmin Connect" },
         SAMSUNG_SCORE_OWNER,
         {
-          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6) e Samsung Health Data SDK.",
-          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6) and Samsung Health Data SDK.",
+          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA) e Samsung Health Data SDK.",
+          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA) and Samsung Health Data SDK.",
         }
       ),
       readiness: buildCrossVendorScoreUnsupported(
@@ -1380,8 +1389,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Garmin Connect", en: "Garmin Connect" },
         OURA_APPLE_SCORE_OWNER,
         {
-          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
-          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
+          it: "Documentazione Garmin Support (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA).",
+          en: "Garmin Support documentation (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA).",
         }
       ),
     },
@@ -1395,8 +1404,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Dispositivo Fitbit", en: "Fitbit Device" },
         { it: "App Google Health (iOS)", en: "Google Health App (iOS)" },
         {
-          it: "Documentazione Google Support per Apple Health (https://support.google.com/fitbit/answer/14144935) e verifica sessioni in FitMesh.",
-          en: "Google Support documentation for Apple Health (https://support.google.com/fitbit/answer/14144935) and FitMesh session verification.",
+          it: "Documentazione Google Health Help Center per Apple Health (https://support.google.com/googlehealth/answer/17037331) e verifica sessioni in FitMesh.",
+          en: "Google Health Help Center documentation for Apple Health (https://support.google.com/googlehealth/answer/17037331) and FitMesh session verification.",
         },
         "esportare-dati-fitbit-google",
         { it: "Guida esportazione dati Fitbit e Google", en: "Fitbit and Google data export guide" }
@@ -1406,8 +1415,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "App Fitbit", en: "Fitbit App" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Documentazione Google Support (https://support.google.com/fitbit/answer/14144935).",
-          en: "Google Support documentation (https://support.google.com/fitbit/answer/14144935).",
+          it: "Documentazione Google Health Help Center (https://support.google.com/googlehealth/answer/17037331).",
+          en: "Google Health Help Center documentation (https://support.google.com/googlehealth/answer/17037331).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -1415,8 +1424,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "App Fitbit", en: "Fitbit App" },
         SAMSUNG_SCORE_OWNER,
         {
-          it: "Documentazione Google Support (https://support.google.com/fitbit/answer/14144935).",
-          en: "Google Support documentation (https://support.google.com/fitbit/answer/14144935).",
+          it: "Documentazione Google Health Help Center (https://support.google.com/googlehealth/answer/17037331).",
+          en: "Google Health Help Center documentation (https://support.google.com/googlehealth/answer/17037331).",
         }
       ),
       readiness: buildCrossVendorScoreUnsupported(
@@ -1424,8 +1433,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "App Fitbit", en: "Fitbit App" },
         OURA_APPLE_SCORE_OWNER,
         {
-          it: "Documentazione Google Support (https://support.google.com/fitbit/answer/14144935): i punteggi Readiness non figurano tra i dati condivisi con Apple Salute.",
-          en: "Google Support documentation (https://support.google.com/fitbit/answer/14144935): Readiness scores are not listed among data shared with Apple Health.",
+          it: "Documentazione Google Health Help Center (https://support.google.com/googlehealth/answer/17037331): i punteggi Readiness non figurano tra i dati condivisi con Apple Salute.",
+          en: "Google Health Help Center documentation (https://support.google.com/googlehealth/answer/17037331): Readiness scores are not listed among data shared with Apple Health.",
         }
       ),
     },
@@ -1510,8 +1519,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Whoop App", en: "Whoop App" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Specifiche ecosistema Garmin (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
-          en: "Garmin ecosystem specifications (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
+          it: "Specifiche ecosistema Garmin (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA).",
+          en: "Garmin ecosystem specifications (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
@@ -1539,8 +1548,8 @@ export const EXPLICIT_COMPATIBILITY_MATRIX: Record<
         { it: "Withings App", en: "Withings App" },
         GARMIN_SCORE_OWNER,
         {
-          it: "Specifiche ecosistema Garmin (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
-          en: "Garmin ecosystem specifications (https://support.garmin.com/en-US/?faq=lK5FlFiJvr60uzUSPoh8H6).",
+          it: "Specifiche ecosistema Garmin (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA).",
+          en: "Garmin ecosystem specifications (https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA).",
         }
       ),
       energy_score: buildCrossVendorScoreUnsupported(
