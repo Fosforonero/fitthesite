@@ -65,13 +65,13 @@ export const post: BlogPost = {
     it: [
       "Un parametro visibile sullo schermo dell'orologio non coincide automaticamente con un record grezzo esportabile attraverso Apple HealthKit o Android Health Connect.",
       "Apple Watch campiona storicamente la variabilità cardiaca come SDNN in HealthKit, mentre lo schema standard di Android Health Connect definisce il record RMSSD: le due formule non sono convertibili tra loro.",
-      "I punteggi sintetici proprietari (Parametri Vitali su watchOS 11, Readiness 0-10 su Apple Watch Ultra 4 con watchOS 27 ed Energy Score 0-100 su Samsung Health) non vengono esportati come metriche standard condivise nei rispettivi archivi di sistema.",
+      "I punteggi sintetici proprietari (Parametri Vitali su watchOS 11, Readiness 0-10 su Apple Watch Series 12 e Ultra 4 con watchOS 27 ed Energy Score su Samsung Health) non hanno un tipo di dato corrispondente nella documentazione HealthKit né tra i tipi standard di Health Connect consultati.",
       "FitMesh Sync separa le sorgenti nella versione distribuita senza conversioni artificiali tra SDNN ed RMSSD, distinguendo chiaramente ciò che è verificato nei candidati di sviluppo da ciò che è disponibile nella versione distribuita.",
     ],
     en: [
       "A metric displayed on a watch face does not automatically correspond to an exportable raw record in Apple HealthKit or Android Health Connect.",
       "Apple Watch historically samples heart rate variability as SDNN in HealthKit, whereas the Android Health Connect schema defines RMSSD: the two mathematical formulas are not interchangeable.",
-      "Proprietary synthetic scores (Vitals on watchOS 11, 0-10 Readiness on Apple Watch Ultra 4 with watchOS 27, and 0-100 Energy Score in Samsung Health) are not exported as standard shared records in system health stores.",
+      "Proprietary synthetic scores (Vitals on watchOS 11, the 0-10 Readiness on Apple Watch Series 12 and Ultra 4 with watchOS 27, and the Energy Score in Samsung Health) have no matching data type in the HealthKit documentation or in the standard Health Connect types consulted.",
       "FitMesh Sync preserves source separation in the distributed mobile app without artificial SDNN-to-RMSSD conversions, clearly distinguishing behaviors analyzed in development candidates from the distributed release.",
     ],
   },
@@ -187,13 +187,13 @@ export const post: BlogPost = {
       items: {
         it: [
           "**Generazione watchOS 11 (Series 9, Series 10, Ultra 2)**: con l'aggiornamento a watchOS 11, Apple ha introdotto l'applicazione Parametri Vitali (Vitals), che osserva cinque metriche notturne (frequenza cardiaca, frequenza respiratoria, temperatura al polso, saturazione di ossigeno e durata del sonno) e segnala deviazioni rispetto all'intervallo tipico personale, senza produrre un punteggio sintetico numerico da 0 a 100.",
-          "**Generazione watchOS 27 e Apple Watch Ultra 4**: nel comunicato ufficiale di settembre 2026 ([Apple Newsroom, 9 settembre 2026](https://www.apple.com/newsroom/2026/09/apple-unveils-apple-watch-ultra-4/)), Apple ha descritto per Apple Watch Ultra 4 e il sistema operativo watchOS 27 l'introduzione di un indice di prontezza (Readiness score) su scala da 0 a 10 e di due modalità di rilevazione della variabilità cardiaca denominate commercialmente \"Recovery HRV\" e \"Overall HRV\".",
-          "**Distinzione metodologica essenziale**: Apple non ha reso note le formule matematiche o gli algoritmi specifici alla base di Recovery HRV e Overall HRV. Non è scientificamente corretto presumere dal solo nome commerciale che Recovery HRV coincida con la formula RMSSD o che Overall HRV coincida con l'SDNN. Nelle API pubbliche di HealthKit, l'identificatore storico documentato per i campionamenti passivi dell'orologio è `HKQuantityTypeIdentifierHeartRateVariabilitySDNN`, mentre non risultano documentati tipi pubblici per l'indice di prontezza 0-10 né formule proprietarie di calcolo.",
+          "**Generazione watchOS 27, Apple Watch Series 12 e Ultra 4**: nel comunicato ufficiale di settembre 2026 ([Apple Newsroom, 9 settembre 2026](https://www.apple.com/newsroom/2026/09/apple-unveils-apple-watch-ultra-4/)), Apple ha presentato su Apple Watch Ultra 4 un indice giornaliero di prontezza (Readiness score) su scala da 0 a 10 (Apple Support elenca l'app Readiness per Apple Watch Series 12 e Ultra 4: [Apple Support, Readiness](https://support.apple.com/guide/watch/readiness-flx4gnzby346/watchos), consultata il 20/10/2026) e due modalità di rilevazione della variabilità cardiaca denominate commercialmente \"Recovery HRV\" e \"Overall HRV\".",
+          "**Distinzione metodologica essenziale**: Apple non ha reso note le formule matematiche o gli algoritmi specifici alla base di Recovery HRV e Overall HRV. Non è scientificamente corretto presumere dal solo nome commerciale che Recovery HRV coincida con la formula RMSSD o che Overall HRV coincida con l'SDNN. Nelle API pubbliche di HealthKit, l'identificatore storico documentato per i campionamenti passivi dell'orologio è `HKQuantityTypeIdentifierHeartRateVariabilitySDNN`, mentre nella documentazione HealthKit consultata non compare un tipo di dato per l'indice di prontezza 0-10 e Apple non pubblica le formule.",
         ],
         en: [
           "**watchOS 11 Generation (Series 9, Series 10, Ultra 2)**: With watchOS 11, Apple introduced the Vitals application, observing five nocturnal metrics (heart rate, respiratory rate, wrist temperature, blood oxygen, and sleep duration) and highlighting outliers relative to personal baseline ranges, without generating a single synthetic score from 0 to 100.",
-          "**watchOS 27 and Apple Watch Ultra 4**: In its September 2026 official announcement ([Apple Newsroom, September 9, 2026](https://www.apple.com/newsroom/2026/09/apple-unveils-apple-watch-ultra-4/)), Apple introduced for Apple Watch Ultra 4 and watchOS 27 a dedicated Readiness score on a 0 to 10 scale, alongside two commercial heart rate variability modes designated as \"Recovery HRV\" and \"Overall HRV\".",
-          "**Crucial Methodological Distinction**: Apple has not published the mathematical formulations or calculation algorithms governing Recovery HRV and Overall HRV. It is scientifically unsound to assume from trade names alone that Recovery HRV equates to RMSSD or that Overall HRV equates to SDNN. In public HealthKit APIs, the documented identifier for native watch passive sampling remains `HKQuantityTypeIdentifierHeartRateVariabilitySDNN`, whereas public APIs do not define specific types for the 0 to 10 Readiness index or reveal internal formulas.",
+          "**watchOS 27, Apple Watch Series 12 and Ultra 4**: In its September 2026 official announcement ([Apple Newsroom, September 9, 2026](https://www.apple.com/newsroom/2026/09/apple-unveils-apple-watch-ultra-4/)), Apple introduced on Apple Watch Ultra 4 a daily Readiness score on a 0 to 10 scale (Apple Support lists the Readiness app for Apple Watch Series 12 and Ultra 4: [Apple Support, Readiness](https://support.apple.com/guide/watch/readiness-flx4gnzby346/watchos), consulted 2026-10-20), alongside two commercial heart rate variability modes designated as \"Recovery HRV\" and \"Overall HRV\".",
+          "**Crucial Methodological Distinction**: Apple has not published the mathematical formulations or calculation algorithms governing Recovery HRV and Overall HRV. It is scientifically unsound to assume from trade names alone that Recovery HRV equates to RMSSD or that Overall HRV equates to SDNN. In public HealthKit APIs, the documented identifier for native watch passive sampling remains `HKQuantityTypeIdentifierHeartRateVariabilitySDNN`, whereas the HealthKit documentation consulted lists no data type for the 0 to 10 Readiness index, and Apple does not publish its formulas.",
         ],
       },
     },
@@ -314,12 +314,12 @@ export const post: BlogPost = {
         it: [
           "Riflette la variabilità complessiva del ritmo cardiaco, risentendo contemporaneamente sia del sistema nervoso simpatico (stress, sforzo fisico) sia del sistema parasimpatico (recupero, calma), oltre che dei ritmi circadiani e della respirazione lenta;",
           "L'Apple Watch misura campioni di SDNN durante le pause di quiete e durante le sessioni dell'app Respirazione/Consapevolezza, archiviandoli in HealthKit sotto `HKQuantityTypeIdentifierHeartRateVariabilitySDNN`;",
-          "HealthKit include anche l'identificatore per RMSSD (`HKQuantityTypeIdentifierHeartRateVariabilityRMSSD`), permettendo ad applicazioni terze e fasce cardio di registrare tale metrica. Tuttavia, non vi è documentazione ufficiale che attesti che l'Apple Watch generi letture passive RMSSD in background per il database generale; storicamente, le letture di sistema dell'orologio alimentano il tipo SDNN.",
+          "La documentazione Apple consultata copre l'identificatore SDNN. Fonti non ufficiali segnalano un identificatore RMSSD nell'SDK di iOS 27, ma al 20/10/2026 non era raggiungibile una pagina di documentazione Apple dedicata, quindi questo articolo non ci fa affidamento. Nulla nella documentazione consultata indica che il firmware dell'Apple Watch registri campioni RMSSD passivi in background nel database centrale; storicamente, le letture di sistema dell'orologio alimentano il tipo SDNN.",
         ],
         en: [
           "It reflects total autonomic variability, integrating simultaneous inputs from the sympathetic nervous system (stress, workload), the parasympathetic branch (rest, recovery), and slower circadian and respiratory cycles;",
           "Apple Watch traditionally samples SDNN during quiet periods and during Mindfulness/Breathe sessions, storing samples in HealthKit under `HKQuantityTypeIdentifierHeartRateVariabilitySDNN`;",
-          "HealthKit also defines an identifier for RMSSD (`HKQuantityTypeIdentifierHeartRateVariabilityRMSSD`), enabling external apps and chest straps to record data. However, public documentation does not indicate that Apple Watch firmware records passive background RMSSD samples into the central repository; historically, native watch readings populate SDNN.",
+          "The Apple documentation consulted covers the SDNN identifier. Unofficial sources report an RMSSD identifier in the iOS 27 SDK, but no Apple documentation page for it was reachable on 2026-10-20, so this article does not rely on it. Nothing in the documentation consulted indicates that Apple Watch firmware records passive background RMSSD samples into the central repository; historically, native watch readings populate SDNN.",
         ],
       },
     },
@@ -388,12 +388,12 @@ export const post: BlogPost = {
       type: "list",
       items: {
         it: [
-          "**Apple**: nelle generazioni storiche con watchOS 11, l'app Parametri Vitali non fornisce un indice sintetico unico, ma evidenzia deviazioni rispetto alle bande di normalità; con watchOS 27 (introdotto su Apple Watch Ultra 4 nel settembre 2026), l'interfaccia mostra un punteggio di Readiness su scala 0-10, la cui formula interna non è pubblicamente documentata. Nessuno di questi indici sintetici risulta esportato tramite API pubbliche di HealthKit.",
-          "**Samsung**: l'Energy Score (sviluppato con Galaxy AI) fornisce un punteggio da 0 a 100 integrando sonno, attività fisica del giorno precedente e parametri notturni. La disponibilità dei punteggi dipende dalle API utilizzate. Samsung documenta l'accesso all'Energy Score attraverso il proprio Samsung Health Data SDK: non va confuso con la condivisione tramite Health Connect né con le integrazioni effettivamente disponibili in FitMesh.",
+          "**Apple**: nelle generazioni storiche con watchOS 11, l'app Parametri Vitali non fornisce un indice sintetico unico, ma evidenzia deviazioni rispetto alle bande di normalità; con watchOS 27 (disponibile su Apple Watch Series 12 e Ultra 4, secondo Apple Support), l'interfaccia mostra un punteggio di Readiness su scala 0-10, la cui formula interna non è pubblicamente documentata. Nella documentazione HealthKit consultata non compare un tipo di dato per questi indici sintetici.",
+          "**Samsung**: la documentazione dell'SDK Samsung descrive l'Energy Score come la misura giornaliera della prontezza fisica e mentale dell'utente e non indica un intervallo di valori ([Samsung Developer, EnergyScoreType](https://developer.samsung.com/health/data/api-reference/-shd/com.samsung.android.sdk.health.data.request/-data-type/-energy-score-type/index.html), consultata il 20/10/2026). Samsung documenta l'accesso in sola lettura all'Energy Score attraverso il proprio Samsung Health Data SDK: non va confuso con la condivisione tramite Health Connect, nella cui lista pubblicata dei dati Samsung Health sincronizzati l'Energy Score non compare, né con le integrazioni effettivamente disponibili in FitMesh.",
         ],
         en: [
-          "**Apple**: In watchOS 11, the Vitals app avoids a single synthetic score, highlighting deviations against individualized normal ranges; in watchOS 27 (introduced on Apple Watch Ultra 4 in September 2026), the interface presents a 0 to 10 Readiness index governed by undisclosed internal formulas. HealthKit does not export public APIs for Vitals statuses or the 0 to 10 Readiness score.",
-          "**Samsung**: The Energy Score (powered by Galaxy AI) generates a 0 to 100 daily score by synthesizing sleep, prior activity, and nocturnal cardiac metrics. Score availability depends on the specific APIs used. Samsung documents access to the Energy Score through its dedicated Samsung Health Data SDK: this is a separate pipeline from Android Health Connect and does not represent an integration currently available in FitMesh.",
+          "**Apple**: In watchOS 11, the Vitals app avoids a single synthetic score, highlighting deviations against individualized normal ranges; in watchOS 27 (available on Apple Watch Series 12 and Ultra 4, per Apple Support), the interface presents a 0 to 10 Readiness index governed by undisclosed internal formulas. The HealthKit documentation consulted lists no data type for Vitals statuses or for the 0 to 10 Readiness score.",
+          "**Samsung**: Samsung's SDK documentation describes the Energy Score as the daily measurement of the user's physical and mental readiness, and does not state a value range ([Samsung Developer, EnergyScoreType](https://developer.samsung.com/health/data/api-reference/-shd/com.samsung.android.sdk.health.data.request/-data-type/-energy-score-type/index.html), consulted 2026-10-20). Samsung documents read-only access to the Energy Score through its dedicated Samsung Health Data SDK: this is a separate pipeline from Android Health Connect, whose published list of synchronized Samsung Health data has no Energy Score entry, and it does not represent an integration currently available in FitMesh.",
         ],
       },
     },
@@ -539,14 +539,14 @@ export const post: BlogPost = {
             "**Variabilità Cardiaca (HRV)**",
             "Genera campioni SDNN; su Ultra 4 (watchOS 27) introdotte le modalità commerciali Recovery/Overall HRV (formule non rese pubbliche).",
             "Rileva intervalli notturni per i punteggi interni di stress ed energia.",
-            "HealthKit documenta SDNN e definisce il tipo RMSSD; Health Connect definisce solo `HeartRateVariabilityRmssdRecord`.",
+            "HealthKit documenta SDNN; Health Connect definisce `HeartRateVariabilityRmssdRecord`.",
             "Archiviazione separata delle metriche. Nessuna fusione tra SDNN ed RMSSD.",
           ],
           en: [
             "**HRV**",
             "Captures SDNN; Ultra 4 (watchOS 27) adds commercial Recovery/Overall HRV modes (formulas unrevealed).",
             "Evaluates nocturnal intervals for internal stress and energy scores.",
-            "HealthKit documents SDNN and defines RMSSD; Health Connect defines only `HeartRateVariabilityRmssdRecord`.",
+            "HealthKit documents SDNN; Health Connect defines `HeartRateVariabilityRmssdRecord`.",
             "Stored in distinct metric fields. No mathematical blending between SDNN and RMSSD.",
           ],
         },
@@ -650,15 +650,15 @@ export const post: BlogPost = {
           it: [
             "**Punteggi Proprietari**",
             "Parametri Vitali a fasce (watchOS 11); Readiness 0-10 su Ultra 4 (watchOS 27).",
-            "Energy Score da 0 a 100 elaborato con Galaxy AI (documentato su Samsung Health Data SDK).",
-            "Non esportati da HealthKit né come record standard da Health Connect.",
+            "Energy Score (documentato nel Samsung Health Data SDK, sola lettura).",
+            "Nessun tipo di dato corrispondente nella documentazione HealthKit né tra i tipi standard di Health Connect consultati.",
             "Non importati. L'indice di recupero basato su parametri minimi è analizzato nel candidato di sviluppo. Comportamento verificato nel candidato; disponibilità nella versione distribuita non verificata in questa analisi.",
           ],
           en: [
             "**Proprietary Scores**",
             "Vitals normal ranges (watchOS 11); 0-10 Readiness on Ultra 4 (watchOS 27).",
-            "0-100 Energy Score powered by Galaxy AI (documented on Samsung Health Data SDK).",
-            "Neither exported by HealthKit nor as a standard record by Health Connect.",
+            "Energy Score (documented in the Samsung Health Data SDK, read-only).",
+            "No matching data type in the HealthKit documentation or in the standard Health Connect types consulted.",
             "Not imported. Recovery evaluation based on baseline parameters is analyzed in development candidates. Behavior verified in the candidate; availability in the distributed version was not verified in this analysis.",
           ],
         },
@@ -683,8 +683,8 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-        it: "Mentre Apple Watch privilegia la continuità storica della metrica SDNN e ha introdotto solo di recente il punteggio Readiness (su Ultra 4 e watchOS 27), l'ecosistema Galaxy Watch integra funzioni hardware avanzate (come la bioimpedenza e la stima pressoria previa calibrazione con sfigmomanometro), i cui dati derivati tuttavia non trovano sempre un canale documentato di esportazione verso Health Connect.",
-        en: "While Apple Watch maintains historical fidelity to SDNN and has only recently introduced readiness scoring (on Ultra 4 with watchOS 27), the Galaxy Watch ecosystem incorporates multi-functional hardware (including bioimpedance and blood pressure estimation requiring arm cuff calibration), whose derived figures do not always have documented paths into Health Connect.",
+        it: "Mentre Apple Watch privilegia la continuità storica della metrica SDNN e ha introdotto solo di recente il punteggio Readiness (su Series 12 e Ultra 4 con watchOS 27), l'ecosistema Galaxy Watch integra funzioni hardware avanzate (come la bioimpedenza e la stima pressoria previa calibrazione con sfigmomanometro), i cui dati derivati tuttavia non trovano sempre un canale documentato di esportazione verso Health Connect.",
+        en: "While Apple Watch maintains historical fidelity to SDNN and has only recently introduced readiness scoring (on Series 12 and Ultra 4 with watchOS 27), the Galaxy Watch ecosystem incorporates multi-functional hardware (including bioimpedance and blood pressure estimation requiring arm cuff calibration), whose derived figures do not always have documented paths into Health Connect.",
       },
     },
     {
