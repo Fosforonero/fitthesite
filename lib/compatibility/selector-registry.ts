@@ -177,8 +177,8 @@ function buildWorkoutsConditionalResult(
           en: `${sourceAppLabel.en}'s list for ${storeEn} names activity data (distance, speed, heart rate, calories) but not workout sessions as a separate item. FitMesh reads sessions if ${storeEn} contains them; the source does not confirm that ${sourceAppLabel.en} writes them. Distance accuracy is under verification.`,
         },
     limitations: {
-      it: "Le distanze degli allenamenti sono in verifica e possono risultare sovrastimate quando più applicazioni registrano o esportano la stessa sessione. FitMesh non promette la deduplicazione automatica né applica la selezione della sorgente prioritaria alla distanza.",
-      en: "Workout distances are under verification and may appear inflated when multiple applications record or export the same session. FitMesh does not promise automatic deduplication and does not apply source priority selection to distance.",
+      it: "Le distanze degli allenamenti sono in verifica e possono risultare sovrastimate quando più applicazioni registrano o esportano la stessa sessione. FitMesh non promette la deduplicazione automatica.",
+      en: "Workout distances are under verification and may appear inflated when multiple applications record or export the same session. FitMesh does not promise automatic deduplication.",
     },
     evidence: evidenceText,
     cta: {
@@ -250,12 +250,12 @@ function buildColmiSpo2Conditional(): SelectorResult {
       en: "The FitMesh BLE driver supports reading blood oxygen (SpO2) measurements from the ring via Bluetooth Low Energy.",
     },
     limitations: {
-      it: "In FitMesh la selezione della sorgente prioritaria si applica a passi, sonno, frequenza cardiaca, calorie e HRV; non si applica a SpO2, peso e distanza.",
-      en: "In FitMesh, source priority selection applies to steps, sleep, heart rate, calories, and HRV; it does not apply to SpO2, weight, or distance.",
+      it: "Questa pagina non descrive come FitMesh combini la SpO2 dell'anello con quella di altre fonti.",
+      en: "This page does not describe how FitMesh combines the ring's SpO2 with other sources.",
     },
     evidence: {
-      it: "Specifiche del driver BLE e regole di priorità sorgente documentate in lib/compatibility/matrix-data.ts e lib/providers/data.ts (colmi-ring).",
-      en: "BLE driver specifications and source priority rules documented in lib/compatibility/matrix-data.ts and lib/providers/data.ts (colmi-ring).",
+      it: "Specifiche del driver BLE documentate in lib/compatibility/matrix-data.ts e lib/providers/data.ts (colmi-ring).",
+      en: "BLE driver specifications documented in lib/compatibility/matrix-data.ts and lib/providers/data.ts (colmi-ring).",
     },
     cta: {
       type: "store",

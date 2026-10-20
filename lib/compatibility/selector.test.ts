@@ -80,11 +80,14 @@ describe("FitMesh Compatibility Selector Registry & Server Link Resolver", () =>
     }
   });
 
-  it("enforces source priority exclusion for Colmi SpO2 and classifies unproven Fitbit/Apple Watch SpO2 as unverified", () => {
+  it("does not state source-priority behaviour of the app for Colmi SpO2 and classifies unproven Fitbit/Apple Watch SpO2 as unverified", () => {
     const colmiSpo2 = resolveCompatibilityPath("android", "colmi", "spo2");
     expect(colmiSpo2.status).toBe("conditional");
-    expect(colmiSpo2.limitations.it).toContain("SpO2, peso e distanza");
-    expect(colmiSpo2.limitations.en).toContain("SpO2, weight, or distance");
+    // Nessuna affermazione sul comportamento di priorita' delle fonti: non provato sulla build distribuita.
+    const spo2Text = `${colmiSpo2.limitations.it} ${colmiSpo2.limitations.en} ${colmiSpo2.evidence.it} ${colmiSpo2.evidence.en}`.toLowerCase();
+    expect(spo2Text).not.toContain("sorgente prioritaria");
+    expect(spo2Text).not.toContain("source priority");
+    expect(spo2Text).not.toContain("priorità sorgente");
     expect(colmiSpo2.cta.href).toEqual({ it: "/it#download", en: "/en#download" });
 
     expect(resolveCompatibilityPath("android", "fitbit", "spo2").status).toBe("unverified");
@@ -271,5 +274,28 @@ describe("FitMesh Compatibility Selector Registry & Server Link Resolver", () =>
     }
 
     expect(totalChecked).toBe(264);
+  });
+});
+
+describe("selector: nessuna promessa di priorita' o selezione della fonte", () => {
+  // 20/10/2026: la selezione per metrica, la provenienza e la priorita' delle fonti
+  // non sono provate sulla build distribuita per tutte le metriche. Il selettore
+  // non e' una prova indipendente dei comportamenti dell'app: non li afferma.
+  it("nessun risultato afferma priorita', selezione per metrica o deduplicazione applicata da FitMesh", () => {
+    const banned = [/source priority selection/i, /selezione della sorgente prioritaria/i, /applies? source priority/i, /applica(no)? (una )?priorit/i];
+    for (const os of OS_LIST) {
+      for (const device of ["garmin", "fitbit", "galaxy-watch", "pixel", "oura", "colmi", "apple-watch"] as const) {
+        for (const metric of ["steps", "heart_rate", "sleep", "workouts", "spo2", "hrv"] as const) {
+          let res;
+          try {
+            res = resolveCompatibilityPath(os, device as never, metric as never);
+          } catch {
+            continue;
+          }
+          const text = [res.explanation.it, res.explanation.en, res.limitations.it, res.limitations.en, res.evidence.it, res.evidence.en].join(" ");
+          for (const re of banned) expect(text).not.toMatch(re);
+        }
+      }
+    }
   });
 });
