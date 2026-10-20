@@ -701,15 +701,15 @@ export const post: BlogPost = {
       type: "list",
       items: {
           it: [
-            "**Dati non apparsi in Samsung Health:** controlla che entrambe le app siano escluse dall'ottimizzazione della batteria. Android può limitare le app in background, e questo può ritardare o fermare la sincronizzazione. Nome e posizione dell'impostazione dipendono dalla marca del telefono e dalla versione di Android.",
+            "**Dati non apparsi in Samsung Health:** controlla che entrambe le app siano escluse dall'ottimizzazione della batteria. Android può limitare le app in background, e questo può ritardare o fermare la sincronizzazione. Nome e posizione dell'impostazione dipendono dalla marca del telefono e dalla versione di Android. Se non basta, la [guida a Health Connect che non si sincronizza](/it/blog/health-connect-not-syncing) va dai controlli più rapidi ai ripristini.",
             "**Garmin Connect visualizza 'Health Connect non disponibile':** aggiorna entrambi Garmin Connect e Health Connect alla versione più recente.",
-            "**Passi doppi in Samsung Health:** potresti avere sia il contatore di passi incorporato in Samsung Health che Garmin che scrivono i passi nello stesso momento. Disabilita la tracciatura dei propri passi in Samsung Health nelle impostazioni per utilizzare Garmin come unica fonte.",
+            "**Passi doppi in Samsung Health:** potresti avere sia il contatore di passi incorporato in Samsung Health che Garmin che scrivono i passi nello stesso momento. Disabilita la tracciatura dei propri passi in Samsung Health nelle impostazioni per utilizzare Garmin come unica fonte. Per i casi con più dispositivi vedi [passi e allenamenti duplicati su Health Connect](/it/blog/piu-smartwatch-insieme-dati-doppi).",
             "**Allenamenti non apparsi:** l'elenco di Garmin cita dati di attività come distanza, velocità e frequenza cardiaca, ma non una seduta di allenamento a parte. In Health Connect controlla che Garmin Connect possa scrivere ogni tipo di dato che ti aspetti. Non abbiamo una fonte Garmin che dica che la seduta stessa debba comparire.",
           ],
           en: [
-            "**Data not appearing in Samsung Health:** check that both apps are excluded from battery optimization. Android can restrict background apps, which can delay or stop sync. The name and location of the setting depend on the phone brand and the Android version.",
+            "**Data not appearing in Samsung Health:** check that both apps are excluded from battery optimization. Android can restrict background apps, which can delay or stop sync. The name and location of the setting depend on the phone brand and the Android version. If that is not enough, the [Health Connect not syncing guide](/en/blog/health-connect-not-syncing) goes from the quickest checks to a full reset.",
             "**Garmin Connect shows 'Health Connect unavailable':** update both Garmin Connect and Health Connect to the latest version.",
-            "**Steps doubled in Samsung Health:** you may have both Samsung Health's built-in step counter and Garmin writing steps at the same time. Disable Samsung Health's own step tracking under Settings to use Garmin as the single source.",
+            "**Steps doubled in Samsung Health:** you may have both Samsung Health's built-in step counter and Garmin writing steps at the same time. Disable Samsung Health's own step tracking under Settings to use Garmin as the single source. For cases with several devices see [Health Connect duplicate steps and workouts](/en/blog/piu-smartwatch-insieme-dati-doppi).",
             "**Workouts not appearing:** Garmin's list names activity data such as distance, speed and heart rate, but not a separate workout session. In Health Connect, check that Garmin Connect may write each data type you expect. We have no Garmin source saying that a workout session itself should appear.",
           ],
           es: [
@@ -921,8 +921,8 @@ export const post: BlogPost = {
           ko: "이 설정을 완료하면 Garmin의 과거 데이터도 삼성 건강에 표시되나요?",
         },
       a: {
-          it: "Non è garantito. Garmin non documenta se Garmin Connect invii dati precedenti quando abiliti l'integrazione per la prima volta, né quanti e quando. Controlla Samsung Health dopo la prima sincronizzazione per vedere cosa è arrivato.",
-          en: "Not guaranteed. Garmin does not document whether Garmin Connect sends earlier data when you first enable the integration, or how much and when. Check Samsung Health after the first sync to see what arrived.",
+          it: "Non è garantito. Garmin non documenta se Garmin Connect invii dati precedenti quando abiliti l'integrazione per la prima volta, né quanti e quando. Controlla Samsung Health dopo la prima sincronizzazione per vedere cosa è arrivato. Per conservare lo storico a parte, vedi come [esportare i dati Garmin](/it/blog/esportare-dati-garmin).",
+          en: "Not guaranteed. Garmin does not document whether Garmin Connect sends earlier data when you first enable the integration, or how much and when. Check Samsung Health after the first sync to see what arrived. To keep your history separately, see how to [export Garmin data](/en/blog/esportare-dati-garmin).",
           es: "No está garantizado. Garmin no documenta si Garmin Connect envía datos anteriores cuando activas la integración por primera vez, ni cuántos ni cuándo. Revisa Samsung Health tras la primera sincronización para ver qué ha llegado.",
           de: "Nicht garantiert. Garmin dokumentiert nicht, ob Garmin Connect beim ersten Aktivieren der Integration frühere Daten sendet, wie viele und wann. Prüfen Sie nach der ersten Synchronisierung in Samsung Health, was angekommen ist.",
           pt: "Não é garantido. A Garmin não documenta se o Garmin Connect envia dados anteriores quando você ativa a integração pela primeira vez, nem quantos nem quando. Confira o Samsung Health após a primeira sincronização para ver o que chegou.",

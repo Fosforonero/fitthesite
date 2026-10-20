@@ -363,14 +363,14 @@ export const post: BlogPost = {
           "**Dati mai presenti**: l'app di lettura non ha mai ricevuto dati da Health Connect. Problema: permessi o source app non connessa.",
           "**Dati presenti ma in ritardo (ore/giorni)**: sync non in tempo reale. Problema: ottimizzazione batteria, background sync disabilitato.",
           "**Dati parziali**: alcune metriche sì, altre no. Problema: permessi granulari mancanti per specifici tipi di dati.",
-          "**Dati duplicati**: stessa metrica appare due volte. Problema: source multipli che scrivono lo stesso tipo (es. Garmin + Samsung Health).",
+          "**Dati duplicati**: stessa metrica appare due volte. Problema: source multipli che scrivono lo stesso tipo (es. Garmin + Samsung Health). Per questo caso vedi [passi e allenamenti duplicati su Health Connect: 7 fix](/it/blog/piu-smartwatch-insieme-dati-doppi).",
           "**Buco storico**: dati mancanti per un periodo specifico. Problema: app non connessa in quel periodo, o crash.",
         ],
         en: [
           "**Data never present**: the reading app has never received data from Health Connect. Problem: permissions or source app not connected.",
           "**Data present but delayed (hours/days)**: sync not real-time. Problem: battery optimization, background sync disabled.",
           "**Partial data**: some metrics yes, others no. Problem: granular permissions missing for specific data types.",
-          "**Duplicate data**: same metric appears twice. Problem: multiple sources writing the same type (e.g. Garmin + Samsung Health).",
+          "**Duplicate data**: same metric appears twice. Problem: multiple sources writing the same type (e.g. Garmin + Samsung Health). For this case see [Health Connect duplicate steps and workouts: 7 fixes](/en/blog/piu-smartwatch-insieme-dati-doppi).",
           "**Historical gap**: data missing for a specific period. Problem: app not connected during that period, or crash.",
         ],
         es: [
@@ -683,13 +683,13 @@ export const post: BlogPost = {
       type: "list",
       items: {
         it: [
-          "**Samsung Health**: assicurati che l'orologio si sia riconnesso col telefono, poi apri l'app Samsung Health o fai un pull-to-refresh nella schermata principale (Samsung documenta questi come modi per aggiornare i dati, non solo la riconnessione). Poi vai in Impostazioni → Health Connect → verifica che il collegamento sia attivo e che tutti i tipi di dato siano abilitati.",
-          "**Garmin Connect**: apri l'app. Garmin scrive su Health Connect dopo ogni sync riuscita con l'orologio, in sola lettura verso HC (non legge mai da lì). Verifica: Garmin Connect → Altro (☰) → Impostazioni → Health Connect attivo.",
+          "**Samsung Health**: assicurati che l'orologio si sia riconnesso col telefono, poi apri l'app Samsung Health o fai un pull-to-refresh nella schermata principale (Samsung documenta questi come modi per aggiornare i dati, non solo la riconnessione). Poi vai in Impostazioni → Health Connect → verifica che il collegamento sia attivo e che tutti i tipi di dato siano abilitati. Se a mancare sono i passi dell'orologio, vedi [Galaxy Watch: passi non sincronizzati](/it/blog/passi-non-si-sincronizzano-galaxy-watch).",
+          "**Garmin Connect**: apri l'app. Garmin scrive su Health Connect dopo ogni sync riuscita con l'orologio, in sola lettura verso HC (non legge mai da lì). Verifica: Garmin Connect → Altro (☰) → Impostazioni → Health Connect attivo. Il percorso passo per passo è nella [guida per sincronizzare Garmin con Samsung Health e Health Connect](/it/blog/garmin-samsung-health-sync-guide).",
           "**Google Health (ex Fitbit)**: dal 19 maggio 2026 l'app Fitbit è diventata l'app Google Health. Apri l'app → aspetta che si sincronizzi con il dispositivo, poi verifica il collegamento a Health Connect dalle sue impostazioni.",
         ],
         en: [
-          "**Samsung Health**: make sure the watch has reconnected with the phone, then open the Samsung Health app or pull-to-refresh its home screen (Samsung documents these as ways to refresh the data, not just reconnecting). Then go to Settings → Health Connect → verify the link is active and all data types are enabled.",
-          "**Garmin Connect**: open the app. Garmin writes to Health Connect after each successful watch sync, one-way into HC (it never reads from it). Check: Garmin Connect → More (☰) → Settings → Health Connect enabled.",
+          "**Samsung Health**: make sure the watch has reconnected with the phone, then open the Samsung Health app or pull-to-refresh its home screen (Samsung documents these as ways to refresh the data, not just reconnecting). Then go to Settings → Health Connect → verify the link is active and all data types are enabled. If it is the watch's steps that are missing, see [Galaxy Watch steps not syncing](/en/blog/passi-non-si-sincronizzano-galaxy-watch).",
+          "**Garmin Connect**: open the app. Garmin writes to Health Connect after each successful watch sync, one-way into HC (it never reads from it). Check: Garmin Connect → More (☰) → Settings → Health Connect enabled. The step-by-step path is in the [guide to syncing Garmin with Samsung Health and Health Connect](/en/blog/garmin-samsung-health-sync-guide).",
           "**Google Health (formerly Fitbit)**: since May 19, 2026 the Fitbit app has become the Google Health app. Open the app → wait for it to sync with the device, then check the Health Connect link in its settings.",
         ],
         es: [
