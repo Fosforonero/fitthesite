@@ -281,8 +281,12 @@ export default async function HealthConnectGuidePage({
   const crumbCurrent = isIt ? "Guida Connessione Salute" : "Health Connect Guide";
 
   // Mandato: TechArticle + BreadcrumbList (quest'ultimo emesso da <Breadcrumbs>),
-  // non HowTo. Date reali del ciclo di rilascio (pubblicazione 09/10/2026,
-  // revisione 19/10/2026). Autore e publisher: organizzazione.
+  // non HowTo. Date riscontrate sul rilascio in produzione, non sulla storia
+  // Git: prima pubblicazione 10/10/2026 (deploy di #102, main 16:00 CEST; il
+  // file nasce su un ramo il 09/10 ma non era pubblico), ultima modifica
+  // pubblicata 12/10/2026 (#104, screenshot EN). dateModified va portata alla
+  // data di deploy effettiva di questo cambio di schema quando andra' in
+  // produzione. Autore e publisher: organizzazione.
   const techArticleJsonLd = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
@@ -294,8 +298,8 @@ export default async function HealthConnectGuidePage({
     url: `${SITE_URL}/${lc}/support/health-connect`,
     mainEntityOfPage: `${SITE_URL}/${lc}/support/health-connect`,
     image: `${SITE_URL}${steps[0].imageSrc}`,
-    datePublished: "2026-10-09",
-    dateModified: "2026-10-19",
+    datePublished: "2026-10-10",
+    dateModified: "2026-10-12",
     author: { "@type": "Organization", name: "FitMesh Sync", url: SITE_URL },
     publisher: { "@type": "Organization", name: "FitMesh Sync", url: SITE_URL },
   };

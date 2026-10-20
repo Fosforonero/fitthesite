@@ -256,8 +256,11 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
       expect(ta, `TechArticle assente per ${lc}`).toBeDefined();
       expect(ta.url).toBe(`https://www.fitmesh.fit/${lc}/support/health-connect`);
       expect(ta.inLanguage).toBeTruthy();
-      expect(ta.datePublished).toBe('2026-10-09');
+      // Prima pubblicazione in produzione: deploy di #102 il 10/10/2026
+      // (il 09/10 e' solo la creazione del file su un ramo di lavoro).
+      expect(ta.datePublished).toBe('2026-10-10');
       expect(ta.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(ta.dateModified >= ta.datePublished).toBe(true);
       expect(ta.step).toBeUndefined();
 
       cleanup();
