@@ -150,7 +150,7 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
   // pubblicate e complete.
   //
   // `google-health-google-fit` e' la QUARTA (20/10/2026): un solo riquadro
-  // informativo sulla scadenza Fitbit Web API, solo it/en. Le altre locale non
+  // informativo sulla scadenza Fitbit Web API, it/en e (dopo revisione) de/ja. Le altre locale non
   // hanno una traduzione rivista del riquadro e restano con il contenuto
   // precedente (vedi l'asserzione dedicata in coda al test sotto).
   const LOCALE_SCOPED_POST_SLUGS = new Set([
@@ -170,13 +170,15 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
         expect(filteredFaq.length, `${post.slug}/${lc}: faq non deve perdere domande`).toBe((post.faq ?? []).length);
       }
     }
-    // Il riquadro Fitbit Web API di google-health-google-fit e' visibile solo a it/en;
+    // Il riquadro Fitbit Web API di google-health-google-fit e' visibile a it/en/de/ja;
     // ogni altra locale vede esattamente una sezione in meno, mai di piu'.
     const gh = BLOG_POSTS.find((p) => p.slug === "google-health-google-fit")!;
     const ghIt = filterBlogContentForLocale(gh.body, "it").length;
     expect(ghIt).toBe(gh.body.length);
-    expect(filterBlogContentForLocale(gh.body, "en").length).toBe(ghIt);
-    for (const lc of ["es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const) {
+    for (const lc of ["en", "de", "ja"] as const) {
+      expect(filterBlogContentForLocale(gh.body, lc).length, `google-health-google-fit/${lc}`).toBe(ghIt);
+    }
+    for (const lc of ["es", "pt", "fr", "pl", "tr", "nl", "ko"] as const) {
       expect(filterBlogContentForLocale(gh.body, lc).length, `google-health-google-fit/${lc}`).toBe(ghIt - 1);
     }
   });

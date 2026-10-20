@@ -523,7 +523,7 @@ export const post: BlogPost = {
           "Als rechten ontbreken, schakel ze in en geef ze.",
         ],
         ja: [
-          "**Health Connect**を開く（アプリドロワーで検索するか、設定で「Health Connect」を検索）。",
+          "**Health Connect**を開く：Android 14以降はシステム設定のプライバシー関連の項目にあります。Android 13以前は独立したアプリです（インストール済みアプリから検索してください。アプリ一覧のアイコンは2022年になくなりました）。名称は機種とAndroidのバージョンによって異なります。",
           "**アプリの権限**に移動する。",
           "同期していないアプリを見つける（例：FitMesh Sync、Garmin Connect、Samsung Health）。",
           "アプリをタップして、期待するすべてのデータタイプ（歩数、心拍数、睡眠、ワークアウト）に対して**読み取り**と**書き込み**の権限があることを確認する。",
