@@ -90,6 +90,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "/novita" },
     { path: "/support" },
     { path: "/support/health-connect", indexableLocales: (lc) => lc === "it" || lc === "en" },
+    { path: "/support/primo-sync", indexableLocales: (lc) => lc === "it" || lc === "en" },
+    { path: "/pricing", indexableLocales: (lc) => lc === "it" || lc === "en" },
     { path: "/privacy" },
     { path: "/terms" },
     { path: "/cookies" },
