@@ -70,7 +70,7 @@ export const post: BlogPost = {
         // quel giro perche' non e' un TL;DR/body ma il subtitle dell'hero.
         it: "Garmin e Samsung Health non si parlano direttamente. Ecco la configurazione completa per far fluire i tuoi dati su entrambe le piattaforme.",
         en: "Garmin and Samsung Health do not talk directly. Here is the complete setup to get your data flowing to both platforms.",
-        es: "Garmin y Samsung Health no se comunican directamente. Aquí tienes la configuración completa para que tu data fluya hacia ambas plataformas.",
+        es: "Garmin y Samsung Health no se comunican directamente. Aquí tienes la configuración completa para que tus datos fluyan hacia ambas plataformas.",
         de: "Garmin und Samsung Health sprechen nicht direkt miteinander. Hier ist der vollständige Setup-Prozess, um Ihre Daten zu beiden Plattformen zu leiten.",
         pt: "O Garmin e o Samsung Health não se comunicam diretamente. Aqui está a configuração completa para que seus dados fluam para ambas as plataformas.",
         fr: "Garmin et Samsung Health ne communiquent pas directement. Voici la configuration complète pour que vos données circulent vers les deux plateformes.",
@@ -82,9 +82,9 @@ export const post: BlogPost = {
       },
   },
   metaDescription: {
-      it: "Garmin Connect e Samsung Health non si sincronizzano direttamente. Questo guida ti mostra come connetterli tramite Health Connect su Android, passo per passo.",
+      it: "Garmin Connect e Samsung Health non si sincronizzano direttamente. Questa guida ti mostra come connetterli tramite Health Connect su Android, passo per passo.",
       en: "Garmin Connect and Samsung Health do not sync directly. This guide shows you how to connect them via Health Connect on Android, step by step.",
-      es: "Garmin Connect y Samsung Health no se sincronizan directamente. Este guía te muestra cómo conectarlos a través de Health Connect en Android, paso a paso.",
+      es: "Garmin Connect y Samsung Health no se sincronizan directamente. Esta guía te muestra cómo conectarlos a través de Health Connect en Android, paso a paso.",
       de: "Garmin Connect und Samsung Health synchronisieren sich nicht direkt. So verbinden Sie beide über Health Connect auf Android, Schritt für Schritt.",
       pt: "Garmin Connect e Samsung Health não se sincronizam diretamente. Este guia mostra como conectar essas plataformas através do Health Connect no Android, passo a passo.",
       fr: "Garmin Connect et Samsung Health ne s'intègrent pas directement. Ce guide montre comment les connecter via Health Connect sur Android, étape par étape.",
@@ -236,9 +236,9 @@ export const post: BlogPost = {
     {
       type: "paragraph",
       text: {
-          it: "Garmin Connect e Samsung Health sono due tra i sistemi di fitness più diffusi su Android, ma non si parlano direttamente l'uno con l'altro. Per anni, l'unica soluzione alternativa era un'app di terze parti o una esportazione manuale dei dati. Con l'avvento del Health Connect come standard per la sincronizzazione, la situazione è cambiata. Garmin Connect scrive i tuoi dati su Health Connect; Samsung Health può sia leggere che scrivere su Health Connect. Insieme, agiscono come ponte. Questa guida ti mostra come configurarlo correttamente.",
+          it: "Garmin Connect e Samsung Health sono due tra i sistemi di fitness più diffusi su Android, ma non si parlano direttamente l'uno con l'altro. Per anni, l'unica soluzione alternativa era un'app di terze parti o un'esportazione manuale dei dati. Con l'avvento del Health Connect come standard per la sincronizzazione, la situazione è cambiata. Garmin Connect scrive i tuoi dati su Health Connect; Samsung Health può sia leggere che scrivere su Health Connect. Insieme, agiscono come ponte. Questa guida ti mostra come configurarlo correttamente.",
           en: "Garmin Connect and Samsung Health are two widely used fitness ecosystems on Android, but they have never talked to each other directly. For years, the only workaround was a third-party app or manual data export. Since Android's Health Connect became the standard sync layer, the picture changed. Garmin Connect writes your data to Health Connect; Samsung Health can both read from and write to Health Connect. Together, they act as the bridge. This guide shows you how to set it up correctly.",
-          es: "Garmin Connect y Samsung Health son dos de los ecosistemas de fitness más usados en Android, pero nunca se han comunicado directamente. Por años, la única solución fue una aplicación de terceros o la exportación manual de datos. Con el lanzamiento del estándar de sincronización Health Connect para Android, la situación cambió. Garmin Connect escribe tus datos en Health Connect; Samsung Health puede tanto leer como escribir en Health Connect. Juntas, actúan como puente. Este guía te muestra cómo configurarlo correctamente.",
+          es: "Garmin Connect y Samsung Health son dos de los ecosistemas de fitness más usados en Android, pero nunca se han comunicado directamente. Por años, la única solución fue una aplicación de terceros o la exportación manual de datos. Con el lanzamiento del estándar de sincronización Health Connect para Android, la situación cambió. Garmin Connect escribe tus datos en Health Connect; Samsung Health puede tanto leer como escribir en Health Connect. Juntas, actúan como puente. Esta guía te muestra cómo configurarlo correctamente.",
           de: "Garmin Connect und Samsung Health gehören zu den meistgenutzten Fitness-Ökosystemen auf Android, aber sie haben sich nie direkt mit einander verständigt. Für Jahre war die einzige Workaround-Möglichkeit ein dritter Teilnehmer oder manuelle Datenexporte. Da Health Connect auf Android als Standard-Synchronisierungsschicht geworden ist, hat sich das Bild geändert. Garmin Connect schreibt Ihre Daten in Health Connect; Samsung Health kann sowohl von Health Connect lesen als auch dorthin schreiben. Zusammen fungieren sie als Brücke. Dieser Leitfaden zeigt Ihnen, wie Sie es richtig einrichten.",
           pt: "Garmin Connect e Samsung Health são dois dos ecossistemas de fitness mais usados no Android, mas nunca se comunicaram diretamente. Por anos, a única solução era uma aplicação de terceiros ou exportação manual de dados. Com o Health Connect do Android como camada padrão de sincronização, a situação mudou. O Garmin Connect grava seus dados no Health Connect; o Samsung Health pode tanto ler quanto gravar no Health Connect. Juntos, atuam como a ponte. Este guia mostra como configurar corretamente.",
           fr: "Garmin Connect et Samsung Health sont deux écosystèmes de fitness très utilisés sur Android, mais ils n'ont jamais communiqué directement. Pendant des années, l'unique solution était une application tierce ou une exportation manuelle des données. Depuis que Health Connect est devenu le standard pour la synchronisation, la situation a changé. Garmin Connect écrit vos données dans Health Connect; Samsung Health peut à la fois lire et écrire dans Health Connect. Ensemble, ils agissent comme un pont. Ce guide montre comment configurer correctement.",
@@ -400,7 +400,7 @@ export const post: BlogPost = {
           es: [
             "Abre Garmin Connect en tu teléfono.",
             "Ve al menú principal (tres puntos o icono hamburguesa, en la esquina superior izquierda).",
-            "Toque 'Health Connect' o busquelo en Configuración.",
+            "Toca 'Health Connect' o búscalo en Configuración.",
             "Toca 'Conectar' y concede todos los permisos solicitados: pasos, sueño, frecuencia cardíaca, datos de actividad, mediciones corporales.",
             "Garmin Connect empezará a escribir datos en Health Connect a partir de este momento. Garmin no documenta si Garmin Connect envía también datos anteriores, ni cuántos ni cuándo: no cuentes con ello.",
           ],
@@ -485,7 +485,7 @@ export const post: BlogPost = {
       items: {
           it: [
             "Aprire Samsung Health.",
-            "Toccare il proprio icona profilo (in alto a destra) e andare nelle impostazioni.",
+            "Toccare la propria icona del profilo (in alto a destra) e andare nelle impostazioni.",
             "Toccare 'Servizi connessi' o 'Health Connect'.",
             "Abilitare Health Connect e concedere a Samsung Health il permesso di leggere i passi, il sonno, il tasso di battito cardiaco e i dati sull'attività.",
             "Aprire l'applicazione di sistema Health Connect e verificare che Samsung Health appaia nelle 'Permessi delle applicazioni' con accesso in lettura.",
@@ -499,8 +499,8 @@ export const post: BlogPost = {
           ],
           es: [
             "Abre Samsung Health.",
-            "Toque el icono de tu perfil (en la esquina superior derecha) y ve a Configuración.",
-            "Toque 'Servicios conectados' o 'Health Connect'.",
+            "Toca el icono de tu perfil (en la esquina superior derecha) y ve a Configuración.",
+            "Toca 'Servicios conectados' o 'Health Connect'.",
             "Habilita Health Connect y otorga a Samsung Health permiso para leer pasos, sueño, frecuencia cardíaca e información de actividad.",
             "Abre la aplicación del sistema Health Connect y verifica que Samsung Health aparezca en 'Permisos de aplicaciones' con acceso de lectura.",
           ],
@@ -584,7 +584,7 @@ export const post: BlogPost = {
       items: {
           it: [
             "Assicurati che il tuo dispositivo Garmin si sia sincronizzato almeno una volta con l'app Garmin Connect, poi apri Samsung Health: la sincronizzazione non è garantita semplicemente aspettando.",
-            "Aprire Samsung Health e navigare inattività. Dovresti vedere i conteggi passo dal tuo dispositivo Garmin.",
+            "Aprire Samsung Health e andare nella sezione Attività. Dovresti vedere i conteggi passo dal tuo dispositivo Garmin.",
             "Controllare lo schermo principale di Samsung Health per i dati del sonno. Se hai dormito con il tuo dispositivo Garmin, le fasi della notte precedente dovrebbero apparire.",
             "Se i dati sono mancanti, aprire Health Connect, andare a 'Dati e accesso' e verificare che Garmin Connect sia elencato come fonte di dati con permessi di scrittura per ogni tipo di dato aspettato.",
           ],
@@ -893,7 +893,7 @@ export const post: BlogPost = {
           ko: "Garmin은 Health Connect 없이 삼성 건강과 직접 동기화되나요?",
         },
       a: {
-          it: "No. Al 2026, non esiste una integrazione diretta tra Garmin Connect e Samsung Health. Health Connect è l'unica ponte supportata su Android.",
+          it: "No. Al 2026, non esiste un'integrazione diretta tra Garmin Connect e Samsung Health. Health Connect è l'unico ponte supportata su Android.",
           en: "No. As of 2026, there is no direct integration between Garmin Connect and Samsung Health. Health Connect is the only supported bridge on Android.",
           es: "No. Hasta 2026, no hay integración directa entre Garmin Connect y Samsung Health. Health Connect es el único puente soportado en Android.",
           de: "Nein. Bis 2026 gibt es keine direkte Integration zwischen Garmin Connect und Samsung Health. Health Connect ist die einzige unterstützte Brücke auf Android.",
@@ -949,9 +949,9 @@ export const post: BlogPost = {
           ko: "이 방법은 iOS에서도 작동하나요?",
         },
       a: {
-          it: "Health Connect è Android-only. Su iOS, l'equivalente è Apple Health. Garmin Connect supporta la sincronizzazione con Apple Health su iOS, ma Samsung Health ha funzionalità limitate su iOS. Questo guida si applica solo a Android.",
+          it: "Health Connect è Android-only. Su iOS, l'equivalente è Apple Health. Garmin Connect supporta la sincronizzazione con Apple Health su iOS, ma Samsung Health ha funzionalità limitate su iOS. Questa guida si applica solo a Android.",
           en: "Health Connect is Android-only. On iOS, the equivalent is Apple Health. Garmin Connect does support Apple Health sync on iOS, but Samsung Health on iOS has limited functionality. This guide applies to Android only.",
-          es: "Health Connect es Android-only. En iOS, el equivalente es Apple Health. Garmin Connect soporta la sincronización con Apple Health en iOS, pero Samsung Health en iOS tiene funcionalidad limitada. Este guía se aplica solo a Android.",
+          es: "Health Connect es Android-only. En iOS, el equivalente es Apple Health. Garmin Connect soporta la sincronización con Apple Health en iOS, pero Samsung Health en iOS tiene funcionalidad limitada. Esta guía se aplica solo a Android.",
           de: "Health Connect ist nur für Android verfügbar. Auf iOS entspricht das Äquivalent Apple Health. Garmin Connect unterstützt die Synchronisierung mit Apple Health auf iOS, aber Samsung Health auf iOS hat begrenzte Funktionalität. Dieses Handbuch gilt nur für Android.",
           pt: "A Health Connect é Android-only. No iOS, o equivalente é o Apple Health. O Garmin Connect suporta a sincronização com o Apple Health no iOS, mas o Samsung Health no iOS tem funcionalidade limitada. Este guia se aplica apenas ao Android.",
           fr: "Health Connect est Android-only. Sur iOS, l'équivalent est Apple Health. Garmin Connect supporte la synchronisation avec Apple Health sur iOS, mais Samsung Health sur iOS a une fonctionnalité limitée. Ce guide s'applique uniquement à Android.",
