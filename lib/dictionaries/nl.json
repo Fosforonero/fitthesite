@@ -37,7 +37,7 @@
       },
       {
         "title": "Mesh Familie",
-        "desc": "Maak een groep en deel je stappen, slaap en hartslag met je familie: ouders, partner, kinderen. Iedereen bepaalt zelf wat hij laat zien."
+        "desc": "Family Mesh is in ontwikkeling en nog niet beschikbaar. We hebben geen releasedatum aangekondigd."
       }
     ]
   },
@@ -121,7 +121,6 @@
       "add_title": "Apparaat toevoegen",
       "add_body": "Genereer een code en voer deze in de FitMesh Sync-app in om een nieuwe telefoon te verbinden.",
       "add_cta": "Code genereren",
-      "coming_soon": "(binnenkort)",
       "list_title": "Verbonden apparaten",
       "empty": "Nog geen apparaten verbonden.",
       "error": "Fout bij laden van apparaten.",

@@ -37,7 +37,7 @@
       },
       {
         "title": "Mesh Família",
-        "desc": "Crie um grupo e compartilhe passos, sono e frequência cardíaca com sua família: pais, parceiro, filhos. Cada um decide o que mostrar."
+        "desc": "O Mesh Família está em desenvolvimento e ainda não está disponível. Não anunciamos uma data de lançamento."
       }
     ]
   },
@@ -121,7 +121,6 @@
       "add_title": "Adicionar dispositivo",
       "add_body": "Gere um código e insira-o no app FitMesh Sync para conectar um novo celular.",
       "add_cta": "Gerar código",
-      "coming_soon": "(em breve)",
       "list_title": "Dispositivos conectados",
       "empty": "Ainda não há nenhum dispositivo conectado.",
       "error": "Erro ao carregar os dispositivos.",
