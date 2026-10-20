@@ -299,3 +299,19 @@ describe("selector: nessuna promessa di priorita' o selezione della fonte", () =
     }
   });
 });
+
+describe("selector: stati citati dall'articolo Apple Watch / Galaxy Watch", () => {
+  // L'articolo apple-watch-galaxy-watch-dati-fitmesh descrive questi stati del selettore.
+  // Se cambiano, il testo dell'articolo va rivisto: il test lo ricorda.
+  it("passi, frequenza e sonno con fasi: percorso documentato; allenamenti: condizionati; HRV, SpO2, temperatura: non verificati", () => {
+    for (const [os, device] of [["ios", "apple-watch"], ["android", "samsung"]] as const) {
+      for (const metric of ["steps", "heart_rate", "sleep", "sleep_stages"] as const) {
+        expect(resolveCompatibilityPath(os, device, metric).status, `${os}/${device}/${metric}`).toBe("health_store");
+      }
+      expect(resolveCompatibilityPath(os, device, "workouts").status).toBe("conditional");
+      for (const metric of ["hrv", "spo2", "temperature"] as const) {
+        expect(resolveCompatibilityPath(os, device, metric).status, `${os}/${device}/${metric}`).toBe("unverified");
+      }
+    }
+  });
+});
