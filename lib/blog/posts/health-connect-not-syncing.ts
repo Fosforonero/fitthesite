@@ -1530,8 +1530,8 @@ export const post: BlogPost = {
         ],
       },
       secondaryLabel: {
-        it: "Vedi tutte le integrazioni",
-        en: "See all integrations",
+        it: "Controlla il tuo dispositivo nel selettore di compatibilità",
+        en: "Check your device in the compatibility selector",
         es: "Ver todas las integraciones",
         de: "Alle Integrationen ansehen",
         pt: "Ver todas as integrações",
@@ -1545,8 +1545,8 @@ export const post: BlogPost = {
         da: "Se alle integrationer",
       },
       secondaryHref: {
-        it: "/it/integrations",
-        en: "/en/integrations",
+        it: "/it/integrations#compatibility",
+        en: "/en/integrations#compatibility",
       },
     },
   ],
