@@ -51,7 +51,8 @@ export type CoverType =
   | "hrvClimbing"
   | "androidToIphoneEditorial"
   | "appleHealthExportEditorial"
-  | "smartwatchChoiceTrail";
+  | "smartwatchChoiceTrail"
+  | "watchDataComparison";
 
 export const COVER_W = 1200;
 export const COVER_H = 675;
@@ -155,6 +156,8 @@ export const COVER_FILE: Record<CoverType, string> = {
   androidToIphoneEditorial: "android-to-iphone-fitness-data-editorial.webp",
   appleHealthExportEditorial: "apple-health-export-wellness-editorial.webp",
   smartwatchChoiceTrail: "smartwatch-data-choice-trail.webp",
+  // 19/10/2026: cover dedicata per confronto Apple Watch vs Galaxy Watch
+  watchDataComparison: "watch-data-comparison-20261017.webp",
 };
 
 /**
@@ -288,6 +291,8 @@ export const POST_COVER: Record<string, CoverType> = {
   "galaxy-watch-sleep-tracking-health-connect": "galaxyWatchSleep",
   // 01/10/2026: guida ultratleta, cover dedicata (vedi COVER_FILE sopra).
   "fitmesh-ultratleta-apple-watch-garmin-polar": "ultraAthleteDay",
+  // 19/10/2026: confronto Apple Watch vs Galaxy Watch, cover dedicata.
+  "apple-watch-galaxy-watch-dati-fitmesh": "watchDataComparison",
 };
 
 /** Tipo cover del post: assegnazione esplicita, altrimenti default per categoria. */

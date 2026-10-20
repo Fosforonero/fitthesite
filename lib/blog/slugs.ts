@@ -930,6 +930,21 @@ export const BLOG_SLUGS: Record<string, SlugSet> = {
     ja: "apple-watch-garmin-polar-fitmesh-no-ichinichi",
     ko: "apple-watch-garmin-polar-day-fitmesh",
   },
+  // 19/10/2026: confronto Apple Watch vs Galaxy Watch (solo IT/EN). Le altre
+  // lingue riusano lo slug EN e vanno in redirect 307 a singolo hop tramite
+  // REDIRECT_INCOMPLETE_LOCALE_SLUGS in lib/blog/indexability.ts.
+  "apple-watch-galaxy-watch-dati-fitmesh": {
+    en: "apple-watch-galaxy-watch-fitmesh-data",
+    es: "apple-watch-galaxy-watch-fitmesh-data",
+    de: "apple-watch-galaxy-watch-fitmesh-data",
+    pt: "apple-watch-galaxy-watch-fitmesh-data",
+    fr: "apple-watch-galaxy-watch-fitmesh-data",
+    pl: "apple-watch-galaxy-watch-fitmesh-data",
+    tr: "apple-watch-galaxy-watch-fitmesh-data",
+    nl: "apple-watch-galaxy-watch-fitmesh-data",
+    ja: "apple-watch-galaxy-watch-fitmesh-data",
+    ko: "apple-watch-galaxy-watch-fitmesh-data",
+  },
 };
 
 export const LANDING_SLUGS: Record<string, SlugSet> = {
