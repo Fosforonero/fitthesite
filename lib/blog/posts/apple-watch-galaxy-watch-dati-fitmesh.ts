@@ -133,7 +133,7 @@ export const post: BlogPost = {
       placement: "article_end",
       title: { it: "Controlla il tuo orologio prima di installare", en: "Check your watch before you install" },
       body: { it: "Il selettore di compatibilità indica, per ogni orologio e per ogni dato, il percorso che usa FitMesh e il suo stato. Se la tua combinazione è documentata, installa FitMesh Sync per il tuo telefono.", en: "The compatibility selector lists, for each watch and each data type, the route FitMesh uses and its status. If your combination is documented, install FitMesh Sync for your phone." },
-      benefits: { it: ["Legge ciò che l'app dell'orologio scrive in Apple Salute o Health Connect, con il tuo permesso", "Ogni risultato del selettore riporta fonte e limiti", "Gli stati sono tre: documentato, condizionato, non verificato"], en: ["Reads what the watch app writes to Apple Health or Health Connect, with your permission", "Each selector result names its source and its limits", "Statuses are documented, conditional or not verified"] },
+      benefits: { it: ["Legge ciò che l'app dell'orologio scrive in Apple Salute o Health Connect, con il tuo permesso", "Ogni risultato riporta la fonte e i limiti", "Ogni risultato dice se il percorso è documentato, condizionato, non verificato o non supportato"], en: ["Reads what the watch app writes to Apple Health or Health Connect, with your permission", "Each result names its source and its limits", "Each result says whether the route is documented, conditional, not verified or unsupported"] },
       secondaryLabel: { it: "Apri il selettore di compatibilità", en: "Open the compatibility selector" },
       secondaryHref: { it: "/it/integrations#compatibility", en: "/en/integrations#compatibility" },
     },
