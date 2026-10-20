@@ -739,7 +739,7 @@ export default async function BlogArticle({
                     </span>
                   </summary>
                   <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-                    {tl(f.a, lc)}
+                    {renderMarkdownInline(tl(f.a, lc), lc)}
                   </p>
                 </details>
               ))}
