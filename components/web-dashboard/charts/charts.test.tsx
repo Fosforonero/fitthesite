@@ -409,6 +409,38 @@ describe('DASHBOARD-CHARTS-01: Componenti grafici e contratto dei dati', () => {
       expect(tooltip.textContent).toContain('Seleziona una colonna');
     });
 
+    it('i singoli slot del grafico sono pulsanti focalizzabili da tastiera (tabIndex=0) con etichetta accessibile', () => {
+      const pts = getStepsFixture(7, 'complete');
+      const { container } = render(
+        <DailyStepsChart
+          isDemo
+          id="focus-test"
+          title="Focus Test"
+          points={pts}
+          period={7}
+          locale="it"
+        />
+      );
+
+      const buttons = container.querySelectorAll('button[data-slot-index]');
+      expect(buttons).toHaveLength(7);
+      buttons.forEach((btn, idx) => {
+        expect(btn.getAttribute('type')).toBe('button');
+        expect(btn.getAttribute('tabindex')).toBe('0');
+        expect(btn.getAttribute('data-date')).toBe(pts[idx].date);
+        expect(btn.getAttribute('aria-label')).toBeTruthy();
+      });
+
+      // Fuoco da tastiera sul primo slot
+      fireEvent.focus(buttons[0]);
+      const tooltip = container.querySelector('#focus-test-tooltip');
+      expect(tooltip).not.toBeNull();
+
+      // Attivazione da tastiera tramite solo Enter (nessun click che ne maschera il difetto)
+      fireEvent.keyDown(buttons[1], { key: 'Enter' });
+      expect(tooltip?.getAttribute('data-date')).toBe(pts[1].date);
+    });
+
     it('ogni attributo aria-describedby punta a un elemento presente nel DOM', () => {
       const pts = getStepsFixture(7, 'complete');
       const { container } = render(

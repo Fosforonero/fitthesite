@@ -44,7 +44,7 @@ export default async function AppLayout({
 
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="border-b border-divider bg-bg-secondary/40 backdrop-blur sticky top-0 z-30">
+      <header className="border-b border-divider bg-bg-secondary/40 backdrop-blur sm:sticky sm:top-0 z-30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
           <Link href={`/${lc}/app`} className="font-display font-semibold text-text-primary">
             FitMesh

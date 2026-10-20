@@ -54,4 +54,19 @@ describe('layout.header.adversarial: guardia strutturale sui punti ciechi dell\'
     // Il bottone non deve essere vuoto: deve mostrare il testo del dizionario con fallback
     expect(buttonInner).toMatch(/t\.app\?\.nav\?\.logout|\bEsci\b/);
   });
+
+  it('l\'header e nel normale flusso sotto sm e sticky da sm in su (rifiuta sticky incondizionato)', () => {
+    const headerMatch = /<header\s+className="([^"]*)">/.exec(layout);
+    expect(headerMatch).not.toBeNull();
+    const headerClasses = headerMatch![1].split(/\s+/);
+
+    // Sotto sm non deve essere sticky (difetto G-05)
+    expect(headerClasses).not.toContain('sticky');
+    expect(headerClasses).not.toContain('top-0');
+
+    // Da sm in su deve essere sticky
+    expect(headerClasses).toContain('sm:sticky');
+    expect(headerClasses).toContain('sm:top-0');
+  });
 });
+

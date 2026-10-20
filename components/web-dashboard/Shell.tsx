@@ -64,7 +64,7 @@ export function PreviewBar({ copy, lc, screen, params }: { copy: SharedCopy; lc:
 export function ReceiptChip({ receipt, copy, ui, href }: { receipt: ReceiptStatus; copy: SharedCopy; ui: UiLocale; href: string }) {
   const label = receipt.ageMinutes === null ? copy.received.never : `${copy.received.label}: ${fmtAge(receipt.ageMinutes, ui)}`;
   return (
-    <a href={href} data-slot="receipt-chip" className={`inline-flex items-center gap-2 rounded-pill border border-divider bg-bg-card px-3 py-1.5 text-xs text-text-secondary hover:bg-white/5 ${focusRing}`}>
+    <a href={href} data-slot="receipt-chip" className={`inline-flex min-h-[44px] items-center gap-1.5 sm:gap-2 rounded-pill border border-divider bg-bg-card px-2.5 sm:px-3 py-1 text-xs text-text-secondary hover:bg-white/5 ${focusRing}`}>
       <Chip tone="neutral" icon="sync">{label}</Chip>
     </a>
   );
@@ -80,7 +80,7 @@ export function DateNav({ copy, lc, ui, screen, params }: { copy: SharedCopy; lc
   const btn = `grid place-items-center w-11 h-11 rounded-pill border border-divider text-text-primary hover:bg-white/5 ${focusRing}`;
   const off = 'grid place-items-center w-11 h-11 rounded-pill border border-divider/50 text-text-muted opacity-40';
   return (
-    <nav aria-label={copy.date.pick} className="flex items-center gap-2">
+    <nav aria-label={copy.date.pick} className="flex items-center gap-1.5 sm:gap-2">
       {canPrev ? (
         <a href={previewHref(lc, screen, params, { day: prev })} className={btn} aria-label={copy.date.prev}>
           <Icon name="chevronLeft" />
@@ -88,7 +88,7 @@ export function DateNav({ copy, lc, ui, screen, params }: { copy: SharedCopy; lc
       ) : (
         <span className={off} aria-hidden="true"><Icon name="chevronLeft" /></span>
       )}
-      <div className="min-w-[8.5rem] text-center">
+      <div className="min-w-[7.5rem] sm:min-w-[8.5rem] text-center">
         <p className="text-sm font-semibold text-text-primary">{label}</p>
         <p className="text-xs text-text-muted">{fmtDayLong(params.day, ui)}</p>
       </div>
@@ -105,7 +105,7 @@ export function DateNav({ copy, lc, ui, screen, params }: { copy: SharedCopy; lc
 
 function NavLink({ screen, lc, params, copy, active, mobile }: { screen: ScreenKey; lc: string; params: PreviewParams; copy: SharedCopy; active: boolean; mobile?: boolean }) {
   const base = mobile
-    ? `shrink-0 inline-flex items-center gap-2 px-4 min-h-[44px] rounded-pill text-sm font-medium border`
+    ? `shrink-0 inline-flex items-center gap-1.5 px-3.5 min-h-[44px] rounded-pill text-xs sm:text-sm font-medium border`
     : `flex items-center gap-3 px-3 min-h-[44px] rounded-[14px] text-sm font-medium`;
   const state = active
     ? mobile ? 'border-brand-aqua bg-brand-aqua/15 text-brand-aqua' : 'bg-white/8 text-text-primary'
@@ -165,20 +165,20 @@ export function DashboardShell({
         </aside>
 
         <div className="min-w-0">
-          <header className="px-4 pt-5 sm:px-6 lg:px-8 lg:pt-8">
-            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+          <header className="px-4 pt-3 sm:px-6 lg:px-8 sm:pt-5 lg:pt-8">
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
               <div className="min-w-0">
-                <p className="lg:hidden font-display text-sm font-semibold text-text-secondary">{copy.brand}</p>
-                <h1 className="font-display text-display tracking-tightest font-semibold">{title}</h1>
+                <p className="lg:hidden font-display text-xs sm:text-sm font-semibold text-text-secondary tracking-wide uppercase">{copy.brand}</p>
+                <h1 className="font-display text-2xl sm:text-3xl lg:text-display tracking-tightest font-semibold">{title}</h1>
               </div>
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2">
                 {receipt ? <ReceiptChip receipt={receipt} copy={copy} ui={ui} href={previewHref(lc, 'sources', params)} /> : null}
               </div>
             </div>
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="mt-2.5 sm:mt-4 flex flex-wrap items-center justify-between gap-2.5">
               <DateNav copy={copy} lc={lc} ui={ui} screen={screen} params={params} />
             </div>
-            <nav aria-label={copy.navAria} className="lg:hidden -mx-4 mt-4 overflow-x-auto px-4 sm:-mx-6 sm:px-6">
+            <nav aria-label={copy.navAria} className="lg:hidden -mx-4 mt-2.5 sm:mt-4 overflow-x-auto px-4 sm:-mx-6 sm:px-6">
               <div className="flex gap-2 pb-1">
                 {SCREENS.map((s) => (
                   <NavLink key={s} screen={s} lc={lc} params={params} copy={copy} active={s === screen} mobile />
@@ -186,7 +186,7 @@ export function DashboardShell({
               </div>
             </nav>
           </header>
-          <main id="contenuto" className="px-4 pb-16 pt-6 sm:px-6 lg:px-8">
+          <main id="contenuto" className="px-4 pb-16 pt-3 sm:px-6 lg:px-8 sm:pt-6">
             {children}
           </main>
         </div>
