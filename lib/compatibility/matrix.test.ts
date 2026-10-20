@@ -499,4 +499,18 @@ describe("Essential Glossary Data", () => {
     const untouched = locales.filter((l) => !SUPPORTED_LOCALES.includes(l as SupportedMatrixLocale));
     expect(untouched).toHaveLength(11);
   });
+
+  it("verifies updated official source URLs for Garmin and Google Health (ADDENDUM 19/10/2026)", () => {
+    const garminAndroid = COMPATIBILITY_PATHS.find((p) => p.id === "garmin-android");
+    expect(garminAndroid).toBeDefined();
+    expect(garminAndroid!.officialSource.url).toBe("https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5");
+
+    const garminIos = COMPATIBILITY_PATHS.find((p) => p.id === "garmin-ios");
+    expect(garminIos).toBeDefined();
+    expect(garminIos!.officialSource.url).toBe("https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA");
+
+    const fitbitAndroid = COMPATIBILITY_PATHS.find((p) => p.id === "fitbit-android");
+    expect(fitbitAndroid).toBeDefined();
+    expect(fitbitAndroid!.officialSource.url).toBe("https://support.google.com/googlehealth/answer/14506680");
+  });
 });

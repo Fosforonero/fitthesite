@@ -41,7 +41,15 @@ export function isPostLocaleComplete(post: BlogPost, lc: Locale): boolean {
     const node = e.node as Record<string, unknown>;
     const val = node[lc];
     if (val == null) return false;
-    if (e.kind === "list") {
+    if (e.path === "secondaryKeywords") {
+      if (
+        !Array.isArray(val) ||
+        val.length === 0 ||
+        !val.every((k) => typeof k === "string" && k.trim().length > 0)
+      ) {
+        return false;
+      }
+    } else if (e.kind === "list") {
       const src = (node.en ?? node.it) as unknown[];
       if (!Array.isArray(val) || val.length !== src.length) return false;
     }
@@ -51,7 +59,7 @@ export function isPostLocaleComplete(post: BlogPost, lc: Locale): boolean {
 
 /**
  * Sprint P0.11-D1: varianti (post, locale) consolidate away da un redirect
- * permanente verso un altro post — cannibalizzazione risolta accorpando due
+ * permanente verso un altro post: cannibalizzazione risolta accorpando due
  * post sullo stesso topic (vedi `elderlyConsolidationRedirects` in
  * next.config.mjs). La variante non è MAI raggiungibile come pagina 200 (il
  * redirect statico di next.config.mjs intercetta la request prima del
@@ -61,7 +69,7 @@ export function isPostLocaleComplete(post: BlogPost, lc: Locale): boolean {
  * Deve vivere QUI (unica fonte di verità) e non come caso speciale duplicato
  * in sitemap.ts/blogLanguages()/feed.xml: il 04/08 sitemap.ts escludeva la
  * variante ma blogLanguages() (hreflang) no, generando hreflang verso un URL
- * 308 dalle altre varianti locale dello stesso post — regressione P0.11-D1.
+ * 308 dalle altre varianti locale dello stesso post: regressione P0.11-D1.
  */
 const CONSOLIDATED_AWAY_VARIANTS = new Set<string>([
   "smartwatch-per-anziani-guida:en",
@@ -70,14 +78,14 @@ const CONSOLIDATED_AWAY_VARIANTS = new Set<string>([
 /**
  * MICRO-GATE P0.18A-B (04/09/2026): "dove-sono-i-tuoi-dati-server-ue" ritirato
  * TEMPORANEAMENTE (non una fusione/cannibalizzazione permanente come
- * CONSOLIDATED_AWAY_VARIANTS sopra) — titolo, H1, slug e ogni sezione
+ * CONSOLIDATED_AWAY_VARIANTS sopra): titolo, H1, slug e ogni sezione
  * dell'articolo sono costruiti sul claim "i tuoi dati sono su server
  * nell'Unione Europea", mai qualificato (a differenza della tabella
  * sub-processor di /privacy, che ammette esplicitamente possibili
  * trasferimenti extra-UE). MATRIX_COMPLETE_FOR_SITE = NO: nessuna prova che
  * copra l'intero articolo. Rimuovere solo le frasi di esclusività avrebbe
  * svuotato/contraddetto il titolo e l'intera tesi (opzione 1 del micro-gate
- * scartata per questo motivo) — redirect 307 (next.config.mjs,
+ * scartata per questo motivo): redirect 307 (next.config.mjs,
  * `withdrawnEuServerArticleRedirects`) verso la Privacy Policy localizzata,
  * reversibile quando la matrice sarà completa. Tutte le 15 locale, non solo
  * quelle indicizzabili: le altre 13 erano già pubblicamente raggiungibili
@@ -89,10 +97,51 @@ const WITHDRAWN_PENDING_APP_MATRIX_VARIANTS = new Set<string>(
   ),
 );
 
+/**
+ * ADDENDUM 19/10/2026: varianti con completezza strutturale recuperata dal fix
+ * secondaryKeywords, ma in attesa di revisione linguistica/editoriale puntuale
+ * prima di togliere noindex in massa.
+ */
+export const PENDING_TRANSLATION_REVIEW_VARIANTS = new Set<string>([
+  "best-health-data-sync-app-android:pt",
+  "best-health-data-sync-app-android:fr",
+  "best-health-data-sync-app-android:pl",
+  "best-health-data-sync-app-android:tr",
+  "best-health-data-sync-app-android:nl",
+  "best-health-data-sync-app-android:ja",
+  "best-health-data-sync-app-android:ko",
+  "health-connect-not-syncing:tr",
+  "health-connect-not-syncing:ko",
+  "how-to-export-apple-health-data:pt",
+  "how-to-export-apple-health-data:fr",
+  "how-to-export-apple-health-data:pl",
+  "how-to-export-apple-health-data:tr",
+  "how-to-export-apple-health-data:nl",
+  "how-to-export-apple-health-data:ja",
+  "how-to-export-apple-health-data:ko",
+  "smartwatch-per-anziani-guida:pt",
+  "smartwatch-per-anziani-guida:fr",
+  "sync-samsung-health-google-fit:pt",
+  "sync-samsung-health-google-fit:fr",
+  "sync-samsung-health-google-fit:pl",
+  "sync-samsung-health-google-fit:tr",
+  "sync-samsung-health-google-fit:nl",
+  "sync-samsung-health-google-fit:ja",
+  "sync-samsung-health-google-fit:ko",
+  "best-smartwatch-for-elderly:pt",
+  "best-smartwatch-for-elderly:fr",
+  "best-smartwatch-for-elderly:pl",
+  "best-smartwatch-for-elderly:tr",
+  "best-smartwatch-for-elderly:nl",
+  "best-smartwatch-for-elderly:ja",
+  "best-smartwatch-for-elderly:ko",
+]);
+
 /** True se la pagina `(post, locale)` è indicizzabile (NON esce `noindex`). */
 export function isBlogVariantIndexable(post: BlogPost, lc: Locale): boolean {
   if (CONSOLIDATED_AWAY_VARIANTS.has(`${post.slug}:${lc}`)) return false;
   if (WITHDRAWN_PENDING_APP_MATRIX_VARIANTS.has(`${post.slug}:${lc}`)) return false;
+  if (PENDING_TRANSLATION_REVIEW_VARIANTS.has(`${post.slug}:${lc}`)) return false;
   // it/en sono campi `required` nel tipo Localized: sempre presenti, mai fallback.
   if (lc === "it" || lc === "en") return true;
   return isPostLocaleComplete(post, lc);
