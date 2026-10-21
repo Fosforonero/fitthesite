@@ -750,7 +750,7 @@ export const PROVIDERS: Provider[] = [
         ko: "Health Connect를 통한 연결, OAuth 없음. 세분성: 분당 걸음 수와 심박수, 단계별 수면, 세션별 운동. 데이터는 기기에 남아 있으며 FitMesh 계정의 Supabase 백엔드에만 전송됩니다.",
       },
     },
-    relatedBlogSlugs: ["backup-galaxy-watch-pc", "health-connect-vs-samsung-health", "sync-samsung-health-google-fit", "passi-non-si-sincronizzano-galaxy-watch", "sleep-tracker-comparison-2026", "galaxy-watch-ultra2-watch9-health-connect"],
+    relatedBlogSlugs: ["backup-galaxy-watch-pc", "health-connect-vs-samsung-health", "sync-samsung-health-google-fit", "passi-non-si-sincronizzano-galaxy-watch", "health-connect-not-syncing", "sleep-tracker-comparison-2026", "galaxy-watch-ultra2-watch9-health-connect"],
   },
   {
     slug: "wear-os",
@@ -4253,7 +4253,7 @@ export const PROVIDERS: Provider[] = [
         ko: "현재: Garmin Connect → Health Connect 브리지. 지원되는 지표: 걸음 수, 심박수, 총 수면, 칼로리, 거리 및 운동.",
       },
     },
-    relatedBlogSlugs: ["esportare-dati-garmin", "garmin-body-battery-health-connect", "garmin-samsung-health-sync-guide", "sleep-tracker-comparison-2026"],
+    relatedBlogSlugs: ["esportare-dati-garmin", "garmin-body-battery-health-connect", "garmin-samsung-health-sync-guide", "health-connect-not-syncing", "sleep-tracker-comparison-2026"],
   },
   {
     slug: "strava",

@@ -25,6 +25,7 @@ import { SITE_URL } from "@/lib/product-facts";
 import { AUTHOR, authorBio, authorCompactNode } from "@/lib/seo/entities";
 import { organizationCompactRef } from "@/components/seo/OrganizationJsonLd";
 import { schemaLanguage } from "@/lib/seo/schema-language";
+import { markdownToPlainText } from "@/lib/seo/plain-text";
 
 export async function generateStaticParams() {
   const slugs = await getBlogSlugs();
@@ -550,10 +551,10 @@ export default async function BlogArticle({
           "@type": "FAQPage",
           mainEntity: visibleFaq.map((f) => ({
             "@type": "Question",
-            name: tl(f.q, lc),
+            name: markdownToPlainText(tl(f.q, lc)),
             acceptedAnswer: {
               "@type": "Answer",
-              text: tl(f.a, lc),
+              text: markdownToPlainText(tl(f.a, lc)),
             },
           })),
         }
@@ -738,7 +739,7 @@ export default async function BlogArticle({
                     </span>
                   </summary>
                   <p className="mt-3 text-sm text-text-secondary leading-relaxed">
-                    {tl(f.a, lc)}
+                    {renderMarkdownInline(tl(f.a, lc), lc)}
                   </p>
                 </details>
               ))}
