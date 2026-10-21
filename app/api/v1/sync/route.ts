@@ -390,6 +390,14 @@ export async function POST(req: Request) {
                 hr_max: s.hrMax ?? null,
                 hr_min: s.hrMin ?? null,
                 pace_sec_per_km: s.paceSecPerKm ?? null,
+                // DIST-01: identita' e canale della distanza. Valori assenti =>
+                // null => la RPC tratta il payload come legacy (191), identico a oggi.
+                source_app: s.sourceApp ?? null,
+                session_external_id: s.sessionExternalId ?? null,
+                distance_method: s.distanceMethod ?? null,
+                distance_algo_version: s.distanceAlgoVersion ?? null,
+                distance_coverage: s.distanceCoverage ?? null,
+                distance_origin: s.distanceOrigin ?? null,
               },
             })
             .then(({ error }) => {

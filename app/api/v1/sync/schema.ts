@@ -39,6 +39,23 @@ export const exerciseSessionSchema = z.object({
   paceSecPerKm: z.number().int().optional(),
   steps: z.number().int().optional(),
   sourceApp: z.string().optional(),
+  // DIST-01 (app 93c2187f, MetadatiDistanzaContratto.toMap). Senza queste chiavi
+  // z.object() le scarta in silenzio: la RPC e fitness_metrics.exercise_sessions
+  // non vedrebbero mai il canale own-source. Tipi volutamente larghi (string, non
+  // enum): un valore nuovo non deve far fallire l'intero sync con 400 — la
+  // classificazione la fa la RPC (valore sconosciuto => distanza ignorata).
+  // distanceReadAtMs: solo diagnostica in JSON, MAI usato per ordinare.
+  distanceReadAtMs: z.number().int().optional(),
+  distanceCoverage: z.string().max(16).optional(),
+  distanceOrigin: z.string().max(255).optional(),
+  distanceMethod: z.string().max(32).optional(),
+  distanceAlgoVersion: z.number().int().optional(),
+  // significato misto (id campione o id workout): NON identita', non va alla RPC
+  sourceRecordId: z.string().max(255).optional(),
+  // PROPOSTA DIST-01 (non ancora emesso da 93c2187f): id della sessione nel
+  // provider, namespace = sourceApp. Vedi PROPOSTA.md §3.
+  sessionExternalId: z.string().max(255).optional(),
+  distanceSampleCount: z.number().int().min(0).optional(),
 });
 
 // Bounds generosi (anno 2000-2100) solo per escludere epoch-ms patologici

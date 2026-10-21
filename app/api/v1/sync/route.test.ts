@@ -363,6 +363,89 @@ describe("Sprint 189-RC2 — canonical upsert wiring", () => {
 
     expect(mocks.upsertWorkouts).toHaveBeenCalledTimes(2);
   });
+
+  // DIST-01: il campo assente (client 191) e lo zero esplicito (client 192.1)
+  // sono due cose diverse e non devono collassare nello stesso valore.
+  it("DIST-01: i metadati della distanza arrivano alla RPC con i nomi snake_case, e i soli diagnostici NON vengono inoltrati", async () => {
+    const exerciseSessionsJson = JSON.stringify([
+      {
+        type: "running",
+        startMs: 100,
+        endMs: 3_700_100,
+        distanceMeters: 5100,
+        sourceApp: "health_connect",
+        sessionExternalId: "sess-1",
+        distanceMethod: "samples",
+        distanceAlgoVersion: 2,
+        distanceCoverage: "full",
+        distanceOrigin: "origin-a",
+        // solo schema/diagnostica: non devono arrivare alla RPC
+        distanceReadAtMs: 1_720_000_000_000,
+        sourceRecordId: "rec-9",
+        distanceSampleCount: 12,
+      },
+    ]);
+
+    const res = await POST(makeRequest({ ...BASE_PAYLOAD, exerciseSessionsJson }));
+
+    expect(res.status).toBe(200);
+    expect(mocks.upsertWorkouts).toHaveBeenCalledTimes(1);
+    const row = (mocks.upsertWorkouts.mock.calls[0][0] as { p_row: Record<string, unknown> }).p_row;
+    expect(row).toMatchObject({
+      distance_meters: 5100,
+      source_app: "health_connect",
+      session_external_id: "sess-1",
+      distance_method: "samples",
+      distance_algo_version: 2,
+      distance_coverage: "full",
+      distance_origin: "origin-a",
+    });
+    expect(row).not.toHaveProperty("distance_read_at_ms");
+    expect(row).not.toHaveProperty("source_record_id");
+    expect(row).not.toHaveProperty("distance_sample_count");
+  });
+
+  it("DIST-01: omissione => i sei campi inoltrati valgono null (payload legacy 191, identico a prima)", async () => {
+    const exerciseSessionsJson = JSON.stringify([
+      { type: "running", startMs: 100, endMs: 3_700_100 },
+    ]);
+
+    await POST(makeRequest({ ...BASE_PAYLOAD, exerciseSessionsJson }));
+
+    const row = (mocks.upsertWorkouts.mock.calls[0][0] as { p_row: Record<string, unknown> }).p_row;
+    for (const key of [
+      "distance_meters",
+      "source_app",
+      "session_external_id",
+      "distance_method",
+      "distance_algo_version",
+      "distance_coverage",
+      "distance_origin",
+    ]) {
+      expect(row, key).toHaveProperty(key, null);
+    }
+  });
+
+  it("DIST-01: lo zero esplicito NON diventa null (distanza 0 e versione algoritmo 0 restano 0)", async () => {
+    const exerciseSessionsJson = JSON.stringify([
+      {
+        type: "yoga",
+        startMs: 100,
+        endMs: 3_700_100,
+        distanceMeters: 0,
+        distanceAlgoVersion: 0,
+      },
+    ]);
+
+    await POST(makeRequest({ ...BASE_PAYLOAD, exerciseSessionsJson }));
+
+    const row = (mocks.upsertWorkouts.mock.calls[0][0] as { p_row: Record<string, unknown> }).p_row;
+    expect(row.distance_meters).toBe(0);
+    expect(row.distance_algo_version).toBe(0);
+    // gli altri restano assenti => null: lo zero di un campo non "accende" gli altri
+    expect(row.distance_method).toBeNull();
+    expect(row.distance_coverage).toBeNull();
+  });
 });
 
 describe("Sprint P0.10C — rate limit spostato nella route (prima di auth/device/json/Zod/scritture)", () => {

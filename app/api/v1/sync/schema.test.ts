@@ -214,3 +214,74 @@ describe("Sprint 189-RC2 — localDayKey contratto canonico", () => {
     },
   );
 });
+
+describe("DIST-01 — metadati della distanza nelle exercise_sessions (schema)", () => {
+  const SESSION = { type: "running", startMs: 100, endMs: 3_700_100 };
+  const parseSession = (extra: Record<string, unknown>) => {
+    const r = payloadSchema.safeParse({
+      ...BASE_PAYLOAD,
+      exerciseSessionsJson: JSON.stringify([{ ...SESSION, ...extra }]),
+    });
+    return r;
+  };
+
+  it("conserva tutti i metadati (z.object non li scarta piu' in silenzio)", () => {
+    const r = parseSession({
+      distanceReadAtMs: 1_720_000_000_000,
+      distanceCoverage: "full",
+      distanceOrigin: "origin-a",
+      distanceMethod: "samples",
+      distanceAlgoVersion: 2,
+      sourceRecordId: "rec-9",
+      sessionExternalId: "sess-1",
+      distanceSampleCount: 12,
+    });
+    expect(r.success).toBe(true);
+    if (!r.success) return;
+    expect(r.data.exerciseSessionsJson?.[0]).toMatchObject({
+      distanceReadAtMs: 1_720_000_000_000,
+      distanceCoverage: "full",
+      distanceOrigin: "origin-a",
+      distanceMethod: "samples",
+      distanceAlgoVersion: 2,
+      sourceRecordId: "rec-9",
+      sessionExternalId: "sess-1",
+      distanceSampleCount: 12,
+    });
+  });
+
+  it("omissione: payload legacy valido e i campi restano ASSENTI (non null, non 0)", () => {
+    const r = parseSession({});
+    expect(r.success).toBe(true);
+    if (!r.success) return;
+    const s0 = r.data.exerciseSessionsJson?.[0] as Record<string, unknown>;
+    for (const key of [
+      "distanceReadAtMs",
+      "distanceCoverage",
+      "distanceOrigin",
+      "distanceMethod",
+      "distanceAlgoVersion",
+      "sourceRecordId",
+      "sessionExternalId",
+      "distanceSampleCount",
+    ]) {
+      expect(s0, key).not.toHaveProperty(key);
+    }
+  });
+
+  it("zero esplicito: 0 e' conservato come 0 (distinto dall'omissione)", () => {
+    const r = parseSession({ distanceAlgoVersion: 0, distanceSampleCount: 0, distanceReadAtMs: 0 });
+    expect(r.success).toBe(true);
+    if (!r.success) return;
+    const s0 = r.data.exerciseSessionsJson?.[0] as Record<string, unknown>;
+    expect(s0.distanceAlgoVersion).toBe(0);
+    expect(s0.distanceSampleCount).toBe(0);
+    expect(s0.distanceReadAtMs).toBe(0);
+  });
+
+  it("tipi larghi: un valore nuovo di distanceMethod passa; limiti di lunghezza e conteggio negativo no", () => {
+    expect(parseSession({ distanceMethod: "metodo-futuro" }).success).toBe(true);
+    expect(parseSession({ distanceCoverage: "x".repeat(17) }).success).toBe(false);
+    expect(parseSession({ distanceSampleCount: -1 }).success).toBe(false);
+  });
+});
