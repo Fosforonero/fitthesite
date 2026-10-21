@@ -37,7 +37,7 @@
       },
       {
         "title": "Mesh Familj",
-        "desc": "Skapa en grupp och dela steg, sömn och puls med din familj: föräldrar, partner, barn. Var och en bestämmer själv vad de visar."
+        "desc": "Family Mesh är under utveckling och ännu inte tillgänglig. Vi har inte meddelat något lanseringsdatum."
       }
     ]
   },
@@ -121,7 +121,6 @@
       "add_title": "Lägg till enhet",
       "add_body": "Generera en kod och ange den i FitMesh Sync-appen för att ansluta en ny telefon.",
       "add_cta": "Generera kod",
-      "coming_soon": "(kommer snart)",
       "list_title": "Anslutna enheter",
       "empty": "Inga enheter anslutna ännu.",
       "error": "Fel vid inläsning av enheter.",

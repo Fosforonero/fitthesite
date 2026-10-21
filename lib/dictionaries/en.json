@@ -37,7 +37,7 @@
       },
       {
         "title": "Family Mesh",
-        "desc": "Create a group and share steps, sleep and heart rate with your family: parents, partner, kids. Everyone decides what to show."
+        "desc": "Family Mesh is in development and is not yet available. We haven't announced a release date."
       }
     ]
   },
@@ -121,7 +121,6 @@
       "add_title": "Add device",
       "add_body": "Generate a code and enter it in the FitMesh Sync app to connect a new phone.",
       "add_cta": "Generate code",
-      "coming_soon": "(coming soon)",
       "list_title": "Connected devices",
       "empty": "No devices connected yet.",
       "error": "Error loading devices.",

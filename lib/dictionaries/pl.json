@@ -37,7 +37,7 @@
       },
       {
         "title": "Mesh Rodzina",
-        "desc": "Utwórz grupę i dziel się krokami, snem i tętnem z rodziną: rodzicami, partnerem, dziećmi. Każdy sam decyduje, co pokazać."
+        "desc": "Mesh Rodzina jest w trakcie rozwoju i nie jest jeszcze dostępna. Nie ogłosiliśmy daty premiery."
       }
     ]
   },
@@ -121,7 +121,6 @@
       "add_title": "Dodaj urządzenie",
       "add_body": "Wygeneruj kod i wpisz go w aplikacji FitMesh Sync, aby podłączyć nowy telefon.",
       "add_cta": "Wygeneruj kod",
-      "coming_soon": "(wkrótce)",
       "list_title": "Podłączone urządzenia",
       "empty": "Brak podłączonych urządzeń.",
       "error": "Błąd podczas ładowania urządzeń.",

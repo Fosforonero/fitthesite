@@ -438,7 +438,9 @@ describe("Compatibility Matrix Fact Ledger & SSOT Guardrails", () => {
       } else if (path.providerSlug === "fitbit" || path.id === "pixel-watch-android") {
         expect(parsedUrl.hostname).toBe("support.google.com");
       } else if (path.id === "galaxy-watch-android") {
-        expect(parsedUrl.hostname).toBe("www.samsung.com");
+        // 20/10/2026: la pagina di supporto www.samsung.com (ANS00091380) risponde 404; la
+        // fonte raggiungibile e' la documentazione ufficiale per sviluppatori di Samsung.
+        expect(parsedUrl.hostname).toBe("developer.samsung.com");
       } else if (path.id === "colmi-android") {
         expect(parsedUrl.hostname).toBe("github.com");
       } else if (path.id === "colmi-ios") {
@@ -498,5 +500,19 @@ describe("Essential Glossary Data", () => {
     expect(locales).toHaveLength(15);
     const untouched = locales.filter((l) => !SUPPORTED_LOCALES.includes(l as SupportedMatrixLocale));
     expect(untouched).toHaveLength(11);
+  });
+
+  it("verifies updated official source URLs for Garmin and Google Health (ADDENDUM 19/10/2026)", () => {
+    const garminAndroid = COMPATIBILITY_PATHS.find((p) => p.id === "garmin-android");
+    expect(garminAndroid).toBeDefined();
+    expect(garminAndroid!.officialSource.url).toBe("https://support.garmin.com/en-US/?faq=JToBEy0jfe6pIygark2Ui5");
+
+    const garminIos = COMPATIBILITY_PATHS.find((p) => p.id === "garmin-ios");
+    expect(garminIos).toBeDefined();
+    expect(garminIos!.officialSource.url).toBe("https://support.garmin.com/en-US/?faq=lK5FPB9iPF5PXFkIpFlFPA");
+
+    const fitbitAndroid = COMPATIBILITY_PATHS.find((p) => p.id === "fitbit-android");
+    expect(fitbitAndroid).toBeDefined();
+    expect(fitbitAndroid!.officialSource.url).toBe("https://support.google.com/googlehealth/answer/14506680");
   });
 });

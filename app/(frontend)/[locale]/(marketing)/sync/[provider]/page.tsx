@@ -23,7 +23,9 @@ import {
   isProviderVariantIndexable,
   providerLinkHref,
   providerLanguages,
+  providerModelLinkHref,
 } from "@/lib/providers/indexability";
+import { PROVIDER_MODELS, type ProviderModel } from "@/lib/providers/models";
 import { getExcludedBannerNotice } from "@/lib/providers/excluded-banner";
 import { getBlogPostsBySlug } from "@/lib/blog/payload-source";
 import { BlogSources } from "@/components/blog/BlogSources";
@@ -35,6 +37,39 @@ import { schemaLanguage } from "@/lib/seo/schema-language";
 import { toMetaDescription } from "@/lib/seo/meta-description";
 
 const WAITLIST_EMAIL = "waitlist@fitmesh.fit";
+
+/**
+ * Elenco dei modelli del provider come collegamenti HTML normali (a[href]).
+ * Solo titolo e frase di servizio: nessuna dichiarazione di compatibilita'
+ * (quella sta nella pagina del modello, con la sua fonte). Testi nelle 11
+ * lingue indicizzabili; le nordiche ricadono sull'inglese come il resto della pagina.
+ */
+const MODEL_GUIDES_HEADING: Record<string, string> = {
+  it: "Guide per modello",
+  en: "Model guides",
+  es: "Guías por modelo",
+  de: "Anleitungen nach Modell",
+  pt: "Guias por modelo",
+  fr: "Guides par modèle",
+  pl: "Przewodniki według modelu",
+  tr: "Modele göre rehberler",
+  nl: "Gidsen per model",
+  ja: "モデル別ガイド",
+  ko: "모델별 가이드",
+};
+const MODEL_GUIDES_INTRO: Record<string, string> = {
+  it: "Una pagina dedicata a ciascun modello.",
+  en: "A dedicated page for each model.",
+  es: "Una página dedicada a cada modelo.",
+  de: "Eine eigene Seite für jedes Modell.",
+  pt: "Uma página dedicada a cada modelo.",
+  fr: "Une page dédiée à chaque modèle.",
+  pl: "Osobna strona dla każdego modelu.",
+  tr: "Her model için ayrı bir sayfa.",
+  nl: "Een eigen pagina voor elk model.",
+  ja: "各モデルに専用ページがあります。",
+  ko: "각 모델별 전용 페이지입니다.",
+};
 
 /**
  * Render minimale `**bold**` markdown → <strong>. No HTML injection: usa solo
@@ -680,6 +715,7 @@ export default async function ProviderLanding({
               <div className="mt-8">
                 <StoreButtonsRow
                   locale={lc}
+                  platforms={platforms}
                   iosDisabled={!platforms.includes("ios")}
                   ctaLocation={CTA_PLACEMENTS.syncProviderMidMatrix}
                 />
@@ -990,6 +1026,42 @@ export default async function ProviderLanding({
       {p.editorialTemplateV2 && (
         <BlogSources sources={p.sourcesBlock?.sources} locale={lc} />
       )}
+
+      {/* MODELLI: collegamenti a[href] alle pagine modello pubblicabili (non solo sitemap) */}
+      {(() => {
+        const modelLinks = (PROVIDER_MODELS[p.slug] ?? [])
+          .map((m) => ({ model: m, href: providerModelLinkHref(p, m, lc) }))
+          .filter((x): x is { model: ProviderModel; href: string } => x.href !== null);
+        if (modelLinks.length === 0) return null;
+        const heading = MODEL_GUIDES_HEADING[lc] ?? MODEL_GUIDES_HEADING.en;
+        const intro = MODEL_GUIDES_INTRO[lc] ?? MODEL_GUIDES_INTRO.en;
+        return (
+          <section
+            aria-labelledby="modelli-provider-heading"
+            data-section="provider-models"
+            className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-4"
+          >
+            <h2 id="modelli-provider-heading" className="font-display text-display font-semibold tracking-tightest text-text-primary">
+              {heading}
+            </h2>
+            <p className="mt-3 text-sm text-text-secondary">{intro}</p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {modelLinks.map(({ model, href }) => (
+                <li key={model.slug}>
+                  <Link
+                    href={href}
+                    prefetch={false}
+                    className="card block p-4 font-semibold text-text-primary hover:text-brand-aqua hover:-translate-y-0.5 transition"
+                  >
+                    {model.name}
+                    {lc !== "en" && href.startsWith("/en/") ? " (EN)" : ""}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        );
+      })()}
 
       {/* APPROFONDISCI — internal linking ai blog post correlati */}
       {p.relatedBlogSlugs && p.relatedBlogSlugs.length > 0 && (() => {

@@ -709,3 +709,102 @@ describe("MICRO-GATE COVER-LOTTO3-D: Garmin body battery health connect & endura
     }
   });
 });
+
+describe("ADDENDUM 19/10/2026: regressioni completezza secondaryKeywords e protezione noindex", () => {
+  function makeMockPost(overrides?: Partial<BlogPost>): BlogPost {
+    return {
+      slug: "test-completeness-mock-post",
+      category: "guides",
+      publishedAt: "2026-10-19",
+      updatedAt: "2026-10-19",
+      readMinutes: 5,
+      hero: {
+        kicker: { it: "Kicker IT", en: "Kicker EN", es: "Kicker ES" },
+        title: { it: "Titolo IT", en: "Title EN", es: "Titulo ES" },
+        subtitle: { it: "Sottotitolo IT", en: "Subtitle EN", es: "Subtitulo ES" },
+      },
+      metaDescription: { it: "Desc IT", en: "Desc EN", es: "Desc ES" },
+      primaryKeyword: { it: "chiave it", en: "keyword en", es: "palabra es" },
+      secondaryKeywords: {
+        it: ["kw1", "kw2", "kw3"],
+        en: ["kw1", "kw2", "kw3", "kw4", "kw5"],
+        es: ["palabra1", "palabra2", "palabra3"],
+      },
+      body: [
+        {
+          type: "paragraph",
+          text: { it: "Testo IT", en: "Text EN", es: "Texto ES" },
+        },
+        {
+          type: "list",
+          items: {
+            it: ["voce 1", "voce 2"],
+            en: ["item 1", "item 2"],
+            es: ["elemento 1", "elemento 2"],
+          },
+        },
+      ],
+      faq: [],
+      ...overrides,
+    };
+  }
+
+  it("1. cardinalita secondaryKeywords localizzata diversa ma testo completo: isPostLocaleComplete restituisce true", () => {
+    const post = makeMockPost();
+    expect(post.secondaryKeywords.es?.length).not.toBe(post.secondaryKeywords.en.length);
+    expect(isPostLocaleComplete(post, "es")).toBe(true);
+  });
+
+  it("2. campo testo realmente mancante: isPostLocaleComplete restituisce false", () => {
+    const post = makeMockPost({
+      hero: {
+        kicker: { it: "Kicker IT", en: "Kicker EN", es: "Kicker ES" },
+        title: { it: "Titolo IT", en: "Title EN" }, // manca es
+        subtitle: { it: "Sottotitolo IT", en: "Subtitle EN", es: "Subtitulo ES" },
+      },
+    });
+    expect(isPostLocaleComplete(post, "es")).toBe(false);
+  });
+
+  it("3. lista narrativa di contenuto realmente incompleta: isPostLocaleComplete restituisce false", () => {
+    const post = makeMockPost({
+      body: [
+        {
+          type: "list",
+          items: {
+            it: ["voce 1", "voce 2"],
+            en: ["item 1", "item 2"],
+            es: ["elemento 1"], // lunghezza non corrisponde a en
+          },
+        },
+      ],
+    });
+    expect(isPostLocaleComplete(post, "es")).toBe(false);
+  });
+
+  it("4. varianti ritirate o consolidate restano escluse da isBlogVariantIndexable", () => {
+    const elderlyPost: BlogPost = {
+      ...makeMockPost(),
+      slug: "smartwatch-per-anziani-guida",
+    };
+    expect(isBlogVariantIndexable(elderlyPost, "en")).toBe(false);
+
+    const withdrawnPost: BlogPost = {
+      ...makeMockPost(),
+      slug: "dove-sono-i-tuoi-dati-server-ue",
+    };
+    expect(isBlogVariantIndexable(withdrawnPost, "it")).toBe(false);
+    expect(isBlogVariantIndexable(withdrawnPost, "es")).toBe(false);
+  });
+
+  it("5. le 32 varianti in attesa di revisione linguistica restano escluse da isBlogVariantIndexable (noindex)", () => {
+    const realHc = BLOG_POSTS.find((p) => p.slug === "health-connect-not-syncing");
+    expect(realHc).toBeDefined();
+    // Completo strutturalmente per tr e ko
+    expect(isPostLocaleComplete(realHc!, "tr")).toBe(true);
+    expect(isPostLocaleComplete(realHc!, "ko")).toBe(true);
+    // Ma protetto da noindex fino a revisione linguistica esplicita
+    expect(isBlogVariantIndexable(realHc!, "tr")).toBe(false);
+    expect(isBlogVariantIndexable(realHc!, "ko")).toBe(false);
+  });
+});

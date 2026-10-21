@@ -233,7 +233,7 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
     cleanup();
   });
 
-  it('rendering effettivo: JSON-LD HowTo include 8 passi con URL validi e nessun totalTime arbitrario', async () => {
+  it('rendering effettivo: JSON-LD TechArticle + BreadcrumbList, nessun HowTo, per IT ed EN', async () => {
     for (const lc of ['it', 'en'] as const) {
       const pageUi = await HealthConnectGuidePage({ params: Promise.resolve({ locale: lc }) });
       const { container } = render(pageUi);
@@ -241,34 +241,28 @@ describe('Guida Connessione Salute Android (Support Health Connect)', () => {
       const scripts = Array.from(container.querySelectorAll('script[type="application/ld+json"]'));
       expect(scripts.length).toBeGreaterThanOrEqual(1);
 
-      const howToScript = scripts.find((s) => {
+      const objs = scripts.map((s) => {
         try {
-          const json = JSON.parse(s.textContent || '{}');
-          return json['@type'] === 'HowTo';
+          return JSON.parse(s.textContent || '{}');
         } catch {
-          return false;
+          return {};
         }
       });
-      expect(howToScript, `Tag JSON-LD HowTo assente per ${lc}`).toBeDefined();
 
-      const schema = JSON.parse(howToScript!.textContent || '{}');
-      expect(schema['@type']).toBe('HowTo');
-      expect(schema.step).toBeDefined();
-      expect(Array.isArray(schema.step)).toBe(true);
-      expect(schema.step.length).toBe(8);
+      const types = objs.map((o) => o['@type']).sort();
+      expect(types, `[${lc}] tipi JSON-LD`).toEqual(['BreadcrumbList', 'TechArticle']);
 
-      for (let i = 0; i < 8; i++) {
-        const step = schema.step[i];
-        expect(step['@type']).toBe('HowToStep');
-        expect(step.position).toBe(i + 1);
-        expect(step.url).toBe(`https://www.fitmesh.fit/${lc}/support/health-connect#passo-${i + 1}`);
-        const prefix = lc === 'it' ? '0' : 'en-0';
-        expect(step.image).toMatch(new RegExp(`^https://www.fitmesh\\.fit/support/health-connect/${prefix}[1-8]-.*\\.webp$`));
-      }
+      const ta = objs.find((o) => o['@type'] === 'TechArticle');
+      expect(ta, `TechArticle assente per ${lc}`).toBeDefined();
+      expect(ta.url).toBe(`https://www.fitmesh.fit/${lc}/support/health-connect`);
+      expect(ta.inLanguage).toBeTruthy();
+      // Prima pubblicazione in produzione: deploy di #102 il 10/10/2026
+      // (il 09/10 e' solo la creazione del file su un ramo di lavoro).
+      expect(ta.datePublished).toBe('2026-10-10');
+      expect(ta.dateModified).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(ta.dateModified >= ta.datePublished).toBe(true);
+      expect(ta.step).toBeUndefined();
 
-      // Nessun totalTime arbitrario
-      expect(schema.totalTime).toBeUndefined();
-      expect(howToScript!.textContent).not.toContain('totalTime');
       cleanup();
     }
   });

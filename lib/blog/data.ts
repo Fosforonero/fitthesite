@@ -126,6 +126,9 @@ import { post as percheZona2CambiaSmartwatchApp } from "./posts/perche-zona-2-ca
 // FitMesh» (satellite del pillar prodotto). Pubblicata it/en/de/ja/fr, redirect
 // 307 verso /en/ per le altre lingue (REDIRECT_INCOMPLETE_LOCALE_SLUGS).
 import { post as fitmeshUltratletaAppleWatchGarminPolar } from "./posts/fitmesh-ultratleta-apple-watch-garmin-polar";
+// 19/10/2026: confronto Apple Watch vs Galaxy Watch (solo IT/EN, redirect 307
+// verso /en/ per le altre lingue via REDIRECT_INCOMPLETE_LOCALE_SLUGS).
+import { post as appleWatchGalaxyWatchDatiFitmesh } from "./posts/apple-watch-galaxy-watch-dati-fitmesh";
 
 const RAW_POSTS: BlogPost[] = [
   guidaSyncWearable2026,
@@ -214,6 +217,7 @@ const RAW_POSTS: BlogPost[] = [
   nuovaAppleHealthRendeInutiliAltreApp,
   galaxyWatchSleepTrackingHealthConnect,
   fitmeshUltratletaAppleWatchGarminPolar,
+  appleWatchGalaxyWatchDatiFitmesh,
 ];
 
 /** Ordinati per data publish desc (più recente prima). */

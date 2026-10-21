@@ -179,6 +179,9 @@ export default function Footer({
              * dire ora che il programma Founder e' chiuso, non una fix
              * tecnica di navigazione; vedi report P0.13).
              */}
+            {(locale === "it" || locale === "en") && (
+              <li><Link href={`/${locale}/pricing`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{locale === "it" ? "Prezzi" : "Pricing"}</Link></li>
+            )}
             <li><a href={`/${locale}#download`} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.download}</a></li>
             <li><Link href={`/${locale}/support`} prefetch={false} className="text-text-secondary hover:text-text-primary transition">{dict.footer.links.support}</Link></li>
           </ul>

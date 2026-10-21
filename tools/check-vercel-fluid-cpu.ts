@@ -274,6 +274,9 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // quel 404 NON e' verificata. Il manifest la conta fra le dinamiche per il
 // segmento [locale]: +1 nel conteggio, schema gia' in uso per le altre route
 // prerenderizzate di main (tutte con fallback null).
+// 18/10/2026: SPRINT PRICING-PAGE-01 aggiunge /[locale]/pricing e /[locale]/support/primo-sync
+// entrambe statiche con generateStaticParams su IT ed EN (force-static). Il manifest
+// le conta fra le dinamiche per il segmento [locale]: 60 -> 62.
 // --- Candidato combinato dashboard + main (15/10/2026) -------------------------------------------------
 // Le voci qui sotto descrivono il ramo dashboard PRIMA del merge con main 6dc9839d: in quella numerazione
 // «59 -> 60» e «62 -> 63» contavano, rispettivamente, la route /app/dashboard e la guida Health Connect
@@ -304,7 +307,12 @@ const ROUTES_MANIFEST_PATH = path.join(repoRoot, ".next/routes-manifest.json");
 // Verifica NOMINALE sul build di questo ramo: 63 route = le 60 di main + esattamente queste 3, nessuna
 // altra differenza; nessuna entry in prerender-manifest e nessun HTML sotto .next/server/app per le
 // route dashboard (solo page.js); la preview risponde 404 fuori dal cancello.
-const DYNAMIC_ROUTES_BASELINE = 63;
+// 21/10/2026 -- INTEGRAZIONE LOCALE dashboard + main 2ba1a371. Per la CONVENZIONE di questo file la baseline combinata e'
+// 62 (main: 60 + /pricing + /support/primo-sync) + 3 (le sole route dinamiche della dashboard, vedi sopra) = 65.
+// ATTENZIONE: e' un'addizione, non una misura, e non risolve il rosso GIA' presente su main (62 dichiarate contro 66
+// misurate sul build di main il 21/10). Il guardrail resta rosso finche' non si misura e si motiva ogni route in piu':
+// la baseline NON viene alzata per nascondere il problema.
+const DYNAMIC_ROUTES_BASELINE = 65;
 if (!fs.existsSync(ROUTES_MANIFEST_PATH)) {
   errors.push("[routes-manifest-assente] .next/routes-manifest.json non esiste — esegui 'pnpm build' prima di questo guardrail (controllo 10 richiede l'artefatto di build reale).");
 } else {
