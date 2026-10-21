@@ -12,8 +12,8 @@ import type { BlogPost } from "../types";
 export const post: BlogPost = {
   slug: "apple-watch-galaxy-watch-dati-fitmesh",
   category: "ecosystem",
-  publishedAt: "2026-10-19",
-  updatedAt: "2026-10-19",
+  publishedAt: "2026-10-21",
+  updatedAt: "2026-10-21",
   hero: {
     kicker: { it: "Ecosistema", en: "Ecosystem" },
     title: { it: "Apple Watch e Galaxy Watch: quali dati condividono e che cosa può usare FitMesh", en: "Apple Watch and Galaxy Watch: what data they share and what FitMesh can use" },

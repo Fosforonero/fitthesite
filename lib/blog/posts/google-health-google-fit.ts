@@ -20,7 +20,7 @@ export const post: BlogPost = {
   slug: "google-health-google-fit",
   category: "guides",
   publishedAt: "2026-06-22",
-  updatedAt: "2026-08-25",
+  updatedAt: "2026-10-21",
   readMinutes: 9,
   hero: {
     kicker: {

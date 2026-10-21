@@ -44,7 +44,7 @@ export const post: BlogPost = {
   slug: "health-connect-not-syncing",
   category: "guides",
   publishedAt: "2026-05-30",
-  updatedAt: "2026-08-25",
+  updatedAt: "2026-10-21",
   readMinutes: 8,
   tldr: {
     it: [

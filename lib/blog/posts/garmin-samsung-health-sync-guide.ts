@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: "garmin-samsung-health-sync-guide",
   category: "guides",
   publishedAt: "2026-06-20",
-  updatedAt: "2026-08-25",
+  updatedAt: "2026-10-21",
   readMinutes: 7,
   // SPRINT PRE-FERIE addendum Bing (2026-08-06): title NL renderizzato
   // sopra 70 caratteri (Bing FailingUrls CSV, verificato live). H1/slug
