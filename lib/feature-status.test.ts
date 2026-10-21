@@ -163,12 +163,38 @@ describe("home: la card promozionale Mesh non si mostra finche' la Mesh non e' d
 });
 
 describe("superfici: nessuna legge uno stato proprio", () => {
-  it("/about mostra il paragrafo Mesh solo se la Mesh e' disponibile, altrimenti la frase di stato", () => {
+  it("/about mostra il blocco Famiglia solo se la Mesh e' disponibile: nessuna frase di stato «non disponibile» (rettifica 21/10/2026)", () => {
     const src = read("app/(frontend)/[locale]/(marketing)/about/page.tsx");
     expect(src.split("ABOUT_COPY.familyBody").length - 1).toBe(1);
-    expect(src).toMatch(/isFeatureAvailable\("familyMesh"\)\s*\?\s*tl\(ABOUT_COPY\.familyBody, lc\)\s*:\s*featureStatusSentence\("familyMesh", lc\)/);
-    // le sette lingue senza firma nominata non rendono ne' titolo ne' paragrafo Mesh
-    expect(src).toMatch(/isFeatureAvailable\("familyMesh"\) \|\| meshStatusSentenceRenderable\(lc\)/);
+    expect(src).toMatch(/\{isFeatureAvailable\("familyMesh"\) && \(/);
+    expect(src).not.toMatch(/featureStatusSentence|meshStatusSentenceRenderable/);
+  });
+
+  it("HTML renderizzato di /about, in tutte le 15 lingue: nessuna frase di stato di Mesh o dashboard web, e nessun blocco Famiglia finche' la Mesh non e' disponibile", async () => {
+    const { renderToStaticMarkup } = await import("react-dom/server");
+    const AboutPage = (await import("../app/(frontend)/[locale]/(marketing)/about/page")).default;
+    const decode = (h: string) => h.replace(/&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+    for (const lc of locales) {
+      const html = decode(renderToStaticMarkup(await AboutPage({ params: Promise.resolve({ locale: lc }) })));
+      for (const key of ["familyMesh", "webDashboard"] as const) {
+        expect(html.includes(featureStatusSentence(key, lc)), `${lc}/${key}`).toBe(false);
+      }
+      expect(html.includes('id="family"'), `${lc}: blocco Famiglia`).toBe(false);
+    }
+  });
+
+  it("come-funziona-fitmesh e la guida ultratleta: nessuna frase di stato del registro in nessuna lingua (testo, FAQ, dati strutturati di origine)", async () => {
+    const { BLOG_POSTS } = await import("./blog/data");
+    for (const slug of ["come-funziona-fitmesh", "fitmesh-ultratleta-apple-watch-garmin-polar"]) {
+      const post = BLOG_POSTS.find((p) => p.slug === slug)!;
+      const json = JSON.stringify(post);
+      for (const lc of locales) {
+        for (const key of ["familyMesh", "webDashboard"] as const) {
+          const frase = featureStatusSentence(key, lc);
+          expect(json.includes(JSON.stringify(frase).slice(1, -1)), `${slug}/${lc}/${key}`).toBe(false);
+        }
+      }
+    }
   });
 
   it("/famiglia deriva COMING_SOON da CAPABILITY_STATUS (niente costante a mano)", () => {

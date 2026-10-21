@@ -1,10 +1,5 @@
-import type { BlogPost, BlogSection } from "../types";
+import type { BlogPost } from "../types";
 import type { Locale } from "@/lib/i18n";
-import {
-  featureStatusSentence,
-  isFeatureAvailable,
-  meshStatusSentenceRenderable,
-} from "@/lib/feature-status";
 
 /** Lingue supportate in questo file: 15 lingue complete. */
 type PillarLocale = Locale;
@@ -29,32 +24,14 @@ const DOVE_SI_CONSULTA: Record<PillarLocale, string> = {
 };
 
 /**
- * Stato della dashboard web: DERIVATO da lib/feature-status.ts (che legge
- * CAPABILITY_STATUS in lib/product-facts.ts), come nella guida ultratleta.
- * Nessuna frase di stato scritta qui: quando la funzione diventa disponibile
- * la frase esce da sola e resta solo il riferimento all'app.
+ * Dove si consulta quanto descritto: solo l'app. Rettifica 21/10/2026: nessuna frase
+ * sulla dashboard web o su Mesh Famiglia come «non disponibili» in questa pagina. Il
+ * registro delle frasi, CAPABILITY_STATUS e i cancelli restano in lib/feature-status.ts
+ * e lib/product-facts.ts: qui non si legge piu' nessuno stato.
  */
 function statoDashboardWeb(lc: PillarLocale): string {
-  return [
-    isFeatureAvailable("webDashboard") ? "" : featureStatusSentence("webDashboard", lc),
-    DOVE_SI_CONSULTA[lc],
-  ]
-    .filter(Boolean)
-    .join(" ");
+  return DOVE_SI_CONSULTA[lc];
 }
-
-/**
- * Stato di Mesh Famiglia: frase canonica del registro, solo dove e' resa
- * (meshStatusSentenceRenderable: le otto lingue con formula approvata).
- * Il blocco che la contiene e' inoltre ristretto a quelle otto lingue.
- */
-function statoMesh(lc: PillarLocale): string {
-  if (isFeatureAvailable("familyMesh") || !meshStatusSentenceRenderable(lc)) return "";
-  return featureStatusSentence("familyMesh", lc);
-}
-
-/** Le otto lingue in cui la frase Mesh ha la formula approvata (feature-status.ts). */
-const MESH_SENTENCE_LOCALES = ["it", "en", "es", "de", "pt", "fr", "pl", "tr"] as const;
 
 export const post: BlogPost = {
   slug: "come-funziona-fitmesh",
@@ -837,24 +814,6 @@ export const post: BlogPost = {
         fi: "FitMesh Sync -sovelluksen hallintapaneeli iPhonessa päänäkymällä. Käyttöliittymä englanniksi, synteettiset demotiedot.",
       },
     },
-    ...(statoMesh("it") === ""
-      ? []
-      : ([
-          {
-            type: "paragraph",
-            locales: MESH_SENTENCE_LOCALES,
-            text: {
-              it: statoMesh("it"),
-              en: statoMesh("en"),
-              es: statoMesh("es"),
-              de: statoMesh("de"),
-              pt: statoMesh("pt"),
-              fr: statoMesh("fr"),
-              pl: statoMesh("pl"),
-              tr: statoMesh("tr"),
-            },
-          },
-        ] as BlogSection[])),
     {
       type: "fitmesh-editorial-cta",
       contentCluster: "general",
