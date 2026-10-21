@@ -66,7 +66,7 @@ export default async function LocaleLayout({
   const lc = locale as Locale;
   const dict = await getDictionary(lc);
   // Rettifica 21/10/2026: il dizionario intero viaggia nei dati incorporati di ogni pagina perche'
-  // CookieBanner e' un componente client. Con la Mesh non disponibile la sua voce promozionale
+  // CookieBanner e MobileMenu (via Header) sono componenti client. Con la Mesh non disponibile la sua voce promozionale
   // («Mesh Famiglia e' in sviluppo...») non deve starci: stesso filtro della home, nessun dizionario
   // modificato, nessun flag toccato. Al rilascio (CAPABILITY_STATUS) la voce torna da sola.
   const dictClient = {
@@ -77,7 +77,7 @@ export default async function LocaleLayout({
   return (
     <>
       <MarketingBackdrop />
-      <Header dict={dict} locale={lc} />
+      <Header dict={dictClient} locale={lc} />
       <main className="flex-1">{children}</main>
       <Footer dict={dict} locale={lc} />
       <CookieBanner dict={dictClient} />
