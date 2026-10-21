@@ -55,7 +55,7 @@ describe("PricingPage (/pricing)", () => {
     expect(html).toContain("Prezzo indicato da Apple App Store");
     expect(html).toContain("Solo acquisto unico a vita");
     expect(html).toContain("Disdici quando vuoi da Google Play.");
-    expect(html).toContain("I dati già sincronizzati restano nel tuo account: dall&#x27;app puoi esportare le metriche di salute o eliminare l&#x27;account.");
+    expect(html).toContain("I dati già sincronizzati restano nel tuo account. Dall&#x27;app puoi sempre uscire o eliminare l&#x27;account.");
     expect(html).toContain("I dati sanitari risiedono nell&#x27;archivio salute locale del dispositivo");
     expect(html).not.toContain("Nessun limite al numero di dispositivi personali");
     expect(html).not.toContain("dashboard web personali");
@@ -99,7 +99,7 @@ describe("PricingPage (/pricing)", () => {
 
     const endTrialFaq = faqPage.mainEntity.find((q: any) => q.name.includes("finiscono"));
     expect(endTrialFaq).toBeDefined();
-    expect(endTrialFaq.acceptedAnswer.text).toContain("I dati già sincronizzati restano nel tuo account: dall'app puoi esportare le metriche di salute o eliminare l'account.");
+    expect(endTrialFaq.acceptedAnswer.text).toContain("I dati già sincronizzati restano nel tuo account. Dall'app puoi sempre uscire o eliminare l'account. L'eliminazione dell'account resta sempre accessibile dall'app.");
 
     const founderFaq = faqPage.mainEntity.find((q: any) => q.name.includes("Founder"));
     expect(founderFaq).toBeDefined();
@@ -119,7 +119,7 @@ describe("PricingPage (/pricing)", () => {
     expect(html).toContain("FitMesh Pro for iPhone");
     expect(html).toContain("14-day Pro trial included");
     expect(html).toContain("Cancel anytime in Google Play.");
-    expect(html).toContain("Data already synced stays in your account: from the app you can export your health metrics or delete your account.");
+    expect(html).toContain("Data already synced stays in your account. From the app you can always sign out or delete your account.");
     expect(html).toContain("Health data resides in your device");
 
     expect(html).not.toContain("5,99");
@@ -143,12 +143,39 @@ describe("PricingPage (/pricing)", () => {
 
     const endTrialFaq = faqPage.mainEntity.find((q: any) => q.name.includes("trial ends"));
     expect(endTrialFaq).toBeDefined();
-    expect(endTrialFaq.acceptedAnswer.text).toContain("Data already synced stays in your account: from the app you can export your health metrics or delete your account.");
+    expect(endTrialFaq.acceptedAnswer.text).toContain("Data already synced stays in your account. From the app you can always sign out or delete your account. Account deletion remains available from the app at any time.");
 
     const founderFaq = faqPage.mainEntity.find((q: any) => q.name.includes("Founder"));
     expect(founderFaq).toBeDefined();
     expect(founderFaq.name).toBe("Do accounts with Founder status need to pay?");
     expect(founderFaq.acceptedAnswer.text).toContain("Accounts to which the Founder benefit was actually granted");
+  });
+  it("nessuna promessa di esportazione dall'app: ne' nel testo visibile ne' nei dati strutturati (191 distribuita: a prova scaduta l'export non e' disponibile)", async () => {
+    // Rettifica 21/10/2026, segnalata dalla corsia APP (verifica su pro_screen.dart). La disponibilita'
+    // prevista nella 192.1 NON autorizza promesse sulla versione attuale: va riconfermata quando
+    // quella versione sara' distribuita. Il test copre l'intero HTML renderizzato, JSON-LD compreso.
+    for (const [lc, box, faqFrase, faqElimina, elenco] of [
+      ["it", "I dati già sincronizzati restano nel tuo account. Dall'app puoi sempre uscire o eliminare l'account.",
+        "L'eliminazione dell'account resta sempre accessibile dall'app.", "L'eliminazione dell'account resta sempre accessibile dall'app.", "Eliminazione dell'account sempre gratuita."],
+      ["en", "Data already synced stays in your account. From the app you can always sign out or delete your account.",
+        "Account deletion remains available from the app at any time.", "Account deletion remains available from the app at any time.", "Account deletion is always free."],
+    ] as const) {
+      const html = renderToStaticMarkup(await PricingPage({ params: Promise.resolve({ locale: lc }) }));
+      const intero = html.replace(/&#x27;/g, "'");
+      expect(intero, `${lc}: «esport»/«export» nell'intero HTML`).not.toMatch(/esport|export/i);
+      expect(intero, `${lc}: promessa «senza acquisto»`).not.toMatch(/senza acquisto|without a purchase/i);
+      const visibile = intero.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+      expect(visibile, lc).toContain(box);
+      expect(visibile, lc).toContain(faqElimina);
+      // il punto elenco compare nelle due card (Android e iPhone)
+      expect(intero.split(elenco).length - 1, `${lc}: punto elenco`).toBe(2);
+      const ld = extractJsonLd(html);
+      const faq = ld.find((j) => j["@type"] === "FAQPage").mainEntity.map((q: any) => q.acceptedAnswer.text as string);
+      const fine = faq.find((t: string) => t.includes(box))!;
+      expect(fine, lc).toBeDefined();
+      expect(fine, lc).toContain(faqFrase);
+      expect(JSON.stringify(ld), lc).not.toMatch(/esport|export/i);
+    }
   });
   it("imposte: frase neutra (nessuna IVA inclusa), nessuna cifra, formule per piattaforma confermate da Matteo il 20/10/2026", async () => {
     for (const [lc, frase, vecchi] of [

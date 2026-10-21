@@ -97,7 +97,7 @@ export default async function PricingPage({
         },
         {
           q: "Cosa succede quando finiscono i 14 giorni di prova?",
-          a: "Al termine della prova gratuita la sincronizzazione si ferma finché non scegli un'opzione. I dati già sincronizzati restano nel tuo account: dall'app puoi esportare le metriche di salute o eliminare l'account. L'esportazione JSON e l'eliminazione dell'account restano sempre accessibili e gratuite, senza acquisto.",
+          a: "Al termine della prova gratuita la sincronizzazione si ferma finché non scegli un'opzione. I dati già sincronizzati restano nel tuo account. Dall'app puoi sempre uscire o eliminare l'account. L'eliminazione dell'account resta sempre accessibile dall'app.",
         },
         {
           q: "Quali opzioni di acquisto ci sono su iPhone?",
@@ -123,7 +123,7 @@ export default async function PricingPage({
         },
         {
           q: "What happens when the 14-day trial ends?",
-          a: "When the free trial ends, syncing pauses until you choose an option. Data already synced stays in your account: from the app you can export your health metrics or delete your account. JSON export and account deletion remain permanently free and accessible without a purchase.",
+          a: "When the free trial ends, syncing pauses until you choose an option. Data already synced stays in your account. From the app you can always sign out or delete your account. Account deletion remains available from the app at any time.",
         },
         {
           q: "What purchase options are available on iPhone?",
@@ -262,7 +262,7 @@ export default async function PricingPage({
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-brand-aqua font-bold" aria-hidden="true">✓</span>
-                    <span>{isIt ? "Esportazione JSON e cancellazione account sempre gratuite" : "JSON export and account deletion always free"}</span>
+                    <span>{isIt ? "Eliminazione dell'account sempre gratuita." : "Account deletion is always free."}</span>
                   </li>
                 </ul>
               </div>
@@ -335,7 +335,7 @@ export default async function PricingPage({
                   </li>
                   <li className="flex items-start gap-2.5">
                     <span className="text-brand-aqua font-bold" aria-hidden="true">✓</span>
-                    <span>{isIt ? "Esportazione JSON e cancellazione account sempre gratuite" : "JSON export and account deletion always free"}</span>
+                    <span>{isIt ? "Eliminazione dell'account sempre gratuita." : "Account deletion is always free."}</span>
                   </li>
                 </ul>
               </div>
@@ -374,8 +374,8 @@ export default async function PricingPage({
               </h3>
               <p className="leading-relaxed">
                 {isIt
-                  ? "Al termine dei 14 giorni la sincronizzazione si ferma finché non scegli un'opzione, senza alcun addebito a sorpresa. I dati già sincronizzati restano nel tuo account: dall'app puoi esportare le metriche di salute o eliminare l'account."
-                  : "When the 14 days end, syncing pauses until you choose an option, with no surprise charges. Data already synced stays in your account: from the app you can export your health metrics or delete your account."}
+                  ? "Al termine dei 14 giorni la sincronizzazione si ferma finché non scegli un'opzione, senza alcun addebito a sorpresa. I dati già sincronizzati restano nel tuo account. Dall'app puoi sempre uscire o eliminare l'account."
+                  : "When the 14 days end, syncing pauses until you choose an option, with no surprise charges. Data already synced stays in your account. From the app you can always sign out or delete your account."}
               </p>
             </div>
             <div>
