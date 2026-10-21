@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import { locales, type Locale, ogLocale, htmlLang, getDictionary, localeAlternates } from "@/lib/i18n";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { visibleFeatureCards } from "@/lib/feature-status";
 import CookieBanner from "@/components/CookieBanner";
 import MarketingBackdrop from "@/components/MarketingBackdrop";
 import { APPLE_APP_ID } from "@/lib/flags";
@@ -65,22 +64,17 @@ export default async function LocaleLayout({
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
   const dict = await getDictionary(lc);
-  // Rettifica 21/10/2026: il dizionario intero viaggia nei dati incorporati di ogni pagina perche'
-  // CookieBanner e MobileMenu (via Header) sono componenti client. Con la Mesh non disponibile la sua voce promozionale
-  // («Mesh Famiglia e' in sviluppo...») non deve starci: stesso filtro della home, nessun dizionario
-  // modificato, nessun flag toccato. Al rilascio (CAPABILITY_STATUS) la voce torna da sola.
-  const dictClient = {
-    ...dict,
-    features: { ...dict.features, items: visibleFeatureCards(dict.features.items) },
-  };
+  // Rettifica 21/10/2026: i componenti client (CookieBanner, e MobileMenu via Header) ricevono SOLO la chiave che usano:
+  // tutto cio' che passa a un componente client finisce nei dati incorporati di ogni pagina. Prima ci finiva il
+  // dizionario intero (voce promozionale Mesh, etichette dell'area impostazioni). Nessun dizionario modificato.
 
   return (
     <>
       <MarketingBackdrop />
-      <Header dict={dictClient} locale={lc} />
+      <Header dict={dict} locale={lc} />
       <main className="flex-1">{children}</main>
       <Footer dict={dict} locale={lc} />
-      <CookieBanner dict={dictClient} />
+      <CookieBanner dict={{ cookie_banner: dict.cookie_banner }} />
     </>
   );
 }

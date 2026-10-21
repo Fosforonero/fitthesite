@@ -110,7 +110,7 @@ export default function Header({
             {dict.nav.download} →
           </Link>
           <LanguageSwitcher current={locale} />
-          <MobileMenu dict={dict} locale={locale} />
+          <MobileMenu dict={{ nav: dict.nav }} locale={locale} />
         </nav>
       </div>
     </header>
