@@ -357,10 +357,10 @@ export const post: BlogPost = {
           fr: ["Plusieurs sources ensemble (anneau + montre)", "Samsung uniquement", "Oui", "Moteur de fusion dédié, règles fixes (pas d'IA)", "—"],
         },
         {
-          it: ["Export dati", "Limitato all'app/Samsung Cloud", "JSON gratuito, CSV con filtro periodo (Pro)", "Esportazione diretta da Impostazioni", "—"],
-          en: ["Data export", "Limited to the app/Samsung Cloud", "Free JSON, CSV with date-range filter (Pro)", "Direct export from Settings", "—"],
-          de: ["Datenexport", "Beschränkt auf die App/Samsung Cloud", "Kostenloses JSON, CSV mit Zeitraumfilter (Pro)", "Direkter Export aus den Einstellungen", "—"],
-          fr: ["Export des données", "Limité à l'application/Samsung Cloud", "JSON gratuit, CSV avec filtre de période (Pro)", "Export direct depuis les Réglages", "—"],
+          it: ["Export dati", "Limitato all'app/Samsung Cloud", "JSON, CSV con filtro periodo (Pro)", "Esportazione diretta da Impostazioni", "—"],
+          en: ["Data export", "Limited to the app/Samsung Cloud", "JSON, CSV with date-range filter (Pro)", "Direct export from Settings", "—"],
+          de: ["Datenexport", "Beschränkt auf die App/Samsung Cloud", "JSON, CSV mit Zeitraumfilter (Pro)", "Direkter Export aus den Einstellungen", "—"],
+          fr: ["Export des données", "Limité à l'application/Samsung Cloud", "JSON, CSV avec filtre de période (Pro)", "Export direct depuis les Réglages", "—"],
         },
         {
           it: ["Continuità multipiattaforma (Android+iOS)", "No (ecosistema Samsung)", "Sì", "Stesso account FitMesh", "—"],

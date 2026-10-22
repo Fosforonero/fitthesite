@@ -321,7 +321,6 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
       expect(txt).toMatch(/lifetime purchase/i);
       expect(txt).toMatch(/on Android you can also choose the 6-month subscription/i);
       expect(txt).toMatch(/6-month subscription is not available on iPhone/i);
-      expect(txt).toMatch(/JSON.*never require a purchase/i);
     });
 
     it("dichiara non disponibili dashboard web, export FIT (distinto da JSON), Mesh Famiglia e collegamenti diretti", () => {
@@ -358,8 +357,8 @@ describe("SPRINT SITE-TRUST-01: Contratto FONTI AMMESSE e Correzioni di Fiducia"
   });
 
   describe("Punto 6: Prova 14 giorni testo definitivo approvato (Decisione 7A)", () => {
-    const itExact = "La prova gratuita dura 14 giorni. Poi, per continuare a sincronizzare, serve l'acquisto a vita; su Android puoi scegliere anche l'abbonamento semestrale. Esportare i dati in formato JSON e richiedere la cancellazione dell'account non richiede un acquisto.";
-    const enExact = "The free trial lasts 14 days. After that, syncing requires the lifetime purchase; on Android you can also choose the 6-month subscription. Exporting your data as JSON and requesting account deletion never require a purchase.";
+    const itExact = "La prova gratuita dura 14 giorni. Poi, per continuare a sincronizzare, serve l'acquisto a vita; su Android puoi scegliere anche l'abbonamento semestrale.";
+    const enExact = "The free trial lasts 14 days. After that, syncing requires the lifetime purchase; on Android you can also choose the 6-month subscription.";
 
     it("sezione prezzi usa il testo esatto approvato per IT ed EN", () => {
       expect(PRICING_SECTION.subhead.it).toBe(itExact);
