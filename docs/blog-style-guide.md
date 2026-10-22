@@ -62,6 +62,7 @@ Affermazioni su privacy, regione dei dati, conformità, scelta o fusione delle f
 - [ ] `grep "—"` sull'articolo torna zero (en-dash dei nomi propri a parte)?
 - [ ] Ogni approssimazione è dichiarata e ogni fonte è linkata?
 - [ ] Nessuna funzione non uscita nominata, nessuna data futura, nessuna promessa non provata?
+- [ ] Nessuna frase su dashboard web, Mesh Famiglia, grafici coach, export dopo la prova?
 
 ---
 
