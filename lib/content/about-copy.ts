@@ -485,7 +485,7 @@ export const ABOUT_COPY = {
   } satisfies Localized,
 
   deleteAccountPrefix: {
-    it: "Vuoi cancellare l'account? Lo fai in autonomia dall'app (Impostazioni → Elimina account)",
+    it: "Vuoi cancellare l'account? Lo fai in autonomia dall'app (Impostazioni → Cancella account)",
     en: "Want to delete your account? Do it yourself from the app (Settings → Delete account)",
     es: "¿Quieres eliminar tu cuenta? Hazlo tú mismo desde la app (Ajustes → Eliminar cuenta)",
     de: "Möchtest du dein Konto löschen? Erledige es selbst in der App (Einstellungen → Konto löschen)",

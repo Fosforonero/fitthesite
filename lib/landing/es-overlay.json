@@ -105,7 +105,7 @@
     "faq.1.q": "¿FitMesh iOS requiere suscripción?",
     "faq.1.a": "Prueba FitMesh Pro durante 14 días. Al terminar, para seguir usando las funciones Pro es necesaria una compra o una suscripción.",
     "faq.2.q": "¿Están seguros mis datos de Apple Health con FitMesh?",
-    "faq.2.a": "Los datos se transmiten mediante HTTPS y se almacenan en una base de datos Postgres protegida por RLS (Row Level Security): cada usuario solo ve sus propios datos. Puedes eliminar todo de nuestros servidores en cualquier momento con 'Eliminar cuenta y datos' en la app. La política de privacidad está disponible en fitmesh.fit.",
+    "faq.2.a": "Los datos se transmiten mediante HTTPS y se almacenan en una base de datos Postgres protegida por RLS (Row Level Security): cada usuario solo ve sus propios datos. Puedes iniciar la eliminación de la cuenta desde la app. La política de privacidad está disponible en fitmesh.fit.",
     "secondaryKeywords": [
       "ver datos apple health en pc",
       "copia de seguridad en la nube apple health",
@@ -147,7 +147,7 @@
     "faq.2.q": "¿Funciona con el Galaxy Watch 4? ¿Y con modelos anteriores?",
     "faq.2.a": "Sí, con Galaxy Watch 4, 5, 6, 7 y Ultra (todos escriben en Samsung Health → Health Connect). Los modelos anteriores (Gear S3, Galaxy Watch Active) pueden funcionar si están actualizados y emparejados con una versión actual de Samsung Health, pero el soporte oficial empieza con el Watch 4.",
     "faq.3.q": "¿Puedo borrar los datos con un clic?",
-    "faq.3.a": "Sí. En los ajustes de FitMesh hay una opción 'Eliminar cuenta y datos' que borra definitivamente todo de nuestros servidores (con 30 días de copia de seguridad operativa según la política de privacidad). Los datos del teléfono y del Galaxy Watch permanecen intactos.",
+    "faq.3.a": "Puedes iniciar la eliminación de la cuenta desde la app. Los datos del teléfono y del Galaxy Watch permanecen intactos.",
     "secondaryKeywords": [
       "descargar datos de samsung health",
       "copia de seguridad samsung health pc",
@@ -198,7 +198,7 @@
     "faq.3.q": "¿FitMesh iOS está disponible en la App Store?",
     "faq.3.a": "Sí. FitMesh iOS ya está disponible en el App Store, en toda la UE. Descárgala directamente desde el App Store e inicia sesión con tu cuenta de FitMesh.",
     "faq.4.q": "¿Mis datos de salud están seguros al usar dos teléfonos?",
-    "faq.4.a": "Sí. Todos los datos se almacenan cifrados en tránsito (HTTPS) y en reposo. Cada cuenta está aislada con Row Level Security: ningún otro usuario puede ver tus datos. Puedes eliminarlo todo en cualquier momento desde la sección 'Eliminar cuenta y datos' de la app.",
+    "faq.4.a": "Sí. Todos los datos se almacenan cifrados en tránsito (HTTPS) y en reposo. Cada cuenta está aislada con Row Level Security: ningún otro usuario puede ver tus datos. Puedes iniciar la eliminación de la cuenta desde la app.",
     "faq.5.q": "¿El anillo Colmi funciona tanto en Android como en iPhone?",
     "faq.5.a": "Sí. El anillo Colmi se conecta por Bluetooth a la app de FitMesh en ambas plataformas. En Android y en iPhone ya está disponible en producción. Los datos que recoge el anillo (sueño con fases, pasos, BPM) se sincronizan con tu cuenta en la nube y, en iOS, se escriben en Apple Health.",
     "secondaryKeywords": [

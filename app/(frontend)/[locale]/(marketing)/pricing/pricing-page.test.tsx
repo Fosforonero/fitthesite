@@ -55,7 +55,7 @@ describe("PricingPage (/pricing)", () => {
     expect(html).toContain("Prezzo indicato da Apple App Store");
     expect(html).toContain("Solo acquisto unico a vita");
     expect(html).toContain("Disdici quando vuoi da Google Play.");
-    expect(html).toContain("I dati già sincronizzati restano nel tuo account. Dall&#x27;app puoi sempre uscire o eliminare l&#x27;account.");
+    expect(html.replace(/&#x27;/g, "'").replace(/&gt;/g, ">")).toContain("I dati già sincronizzati restano nel tuo account. Anche a prova scaduta, dall'app puoi uscire dall'account o avviarne la cancellazione (Impostazioni > Cancella account, oppure dalla schermata di sblocco). La cancellazione non richiede un acquisto.");
     expect(html).toContain("I dati sanitari risiedono nell&#x27;archivio salute locale del dispositivo");
     expect(html).not.toContain("Nessun limite al numero di dispositivi personali");
     expect(html).not.toContain("dashboard web personali");
@@ -99,7 +99,7 @@ describe("PricingPage (/pricing)", () => {
 
     const endTrialFaq = faqPage.mainEntity.find((q: any) => q.name.includes("finiscono"));
     expect(endTrialFaq).toBeDefined();
-    expect(endTrialFaq.acceptedAnswer.text).toContain("I dati già sincronizzati restano nel tuo account. Dall'app puoi sempre uscire o eliminare l'account. L'eliminazione dell'account resta sempre accessibile dall'app.");
+    expect(endTrialFaq.acceptedAnswer.text).toContain("I dati già sincronizzati restano nel tuo account. Anche a prova scaduta, dall'app puoi uscire dall'account o avviarne la cancellazione (Impostazioni > Cancella account, oppure dalla schermata di sblocco). La cancellazione non richiede un acquisto.");
 
     const founderFaq = faqPage.mainEntity.find((q: any) => q.name.includes("Founder"));
     expect(founderFaq).toBeDefined();
@@ -119,7 +119,7 @@ describe("PricingPage (/pricing)", () => {
     expect(html).toContain("FitMesh Pro for iPhone");
     expect(html).toContain("14-day Pro trial included");
     expect(html).toContain("Cancel anytime in Google Play.");
-    expect(html).toContain("Data already synced stays in your account. From the app you can always sign out or delete your account.");
+    expect(html.replace(/&gt;/g, ">")).toContain("Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account. Deletion does not require a purchase.");
     expect(html).toContain("Health data resides in your device");
 
     expect(html).not.toContain("5,99");
@@ -143,7 +143,7 @@ describe("PricingPage (/pricing)", () => {
 
     const endTrialFaq = faqPage.mainEntity.find((q: any) => q.name.includes("trial ends"));
     expect(endTrialFaq).toBeDefined();
-    expect(endTrialFaq.acceptedAnswer.text).toContain("Data already synced stays in your account. From the app you can always sign out or delete your account. Account deletion remains available from the app at any time.");
+    expect(endTrialFaq.acceptedAnswer.text).toContain("Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account. Deletion does not require a purchase.");
 
     const founderFaq = faqPage.mainEntity.find((q: any) => q.name.includes("Founder"));
     expect(founderFaq).toBeDefined();
@@ -154,26 +154,26 @@ describe("PricingPage (/pricing)", () => {
     // Rettifica 21/10/2026, segnalata dalla corsia APP (verifica su pro_screen.dart). La disponibilita'
     // prevista nella 192.1 NON autorizza promesse sulla versione attuale: va riconfermata quando
     // quella versione sara' distribuita. Il test copre l'intero HTML renderizzato, JSON-LD compreso.
-    for (const [lc, box, faqFrase, faqElimina, elenco] of [
-      ["it", "I dati già sincronizzati restano nel tuo account. Dall'app puoi sempre uscire o eliminare l'account.",
-        "L'eliminazione dell'account resta sempre accessibile dall'app.", "L'eliminazione dell'account resta sempre accessibile dall'app.", "Eliminazione dell'account sempre gratuita."],
-      ["en", "Data already synced stays in your account. From the app you can always sign out or delete your account.",
-        "Account deletion remains available from the app at any time.", "Account deletion remains available from the app at any time.", "Account deletion is always free."],
+    // Rettifica 22/10/2026 (J-3d): «sempre», «gratuita/free» e il doppione FAQ sull'eliminazione sono tolti;
+    // restano solo avvio della richiesta e assenza di acquisto necessario per avviarla.
+    for (const [lc, box, rimosse] of [
+      ["it", "I dati già sincronizzati restano nel tuo account. Anche a prova scaduta, dall'app puoi uscire dall'account o avviarne la cancellazione (Impostazioni > Cancella account, oppure dalla schermata di sblocco). La cancellazione non richiede un acquisto.",
+        [/sempre gratuita/i, /sempre accessibile/i, /puoi sempre uscire/i, /eliminazione dell'account/i]],
+      ["en", "Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account. Deletion does not require a purchase.",
+        [/always free/i, /available from the app at any time/i, /can always sign out/i, /account deletion is/i]],
     ] as const) {
       const html = renderToStaticMarkup(await PricingPage({ params: Promise.resolve({ locale: lc }) }));
-      const intero = html.replace(/&#x27;/g, "'");
+      const intero = html.replace(/&#x27;/g, "'").replace(/&gt;/g, ">");
       expect(intero, `${lc}: «esport»/«export» nell'intero HTML`).not.toMatch(/esport|export/i);
-      expect(intero, `${lc}: promessa «senza acquisto»`).not.toMatch(/senza acquisto|without a purchase/i);
+      expect(intero, `${lc}: «senza acquisto» solo nella formula ammessa (J-3d)`).toMatch(lc === "it" ? /La cancellazione non richiede un acquisto/ : /Deletion does not require a purchase/);
+      expect(intero, `${lc}: nessun «sempre»/«always» su uscita o eliminazione`).not.toMatch(/sempre (uscire|gratuit)|always (sign|free)/i);
+      for (const r of rimosse) expect(intero, `${lc}: ${r}`).not.toMatch(r);
       const visibile = intero.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
       expect(visibile, lc).toContain(box);
-      expect(visibile, lc).toContain(faqElimina);
-      // il punto elenco compare nelle due card (Android e iPhone)
-      expect(intero.split(elenco).length - 1, `${lc}: punto elenco`).toBe(2);
       const ld = extractJsonLd(html);
       const faq = ld.find((j) => j["@type"] === "FAQPage").mainEntity.map((q: any) => q.acceptedAnswer.text as string);
       const fine = faq.find((t: string) => t.includes(box))!;
       expect(fine, lc).toBeDefined();
-      expect(fine, lc).toContain(faqFrase);
       expect(JSON.stringify(ld), lc).not.toMatch(/esport|export/i);
     }
   });
