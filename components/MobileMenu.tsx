@@ -13,7 +13,8 @@ export default function MobileMenu({
   dict,
   locale,
 }: {
-  dict: Dictionary;
+  /** Solo la chiave usata: componente client, tutto cio' che riceve finisce nei dati incorporati della pagina. */
+  dict: Pick<Dictionary, "nav">;
   locale: Locale;
 }) {
   const [open, setOpen] = useState(false);

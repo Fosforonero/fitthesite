@@ -1,30 +1,6 @@
 import type { BlogPost } from "../types";
-import {
-  featureStatusSentence,
-  isFeatureAvailable,
-  meshStatusSentenceRenderable,
-} from "@/lib/feature-status";
 
 type GuideLocale = "it" | "en" | "de" | "ja" | "fr";
-
-/**
- * Stato di dashboard web e Mesh Famiglia: DERIVATO da lib/feature-status.ts
- * (che legge CAPABILITY_STATUS in lib/product-facts.ts). Nessuna frase di
- * stato scritta in questo post: si usano le frasi canoniche, nella lingua
- * della pagina. Una funzione che diventa disponibile esce dal testo da sola;
- * la frase Mesh si omette dove non e' renderizzabile (ja: revisione di
- * agenti, feature-status.ts meshStatusSentenceRenderable).
- */
-function statoFunzioniNonDisponibili(lc: GuideLocale): string {
-  const frasi: string[] = [];
-  if (!isFeatureAvailable("webDashboard")) {
-    frasi.push(featureStatusSentence("webDashboard", lc));
-  }
-  if (!isFeatureAvailable("familyMesh") && meshStatusSentenceRenderable(lc)) {
-    frasi.push(featureStatusSentence("familyMesh", lc));
-  }
-  return frasi.join(" ");
-}
 
 /** Dove si consulta quanto descritto: solo l'app mobile. */
 const DOVE_SI_CONSULTA: Record<GuideLocale, string> = {
@@ -35,8 +11,12 @@ const DOVE_SI_CONSULTA: Record<GuideLocale, string> = {
   fr: "Ce que décrit ce guide se consulte dans l'application FitMesh pour iPhone et Android.",
 };
 
+/**
+ * Rettifica 21/10/2026: nessuna frase sulla dashboard web o su Mesh Famiglia come
+ * «non disponibili» in questa guida; resta solo dove si consulta quanto descritto.
+ */
 function statoEDoveSiConsulta(lc: GuideLocale): string {
-  return [statoFunzioniNonDisponibili(lc), DOVE_SI_CONSULTA[lc]].filter(Boolean).join(" ");
+  return DOVE_SI_CONSULTA[lc];
 }
 
 /**
@@ -52,8 +32,8 @@ function statoEDoveSiConsulta(lc: GuideLocale): string {
  * - en, de, ja, fr: derivati dall'it di questo file, stessa revisione git;
  * - controllo applicato: revisione di AGENTE, non madrelingua (TRANSLATIONS 6:
  *   nessuna firma nominata registrata);
- * - frasi di stato di dashboard web e Mesh: non sono di questo post, arrivano
- *   da lib/feature-status.ts con la provenienza registrata li'.
+ * - nessuna frase di stato di dashboard web o Mesh in questo post (rettifica
+ *   21/10/2026): il registro resta in lib/feature-status.ts, qui non si rende.
  */
 export const post: BlogPost = {
   slug: "fitmesh-ultratleta-apple-watch-garmin-polar",
@@ -833,27 +813,6 @@ export const post: BlogPost = {
         fr: "FitMesh n'additionne pas les pas comptés par les deux montres. Sur iPhone, le total de la journée vient d'Apple Santé : FitMesh utilise le total qu'Apple Santé calcule en réunissant ses sources, ou celui de la source unique qui a le plus de pas, s'il est plus élevé. Si le téléphone Android a aussi des pas pour cette journée, FitMesh n'utilise qu'une des deux sources, choisie selon la fiabilité et la couverture. L'entraînement enregistré avec Garmin apparaît dans FitMesh si Garmin Connect le partage avec Apple Santé ou Health Connect. Si un chiffre ne vous semble pas juste, comparez-le avec l'application du fabricant.",
       },
     },
-    // FAQ presente solo finche la dashboard web non e disponibile (CAPABILITY_STATUS).
-    ...(isFeatureAvailable("webDashboard")
-      ? []
-      : [
-          {
-            q: {
-              it: "La dashboard web desktop è già utilizzabile per visualizzare questi dati?",
-              en: "Is the desktop web dashboard currently available to view these metrics?",
-              de: "Ist das Desktop-Web-Dashboard bereits verfügbar, um diese Daten einzusehen?",
-              ja: "パソコンのブラウザからWebダッシュボードを使ってこれらのデータを閲覧できますか？",
-              fr: "Le tableau de bord web sur ordinateur est-il déjà disponible pour consulter ces données ?",
-            },
-            a: {
-              it: statoEDoveSiConsulta("it"),
-              en: statoEDoveSiConsulta("en"),
-              de: statoEDoveSiConsulta("de"),
-              ja: statoEDoveSiConsulta("ja"),
-              fr: statoEDoveSiConsulta("fr"),
-            },
-          },
-        ]),
   ],
   sources: [
     "https://support.garmin.com/en-AU/?faq=lK5FPB9iPF5PXFkIpFlFPA",

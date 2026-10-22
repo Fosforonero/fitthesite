@@ -7,7 +7,8 @@ import { locales, type Locale, defaultLocale } from "@/lib/i18n";
 import type { Dictionary } from "@/lib/i18n";
 import { CONSENT_REOPEN_EVENT, CONSENT_STORAGE_KEY, readConsent, writeConsent } from "@/lib/analytics/consent";
 
-export default function CookieBanner({ dict }: { dict: Dictionary }) {
+/** Solo la chiave usata: il banner e' un componente client, e tutto cio' che riceve finisce nei dati incorporati della pagina. */
+export default function CookieBanner({ dict }: { dict: Pick<Dictionary, "cookie_banner"> }) {
   const [visible, setVisible] = useState(false);
   const pathname = usePathname() || "/";
 

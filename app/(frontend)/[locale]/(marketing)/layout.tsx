@@ -64,6 +64,9 @@ export default async function LocaleLayout({
   if (!locales.includes(locale as Locale)) notFound();
   const lc = locale as Locale;
   const dict = await getDictionary(lc);
+  // Rettifica 21/10/2026: i componenti client (CookieBanner, e MobileMenu via Header) ricevono SOLO la chiave che usano:
+  // tutto cio' che passa a un componente client finisce nei dati incorporati di ogni pagina. Prima ci finiva il
+  // dizionario intero (voce promozionale Mesh, etichette dell'area impostazioni). Nessun dizionario modificato.
 
   return (
     <>
@@ -71,7 +74,7 @@ export default async function LocaleLayout({
       <Header dict={dict} locale={lc} />
       <main className="flex-1">{children}</main>
       <Footer dict={dict} locale={lc} />
-      <CookieBanner dict={dict} />
+      <CookieBanner dict={{ cookie_banner: dict.cookie_banner }} />
     </>
   );
 }

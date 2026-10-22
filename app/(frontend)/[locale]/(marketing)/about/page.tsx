@@ -21,7 +21,7 @@ import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
  */
 import { ABOUT_TRANSLATED_LOCALES } from "@/lib/content/static-page-locales";
 import { ABOUT_COPY } from "@/lib/content/about-copy";
-import { featureStatusSentence, isFeatureAvailable, meshStatusSentenceRenderable } from "@/lib/feature-status";
+import { isFeatureAvailable } from "@/lib/feature-status";
 import { tl } from "@/lib/blog/types";
 
 export function generateStaticParams() {
@@ -250,8 +250,8 @@ export default async function AboutPage({
         </div>
 
         {/* ─── Famiglia / caregiver ─── */}
-        {/* Scelta reversibile in attesa della firma nominata per nl, ja, ko, sv, da, no, fi: con la Mesh non disponibile il blocco non si rende in quelle lingue. */}
-        {(isFeatureAvailable("familyMesh") || meshStatusSentenceRenderable(lc)) && (
+        {/* Rettifica 21/10/2026: con la Mesh non disponibile il blocco non si rende in nessuna lingua (nessuna frase «non disponibile» promozionale). Al rilascio (CAPABILITY_STATUS) ricompare con il testo Famiglia di about-copy. */}
+        {isFeatureAvailable("familyMesh") && (
           <>
             <h2
               id="family"
@@ -260,9 +260,7 @@ export default async function AboutPage({
               {tl(ABOUT_COPY.familyHeading, lc)}
             </h2>
             <p className="mt-4 text-text-secondary leading-relaxed">
-              {isFeatureAvailable("familyMesh")
-                ? tl(ABOUT_COPY.familyBody, lc)
-                : featureStatusSentence("familyMesh", lc)}
+              {tl(ABOUT_COPY.familyBody, lc)}
             </p>
           </>
         )}

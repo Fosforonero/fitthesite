@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { isBlogContentAvailableForLocale, filterBlogContentForLocale } from "./locale-filter";
 import { isPostLocaleComplete, isBlogVariantIndexable, REDIRECT_INCOMPLETE_LOCALE_SLUGS } from "./indexability";
 import { BLOG_POSTS } from "./data";
-import { isFeatureAvailable } from "@/lib/feature-status";
 import type { BlogPost, BlogSection, BlogQA } from "./types";
 
 /**
@@ -200,24 +199,15 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
   // sette (nl, ja, ko, sv, da, no, fi) il blocco non esiste. Il test sostituisce
   // quello vecchio (it/en vedono PIU' sezioni di es/de/pt/fr), che non ha piu'
   // senso: qui e' vero il contrario, le otto lingue vedono lo STESSO corpo.
-  it("come-funziona-fitmesh: nessuna sezione o FAQ riservata a it/en; la sola frase Mesh e' ristretta alle otto lingue approvate", () => {
+  it("come-funziona-fitmesh: nessuna sezione o FAQ riservata a un sottoinsieme di lingue, e nessuna frase di stato Mesh (rettifica 21/10/2026)", () => {
     const post = BLOG_POSTS.find((p) => p.slug === "come-funziona-fitmesh")!;
     const APPROVED = ["it", "en", "es", "de", "pt", "fr", "pl", "tr"] as const;
     const AGENT_ONLY = ["nl", "ja", "ko", "sv", "da", "no", "fi"] as const;
-    const scoped = post.body.filter((b) => b.locales != null);
-    // Unico blocco con `locales` ammesso: la frase Mesh (assente solo se la Mesh e' disponibile nel registro).
-    expect(scoped.length).toBeLessThanOrEqual(1);
-    // Se la Mesh non e' disponibile nel registro la frase DEVE esserci, e DEVE essere ristretta:
-    // senza questo controllo togliere `locales` dal blocco passerebbe inosservato.
-    expect(scoped.length).toBe(isFeatureAvailable("familyMesh") ? 0 : 1);
-    for (const b of scoped) {
-      expect([...(b.locales ?? [])].sort()).toEqual([...APPROVED].sort());
-    }
-    for (const lc of APPROVED) {
+    // Prima della rettifica c'era un solo blocco con `locales`: la frase «Mesh non disponibile», ristretta alle otto lingue.
+    // Ora quel blocco non esiste piu' e nessun altro blocco e' ristretto: tutte le lingue vedono lo stesso corpo.
+    expect(post.body.filter((b) => b.locales != null)).toHaveLength(0);
+    for (const lc of [...APPROVED, ...AGENT_ONLY]) {
       expect(filterBlogContentForLocale(post.body, lc).length, `body/${lc}`).toBe(post.body.length);
-    }
-    for (const lc of AGENT_ONLY) {
-      expect(filterBlogContentForLocale(post.body, lc).length, `body/${lc}`).toBe(post.body.length - scoped.length);
     }
     // Nessuna FAQ riservata: stesso numero in tutte le lingue.
     expect((post.faq ?? []).filter((f) => f.locales != null)).toHaveLength(0);
