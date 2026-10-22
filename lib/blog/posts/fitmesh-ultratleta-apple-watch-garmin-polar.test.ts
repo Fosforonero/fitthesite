@@ -1,6 +1,5 @@
-import { afterEach, describe, expect, it } from "vitest";
-import { CAPABILITY_STATUS } from "@/lib/product-facts";
-import { featureStatusSentence, isFeatureAvailable, meshStatusSentenceRenderable, type FeatureKey } from "@/lib/feature-status";
+import { describe, expect, it } from "vitest";
+import { featureStatusSentence, type FeatureKey } from "@/lib/feature-status";
 import { post } from "./fitmesh-ultratleta-apple-watch-garmin-polar";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
@@ -60,39 +59,34 @@ const FORBIDDEN_POSITIVE: Record<GuideLocale, RegExp[]> = {
 const splitSentences = (s: string) => s.split(/(?<=[.。!?？])\s*/).map((x) => x.trim()).filter(Boolean);
 
 /**
- * Verifica che LEGGE lo stato dal registro (CAPABILITY_STATUS tramite
- * isFeatureAvailable) e le frasi da lib/feature-status.ts. Fail-closed:
- * - funzione disponibile nel registro mentre il post la dichiara non disponibile: ERRORE;
- * - funzione non disponibile e frase del registro assente (dove renderizzabile): ERRORE;
- * - frase Mesh presente dove il registro non la rende (lingua senza formula approvata): ERRORE;
- * - frase di stato nel post diversa da quella del registro nella stessa lingua: ERRORE.
+ * Rettifica 21/10/2026: la guida NON porta nessuna frase di stato su dashboard web o
+ * Mesh Famiglia, nemmeno come «non disponibili». Fail-closed:
+ * - una frase del registro (lib/feature-status.ts) presente nel testo, in qualunque lingua della guida: ERRORE;
+ * - una qualunque frase che nomina dashboard web/Mesh E ne dichiara lo stato (non disponibile, in sviluppo): ERRORE;
+ * - una FAQ che chiede della dashboard web o della Mesh: ERRORE;
+ * - una promessa di disponibilita' attiva: ERRORE.
+ * Il registro, i flag e i cancelli non sono toccati da questo test.
  */
-function validateFutureFeatureStatus(postToTest: BlogPost) {
+function validateNoStatusSentences(postToTest: BlogPost) {
   for (const lc of LOCALES) {
     const chunks = collectStrings(postToTest, lc);
     const combined = chunks.join(" ");
-    const registrySentences: string[] = [];
     for (const key of KEYS) {
       const sentence = featureStatusSentence(key, lc);
-      registrySentences.push(...splitSentences(sentence));
-      const declared = combined.includes(sentence);
-      const renderable = key === "familyMesh" ? meshStatusSentenceRenderable(lc) : true;
-      if (isFeatureAvailable(key)) {
-        if (declared) throw new Error(`[${lc}] ${key} e' disponibile nel registro ma il post lo dichiara non disponibile`);
-      } else if (renderable && !declared) {
-        throw new Error(`[${lc}] ${key} non e' disponibile nel registro ma il post non riporta la frase del registro`);
-      } else if (!renderable && declared) {
-        throw new Error(`[${lc}] ${key}: la frase del registro non e' renderizzabile in questa lingua ma e' nel post`);
-      }
+      if (combined.includes(sentence)) throw new Error(`[${lc}] frase di stato del registro (${key}) presente nel testo`);
     }
     for (const chunk of chunks) {
       for (const sentence of splitSentences(chunk)) {
-        if (TERM[lc].test(sentence) && STATE[lc].test(sentence) && !registrySentences.includes(sentence)) {
-          throw new Error(`[${lc}] frase di stato diversa da quella del registro: ${sentence}`);
+        if (TERM[lc].test(sentence) && STATE[lc].test(sentence)) {
+          throw new Error(`[${lc}] frase che dichiara lo stato di dashboard web o Mesh: ${sentence}`);
         }
       }
     }
-    // Le domande delle FAQ ("... e' gia' disponibile?") non sono promesse: si controllano le affermazioni.
+    for (const f of postToTest.faq ?? []) {
+      const q = (f.q as Record<string, string | undefined>)[lc] ?? "";
+      if (TERM[lc].test(q) && /web|desktop|mesh|famil|ウェブ|ブラウザ|パソコン/i.test(q)) throw new Error(`[${lc}] FAQ sulla dashboard web o sulla Mesh: ${q}`);
+    }
+    // Le domande delle FAQ non sono promesse: si controllano le affermazioni.
     const statements = chunks.flatMap(splitSentences).filter((x) => !/[?？]$/.test(x)).join(" ");
     for (const forbidden of FORBIDDEN_POSITIVE[lc]) {
       if (forbidden.test(statements)) {
@@ -101,11 +95,6 @@ function validateFutureFeatureStatus(postToTest: BlogPost) {
     }
   }
 }
-
-const original = Object.fromEntries(KEYS.map((k) => [k, CAPABILITY_STATUS[k].status])) as Record<FeatureKey, string>;
-afterEach(() => {
-  for (const k of KEYS) CAPABILITY_STATUS[k].status = original[k] as never;
-});
 
 describe("Guida ultratleta multi-dispositivo (fitmesh-ultratleta-apple-watch-garmin-polar)", () => {
   it("il post esporta le proprietà canoniche corrette e coverAlt per le 5 lingue", () => {
@@ -147,40 +136,47 @@ describe("Guida ultratleta multi-dispositivo (fitmesh-ultratleta-apple-watch-gar
   });
 
 
-  it("lo stato di dashboard web e Mesh e' quello del registro, frase per frase, in tutte le 5 lingue", () => {
-    expect(() => validateFutureFeatureStatus(post)).not.toThrow();
+  it("nessuna frase di stato su dashboard web o Mesh Famiglia, in nessuna delle 5 lingue (rettifica 21/10/2026)", () => {
+    expect(() => validateNoStatusSentences(post)).not.toThrow();
   });
 
-  it("MUTAZIONE: se la dashboard web diventa disponibile nel registro il test diventa rosso", () => {
-    CAPABILITY_STATUS.webDashboard.status = "live_verified";
-    expect(() => validateFutureFeatureStatus(post)).toThrow(/webDashboard e' disponibile nel registro/);
+  it("resta solo dove si consulta quanto descritto: l'app per iPhone e Android, in tutte le 5 lingue", () => {
+    for (const lc of LOCALES) {
+      const combined = collectStrings(post, lc).join(" ");
+      expect(combined, lc).toMatch(/FitMesh/);
+    }
+    expect(collectStrings(post, "it").join(" ")).toContain("Quanto descritto in questa guida si consulta nell'app FitMesh per iPhone e Android.");
+    expect(collectStrings(post, "en").join(" ")).toContain("What this guide describes is viewed in the FitMesh app for iPhone and Android.");
   });
 
-  it("MUTAZIONE: se la Mesh diventa disponibile (anche limitata) nel registro il test diventa rosso", () => {
-    CAPABILITY_STATUS.familyMesh.status = "live_limited";
-    expect(() => validateFutureFeatureStatus(post)).toThrow(/familyMesh e' disponibile nel registro/);
-  });
-
-  it("MUTAZIONE: una frase di stato diversa da quella del registro fa fallire il test", () => {
+  it("MUTAZIONE: una frase del registro rimessa nel testo fa fallire il test", () => {
     const mutated = JSON.parse(JSON.stringify(post)) as BlogPost;
-    const sentence = featureStatusSentence("webDashboard", "de");
-    const chunk = mutated.faq!.find((f) => (f.a.de ?? "").includes(sentence))!;
-    chunk.a.de = (chunk.a.de ?? "").replace(sentence, "Das Web-Dashboard ist derzeit nicht verfügbar.");
-    expect(() => validateFutureFeatureStatus(mutated)).toThrow(/\[de\]/);
+    mutated.tldr!.de = [...(mutated.tldr!.de ?? []), featureStatusSentence("webDashboard", "de")];
+    expect(() => validateNoStatusSentences(mutated)).toThrow(/\[de\]/);
+    const mutated2 = JSON.parse(JSON.stringify(post)) as BlogPost;
+    mutated2.tldr!.fr = [...(mutated2.tldr!.fr ?? []), featureStatusSentence("familyMesh", "fr")];
+    expect(() => validateNoStatusSentences(mutated2)).toThrow(/\[fr\]/);
   });
 
-  it("MUTAZIONE: la frase del registro tolta in una lingua fa fallire il test", () => {
+  it("MUTAZIONE: una frase di stato scritta a mano, diversa da quella del registro, fa fallire il test", () => {
     const mutated = JSON.parse(JSON.stringify(post)) as BlogPost;
-    const sentence = featureStatusSentence("webDashboard", "fr");
-    for (const f of mutated.faq!) f.a.fr = (f.a.fr ?? "").replace(sentence, "");
-    mutated.tldr!.fr = (mutated.tldr!.fr ?? []).map((x) => x.replace(sentence, ""));
-    expect(() => validateFutureFeatureStatus(mutated)).toThrow(/\[fr\] webDashboard non e' disponibile/);
+    mutated.tldr!.en = [...(mutated.tldr!.en ?? []), "The web dashboard is currently not available."];
+    expect(() => validateNoStatusSentences(mutated)).toThrow(/\[en\]/);
+  });
+
+  it("MUTAZIONE: una FAQ sulla dashboard web fa fallire il test", () => {
+    const mutated = JSON.parse(JSON.stringify(post)) as BlogPost;
+    mutated.faq!.push({
+      q: { it: "La dashboard web desktop è già utilizzabile?", en: "Is the desktop web dashboard currently available?", de: "Ist das Desktop-Web-Dashboard verfügbar?", ja: "パソコンのブラウザからWebダッシュボードを使えますか？", fr: "Le tableau de bord web sur ordinateur est-il disponible ?" },
+      a: { it: "Si consulta nell'app.", en: "It is viewed in the app.", de: "Es wird in der App angezeigt.", ja: "アプリで確認できます。", fr: "Il se consulte dans l'application." },
+    } as never);
+    expect(() => validateNoStatusSentences(mutated)).toThrow(/FAQ sulla dashboard web/);
   });
 
   it("MUTAZIONE: una promessa di disponibilita' attiva fa fallire il test", () => {
     const mutated = JSON.parse(JSON.stringify(post)) as BlogPost;
-    mutated.faq![3].a.en += " The web dashboard is already available.";
-    expect(() => validateFutureFeatureStatus(mutated)).toThrow(/\[en\]/);
+    mutated.faq![0].a.en += " The web dashboard is already available.";
+    expect(() => validateNoStatusSentences(mutated)).toThrow(/\[en\]/);
   });
 
   it("le stringhe errate corrette in C2 non ci sono piu' in nessuna lingua", () => {
