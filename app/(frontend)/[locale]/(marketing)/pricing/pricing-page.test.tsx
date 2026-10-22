@@ -119,7 +119,7 @@ describe("PricingPage (/pricing)", () => {
     expect(html).toContain("FitMesh Pro for iPhone");
     expect(html).toContain("14-day Pro trial included");
     expect(html).toContain("Cancel anytime in Google Play.");
-    expect(html.replace(/&gt;/g, ">")).toContain("Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account (Settings > Delete account, or from the unlock screen). Deletion does not require a purchase.");
+    expect(html.replace(/&gt;/g, ">")).toContain("Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account. Deletion does not require a purchase.");
     expect(html).toContain("Health data resides in your device");
 
     expect(html).not.toContain("5,99");
@@ -143,7 +143,7 @@ describe("PricingPage (/pricing)", () => {
 
     const endTrialFaq = faqPage.mainEntity.find((q: any) => q.name.includes("trial ends"));
     expect(endTrialFaq).toBeDefined();
-    expect(endTrialFaq.acceptedAnswer.text).toContain("Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account (Settings > Delete account, or from the unlock screen). Deletion does not require a purchase.");
+    expect(endTrialFaq.acceptedAnswer.text).toContain("Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account. Deletion does not require a purchase.");
 
     const founderFaq = faqPage.mainEntity.find((q: any) => q.name.includes("Founder"));
     expect(founderFaq).toBeDefined();
@@ -159,7 +159,7 @@ describe("PricingPage (/pricing)", () => {
     for (const [lc, box, rimosse] of [
       ["it", "I dati già sincronizzati restano nel tuo account. Anche a prova scaduta, dall'app puoi uscire dall'account o avviarne la cancellazione (Impostazioni > Cancella account, oppure dalla schermata di sblocco). La cancellazione non richiede un acquisto.",
         [/sempre gratuita/i, /sempre accessibile/i, /puoi sempre uscire/i, /eliminazione dell'account/i]],
-      ["en", "Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account (Settings > Delete account, or from the unlock screen). Deletion does not require a purchase.",
+      ["en", "Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account. Deletion does not require a purchase.",
         [/always free/i, /available from the app at any time/i, /can always sign out/i, /account deletion is/i]],
     ] as const) {
       const html = renderToStaticMarkup(await PricingPage({ params: Promise.resolve({ locale: lc }) }));

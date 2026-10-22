@@ -471,7 +471,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         },
         a: {
           it: "Puoi avviare la cancellazione dell'account dall'app (Impostazioni > Cancella account). I dati sul telefono e nel Galaxy Watch restano intatti.",
-          en: "You can start account deletion from the app (Settings > Delete account). Data on phone and Galaxy Watch remains intact.",
+          en: "You can start account deletion from the app. Data on phone and Galaxy Watch remains intact.",
           pl: "Możesz rozpocząć usuwanie konta w aplikacji. Dane na telefonie oraz w Galaxy Watch pozostają niezmienione.",
           tr: "Hesap silme işlemini uygulamadan başlatabilirsiniz. Telefonun ve Galaxy Watch üzerindeki veriler bozulmaz.",
           nl: "Je kunt het verwijderen van je account starten vanuit de app. Gegevens op je telefoon en in de Galaxy Watch blijven intact.",
@@ -785,7 +785,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         },
         a: {
           it: "Puoi avviare la cancellazione dell'account dall'app (Impostazioni > Cancella account). Cosa viene cancellato e cosa resta per motivi tecnici è spiegato su fitmesh.fit/delete-account. I dati nel cloud Fitbit/Google e sul tuo dispositivo restano intatti (puoi gestirli separatamente).",
-          en: "You can start account deletion from the app (Settings > Delete account). What is deleted, and what remains for technical reasons, is explained at fitmesh.fit/delete-account. Data in the Fitbit/Google cloud and on your device stays untouched (manage it separately).",
+          en: "You can start account deletion from the app. What is deleted, and what remains for technical reasons, is explained at fitmesh.fit/delete-account. Data in the Fitbit/Google cloud and on your device stays untouched (manage it separately).",
           de: "Du kannst die Löschung deines Kontos in der App starten. Was dabei gelöscht wird und was aus technischen Gründen erhalten bleibt, steht auf fitmesh.fit/delete-account. Daten in der Fitbit/Google-Cloud und auf deinem Gerät bleiben unberührt (diese kannst du separat verwalten).",
           pt: "Você pode iniciar a exclusão da conta no app. O que é excluído e o que permanece por motivos técnicos está explicado em fitmesh.fit/delete-account. Os dados na nuvem Fitbit/Google e no seu dispositivo não são alterados (gerencie-os separadamente).",
           fr: "Vous pouvez lancer la suppression du compte depuis l'application. Ce qui est supprimé, et ce qui reste pour des raisons techniques, est expliqué sur fitmesh.fit/delete-account. Les données dans le cloud Fitbit/Google et sur votre appareil restent intactes (à gérer séparément).",
@@ -2781,7 +2781,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         },
         a: {
           it: "Sì. Tutti i dati sono archiviati, crittografati in transito (HTTPS) e a riposo. Ogni account è isolato con Row Level Security: nessun altro utente può vedere i tuoi dati. Puoi avviare la cancellazione dell'account dall'app (Impostazioni > Cancella account).",
-          en: "Yes. All data is stored, encrypted in transit (HTTPS) and at rest. Each account is isolated with Row Level Security: no other user can see your data. You can start account deletion from the app (Settings > Delete account).",
+          en: "Yes. All data is stored, encrypted in transit (HTTPS) and at rest. Each account is isolated with Row Level Security: no other user can see your data. You can start account deletion from the app.",
           de: "Ja. Alle Daten werden gespeichert, verschlüsselt bei Übertragung (HTTPS) und Speicherung. Jedes Konto ist mit Row Level Security isoliert: Kein anderer Nutzer kann deine Daten sehen. Du kannst die Löschung deines Kontos in der App starten.",
           pt: "Sim. Todos os dados são armazenados, criptografados em trânsito (HTTPS) e em repouso. Cada conta é isolada com Row Level Security: nenhum outro usuário pode ver seus dados. Você pode iniciar a exclusão da conta no app.",
           fr: "Oui. Toutes les données sont stockées, chiffrées en transit (HTTPS) et au repos. Chaque compte est isolé avec Row Level Security: aucun autre utilisateur ne peut voir vos données. Vous pouvez lancer la suppression du compte depuis l'application.",
@@ -3946,7 +3946,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
         },
         a: {
           it: "I dati vengono trasmessi su HTTPS e archiviati in un database Postgres protetto da RLS (Row Level Security): ogni utente vede solo i propri dati. Puoi avviare la cancellazione dell'account dall'app (Impostazioni > Cancella account). La privacy policy è consultabile su fitmesh.fit.",
-          en: "Data is transmitted over HTTPS and stored in a Postgres database protected by RLS (Row Level Security): each user sees only their own data. You can start account deletion from the app (Settings > Delete account). Privacy policy is available at fitmesh.fit.",
+          en: "Data is transmitted over HTTPS and stored in a Postgres database protected by RLS (Row Level Security): each user sees only their own data. You can start account deletion from the app. Privacy policy is available at fitmesh.fit.",
           de: "Daten werden über HTTPS übertragen und in einer Postgres-Datenbank gespeichert, die durch RLS (Row Level Security) geschützt ist: Jeder Nutzer sieht nur seine eigenen Daten. Du kannst die Löschung deines Kontos in der App starten. Die Datenschutzerklärung ist unter fitmesh.fit abrufbar.",
           pt: "Os dados são transmitidos via HTTPS e armazenados em um banco de dados Postgres protegido por RLS (Row Level Security): cada usuário vê apenas seus próprios dados. Você pode iniciar a exclusão da conta no app. A política de privacidade está disponível em fitmesh.fit.",
           fr: "Les données sont transmises via HTTPS et stockées dans une base de données Postgres protégée par RLS (Row Level Security): chaque utilisateur ne voit que ses propres données. Vous pouvez lancer la suppression du compte depuis l'application. La politique de confidentialité est disponible sur fitmesh.fit.",

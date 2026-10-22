@@ -123,7 +123,7 @@ export default async function PricingPage({
         },
         {
           q: "What happens when the 14-day trial ends?",
-          a: "When the free trial ends, syncing pauses until you choose an option. Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account (Settings > Delete account, or from the unlock screen). Deletion does not require a purchase.",
+          a: "When the free trial ends, syncing pauses until you choose an option. Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account. Deletion does not require a purchase.",
         },
         {
           q: "What purchase options are available on iPhone?",
@@ -367,7 +367,7 @@ export default async function PricingPage({
               <p className="leading-relaxed">
                 {isIt
                   ? "Al termine dei 14 giorni la sincronizzazione si ferma finché non scegli un'opzione, senza alcun addebito a sorpresa. I dati già sincronizzati restano nel tuo account. Anche a prova scaduta, dall'app puoi uscire dall'account o avviarne la cancellazione (Impostazioni > Cancella account, oppure dalla schermata di sblocco). La cancellazione non richiede un acquisto."
-                  : "When the 14 days end, syncing pauses until you choose an option, with no surprise charges. Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account (Settings > Delete account, or from the unlock screen). Deletion does not require a purchase."}
+                  : "When the 14 days end, syncing pauses until you choose an option, with no surprise charges. Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account. Deletion does not require a purchase."}
               </p>
             </div>
             <div>
