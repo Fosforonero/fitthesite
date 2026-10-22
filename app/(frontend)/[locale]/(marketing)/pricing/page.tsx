@@ -97,7 +97,7 @@ export default async function PricingPage({
         },
         {
           q: "Cosa succede quando finiscono i 14 giorni di prova?",
-          a: "Al termine della prova gratuita la sincronizzazione si ferma finché non scegli un'opzione. I dati già sincronizzati restano nel tuo account. Dall'app puoi sempre uscire o eliminare l'account. L'eliminazione dell'account resta sempre accessibile dall'app.",
+          a: "Al termine della prova gratuita la sincronizzazione si ferma finché non scegli un'opzione. I dati già sincronizzati restano nel tuo account. Anche a prova scaduta, dall'app puoi uscire dall'account o avviarne la cancellazione (Impostazioni > Cancella account, oppure dalla schermata di sblocco). La cancellazione non richiede un acquisto.",
         },
         {
           q: "Quali opzioni di acquisto ci sono su iPhone?",
@@ -123,7 +123,7 @@ export default async function PricingPage({
         },
         {
           q: "What happens when the 14-day trial ends?",
-          a: "When the free trial ends, syncing pauses until you choose an option. Data already synced stays in your account. From the app you can always sign out or delete your account. Account deletion remains available from the app at any time.",
+          a: "When the free trial ends, syncing pauses until you choose an option. Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account (Settings > Delete account, or from the unlock screen). Deletion does not require a purchase.",
         },
         {
           q: "What purchase options are available on iPhone?",
@@ -260,10 +260,6 @@ export default async function PricingPage({
                     <span className="text-brand-aqua font-bold" aria-hidden="true">✓</span>
                     <span>{isIt ? "Disdici quando vuoi da Google Play." : "Cancel anytime in Google Play."}</span>
                   </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="text-brand-aqua font-bold" aria-hidden="true">✓</span>
-                    <span>{isIt ? "Eliminazione dell'account sempre gratuita." : "Account deletion is always free."}</span>
-                  </li>
                 </ul>
               </div>
 
@@ -333,10 +329,6 @@ export default async function PricingPage({
                     <span className="text-brand-aqua font-bold" aria-hidden="true">✓</span>
                     <span>{isIt ? "Nessun abbonamento da gestire o disdire" : "No subscription to manage or cancel"}</span>
                   </li>
-                  <li className="flex items-start gap-2.5">
-                    <span className="text-brand-aqua font-bold" aria-hidden="true">✓</span>
-                    <span>{isIt ? "Eliminazione dell'account sempre gratuita." : "Account deletion is always free."}</span>
-                  </li>
                 </ul>
               </div>
 
@@ -374,8 +366,8 @@ export default async function PricingPage({
               </h3>
               <p className="leading-relaxed">
                 {isIt
-                  ? "Al termine dei 14 giorni la sincronizzazione si ferma finché non scegli un'opzione, senza alcun addebito a sorpresa. I dati già sincronizzati restano nel tuo account. Dall'app puoi sempre uscire o eliminare l'account."
-                  : "When the 14 days end, syncing pauses until you choose an option, with no surprise charges. Data already synced stays in your account. From the app you can always sign out or delete your account."}
+                  ? "Al termine dei 14 giorni la sincronizzazione si ferma finché non scegli un'opzione, senza alcun addebito a sorpresa. I dati già sincronizzati restano nel tuo account. Anche a prova scaduta, dall'app puoi uscire dall'account o avviarne la cancellazione (Impostazioni > Cancella account, oppure dalla schermata di sblocco). La cancellazione non richiede un acquisto."
+                  : "When the 14 days end, syncing pauses until you choose an option, with no surprise charges. Data already synced stays in your account. Even after the trial ends, the app lets you sign out or start deleting your account (Settings > Delete account, or from the unlock screen). Deletion does not require a purchase."}
               </p>
             </div>
             <div>
