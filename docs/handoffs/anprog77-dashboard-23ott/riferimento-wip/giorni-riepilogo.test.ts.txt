@@ -1,0 +1,118 @@
+/**
+ * G-04 (22/10): il riepilogo «giorni con dati» conta SOLO date di calendario reali, distinte,
+ * dentro la finestra; e la finestra di 30 giorni e' aritmetica di giorni di calendario.
+ *
+ * Gli attesi sono scritti A MANO (nessun Date nell'oracolo). I casi DST usano i giorni reali
+ * del cambio dell'ora in Europe/Rome nel 2026: 29 marzo (23 h) e 25 ottobre (25 h). La finestra
+ * e' in UTC e non deve dipendere ne' dal fuso del processo ne' dalla lunghezza in ore del giorno.
+ */
+import { afterEach, describe, expect, it, vi } from 'vitest';
+
+import { contaGiorniValidiDistinti, finestraRiepilogo } from './giorni-riepilogo';
+
+const ms = (iso: string) => Date.parse(iso);
+
+describe('finestraRiepilogo: giorni di calendario, estremi compresi', () => {
+  it.each<[string, string, string, string]>([
+    // [istante, da, a, nota]
+    ['2026-10-22T10:00:00Z', '2026-09-23', '2026-10-22', 'caso ordinario'],
+    ['2026-03-29T12:00:00Z', '2026-02-28', '2026-03-29', 'giorno del cambio ora legale (23 h in Rome)'],
+    ['2026-03-29T00:30:00Z', '2026-02-28', '2026-03-29', 'poco prima del cambio (01:30 Rome)'],
+    ['2026-03-29T01:00:00Z', '2026-02-28', '2026-03-29', 'istante esatto del cambio (02:00 -> 03:00 Rome)'],
+    ['2026-03-30T00:30:00Z', '2026-03-01', '2026-03-30', 'giorno dopo: la finestra attraversa il cambio'],
+    ['2026-10-25T12:00:00Z', '2026-09-26', '2026-10-25', 'giorno del cambio ora solare (25 h in Rome)'],
+    ['2026-10-25T00:30:00Z', '2026-09-26', '2026-10-25', 'poco prima del cambio (02:30 Rome, prima passata)'],
+    ['2026-10-25T01:00:00Z', '2026-09-26', '2026-10-25', 'istante esatto del cambio (03:00 -> 02:00 Rome)'],
+    ['2026-10-26T00:30:00Z', '2026-09-27', '2026-10-26', 'giorno dopo il cambio'],
+    ['2026-03-01T00:00:00Z', '2026-01-31', '2026-03-01', 'anno non bisestile'],
+    ['2028-03-01T00:00:00Z', '2028-02-01', '2028-03-01', 'anno bisestile'],
+    ['2026-12-31T23:59:59Z', '2026-12-02', '2026-12-31', 'fine anno'],
+    ['2027-01-01T00:00:00Z', '2026-12-03', '2027-01-01', 'inizio anno'],
+  ])('%s -> %s..%s (%s)', (istante, da, a) => {
+    expect(finestraRiepilogo(ms(istante), 30)).toEqual({ da, a });
+  });
+
+  it('una finestra di N giorni contiene esattamente N date consecutive (30 e 1)', () => {
+    expect(finestraRiepilogo(ms('2026-10-25T12:00:00Z'), 1)).toEqual({ da: '2026-10-25', a: '2026-10-25' });
+    const conta = (da: string, a: string) =>
+      contaGiorniValidiDistinti(
+        Array.from({ length: 40 }, (_, i) => new Date(Date.UTC(2026, 8, 1 + i)).toISOString().slice(0, 10)),
+        da,
+        a,
+      );
+    const f = finestraRiepilogo(ms('2026-10-25T12:00:00Z'), 30);
+    expect(conta(f.da, f.a)).toBe(30);
+  });
+
+  it('non dipende dal fuso del processo (stesso risultato con TZ diversi)', () => {
+    const attesi = finestraRiepilogo(ms('2026-10-25T00:30:00Z'), 30);
+    for (const tz of ['Europe/Rome', 'America/Los_Angeles', 'Pacific/Kiritimati', 'UTC']) {
+      vi.stubEnv('TZ', tz);
+      expect(finestraRiepilogo(ms('2026-10-25T00:30:00Z'), 30)).toEqual(attesi);
+    }
+    vi.unstubAllEnvs();
+  });
+
+  afterEach(() => vi.unstubAllEnvs());
+});
+
+describe('contaGiorniValidiDistinti', () => {
+  const da = '2026-09-23';
+  const a = '2026-10-22';
+  const conta = (k: readonly unknown[]) => contaGiorniValidiDistinti(k, da, a);
+
+  it('conta le date valide e distinte; estremi compresi', () => {
+    expect(conta(['2026-09-23', '2026-10-01', '2026-10-22'])).toBe(3);
+  });
+  it('i duplicati valgono una volta (piu sorgenti per lo stesso giorno)', () => {
+    expect(conta(['2026-10-01', '2026-10-01', '2026-10-01', '2026-10-02'])).toBe(2);
+  });
+  it('date impossibili non contano: 30 febbraio, mese 13, giorno 00, 31 aprile', () => {
+    expect(conta(['2026-02-30', '2026-13-01', '2026-10-00', '2026-04-31', '2026-10-01'])).toBe(1);
+  });
+  it('il 29 febbraio conta solo negli anni bisestili', () => {
+    expect(contaGiorniValidiDistinti(['2028-02-29', '2026-02-29'], '2026-01-01', '2028-12-31')).toBe(1);
+  });
+  it('chiavi vuote, null, undefined, numeri, oggetti, array non contano', () => {
+    expect(conta(['', '   ', null, undefined, 20261001, {}, ['2026-10-01'], true, '2026-10-02'])).toBe(1);
+  });
+  it('forme non esatte non contano: spazi, data-ora, cifre mancanti, separatori diversi', () => {
+    expect(
+      conta([' 2026-10-01', '2026-10-01 ', '2026-10-01T00:00:00Z', '2026-1-1', '26-10-01', '2026/10/01', '2026-10-011', '2026-10-02']),
+    ).toBe(1);
+  });
+  it('fuori finestra non conta: il giorno prima, il giorno dopo, lontano', () => {
+    expect(conta(['2026-09-22', '2026-10-23', '2020-01-01', '2099-12-31', '2026-10-05'])).toBe(1);
+  });
+  it('la stessa data scritta due volte in modo valido e non valido conta una volta', () => {
+    expect(conta(['2026-10-05', '2026-10-05T00:00:00Z', '2026-10-05'])).toBe(1);
+  });
+  it('nessuna chiave: zero', () => {
+    expect(conta([])).toBe(0);
+  });
+  it('estremi della finestra non validi: zero, mai un conteggio non verificabile', () => {
+    expect(contaGiorniValidiDistinti(['2026-10-01'], '2026-02-30', a)).toBe(0);
+    expect(contaGiorniValidiDistinti(['2026-10-01'], da, 'ieri')).toBe(0);
+    expect(contaGiorniValidiDistinti(['2026-10-01'], a, da)).toBe(0);
+  });
+});
+
+/**
+ * Caratterizzazione (verifica PREVENTIVA, non prova di difetto): la formula precedente della
+ * pagina, `new Date(now - 29 * 86_400_000).toISOString().slice(0, 10)`, in UTC coincide con
+ * l'aritmetica di calendario anche attorno ai due cambi ora legale di Rome, perche' UTC non
+ * ha ora legale. Il test resta per bloccare una futura sostituzione con getter in fuso locale.
+ */
+describe('equivalenza con la formula precedente, in UTC, attorno ai cambi ora', () => {
+  const vecchio = (now: number) => ({
+    da: new Date(now - 29 * 86_400_000).toISOString().slice(0, 10),
+    a: new Date(now).toISOString().slice(0, 10),
+  });
+  it.each(['2026-03-28T23:59:59Z', '2026-03-29T00:30:00Z', '2026-03-29T01:00:00Z', '2026-03-29T12:00:00Z', '2026-03-30T00:00:00Z',
+    '2026-10-24T23:59:59Z', '2026-10-25T00:30:00Z', '2026-10-25T01:00:00Z', '2026-10-25T12:00:00Z', '2026-10-26T00:00:00Z'])(
+    '%s',
+    (istante) => {
+      expect(finestraRiepilogo(ms(istante), 30)).toEqual(vecchio(ms(istante)));
+    },
+  );
+});

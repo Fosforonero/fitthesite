@@ -1,0 +1,109 @@
+/**
+ * G-04 sulla pagina reale: il numero «Giorni con dati negli ultimi 30 giorni» conta solo date
+ * di calendario valide, distinte e nella finestra; e la lettura chiede la finestra di 30 giorni
+ * di calendario anche ai confini del cambio ora legale (Europe/Rome 2026-03-29 e 2026-10-25).
+ * Il finto client NON filtra per giorno (come il database vero filtrerebbe con gte/lte, ma qui
+ * le righe sporche arrivano comunque): il conteggio deve difendersi da solo.
+ */
+import { renderToStaticMarkup } from 'react-dom/server';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('next/navigation', () => ({
+  notFound: vi.fn(() => {
+    throw new Error('NEXT_NOT_FOUND');
+  }),
+  redirect: vi.fn((url: string) => {
+    throw new Error(`NEXT_REDIRECT ${url}`);
+  }),
+}));
+vi.mock('@/lib/supabase/server', () => ({ createClient: vi.fn() }));
+
+import { createClient } from '@/lib/supabase/server';
+
+import DashboardWebPage from './page';
+
+const UID = 'dd000000-0000-4000-8000-000000000002';
+const concesso = { contractVersion: 1, granted: true, titles: ['founder'], denialReason: null };
+
+function finto(metriche: Record<string, unknown>[]) {
+  const filtri: Array<[string, string]> = [];
+  const client = {
+    auth: { getUser: async () => ({ data: { user: { id: UID, email: 'sintetico@example.invalid' } } }) },
+    rpc: () => ({ abortSignal: () => Promise.resolve({ data: concesso, error: null }) }),
+    from: () => {
+      let righe = [...metriche];
+      const f = {
+        select: () => f,
+        eq: (c: string, v: string) => {
+          righe = righe.filter((r) => r[c] === v);
+          return f;
+        },
+        gte: (c: string, v: string) => (filtri.push(['gte', v]), f),
+        lte: (c: string, v: string) => (filtri.push(['lte', v]), f),
+        lt: () => f,
+        order: () => f,
+        range: () => Promise.resolve({ data: righe, error: null, count: righe.length }),
+      };
+      return f;
+    },
+  };
+  return { client, filtri };
+}
+
+async function rendi(f: ReturnType<typeof finto>) {
+  vi.mocked(createClient).mockResolvedValue(f.client as never);
+  return renderToStaticMarkup(await DashboardWebPage({ params: Promise.resolve({ locale: 'it' }) }));
+}
+const riga = (k: unknown) => ({ user_id: UID, local_day_key: k });
+
+beforeEach(() => {
+  vi.stubEnv('FITMESH_WEB_DASHBOARD', '1');
+  vi.useFakeTimers({ toFake: ['Date'] });
+  vi.setSystemTime(new Date('2026-10-22T10:00:00Z'));
+});
+afterEach(() => {
+  vi.useRealTimers();
+  vi.unstubAllEnvs();
+  vi.mocked(createClient).mockReset();
+});
+
+describe('G-04: il conteggio dei giorni con dati', () => {
+  it('conta solo date reali, distinte, nella finestra', async () => {
+    const f = finto([
+      riga('2026-10-20'),
+      riga('2026-10-20'), // duplicato (seconda sorgente)
+      riga('2026-10-21'),
+      riga('2026-02-30'), // impossibile
+      riga(''), // vuota
+      riga(null), // non stringa
+      riga('2026-10-21T00:00:00Z'), // non e' una data AAAA-MM-GG
+      riga('2020-01-01'), // fuori finestra
+      riga('2026-10-23'), // dopo la finestra
+    ]);
+    const html = await rendi(f);
+    expect(html).toContain('Giorni con dati negli ultimi 30 giorni: 2.');
+  });
+
+  it('nessuna riga valida: zero giorni, non il numero delle chiavi sporche', async () => {
+    const html = await rendi(finto([riga('2026-02-30'), riga(''), riga('x')]));
+    expect(html).toContain('Giorni con dati negli ultimi 30 giorni: 0.');
+  });
+});
+
+describe('finestra di lettura in giorni di calendario (confini DST Europe/Rome)', () => {
+  it.each<[string, string, string]>([
+    ['2026-03-29T12:00:00Z', '2026-02-28', '2026-03-29'],
+    ['2026-03-29T00:30:00Z', '2026-02-28', '2026-03-29'],
+    ['2026-03-30T00:30:00Z', '2026-03-01', '2026-03-30'],
+    ['2026-10-25T12:00:00Z', '2026-09-26', '2026-10-25'],
+    ['2026-10-25T00:30:00Z', '2026-09-26', '2026-10-25'],
+    ['2026-10-26T00:30:00Z', '2026-09-27', '2026-10-26'],
+  ])('now=%s -> gte %s, lte %s', async (istante, da, a) => {
+    vi.setSystemTime(new Date(istante));
+    const f = finto([riga(da), riga(a)]);
+    const html = await rendi(f);
+    expect(f.filtri).toEqual(expect.arrayContaining([['gte', da], ['lte', a]]));
+    // estremi compresi: la prima e l'ultima data della finestra contano entrambe
+    expect(html).toContain('Giorni con dati negli ultimi 30 giorni: 2.');
+  });
+});
