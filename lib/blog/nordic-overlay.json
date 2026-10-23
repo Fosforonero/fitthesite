@@ -4049,18 +4049,6 @@
       "sv": "Sammanfattningsvis",
       "da": "Sammenfattende"
     },
-    "body.25.title": {
-      "sv": "Vill du se dina familjemedlemmars hälsodata i en gemensam översiktssida?",
-      "da": "Vil du se dit familiemedlems sundhedsdata i et fælles oversigtspanel?"
-    },
-    "body.25.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch, Garmin och andra bärbara enheter i en webbaserad kontrollpanel som är tillgänglig via webbläsaren, utan att alla behöver använda samma märke. Detta är användbart för anhöriga som håller koll på äldre familjemedlemmar som använder olika enheter.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch, Garmin og andre bærbare enheder i et webbaseret kontrolpanel, der kan tilgås via en browser, uden at det er nødvendigt, at alle bruger samme mærke. Det er nyttigt for pårørende, der holder øje med ældre familiemedlemmer, der bruger forskellige enheder."
-    },
-    "body.25.ctaLabel": {
-      "sv": "Upptäck FitMesh integrationer →",
-      "da": "Udforsk FitMesh integrationer →"
-    },
     "faq.0.q": {
       "sv": "Kan en smartklocka verkligen rädda livet på en äldre person?",
       "da": "Kan et smartur virkelig redde en ældres liv?"
@@ -4221,14 +4209,12 @@
       "sv": [
         "**Samsung Galaxy Watch + Familjedelning**: Samsung Health möjliggör datadelning med utvalda familjemedlemmar. Ställ in via appen Samsung Health → Profil → Familj. Steg, puls och sömndata kan delas.",
         "**Apple Watch + Familjekonfiguration**: Apple gör det möjligt att koppla en Apple Watch till en familjemedlems iPhone. Farfar behöver inte ha en egen iPhone: data skickas till den familjemedlem som tar hand om honom.",
-        "**Garmin**: Möjligheterna till delning inom familjen är begränsade. Garmin Med Connect kan du följa ”vänner” och se viss statistik, men det finns ingen särskild funktion för anhörigvårdare.",
-        "**Tredjepartslösningar**: appar som FitMesh Sync gör det möjligt att samla in hälsodata från olika enheter och göra dem tillgängliga via en webbaserad kontrollpanel, vilket är praktiskt om familjen använder olika märken eller vill ha en samlad översikt."
+        "**Garmin**: Möjligheterna till delning inom familjen är begränsade. Garmin Med Connect kan du följa ”vänner” och se viss statistik, men det finns ingen särskild funktion för anhörigvårdare."
       ],
       "da": [
         "**Samsung Galaxy Watch + Familiedeling**: Samsung Health giver mulighed for at dele data med udvalgte familiemedlemmer. Konfigurer via Samsung Health-appen → Profil → Familie. Skridt, puls og søvndata kan deles.",
         "**Apple Watch + Familieopsætning**: Apple giver mulighed for at knytte et Apple Watch til en familie-iPhone. Bedstefar behøver ikke sin egen iPhone: dataene sendes til den pårørendes iPhone.",
-        "**Garmin**: Deling inden for familien er begrænset. Garmin Med Connect kan du følge »venner« og se nogle statistikker, men der er ingen specifik funktion til plejepersoner.",
-        "**Tredjepartsløsninger**: Apps som FitMesh Sync gør det muligt at samle sundhedsdata fra forskellige enheder og gøre dem tilgængelige via et webbaseret kontrolpanel, hvilket er praktisk, hvis familien bruger forskellige mærker eller ønsker et samlet overblik."
+        "**Garmin**: Deling inden for familien er begrænset. Garmin Med Connect kan du følge »venner« og se nogle statistikker, men der er ingen specifik funktion til plejepersoner."
       ]
     },
     "body.21.items": {
@@ -5002,12 +4988,12 @@
       "da": "Sammenfattende"
     },
     "body.23.title": {
-      "sv": "Vill du se dina familjemedlemmars hälsodata samlade på en och samma översiktssida?",
-      "da": "Vil du gerne se dit familiemedlems sundhedsdata samlet på ét enkelt oversigtspanel?"
+      "sv": "Vill du se smartklockans hälsodata i appen?",
+      "da": "Vil du se smartwatchets sundhedsdata i appen?"
     },
     "body.23.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i appen.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i appen."
+      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det visar data från Galaxy Watch och andra bärbara enheter i appen.",
+      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den viser data fra Galaxy Watch og andre bærbare enheder i appen."
     },
     "body.23.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
