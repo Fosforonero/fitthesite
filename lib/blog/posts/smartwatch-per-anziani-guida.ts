@@ -170,8 +170,8 @@ export const post: BlogPost = {
 ],
   },
   metaDescription: {
-    it: "Guida completa agli smartwatch per anziani nel 2026: cosa guardare davvero (rilevamento cadute, SOS, facilità d'uso, durata batteria), cosa evitare, e come scegliere senza spendere troppo.",
-    en: "Complete guide to smartwatches for elderly in 2026: what really matters (fall detection, SOS, ease of use, battery life), what to avoid, and how to choose without overspending.",
+    it: "Guida a SOS e sicurezza smartwatch anziani: come funzionano rilevamento cadute, chiamate di emergenza e configurazione per familiari senza falsi allarmi.",
+    en: "Safety and SOS guide for senior smartwatches: how fall detection, emergency calls, and family setup work without false alarms or misleading marketing.",
     es: "Guía completa de smartwatches para personas mayores en 2026: qué mirar de verdad (detección de caídas, SOS, facilidad de uso, duración de batería), qué evitar y cómo elegir sin gastar de más.",
     de: "Umfassender Ratgeber zu Smartwatches für Senioren 2026: worauf es wirklich ankommt (Sturzerkennung, SOS, Benutzerfreundlichkeit, Akkulaufzeit), was zu vermeiden ist und wie man ohne zu viel Ausgaben wählt.",
     pt: "Guia completo sobre smartwatches para pessoas idosas em 2026: o que realmente importa (detecção de quedas, SOS, facilidade de uso, duração da bateria), o que evitar e como escolher sem gastar demais.",
@@ -185,7 +185,7 @@ export const post: BlogPost = {
   hero: {
     kicker: { it: "Guida", en: "Guide", es: "Guía", de: "Ratgeber", pt: "Guia", fr: "Guide", pl: "Przewodnik", tr: "Rehber", nl: "Gids", ja: "ガイド", ko: "가이드" },
     title: {
-      it: "Smartwatch per anziani: guida completa 2026",
+      it: "Smartwatch anziani: guida a SOS e sicurezza",
       en: "Smartwatches for seniors: safety guide 2026",
       es: "Smartwatch para personas mayores: guía 2026",
       de: "Smartwatch für Senioren: Ratgeber 2026",
@@ -1080,9 +1080,9 @@ export const post: BlogPost = {
         fr: "Les prix varient selon la marque, la génération et la connectivité. Les modèles d'entrée de gamme avec connectivité cellulaire (LTE) débutent par exemple à 299 $ US (hors taxes) ou 329 € en Italie pour l'Apple Watch SE 3 (40 mm), tandis que les gammes supérieures varient selon la génération et les matériaux. Il faut ajouter l'abonnement mensuel de l'opérateur pour l'eSIM. Les montres à bas coût sans documentation technique ni support officiel n'offrent aucune garantie vérifiable sur les fonctions de sécurité.",
         pl: "Ceny różnią się w zależności od marki, generacji i łączności. Oficjalne podstawowe modele z łącznością komórkową (LTE) zaczynają się na przykład od 299 USD (netto) lub 329 EUR we Włoszech dla Apple Watch SE 3 (40 mm), podczas gdy wyższe serie różnią się zależnie od generacji i materiałów. Należy doliczyć miesięczną opłatę operatora za plan eSIM. Tanie zegarki pozbawione dokumentacji technicznej i oficjalnego wsparcia nie zapewniają weryfikowalnych gwarancji bezpieczeństwa.",
         tr: "Fiyatlar marka, nesil ve bağlantı türüne göre değişir. Resmi hücresel (LTE) giriş modelleri örneğin Apple Watch SE 3 (40 mm) için 299 $ ABD (vergisiz) veya İtalya'da 329 €'dan başlar; üst seriler nesle ve malzemelere göre değişir. Cihaz bedeline ek olarak operatörün eSIM tarifesi için aylık ücret eklenmelidir. Teknik belgelendirmesi ve resmi destek kanalı olmayan ucuz saatler, güvenlik işlevleri için doğrulanabilir bir garanti sunmaz.",
-        nl: "Voor een mobiele smartwatch (LTE) beginnen officiële instapmodellen bij 299 $ US (excl. btw) of 329 € in Europa (zoals Apple Watch SE 40 mm LTE) en circa 349 $ / 369 € voor Samsung Galaxy Watch LTE, oplopend tot boven de 450-550 € voor luxere uitvoeringen. Houd rekening met de abonnementskosten van de provider (bijv. multi-SIM vanaf ca. 3,99 € per maand in Europa of 10-15 $ per maand in de VS). We raden goedkope horloges zonder officiële technische documentatie af.",
-        ja: "携帯電話通信（LTE）対応スマートウォッチの場合、公式エントリーモデルで299米ドル（税抜）または329ユーロ（Apple Watch SE 40mm LTEなど）、Samsung Galaxy Watch LTEで約349米ドル / 369ユーロから始まり、上位モデルでは450〜550ユーロを超えます。これに通信会社の月額プラン（欧州で月額3.99〜5ユーロ、米国で月額10〜15ドル程度）が加わります。公式な技術文書のない安価な製品は避けることをお勧めします。",
-        ko: "셀룰러(LTE) 연결을 지원하는 스마트워치의 경우, 공식 기본 모델은 세전 299달러 또는 유럽 기준 329유로(Apple Watch SE 40mm LTE 등), Samsung Galaxy Watch LTE는 약 349달러 / 369유로부터 시작하며 고급 소재 모델은 450~550유로를 넘어섭니다. 여기에 통신사 요금(유럽 기준 월 3.99~5유로, 미국 기준 월 10~15달러 수준)이 추가됩니다. 공식 기술 문서가 없는 저가 기기는 피하는 것이 좋습니다.",
+        nl: "Prijzen variëren per merk, generatie en connectiviteit. Officiële instapmodellen met mobiele connectiviteit (LTE) beginnen bijvoorbeeld vanaf 299 $ US (excl. btw) of 329 € in Italië voor Apple Watch SE 3 (40 mm), terwijl hogere series variëren afhankelijk van de generatie en materialen. Bovenop de aanschafprijs komt het maandelijkse providerabonnement voor het eSIM-plan. Goedkope horloges zonder technische documentatie en officiële ondersteuning bieden geen controleerbare garanties voor veiligheidsfuncties.",
+        ja: "価格はブランド、世代、通信機能によって異なります。公式の携帯電話通信（LTE）エントリーモデルは、例えばApple Watch SE 3（40mm）で299米ドル（税抜）またはイタリアで329ユーロからとなっており、上位シリーズは世代やケース素材によって価格が異なります。端末代金に加え、通信事業者のeSIMプランの月額料金が必要です。技術文書や公式サポート窓口のない安価な時計は、安全機能の検証可能な保証を提供しません。",
+        ko: "가격은 브랜드, 세대 및 연결성에 따라 다릅니다. 공식 셀룰러(LTE) 보급형 모델은 예를 들어 Apple Watch SE 3(40mm)의 경우 미국 299달러(세전) 또는 이탈리아 329유로부터 시작하며, 상위 시리즈는 세대와 소재에 따라 상이합니다. 기기 가격 외에도 이동통신사의 eSIM 요금제 월 이용료가 추가됩니다. 기술 문서나 공식 지원 채널이 없는 저가형 시계는 안전 기능에 대해 검증 가능한 보증을 제공하지 않습니다.",
       },
     },
     {

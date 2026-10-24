@@ -4992,8 +4992,8 @@
       "da": "Vil du se smartwatchets sundhedsdata i appen?"
     },
     "body.23.body": {
-      "sv": "Mobilappen FitMesh (version 1.9.1) gör det möjligt att visa och lokalt exportera aktivitets- och stegdata som aggregerats via Apple Hälsa (iOS) eller Health Connect (Android), utan fjärrsynkronisering eller medicinsk övervakning.",
-      "da": "Mobilappen FitMesh (version 1.9.1) gør det muligt at få vist og lokalt eksportere aktivitets- og skridtdata aggregeret via Apple Sundhed (iOS) eller Health Connect (Android), uden fjernsynkronisering eller medicinsk overvågning."
+      "sv": "I FitMesh-appen ser du de data som din klocka skriver till Apple Hälsa på iPhone eller Health Connect på Android.",
+      "da": "I FitMesh-appen ser du de data, som dit ur skriver til Apple Sundhed på iPhone eller Health Connect på Android."
     },
     "body.23.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
