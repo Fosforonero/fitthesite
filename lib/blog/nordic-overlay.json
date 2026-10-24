@@ -3938,8 +3938,8 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Bästa smartklockan för äldre: en komplett guide 2026",
-      "da": "Det bedste smartwatch til ældre: den komplette guide 2026"
+      "sv": "Smartklocka för äldre: guide 2026",
+      "da": "Smartwatch til ældre: guide 2026"
     },
     "hero.subtitle": {
       "sv": "Alla smartklockor är inte lika bra när det gäller säkerheten för en förälder eller far- eller morförälder som bor ensam. Här får du tips på hur du väljer utan att falla för marknadsföringsknep.",
@@ -4078,8 +4078,8 @@
       "da": "Hvor meget bør et smartwatch til ældre koste?"
     },
     "faq.3.a": {
-      "sv": "För en ny klocka med LTE-uppkoppling börjar priserna kring cirka 279 euro för basmodeller och kan överstiga 400 euro för mer påkostade utföranden. Till detta tillkommer månadskostnaden för eSIM (vanligen mellan 3 och 10 euro i månaden beroende på operatör). Vi avråder från extremt billiga klockor som saknar tydlig dokumentation kring säkerhetsfunktionerna.",
-      "da": "For et nyt ur med LTE-forbindelse starter priserne omkring 279 € for basismodeller og kan overstige 400 € for udgaver i finere materialer. Hertil kommer den månedlige abonnementsudgift til eSIM (typisk mellem 3 € og 10 € om måneden alt efter udbyder). Vi fraråder meget billige ure, som mangler gennemskuelig dokumentation for sikkerhedsfunktionerne."
+      "sv": "För en ny klocka med LTE-uppkoppling börjar officiella basmodeller från 299 dollar (före skatt) eller 329 euro i Europa (som Apple Watch SE 40 mm LTE) och omkring 349 dollar / 369 euro för Samsung Galaxy Watch LTE, upp till över 450-550 euro för mer påkostade utföranden. Till detta tillkommer operatörens tilläggsabonnemang för klockan (exempelvis multi-SIM-tillval i Europa eller motsvarande i USA från ca 10-15 dollar i månaden). Vi avråder från extremt billiga klockor som saknar officiell teknisk dokumentation om säkerhetsfunktioner.",
+      "da": "For et nyt ur med LTE-forbindelse starter officielle basismodeller fra 299 $ (før moms) eller 329 € i Europa (f.eks. Apple Watch SE 40 mm LTE) og omkring 349 $ / 369 € for Samsung Galaxy Watch LTE, og overstiger 450-550 € for udgaver i finere materialer. Hertil kommer udbyderens tilknyttede abonnement (f.eks. multi-SIM-løsninger i Europa eller smartwatch-tilvalg i USA typisk fra 10-15 $ om måneden). Vi fraråder meget billige ure, som mangler officiel teknisk dokumentation for sikkerhedsfunktionerne."
     },
     "faq.4.q": {
       "sv": "Är uppgifterna om min äldre familjemedlem konfidentiella, eller är det någon som läser dem?",
@@ -4892,8 +4892,8 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Bästa smartklockan för äldre: en komplett guide 2026",
-      "da": "Det bedste smartwatch til ældre: den komplette guide 2026"
+      "sv": "Smartklocka för äldre: guide 2026",
+      "da": "Smartwatch til ældre: guide 2026"
     },
     "hero.subtitle": {
       "sv": "En enhet som man använder varje dag är oändligt mycket mer värd än en enhet med tusen funktioner som bara hamnar i en byrålåda. Så här väljer du rätt.",
@@ -5020,8 +5020,8 @@
       "da": "Hvor meget koster det at vedligeholde et LTE-smartur til en ældre person?"
     },
     "faq.2.a": {
-      "sv": "Kostnaden beror på mobiloperatören och abonnemang för uppkopplade klockor (eSIM med nummerspegling). I Europa kostar multi-SIM-tillval i regel mellan 3 och 5 euro i månaden, medan dedikerade abonnemang i USA vanligen ligger på 10 till 15 dollar per månad före skatt. Kontrollera kompatibilitet och avgifter med operatören före köp.",
-      "da": "Udgiften afhænger af teleselskabet og abonnementer til opkoblede ure (eSIM med nummerdeling). I Europa koster et ekstra SIM-kort typisk mellem 3 € og 5 € om måneden, mens dedikerede abonnementer i USA typisk koster 10-15 $ om måneden før skat. Undersøg kompatibilitet og gældende priser direkte hos teleselskabet før køb."
+      "sv": "Kostnaden beror på mobiloperatören och tillgängliga abonnemang för uppkopplade enheter (eSIM med delat nummer). I Europa kostar multi-SIM-alternativ för smartklockor vanligtvis några euro i månaden (t.ex. 3,99 till 5 euro), medan dedikerade smartwatch-tillägg i USA vanligen ligger på 10-15 dollar i månaden före skatt. Kontrollera alltid kompatibilitet och gällande priser direkt med din operatör före köp.",
+      "da": "Udgiften afhænger af teleselskabet og abonnementer til opkoblede enheder (eSIM med delt nummer). I Europa koster multi-SIM-tilvalg til smartwatches typisk få euro om måneden (f.eks. 3,99 til 5 €), mens tilknyttede abonnementer i USA typisk ligger på 10-15 $ om måneden før moms. Undersøg altid kompatibilitet og gældende priser direkte hos dit teleselskab inden køb."
     },
     "faq.3.q": {
       "sv": "Kan fallavkänningen av misstag stängas av?",
@@ -5103,82 +5103,82 @@
     },
     "body.9.rows.0": {
       "sv": [
-        "Apple Watch SE (LTE)",
-        "Från ca 279 dollar / 329 euro (Apple-pris)",
-        "Fallavkänning, Nödanrop SOS, samtal med aktivt abonnemang",
+        "Apple Watch SE (LTE, 40 mm, t.ex. SE 2 / SE 3)",
+        "Från 299 dollar (före skatt) / 329 euro (Apple-pris)",
+        "Fallregistrering, Nödanrop SOS, samtal med aktivt abonnemang",
         "Inget EKG, kräver iPhone för första installation",
-        "iPhone-användare eller familjer med administrerande iPhone"
+        "iPhone-användare eller familjer med hanterande iPhone"
       ],
       "da": [
-        "Apple Watch SE (LTE)",
-        "Fra ca. 279 $ / 329 € (Apples listepris)",
-        "Falddetektering, Nødopkald SOS, opkald med aktivt abonnement",
-        "Intet EKG, kræver iPhone til indledende opsætning",
+        "Apple Watch SE (LTE, 40 mm, f.eks. SE 2 / SE 3)",
+        "Fra 299 $ (før moms) / 329 € (Apples listepris)",
+        "Faldregistrering, Nødopkald SOS, opkald med aktivt abonnement",
+        "Intet EKG, kræver iPhone til opsætning",
         "iPhone-brugere eller familier med administrerende iPhone"
       ]
     },
     "body.9.rows.1": {
       "sv": [
-        "Samsung Galaxy Watch LTE (t.ex. Watch 7)",
-        "Från ca 349 dollar / 369 euro (listpris)",
-        "Fallavkänning, SOS, EKG och blodtryck med kalibrering (med Samsung-telefon)",
-        "Avancerade hälsofunktioner kräver Galaxy-smartphone; daglig laddning",
-        "Android-användare, särskilt med Samsung-smartphone"
+        "Samsung Galaxy Watch LTE (40 mm, t.ex. Watch 7 / Watch 8 / Watch 9)",
+        "Från ca 349 dollar / 369 euro (Watch 7 listpris)",
+        "Fallregistrering, SOS, EKG och blodtryck med kalibrering via manschett (med Samsung-telefon)",
+        "Avancerade hälsofunktioner bundna till Galaxy-telefon; daglig laddning",
+        "Android-användare, särskilt med Samsung-telefon"
       ],
       "da": [
-        "Samsung Galaxy Watch LTE (f.eks. Watch 7)",
-        "Fra ca. 349 $ / 369 € (listepris)",
-        "Falddetektering, SOS, EKG og blodtryk med kalibrering (med Samsung-telefon)",
-        "Avancerede sundhedsfunktioner kræver Galaxy-telefon; daglig opladning",
-        "Android-brugere, især med Samsung-smartphone"
+        "Samsung Galaxy Watch LTE (40 mm, f.eks. Watch 7 / Watch 8 / Watch 9)",
+        "Fra ca. 349 $ / 369 € (Watch 7 listepris)",
+        "Faldregistrering, SOS, EKG og blodtryk med kalibrering via manchet (med Samsung-telefon)",
+        "Avancerede sundhedsfunktioner bundet til Galaxy-telefon; daglig opladning",
+        "Android-brugere, især med Samsung-telefon"
       ]
     },
     "body.9.rows.2": {
       "sv": [
-        "Apple Watch Series (LTE)",
-        "Från ca 399 dollar / 459 euro (listpris)",
-        "Enkanals-EKG, varningar vid oregelbunden hjärtrytm, fallavkänning, Always-On-skärm",
+        "Apple Watch Series (LTE, t.ex. Series 10 / 11 / 12)",
+        "Från 499 dollar / 579 euro Cellular (eller från 399 dollar / 449 euro GPS)",
+        "Enkanals-EKG, aviseringar om oregelbunden rytm, fall, Always-On-skärm",
         "Högre pris, daglig laddning krävs",
-        "iPhone-användare som behöver dokumenterat EKG och skärm som alltid är på"
+        "iPhone-användare som behöver dokumenterat EKG och Always-On-skärm"
       ],
       "da": [
-        "Apple Watch Series (LTE)",
-        "Fra ca. 399 $ / 459 € (listepris)",
-        "Enkelt-aflednings EKG, notifikationer om uregelmæssig hjerterytme, falddetektering, Always-On-skærm",
+        "Apple Watch Series (LTE, f.eks. Series 10 / 11 / 12)",
+        "Fra 499 $ / 579 € Cellular (eller fra 399 $ / 449 € GPS)",
+        "Enkelt-aflednings-EKG, meddelelser om uregelmæssig hjerterytme, fald, Always-On-skærm",
         "Højere pris, daglig opladning nødvendig",
-        "iPhone-brugere, der har brug for dokumenteret EKG og altid tændt skærm"
+        "iPhone-brugere med behov for dokumenteret EKG og Always-On-skærm"
       ]
     },
     "body.9.rows.3": {
       "sv": [
         "Garmin Vivoactive 5",
-        "Ca 249 dollar / 299 euro (listpris)",
+        "269,99 dollar (Garmin-listpris) / 299,99 euro",
         "Upp till 11 dagars batteritid, kontinuerlig pulsmätning, händelsedetektering",
-        "Händelsedetektering endast vid vissa aktiviteter med ansluten telefon; inga fristående röstsamtal",
-        "Aktiva äldre som vill ha lång batteritid"
+        "Händelsedetektering endast vid vissa aktiviteter med ansluten telefon; inga självständiga röstsamtal",
+        "Aktiva äldre som prioriterar lång batteritid"
       ],
       "da": [
         "Garmin Vivoactive 5",
-        "Ca. 249 $ / 299 € (listepris)",
-        "Op til 11 dages batterilevetid, kontinuerlig pulsmåling, hændelsesregistrering",
-        "Hændelsesregistrering virker kun ved udvalgte aktiviteter med tilsluttet telefon; ingen uafhængige opkald",
-        "Aktive ældre, der prioriterer lang batterilevetid"
+        "269,99 $ (Garmin-listepris) / 299,99 €",
+        "Op til 11 dages batteritid, kontinuerlig pulsmåling, hændelsesregistrering",
+        "Hændelsesregistrering kun ved udvalgte aktiviteter med tilsluttet telefon; ingen selvstændige opkald",
+        "Aktive ældre, som ønsker lang batterilevetid"
       ]
     },
     "body.9.rows.4": {
       "sv": [
-        "Doro Watch",
-        "Ca 150 euro (ungefärligt marknadspris)",
-        "Förenklat gränssnitt med hög kontrast, assistansknapp med Doro-telefon",
-        "Nödfunktioner kopplade till Doro-smartphone via Bluetooth; ingen fristående LTE-modul",
-        "Äldre med Doro-telefon som vill ha maximal enkelhet"
+        "Doro Watch (modell DWO-0420)",
+        "Pris ej dokumenterat via officiella kanaler",
+        "Förenklat gränssnitt med hög kontrast, trygghetsknapp med Doro-telefon",
+        "Nödfunktioner bundna till Doro-telefon via Bluetooth; ingen fristående LTE-modul",
+        "Äldre med Doro-telefon som söker maximal enkelhet"
       ],
       "da": [
-        "Doro Watch",
-        "Ca. 150 € (anslået markedspris)",
-        "Forenklet brugerflade med høj kontrast, hjælpeknap med Doro-telefon",
-        "Nødfunktioner bundet til Doro-smartphone via Bluetooth; intet selvstændigt LTE-modul",
-        "Ældre med Doro-smartphone, der ønsker maksimal enkelhed"
+        "Doro Watch (model DWO-0420)",
+        "Pris ikke dokumenteret på officielle kanaler",
+        "Forenklet brugerflade med høj kontrast, tryghedsknap med Doro-telefon",
+        "Nødfunktioner bundet til Doro-telefon via Bluetooth; intet selvstændigt LTE-modul",
+        "Ældre med Doro-telefon, som søger maksimal enkelhed"
       ]
     },
     "body.13.items": {
