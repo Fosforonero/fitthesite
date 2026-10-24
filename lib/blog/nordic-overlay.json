@@ -4992,8 +4992,8 @@
       "da": "Vil du se smartwatchets sundhedsdata i appen?"
     },
     "body.23.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det visar data från Galaxy Watch och andra bärbara enheter i appen.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den viser data fra Galaxy Watch og andre bærbare enheder i appen."
+      "sv": "Mobilappen FitMesh (version 1.9.1) gör det möjligt att visa och lokalt exportera aktivitets- och stegdata som aggregerats via Apple Hälsa (iOS) eller Health Connect (Android), utan fjärrsynkronisering eller medicinsk övervakning.",
+      "da": "Mobilappen FitMesh (version 1.9.1) gør det muligt at få vist og lokalt eksportere aktivitets- og skridtdata aggregeret via Apple Sundhed (iOS) eller Health Connect (Android), uden fjernsynkronisering eller medicinsk overvågning."
     },
     "body.23.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
