@@ -3938,24 +3938,24 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Bästa smartklockan för äldre: en komplett guide 2026",
-      "da": "Det bedste smartwatch til ældre: den komplette guide 2026"
+      "sv": "Smartklocka för äldre: SOS och trygghet",
+      "da": "Smartwatch til ældre: SOS og tryghed"
     },
     "hero.subtitle": {
       "sv": "Alla smartklockor är inte lika bra när det gäller säkerheten för en förälder eller far- eller morförälder som bor ensam. Här får du tips på hur du väljer utan att falla för marknadsföringsknep.",
       "da": "Ikke alle smartwatches er ens, når det drejer sig om sikkerheden for en forælder eller bedsteforælder, der bor alene. Her får du nogle tips til, hvordan du vælger det rigtige, uden at falde i markedsføringsfælder."
     },
     "metaDescription": {
-      "sv": "En komplett guide till smartklockor för äldre år 2026: vad som verkligen är viktigt (fallavkänning, SOS-funktion, användarvänlighet, batteritid), vad man bör undvika och hur man väljer utan att spendera för mycket.",
-      "da": "Den komplette guide til smartwatches til ældre i 2026: hvad der virkelig betyder noget (falddetektering, SOS, brugervenlighed, batterilevetid), hvad man bør undgå, og hvordan man vælger uden at bruge for mange penge."
+      "sv": "Guide till SOS och trygghet för smartklockor för äldre: fallavkänning, nödsamtal via mobilnät eller wifi och praktiska råd vid konfigurering.",
+      "da": "Guide til SOS og tryghed på smartwatches til ældre: falddetektering, nødopkald via mobilnet eller wifi og praktiske råd til opsætning."
     },
     "primaryKeyword": {
       "sv": "smartklocka för äldre",
       "da": "smartur til ældre"
     },
     "body.0.text": {
-      "sv": "När det gäller en smartklocka för äldre är det viktigaste inte antalet funktioner, utan att enheten bärs varje dag. Pålitlig fallavkänning, LTE för att kunna ringa utan att ha en telefon i närheten, minst 2–3 dagars batteritid och en skärm som går att läsa utan glasögon är de fyra krav som inte går att kompromissa med. Allt annat är marknadsföring. Fel enhet tas av redan efter tre dagar.",
-      "da": "Når det gælder et smartwatch til ældre, er det vigtigste ikke antallet af funktioner, men at enheden bliver brugt hver dag. Pålidelig falddetektering, LTE-forbindelse, så man kan ringe uden en telefon i nærheden, en batteritid på mindst 2–3 dage og en skærm, der kan læses uden briller, er de fire ufravigelige krav. Alt andet er bare markedsføring. Den forkerte enhed bliver taget af efter tre dage."
+      "sv": "För en smartklocka för äldre är det viktigaste inte antalet funktioner, utan att den bärs varje dag. Pålitlig fallavkänning, uppkoppling för att ringa eller larma vid behov, batteritid anpassad efter laddningsrutiner och en skärm som kan läsas utan glasögon är de avgörande praktiska faktorerna. En alltför krånglig klocka hamnar snabbt i en låda.",
+      "da": "Ved et smartur til ældre er det afgørende ikke mængden af funktioner, men at det bæres hver dag. Pålidelig falddetektering, forbindelse til at ringe eller tilkalde hjælp ved behov, en batterilevetid der passer til ladevanerne, samt en skærm der er let at læse uden briller, er de vigtigste praktiske faktorer. Et for kompliceret ur ender hurtigt i skuffen."
     },
     "body.1.text": {
       "sv": "Vad som verkligen spelar roll (och vad som bara är marknadsföring)",
@@ -3970,28 +3970,28 @@
       "da": "Skuffetesten"
     },
     "body.4.body": {
-      "sv": "Innan du köper, fråga dig själv: ”Skulle min mamma använda den här varje dag utan att behöva påminnas om det?” Om svaret är osäkert är det användbarheten som är problemet. En enhet som inte används hjälper ingen. Användarvänlighet är viktigare än avancerade funktioner.",
-      "da": "Før du køber, så spørg dig selv: »Ville min mor bruge den her hver dag uden at skulle mindes om det?« Hvis svaret er usikkert, er brugervenligheden problemet. Et apparat, der ikke bliver brugt, hjælper ingen. Brugervenlighed er vigtigere end avancerede funktioner."
+      "sv": "Fråga dig själv före köpet: 'Skulle personen bära den här klockan varje dag utan att bli påmind?' Om svaret är tveksamt är bekvämlighet och användarvänlighet den viktigaste frågan. En klocka som inte bärs gör ingen praktisk nytta. Enkelhet går alltid före långa funktionslistor.",
+      "da": "Spørg dig selv før købet: 'Ville personen have dette ur på hver dag uden at blive mindet om det?' Hvis svaret er usikkert, er brugervenlighed og komfort det afgørende punkt. Et ur, der ikke bæres, gør ingen praktisk gavn. Enkel betjening slår altid specifikationerne på papiret."
     },
     "body.5.text": {
       "sv": "Fallavkänning: hur det fungerar och vad man kan förvänta sig",
       "da": "Falddetektering: Sådan fungerer det, og hvad man kan forvente"
     },
     "body.6.text": {
-      "sv": "Fallavkänning i smartklockor utnyttjar en kombination av accelerometer och gyroskop för att identifiera det typiska fallmönstret: en plötslig acceleration nedåt följd av ett slag och stillhet. När mönstret upptäcks väntar klockan på ett svar från användaren (vanligtvis 30–60 sekunder). Om inget svar ges ringer den automatiskt till nödkontakter eller räddningstjänsten.",
-      "da": "Falddetektering i smartwatches bruger en kombination af accelerometer og gyroskop til at identificere det typiske faldmønster: en pludselig nedadgående acceleration efterfulgt af et stød og stilhed. Når mønsteret registreres, afventer uret et svar fra brugeren (normalt 30–60 sekunder). Hvis der ikke kommer noget svar, ringer det automatisk til nødkontakter eller redningstjenester."
+      "sv": "Fallavkänning i smartklockor kombinerar accelerometer och gyroskop för att identifiera fallmönster: hastig acceleration nedåt, stöt och efterföljande orörlighet. Enligt tillverkarnas dokumentation ([Apple Watch: fallavkänning](https://support.apple.com/en-us/108896), [Samsung: hård fallavkänning](https://www.samsung.com/us/support/answer/ANS10002847/) och [Garmin: Incident Detection](https://support.garmin.com/en-US/?faq=R2vgdv7VwD8q0vJqYjGkC9)) kan sensorerna inte fånga alla typer av fall. Om ett fall registreras varnar klockan: vid uteblivet svar inom utsatt tid (på Apple Watch 30 sekunders nedräkning efter en minuts stillhet; på Samsung 60 sekunders larm) skickas ett nödanrop eller ett [SOS-meddelande](https://www.samsung.com/us/support/answer/ANS10003348/) med platsdata.",
+      "da": "Falddetektering i smartwatches kombinerer accelerometer og gyroskop til at genkende faldmønstre: hurtig acceleration nedad efterfulgt af stød og immobilitet. Ifølge producenternes dokumentation ([Apple Watch: faldregistrering](https://support.apple.com/en-us/108896), [Samsung: hård faldregistrering](https://www.samsung.com/us/support/answer/ANS10002847/) og [Garmin: Incident Detection](https://support.garmin.com/en-US/?faq=R2vgdv7VwD8q0vJqYjGkC9)) kan sensorerne ikke opfange alle fald. Registreres et mønster, advarer uret: svarer brugeren ikke inden for tidsfristen (på Apple Watch 30 sekunders nedtælling efter et minuts stilstand; på Samsung 60 sekunders alarm), afsendes et nødopkald eller en [SOS-meddelelse](https://www.samsung.com/us/support/answer/ANS10003348/) med position."
     },
     "body.7.text": {
-      "sv": "I praktiken är situationen mer nyanserad. Detekteringen fungerar bra vid ”klassiska” fall (svimning eller att snubbla på hårda ytor). Den fungerar sämre vid långsamma fall (t.ex. att glida ner från en stol), fall i vatten (badkar, ett vanligt problem för äldre) eller situationer där personen faller men förblir delvis upprätt. Det förekommer även falska larm: intensiv fysisk aktivitet kan ibland utlösa larmet.",
-      "da": "Virkeligheden er mere nuanceret. Detektionen fungerer godt ved »klassiske« fald (besvimelse eller at snuble på hårde overflader). Den fungerer mindre godt ved langsomme fald (f.eks. når man glider ned fra en stol), fald i vand (badekar, et almindeligt problem for ældre) eller situationer, hvor personen falder, men forbliver delvist oprejst. Der forekommer også falske alarmer: Intens fysisk aktivitet kan lejlighedsvis udløse alarmen."
+      "sv": "Funktionen i praktiken beror på omständigheterna. Systemet fångar hårdare stötar vid plötslig balansförlust betydligt bättre än långsamma glidningar eller dämpade fall. Samtidigt kan kraftiga armrörelser eller stötar utlösa falsklarm, vilka dock kan avbrytas på skärmen innan hjälp kallas.",
+      "da": "Den praktiske funktion afhænger af situationen. Systemet opfanger hårde stød ved pludseligt tab af balancen væsentligt bedre end langsomme udglidninger eller dæmpede fald. Omvendt kan kraftige bevægelser eller utilsigtede stød udløse falske alarmer, som dog kan afvises på skærmen før nødopkaldet."
     },
     "body.8.title": {
-      "sv": "LTE kontra Bluetooth: den avgörande skillnaden",
-      "da": "LTE kontra Bluetooth: den afgørende forskel"
+      "sv": "Anslutning: Bluetooth, Wi-Fi och mobilnät",
+      "da": "Forbindelsesmuligheder: Bluetooth, wi-fi og mobilnetværk"
     },
     "body.8.body": {
-      "sv": "En Bluetooth Galaxy Watch 7 fungerar bara när telefonen finns i närheten. Om mormor lämnar sin telefon i köket och ramlar i trädgården, går larmet inte igenom. LTE-modellen kostar mer men kan ringa på egen hand. För äldre som rör sig på egen hand är LTE inget valfritt tillval.",
-      "da": "En Bluetooth Galaxy Watch 7 fungerer kun, når telefonen er i nærheden. Hvis bedstemor efterlader sin telefon i køkkenet og falder i haven, udløses alarmen ikke. LTE-modellen koster mere, men kan foretage opkald på egen hånd. For ældre, der færdes på egen hånd, er LTE ikke noget, man kan undvære."
+      "sv": "En modell med enbart Bluetooth hanterar samtal och larm via telefonen när den finns i närheten. Om telefonen är utom räckvidd eller avstängd kan klockan inte ringa självständigt, såvida inte Wi-Fi-samtal via operatören stöds på kända nätverk ([Apple: användning utan iPhone i närheten](https://support.apple.com/en-us/108300)). En mobilmodell (LTE) har ett inbyggt eSIM som tillåter nödsamtal och positionsdelning utanför hemmet utan telefon ([Samsung: aktivering av LTE på Galaxy Watch](https://www.samsung.com/it/support/mobile-devices/activate-lte-service-for-your-samsung-galaxy-watch/)), vilket medför en högre inköpskostnad och ett separat abonnemang.",
+      "da": "En model med kun Bluetooth håndterer opkald og alarmer via smartphonen, når den er i nærheden. Er telefonen for langt væk eller slukket, kan uret ikke ringe selvstændigt, medmindre det understøtter Wi-Fi-opkald fra udbyderen på kendte netværk ([Apple: brug uden iPhone i nærheden](https://support.apple.com/en-us/108300)). En mobilmodel (LTE) har et indbygget eSIM, som tillader nødopkald og positionsdeling uden for hjemmet uden telefon ([Samsung: aktivering af LTE på Galaxy Watch](https://www.samsung.com/it/support/mobile-devices/activate-lte-service-for-your-samsung-galaxy-watch/)), hvilket medfører en højere indkøbspris og et særskilt mobilabonnement."
     },
     "body.9.text": {
       "sv": "De bästa enheterna 2026: en ärlig jämförelse",
@@ -4006,8 +4006,8 @@
       "da": "Sammenligning af smartwatches til ældre i 2026 efter brugsprofil"
     },
     "body.12.text": {
-      "sv": "En kommentar om ”äldreanpassade” enheter från mindre kända varumärken: de lovar ofta allt till ett lågt pris, men sensorerna är av sämre kvalitet, avkänningarna är dåligt kalibrerade och mjukvarustödet upphör efter 12 månader. En begagnad Galaxy Watch SE är bättre än en generisk kinesisk enhet för 50 euro.",
-      "da": "En bemærkning om »ældrespecifikke« enheder fra mindre kendte mærker: De lover ofte alt muligt til en lav pris, men sensorerne er af ringere kvalitet, registreringerne er dårligt kalibreret, og softwaresupporten ophører efter 12 måneder. En brugt Galaxy Watch SE er bedre end en generisk kinesisk enhed til 50 €."
+      "sv": "En kommentar om enheter för äldre från mindre kända varumärken: före köp bör man kontrollera att officiell teknisk dokumentation finns, vilka utlösningskriterier som gäller för sensorerna, hur smartphone-kompatibiliteten ser ut och att det finns dedikerad support.",
+      "da": "En bemærkning om enheder til ældre fra mindre kendte mærker: Før køb bør man kontrollere, om der findes officiel teknisk dokumentation, hvilke udløsningskriterier sensorerne har, hvordan smartphone-kompatibiliteten er, og om der findes dedikeret support."
     },
     "body.13.text": {
       "sv": "Hjärt- och hälsoövervakning: vad de egentligen mäter",
@@ -4018,8 +4018,8 @@
       "da": "Alle moderne smartwatches måler puls ved hjælp af fotopletysmografi (PPG): En grøn LED-sensor på urets bagside registrerer ændringer i blodvolumenet i kapillærerne. For en ældre person med hjertesygdom kan dette ikke erstatte en Holter-monitor eller et kontinuerligt EKG, men det kan registrere tydelige arytmier og unormale tendenser."
     },
     "body.15.text": {
-      "sv": "Apple Watch Series 9 och Samsung Galaxy Watch 7 har även en EKG-funktion med en ledning (via klockans metallkontakter och ett finger). Denna funktion kan upptäcka förmaksflimmer, vilket är särskilt viktigt för äldre användare. Det är dock viktigt att notera att dessa EKG inte är certifierade medicintekniska produkter i egentlig mening. De är screeningverktyg, inte diagnostiska verktyg. Resultaten bör alltid granskas av en läkare.",
-      "da": "Apple Watch Series 9 og Samsung Galaxy Watch 7 har også en EKG-funktion med én elektrode (via urets metalkontakter og en finger). Denne funktion kan påvise atrieflimren, hvilket er særligt relevant for ældre brugere. Det er dog vigtigt at bemærke, at disse EKG'er ikke er certificerede medicinske apparater i egentlig forstand. De er screeningsværktøjer, ikke diagnostiske værktøjer. Resultaterne bør altid gennemgås af en læge."
+      "sv": "Apple Watch (Series- och Ultra-modeller, undantaget SE-serien) och Samsung Galaxy Watch (med kompatibel Samsung-telefon) erbjuder registrering av enkanals-EKG. Funktionen är uteslutande avsedd att identifiera tecken på förmaksflimmer; den upptäcker inte hjärtinfarkter och ersätter inte traditionella kardiologiska undersökningar.",
+      "da": "Apple Watch (Series- og Ultra-modeller, undtagen SE-serien) og Samsung Galaxy Watch (med kompatibel Samsung-telefon) tilbyder måling af enkelt-aflednings EKG. Funktionen er udelukkende beregnet til at opdage tegn på atrieflimren; den registrerer ikke blodpropper i hjertet og erstatter ikke kliniske hjerteundersøgelser."
     },
     "body.16.text": {
       "sv": "Så här delar du data med familjemedlemmar",
@@ -4030,44 +4030,32 @@
       "da": "Et barn, der bor langt væk, kan ofte kun føle sig tryg, hvis det kan se forældrenes oplysninger uden at skulle ringe hver dag. De indbyggede løsninger varierer alt efter økosystem."
     },
     "body.19.text": {
-      "sv": "Att välja kläder: hur man ser till att de verkligen används",
-      "da": "Adoptionsprocessen: Sådan sikrer man, at tøjet rent faktisk bliver brugt"
+      "sv": "Vägen till daglig användning: hur man ser till att klockan faktiskt bärs",
+      "da": "Overgangen til hverdagsbrug: Sådan sikrer man, at uret rent faktisk bliver båret"
     },
     "body.20.text": {
       "sv": "Att köpa rätt enhet är halva jobbet. Den andra halvan handlar om att få användarna att ta till sig den, och äldre människor är ofta motvilliga mot ny teknik av förståeliga skäl: rädsla för att göra fel, att de inte gillar utseendet eller känslan av att bli ”övervakade”. Här är några strategier som fungerar i praktiken:",
       "da": "At købe det rigtige udstyr er halvdelen af arbejdet. Den anden halvdel handler om at få brugerne til at tage det i brug, og ældre mennesker modsætter sig ofte ny teknologi af forståelige årsager: frygt for at begå fejl, æstetisk ubehag og følelsen af at blive »overvåget«. Her er nogle strategier, der virker i praksis:"
     },
     "body.22.title": {
-      "sv": "Det val jag rekommenderar utan att tveka",
-      "da": "Det valg, jeg uden tøven anbefaler"
+      "sv": "Rekommenderat val efter ekosystem",
+      "da": "Anbefalet valg efter økosystem"
     },
     "body.22.body": {
-      "sv": "För en äldre person som använder Android slår Galaxy Watch 7 LTE alla alternativ i samma prisklass. Fallavkänningen är kliniskt testad, LTE säkerställer att nödlarmet går även om det inte finns någon telefon i närheten, och Samsung Health Family Sharing gör det möjligt för vårdgivaren att se data på distans. Den kostar mer, men för just detta användningsområde är den värd varenda euro.",
-      "da": "For en ældre person, der bruger Android, er Galaxy Watch 7 LTE bedre end ethvert alternativ i samme prisklasse. Falddetektering er klinisk testet, LTE sikrer, at der kan foretages et nødopkald, selvom der ikke er en telefon i nærheden, og Samsung Health Family Sharing giver plejeren mulighed for at se dataene på afstand. Den koster mere, men til netop dette formål er den hver en euro værd."
+      "sv": "För Android-användare erbjuder en Wear OS-klocka med mobiluppkoppling (som Samsung Galaxy Watch LTE) en väl avvägd kombination av fallavkänning, nödsamtal och hälsomätning. Inom Apples ekosystem ger en mobil Apple Watch den mest sömlösa upplevelsen. Oavsett plattform bör man väga in laddningsrutiner och operatörsstöd.",
+      "da": "Til Android-brugere leverer et Wear OS-smartur med mobilforbindelse (såsom Samsung Galaxy Watch LTE) en velafbalanceret kombination af falddetektering, nødopkald og sundhedsmåling. I Apple-universet sikrer et Apple Watch med mobilopkobling den mest helstøbte integration. Husk i begge tilfælde at forholde dig til opladningsrutiner og teleselskabets understøttelse."
     },
     "body.23.text": {
       "sv": "Sammanfattningsvis",
       "da": "Sammenfattende"
     },
-    "body.25.title": {
-      "sv": "Vill du se dina familjemedlemmars hälsodata i en gemensam översiktssida?",
-      "da": "Vil du se dit familiemedlems sundhedsdata i et fælles oversigtspanel?"
-    },
-    "body.25.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch, Garmin och andra bärbara enheter i en webbaserad kontrollpanel som är tillgänglig via webbläsaren, utan att alla behöver använda samma märke. Detta är användbart för anhöriga som håller koll på äldre familjemedlemmar som använder olika enheter.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch, Garmin og andre bærbare enheder i et webbaseret kontrolpanel, der kan tilgås via en browser, uden at det er nødvendigt, at alle bruger samme mærke. Det er nyttigt for pårørende, der holder øje med ældre familiemedlemmer, der bruger forskellige enheder."
-    },
-    "body.25.ctaLabel": {
-      "sv": "Upptäck FitMesh integrationer →",
-      "da": "Udforsk FitMesh integrationer →"
-    },
     "faq.0.q": {
-      "sv": "Kan en smartklocka verkligen rädda livet på en äldre person?",
-      "da": "Kan et smartur virkelig redde en ældres liv?"
+      "sv": "Kan en smartklocka garantera hjälp för en äldre person?",
+      "da": "Kan et smartur garantere hjælp til en ældre person?"
     },
     "faq.0.a": {
-      "sv": "Det finns dokumenterade fall där fallavkänningen har larmat räddningspersonal i tid (Apple har publicerat några av dessa berättelser). En smartklocka är dock inte en certifierad medicinteknisk produkt och ersätter inte andra säkerhetssystem (t.ex. professionell telemedicin, fasta larmsystem). Den utgör ett extra säkerhetsskikt, inte en komplett lösning. Dess effektivitet beror också på att den alltid bärs med ett laddat batteri.",
-      "da": "Der findes dokumenterede tilfælde, hvor falddetektering har alarmeret redningsmandskabet i tide (Apple har offentliggjort nogle af disse historier). Et smartwatch er dog ikke et certificeret medicinsk udstyr og erstatter ikke andre sikkerhedssystemer (f.eks. professionel telemedicin, faste alarmsystemer). Det er et ekstra sikkerhedslag, ikke en komplet løsning. Dets effektivitet afhænger også af, at det altid bæres med et opladet batteri."
+      "sv": "En smartklocka kan inte garantera undsättning och ersätter inte professionell larmtjänst eller sjukvård. Däremot kan den automatiskt larma anhöriga eller räddningstjänst vid allvarliga fall med orörlighet, eller underlätta snabb kontakt via en SOS-knapp, förutsatt att täckning finns och klockan är laddad och rätt fastspänd.",
+      "da": "Et smartur kan ikke garantere redning og erstatter hverken ambulance eller professionel nødkaldstjeneste. Det kan dog automatisk tilkalde pårørende eller alarmcentralen ved voldsomme fald efterfulgt af stilstand, eller give mulighed for hurtigt opkald via en SOS-knap, såfremt der er dækning og uret er opladet og fastspændt."
     },
     "faq.1.q": {
       "sv": "Vilken smartklocka är enklast att använda för en äldre person som inte är så tekniskt kunnig?",
@@ -4075,31 +4063,31 @@
     },
     "faq.1.a": {
       "sv": "Det beror på vilket mobiltelefonekosystem de använder. Om de använder Android (oftast Samsung) är Galaxy Watch med en enkel urtavla (klocka + steg) intuitivt. Om de använder iPhone är Apple Watch SE med urtavlan Modular Compact mycket lättläst. I båda fallen bör de initiala inställningarna konfigureras av en anhörig som är vårdgivare, inte av den äldre personen själv. Specialiserade enheter som Doro är ännu enklare men har färre hälsofunktioner.",
-      "da": "Det afhænger af deres mobiløkosystem. Hvis de bruger Android (typisk Samsung), er Galaxy Watch med et simpelt urskive (ur + skridt) intuitivt. Hvis de bruger iPhone, er Apple Watch SE med urskiven »Modular Compact« meget let at aflæse. I begge tilfælde bør de indledende indstillinger konfigureres af et familiemedlem, der tager sig af den ældre, og ikke af den ældre selv. Specialiserede enheder som Doro er endnu enklere, men har færre sundhedsfunktioner."
+      "da": "Det afhænger af deres mobiløkosystem. Hvis de bruger Android (typisk Samsung), er Galaxy Watch med en enkel urskive (ur + skridt) intuitivt. Hvis de bruger iPhone, er Apple Watch SE med urskiven »Modular Compact« meget let at aflæse. I begge tilfælde bør de indledende indstillinger konfigureres af et familiemedlem, der tager sig af den ældre, og ikke af den ældre selv. Specialiserede enheder som Doro er endnu enklere, men har færre sundhedsfunktioner."
     },
     "faq.2.q": {
       "sv": "Fungerar fallavkänningen i vatten (dusch, badkar)?",
       "da": "Fungerer falddetektering i vand (brusebad, badekar)?"
     },
     "faq.2.a": {
-      "sv": "Smartklockor i toppklass (Galaxy Watch 7, Apple Watch Series 9) är vattentäta (5 ATM eller mer) och kan bäras i duschen. Fallavkänningen fungerar dock sämre i vatten eftersom accelerometern har svårt att skilja fallmönster från vattenrörelser. För att öka säkerheten i badrummet kopplar vissa personer ihop smartklockan med en särskild fast enhet (t.ex. en nödknapp i badrummet).",
-      "da": "Smartwatches i topklassen (Galaxy Watch 7, Apple Watch Series 9) er vandtætte (5 ATM eller mere) og kan bæres under brusebadet. Falddetektering fungerer dog dårligere i vand, da accelerometeret har svært ved at skelne mellem faldmønstre og vandbevægelser. For at øge sikkerheden i badeværelset parrer nogle mennesker smarturet med en dedikeret fast enhed (f.eks. en nødknap i badeværelset)."
+      "sv": "Ledande modeller från Apple Watch och Samsung Galaxy Watch är vattentåliga ned till 50 meter (5 ATM / IP68) och klarar dusch och handtvätt. Fallavkänningen är fortsatt igång, men kraftiga vattenstrålar eller långsamma glidningar kan göra registreringen osäker. Det är viktigt att klockan sitter ordentligt runt handleden.",
+      "da": "Ledende modeller fra Apple Watch og Samsung Galaxy Watch er vandafvisende ned til 50 meter (5 ATM / IP68), hvilket passer til brusebad og håndvask. Falddetekteringen forbliver aktiv, men kraftige vandstråler eller langsomme udglidninger kan gøre registreringen usikker. Det er vigtigt, at uret sidder godt til på håndleddet."
     },
     "faq.3.q": {
       "sv": "Hur mycket bör en smartklocka för äldre kosta?",
       "da": "Hvor meget bør et smartwatch til ældre koste?"
     },
     "faq.3.a": {
-      "sv": "Prisintervallet ligger mellan 150 euro (begagnad/renoverad) och 350 euro för en ny enhet med LTE. För priser under 100 euro är avkall på sensorer och fallavkänning betydande. Över 400 euro betalar du för funktioner som en vanlig äldre person inte använder. Tänk också på kostnaden för ett extra LTE-abonnemang om du väljer den uppkopplade modellen (vanligtvis 5–10 euro/månad på SIM-kortet i huvudtelefonen).",
-      "da": "Prisintervallet ligger mellem 150 € (brugt/renoveret) og 350 € for en ny enhed med LTE. Under 100 € er der betydelige kompromiser med hensyn til sensorer og falddetektering. Over 400 € betaler du for funktioner, som en typisk ældre person ikke bruger. Husk også at tage højde for udgiften til et ekstra LTE-abonnement, hvis du vælger den internetforbundne model (typisk 5-10 €/måned på SIM-kortet i hovedtelefonen)."
+      "sv": "Priserna varierar beroende på märke, generation och uppkoppling. Officiella basmodeller med mobiluppkoppling (LTE) börjar exempelvis från 299 USD (före skatt) eller 329 EUR i Italien för Apple Watch SE 3 (40 mm), medan mer avancerade serier (som Apple Watch Series eller Samsung Galaxy Watch LTE) varierar efter generation och material. Till klockans pris tillkommer mobiloperatörens månadsavgift för eSIM-abonnemanget. Mycket billiga klockor utan teknisk dokumentation och officiella supportkanaler erbjuder inga verifierbara garantier för säkerhetsfunktionerna.",
+      "da": "Priserne varierer efter mærke, generation og forbindelsestype. Officielle basismodeller med mobilforbindelse (LTE) starter for eksempel fra 299 $ (før moms) eller 329 € i Italien for Apple Watch SE 3 (40 mm), mens dyrere serier (som Apple Watch Series eller Samsung Galaxy Watch LTE) varierer efter generation og materialer. Hertil kommer mobiludbyderens månedlige gebyr for eSIM-abonnementet. Meget billige ure uden teknisk dokumentation og officielle supportkanaler giver ingen efterprøvelige garantier for sikkerhedsfunktionerne."
     },
     "faq.4.q": {
       "sv": "Är uppgifterna om min äldre familjemedlem konfidentiella, eller är det någon som läser dem?",
       "da": "Er oplysningerne om mit ældre familiemedlem fortrolige, eller er der nogen, der læser dem?"
     },
     "faq.4.a": {
-      "sv": "Data sparas i tillverkarens molntjänst (Samsung Cloud, Apple iCloud, Garmin Connect). Tillverkaren kan tekniskt sett få tillgång till dessa data i enlighet med sin integritetspolicy. I normal praxis läses den inte aktivt av någon människa, men aggregerade analyser för att förbättra algoritmerna är möjliga. Om integritet är en viktig fråga finns det lösningar som använder Health Connect (Android på enheten) och som lagrar data på telefonen istället för i molnet.",
-      "da": "Data gemmes i producentens cloud (Samsung Cloud, Apple iCloud, Garmin Connect). Producenten har teknisk set adgang til disse data i henhold til sin privatlivspolitik. I praksis er der ingen, der aktivt læser dem, men det er muligt at udføre samlede analyser for at forbedre algoritmerne. Hvis privatlivets fred er et væsentligt anliggende, findes der løsninger, der bruger Health Connect (Android on-device), hvor dataene opbevares på telefonen i stedet for i skyen."
+      "sv": "Hanteringen av data beror på tillverkaren, säkerhetskopieringsinställningarna och de behörigheter som användaren har beviljat. Smartklockornas tillhörande appar (såsom Apple Hälsa med iCloud, Samsung Health eller Garmin Connect) kan synkronisera data till sina respektive molntjänster enligt de villkor och krypteringsnivåer som beskrivs i varje leverantörs officiella integritetspolicy. På iPhone (Apple Hälsa) och Android (Health Connect) lagras hälsodata på telefonen och användaren kan i systeminställningarna styra vilka appar som har behörighet att läsa eller skriva dem; auktoriserade appar eller enhetens molnsäkerhetskopior kan dock fortfarande överföra data till fjärrservrar beroende på aktiverade inställningar.",
+      "da": "Databehandlingen afhænger af producenten, backup-indstillingerne og de tilladelser, som brugeren har givet. Smartwatchets tilhørende apps (såsom Apple Sundhed med iCloud, Samsung Health eller Garmin Connect) kan synkronisere data til deres respektive cloudtjenester i overensstemmelse med de vilkår og krypteringsniveauer, der er beskrevet i hver udbyders officielle privatlivspolitik. På iPhone (Apple Sundhed) og Android (Health Connect) gemmes sundhedsdata på telefonen, og brugeren kan i systemindstillingerne styre, hvilke apps der har tilladelse til at læse eller skrive dem; autoriserede apps eller enhedens cloudbackup kan dog stadig overføre data til eksterne servere afhængigt af de aktiverede indstillinger."
     },
     "secondaryKeywords": {
       "sv": [
@@ -4117,34 +4105,34 @@
     },
     "tldr": {
       "sv": [
-        "Det avgörande är inte listan över funktioner, utan att enheten används varje dag. Användarvänlighet och lång batteritid slår alla avancerade funktioner.",
-        "LTE är ett måste om den äldre personen rör sig på egen hand utan att alltid ha sin telefon med sig.",
-        "Fallavkänningen fungerar bra vid vanliga fall, men sämre vid långsamma fall eller i vatten: kombinera den med en fast knapp i badrummet.",
-        "De inbyggda EKG-funktionerna (Apple Watch Series 9, Galaxy Watch 7) är verktyg för screening av förmaksflimmer, inte certifierade medicintekniska produkter.",
-        "Det är lika viktigt hur man inför det som själva valet: presentera det som ett verktyg som hjälper dem, börja med tidsramar och steg, och lägg till funktioner gradvis."
+        "Den avgörande faktorn är inte funktionslistan, utan att klockan faktiskt används varje dag. Enkelhet och praktisk laddning slår alla avancerade tillval.",
+        "Mobiluppkoppling (LTE) möjliggör samtal och nödlarm när telefonen inte är i närheten och kompatibelt Wi-Fi saknas.",
+        "Fallavkänning fungerar bäst vid plötsliga fall med stillhet efteråt; den ersätter inte räddningstjänst eller fasta larmknappar i badrummet.",
+        "Inbyggt EKG (Apple Watch Series, Galaxy Watch) söker efter förmaksflimmer; det upptäcker inte hjärtinfarkter och ersätter inte läkarundersökning.",
+        "Att klockan kommer till användning är lika viktigt som valet: presentera den som ett tryggt stöd, börja med tid och steg, introducera fler funktioner i lugn takt."
       ],
       "da": [
-        "Det afgørende er ikke listen over funktioner: det er, at enheden bliver brugt hver dag. Brugervenlighed og lang batterilevetid vejer tungere end selv de mest avancerede funktioner.",
-        "LTE er ikke valgfrit, hvis den ældre bevæger sig rundt på egen hånd uden altid at have sin telefon med sig.",
-        "Falddetektering fungerer godt ved klassiske fald, men mindre godt ved langsomme fald eller i vand: Brug den sammen med en fastmonteret knap på badeværelset.",
-        "De indbyggede EKG-funktioner (Apple Watch Series 9, Galaxy Watch 7) er værktøjer til screening for atrieflimren og er ikke certificerede medicinske apparater.",
-        "Det er lige så vigtigt, hvordan man tager det i brug, som selve valget: Præsenter det som et værktøj, der hjælper dem; begynd med tidsrammer og trin, og tilføj funktioner gradvist."
+        "Den afgørende faktor er ikke specifikationslisten, men at uret rent faktisk bæres hver dag. Enkel betjening og fornuftig batteritid slår avancerede funktioner.",
+        "Mobilforbindelse (LTE) sikrer opkald og nødopkald uden for telefonens rækkevidde og uden understøttede wi-fi-netværk.",
+        "Falddetektering virker bedst ved pludselige fald efterfulgt af stilstand; det erstatter hverken alarmcentralen eller faste nødkald i badeværelset.",
+        "Indbygget EKG (Apple Watch Series, Galaxy Watch) undersøger for atrieflimren; det registrerer ikke blodpropper i hjertet og erstatter ikke lægeundersøgelser.",
+        "Tilvænning er lige så vigtig som købet: introducer det som en tryg hjælp i hverdagen, begynd med ur og skridt, og byg stille og roligt på."
       ]
     },
     "body.3.items": {
       "sv": [
         "**Läsbar skärm utan glasögon**: stor AMOLED-skärm (minst 1,4 tum) med skalbar teckenstorlek. Det är inte alla tillverkare som gör det möjligt att öka textstorleken tillräckligt mycket.",
         "**Batteritid på minst 2–3 dagar**: en äldre person ska inte behöva komma ihåg att ladda enheten varje natt. Galaxy Watch 7 håller i cirka 40 timmar, Garmin Vivoactive 5 i cirka 11 dagar.",
-        "**Tillförlitlig fallavkänning**: Specifikationerna anger alla ”ja”, men kvaliteten varierar enormt. Apple Watch Series 9 och Samsung Galaxy Watch 7 har kliniskt testade accelerometer- och gyroskopmekanismer. Generiska, billiga smartklockor har ofta en hög andel falska negativa resultat.",
+        "**Dokumenterad fallavkänning**: tekniska specifikationer anger om funktionen finns, men implementeringen varierar beroende på sensorer och algoritmer. Enheter som Apple Watch och Samsung Galaxy Watch dokumenterar hur accelerometer och gyroskop samverkar med definierade tröskelvärden. Generiska klockor utan officiell dokumentation specificerar sällan utlösningskriterier eller testförhållanden.",
         "**Fysisk SOS-knapp**: inte bara digital. Måste vara lättillgänglig även om personen är desorienterad eller har darrande händer.",
-        "**Wi-Fi- eller LTE-nummer**: om personen rör sig bort från sin telefon måste klockan kunna ringa på egen hand."
+        "**LTE-anslutning eller Wi-Fi-samtal**: om personen rör sig bort från sin telefon måste klockan kunna ringa självständigt via mobilnät (eSIM) eller stödda Wi-Fi-nätverk."
       ],
       "da": [
         "**Læselig skærm uden briller**: stor AMOLED-skærm (mindst 1,4 tommer) med skalerbar skriftstørrelse. Ikke alle producenter giver mulighed for at forstørre tekststørrelsen tilstrækkeligt.",
         "**Batterilevetid på mindst 2-3 dage**: En ældre person bør ikke være nødt til at huske at oplade enheden hver aften. Galaxy Watch 7 holder ca. 40 timer, Garmin Vivoactive 5 ca. 11 dage.",
-        "**Pålidelig falddetektering**: Specifikationerne siger alle »ja«, men kvaliteten varierer enormt. Apple Watch Series 9 og Samsung Galaxy Watch 7 har klinisk testede accelerometer- og gyroskopmekanismer. Generiske, billige smartwatches har ofte en høj andel af falske negative resultater.",
+        "**Dokumenteret falddetektering**: tekniske specifikationer angiver, om funktionen er til stede, men implementeringen varierer efter sensorer og algoritmer. Enheder som Apple Watch og Samsung Galaxy Watch dokumenterer samspillet mellem accelerometer og gyroskop med definerede tærskelværdier. Generiske smartwatches uden officiel dokumentation specificerer sjældent udløsningskriterier eller testbetingelser.",
         "**Fysisk SOS-knap**: ikke kun digital. Skal være tilgængelig, selvom personen er desorienteret eller har rystende hænder.",
-        "**Wi-Fi- eller LTE-nummer**: Hvis personen bevæger sig væk fra sin telefon, skal uret kunne foretage opkald på egen hånd."
+        "**LTE-forbindelse eller Wi-Fi-opkald**: hvis personen bevæger sig væk fra telefonen, skal uret kunne foretage opkald selvstændigt via mobilnetværk (eSIM) eller understøttede wi-fi-netværk."
       ]
     },
     "body.11.headers": {
@@ -4178,14 +4166,14 @@
     "body.11.rows.1": {
       "sv": [
         "Äldre med iPhone",
-        "Apple Watch SE 2 LTE",
-        "Utmärkt fallavkänning, internationellt SOS, FaceTime",
+        "Apple Watch SE LTE (t.ex. SE 3 / SE 2)",
+        "Fallregistrering, Nödanrop SOS, samtal med aktivt abonnemang",
         "Endast iOS"
       ],
       "da": [
         "Ældre med iPhone",
-        "Apple Watch SE 2 LTE",
-        "Fremragende falddetektering, international SOS, FaceTime",
+        "Apple Watch SE LTE (f.eks. SE 3 / SE 2)",
+        "Faldregistrering, Nødopkald SOS, opkald med aktivt abonnement",
         "Kun iOS"
       ]
     },
@@ -4194,13 +4182,13 @@
         "Begränsad budget, grundläggande säkerhet",
         "Garmin Vivoactive 5",
         "11 dagars batteritid, tålig, GPS",
-        "Mindre avancerad fallavkänning"
+        "Händelsedetektering endast vid vissa aktiviteter med ansluten smartphone; inga självständiga röstsamtal"
       ],
       "da": [
         "Begrænset budget, grundlæggende sikkerhed",
         "Garmin Vivoactive 5",
         "11 dages batteritid, robust, GPS",
-        "Mindre avanceret falddetektering"
+        "Hændelsesregistrering kun under visse aktiviteter med tilsluttet smartphone; ingen selvstændige stemmeopkald"
       ]
     },
     "body.11.rows.3": {
@@ -4219,16 +4207,14 @@
     },
     "body.18.items": {
       "sv": [
-        "**Samsung Galaxy Watch + Familjedelning**: Samsung Health möjliggör datadelning med utvalda familjemedlemmar. Ställ in via appen Samsung Health → Profil → Familj. Steg, puls och sömndata kan delas.",
-        "**Apple Watch + Familjekonfiguration**: Apple gör det möjligt att koppla en Apple Watch till en familjemedlems iPhone. Farfar behöver inte ha en egen iPhone: data skickas till den familjemedlem som tar hand om honom.",
-        "**Garmin**: Möjligheterna till delning inom familjen är begränsade. Garmin Med Connect kan du följa ”vänner” och se viss statistik, men det finns ingen särskild funktion för anhörigvårdare.",
-        "**Tredjepartslösningar**: appar som FitMesh Sync gör det möjligt att samla in hälsodata från olika enheter och göra dem tillgängliga via en webbaserad kontrollpanel, vilket är praktiskt om familjen använder olika märken eller vill ha en samlad översikt."
+        "**Samsung Health datadelning**: gör det möjligt att dela steg, träning, kroppssammansättning och sömndata med utvalda familjemedlemmar via Samsung-kontot.",
+        "**Apple Watch familjekonfiguration**: tillåter parkoppling av en mobil Apple Watch med en anhörigs iPhone, med förbehåll för operatörsstöd i landet och utan EKG eller rytmvarningar.",
+        "**Garmin**: delning via Garmin Connect låter godkända kontakter se viss aktivitets- och hälsoinformation, men saknar ett särskilt gränssnitt för anhörigvårdare."
       ],
       "da": [
-        "**Samsung Galaxy Watch + Familiedeling**: Samsung Health giver mulighed for at dele data med udvalgte familiemedlemmer. Konfigurer via Samsung Health-appen → Profil → Familie. Skridt, puls og søvndata kan deles.",
-        "**Apple Watch + Familieopsætning**: Apple giver mulighed for at knytte et Apple Watch til en familie-iPhone. Bedstefar behøver ikke sin egen iPhone: dataene sendes til den pårørendes iPhone.",
-        "**Garmin**: Deling inden for familien er begrænset. Garmin Med Connect kan du følge »venner« og se nogle statistikker, men der er ingen specifik funktion til plejepersoner.",
-        "**Tredjepartsløsninger**: Apps som FitMesh Sync gør det muligt at samle sundhedsdata fra forskellige enheder og gøre dem tilgængelige via et webbaseret kontrolpanel, hvilket er praktisk, hvis familien bruger forskellige mærker eller ønsker et samlet overblik."
+        "**Samsung Health datadeling**: giver mulighed for at dele skridt, træning, kropssammensætning og søvn med udvalgte familiemedlemmer via Samsung-kontoen.",
+        "**Apple Watch familieopsætning**: muliggør parring af et Apple Watch med mobilforbindelse til en pårørendes iPhone, med forbehold for operatørstøtte og uden EKG eller rytmeadvarsler.",
+        "**Garmin**: deling via Garmin Connect giver godkendte kontakter indsigt i udvalgte aktivitets- og velværestatistikker, men rummer ingen særlig visning til pårørende."
       ]
     },
     "body.21.items": {
@@ -4249,18 +4235,18 @@
     },
     "body.24.items": {
       "sv": [
-        "Det avgörande är inte listan över funktioner: det handlar om att enheten bärs varje dag. Användarvänlighet och lång batteritid slår vilken avancerad funktion som helst.",
-        "LTE är ett måste om den äldre personen rör sig på egen hand utan att alltid ha sin telefon med sig.",
-        "Fallavkänningen fungerar bra vid vanliga fall, men sämre vid långsamma fall eller i vatten: kombinera den med en fast knapp i badrummet för fullständig täckning.",
-        "De inbyggda EKG-funktionerna (Apple Watch Series 9, Galaxy Watch 7) är verktyg för screening av förmaksflimmer och inte certifierade medicintekniska produkter: vid onormala resultat bör du uppsöka en läkare.",
-        "Det är lika viktigt hur man använder produkten som själva valet: presentera den som ett hjälpmedel för den äldre, inte som ett övervakningssystem. Börja med att bara mäta tid och steg, och lägg till funktioner stegvis."
+        "Det avgörande är inte antalet funktioner, utan att klockan bärs varje dag. Enkelhet och god batteritid slår alla avancerade finesser.",
+        "För att ringa och larma utom räckhåll för telefonen och utan Wi-Fi är mobiluppkoppling (LTE) den mest pålitliga lösningen.",
+        "Fallavkänning är kalibrerad för hårda stötar med förlorad balans; den fångar inte alla fall (såsom långsamma glidningar) och kräver aktiv uppkoppling för att larma.",
+        "Inbyggda EKG-appar (t.ex. på Apple Watch eller Samsung Galaxy Watch) är screeningsverktyg för att upptäcka tecken på förmaksflimmer; de upptäcker inte hjärtinfarkter och ersätter inte kliniska undersökningar.",
+        "Att klockan accepteras är lika viktigt som inköpet: presentera den som ett tryggt stöd i vardagen, inte som övervakning. Börja enkelt med klocka och stegräknare."
       ],
       "da": [
-        "Det afgørende er ikke listen over funktioner: det er, at enheden bliver brugt hver dag. Brugervenlighed og lang batterilevetid vejer tungere end selv de mest avancerede funktioner.",
-        "LTE er ikke valgfrit, hvis den ældre bevæger sig rundt på egen hånd uden altid at have sin telefon med sig.",
-        "Falddetektering fungerer godt ved klassiske fald, men mindre godt ved langsomme fald eller i vand: Kombiner den med en fastmonteret knap på badeværelset for at sikre fuld dækning.",
-        "De indbyggede EKG-funktioner (Apple Watch Series 9, Galaxy Watch 7) er værktøjer til screening for atrieflimren og ikke certificerede medicinske apparater: Ethvert unormalt resultat bør vises til en læge.",
-        "Det er lige så vigtigt, hvordan man tager det i brug, som selve valget: Præsenter det som et hjælpemiddel til den ældre, ikke som et overvågningssystem. Begynd med blot tid og skridt, og tilføj funktioner gradvist."
+        "Det vigtigste er ikke listen over funktioner, men at uret sidder på håndleddet hver dag. Let betjening og solid batteritid overgår avancerede funktioner.",
+        "Til opkald og alarmering uden for telefonens rækkevidde og uden wi-fi er mobilforbindelse (LTE) den mest pålidelige løsning.",
+        "Falddetektering er kalibreret til hårde stød ved tab af balance; den registrerer ikke alle fald (som langsomme glidninger) og kræver aktiv forbindelse for at tilkalde hjælp.",
+        "Indbyggede EKG-apps (f.eks. på Apple Watch eller Samsung Galaxy Watch) er screeningsværktøjer til at opdage tegn på atrieflimren; de registrerer ikke blodpropper og erstatter ikke kliniske undersøgelser.",
+        "Tilvænning betyder lige så meget som valget: præsenter uret som en praktisk hjælp i hverdagen, ikke som kontrol. Begynd med ur og skridt, og byg stille og roligt på."
       ]
     }
   },
@@ -4906,24 +4892,24 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Bästa smartklockan för äldre: en komplett guide 2026",
-      "da": "Det bedste smartwatch til ældre: den komplette guide 2026"
+      "sv": "Bästa smartklockorna för äldre: guide 2026",
+      "da": "Bedste smartwatches til ældre: guide 2026"
     },
     "hero.subtitle": {
       "sv": "En enhet som man använder varje dag är oändligt mycket mer värd än en enhet med tusen funktioner som bara hamnar i en byrålåda. Så här väljer du rätt.",
       "da": "En enhed, man bruger hver dag, er uendeligt meget mere værd end en enhed med tusindvis af funktioner, der ender i en skuffe. Her får du nogle gode råd til, hvordan du vælger rigtigt."
     },
     "metaDescription": {
-      "sv": "De bästa smartklockorna för äldre år 2026: fallavkänning, SOS-funktion, användarvänlighet, batteritid. En ärlig guide med råd till anhöriga, funktioner för hälsoövervakning och praktiska tips.",
-      "da": "De bedste smartwatches til ældre i 2026: falddetektering, SOS, brugervenlighed, batterilevetid. En ærlig guide med råd til pårørende, sundhedsovervågningsfunktioner og praktiske tips."
+      "sv": "Bästa smartklockor för äldre 2026: fallavkänning, SOS, batteritid och användarvänlighet. Praktisk guide för anhöriga med officiella specifikationer.",
+      "da": "Bedste smartwatches til ældre 2026: falddetektering, SOS, batteritid og brugervenlighed. Praktisk guide til pårørende med officielle specifikationer."
     },
     "primaryKeyword": {
       "sv": "bästa smartklockan för äldre",
       "da": "det bedste smartwatch til ældre"
     },
     "body.0.text": {
-      "sv": "En smartklocka som bärs varje dag är oändligt mycket mer värd än en enhet med tusen funktioner som hamnar i en byrålåda: det är den utgångspunkten man bör utgå ifrån när man väljer den bästa smartklockan för en äldre person. År 2026 är Apple Watch SE 2 LTE med Family Setup och Samsung Galaxy Watch 7 LTE de bästa valen när det gäller säkerhet och hjärtövervakning, men vilket val som är rätt beror på vad som prioriteras: fallskydd, passiv hälsoövervakning, kontakt med familjen eller äldre som fortfarande är aktiva.",
-      "da": "Et smartwatch, der bæres hver dag, er uendeligt meget mere værd end en enhed med tusindvis af funktioner, der ender i en skuffe: Det er det princip, man skal tage udgangspunkt i, når man vælger det bedste smartwatch til en ældre person. I 2026 er Apple Watch SE 2 LTE med Family Setup og Samsung Galaxy Watch 7 LTE de bedste valg med hensyn til sikkerhed og hjerteovervågning, men det rigtige valg afhænger af, hvad der prioriteres: fald, passiv sundhed, familieforbindelse eller ældre, der stadig er aktive."
+      "sv": "En smartklocka som bärs varje dag är oändligt mycket mer värd än en enhet med tusen funktioner som hamnar i en byrålåda: det är utgångspunkten när man väljer en klocka för en äldre person. År 2026 utgör Apple Watch- och Samsung Galaxy Watch-modeller med mobiluppkoppling de lösningar som har mest omfattande officiell dokumentation för kommunikation och fallavkänning, men rätt val beror på telefonens ekosystem och de primära behoven: enkel användning, batteritid eller grundläggande övervakning.",
+      "da": "Et smartwatch, der bæres hver dag, er uendeligt meget mere værd end et ur med tusind funktioner, der ender i en skuffe: Det er udgangspunktet, når man vælger en enhed til en ældre person. I 2026 udgør Apple Watch- og Samsung Galaxy Watch-modeller med mobilforbindelse de løsninger, der har den mest omfattende officielle dokumentation for kommunikation og falddetektering, men det rette valg afhænger af telefonens økosystem og de primære behov: brugervenlighed, batterilevetid eller basal overvågning."
     },
     "body.1.text": {
       "sv": "Den rätta frågan att ställa sig innan man köper",
@@ -4938,40 +4924,40 @@
       "da": "Falddetektering: hvordan det fungerer, og hvorfor kvaliteten varierer"
     },
     "body.5.text": {
-      "sv": "Alla moderna smartklockor med fallavkänning använder en kombination av en treaxlig accelerometer och ett gyroskop för att identifiera fallmönstret: snabb acceleration nedåt, en kraftig stöt, följt av stillhet. När mönstret stämmer överens med ett fall vibrerar klockan och visar en varning. Om ingen reagerar inom 30–60 sekunder rings ett nödsamtal.",
-      "da": "Alle moderne smartwatches med falddetektering bruger en kombination af et treakset accelerometer og et gyroskop til at identificere faldmønsteret: hurtig nedadgående acceleration, et kraftigt stød efterfulgt af stilhed. Når mønsteret svarer til et fald, vibrerer uret og viser en advarsel. Hvis der ikke kommer noget svar inden for 30–60 sekunder, foretages der et nødopkald."
+      "sv": "Smartklockor med fallavkänning använder accelerometer och gyroskop för att identifiera rörelsemönster som tyder på ett fall: snabb acceleration nedåt, stöt och efterföljande stillhet. Enligt tillverkarnas dokumentation ([Apple Watch (fallavkänning)](https://support.apple.com/en-us/108896) och [Samsung Galaxy Watch (fallavkänning)](https://www.samsung.com/us/support/answer/ANS10002847/)) upptäcks inte alla fall. På Apple Watch startar en 30 sekunder lång nedräkning med ljudsignal om användaren är orörlig i ungefär en minut efter varningen, innan ett nödsamtal rings automatiskt. På Samsung Galaxy Watch skickas ett [SOS-meddelande](https://www.samsung.com/us/support/answer/ANS10003348/) med platsdata till nödkontakterna efter ett 60-sekunders larm (och ett samtal rings om det har ställts in).",
+      "da": "Smartwatches med falddetektering bruger accelerometer og gyroskop til at registrere bevægelsesmønstre for et fald: hurtig acceleration nedad, stød og efterfølgende stilstand. Ifølge producenternes dokumentation ([Apple Watch (faldregistrering)](https://support.apple.com/en-us/108896) og [Samsung Galaxy Watch (faldregistrering)](https://www.samsung.com/us/support/answer/ANS10002847/)) opfanges ikke alle fald. På Apple Watch starter en 30 sekunders nedtælling med lydsignal, hvis brugeren er immobil i cirka et minut efter alarmen, før et nødopkald foretages automatisk. På Samsung Galaxy Watch sendes en [SOS-meddelelse](https://www.samsung.com/us/support/answer/ANS10003348/) med positionsdata til nødkontakterne efter en 60-sekunders alarm (og et opkald foretages, hvis det er konfigureret)."
     },
     "body.6.text": {
-      "sv": "Det som skiljer enheterna åt är algoritmernas kvalitet och kalibrering. Apple och Samsung har investerat flera år i forskning och utveckling samt omfattande tester: deras algoritmer kan bättre skilja mellan ett ”verkligt fall” och en ”plötslig rörelse”. Billiga enheter eller okända märken har ofta dåligt kalibrerade algoritmer, vilket kan leda till två möjliga utfall: falska positiva larm (larm när det inte sker något fall) eller, ännu värre, falska negativa larm (ett verkligt fall upptäcks inte).",
-      "da": "Det, der adskiller enhederne, er algoritmernes kvalitet og kalibrering. Apple og Samsung har investeret mange års forskning og udvikling samt omfattende test: Deres algoritmer er bedre til at skelne mellem et »rigtigt fald« og en »pludselig bevægelse«. Billige enheder eller ukendte mærker har ofte dårligt kalibrerede algoritmer, hvilket kan føre til to mulige resultater: falske positiver (alarm, selvom der ikke er tale om et fald) eller, værre endnu, falske negativer (et ægte fald registreres ikke)."
+      "sv": "Den praktiska skillnaden ligger i algoritmernas kalibrering och systemintegrationen. Apple och Samsung dokumenterar specifika krav för identifiering och nödhjälp, inklusive känslighet för falsklarm vid plötsliga rörelser. Generiska lågprisenheter publicerar ofta inte transparenta specifikationer om sensorernas samplingsfrekvens, valideringstester eller planer för firmwareuppdateringar.",
+      "da": "Den praktiske forskel ligger i algoritmernes kalibrering og systemintegrationen. Apple og Samsung dokumenterer specifikke krav til registrering og nødhjælp, herunder følsomhed over for falske alarmer ved pludselige bevægelser. Generiske lavprisenheder offentliggør ofte ikke gennemskuelige specifikationer om sensorernes samplingsfrekvens, valideringstests eller planer for firmwareopdateringer."
     },
     "body.7.title": {
-      "sv": "LTE är ett måste för dem som bor ensamma",
-      "da": "LTE er en ufravigelig forudsætning for dem, der bor alene"
+      "sv": "Samtal och nödlägen: Bluetooth, Wi-Fi och mobilnät",
+      "da": "Opkald og nødsituationer: Bluetooth, wi-fi og mobilnetværk"
     },
     "body.7.body": {
-      "sv": "En modell som endast har Bluetooth fungerar som en förlängning av telefonen: när telefonen är långt borta kan klockan inte ringa. För en äldre person som bor ensam är denna brist oacceptabel ur säkerhetssynpunkt. LTE-modellen kostar vanligtvis 50–100 dollar mer och kräver ett extra dataabonnemang (cirka 10–15 dollar per månad), men i det här fallet är uttrycket ”värt varenda cent” inte bara marknadsföring: det är verklighet.",
-      "da": "En model, der kun har Bluetooth, fungerer som en forlængelse af telefonen: Når telefonen er langt væk, kan uret ikke foretage opkald. For en ældre person, der bor alene, er denne begrænsning uacceptabel ud fra et sikkerhedsmæssigt synspunkt. LTE-modellen koster typisk 50-100 dollar mere og kræver et ekstra dataabonnement (~10-15 dollar/måned), men dette er den situation, hvor »hver en øre værd« ikke er markedsføring: det er virkeligheden."
+      "sv": "En modell med enbart Bluetooth vidarebefordrar samtal via telefonen i närheten. Med [Apple Watch (samtal utan närliggande iPhone)](https://support.apple.com/en-us/108300) kan samtal även ringas över kända Wi-Fi-nätverk om operatören stöder Wi-Fi-samtal och funktionen har aktiverats på iPhone, även om telefonen inte är i närheten. På [Samsung Galaxy Watch (fjärranslutning)](https://www.samsung.com/us/support/troubleshoot/TSG10007238/) med Wear OS tillåter fjärranslutning vissa funktioner via Wi-Fi, men stöder inte mottagning av inkommande samtal. För att ringa och skicka nödlarm helt självständigt utanför hemmet utan telefon eller Wi-Fi krävs en mobilmodell (LTE) med ett aktivt kompatibelt abonnemang.",
+      "da": "En model med kun Bluetooth viderestiller opkald via telefonen i nærheden. Med [Apple Watch (opkald uden iPhone i nærheden)](https://support.apple.com/en-us/108300) kan opkald også foretages over kendte Wi-Fi-netværk, hvis operatøren understøtter Wi-Fi-opkald og funktionen er slået til på iPhone, selvom telefonen ikke er i nærheden. På [Samsung Galaxy Watch (fjernforbindelse)](https://www.samsung.com/us/support/troubleshoot/TSG10007238/) med Wear OS tillader fjernforbindelse visse funktioner via Wi-Fi, men understøtter ikke modtagelse af indgående opkald. For at foretage opkald og sende nødalarmer fuldstændig uafhængigt uden for hjemmet uden telefon eller Wi-Fi kræves en mobilmodel (LTE) med et aktivt kompatibelt abonnement."
     },
     "body.8.text": {
       "sv": "De enheter vi rekommenderar år 2026: efter profil",
       "da": "De enheder, vi anbefaler i 2026: efter profil"
     },
     "body.9.caption": {
-      "sv": "Jämförelse av smartklockor för äldre 2026",
-      "da": "Sammenligning af smartwatches til ældre 2026"
+      "sv": "Jämförelse av smartklockor för äldre: funktioner och anslutning",
+      "da": "Sammenligning af smartwatches til ældre: funktioner og forbindelser"
     },
     "body.10.text": {
-      "sv": "En viktig anmärkning: undvik ”smartklockor för äldre” från okända märken som kostar under 100 dollar. De har utan undantag sensorer av dålig kvalitet, föråldrad programvara och tillverkaren försvinner oftast efter 12–18 månader. Din familjemedlems säkerhet är inte något man ska spara in på.",
-      "da": "En vigtig bemærkning: Undgå »smartwatches til ældre« fra ukendte mærker til under 100 $. De har altid sensorer af dårlig kvalitet, forældet firmware, og producenten forsvinder efter 12–18 måneder. Der bør ikke spares på dit familiemedlems sikkerhed."
+      "sv": "En nödvändig varning: vi rekommenderar att vara försiktig med enklare lågprisklockor online som lovar omfattande medicinsk övervakning. De saknar ofta säkerhetscertifieringar, använder odokumenterade algoritmer och erbjuder ingen trygg support eller uppdateringar vid nödsituationer.",
+      "da": "En vigtig advarsel: Vi anbefaler at udvise forsigtighed med billige ukendte enheder på nettet, der lover komplet medicinsk overvågning. De mangler ofte sikkerhedscertificeringer, benytter udokumenterede algoritmer og yder ingen pålidelig support eller opdateringer i nødstilfælde."
     },
     "body.11.text": {
-      "sv": "Apple Watch Family Setup: den bästa inställningen för mor- och farföräldrar som inte har en iPhone",
-      "da": "Opsætning af Apple Watch-familien: den bedste opsætning til bedsteforældre uden en iPhone"
+      "sv": "Apple Watch och familjekonfiguration: krav och praktiska begränsningar",
+      "da": "Apple Watch og familieopsætning: krav og praktiske begrænsninger"
     },
     "body.12.text": {
-      "sv": "En av de minst kända funktionerna i Apple Watch är ”Family Setup”: den gör det möjligt att koppla en Apple Watch till en familjemedlems iPhone, utan att farfar behöver ha en egen iPhone. Klockan fungerar självständigt med sitt eget SIM-kort (LTE), kan ta emot och ringa samtal, och all hälsodata samt nödmeddelanden skickas till den familjemedlem som tar hand om honom eller henne.",
-      "da": "En af de mindst kendte funktioner på Apple Watch er »Family Setup«: Den giver dig mulighed for at forbinde et Apple Watch til et familiemedlems iPhone, uden at bedstefar behøver at have sin egen iPhone. Uret fungerer selvstændigt med sit eget SIM-kort (LTE), kan modtage og foretage opkald, og alle sundhedsdata og nødmeddelelser sendes til den pårørendes iPhone."
+      "sv": "Apples funktion (kallad [Apple Watch för dina barn](https://support.apple.com/en-us/109036) eller familjekonfiguration) gör det möjligt att ställa in en Apple Watch med mobiluppkoppling för en familjemedlem utan egen iPhone, via administratörens iPhone. Det finns dock tydliga begränsningar: operatörsstödet varierar per land (de stora italienska operatörerna saknar stöd), och hälsofunktioner som EKG och varningar vid oregelbunden hjärtrytm är inte tillgängliga i detta läge.",
+      "da": "Apples funktion (benævnt [Apple Watch til dine børn](https://support.apple.com/en-us/109036) eller familieopsætning) gør det muligt at konfigurere et Apple Watch med mobilforbindelse til et familiemedlem uden iPhone via administratorens iPhone. Der er dog væsentlige begrænsninger: Operatørunderstøttelsen varierer fra land til land (de store italienske teleselskaber understøtter det ikke), og sundhedsfunktioner som EKG og advarsler om uregelmæssig hjerterytme er ikke tilgængelige i denne tilstand."
     },
     "body.14.text": {
       "sv": "Hjärtövervakning: vad man kan förvänta sig av en smartklocka",
@@ -4990,24 +4976,24 @@
       "da": "Forskning viser, at ældres anvendelse af teknologi i høj grad påvirkes af tre faktorer: opfattet nytteværdi, brugervenlighed og social støtte. I praksis:"
     },
     "body.20.title": {
-      "sv": "Vår tydliga ståndpunkt",
-      "da": "Vores klare holdning"
+      "sv": "Urvalskriterier och försiktighet med enheter",
+      "da": "Valgkriterier og forsigtighed med udstyr"
     },
     "body.20.body": {
-      "sv": "Undvik ”smartklockor för äldre” från okända märken som kostar under 100 dollar. De har utan undantag sensorer av dålig kvalitet, föråldrad firmware och tillverkaren försvinner efter 12–18 månader. En familjemedlems säkerhet är inte rätt område att spara 150 dollar på. Apple Watch SE 2 LTE eller Samsung Galaxy Watch 7 LTE kostar mer, men de är de enda alternativen med fallavkänningsalgoritmer som testats i verklig skala och ett uppdateringssystem som garanteras i flera år.",
-      "da": "Undgå »smartwatches til ældre« fra ukendte mærker til under 100 $. De har altid sensorer af dårlig kvalitet, forældet firmware, og producenten forsvinder efter 12–18 måneder. Et familiemedlems sikkerhed er ikke det rette sted at spare 150 dollar. Apple Watch SE 2 LTE eller Samsung Galaxy Watch 7 LTE koster mere, men de er de eneste muligheder med algoritmer til falddetektering, der er testet i fuld skala, og et opdateringsøkosystem, der er garanteret i årevis."
+      "sv": "För äldres säkerhet och trygghet rekommenderar vi att prioritera klockor med tydlig dokumentation, kontinuerliga uppdateringar och etablerad support. Mycket billiga lågprismärken lovar ofta livsavgörande funktioner utan garantier för sensornoggrannhet eller stabil mjukvara.",
+      "da": "Af hensyn til ældres sikkerhed og tryghed anbefaler vi at vælge enheder med klar teknisk dokumentation, løbende opdateringer og pålidelig kundeservice. Meget billige ukendte mærker reklamerer ofte med livreddende funktioner uden reel garanti for sensornøjagtighed eller systemstabilitet."
     },
     "body.21.text": {
       "sv": "Sammanfattningsvis",
       "da": "Sammenfattende"
     },
     "body.23.title": {
-      "sv": "Vill du se dina familjemedlemmars hälsodata samlade på en och samma översiktssida?",
-      "da": "Vil du gerne se dit familiemedlems sundhedsdata samlet på ét enkelt oversigtspanel?"
+      "sv": "Vill du se smartklockans hälsodata i appen?",
+      "da": "Vil du se smartwatchets sundhedsdata i appen?"
     },
     "body.23.body": {
-      "sv": "Ett av de alternativ som underlättar detta är FitMesh Sync: det sammanställer data från Galaxy Watch och andra bärbara enheter i appen.",
-      "da": "En af de løsninger, der gør dette nemmere, er FitMesh Sync: Den samler data fra Galaxy Watch og andre bærbare enheder i appen."
+      "sv": "I FitMesh-appen ser du de data som din klocka skriver till Apple Hälsa på iPhone eller Health Connect på Android.",
+      "da": "I FitMesh-appen ser du de data, som dit ur skriver til Apple Sundhed på iPhone eller Health Connect på Android."
     },
     "body.23.ctaLabel": {
       "sv": "Upptäck FitMesh integrationer →",
@@ -5018,40 +5004,40 @@
       "da": "Hvilket smartwatch er bedst til en ældre person med demens?"
     },
     "faq.0.a": {
-      "sv": "För äldre med demens är kontinuerlig GPS-spårning och geofencing (varning när de lämnar ett avgränsat område) prioriterade funktioner. Apple Watch Series 9 LTE med Family Setup är den mest kompletta lösningen: GPS, SOS, geofencing via appar från tredje part (Life360, AngelSense). Alternativt finns specialiserade enheter som AngelSense eller MedAlert, som är utformade specifikt för detta scenario med mer riktade funktioner.",
-      "da": "For ældre med demens er kontinuerlig GPS-sporing og geofencing (alarm, når de forlader et afgrænset område) højt prioriteret. Apple Watch Series 9 LTE med Family Setup er den mest komplette løsning: GPS, SOS, geofencing via tredjepartsapps (Life360, AngelSense). Alternativt findes der specialiserede enheder som AngelSense eller MedAlert, der er udviklet specifikt til dette formål med mere målrettede funktioner."
+      "sv": "För äldre personer med risk för desorientering erbjuder vissa klockor platsdelning i realtid (som appen Hitta på Apple Watch eller SmartThings Find på Samsung) med aviseringar vid ankomst eller avfärd, förutsatt att anslutning finns. Smartklockor är dock inte särskilda medicinska trygghetslarm för demens och kräver tät laddning. Vid mer omfattande behov kan renodlade GPS-spårare med lång batteritid vara ett bättre alternativ.",
+      "da": "Til ældre med tendens til desorientering tilbyder visse smartwatches lokationsdeling i realtid (såsom appen Find på Apple Watch eller SmartThings Find på Samsung) med ankomst- og afgangsbeskeder, forudsat der er aktiv forbindelse. Urene er dog ikke dedikerede medicinske sporingsenheder, og batteriet skal oplades hyppigt. Ved mere fremskredne behov kan særlige GPS-trackere med lang batteritid være en bedre løsning."
     },
     "faq.1.q": {
       "sv": "Kan en smartklocka mäta blodtrycket?",
       "da": "Kan et smartwatch måle blodtrykket?"
     },
     "faq.1.a": {
-      "sv": "De flesta vanliga smartklockor mäter inte blodtrycket med en särskild sensor (vilket skulle kräva en uppblåsningsmekanism). De gör uppskattningar med hjälp av PPG och AI, men uppskattningarna är inte tillräckligt exakta för kliniskt bruk. Samsung Galaxy Watch 6 och 7 har en funktion för blodtrycksmätning, men den kräver regelbunden kalibrering med en traditionell blodtrycksmätare och resultaten har betydande felmarginaler. För äldre med högt blodtryck är en traditionell digital blodtrycksmätare fortfarande den bästa metoden.",
-      "da": "De fleste almindelige smartwatches måler ikke blodtrykket med en dedikeret sensor (hvilket ville kræve en oppustningsmekanisme). De foretager skøn via PPG og AI, men disse skøn er ikke nøjagtige nok til klinisk brug. Samsung Galaxy Watch 6 og 7 har en blodtryksmålefunktion, men den kræver periodisk kalibrering med et traditionelt blodtryksapparat, og resultaterne har betydelige fejlmargener. For ældre med forhøjet blodtryk er et traditionelt digitalt blodtryksapparat fortsat den gyldne standard."
+      "sv": "De flesta smartklockor mäter inte blodtryck självständigt. Samsung Galaxy Watch-modeller (från Watch4 och framåt) har en blodtrycksfunktion som kräver kalibrering var 28:e dag med en traditionell överarmsmanschett och en kompatibel Samsung-smartphone, endast tillgänglig i godkända länder för allmänt välbefinnande. Apple Watch mäter inte blodtryck. Handledsenheter ersätter inte kliniska överarmsmätare.",
+      "da": "De fleste smartwatches måler ikke blodtryk på egen hånd. Samsung Galaxy Watch-modeller (fra Watch4 og frem) har en blodtryksfunktion, der kræver kalibrering hver 28. dag med en traditionel overarmsmanchet og en kompatibel Samsung-telefon, og den er kun tilgængelig i godkendte lande til wellness-formål. Apple Watch måler ikke blodtryk. Håndledsenheder erstatter ikke kliniske overarmsblodtryksmålere."
     },
     "faq.2.q": {
       "sv": "Hur mycket kostar det att underhålla en LTE-smartklocka för en äldre person?",
       "da": "Hvor meget koster det at vedligeholde et LTE-smartur til en ældre person?"
     },
     "faq.2.a": {
-      "sv": "I USA kostar LTE-abonnemang för smartklockor vanligtvis 10–15 dollar per månad och läggs till huvudabonnemanget (AT&T NumberSync, Verizon Number Share, T-Mobile Digits). Enheten (Apple Watch SE LTE, cirka 280 dollar) betalar sig på 2–3 år jämfört med traditionella telemedicinska lösningar (cirka 30–50 dollar per månad). Vissa operatörer erbjuder rabatter när man lägger till en smartklocka i ett befintligt familjeabonnemang.",
-      "da": "I USA koster LTE-abonnementer til smartwatches typisk 10–15 $ om måneden, som lægges oven i hovedabonnementet (AT&T NumberSync, Verizon Number Share, T-Mobile Digits). Enheden (Apple Watch SE LTE, ca. 280 $) tjener sig hjem over 2–3 år sammenlignet med traditionelle telemedicinske løsninger (ca. 30–50 $ om måneden). Nogle udbydere tilbyder rabatter, når man tilføjer et smartwatch-abonnement til et eksisterende familieabonnement."
+      "sv": "Kostnaden för att underhålla klockan beror på mobiloperatörens abonnemang för bärbara enheter (eSIM med delat nummer). Avgifterna varierar beroende på land, operatör och aktuella erbjudanden. Kontrollera alltid kompatibilitet och månadskostnader direkt med din operatör före köp.",
+      "da": "Udgifterne til at have uret i drift afhænger af teleselskabets abonnement til bærbare enheder (eSIM med delt nummer). Priserne varierer efter land, udbyder og aktuelle kampagner. Undersøg altid kompatibilitet og månedlige gebyrer direkte hos dit teleselskab inden køb."
     },
     "faq.3.q": {
       "sv": "Kan fallavkänningen av misstag stängas av?",
       "da": "Kan falddetektering ved et uheld blive deaktiveret?"
     },
     "faq.3.a": {
-      "sv": "Ja, det går att inaktivera funktionen via mobilappen (Watch eller Samsung Health). För Apple Watch: gå till Inställningar → Nöd-SOS → Fallavkänning och se till att funktionen är aktiverad. Vissa äldre personer inaktiverar funktionen av misstag när de utforskar inställningarna. För Apple Watch ser funktionen i läget ”Över 55” (kan ställas in i tillgänglighetsinställningarna på Watch) till att detekteringen alltid är aktiv, samtidigt som alternativen för att inaktivera funktionen är svårare att nå.",
-      "da": "Ja, det er muligt at deaktivere funktionen via ledsagerappen (Watch eller Samsung Health). På Apple Watch skal du gå til Indstillinger → Nød-SOS → Faldeftervisning: Sørg for, at funktionen er slået til. Nogle ældre deaktiverer funktionen ved et uheld, mens de udforsker indstillingerne. På Apple Watch sørger funktionen i tilstanden »Over 55« (kan indstilles i tilgængelighedsindstillingerne på Watch) for, at detekteringen altid er aktiv, og at deaktiveringsindstillingerne er sværere at finde."
+      "sv": "Fallavkänning kan aktiveras eller stängas av när som helst. På Apple Watch slås den på automatiskt om användaren har angett en ålder på 55 år eller äldre i appen Hälsa eller vid installationen, men kan hanteras i Watch-appen (Nödanrop SOS > Fallavkänning) eller i klockans Inställningar. På Samsung Galaxy Watch är funktionen avstängd som standard och slås på via Galaxy Wearable-appen (Klockinställningar > Säkerhet och nödlägen).",
+      "da": "Falddetektering kan slås til eller fra når som helst. På Apple Watch aktiveres funktionen automatisk, hvis brugeren har angivet en alder på 55 år eller derover i appen Sundhed eller under opsætningen, men den kan tilpasses i Watch-appen (Nødopkald SOS > Falddetektering) eller i urets Indstillinger. På Samsung Galaxy Watch er funktionen slået fra som standard og aktiveres i appen Galaxy Wearable (Urindstillinger > Sikkerhed og nødsituationer)."
     },
     "faq.4.q": {
       "sv": "Kan en smartklocka upptäcka en hjärtinfarkt?",
       "da": "Kan et smartwatch opdage et hjerteanfald?"
     },
     "faq.4.a": {
-      "sv": "Inte direkt. En smartklocka kan inte upptäcka en hjärtinfarkt (STEMI, NSTEMI): för det krävs ett 12-avlednings-EKG. Den kan däremot upptäcka rytmstörningar (som förmaksflimmer), vilka är riskfaktorer, och kan larma om personen faller eller förlorar medvetandet. Apple Watch och Samsung Galaxy Watch med 1-avlednings-EKG kan visa variationer i ST-segmentet, men automatisk hjärtinfarktdetektering är inte certifierad på någon av de nuvarande konsumentprodukterna.",
-      "da": "Ikke direkte. Et smartur kan ikke registrere et hjerteanfald (STEMI, NSTEMI): Det kræver et 12-aflednings-EKG. Det kan registrere rytmeforstyrrelser (som f.eks. atrieflimren), der udgør risikofaktorer, og kan give besked, hvis personen falder eller mister bevidstheden. Apple Watch og Samsung Galaxy Watch med 1-aflednings-EKG kan vise variationer i ST-segmentet, men automatisk registrering af hjerteanfald er ikke certificeret på nogen af de nuværende forbrugerenheder."
+      "sv": "Nej. En smartklocka kan inte upptäcka en hjärtinfarkt. Enkanals-EKG i Apple Watch och Samsung Galaxy Watch är enbart utformat för att upptäcka tecken på förmaksflimmer. Tillverkarna anger uttryckligen i sina användarhandböcker att EKG-apparna inte letar efter tecken på hjärtinfarkt. Vid bröstsmärtor, andnöd eller misstänkta symtom ska man omedelbart kontakta larmcentralen.",
+      "da": "Nej. Et smartur kan ikke registrere en blodprop i hjertet (hjerteanfald). Enkelt-aflednings EKG på Apple Watch og Samsung Galaxy Watch er udelukkende udviklet til at opdage tegn på atrieflimren. Producenterne anfører udtrykkeligt i deres brugervejledninger, at EKG-apps ikke undersøger for tegn på hjerteanfald. Ved brystsmerter, åndenød eller mistænkelige symptomer skal man omgående kontakte alarmcentralen."
     },
     "secondaryKeywords": {
       "sv": [
@@ -5072,17 +5058,17 @@
     "tldr": {
       "sv": [
         "En enhet som man använder varje dag är alltid bättre än en med fler funktioner som ligger och samlar damm i en låda: enkelhet och bekvämlighet går före tekniska specifikationer.",
-        "För äldre som bor ensamma är LTE inget valfritt tillval: utan LTE kan klockan inte ringa när telefonen ligger långt bort.",
-        "Apple Watch SE 2 LTE med Family Setup är det bästa valet för iPhone-familjer; Samsung Galaxy Watch 7 LTE för Android-familjer (EKG och fallavkänning).",
-        "Prisvärda modeller under 100 dollar bör undvikas av säkerhetsskäl: dåligt kalibrerade algoritmer gör fallavkänningen opålitlig.",
-        "Om den inledande inställningen utförs av vårdgivaren och den första veckan förlöper utan en överflöd av aviseringar avgör det om enheten faktiskt kommer att användas."
+        "En modell utan LTE tillåter samtal via telefonen eller, i konfigurationer som stöds, via Wi-Fi. För att ringa utanför telefonens räckvidd och utan Wi-Fi krävs en kompatibel mobilmodell.",
+        "För iPhone-användare är Apple Watch SE eller Series med mobiluppkoppling bäst; för Android Samsung Galaxy Watch med fallavkänning och EKG (med kompatibla Samsung-smartphones).",
+        "Lågprisenheter utan officiell teknisk dokumentation ger inga verifierade uppgifter om sensorkalibrering eller löpande mjukvarustöd.",
+        "Om den inledande inställningen utförs av vårdgivaren och den första veckan inte präglas av för många aviseringar avgör om enheten faktiskt kommer att användas."
       ],
       "da": [
         "Et apparat, man har på hver dag, er altid bedre end et med flere funktioner, der ligger i en skuffe: enkelhed og komfort går forud for tekniske specifikationer.",
-        "For ældre, der bor alene, er LTE ikke noget, man kan undvære: Uden LTE kan uret ikke foretage opkald, når telefonen er langt væk.",
-        "Apple Watch SE 2 LTE med Family Setup er det bedste valg for iPhone-familier; Samsung Galaxy Watch 7 LTE for Android-familier (EKG og falddetektering).",
-        "Billige mærker til under 100 dollar bør undgås af sikkerhedsmæssige årsager: Dårligt kalibrerede algoritmer gør falddetekteringen upålidelig.",
-        "Det er den indledende opsætning, som plejepersonen foretager, samt den første uge uden for mange notifikationer, der afgør, om enheden rent faktisk kommer til at blive brugt."
+        "En model uden LTE tillader opkald via telefonen eller, i understøttede konfigurationer, via wi-fi. For at ringe uden for telefonens rækkevidde og uden wi-fi kræves en kompatibel mobilmodel.",
+        "Til iPhone-brugere anbefales Apple Watch SE eller Series med mobilforbindelse; til Android Samsung Galaxy Watch med falddetektering og EKG (med kompatible Samsung-smartphones).",
+        "Billige enheder uden officiel teknisk dokumentation giver ingen verificerede specifikationer for sensorkalibrering eller løbende firmwaresupport.",
+        "Det er den indledende opsætning, som plejepersonen foretager, samt den første uge uden for mange notifikationer, der afgør, om enheden rent faktisk kommer til at blive båret."
       ]
     },
     "body.3.items": {
@@ -5103,126 +5089,126 @@
       "sv": [
         "Enhet",
         "Ungefärligt pris",
-        "Styrka",
-        "Huvudsaklig begränsning",
+        "Säkerhetsfunktioner",
+        "Dokumenterade begränsningar",
         "Bäst för"
       ],
       "da": [
         "Enhed",
         "Ca. pris",
-        "Styrke",
-        "Vigtigste begrænsning",
+        "Sikkerhedsfunktioner",
+        "Dokumenterede begrænsninger",
         "Bedst egnet til"
       ]
     },
     "body.9.rows.0": {
       "sv": [
-        "Apple Watch SE 2 LTE",
-        "279–299 dollar",
-        "Fallavkänning + SOS-larm + Familjeinställningar",
-        "Endast iOS",
-        "iPhone-användare, familjekonfiguration"
+        "Apple Watch SE (3:e gen., GPS + Cellular, 40 mm)",
+        "Från 299 USD (före skatt) / 329 EUR IT (listpris SE 3); kontrollera aktuella priser för tidigare generationer (t.ex. SE 2)",
+        "Fallregistrering, Nödanrop SOS, samtal med aktivt abonnemang",
+        "Inget EKG, kräver iPhone för första installation",
+        "iPhone-användare eller familjer med hanterande iPhone"
       ],
       "da": [
-        "Apple Watch SE 2 LTE",
-        "279–299 dollar",
-        "Falddetektering + SOS-nødalarm + Familieopsætning",
-        "Kun iOS",
-        "iPhone-brugere, familieopsætning"
+        "Apple Watch SE (3. gen., GPS + Cellular, 40 mm)",
+        "Fra 299 $ (før moms) / 329 € IT (listepris SE 3); kontrollér dagspriser for tidligere generationer (f.eks. SE 2)",
+        "Faldregistrering, Nødopkald SOS, opkald med aktivt abonnement",
+        "Intet EKG, kræver iPhone til opsætning",
+        "iPhone-brugere eller familier med administrerende iPhone"
       ]
     },
     "body.9.rows.1": {
       "sv": [
-        "Samsung Galaxy Watch 7 LTE",
-        "299–349 dollar",
-        "EKG, fallavkänning, Android, omfattande ekosystem",
-        "40 timmars batteritid",
-        "Android-användare, Galaxy-telefoner"
+        "Samsung Galaxy Watch LTE (40 mm, t.ex. Watch 7 / Watch 8 / Watch 9)",
+        "Priser varierar efter generation (t.ex. Watch 9 från 429,99 USD listpris); kontrollera officiella kanaler",
+        "Fallregistrering, SOS, EKG och blodtryck med kalibrering via manschett (med Samsung-telefon)",
+        "Avancerade hälsofunktioner bundna till Galaxy-telefon; daglig laddning",
+        "Android-användare, särskilt med Samsung-telefon"
       ],
       "da": [
-        "Samsung Galaxy Watch 7 LTE",
-        "299–349 dollar",
-        "EKG, falddetektering, Android, bredt økosystem",
-        "40 timers batteritid",
-        "Android-brugere, Galaxy-telefoner"
+        "Samsung Galaxy Watch LTE (40 mm, f.eks. Watch 7 / Watch 8 / Watch 9)",
+        "Priser varierer efter generation (f.eks. Watch 9 fra 429,99 $ listepris); kontrollér officielle kanaler",
+        "Faldregistrering, SOS, EKG og blodtryk med kalibrering via manchet (med Samsung-telefon)",
+        "Avancerede sundhedsfunktioner bundet til Galaxy-telefon; daglig opladning",
+        "Android-brugere, især med Samsung-telefon"
       ]
     },
     "body.9.rows.2": {
       "sv": [
-        "Apple Watch Series 9 LTE",
-        "399–449 dollar",
-        "Branschledande sensorer, EKG, kollisionsdetektering",
-        "Högt pris",
-        "Teknikkunniga äldre, avancerad övervakning"
+        "Apple Watch Series (t.ex. Series 12, GPS + Cellular, 42 mm)",
+        "Från 499 USD (före skatt) / 579 EUR IT (listpris Series 12 Cellular); kontrollera tillgänglighet och priser för tidigare modeller (Series 10/11)",
+        "Enkanals-EKG, aviseringar om oregelbunden rytm, fall, Always-On-skärm",
+        "Högre pris, daglig laddning krävs",
+        "iPhone-användare som behöver dokumenterat EKG och Always-On-skärm"
       ],
       "da": [
-        "Apple Watch Series 9 LTE",
-        "399–449 dollar",
-        "Førsteklasses sensorer, EKG, kollisionsdetektering",
-        "Høj pris",
-        "Teknologisk kyndige ældre, avanceret overvågning"
+        "Apple Watch Series (f.eks. Series 12, GPS + Cellular, 42 mm)",
+        "Fra 499 $ / 579 € IT (listepris Series 12 Cellular); kontrollér tilgængelighed og priser for tidligere modeller (Series 10/11)",
+        "Enkelt-aflednings-EKG, meddelelser om uregelmæssig hjerterytme, fald, Always-On-skærm",
+        "Højere pris, daglig opladning nødvendig",
+        "iPhone-brugere med behov for dokumenteret EKG og Always-On-skærm"
       ]
     },
     "body.9.rows.3": {
       "sv": [
         "Garmin Vivoactive 5",
-        "249 dollar",
-        "11 dagars batteritid, GPS, tålig",
-        "Begränsad SOS-funktion och fallavkänning",
-        "Aktiva äldre, personer som utövar lätt idrott"
+        "269,99 dollar (Garmin-listpris) / 299,99 euro",
+        "Upp till 11 dagars batteritid, kontinuerlig pulsmätning, händelsedetektering",
+        "Händelsedetektering endast vid vissa aktiviteter med ansluten telefon; inga självständiga röstsamtal",
+        "Aktiva äldre som prioriterar lång batteritid"
       ],
       "da": [
         "Garmin Vivoactive 5",
-        "249 $",
-        "11 dages batteritid, GPS, robust",
-        "Begrænset SOS-funktion og falddetektering",
-        "Aktive ældre, der dyrker let sport"
+        "269,99 $ (Garmin-listepris) / 299,99 €",
+        "Op til 11 dages batteritid, kontinuerlig pulsmåling, hændelsesregistrering",
+        "Hændelsesregistrering kun ved udvalgte aktiviteter med tilsluttet telefon; ingen selvstændige opkald",
+        "Aktive ældre, som ønsker lang batterilevetid"
       ]
     },
     "body.9.rows.4": {
       "sv": [
-        "Doro Watch (eller liknande specialklocka)",
-        "150–200 dollar",
-        "Maximal enkelhet, stor SOS-knapp",
-        "Begränsat antal hälsosensorer",
-        "Äldre utan tekniska kunskaper – så enkelt som möjligt"
+        "Doro Watch (modell DWO-0420)",
+        "Pris ej dokumenterat via officiella kanaler",
+        "Förenklat gränssnitt med hög kontrast, trygghetsknapp med Doro-telefon",
+        "Nödfunktioner bundna till Doro-telefon via Bluetooth; ingen fristående LTE-modul",
+        "Äldre med Doro-telefon som söker maximal enkelhet"
       ],
       "da": [
-        "Doro Watch (eller lignende specialur)",
-        "150–200 dollar",
-        "Maksimal enkelhed, stor SOS-knap",
-        "Begrænset antal sundhedssensorer",
-        "Ældre uden teknisk viden – så enkelt som muligt"
+        "Doro Watch (model DWO-0420)",
+        "Pris ikke dokumenteret på officielle kanaler",
+        "Forenklet brugerflade med høj kontrast, tryghedsknap med Doro-telefon",
+        "Nødfunktioner bundet til Doro-telefon via Bluetooth; intet selvstændigt LTE-modul",
+        "Ældre med Doro-telefon, som søger maksimal enkelhed"
       ]
     },
     "body.13.items": {
       "sv": [
-        "Den anhöriga som sköter om personen har en iPhone (minst en iPhone 6s med iOS 14).",
-        "Konfigurera den nya Apple Watch med funktionen ”Familjekonfiguration” i appen Watch på din iPhone.",
-        "”Farfars klocka” får ett eget eSIM: den kan ringa och ta emot samtal även utan att det finns en telefon i närheten.",
-        "Varningar om fall, SOS-larm och hälsorelaterade larm skickas till vårdgivarens iPhone.",
-        "Morfar kan ringa sina favoritkontakter direkt genom att trycka på en ikon på klockan."
+        "**Operatörsstöd**: inställning för en anhörig utan egen iPhone kräver en operatör som uttryckligen stöder tjänsten på mobilmodellen.",
+        "**Hårdvarukrav**: kräver en Apple Watch med mobilanslutning (Series 4 eller senare eller SE) och administratörens iPhone för första parkopplingen.",
+        "**Tillgängliga säkerhetsfunktioner**: Fallavkänning och Nödanrop SOS fungerar för användare som är registrerade som 18 år eller äldre.",
+        "**Undantagna hälsofunktioner**: EKG, varningar vid oregelbunden hjärtrytm, syrenivå i blodet och sömnspårning är inte tillgängliga i detta läge.",
+        "**Larm och platsdata**: fall- och SOS-larm skickas till nödtjänster och kontakter i Medicinskt ID; platsen kan ses via appen Hitta."
       ],
       "da": [
-        "Den pårørende, der yder pleje, har en iPhone (mindst en iPhone 6s med iOS 14).",
-        "Konfigurer det nye Apple Watch ved hjælp af »Familieopsætning« i Watch-appen på din iPhone.",
-        "»Grandpa's Watch« får sit eget eSIM: Det kan foretage og modtage opkald, selv uden at der er en telefon i nærheden.",
-        "Meldinger om fald, SOS og sundhedsadvarsler vises på plejerens iPhone.",
-        "Bedstefar kan ringe direkte til sine foretrukne kontakter ved at trykke på et ikon på uret."
+        "**Operatørunderstøttelse**: opsætning for et familiemedlem uden iPhone kræver en teleudbyder, der understøtter tjenesten på mobilmodellen.",
+        "**Krav til hardware**: kræver et Apple Watch med mobilforbindelse (Series 4 eller nyere eller SE) og administratorens iPhone til indledende opsætning.",
+        "**Tilgængelige sikkerhedsfunktioner**: Falddetektering og Nødopkald SOS kan benyttes, hvis brugeren er registreret som minimum 18 år.",
+        "**Udeladte sundhedsfunktioner**: EKG, advarsler om uregelmæssig hjerterytme, iltmætning i blodet og søvnregistrering er ikke tilgængelige.",
+        "**Alarmer og placering**: fald- og SOS-alarmer sendes til alarmtjenester og kontakter i Nødinfo; placering kan ses i appen Find."
       ]
     },
     "body.16.items": {
       "sv": [
-        "**Kontinuerlig puls**: alla modeller som anges ovan mäter den. Användbart för att upptäcka trender och uppenbara avvikelser.",
-        "**Enkanals-EKG**: Apple Watch Series 4+ och Samsung Galaxy Watch 4+ har denna funktion. Kan upptäcka förmaksflimmer (AFib), men det är ett screeningverktyg, inte ett diagnostiskt verktyg. Visa alltid resultaten för en läkare.",
-        "**Varningar vid hög/låg puls**: kan ställas in på Apple Watch och Samsung Galaxy Watch. Meddelar när BPM överskrider eller understiger de inställda tröskelvärdena.",
-        "**Ersätter inte medicintekniska produkter**: en smartklocka är ingen Holter-monitor, kan inte utföra ekokardiogram och mäter inte blodtrycket med en särskild sensor. Den kompletterar den medicinska övervakningen, men ersätter den inte."
+        "**Kontinuerlig pulsmätning**: Apple Watch, Galaxy Watch och Garmin mäter puls i vila och vid aktivitet med optiska sensorer (PPG), vilket är värdefullt för att följa trender över tid.",
+        "**Enkanals-EKG**: finns på [Apple Watch Series (EKG-app)](https://support.apple.com/en-us/102600) (inte på SE) och [Samsung Galaxy Watch (Samsung Health Monitor)](https://www.samsung.com/us/apps/samsung-health-monitor/) (med kompatibel Galaxy-smartphone). Upptäcker tecken på förmaksflimmer; upptäcker inte hjärtinfarkter och ersätter inte läkarundersökning.",
+        "**Varningar vid oregelbunden hjärtrytm**: läser av pulsmönster passivt för att hitta tecken på förmaksflimmer. Tillgängligheten beror på land och åldersgräns (vanligen 22 år).",
+        "**Begränsningar med handledssensorer**: sammansatta arytmier, häftiga rörelser eller dålig perifer cirkulation kan påverka mätningarna. Rådgör alltid med läkare vid kliniska frågor."
       ],
       "da": [
-        "**Kontinuerlig puls**: Alle ovenstående modeller måler den. Det er nyttigt til at se tendenser og tydelige afvigelser.",
-        "**EKG med én elektrode**: Apple Watch Series 4+ og Samsung Galaxy Watch 4+ har denne funktion. Den kan påvise atrieflimren (AFib), men det er et screeningsværktøj og ikke et diagnostisk redskab. Vis altid resultaterne til en læge.",
-        "**Advarsler om høj/lav puls**: Kan konfigureres på Apple Watch og Samsung Galaxy Watch. Giver besked, når BPM overstiger eller falder under de indstillede grænseværdier.",
-        "**Er ikke en erstatning for medicinsk udstyr**: Et smartwatch er ikke en Holter-monitor, kan ikke udføre et ekkokardiogram og måler ikke blodtrykket med en dedikeret sensor. Det supplerer den medicinske overvågning, men erstatter den ikke."
+        "**Kontinuerlig pulsmåling**: Apple Watch, Galaxy Watch og Garmin registrerer hvile- og aktivitetspuls via optiske sensorer (PPG), hvilket giver overblik over udviklingen over tid.",
+        "**Enkelt-aflednings EKG**: tilgængeligt på [Apple Watch Series (EKG-app)](https://support.apple.com/en-us/102600) (ikke på SE-modeller) og [Samsung Galaxy Watch (Samsung Health Monitor)](https://www.samsung.com/us/apps/samsung-health-monitor/) (med kompatibel Galaxy-smartphone). Undersøger for tegn på atrieflimren; registrerer ikke blodpropper og erstatter ikke lægelig undersøgelse.",
+        "**Notifikationer om uregelmæssig hjerterytme**: analyserer passivt pulsen for tegn på atrieflimren. Tilgængelighed afhænger af land og aldersgrænse (typisk fra 22 år).",
+        "**Håndledssensorers begrænsninger**: komplekse rytmeforstyrrelser, bratte bevægelser eller dårligt kredsløb kan forringe målenøjagtigheden. Kontakt altid læge ved helbredsmæssig tvivl."
       ]
     },
     "body.19.items": {
@@ -5243,20 +5229,20 @@
     },
     "body.22.items": {
       "sv": [
-        "En enhet som man använder varje dag är alltid bättre än en med fler funktioner som ligger och samlar damm i en låda: enkelhet och bekvämlighet går före tekniska specifikationer.",
-        "För äldre som bor ensamma är LTE inget valfritt tillval: utan LTE kan klockan inte ringa när telefonen ligger långt bort.",
-        "Apple Watch SE 2 LTE med Family Setup är det bästa valet för familjer med iPhone: det gör det möjligt att koppla ihop farfars klocka med ett barns telefon utan att farfar behöver ha en iPhone.",
-        "Samsung Galaxy Watch 7 LTE är det bästa valet för Android-användare: EKG, fallavkänning och ett omfattande app-ekosystem.",
-        "Prisvärda modeller under 100 dollar bör undvikas av säkerhetsskäl: dåligt kalibrerade algoritmer och uteblivna uppdateringar gör fallavkänningen opålitlig.",
-        "Att den första inställningen utförs av vårdgivaren och att den första veckan inte präglas av ett överflöd av aviseringar är de faktorer som avgör om enheten faktiskt kommer att användas."
+        "En enhet som bärs varje dag slår alltid en klocka med fler funktioner som blir liggande i en låda: enkelhet och komfort är viktigare än specifikationer.",
+        "Mobiluppkoppling gör det möjligt att ringa och larma utanför telefonens räckvidd och utan Wi-Fi; i hemmet utgör Bluetooth och Wi-Fi bra komplement.",
+        "Apple Watch (SE för basfunktioner eller Series med EKG) är den mest integrerade lösningen för iPhone; familjekonfiguration har nät- och funktionsgränser att beakta.",
+        "Samsung Galaxy Watch erbjuder fallavkänning, SOS och EKG med kompatibla Galaxy-smartphones, väl anpassat för Android-familjer.",
+        "Enklare lågprisklockor har ofta otestade algoritmer och saknar säkerhetsuppdateringar: välkända modeller, även från tidigare generationer, är ett tryggare val.",
+        "En noggrann installation utförd av anhöriga samt rätt inställda nödkontakter och Medicinskt ID avgör klockans verkliga nytta."
       ],
       "da": [
-        "Et apparat, man har på hver dag, er altid bedre end et med flere funktioner, der ligger i en skuffe: enkelhed og komfort går forud for tekniske specifikationer.",
-        "For ældre, der bor alene, er LTE ikke noget, man kan undvære: Uden LTE kan uret ikke foretage opkald, når telefonen er langt væk.",
-        "Apple Watch SE 2 LTE med Family Setup er det bedste valg for familier med iPhone: Det gør det muligt at forbinde bedstefars ur med et barns telefon, uden at bedstefar behøver at have en iPhone.",
-        "Samsung Galaxy Watch 7 LTE er det bedste valg for Android-familier: EKG, falddetektering og et bredt udvalg af apps.",
-        "Budgetmærker til under 100 dollar bør undgås af sikkerhedsmæssige årsager: Dårligt kalibrerede algoritmer og manglende opdateringer gør falddetekteringen upålidelig.",
-        "Det er den indledende opsætning, som plejepersonen foretager, samt den første uge uden for mange notifikationer, der afgør, om enheden rent faktisk kommer til at blive båret."
+        "Et ur, der bæres hver dag, er altid bedre end et med flere funktioner, der ender i en skuffe: enkelhed og komfort er vigtigere end specifikationer.",
+        "Mobilforbindelse muliggør opkald og nødopkald uden for telefonens rækkevidde og uden wi-fi; i hjemmet er Bluetooth og understøttet wi-fi gode alternativer.",
+        "Apple Watch (SE til basisfunktioner eller Series til EKG) giver den bedste oplevelse til iPhone; familieopsætning har operatør- og funktionsbegrænsninger.",
+        "Samsung Galaxy Watch tilbyder falddetektering, SOS og EKG sammen med kompatible Galaxy-telefoner og passer godt til Android-familier.",
+        "Billige mærkeløse enheder har ofte uprøvede algoritmer og mangler sikkerhedsopdateringer: etablerede modeller, også fra tidligere generationer, er mere pålidelige.",
+        "Pårørendes grundige opsætning og korrekt registrering af nødkontakter og Nødinfo afgør urets reelle nytteværdi."
       ]
     }
   },
