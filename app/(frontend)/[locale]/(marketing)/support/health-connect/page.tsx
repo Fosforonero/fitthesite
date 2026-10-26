@@ -284,9 +284,12 @@ export default async function HealthConnectGuidePage({
   // non HowTo. Date riscontrate sul rilascio in produzione, non sulla storia
   // Git: prima pubblicazione 10/10/2026 (deploy di #102, main 16:00 CEST; il
   // file nasce su un ramo il 09/10 ma non era pubblico), ultima modifica
-  // pubblicata 12/10/2026 (#104, screenshot EN). dateModified va portata alla
-  // data di deploy effettiva di questo cambio di schema quando andra' in
-  // produzione. Autore e publisher: organizzazione.
+  // pubblicata 12/10/2026 (#104, screenshot EN). dateModified RESTA 2026-10-12
+  // per decisione editoriale del 21/10/2026: il cambio di schema (HowTo ->
+  // TechArticle) non ha modificato il testo visibile della guida, e la data
+  // segue solo le modifiche sostanziali al contenuto visibile. Va portata alla
+  // data di deploy solo se quel contenuto cambia. Autore e publisher:
+  // organizzazione.
   const techArticleJsonLd = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
