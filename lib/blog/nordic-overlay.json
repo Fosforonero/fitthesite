@@ -4030,8 +4030,8 @@
       "da": "Et barn, der bor langt væk, kan ofte kun føle sig tryg, hvis det kan se forældrenes oplysninger uden at skulle ringe hver dag. De indbyggede løsninger varierer alt efter økosystem."
     },
     "body.19.text": {
-      "sv": "Att välja kläder: hur man ser till att de verkligen används",
-      "da": "Adoptionsprocessen: Sådan sikrer man, at tøjet rent faktisk bliver brugt"
+      "sv": "Vägen till daglig användning: hur man ser till att klockan faktiskt bärs",
+      "da": "Overgangen til hverdagsbrug: Sådan sikrer man, at uret rent faktisk bliver båret"
     },
     "body.20.text": {
       "sv": "Att köpa rätt enhet är halva jobbet. Den andra halvan handlar om att få användarna att ta till sig den, och äldre människor är ofta motvilliga mot ny teknik av förståeliga skäl: rädsla för att göra fel, att de inte gillar utseendet eller känslan av att bli ”övervakade”. Här är några strategier som fungerar i praktiken:",
@@ -4063,7 +4063,7 @@
     },
     "faq.1.a": {
       "sv": "Det beror på vilket mobiltelefonekosystem de använder. Om de använder Android (oftast Samsung) är Galaxy Watch med en enkel urtavla (klocka + steg) intuitivt. Om de använder iPhone är Apple Watch SE med urtavlan Modular Compact mycket lättläst. I båda fallen bör de initiala inställningarna konfigureras av en anhörig som är vårdgivare, inte av den äldre personen själv. Specialiserade enheter som Doro är ännu enklare men har färre hälsofunktioner.",
-      "da": "Det afhænger af deres mobiløkosystem. Hvis de bruger Android (typisk Samsung), er Galaxy Watch med et simpelt urskive (ur + skridt) intuitivt. Hvis de bruger iPhone, er Apple Watch SE med urskiven »Modular Compact« meget let at aflæse. I begge tilfælde bør de indledende indstillinger konfigureres af et familiemedlem, der tager sig af den ældre, og ikke af den ældre selv. Specialiserede enheder som Doro er endnu enklere, men har færre sundhedsfunktioner."
+      "da": "Det afhænger af deres mobiløkosystem. Hvis de bruger Android (typisk Samsung), er Galaxy Watch med en enkel urskive (ur + skridt) intuitivt. Hvis de bruger iPhone, er Apple Watch SE med urskiven »Modular Compact« meget let at aflæse. I begge tilfælde bør de indledende indstillinger konfigureres af et familiemedlem, der tager sig af den ældre, og ikke af den ældre selv. Specialiserede enheder som Doro er endnu enklere, men har færre sundhedsfunktioner."
     },
     "faq.2.q": {
       "sv": "Fungerar fallavkänningen i vatten (dusch, badkar)?",
@@ -4908,8 +4908,8 @@
       "da": "det bedste smartwatch til ældre"
     },
     "body.0.text": {
-      "sv": "En smartklocka som används varje dag är oändligt mycket mer värd än en enhet med tusen funktioner som samlar damm i en låda: det är utgångspunkten när man väljer en klocka för en äldre person. Under 2026 erbjuder Apple Watch och Samsung Galaxy Watch med mobiluppkoppling de mest etablerade plattformarna för säkerhet och fallavkänning, men det rätta valet beror på telefonens ekosystem och de viktigaste behoven: användarvänlighet, batteritid eller grundläggande övervakning.",
-      "da": "Et smartur, der bæres hver dag, er uendeligt mere værd end en enhed med tusind funktioner, der samler støv i en skuffe: Det er udgangspunktet for at vælge et ur til en ældre person. I 2026 tilbyder Apple Watch og Samsung Galaxy Watch med mobilforbindelse de mest etablerede platforme til sikkerhed og falddetektering, men det rigtige valg afhænger af telefonens økosystem og de vigtigste behov: brugervenlighed, batterilevetid eller basal overvågning."
+      "sv": "En smartklocka som bärs varje dag är oändligt mycket mer värd än en enhet med tusen funktioner som hamnar i en byrålåda: det är utgångspunkten när man väljer en klocka för en äldre person. År 2026 utgör Apple Watch- och Samsung Galaxy Watch-modeller med mobiluppkoppling de lösningar som har mest omfattande officiell dokumentation för kommunikation och fallavkänning, men rätt val beror på telefonens ekosystem och de primära behoven: enkel användning, batteritid eller grundläggande övervakning.",
+      "da": "Et smartwatch, der bæres hver dag, er uendeligt meget mere værd end et ur med tusind funktioner, der ender i en skuffe: Det er udgangspunktet, når man vælger en enhed til en ældre person. I 2026 udgør Apple Watch- og Samsung Galaxy Watch-modeller med mobilforbindelse de løsninger, der har den mest omfattende officielle dokumentation for kommunikation og falddetektering, men det rette valg afhænger af telefonens økosystem og de primære behov: brugervenlighed, batterilevetid eller basal overvågning."
     },
     "body.1.text": {
       "sv": "Den rätta frågan att ställa sig innan man köper",
@@ -4928,16 +4928,16 @@
       "da": "Smartwatches med falddetektering bruger accelerometer og gyroskop til at registrere bevægelsesmønstre for et fald: hurtig acceleration nedad, stød og efterfølgende stilstand. Ifølge producenternes dokumentation ([Apple Watch (faldregistrering)](https://support.apple.com/en-us/108896) og [Samsung Galaxy Watch (faldregistrering)](https://www.samsung.com/us/support/answer/ANS10002847/)) opfanges ikke alle fald. På Apple Watch starter en 30 sekunders nedtælling med lydsignal, hvis brugeren er immobil i cirka et minut efter alarmen, før et nødopkald foretages automatisk. På Samsung Galaxy Watch sendes en [SOS-meddelelse](https://www.samsung.com/us/support/answer/ANS10003348/) med positionsdata til nødkontakterne efter en 60-sekunders alarm (og et opkald foretages, hvis det er konfigureret)."
     },
     "body.6.text": {
-      "sv": "Den praktiska skillnaden ligger i algoritmernas kalibrering och systemintegrationen. Apple och Samsung dokumenterar tydliga villkor för identifiering och nödhjälp, inklusive hantering av falsklarm vid häftiga rörelser. Enklare lågprisklockor saknar ofta transparent dokumentation, regelbundna uppdateringar och pålitlig support.",
-      "da": "Den praktiske forskel ligger i algoritmernes kalibrering og systemintegrationen. Apple og Samsung dokumenterer specifikke krav til registrering og nødhjælp, herunder håndtering af falske alarmer ved pludselige bevægelser. Billige mærkeløse enheder mangler ofte gennemskuelig dokumentation, løbende opdateringer og pålidelig support."
+      "sv": "Den praktiska skillnaden ligger i algoritmernas kalibrering och systemintegrationen. Apple och Samsung dokumenterar specifika krav för identifiering och nödhjälp, inklusive känslighet för falsklarm vid plötsliga rörelser. Generiska lågprisenheter publicerar ofta inte transparenta specifikationer om sensorernas samplingsfrekvens, valideringstester eller planer för firmwareuppdateringar.",
+      "da": "Den praktiske forskel ligger i algoritmernas kalibrering och systemintegrationen. Apple og Samsung dokumenterer specifikke krav til registrering og nødhjælp, herunder følsomhed over for falske alarmer ved pludselige bevægelser. Generiske lavprisenheder offentliggør ofte ikke gennemskuelige specifikationer om sensorernes samplingsfrekvens, valideringstests eller planer for firmwareopdateringer."
     },
     "body.7.title": {
       "sv": "Samtal och nödlägen: Bluetooth, Wi-Fi och mobilnät",
       "da": "Opkald og nødsituationer: Bluetooth, wi-fi og mobilnetværk"
     },
     "body.7.body": {
-      "sv": "En modell med enbart Bluetooth vidarebefordrar samtal via telefonen i närheten. Med [Apple Watch (samtal utan närliggande iPhone)](https://support.apple.com/en-us/108300) kan samtal även ringas över kända Wi-Fi-nätverk om operatören stöder Wi-Fi-samtal och funktionen har aktiverats på iPhone, även om telefonen inte är i närheten. På [Samsung Galaxy Watch (fjärranslutning)](https://www.samsung.com/us/support/troubleshoot/TSG10007238/) med Wear OS tillåter fjärranslutning vissa funktioner via Wi-Fi med begränsningar för inkommande samtal. För att ringa och skicka nödlarm helt självständigt utanför hemmet utan telefon eller Wi-Fi krävs en mobilmodell (LTE) med ett aktivt kompatibelt abonnemang.",
-      "da": "En model med kun Bluetooth viderestiller opkald via telefonen i nærheden. Med [Apple Watch (opkald uden iPhone i nærheden)](https://support.apple.com/en-us/108300) kan opkald også foretages over kendte Wi-Fi-netværk, hvis operatøren understøtter Wi-Fi-opkald og funktionen er slået til på iPhone, selvom telefonen ikke er i nærheden. På [Samsung Galaxy Watch (fjernforbindelse)](https://www.samsung.com/us/support/troubleshoot/TSG10007238/) med Wear OS tillader fjernforbindelse visse funktioner via Wi-Fi med begrænsninger for indgående opkald. For at foretage opkald og sende nødalarmer fuldstændig uafhængigt uden for hjemmet uden telefon eller Wi-Fi kræves en mobilmodel (LTE) med et aktivt kompatibelt abonnement."
+      "sv": "En modell med enbart Bluetooth vidarebefordrar samtal via telefonen i närheten. Med [Apple Watch (samtal utan närliggande iPhone)](https://support.apple.com/en-us/108300) kan samtal även ringas över kända Wi-Fi-nätverk om operatören stöder Wi-Fi-samtal och funktionen har aktiverats på iPhone, även om telefonen inte är i närheten. På [Samsung Galaxy Watch (fjärranslutning)](https://www.samsung.com/us/support/troubleshoot/TSG10007238/) med Wear OS tillåter fjärranslutning vissa funktioner via Wi-Fi , men stöder inte mottagning av inkommande samtal. För att ringa och skicka nödlarm helt självständigt utanför hemmet utan telefon eller Wi-Fi krävs en mobilmodell (LTE) med ett aktivt kompatibelt abonnemang.",
+      "da": "En model med kun Bluetooth viderestiller opkald via telefonen i nærheden. Med [Apple Watch (opkald uden iPhone i nærheden)](https://support.apple.com/en-us/108300) kan opkald også foretages over kendte Wi-Fi-netværk, hvis operatøren understøtter Wi-Fi-opkald og funktionen er slået til på iPhone, selvom telefonen ikke er i nærheden. På [Samsung Galaxy Watch (fjernforbindelse)](https://www.samsung.com/us/support/troubleshoot/TSG10007238/) med Wear OS tillader fjernforbindelse visse funktioner via Wi-Fi , men understøtter ikke modtagelse af indgående opkald. For at foretage opkald og sende nødalarmer fuldstændig uafhængigt uden for hjemmet uden telefon eller Wi-Fi kræves en mobilmodel (LTE) med et aktivt kompatibelt abonnement."
     },
     "body.8.text": {
       "sv": "De enheter vi rekommenderar år 2026: efter profil",
@@ -5037,7 +5037,7 @@
     },
     "faq.4.a": {
       "sv": "Nej. En smartklocka kan inte upptäcka en hjärtinfarkt. Enkanals-EKG i Apple Watch och Samsung Galaxy Watch är enbart utformat för att upptäcka tecken på förmaksflimmer. Tillverkarna anger uttryckligen i sina användarhandböcker att EKG-apparna inte letar efter tecken på hjärtinfarkt. Vid bröstsmärtor, andnöd eller misstänkta symtom ska man omedelbart kontakta larmcentralen.",
-      "da": "Nej. Et smartur kan ikke registrere en blodprop i hjertet (hjerteanfald). Enkelt-aflednings EKG på Apple Watch og Samsung Galaxy Watch er udelukkende udviklet til at opdage tecken på atrieflimren. Producenterne anfører udtrykkeligt i deres brugervejledninger, at EKG-apps ikke undersøger for tegn på hjerteanfald. Ved brystsmerter, åndenød eller mistænkelige symptomer skal man omgående kontakte alarmcentralen."
+      "da": "Nej. Et smartur kan ikke registrere en blodprop i hjertet (hjerteanfald). Enkelt-aflednings EKG på Apple Watch og Samsung Galaxy Watch er udelukkende udviklet til at opdage tegn på atrieflimren. Producenterne anfører udtrykkeligt i deres brugervejledninger, at EKG-apps ikke undersøger for tegn på hjerteanfald. Ved brystsmerter, åndenød eller mistænkelige symptomer skal man omgående kontakte alarmcentralen."
     },
     "secondaryKeywords": {
       "sv": [
@@ -5060,14 +5060,14 @@
         "En enhet som man använder varje dag är alltid bättre än en med fler funktioner som ligger och samlar damm i en låda: enkelhet och bekvämlighet går före tekniska specifikationer.",
         "En modell utan LTE tillåter samtal via telefonen eller, i konfigurationer som stöds, via Wi-Fi. För att ringa utanför telefonens räckvidd och utan Wi-Fi krävs en kompatibel mobilmodell.",
         "För iPhone-användare är Apple Watch SE eller Series med mobiluppkoppling bäst; för Android Samsung Galaxy Watch med fallavkänning och EKG (med kompatibla Samsung-smartphones).",
-        "Icke-verifierade budgetmärken har ofta mindre tillförlitliga algoritmer för fallavkänning och begränsat programvarustöd.",
+        "Lågprisenheter utan officiell teknisk dokumentation ger inga verifierade uppgifter om sensorkalibrering eller löpande mjukvarustöd.",
         "Om den inledande inställningen utförs av vårdgivaren och den första veckan inte präglas av för många aviseringar avgör om enheten faktiskt kommer att användas."
       ],
       "da": [
         "Et apparat, man har på hver dag, er altid bedre end et med flere funktioner, der ligger i en skuffe: enkelhed og komfort går forud for tekniske specifikationer.",
         "En model uden LTE tillader opkald via telefonen eller, i understøttede konfigurationer, via wi-fi. For at ringe uden for telefonens rækkevidde og uden wi-fi kræves en kompatibel mobilmodel.",
         "Til iPhone-brugere anbefales Apple Watch SE eller Series med mobilforbindelse; til Android Samsung Galaxy Watch med falddetektering og EKG (med kompatible Samsung-smartphones).",
-        "Uverificerede budgetmærker har ofte mindre pålidelige algoritmer til falddetektering og begrænset softwaresupport.",
+        "Billige enheder uden officiel teknisk dokumentation giver ingen verificerede specifikationer for sensorkalibrering eller løbende firmwaresupport.",
         "Det er den indledende opsætning, som plejepersonen foretager, samt den første uge uden for mange notifikationer, der afgør, om enheden rent faktisk kommer til at blive båret."
       ]
     },
