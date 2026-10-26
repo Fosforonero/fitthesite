@@ -4,7 +4,7 @@ export const post: BlogPost = {
   slug: "smartwatch-per-anziani-guida",
   category: "guides",
   publishedAt: "2026-05-23",
-  updatedAt: "2026-05-23",
+  updatedAt: "2026-10-26",
   readMinutes: 10,
   tldr: {
     it: [
