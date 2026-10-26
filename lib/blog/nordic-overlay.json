@@ -4006,8 +4006,8 @@
       "da": "Sammenligning af smartwatches til ældre i 2026 efter brugsprofil"
     },
     "body.12.text": {
-      "sv": "En kommentar om ”äldreanpassade” enheter från mindre kända varumärken: de lovar ofta allt till ett lågt pris, men sensorerna är av sämre kvalitet, avkänningarna är dåligt kalibrerade och mjukvarustödet upphör efter 12 månader. En begagnad Galaxy Watch SE är bättre än en generisk kinesisk enhet för 50 euro.",
-      "da": "En bemærkning om »ældrespecifikke« enheder fra mindre kendte mærker: De lover ofte alt muligt til en lav pris, men sensorerne er af ringere kvalitet, registreringerne er dårligt kalibreret, og softwaresupporten ophører efter 12 måneder. En brugt Galaxy Watch SE er bedre end en generisk kinesisk enhed til 50 €."
+      "sv": "En kommentar om enheter för äldre från mindre kända varumärken: före köp bör man kontrollera att officiell teknisk dokumentation finns, vilka utlösningskriterier som gäller för sensorerna, hur smartphone-kompatibiliteten ser ut och att det finns dedikerad support. För en säkerhetsfokuserad användning ger modeller med verifierbara krav och kontinuerlig support betydligt tydligare garantier än odokumenterade generiska produkter.",
+      "da": "En bemærkning om enheder til ældre fra mindre kendte mærker: Før køb bør man kontrollere, om der findes officiel teknisk dokumentation, hvilke udløsningskriterier sensorerne har, hvordan smartphone-kompatibiliteten er, og om der findes dedikeret support. Til et sikkerhedsfokuseret formål giver modeller med verificerbare specifikationer og løbende support langt mere pålidelige garantier end udokumenterede generiske produkter."
     },
     "body.13.text": {
       "sv": "Hjärt- och hälsoövervakning: vad de egentligen mäter",
@@ -4078,8 +4078,8 @@
       "da": "Hvor meget bør et smartwatch til ældre koste?"
     },
     "faq.3.a": {
-      "sv": "Priserna varierar beroende på märke, generation och uppkoppling. Officiella basmodeller med mobiluppkoppling (LTE) börjar exempelvis från 299 USD (före skatt) eller 329 EUR i Italien för Apple Watch SE (40 mm), medan mer avancerade serier (som Apple Watch Series eller Samsung Galaxy Watch LTE) varierar efter generation och material. Till klockans pris tillkommer mobiloperatörens månadsavgift för eSIM-abonnemanget. Mycket billiga klockor utan teknisk dokumentation och officiella supportkanaler erbjuder inga verifierbara garantier för säkerhetsfunktionerna.",
-      "da": "Priserne varierer efter mærke, generation og forbindelsestype. Officielle basismodeller med mobilforbindelse (LTE) starter for eksempel fra 299 $ (før moms) eller 329 € i Italien for Apple Watch SE (40 mm), mens dyrere serier (som Apple Watch Series eller Samsung Galaxy Watch LTE) varierer efter generation og materialer. Hertil kommer mobiludbyderens månedlige gebyr for eSIM-abonnementet. Meget billige ure uden teknisk dokumentation og officielle supportkanaler giver ingen efterprøvelige garantier for sikkerhedsfunktionerne."
+      "sv": "Priserna varierar beroende på märke, generation och uppkoppling. Officiella basmodeller med mobiluppkoppling (LTE) börjar exempelvis från 299 USD (före skatt) eller 329 EUR i Italien för Apple Watch SE 3 (40 mm), medan mer avancerade serier (som Apple Watch Series eller Samsung Galaxy Watch LTE) varierar efter generation och material. Till klockans pris tillkommer mobiloperatörens månadsavgift för eSIM-abonnemanget. Mycket billiga klockor utan teknisk dokumentation och officiella supportkanaler erbjuder inga verifierbara garantier för säkerhetsfunktionerna.",
+      "da": "Priserne varierer efter mærke, generation og forbindelsestype. Officielle basismodeller med mobilforbindelse (LTE) starter for eksempel fra 299 $ (før moms) eller 329 € i Italien for Apple Watch SE 3 (40 mm), mens dyrere serier (som Apple Watch Series eller Samsung Galaxy Watch LTE) varierer efter generation og materialer. Hertil kommer mobiludbyderens månedlige gebyr for eSIM-abonnementet. Meget billige ure uden teknisk dokumentation og officielle supportkanaler giver ingen efterprøvelige garantier for sikkerhedsfunktionerne."
     },
     "faq.4.q": {
       "sv": "Är uppgifterna om min äldre familjemedlem konfidentiella, eller är det någon som läser dem?",
@@ -4123,16 +4123,16 @@
       "sv": [
         "**Läsbar skärm utan glasögon**: stor AMOLED-skärm (minst 1,4 tum) med skalbar teckenstorlek. Det är inte alla tillverkare som gör det möjligt att öka textstorleken tillräckligt mycket.",
         "**Batteritid på minst 2–3 dagar**: en äldre person ska inte behöva komma ihåg att ladda enheten varje natt. Galaxy Watch 7 håller i cirka 40 timmar, Garmin Vivoactive 5 i cirka 11 dagar.",
-        "**Tillförlitlig fallavkänning**: Specifikationerna anger alla ”ja”, men kvaliteten varierar enormt. Apple Watch Series 9 och Samsung Galaxy Watch 7 har kliniskt testade accelerometer- och gyroskopmekanismer. Generiska, billiga smartklockor har ofta en hög andel falska negativa resultat.",
+        "**Dokumenterad fallavkänning**: tekniska specifikationer anger om funktionen finns, men implementeringen varierar beroende på sensorer och algoritmer. Enheter som Apple Watch och Samsung Galaxy Watch dokumenterar hur accelerometer och gyroskop samverkar med definierade tröskelvärden. Generiska klockor utan officiell dokumentation specificerar sällan utlösningskriterier eller testförhållanden.",
         "**Fysisk SOS-knapp**: inte bara digital. Måste vara lättillgänglig även om personen är desorienterad eller har darrande händer.",
-        "**Wi-Fi- eller LTE-nummer**: om personen rör sig bort från sin telefon måste klockan kunna ringa på egen hand."
+        "**LTE-anslutning eller Wi-Fi-samtal**: om personen rör sig bort från sin telefon måste klockan kunna ringa självständigt via mobilnät (eSIM) eller stödda Wi-Fi-nätverk."
       ],
       "da": [
         "**Læselig skærm uden briller**: stor AMOLED-skærm (mindst 1,4 tommer) med skalerbar skriftstørrelse. Ikke alle producenter giver mulighed for at forstørre tekststørrelsen tilstrækkeligt.",
         "**Batterilevetid på mindst 2-3 dage**: En ældre person bør ikke være nødt til at huske at oplade enheden hver aften. Galaxy Watch 7 holder ca. 40 timer, Garmin Vivoactive 5 ca. 11 dage.",
-        "**Pålidelig falddetektering**: Specifikationerne siger alle »ja«, men kvaliteten varierer enormt. Apple Watch Series 9 og Samsung Galaxy Watch 7 har klinisk testede accelerometer- og gyroskopmekanismer. Generiske, billige smartwatches har ofte en høj andel af falske negative resultater.",
+        "**Dokumenteret falddetektering**: tekniske specifikationer angiver, om funktionen er til stede, men implementeringen varierer efter sensorer og algoritmer. Enheder som Apple Watch og Samsung Galaxy Watch dokumenterer samspillet mellem accelerometer og gyroskop med definerede tærskelværdier. Generiske smartwatches uden officiel dokumentation specificerer sjældent udløsningskriterier eller testbetingelser.",
         "**Fysisk SOS-knap**: ikke kun digital. Skal være tilgængelig, selvom personen er desorienteret eller har rystende hænder.",
-        "**Wi-Fi- eller LTE-nummer**: Hvis personen bevæger sig væk fra sin telefon, skal uret kunne foretage opkald på egen hånd."
+        "**LTE-forbindelse eller Wi-Fi-opkald**: hvis personen bevæger sig væk fra telefonen, skal uret kunne foretage opkald selvstændigt via mobilnetværk (eSIM) eller understøttede wi-fi-netværk."
       ]
     },
     "body.11.headers": {
@@ -4166,14 +4166,14 @@
     "body.11.rows.1": {
       "sv": [
         "Äldre med iPhone",
-        "Apple Watch SE 2 LTE",
-        "Utmärkt fallavkänning, internationellt SOS, FaceTime",
+        "Apple Watch SE LTE (t.ex. SE 3 / SE 2)",
+        "Fallregistrering, Nödanrop SOS, samtal med aktivt abonnemang",
         "Endast iOS"
       ],
       "da": [
         "Ældre med iPhone",
-        "Apple Watch SE 2 LTE",
-        "Fremragende falddetektering, international SOS, FaceTime",
+        "Apple Watch SE LTE (f.eks. SE 3 / SE 2)",
+        "Faldregistrering, Nødopkald SOS, opkald med aktivt abonnement",
         "Kun iOS"
       ]
     },
@@ -4182,13 +4182,13 @@
         "Begränsad budget, grundläggande säkerhet",
         "Garmin Vivoactive 5",
         "11 dagars batteritid, tålig, GPS",
-        "Mindre avancerad fallavkänning"
+        "Händelsedetektering endast vid vissa aktiviteter med ansluten smartphone; inga självständiga röstsamtal"
       ],
       "da": [
         "Begrænset budget, grundlæggende sikkerhed",
         "Garmin Vivoactive 5",
         "11 dages batteritid, robust, GPS",
-        "Mindre avanceret falddetektering"
+        "Hændelsesregistrering kun under visse aktiviteter med tilsluttet smartphone; ingen selvstændige stemmeopkald"
       ]
     },
     "body.11.rows.3": {
@@ -4237,15 +4237,15 @@
       "sv": [
         "Det avgörande är inte antalet funktioner, utan att klockan bärs varje dag. Enkelhet och god batteritid slår alla avancerade finesser.",
         "För att ringa och larma utom räckhåll för telefonen och utan Wi-Fi är mobiluppkoppling (LTE) den mest pålitliga lösningen.",
-        "Fallavkänning fungerar bäst vid hårda fall, men är sämre vid långsamma glidningar eller i vatten: kombinera gärna med en fast larmknapp i badrummet.",
-        "Inbyggt EKG (Apple Watch Series 9, Galaxy Watch 7) är ett hjälpmedel för att screena förmaksflimmer, inte en medicinsk diagnos: avvikande värden ska alltid bedömas av läkare.",
+        "Fallavkänning är kalibrerad för hårda stötar med förlorad balans; den fångar inte alla fall (såsom långsamma glidningar) och kräver aktiv uppkoppling för att larma.",
+        "Inbyggda EKG-appar (t.ex. på Apple Watch eller Samsung Galaxy Watch) är screeningsverktyg för att upptäcka tecken på förmaksflimmer; de upptäcker inte hjärtinfarkter och ersätter inte kliniska undersökningar.",
         "Att klockan accepteras är lika viktigt som inköpet: presentera den som ett tryggt stöd i vardagen, inte som övervakning. Börja enkelt med klocka och stegräknare."
       ],
       "da": [
         "Det vigtigste er ikke listen over funktioner, men at uret sidder på håndleddet hver dag. Let betjening og solid batteritid overgår avancerede funktioner.",
         "Til opkald og alarmering uden for telefonens rækkevidde og uden wi-fi er mobilforbindelse (LTE) den mest pålidelige løsning.",
-        "Falddetektering registrerer bratte fald godt, men er mindre effektiv ved langsomme fald eller i vand: kombiner gerne med et fast nødkald på badeværelset.",
-        "Indbygget EKG (Apple Watch Series 9, Galaxy Watch 7) er et screeningsværktøj til atrieflimren, ikke en lægelig diagnose: usædvanlige målinger bør altid drøftes med en læge.",
+        "Falddetektering er kalibreret til hårde stød ved tab af balance; den registrerer ikke alle fald (som langsomme glidninger) og kræver aktiv forbindelse for at tilkalde hjælp.",
+        "Indbyggede EKG-apps (f.eks. på Apple Watch eller Samsung Galaxy Watch) er screeningsværktøjer til at opdage tegn på atrieflimren; de registrerer ikke blodpropper og erstatter ikke kliniske undersøgelser.",
         "Tilvænning betyder lige så meget som valget: præsenter uret som en praktisk hjælp i hverdagen, ikke som kontrol. Begynd med ur og skridt, og byg stille og roligt på."
       ]
     }
@@ -5103,15 +5103,15 @@
     },
     "body.9.rows.0": {
       "sv": [
-        "Apple Watch SE (LTE, 40 mm, t.ex. SE 2 / SE 3)",
-        "Från 299 dollar (före skatt) / 329 euro (Apple-pris)",
+        "Apple Watch SE (3:e gen., GPS + Cellular, 40 mm)",
+        "Från 299 USD (före skatt) / 329 EUR IT (listpris SE 3); kontrollera aktuella priser för tidigare generationer (t.ex. SE 2)",
         "Fallregistrering, Nödanrop SOS, samtal med aktivt abonnemang",
         "Inget EKG, kräver iPhone för första installation",
         "iPhone-användare eller familjer med hanterande iPhone"
       ],
       "da": [
-        "Apple Watch SE (LTE, 40 mm, f.eks. SE 2 / SE 3)",
-        "Fra 299 $ (før moms) / 329 € (Apples listepris)",
+        "Apple Watch SE (3. gen., GPS + Cellular, 40 mm)",
+        "Fra 299 $ (før moms) / 329 € IT (listepris SE 3); kontrollér dagspriser for tidligere generationer (f.eks. SE 2)",
         "Faldregistrering, Nødopkald SOS, opkald med aktivt abonnement",
         "Intet EKG, kræver iPhone til opsætning",
         "iPhone-brugere eller familier med administrerende iPhone"
@@ -5135,15 +5135,15 @@
     },
     "body.9.rows.2": {
       "sv": [
-        "Apple Watch Series (LTE, t.ex. Series 10 / 11 / 12)",
-        "Från 499 dollar / 579 euro Cellular (eller från 399 dollar / 449 euro GPS)",
+        "Apple Watch Series (t.ex. Series 12, GPS + Cellular, 42 mm)",
+        "Från 499 USD (före skatt) / 579 EUR IT (listpris Series 12 Cellular); kontrollera tillgänglighet och priser för tidigare modeller (Series 10/11)",
         "Enkanals-EKG, aviseringar om oregelbunden rytm, fall, Always-On-skärm",
         "Högre pris, daglig laddning krävs",
         "iPhone-användare som behöver dokumenterat EKG och Always-On-skärm"
       ],
       "da": [
-        "Apple Watch Series (LTE, f.eks. Series 10 / 11 / 12)",
-        "Fra 499 $ / 579 € Cellular (eller fra 399 $ / 449 € GPS)",
+        "Apple Watch Series (f.eks. Series 12, GPS + Cellular, 42 mm)",
+        "Fra 499 $ / 579 € IT (listepris Series 12 Cellular); kontrollér tilgængelighed og priser for tidligere modeller (Series 10/11)",
         "Enkelt-aflednings-EKG, meddelelser om uregelmæssig hjerterytme, fald, Always-On-skærm",
         "Højere pris, daglig opladning nødvendig",
         "iPhone-brugere med behov for dokumenteret EKG og Always-On-skærm"
