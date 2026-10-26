@@ -3938,16 +3938,16 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Smartklocka för äldre: guide 2026",
-      "da": "Smartwatch til ældre: guide 2026"
+      "sv": "Smartklocka för äldre: SOS och trygghet",
+      "da": "Smartwatch til ældre: SOS og tryghed"
     },
     "hero.subtitle": {
       "sv": "Alla smartklockor är inte lika bra när det gäller säkerheten för en förälder eller far- eller morförälder som bor ensam. Här får du tips på hur du väljer utan att falla för marknadsföringsknep.",
       "da": "Ikke alle smartwatches er ens, når det drejer sig om sikkerheden for en forælder eller bedsteforælder, der bor alene. Her får du nogle tips til, hvordan du vælger det rigtige, uden at falde i markedsføringsfælder."
     },
     "metaDescription": {
-      "sv": "En komplett guide till smartklockor för äldre år 2026: vad som verkligen är viktigt (fallavkänning, SOS-funktion, användarvänlighet, batteritid), vad man bör undvika och hur man väljer utan att spendera för mycket.",
-      "da": "Den komplette guide til smartwatches til ældre i 2026: hvad der virkelig betyder noget (falddetektering, SOS, brugervenlighed, batterilevetid), hvad man bør undgå, og hvordan man vælger uden at bruge for mange penge."
+      "sv": "Guide till SOS och trygghet för smartklockor för äldre: fallavkänning, nödsamtal via mobilnät eller wifi och praktiska råd vid konfigurering.",
+      "da": "Guide til SOS og tryghed på smartwatches til ældre: falddetektering, nødopkald via mobilnet eller wifi og praktiske råd til opsætning."
     },
     "primaryKeyword": {
       "sv": "smartklocka för äldre",
@@ -4078,8 +4078,8 @@
       "da": "Hvor meget bør et smartwatch til ældre koste?"
     },
     "faq.3.a": {
-      "sv": "För en ny klocka med LTE-uppkoppling börjar officiella basmodeller från 299 dollar (före skatt) eller 329 euro i Europa (som Apple Watch SE 40 mm LTE) och omkring 349 dollar / 369 euro för Samsung Galaxy Watch LTE, upp till över 450-550 euro för mer påkostade utföranden. Till detta tillkommer operatörens tilläggsabonnemang för klockan (exempelvis multi-SIM-tillval i Europa eller motsvarande i USA från ca 10-15 dollar i månaden). Vi avråder från extremt billiga klockor som saknar officiell teknisk dokumentation om säkerhetsfunktioner.",
-      "da": "For et nyt ur med LTE-forbindelse starter officielle basismodeller fra 299 $ (før moms) eller 329 € i Europa (f.eks. Apple Watch SE 40 mm LTE) og omkring 349 $ / 369 € for Samsung Galaxy Watch LTE, og overstiger 450-550 € for udgaver i finere materialer. Hertil kommer udbyderens tilknyttede abonnement (f.eks. multi-SIM-løsninger i Europa eller smartwatch-tilvalg i USA typisk fra 10-15 $ om måneden). Vi fraråder meget billige ure, som mangler officiel teknisk dokumentation for sikkerhedsfunktionerne."
+      "sv": "Priserna varierar beroende på märke, generation och uppkoppling. Officiella basmodeller med mobiluppkoppling (LTE) börjar exempelvis från 299 USD (före skatt) eller 329 EUR i Italien för Apple Watch SE (40 mm), medan mer avancerade serier (som Apple Watch Series eller Samsung Galaxy Watch LTE) varierar efter generation och material. Till klockans pris tillkommer mobiloperatörens månadsavgift för eSIM-abonnemanget. Mycket billiga klockor utan teknisk dokumentation och officiella supportkanaler erbjuder inga verifierbara garantier för säkerhetsfunktionerna.",
+      "da": "Priserne varierer efter mærke, generation og forbindelsestype. Officielle basismodeller med mobilforbindelse (LTE) starter for eksempel fra 299 $ (før moms) eller 329 € i Italien for Apple Watch SE (40 mm), mens dyrere serier (som Apple Watch Series eller Samsung Galaxy Watch LTE) varierer efter generation og materialer. Hertil kommer mobiludbyderens månedlige gebyr for eSIM-abonnementet. Meget billige ure uden teknisk dokumentation og officielle supportkanaler giver ingen efterprøvelige garantier for sikkerhedsfunktionerne."
     },
     "faq.4.q": {
       "sv": "Är uppgifterna om min äldre familjemedlem konfidentiella, eller är det någon som läser dem?",
@@ -4892,16 +4892,16 @@
       "fi": "Opas"
     },
     "hero.title": {
-      "sv": "Smartklocka för äldre: guide 2026",
-      "da": "Smartwatch til ældre: guide 2026"
+      "sv": "Bästa smartklockorna för äldre: guide 2026",
+      "da": "Bedste smartwatches til ældre: guide 2026"
     },
     "hero.subtitle": {
       "sv": "En enhet som man använder varje dag är oändligt mycket mer värd än en enhet med tusen funktioner som bara hamnar i en byrålåda. Så här väljer du rätt.",
       "da": "En enhed, man bruger hver dag, er uendeligt meget mere værd end en enhed med tusindvis af funktioner, der ender i en skuffe. Her får du nogle gode råd til, hvordan du vælger rigtigt."
     },
     "metaDescription": {
-      "sv": "De bästa smartklockorna för äldre år 2026: fallavkänning, SOS-funktion, användarvänlighet, batteritid. En ärlig guide med råd till anhöriga, funktioner för hälsoövervakning och praktiska tips.",
-      "da": "De bedste smartwatches til ældre i 2026: falddetektering, SOS, brugervenlighed, batterilevetid. En ærlig guide med råd til pårørende, sundhedsovervågningsfunktioner og praktiske tips."
+      "sv": "Bästa smartklockor för äldre 2026: fallavkänning, SOS, batteritid och användarvänlighet. Praktisk guide för anhöriga med officiella specifikationer.",
+      "da": "Bedste smartwatches til ældre 2026: falddetektering, SOS, batteritid og brugervenlighed. Praktisk guide til pårørende med officielle specifikationer."
     },
     "primaryKeyword": {
       "sv": "bästa smartklockan för äldre",
@@ -5020,8 +5020,8 @@
       "da": "Hvor meget koster det at vedligeholde et LTE-smartur til en ældre person?"
     },
     "faq.2.a": {
-      "sv": "Kostnaden beror på mobiloperatören och tillgängliga abonnemang för uppkopplade enheter (eSIM med delat nummer). I Europa kostar multi-SIM-alternativ för smartklockor vanligtvis några euro i månaden (t.ex. 3,99 till 5 euro), medan dedikerade smartwatch-tillägg i USA vanligen ligger på 10-15 dollar i månaden före skatt. Kontrollera alltid kompatibilitet och gällande priser direkt med din operatör före köp.",
-      "da": "Udgiften afhænger af teleselskabet og abonnementer til opkoblede enheder (eSIM med delt nummer). I Europa koster multi-SIM-tilvalg til smartwatches typisk få euro om måneden (f.eks. 3,99 til 5 €), mens tilknyttede abonnementer i USA typisk ligger på 10-15 $ om måneden før moms. Undersøg altid kompatibilitet og gældende priser direkte hos dit teleselskab inden køb."
+      "sv": "Kostnaden för att underhålla klockan beror på mobiloperatörens abonnemang för bärbara enheter (eSIM med delat nummer). Avgifterna varierar beroende på land, operatör och aktuella erbjudanden. Kontrollera alltid kompatibilitet och månadskostnader direkt med din operatör före köp.",
+      "da": "Udgifterne til at have uret i drift afhænger af teleselskabets abonnement til bærbare enheder (eSIM med delt nummer). Priserne varierer efter land, udbyder og aktuelle kampagner. Undersøg altid kompatibilitet og månedlige gebyrer direkte hos dit teleselskab inden køb."
     },
     "faq.3.q": {
       "sv": "Kan fallavkänningen av misstag stängas av?",
@@ -5120,14 +5120,14 @@
     "body.9.rows.1": {
       "sv": [
         "Samsung Galaxy Watch LTE (40 mm, t.ex. Watch 7 / Watch 8 / Watch 9)",
-        "Från ca 349 dollar / 369 euro (Watch 7 listpris)",
+        "Priser varierar efter generation (t.ex. Watch 9 från 429,99 USD listpris); kontrollera officiella kanaler",
         "Fallregistrering, SOS, EKG och blodtryck med kalibrering via manschett (med Samsung-telefon)",
         "Avancerade hälsofunktioner bundna till Galaxy-telefon; daglig laddning",
         "Android-användare, särskilt med Samsung-telefon"
       ],
       "da": [
         "Samsung Galaxy Watch LTE (40 mm, f.eks. Watch 7 / Watch 8 / Watch 9)",
-        "Fra ca. 349 $ / 369 € (Watch 7 listepris)",
+        "Priser varierer efter generation (f.eks. Watch 9 fra 429,99 $ listepris); kontrollér officielle kanaler",
         "Faldregistrering, SOS, EKG og blodtryk med kalibrering via manchet (med Samsung-telefon)",
         "Avancerede sundhedsfunktioner bundet til Galaxy-telefon; daglig opladning",
         "Android-brugere, især med Samsung-telefon"
