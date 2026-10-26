@@ -4006,8 +4006,8 @@
       "da": "Sammenligning af smartwatches til ældre i 2026 efter brugsprofil"
     },
     "body.12.text": {
-      "sv": "En kommentar om enheter för äldre från mindre kända varumärken: före köp bör man kontrollera att officiell teknisk dokumentation finns, vilka utlösningskriterier som gäller för sensorerna, hur smartphone-kompatibiliteten ser ut och att det finns dedikerad support. För en säkerhetsfokuserad användning ger modeller med verifierbara krav och kontinuerlig support betydligt tydligare garantier än odokumenterade generiska produkter.",
-      "da": "En bemærkning om enheder til ældre fra mindre kendte mærker: Før køb bør man kontrollere, om der findes officiel teknisk dokumentation, hvilke udløsningskriterier sensorerne har, hvordan smartphone-kompatibiliteten er, og om der findes dedikeret support. Til et sikkerhedsfokuseret formål giver modeller med verificerbare specifikationer og løbende support langt mere pålidelige garantier end udokumenterede generiske produkter."
+      "sv": "En kommentar om enheter för äldre från mindre kända varumärken: före köp bör man kontrollera att officiell teknisk dokumentation finns, vilka utlösningskriterier som gäller för sensorerna, hur smartphone-kompatibiliteten ser ut och att det finns dedikerad support.",
+      "da": "En bemærkning om enheder til ældre fra mindre kendte mærker: Før køb bør man kontrollere, om der findes officiel teknisk dokumentation, hvilke udløsningskriterier sensorerne har, hvordan smartphone-kompatibiliteten er, og om der findes dedikeret support."
     },
     "body.13.text": {
       "sv": "Hjärt- och hälsoövervakning: vad de egentligen mäter",
@@ -4086,8 +4086,8 @@
       "da": "Er oplysningerne om mit ældre familiemedlem fortrolige, eller er der nogen, der læser dem?"
     },
     "faq.4.a": {
-      "sv": "Data sparas i tillverkarens molntjänst (Samsung Cloud, Apple iCloud, Garmin Connect). Tillverkaren kan tekniskt sett få tillgång till dessa data i enlighet med sin integritetspolicy. I normal praxis läses den inte aktivt av någon människa, men aggregerade analyser för att förbättra algoritmerna är möjliga. Om integritet är en viktig fråga finns det lösningar som använder Health Connect (Android på enheten) och som lagrar data på telefonen istället för i molnet.",
-      "da": "Data gemmes i producentens cloud (Samsung Cloud, Apple iCloud, Garmin Connect). Producenten har teknisk set adgang til disse data i henhold til sin privatlivspolitik. I praksis er der ingen, der aktivt læser dem, men det er muligt at udføre samlede analyser for at forbedre algoritmerne. Hvis privatlivets fred er et væsentligt anliggende, findes der løsninger, der bruger Health Connect (Android on-device), hvor dataene opbevares på telefonen i stedet for i skyen."
+      "sv": "Hanteringen, eventuell molnsynkronisering och villkoren för dataåtkomst beror på vilket ekosystem som används (t.ex. Apple Hälsa och iCloud, Samsung Health, Garmin Connect, Health Connect på Android) samt användarens inställningar. Före konfiguration är det lämpligt att läsa tillverkarens officiella integritetspolicy och kontrollera vilka behörigheter för delning och molnsäkerhetskopiering som är aktiva.",
+      "da": "Databehandlingen, eventuel cloudsynkronisering og adgangsvilkårene afhænger af det anvendte økosystem (f.eks. Apple Sundhed og iCloud, Samsung Health, Garmin Connect, Health Connect på Android) samt brugerens indstillinger. Før opsætning anbefales det at læse producentens officielle privatlivspolitik og undersøge, hvilke delings- og cloudbackup-tilladelser der er aktive."
     },
     "secondaryKeywords": {
       "sv": [
