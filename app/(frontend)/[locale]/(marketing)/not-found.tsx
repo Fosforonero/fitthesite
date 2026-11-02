@@ -91,6 +91,7 @@ export default function MarketingNotFound() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-28 text-center">
+      <title>{`404 - ${copy.title} · FitMesh`}</title>
       <p className="text-xs font-semibold uppercase tracking-widest text-brand-aqua">
         404
       </p>

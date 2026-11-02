@@ -71,7 +71,7 @@ const NOT_FOUND_COPY: Record<Locale, { title: string; desc: string; backToHome: 
   },
   no: {
     title: "Siden ble ikke funnet",
-    desc: "Siden du leter etter finnes finale eller har blitt flyttet.",
+    desc: "Siden du leter etter finnes ikke eller har blitt flyttet.",
     backToHome: "Tilbake til forsiden",
   },
   fi: {
@@ -100,6 +100,9 @@ export default async function GlobalNotFound() {
 
   return (
     <html lang={detectedLocale}>
+      <head>
+        <title>{`404 - ${copy.title} · FitMesh`}</title>
+      </head>
       <body className="min-h-screen flex flex-col justify-between bg-[#050816] text-[#F3F4F6] font-sans antialiased">
         <header className="border-b border-[#24304A]/60 py-4 px-6">
           <div className="max-w-6xl mx-auto flex items-center justify-between">

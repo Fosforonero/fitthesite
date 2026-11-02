@@ -92,6 +92,7 @@ export default function LocaleRootNotFound() {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-page text-text-primary">
+      <title>{`404 - ${copy.title} · FitMesh`}</title>
       <header className="border-b border-divider/60 py-4 px-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href={`/${lc}`} aria-label="FitMesh Sync Home">
