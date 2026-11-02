@@ -774,7 +774,7 @@ export const post: BlogPost = {
       },
       body: {
         it: "La cache di Health Connect sono file temporanei. Svuotarla non cancella i tuoi dati salute. I dati rimangono nel database interno. Se invece cancelli 'Archiviazione' completa (non cache), i dati vengono persi. Questa guida parla solo della cache.",
-        en: "Health Connect cache is temporary files. Clearing it does NOT delete your health data. Data stays in the internal database. If you clear full 'Storage' (not cache), data is lost. This guide covers cache only.",
+        en: "Use only a clearly labelled “Clear cache” option, if your device exposes one. Do not select “Clear storage”, “Clear data”, or any option that deletes health records. Health Connect is built into Android 14 and later, so settings and available controls can differ between Android versions and devices.",
         es: "La caché de Health Connect son archivos temporales. Vaciarla NO elimina tus datos de salud. Los datos permanecen en la base de datos interna. Si en cambio borras el 'Almacenamiento' completo (no la caché), los datos sí se pierden. Esta guía trata únicamente la caché.",
         de: "Der Cache von Health Connect enthält temporäre Dateien. Das Leeren löscht KEINE Gesundheitsdaten. Die Daten verbleiben in der internen Datenbank. Wenn Sie hingegen den gesamten 'Speicher' (nicht nur den Cache) löschen, gehen die Daten verloren. Diese Anleitung behandelt ausschließlich den Cache.",
         pt: "O cache do Health Connect são arquivos temporários. Limpá-lo NÃO apaga seus dados de saúde. Os dados permanecem no banco de dados interno. Se você limpar o 'Armazenamento' completo (não o cache), os dados serão perdidos. Este guia trata apenas do cache.",
@@ -797,10 +797,10 @@ export const post: BlogPost = {
           "Riapri Health Connect e lascia che reinizializzi.",
         ],
         en: [
-          "**Settings** → **Apps** → find **Health Connect** (may be under 'All apps').",
-          "Tap **Storage & cache**.",
-          "Tap **Clear cache** (NOT 'Clear data').",
-          "Reopen Health Connect and let it reinitialize.",
+          "Open your device's **Settings** and locate **Health Connect**. The path varies by Android version and manufacturer.",
+          "Look for a separate **Clear cache** option. If none is available, skip this procedure and leave storage and data unchanged.",
+          "If available, select **Clear cache** only. Do NOT select **Clear storage** or **Clear data**.",
+          "Return to the connected app and check whether it can sync. Clearing cache does not guarantee that a sync problem will be resolved.",
         ],
         es: [
           "**Ajustes** → **Aplicaciones** → busca **Health Connect** (puede estar en 'Todas las apps').",
@@ -1091,7 +1091,7 @@ export const post: BlogPost = {
       type: "paragraph",
       text: {
         it: "Se nessuno degli altri fix ha funzionato, il problema potrebbe essere in uno stato di permesso corrotto. La soluzione è un reset completo della connessione:",
-        en: "If none of the other fixes worked, the problem may be in a corrupted permission state. The solution is a full connection reset:",
+        en: "If Health Connect permissions appear incorrect, review the affected app’s access settings and reconnect it if needed. Change permissions only; do not delete stored health data.",
         es: "Si ninguna de las soluciones anteriores ha funcionado, es posible que el problema esté en un estado de permisos corrupto. La solución es un restablecimiento completo de la conexión:",
         de: "Wenn keine der anderen Lösungen geholfen hat, liegt das Problem möglicherweise in einem beschädigten Berechtigungsstatus. Die Lösung ist ein vollständiger Verbindungsreset:",
         pt: "Se nenhuma das soluções anteriores funcionou, o problema pode estar em um estado de permissão corrompido. A solução é um reset completo da conexão:",
@@ -1115,11 +1115,11 @@ export const post: BlogPost = {
           "Aspetta 5-10 minuti per il primo sync.",
         ],
         en: [
-          "In **Health Connect** → **App permissions** → find the problematic app.",
-          "Tap the app → **Remove access**.",
-          "Reopen the problematic app → find the Health Connect section in settings.",
-          "Tap 'Connect to Health Connect' or equivalent → grant all permissions again.",
-          "Wait 5-10 minutes for the first sync.",
+          "Open **Health Connect**, find **App permissions**, and select the affected app. Menu labels can vary by version and device.",
+          "Turn off the affected app's read and write permissions. Do not select options that delete stored health data, and leave any optional data-deletion checkbox unselected.",
+          "Reopen the affected app and find its Health Connect connection settings.",
+          "Reconnect, granting only the read and write permissions needed for the features you intend to use.",
+          "If the app offers a manual sync, start it and check the result. Sync behaviour depends on the app; no fixed completion time is guaranteed.",
         ],
         es: [
           "En **Health Connect** → **Acceso de aplicaciones** → busca la app con problemas.",
