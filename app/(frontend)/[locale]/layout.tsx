@@ -23,8 +23,9 @@ export async function generateMetadata({
 }: {
   params?: Promise<{ locale: string }>;
 } = {}): Promise<Metadata> {
+  const { robots: _robots, ...base } = ROOT_METADATA_BASE;
   return {
-    ...ROOT_METADATA_BASE,
+    ...base,
     title: "FitMesh Sync",
   };
 }

@@ -82,21 +82,23 @@ const NOT_FOUND_COPY: Record<Locale, { title: string; desc: string; backToHome: 
 };
 
 export default async function GlobalNotFound() {
-  // Nella 404, headers() può essere letto senza rischi perché la pagina è già una risposta dinamica 404
   const headerList = await headers();
-  const referer = headerList.get("referer") || "";
-  const host = headerList.get("host") || "";
-  
-  // Rileva la lingua dal pathname o referer se presente
-  let detectedLocale: Locale = "it";
+  const rawPath =
+    headerList.get("x-matched-path") ||
+    headerList.get("x-invoke-path") ||
+    headerList.get("next-url") ||
+    "";
+
+  // Riconosci la lingua dal percorso se presente, altrimenti fallback stabile su "en"
+  let detectedLocale: Locale = "en";
   for (const l of locales) {
-    if (referer.includes(`/${l}/`) || referer.endsWith(`/${l}`)) {
+    if (rawPath === `/${l}` || rawPath.startsWith(`/${l}/`) || rawPath.includes(`/${l}/`)) {
       detectedLocale = l;
       break;
     }
   }
 
-  const copy = NOT_FOUND_COPY[detectedLocale] || NOT_FOUND_COPY.it;
+  const copy = NOT_FOUND_COPY[detectedLocale] || NOT_FOUND_COPY.en;
 
   return (
     <html lang={detectedLocale}>
