@@ -1,12 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
 
-import { locales, type Locale, htmlLang, ogLocale, localeAlternates } from '@/lib/i18n';
+import { locales, type Locale, htmlLang } from '@/lib/i18n';
 import { RootHtmlShell } from '@/components/RootHtmlShell';
 import { ROOT_METADATA_BASE, ROOT_VIEWPORT } from '@/lib/root-metadata';
-import { HOME_META_DESCRIPTIONS, HOME_META_TITLES } from '@/lib/content/home-meta';
-
-const SITE_URL = 'https://www.fitmesh.fit';
 
 export const viewport: Viewport = ROOT_VIEWPORT;
 
@@ -15,44 +12,20 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-/** Locale-specific metadata with hreflang alternates. */
+/**
+ * Root metadata per [locale]: base condivisa (metadataBase, icone, robots standard)
+ * e title template neutro per le pagine che non definiscono un proprio template.
+ * Canonical, hreflang e metadati specifici della Home vivono in (marketing)/page.tsx,
+ * per evitare che pagine 404 o route interne ereditino i dati della Home.
+ */
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  if (!locales.includes(locale as Locale)) return ROOT_METADATA_BASE;
-  const lc = locale as Locale;
-
-  // Fonte unica di title/description (U-META-01..03): lib/content/home-meta.ts.
-  const titles = HOME_META_TITLES;
-  const descriptions = HOME_META_DESCRIPTIONS;
-
+  params?: Promise<{ locale: string }>;
+} = {}): Promise<Metadata> {
   return {
     ...ROOT_METADATA_BASE,
-    title: titles[lc],
-    description: descriptions[lc],
-    alternates: {
-      canonical: `${SITE_URL}/${lc}`,
-      languages: localeAlternates((l) => `${SITE_URL}/${l}`),
-    },
-    openGraph: {
-      type: 'website',
-      url: `${SITE_URL}/${lc}`,
-      siteName: 'FitMesh Sync',
-      title: titles[lc],
-      description: descriptions[lc],
-      locale: ogLocale[lc],
-      alternateLocale: locales
-        .filter((l) => l !== lc)
-        .map((l) => ogLocale[l]),
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: 'FitMesh Sync',
-      description: descriptions[lc],
-    },
+    title: "FitMesh Sync",
   };
 }
 
