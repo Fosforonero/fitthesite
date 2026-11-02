@@ -95,7 +95,7 @@ export default function LocaleRootNotFound() {
       <title>{`404 - ${copy.title} · FitMesh`}</title>
       <header className="border-b border-divider/60 py-4 px-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href={`/${lc}`} aria-label="FitMesh Sync Home">
+          <Link href={`/${lc}`} aria-label="FitMesh Sync">
             <Logo variant="horizontal" size={32} priority />
           </Link>
         </div>
