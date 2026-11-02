@@ -110,7 +110,7 @@ const COPY = {
       "FitMesh Sync è marchio di Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit e altri brand citati sono marchi dei rispettivi proprietari; il loro uso in questa pagina e nel materiale FitMesh non implica affiliazione o sponsorizzazione.",
 
     sitemapNote:
-      "Hai bisogno di link specifici? Trovi tutto a fitmesh.fit (home, /it/famiglia per la condivisione dati in famiglia, /it/blog per gli articoli tecnici, /it/about per la storia del progetto).",
+      "Hai bisogno di link specifici? Trovi tutto a fitmesh.fit (home, /it/famiglia per la funzione in sviluppo, non disponibile e senza data annunciata, /it/blog per gli articoli tecnici, /it/about per la storia del progetto).",
   },
   en: {
     kicker: "Press & Media kit",
@@ -195,7 +195,7 @@ const COPY = {
       "FitMesh Sync is a trademark of Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit and other brands mentioned are trademarks of their respective owners; their use on this page and in FitMesh materials does not imply affiliation or sponsorship.",
 
     sitemapNote:
-      "Need specific links? You can find everything at fitmesh.fit (home, /en/famiglia for the family-sharing use case, /en/blog for technical articles, /en/about for the project story).",
+      "Need specific links? You can find everything at fitmesh.fit (home, /en/famiglia for the feature in development, not available and with no announced release date, /en/blog for technical articles, /en/about for the project story).",
   },
   es: {
     kicker: "Press & Media kit",
@@ -280,7 +280,7 @@ const COPY = {
       "FitMesh Sync es marca registrada de Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit y otras marcas citadas son marcas registradas de sus respectivos propietarios; su uso en esta página y en los materiales de FitMesh no implica ninguna afiliación ni patrocinio.",
 
     sitemapNote:
-      "¿Necesitas enlaces concretos? Encuentra todo en fitmesh.fit (inicio, /es/famiglia para el caso de uso de compartir en familia, /es/blog para artículos técnicos, /es/about para la historia del proyecto).",
+      "¿Necesitas enlaces concretos? Encuentra todo en fitmesh.fit (inicio, /es/famiglia para la función en desarrollo, no disponible y sin fecha anunciada, /es/blog para artículos técnicos, /es/about para la historia del proyecto).",
   },
   de: {
     kicker: "Presse & Media-Kit",
@@ -365,7 +365,7 @@ const COPY = {
       "FitMesh Sync ist eine Marke von Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit und andere genannte Marken sind Marken ihrer jeweiligen Eigentümer; ihre Verwendung auf dieser Seite und in FitMesh-Materialien impliziert keine Zugehörigkeit oder Förderung.",
 
     sitemapNote:
-      "Benötigst du bestimmte Links? Alles findest du auf fitmesh.fit (Startseite, /de/famiglia für den Anwendungsfall Familien-Sharing, /de/blog für technische Artikel, /de/about für die Projektgeschichte).",
+      "Benötigst du bestimmte Links? Alles findest du auf fitmesh.fit (Startseite, /de/famiglia für die Funktion in Entwicklung, noch nicht verfügbar und ohne angekündigtes Datum, /de/blog für technische Artikel, /de/about für die Projektgeschichte).",
   },
   pt: {
     kicker: "Press & Media Kit",
@@ -450,7 +450,7 @@ const COPY = {
       "FitMesh Sync é marca de Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit e outras marcas citadas são marcas registradas de seus respectivos proprietários; o uso delas nesta página e nos materiais do FitMesh não implica afiliação ou patrocínio.",
 
     sitemapNote:
-      "Precisa de links específicos? Encontre tudo em fitmesh.fit (início, /pt/famiglia para o caso de uso de compartilhamento familiar, /pt/blog para artigos técnicos, /pt/about para a história do projeto).",
+      "Precisa de links específicos? Encontre tudo em fitmesh.fit (início, /pt/famiglia para a funcionalidade em desenvolvimento, não disponível e sem data anunciada, /pt/blog para artigos técnicos, /pt/about para a história do projeto).",
   },
   fr: {
     kicker: "Presse & Kit média",
@@ -535,7 +535,7 @@ const COPY = {
       "FitMesh Sync est une marque de Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit et les autres marques citées sont des marques déposées de leurs propriétaires respectifs ; leur utilisation sur cette page et dans les supports FitMesh n'implique aucune affiliation ni parrainage.",
 
     sitemapNote:
-      "Vous avez besoin de liens spécifiques ? Retrouvez tout sur fitmesh.fit (accueil, /fr/famiglia pour le cas d'usage de partage familial, /fr/blog pour les articles techniques, /fr/about pour l'histoire du projet).",
+      "Vous avez besoin de liens spécifiques ? Retrouvez tout sur fitmesh.fit (accueil, /fr/famiglia pour la fonctionnalité en développement, non disponible et sans date annoncée, /fr/blog pour les articles techniques, /fr/about pour l'histoire du projet).",
   },
   pl: {
     kicker: "Prasa i zestaw mediów",
@@ -620,7 +620,7 @@ const COPY = {
       "FitMesh Sync jest znakiem towarowym Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit i inne wymienione marki sa znakami towarowymi swoich wlascicieli; ich uzycie na tej stronie i w materialach FitMesh nie oznacza afiliacji ani sponsorowania.",
 
     sitemapNote:
-      "Potrzebujesz konkretnych linków? Znajdziesz wszystko na fitmesh.fit (strona glówna, /pl/famiglia dla przypadku uzycia dzielenia sie danymi w rodzinie, /pl/blog dla artykulów technicznych, /pl/about dla historii projektu).",
+      "Potrzebujesz konkretnych linków? Znajdziesz wszystko na fitmesh.fit (strona glówna, /pl/famiglia dla funkcji w trakcie tworzenia, niedostępnej i bez ogłoszonej daty, /pl/blog dla artykulów technicznych, /pl/about dla historii projektu).",
   },
   tr: {
     kicker: "Basín ve Medya Kiti",
@@ -705,7 +705,7 @@ const COPY = {
       "FitMesh Sync, Fosforonero'nun (Matteo Pizzi) ticari markasıdır. Galaxy Watch, Mi Band, Polar, Garmin, Fitbit ve adı geçen diger markalar ilgili sahiplerinin ticari markalarıdır; bu sayfada ve FitMesh materyallerinde kullanimi herhangi bir baglanti veya sponsorluk anlamina gelmez.",
 
     sitemapNote:
-      "Belirli linklere mi ihtiyaciniz var? Her seyi fitmesh.fit'te bulabilirsiniz (ana sayfa, aile ici paylasim kullanim senaryosu icin /tr/famiglia, teknik makaleler icin /tr/blog, proje hikayesi icin /tr/about).",
+      "Belirli linklere mi ihtiyaciniz var? Her seyi fitmesh.fit'te bulabilirsiniz (ana sayfa, gelistirme asamasindaki, henüz kullanilamayan ve duyurulmus bir tarihi olmayan özellik icin /tr/famiglia, teknik makaleler icin /tr/blog, proje hikayesi icin /tr/about).",
   },
   nl: {
     kicker: "Pers & Mediakit",
@@ -733,12 +733,12 @@ const COPY = {
     blurb100: {
       title: "100 woorden",
       body:
-        "FitMesh Sync is een Android- en iOS-app, ontwikkeld in Italië door Matteo Pizzi (Fosforonero), om de gezondheidsdata van elke smartwatch en fitnessband op de markt samen te brengen in één premium dashboard. Op Android werkt de app als Health Connect-bestemming en is daardoor meteen compatibel met Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings en Oura, zonder aparte OAuth per merk; op iOS leest de app rechtstreeks uit Apple Gezondheid en verbindt via Bluetooth met de Colmi-ring. Privacy-first: geen databrokers. Beschikbaar op Google Play en de App Store sinds juni 2026 (de iOS-app is beschikbaar, inclusief alle winkels van de EU); Familie Mesh, de functie om gezondheidsdata met je eigen gezin te delen, komt binnenkort.",
+        "FitMesh Sync is een Android- en iOS-app, ontwikkeld in Italië door Matteo Pizzi (Fosforonero), om de gezondheidsdata van elke smartwatch en fitnessband op de markt samen te brengen in één premium dashboard. Op Android werkt de app als Health Connect-bestemming en is daardoor meteen compatibel met Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings en Oura, zonder aparte OAuth per merk; op iOS leest de app rechtstreeks uit Apple Gezondheid en verbindt via Bluetooth met de Colmi-ring. Privacy-first: geen databrokers. Beschikbaar op Google Play en de App Store sinds juni 2026 (de iOS-app is beschikbaar, inclusief alle winkels van de EU).",
     },
     blurb200: {
       title: "200 woorden (volledig profiel)",
       body:
-        `FitMesh Sync ontstond in 2026 in Italië uit de frustratie van één ontwikkelaar (Matteo Pizzi, studio Fosforonero) die een Galaxy Watch draagt, wiens vrouw een Mi Band gebruikt en wiens moeder een Withings heeft. Elk merk sluit zijn data op in de eigen app. Niemand biedt een verenigd premium overzicht. FitMesh lost precies dat op: door uit te lezen van Health Connect (de Android-standaard die sinds 2024 data van vrijwel alle wearables verzamelt) bundelt de app stappen, hartslag, slaap, calorieën, trainingen en andere metrieken in een native Flutter-dashboard, ontworpen voor dagelijks gebruik, niet voor systeembeheerders. Privacy-first vanaf de eerste commit: geen databrokers, geen advertentietrackers. Het strategische verschil met cloud-naar-cloud bridge-apps in de categorie is dat FitMesh geen stille datarouter is: het is een bestemming. Data wordt opgeslagen, gevisualiseerd met zorgvuldige grafieken en gedeeld tussen leden van hetzelfde gezin (Familie Mesh): iedereen deelt zijn eigen data met de anderen, in één dashboard. De app is beschikbaar op Google Play en de App Store: ${founderHistoricalClause("nl")}. De iOS-app is beschikbaar, inclusief alle winkels van de 27 EU-landen.`,
+        `FitMesh Sync ontstond in 2026 in Italië uit de frustratie van één ontwikkelaar (Matteo Pizzi, studio Fosforonero) die een Galaxy Watch draagt, wiens vrouw een Mi Band gebruikt en wiens moeder een Withings heeft. Elk merk sluit zijn data op in de eigen app. Niemand biedt een verenigd premium overzicht. FitMesh lost precies dat op: door uit te lezen van Health Connect (de Android-standaard die sinds 2024 data van vrijwel alle wearables verzamelt) bundelt de app stappen, hartslag, slaap, calorieën, trainingen en andere metrieken in een native Flutter-dashboard, ontworpen voor dagelijks gebruik, niet voor systeembeheerders. Privacy-first vanaf de eerste commit: geen databrokers, geen advertentietrackers. Het strategische verschil met cloud-naar-cloud bridge-apps in de categorie is dat FitMesh geen stille datarouter is: het is een bestemming. Data wordt opgeslagen, gevisualiseerd met zorgvuldige grafieken. Familie Mesh, de functie om gezondheidsdata binnen het gezin te delen, is in ontwikkeling en nog niet beschikbaar: er is geen releasedatum aangekondigd. De app is beschikbaar op Google Play en de App Store: ${founderHistoricalClause("nl")}. De iOS-app is beschikbaar, inclusief alle winkels van de 27 EU-landen.`,
     },
 
     keyFactsTitle: "Kerngegevens",
@@ -782,7 +782,7 @@ const COPY = {
     storyAngles: [
       "Italiaanse indie-ontwikkelaar bouwt een privacy-first Europees alternatief voor de gesloten ecosystemen van Samsung, Apple en Google Fit",
       "Hoe Health Connect het Android-wearable-ecosysteem sinds 2024 veranderde, en wat dat betekent voor consumenten en ontwikkelaars",
-      "Gezinsdeling: de gezondheidsdata van wie je dierbaar is in één dashboard zien, zonder GPS of opdringerige apps (Familie Mesh)",
+      "Gezinsdeling in ontwikkeling: hoe Familie Mesh gezondheidsdata binnen het gezin wil tonen zonder GPS of opdringerige apps (in ontwikkeling, nog niet beschikbaar)",
       `Waarom ${founderHistoricalClause("nl")}`,
       "Een gezondheidsapp bouwen in Italië: datasoevereiniteit als onderscheidend kenmerk",
     ],
@@ -791,7 +791,7 @@ const COPY = {
       "FitMesh Sync is een handelsmerk van Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit en andere genoemde merken zijn handelsmerken van hun respectieve eigenaren; het gebruik ervan op deze pagina en in FitMesh-materiaal impliceert geen affiliatie of sponsoring.",
 
     sitemapNote:
-      "Specifieke links nodig? Je vindt alles op fitmesh.fit (home, /nl/famiglia voor de gezinsdeling-use-case, /nl/blog voor technische artikelen, /nl/about voor het projectverhaal).",
+      "Specifieke links nodig? Je vindt alles op fitmesh.fit (home, /nl/famiglia voor de functie in ontwikkeling, niet beschikbaar en zonder aangekondigde releasedatum, /nl/blog voor technische artikelen, /nl/about voor het projectverhaal).",
   },
   ja: {
     kicker: "プレス＆メディアキット",
@@ -819,12 +819,12 @@ const COPY = {
     blurb100: {
       title: "100語",
       body:
-        "FitMesh Syncは、市場のあらゆるスマートウォッチやフィットネスバンドからの健康データを1つのプレミアムダッシュボードに統合するため、Matteo Pizzi（Fosforonero）がイタリアで開発したAndroid・iOSアプリです。Androidでは、Health Connectの保存先として動作するため、Galaxy Watch、Mi Band、Polar、Garmin、Fitbit、Withings、OuraとブランドごとのOAuthなしで標準対応します。iOSでは、Apple ヘルスケアから直接読み取り、BluetoothでColmiリングに接続します。プライバシーファースト：データブローカーなし。2026年6月よりGoogle PlayとApp Storeで提供中(iOS版はEU域内を含め利用可能です)。家族と健康データを共有するMesh Family機能も近日登場。",
+        "FitMesh Syncは、市場のあらゆるスマートウォッチやフィットネスバンドからの健康データを1つのプレミアムダッシュボードに統合するため、Matteo Pizzi（Fosforonero）がイタリアで開発したAndroid・iOSアプリです。Androidでは、Health Connectの保存先として動作するため、Galaxy Watch、Mi Band、Polar、Garmin、Fitbit、Withings、OuraとブランドごとのOAuthなしで標準対応します。iOSでは、Apple ヘルスケアから直接読み取り、BluetoothでColmiリングに接続します。プライバシーファースト：データブローカーなし。2026年6月よりGoogle PlayとApp Storeで提供中(iOS版はEU域内を含め利用可能です)。",
     },
     blurb200: {
       title: "200語（フルプロフィール）",
       body:
-        `FitMesh Syncは2026年、Galaxy Watchを使い、妻はMi Band、母はWithingsを使う開発者（Matteo Pizzi、Fosforoneroスタジオ）の不満からイタリアで生まれました。各ブランドはデータを自社アプリ内に閉じ込めます。誰も統合されたプレミアムなビューを提供していません。FitMeshはまさにこれを解決します。Health Connect（2024年以降、ほぼすべてのウェアラブルのデータを集めるAndroidの標準）から読み取り、歩数・心拍数・睡眠・カロリー・ワークアウトなどの指標を、システム管理者向けではなく日々の閲覧のために設計されたネイティブFlutterダッシュボードに集約します。最初のコミットからプライバシーファースト：データブローカーなし、広告トラッカーなし。同カテゴリのクラウド間ブリッジアプリとの戦略的な違いは、FitMeshが静かなデータルーターではなく「保存先」である点です。データは保存され、丁寧なグラフで可視化され、同じ家族のメンバー間で共有できます（Mesh Family）：それぞれが自分のデータを他のメンバーと共有し、ひとつのダッシュボードにまとまります。アプリはGoogle PlayとApp Storeで提供中：${founderHistoricalClause("ja")}。iOS版はEU加盟27か国を含め利用可能です。`,
+        `FitMesh Syncは2026年、Galaxy Watchを使い、妻はMi Band、母はWithingsを使う開発者（Matteo Pizzi、Fosforoneroスタジオ）の不満からイタリアで生まれました。各ブランドはデータを自社アプリ内に閉じ込めます。誰も統合されたプレミアムなビューを提供していません。FitMeshはまさにこれを解決します。Health Connect（2024年以降、ほぼすべてのウェアラブルのデータを集めるAndroidの標準）から読み取り、歩数・心拍数・睡眠・カロリー・ワークアウトなどの指標を、システム管理者向けではなく日々の閲覧のために設計されたネイティブFlutterダッシュボードに集約します。最初のコミットからプライバシーファースト：データブローカーなし、広告トラッカーなし。同カテゴリのクラウド間ブリッジアプリとの戦略的な違いは、FitMeshが静かなデータルーターではなく「保存先」である点です。データは保存され、丁寧なグラフで可視化されます。家族間で健康データを共有する機能「Mesh Family」は開発中であり、まだご利用いただけません（リリース日は未定です）。アプリはGoogle PlayとApp Storeで提供中：${founderHistoricalClause("ja")}。iOS版はEU加盟27か国を含め利用可能です。`,
     },
 
     keyFactsTitle: "主要データ",
@@ -868,7 +868,7 @@ const COPY = {
     storyAngles: [
       "イタリアのインディー開発者が、Samsung・Apple・Google Fitの囲い込みに対するプライバシーファーストな欧州の代替を構築",
       "Health Connectが2024年以降にAndroidウェアラブルのエコシステムをどう変えたか、そして消費者と開発者にとっての意味",
-      "家族間シェア：大切な人の健康データをひとつのダッシュボードで見る、GPSや侵襲的なアプリなしで（Mesh Family）",
+      "開発中のMesh Family：GPSや侵襲的なアプリを使わずに家族の健康データを共有する構想（開発中・未提供）",
       `なぜ${founderHistoricalClause("ja")}のか`,
       "イタリアで健康アプリを開発する：差別化要因としてのデータ主権",
     ],
@@ -877,7 +877,7 @@ const COPY = {
       "FitMesh SyncはFosforonero（Matteo Pizzi）の商標です。Galaxy Watch、Mi Band、Polar、Garmin、Fitbitおよびその他の言及されたブランドは各所有者の商標であり、本ページおよびFitMesh素材での使用は提携やスポンサーシップを意味するものではありません。",
 
     sitemapNote:
-      "特定のリンクが必要ですか？すべて fitmesh.fit でご覧いただけます（ホーム、家族間シェアのユースケースは /ja/famiglia、技術記事は /ja/blog、プロジェクトの歴史は /ja/about）。",
+      "特定のリンクが必要ですか？すべて fitmesh.fit でご覧いただけます（ホーム、開発中で未提供・リリース日未定の機能紹介は /ja/famiglia、技術記事は /ja/blog、プロジェクトの歴史は /ja/about）。",
   },
   ko: {
     kicker: "프레스 & 미디어 키트",
@@ -905,12 +905,12 @@ const COPY = {
     blurb100: {
       title: "100단어",
       body:
-        "FitMesh Sync는 시장의 모든 스마트워치와 피트니스 밴드의 건강 데이터를 하나의 프리미엄 대시보드로 통합하기 위해 Matteo Pizzi(Fosforonero)가 이탈리아에서 개발한 Android 및 iOS 앱입니다. Android에서는 Health Connect 대상으로 작동하므로 Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Oura와 브랜드별 OAuth 없이 기본 호환되며, iOS에서는 Apple 건강에서 직접 읽고 블루투스로 Colmi 링에 연결됩니다. 프라이버시 우선: 데이터 브로커 없음. 2026년 6월부터 Google Play와 App Store에서 이용 가능(iOS 앱은 EU 지역을 포함하여 이용 가능); 가족과 건강 데이터를 공유하는 Mesh Family 기능이 곧 출시됩니다.",
+        "FitMesh Sync는 시장의 모든 스마트워치와 피트니스 밴드의 건강 데이터를 하나의 프리미엄 대시보드로 통합하기 위해 Matteo Pizzi(Fosforonero)가 이탈리아에서 개발한 Android 및 iOS 앱입니다. Android에서는 Health Connect 대상으로 작동하므로 Galaxy Watch, Mi Band, Polar, Garmin, Fitbit, Withings, Oura와 브랜드별 OAuth 없이 기본 호환되며, iOS에서는 Apple 건강에서 직접 읽고 블루투스로 Colmi 링에 연결됩니다. 프라이버시 우선: 데이터 브로커 없음. 2026년 6월부터 Google Play와 App Store에서 이용 가능(iOS 앱은 EU 지역을 포함하여 이용 가능).",
     },
     blurb200: {
       title: "200단어 (전체 프로필)",
       body:
-        `FitMesh Sync는 Galaxy Watch를 쓰고, 아내는 Mi Band, 어머니는 Withings를 사용하는 한 개발자(Matteo Pizzi, Fosforonero 스튜디오)의 불만에서 2026년 이탈리아에서 탄생했습니다. 각 브랜드는 자사 앱 안에 데이터를 가둡니다. 통합된 프리미엄 뷰를 제공하는 곳은 없습니다. FitMesh는 바로 이 문제를 해결합니다. Health Connect(2024년부터 사실상 모든 웨어러블의 데이터를 모으는 Android 표준)에서 읽어, 걸음 수·심박수·수면·칼로리·운동 등의 지표를 시스템 관리자가 아닌 일상적인 열람을 위해 설계된 네이티브 Flutter 대시보드로 집계합니다. 첫 커밋부터 프라이버시 우선: 데이터 브로커 없음, 광고 트래커 없음. 동종 클라우드 간 브리지 앱과의 전략적 차이는 FitMesh가 조용한 데이터 라우터가 아니라 목적지라는 점입니다. 데이터는 저장되고, 정성스러운 차트로 시각화되며, 같은 가족 구성원 간에 공유할 수 있습니다(Mesh Family): 각자 자신의 데이터를 다른 구성원과 공유하며, 하나의 대시보드에 모입니다. 앱은 Google Play와 App Store에서 이용 가능합니다: ${founderHistoricalClause("ko")}. iOS 앱은 EU 27개국 전역을 포함하여 이용 가능합니다.`,
+        `FitMesh Sync는 Galaxy Watch를 쓰고, 아내는 Mi Band, 어머니는 Withings를 사용하는 한 개발자(Matteo Pizzi, Fosforonero 스튜디오)의 불만에서 2026년 이탈리아에서 탄생했습니다. 각 브랜드는 자사 앱 안에 데이터를 가둡니다. 통합된 프리미엄 뷰를 제공하는 곳은 없습니다. FitMesh는 바로 이 문제를 해결합니다. Health Connect(2024년부터 사실상 모든 웨어러블의 데이터를 모으는 Android 표준)에서 읽어, 걸음 수·심박수·수면·칼로리·운동 등의 지표를 시스템 관리자가 아닌 일상적인 열람을 위해 설계된 네이티브 Flutter 대시보드로 집계합니다. 첫 커밋부터 프라이버시 우선: 데이터 브로커 없음, 광고 트래커 없음. 동종 클라우드 간 브리지 앱과의 전략적 차이는 FitMesh가 조용한 데이터 라우터가 아니라 목적지라는 점입니다. 데이터는 저장되고, 정성스러운 차트로 시각화됩니다. 가족 간 건강 데이터를 공유하는 기능인 Mesh Family는 현재 개발 중이며 아직 이용할 수 없습니다 (출시일 미정). 앱은 Google Play와 App Store에서 이용 가능합니다: ${founderHistoricalClause("ko")}. iOS 앱은 EU 27개국 전역을 포함하여 이용 가능합니다.`,
     },
 
     keyFactsTitle: "핵심 정보",
@@ -954,7 +954,7 @@ const COPY = {
     storyAngles: [
       "이탈리아 인디 개발자가 Samsung·Apple·Google Fit의 폐쇄형 생태계에 대한 프라이버시 우선 유럽 대안을 만들다",
       "Health Connect가 2024년 이후 Android 웨어러블 생태계를 어떻게 바꿨고, 소비자와 개발자에게 무엇을 의미하는가",
-      "가족 공유: 소중한 사람의 건강 데이터를 하나의 대시보드에서 확인하기, GPS나 침해적인 앱 없이 (Mesh Family)",
+      "개발 중인 Mesh Family: GPS나 침해적인 앱 없이 가족의 건강 데이터를 공유하는 구상 (개발 중, 미제공)",
       `${founderHistoricalClause("ko")} 이유`,
       "이탈리아에서 건강 앱을 개발하기: 차별화 요소로서의 데이터 주권",
     ],
@@ -963,7 +963,7 @@ const COPY = {
       "FitMesh Sync는 Fosforonero(Matteo Pizzi)의 상표입니다. Galaxy Watch, Mi Band, Polar, Garmin, Fitbit 및 기타 언급된 브랜드는 각 소유자의 상표이며, 본 페이지와 FitMesh 자료에서의 사용은 제휴나 후원을 의미하지 않습니다.",
 
     sitemapNote:
-      "특정 링크가 필요하신가요? 모든 내용은 fitmesh.fit에서 확인할 수 있습니다 (홈, 가족 공유 사용 사례는 /ko/famiglia, 기술 기사는 /ko/blog, 프로젝트 이야기는 /ko/about).",
+      "특정 링크가 필요하신가요? 모든 내용은 fitmesh.fit에서 확인할 수 있습니다 (홈, 개발 중이며 아직 이용할 수 없는(출시일 미정) 기능 소개는 /ko/famiglia, 기술 기사는 /ko/blog, 프로젝트 이야기는 /ko/about).",
   },
   sv: {
     kicker: "Press- och mediekit",
@@ -1048,7 +1048,7 @@ const COPY = {
       "FitMesh Sync är ett varumärke som tillhör Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit och andra nämnda varumärken tillhör respektive ägare; deras användning på denna sida och i FitMesh material innebär inte något samarbete eller sponsring.",
 
     sitemapNote:
-      "Behöver du specifika länkar? Du hittar allt på fitmesh.fit (startsida, /sv/famiglia för användningsfallet familjedelning, /sv/blog för tekniska artiklar, /sv/about för historien bakom projektet).",
+      "Behöver du specifika länkar? Du hittar allt på fitmesh.fit (startsida, /sv/famiglia för funktionen under utveckling, inte tillgänglig och utan annonserat datum, /sv/blog för tekniska artiklar, /sv/about för historien bakom projektet).",
   },
   da: {
     kicker: "Presse & mediekit",
@@ -1133,7 +1133,7 @@ const COPY = {
       "FitMesh Sync er et varemærke tilhørende Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit og andre nævnte mærker er varemærker tilhørende deres respektive ejere; brugen af dem på denne side og i FitMesh-materialer indebærer ikke tilknytning eller sponsorering.",
 
     sitemapNote:
-      "Har du brug for specifikke links? Du finder alt på fitmesh.fit (forside, /da/famiglia til use casen om familiedeling, /da/blog til tekniske artikler, /da/about til projektets historie).",
+      "Har du brug for specifikke links? Du finder alt på fitmesh.fit (forside, /da/famiglia til funktionen under udvikling, endnu ikke tilgængelig og uden annonceret dato, /da/blog til tekniske artikler, /da/about til projektets historie).",
   },
   no: {
     kicker: "Presse og mediekit",
@@ -1218,7 +1218,7 @@ const COPY = {
       "FitMesh Sync er et varemerke tilhørende Fosforonero (Matteo Pizzi). Galaxy Watch, Mi Band, Polar, Garmin, Fitbit og andre nevnte merker er varemerker tilhørende sine respektive eiere; bruken av dem på denne siden og i FitMesh-materiell innebærer ingen tilknytning til eller sponsing fra disse merkene.",
 
     sitemapNote:
-      "Trenger du spesifikke lenker? Du finner alt på fitmesh.fit (hjem, /no/famiglia for bruksområdet familiedeling, /no/blog for tekniske artikler, /no/about for historien bak prosjektet).",
+      "Trenger du spesifikke lenker? Du finner alt på fitmesh.fit (hjem, /no/famiglia for funksjonen under utvikling, ikke tilgjengelig ennå og uten annonsert dato, /no/blog for tekniske artikler, /no/about for historien bak prosjektet).",
   },
   fi: {
     kicker: "Lehdistö- ja mediamateriaalit",
@@ -1303,7 +1303,7 @@ const COPY = {
       "FitMesh Sync on Fosforoneron (Matteo Pizzi) tavaramerkki. Galaxy Watch, Mi Band, Polar, Garmin, Fitbit ja muut mainitut tuotemerkit ovat omistajiensa tavaramerkkejä; niiden käyttö tällä sivulla ja FitMeshin materiaaleissa ei tarkoita yhteistyötä tai sponsorointia.",
 
     sitemapNote:
-      "Tarvitsetko tiettyjä linkkejä? Löydät kaiken osoitteesta fitmesh.fit (etusivu, /fi/famiglia perheen jakamisen käyttötapaukselle, /fi/blog teknisille artikkeleille, /fi/about projektin tarinalle).",
+      "Tarvitsetko tiettyjä linkkejä? Löydät kaiken osoitteesta fitmesh.fit (etusivu, /fi/famiglia kehitteillä olevalle, ei vielä saatavilla olevalle toiminnolle ilman ilmoitettua päivää, /fi/blog teknisille artikkeleille, /fi/about projektin tarinalle).",
   },
 } as const;
 
