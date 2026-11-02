@@ -789,20 +789,34 @@ export default async function BlogArticle({
             <div className="flex-1 min-w-0">
               <p className="text-[10px] uppercase tracking-[0.22em] text-text-muted font-semibold">
                 {lc === "it"
-                ? "Scritto da"
-                : lc === "es"
-                  ? "Escrito por"
-                  : lc === "de"
-                    ? "Geschrieben von"
-                    : lc === "pt"
-                      ? "Escrito por"
-                      : lc === "fr"
-                        ? "Rédigé par"
-                        : lc === "pl"
-                          ? "Napisane przez"
-                          : lc === "tr"
-                            ? "Yazan"
-                            : "Written by"}
+                  ? "Scritto da"
+                  : lc === "es"
+                    ? "Escrito por"
+                    : lc === "de"
+                      ? "Geschrieben von"
+                      : lc === "pt"
+                        ? "Escrito por"
+                        : lc === "fr"
+                          ? "Rédigé par"
+                          : lc === "pl"
+                            ? "Napisane przez"
+                            : lc === "tr"
+                              ? "Yazan"
+                              : lc === "nl"
+                                ? "Geschreven door"
+                                : lc === "ja"
+                                  ? "執筆者"
+                                  : lc === "ko"
+                                    ? "작성자"
+                                    : lc === "sv"
+                                      ? "Skriven av"
+                                      : lc === "da"
+                                        ? "Skrevet af"
+                                        : lc === "no"
+                                          ? "Skrevet av"
+                                          : lc === "fi"
+                                            ? "Kirjoittanut"
+                                            : "Written by"}
               </p>
               <p className="mt-1 font-display font-bold text-text-primary">
                 {AUTHOR.name}
@@ -829,7 +843,21 @@ export default async function BlogArticle({
                             ? "Więcej o projekcie"
                             : lc === "tr"
                               ? "Proje hakkında daha fazla bilgi"
-                              : "More about the project"}{" "}
+                              : lc === "nl"
+                                ? "Meer over het project"
+                                : lc === "ja"
+                                  ? "プロジェクトについて詳しく"
+                                  : lc === "ko"
+                                    ? "프로젝트에 대해 더 알아보기"
+                                    : lc === "sv"
+                                      ? "Mer om projektet"
+                                      : lc === "da"
+                                        ? "Mere om projektet"
+                                        : lc === "no"
+                                          ? "Mer om prosjektet"
+                                          : lc === "fi"
+                                            ? "Lisätietoja projektista"
+                                            : "More about the project"}{" "}
                 <span aria-hidden>→</span>
               </Link>
             </div>

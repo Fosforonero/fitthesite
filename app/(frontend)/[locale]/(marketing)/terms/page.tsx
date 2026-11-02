@@ -73,6 +73,18 @@ export async function generateMetadata(
       canonical: `${SITE_URL}/${lc}/terms`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/terms`),
     },
+    openGraph: {
+      title: `${titles[lc]} · FitMesh`,
+      description: desc[lc],
+      url: `${SITE_URL}/${lc}/terms`,
+      siteName: "FitMesh Sync",
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: `${titles[lc]} · FitMesh`,
+      description: desc[lc],
+    },
   };
 }
 
@@ -93,16 +105,9 @@ export default async function TermsPage({
     LAST_UPDATED_EN;
   const lastUpdated = `${t.legal.last_updated}: ${lastUpdatedDate}`;
 
-  const crumbName =
-    lc === "it" ? "Termini di Servizio" :
-    lc === "es" ? "Términos del Servicio" :
-    lc === "de" ? "Nutzungsbedingungen" :
-    lc === "pt" ? "Termos de Serviço" :
-    lc === "fr" ? "Conditions d'utilisation" :
-    "Terms of Service";
   return (
     <>
-      <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/terms` }]} locale={lc} />
+      <Breadcrumbs items={[{ name: t.legal.terms_title, path: `/${lc}/terms` }]} locale={lc} />
       <LegalJsonLd locale={lc} path="/terms" name={t.legal.terms_title} dateModified={LEGAL_DATE_ISO} />
       <LegalPage kicker={t.legal.section} title={t.legal.terms_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <TermsIT /> :

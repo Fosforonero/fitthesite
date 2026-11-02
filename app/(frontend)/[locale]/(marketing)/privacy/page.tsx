@@ -78,6 +78,18 @@ export async function generateMetadata(
       canonical: `${SITE_URL}/${lc}/privacy`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/privacy`),
     },
+    openGraph: {
+      title: `${titles[lc]} · FitMesh`,
+      description: desc[lc],
+      url: `${SITE_URL}/${lc}/privacy`,
+      siteName: "FitMesh Sync",
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: `${titles[lc]} · FitMesh`,
+      description: desc[lc],
+    },
   };
 }
 
@@ -100,7 +112,7 @@ export default async function PrivacyPage({
 
   return (
     <>
-      <Breadcrumbs items={[{ name: "Privacy Policy", path: `/${lc}/privacy` }]} locale={lc} />
+      <Breadcrumbs items={[{ name: t.legal.privacy_title, path: `/${lc}/privacy` }]} locale={lc} />
       <LegalJsonLd locale={lc} path="/privacy" name={t.legal.privacy_title} dateModified={LEGAL_DATE_ISO} />
       <LegalPage kicker={t.legal.section} title={t.legal.privacy_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <PrivacyIT /> : lc === "es" ? <PrivacyES /> : lc === "de" ? <PrivacyDE /> : lc === "pt" ? <PrivacyPT /> : lc === "fr" ? <PrivacyFR /> : <PrivacyEN labels={t.cookie_banner} />}

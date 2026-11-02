@@ -118,9 +118,9 @@ export function CompatibilitySelector({ locale, guideLinks }: CompatibilitySelec
       aria-label={t.heading}
     >
       <div className="border-b border-divider pb-5 mb-6">
-        <h3 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
+        <h2 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-text-primary">
           {t.heading}
-        </h3>
+        </h2>
         <p className="mt-2 text-sm sm:text-base text-text-secondary leading-relaxed">
           {t.subheading}
         </p>
@@ -188,7 +188,7 @@ export function CompatibilitySelector({ locale, guideLinks }: CompatibilitySelec
             className="w-full py-2.5 px-3 rounded-xl bg-surface-raised border border-divider text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand-aqua"
           >
             {SELECTOR_DEVICES.map((d) => (
-              <option key={d.id} value={d.id}>
+              <option key={d.id} value={d.id} className="bg-bg-elevated text-text-primary">
                 {d.label[locale]}
               </option>
             ))}
@@ -210,7 +210,7 @@ export function CompatibilitySelector({ locale, guideLinks }: CompatibilitySelec
             className="w-full py-2.5 px-3 rounded-xl bg-surface-raised border border-divider text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-brand-aqua"
           >
             {SELECTOR_METRICS.map((m) => (
-              <option key={m.id} value={m.id}>
+              <option key={m.id} value={m.id} className="bg-bg-elevated text-text-primary">
                 {m.label[locale]}
               </option>
             ))}
@@ -316,23 +316,23 @@ export function CompatibilitySelector({ locale, guideLinks }: CompatibilitySelec
         {/* Explanation & Limitations */}
         <div className="space-y-4 text-sm text-text-secondary leading-relaxed">
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-1">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-1">
               {t.explanationLabel}
-            </h4>
+            </h3>
             <p>{result.explanation[locale]}</p>
           </div>
 
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-1">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-1">
               {t.limitationsLabel}
-            </h4>
+            </h3>
             <p className="text-text-muted">{result.limitations[locale]}</p>
           </div>
 
           <div>
-            <h4 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-1">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-text-muted mb-1">
               {t.evidenceLabel}
-            </h4>
+            </h3>
             <p className="text-xs text-text-muted italic">{result.evidence[locale]}</p>
           </div>
         </div>

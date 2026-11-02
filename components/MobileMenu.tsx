@@ -5,8 +5,40 @@ import { CTA_IDS, CTA_PLACEMENTS } from "@/lib/analytics/cta";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 
-const INTEGRATIONS_LABEL: Partial<Record<Locale, string>> = {
+const INTEGRATIONS_LABEL: Record<Locale, string> = {
   it: "Integrazioni",
+  en: "Integrations",
+  es: "Integraciones",
+  de: "Integrationen",
+  pt: "Integrações",
+  fr: "Intégrations",
+  pl: "Integracje",
+  tr: "Entegrasyonlar",
+  nl: "Integraties",
+  ja: "連携",
+  ko: "연동",
+  sv: "Integrationer",
+  da: "Integrationer",
+  no: "Integrasjoner",
+  fi: "Integraatiot",
+};
+
+const menuAriaLabels: Record<Locale, { open: string; close: string }> = {
+  it: { open: "Apri menu", close: "Chiudi menu" },
+  en: { open: "Open menu", close: "Close menu" },
+  es: { open: "Abrir menú", close: "Cerrar menú" },
+  de: { open: "Menü öffnen", close: "Menü schließen" },
+  pt: { open: "Abrir menu", close: "Fechar menu" },
+  fr: { open: "Ouvrir le menu", close: "Fermer le menu" },
+  pl: { open: "Otwórz menu", close: "Zamknij menu" },
+  tr: { open: "Menüyü aç", close: "Menüyü kapat" },
+  nl: { open: "Menu openen", close: "Menu sluiten" },
+  ja: { open: "メニューを開く", close: "メニューを閉じる" },
+  ko: { open: "메뉴 열기", close: "메뉴 닫기" },
+  sv: { open: "Öppna meny", close: "Stäng meny" },
+  da: { open: "Åbn menu", close: "Luk menu" },
+  no: { open: "Åpne meny", close: "Lukk meny" },
+  fi: { open: "Avaa valikko", close: "Sulje valikko" },
 };
 
 export default function MobileMenu({
@@ -45,7 +77,7 @@ export default function MobileMenu({
       <button
         className="md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[5px] rounded-lg hover:bg-white/5 transition-colors"
         onClick={() => setOpen((v) => !v)}
-        aria-label={open ? "Chiudi menu" : "Apri menu"}
+        aria-label={open ? (menuAriaLabels[locale]?.close || "Chiudi menu") : (menuAriaLabels[locale]?.open || "Apri menu")}
         aria-expanded={open}
         aria-controls="mobile-nav"
       >

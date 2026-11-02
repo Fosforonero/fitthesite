@@ -64,7 +64,7 @@ export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) 
       {/* Soundwave floating decoration */}
       <div
         aria-hidden
-        className="absolute -right-2 top-[44%] hidden sm:flex gap-1 items-center opacity-90 z-20"
+        className="hero-soundwave absolute -right-2 top-[44%] hidden sm:flex gap-1 items-center opacity-90 z-20"
       >
         {[12, 22, 16, 28, 14].map((h, i) => (
           <span
@@ -85,7 +85,7 @@ export default function HeroVisual({ locale = "en" }: { locale?: "it" | "en" }) 
             0%, 100% { transform: scaleY(1); }
             50% { transform: scaleY(1.6); }
           }
-          @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+          @media (prefers-reduced-motion: reduce) { .hero-soundwave * { animation: none !important; } }
         `}</style>
       </div>
     </div>
