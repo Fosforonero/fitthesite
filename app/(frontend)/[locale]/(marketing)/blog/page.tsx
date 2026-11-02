@@ -43,7 +43,7 @@ export async function generateMetadata({
     lc === "sv" ? "FitMesh Blogg: wearable-synk, Health Connect, hälsodata" :
     lc === "da" ? "FitMesh Blog: wearable-synk, Health Connect, sundhedsdata" :
     lc === "no" ? "FitMesh Blogg: wearable-synk, Health Connect, helsedata" :
-    lc === "fi" ? "FitMesh Blogi: puettavat, Health Connect, terveystietosuoja" :
+    lc === "fi" ? "FitMesh-blogi: synkronointi, Health Connect, tietosuoja" :
     "FitMesh Blog: Wearable sync, Health Connect, health privacy";
   // P0.8: descrizione ja estesa (era 91 caratteri, sotto la soglia Bing
   // 140-160) con un dettaglio reale già vero del prodotto (dashboard multi
@@ -62,7 +62,7 @@ export async function generateMetadata({
     lc === "sv" ? "Ärliga guider om wearable-synkronisering, Health Connect, dataexport för Galaxy Watch och Garmin, GDPR och integritet. Ingen hype, bara nyttig information." :
     lc === "da" ? "Ærlige guides om wearable-synkronisering, Health Connect, dataeksport for Galaxy Watch og Garmin, GDPR og privatliv. Ingen hype, kun nyttig information." :
     lc === "no" ? "Ærlige veiledninger om wearable-synkronisering, Health Connect, dataeksport for Galaxy Watch og Garmin, GDPR og personvern. Ingen hype, bare nyttig info." :
-    lc === "fi" ? "Selkeitä oppaita puettavien laitteiden synkronoinnista, Health Connectista, Galaxy Watch- ja Garmin-viennistä sekä GDPR:stä. Vain hyödyllistä tietoa." :
+    lc === "fi" ? "Oppaita puettavien laitteiden synkronoinnista, Health Connectista, Galaxy Watch- ja Garmin-tietojen viennistä sekä GDPR:stä. Vain hyödyllistä tietoa." :
     "Honest guides on wearable sync, Health Connect, Galaxy Watch and Garmin data export, GDPR and privacy. No hype, just useful information.";
 
   const path = `/${lc}/blog`;

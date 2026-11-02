@@ -17,7 +17,7 @@ const NOT_FOUND_COPY: Record<Locale, { title: string; desc: string; backToHome: 
   },
   es: {
     title: "Página no encontrada",
-    desc: "La página que buscas no existe o ha sido movida.",
+    desc: "La página que buscas no existe o se ha movido.",
     backToHome: "Volver al inicio",
   },
   de: {
@@ -27,22 +27,22 @@ const NOT_FOUND_COPY: Record<Locale, { title: string; desc: string; backToHome: 
   },
   pt: {
     title: "Página não encontrada",
-    desc: "A página que você procura não existe ou foi movida.",
+    desc: "A página que procura não existe ou foi movida.",
     backToHome: "Voltar ao início",
   },
   fr: {
-    title: "Page non trouvée",
+    title: "Page introuvable",
     desc: "La page que vous recherchez n'existe pas ou a été déplacée.",
     backToHome: "Retour à l'accueil",
   },
   pl: {
-    title: "Strona nie znaleziona",
+    title: "Nie znaleziono strony",
     desc: "Strona, której szukasz, nie istnieje lub została przeniesiona.",
     backToHome: "Wróć do strony głównej",
   },
   tr: {
     title: "Sayfa bulunamadı",
-    desc: "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+    desc: "Aradığınız sayfa bulunamadı veya taşınmış olabilir.",
     backToHome: "Ana sayfaya dön",
   },
   nl: {
