@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { headers } from "next/headers";
 import Logo from "@/components/Logo";
-import { locales, type Locale } from "@/lib/i18n";
+import { type Locale } from "@/lib/i18n";
 
 const NOT_FOUND_COPY: Record<Locale, { title: string; desc: string; backToHome: string }> = {
   it: {
@@ -81,34 +80,18 @@ const NOT_FOUND_COPY: Record<Locale, { title: string; desc: string; backToHome: 
   },
 };
 
-export default async function GlobalNotFound() {
-  const headerList = await headers();
-  const rawPath =
-    headerList.get("x-matched-path") ||
-    headerList.get("x-invoke-path") ||
-    headerList.get("next-url") ||
-    "";
-
-  // Riconosci la lingua dal percorso se presente, altrimenti fallback stabile su "en"
-  let detectedLocale: Locale = "en";
-  for (const l of locales) {
-    if (rawPath === `/${l}` || rawPath.startsWith(`/${l}/`) || rawPath.includes(`/${l}/`)) {
-      detectedLocale = l;
-      break;
-    }
-  }
-
-  const copy = NOT_FOUND_COPY[detectedLocale] || NOT_FOUND_COPY.en;
+export default function GlobalNotFound() {
+  const copy = NOT_FOUND_COPY.en;
 
   return (
-    <html lang={detectedLocale}>
+    <html lang="en">
       <head>
         <title>{`404 - ${copy.title} · FitMesh`}</title>
       </head>
       <body className="min-h-screen flex flex-col justify-between bg-[#050816] text-[#F3F4F6] font-sans antialiased">
         <header className="border-b border-[#24304A]/60 py-4 px-6">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <Link href={`/${detectedLocale}`} aria-label="FitMesh Sync Home">
+            <Link href="/en" aria-label="FitMesh Sync Home">
               <Logo variant="horizontal" size={32} priority />
             </Link>
           </div>
@@ -126,7 +109,7 @@ export default async function GlobalNotFound() {
           </p>
           <div className="mt-8">
             <Link
-              href={`/${detectedLocale}`}
+              href="/en"
               className="inline-flex items-center gap-2 rounded-full bg-[#21E6C1] text-[#03121F] px-6 py-2.5 text-sm font-semibold hover:bg-[#1DA1FF] transition"
             >
               {copy.backToHome} →
