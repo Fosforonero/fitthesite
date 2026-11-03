@@ -61,6 +61,18 @@ export async function generateMetadata(
       canonical: `${SITE_URL}/${lc}/cookies`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/cookies`),
     },
+    openGraph: {
+      title: `${titles[lc]} · FitMesh`,
+      description: desc[lc],
+      url: `${SITE_URL}/${lc}/cookies`,
+      siteName: "FitMesh Sync",
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: `${titles[lc]} · FitMesh`,
+      description: desc[lc],
+    },
   };
 }
 
@@ -82,7 +94,7 @@ export default async function CookiesPage({
   }`;
   return (
     <>
-      <Breadcrumbs items={[{ name: "Cookie Policy", path: `/${lc}/cookies` }]} locale={lc} />
+      <Breadcrumbs items={[{ name: t.legal.cookies_title, path: `/${lc}/cookies` }]} locale={lc} />
       <LegalJsonLd locale={lc} path="/cookies" name={t.legal.cookies_title} dateModified="2026-09-22" />
       <LegalPage kicker={t.legal.section} title={t.legal.cookies_title} lastUpdated={lastUpdated}>
         {lc === "it" ? <CookiesIT /> : lc === "es" ? <CookiesES /> : lc === "de" ? <CookiesDE /> : lc === "pt" ? <CookiesPT /> : lc === "fr" ? <CookiesFR /> : <CookiesEN labels={t.cookie_banner} />}

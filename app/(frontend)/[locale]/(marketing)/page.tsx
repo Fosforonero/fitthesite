@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CTA_PLACEMENTS } from "@/lib/analytics/cta";
-import { getDictionary, locales, type Locale } from "@/lib/i18n";
+import { getDictionary, locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import HeroVisual from "@/components/HeroVisual";
 import MockupShowcase from "@/components/MockupShowcase";
 import StoreButtonsRow from "@/components/StoreButtonsRow";
@@ -21,7 +21,7 @@ import Testimonials from "@/components/Testimonials";
 import { SITE_URL } from "@/lib/product-facts";
 import { visibleFeatureCards } from "@/lib/feature-status";
 import { schemaLanguage } from "@/lib/seo/schema-language";
-import { homeMetaDescription, homeMetaTitle } from "@/lib/content/home-meta";
+import { HOME_META_TITLES, HOME_META_DESCRIPTIONS, homeMetaDescription, homeMetaTitle } from "@/lib/content/home-meta";
 
 /**
  * Below-the-fold marketing copy on this page (How it works, Integrations
@@ -49,7 +49,30 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const lc = (locales as readonly string[]).includes(locale) ? (locale as Locale) : "it";
+  const titles = HOME_META_TITLES;
+  const descriptions = HOME_META_DESCRIPTIONS;
+
   return {
+    title: titles[lc],
+    description: descriptions[lc],
+    alternates: {
+      canonical: `${SITE_URL}/${lc}`,
+      languages: localeAlternates((l) => `${SITE_URL}/${l}`),
+    },
+    openGraph: {
+      type: "website",
+      url: `${SITE_URL}/${lc}`,
+      siteName: "FitMesh Sync",
+      title: titles[lc],
+      description: descriptions[lc],
+      locale: ogLocale[lc],
+      alternateLocale: locales.filter((l) => l !== lc).map((l) => ogLocale[l]),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "FitMesh Sync",
+      description: descriptions[lc],
+    },
     robots: COMPLETE_BODY_LOCALES.includes(lc) ? undefined : { index: false, follow: false },
   };
 }

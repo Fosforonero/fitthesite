@@ -19,6 +19,24 @@ function persistLocaleChoice(locale: Locale) {
 
 type LocaleOption = { locale: Locale; href: string };
 
+const languageAriaLabels: Record<Locale, string> = {
+  it: "Lingua",
+  en: "Language",
+  es: "Idioma",
+  de: "Sprache",
+  pt: "Idioma",
+  fr: "Langue",
+  pl: "Język",
+  tr: "Dil",
+  nl: "Taal",
+  ja: "言語",
+  ko: "언어",
+  sv: "Språk",
+  da: "Sprog",
+  no: "Språk",
+  fi: "Kieli",
+};
+
 // CANONICAL_HOST (da `lib/site-url.ts`, derivato da SITE_URL — non un
 // secondo letterale): `blogLanguages()`/`localeAlternates()` emettono SEMPRE
 // hreflang assoluti su questo host, anche quando la pagina è servita da
@@ -150,7 +168,7 @@ export default function LanguageSwitcher({ current }: { current: Locale }) {
         onClick={toggleOpen}
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-label="Lingua"
+        aria-label={languageAriaLabels[current] || "Language"}
         className="inline-flex items-center gap-2 rounded-pill border border-divider bg-bg-card/70 px-3 py-2 text-[12px] font-semibold text-text-secondary transition hover:text-text-primary min-h-[36px]"
       >
         <span aria-hidden className="text-[14px] leading-none">{localeFlags[current]}</span>
@@ -169,7 +187,7 @@ export default function LanguageSwitcher({ current }: { current: Locale }) {
       {open && (
         <ul
           role="listbox"
-          className="absolute right-0 z-50 mt-2 min-w-[160px] overflow-hidden rounded-2xl border border-divider bg-bg-elevated shadow-lg"
+          className="absolute right-0 z-50 mt-2 min-w-[160px] max-h-[calc(100vh-120px)] sm:max-h-[70vh] overflow-y-auto overscroll-contain rounded-2xl border border-divider bg-bg-elevated shadow-lg"
         >
           {options.map(({ locale: l, href }) => {
             const active = l === current;

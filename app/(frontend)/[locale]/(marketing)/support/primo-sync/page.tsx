@@ -146,7 +146,7 @@ export default async function PrimoSyncPage({
       <JsonLd data={webPageJsonLd} />
       <JsonLd data={faqJsonLd} />
 
-      <main className="min-h-screen px-4 sm:px-6 py-12 max-w-5xl mx-auto">
+      <div className="min-h-screen px-4 sm:px-6 py-12 max-w-5xl mx-auto">
         <Breadcrumbs items={breadcrumbsItems} locale={lc} />
 
         {/* Hero Section */}
@@ -341,7 +341,7 @@ export default async function PrimoSyncPage({
             </a>
           </div>
         </footer>
-      </main>
+      </div>
     </>
   );
 }

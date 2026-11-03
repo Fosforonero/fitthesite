@@ -20,7 +20,10 @@ import { locales, type Locale, ogLocale, localeAlternates } from "@/lib/i18n";
 import { SITE_URL } from "@/lib/product-facts";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 
-const TAGLINE = "Use your favorite AI assistant with your own health data.";
+const TAGLINE: Record<"it" | "en", string> = {
+  it: "Usa il tuo assistente AI preferito con i tuoi dati di salute.",
+  en: "Use your favorite AI assistant with your own health data.",
+};
 
 const COPY = {
   it: {
@@ -33,11 +36,11 @@ const COPY = {
     why_h2: "Due regole, zero vincoli.",
     why_items: [
       {
-        title: "Bring your own wearable.",
+        title: "Il tuo wearable, la tua scelta.",
         body: "Galaxy Watch, Wear OS, anello smart, Health Connect: FitMesh unisce i dati di qualsiasi dispositivo tu scelga, oggi o in futuro.",
       },
       {
-        title: "Bring your own AI.",
+        title: "La tua AI, la tua scelta.",
         body: "Non ti serviamo un chatbot proprietario. Generiamo un riepilogo pulito dei tuoi dati e sei tu a decidere con chi parlarne: l'assistente che già usi e di cui ti fidi.",
       },
     ],
@@ -95,7 +98,7 @@ const COPY = {
         a: "No. Il riepilogo viene generato solo quando lo richiedi tu, e sei tu a incollarlo dove vuoi. Nessun invio automatico.",
       },
     ],
-    final_cta_h2: TAGLINE,
+    final_cta_h2: TAGLINE.it,
     final_cta_body: "Nessun vincolo. Nessun account AI da creare. Solo i tuoi dati, pronti quando vuoi.",
   },
   en: {
@@ -170,7 +173,7 @@ const COPY = {
         a: "No. The summary is only generated when you ask for it, and you're the one who pastes it wherever you want. Nothing is sent automatically.",
       },
     ],
-    final_cta_h2: TAGLINE,
+    final_cta_h2: TAGLINE.en,
     final_cta_body: "No lock-in. No AI account to create. Just your data, ready whenever you are.",
   },
 } as const;
@@ -190,8 +193,8 @@ export async function generateMetadata({
 
   const title =
     lc === "it"
-      ? "Condividi con AI — Usa il tuo assistente preferito | FitMesh Sync"
-      : "Share with AI — Use your favorite assistant | FitMesh Sync";
+      ? "Condividi con AI: usa il tuo assistente preferito · FitMesh"
+      : "Share with AI: Use your favorite assistant · FitMesh";
   const description =
     lc === "it"
       ? "FitMesh prepara un riepilogo dei tuoi dati di salute, pronto da incollare in ChatGPT, Claude, Gemini o l'assistente AI che preferisci. Non è un'AI: sei sempre tu a decidere."
@@ -233,14 +236,15 @@ export default async function AiLanding({
     "@type": "WebPage",
     "@id": `${SITE_URL}${path}#webpage`,
     url: `${SITE_URL}${path}`,
-    name: lc === "it" ? "Condividi con AI — FitMesh Sync" : "Share with AI — FitMesh Sync",
+    name: lc === "it" ? "Condividi con AI · FitMesh" : "Share with AI · FitMesh",
     description: t.hero_sub,
-    inLanguage: schemaLanguage(lc),
+    inLanguage: schemaLanguage(copyKey),
   };
 
   const faqLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    inLanguage: schemaLanguage(copyKey),
     mainEntity: t.faqs.map((f) => ({
       "@type": "Question",
       name: f.q,
@@ -260,7 +264,7 @@ export default async function AiLanding({
           {t.hero_kicker}
         </p>
         <h1 className="mt-4 font-display text-display-lg sm:text-display-xl font-semibold tracking-tightest text-text-primary text-balance">
-          {TAGLINE}
+          {TAGLINE[copyKey]}
         </h1>
         <p className="mt-6 text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto leading-relaxed">
           {t.hero_sub}

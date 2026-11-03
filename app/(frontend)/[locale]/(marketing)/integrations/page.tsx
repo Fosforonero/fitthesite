@@ -39,22 +39,34 @@ export async function generateMetadata({
 
   const title =
     lc === "it"
-      ? "Integrazioni — FitMesh Sync"
+      ? "Integrazioni · FitMesh"
       : lc === "es"
-        ? "Integraciones — FitMesh Sync"
+        ? "Integraciones · FitMesh"
         : lc === "de"
-          ? "Integrationen — FitMesh Sync"
+          ? "Integrationen · FitMesh"
           : lc === "pt"
-            ? "Integrações — FitMesh Sync"
+            ? "Integrações · FitMesh"
             : lc === "fr"
-              ? "Intégrations — FitMesh Sync"
+              ? "Intégrations · FitMesh"
               : lc === "nl"
-                ? "Integraties — FitMesh Sync"
+                ? "Integraties · FitMesh"
                 : lc === "ja"
-                  ? "連携 — FitMesh Sync"
+                  ? "連携 · FitMesh"
                   : lc === "ko"
-                    ? "연동 — FitMesh Sync"
-                    : "Integrations — FitMesh Sync";
+                    ? "연동 · FitMesh"
+                    : lc === "pl"
+                      ? "Integracje · FitMesh"
+                      : lc === "tr"
+                        ? "Entegrasyonlar · FitMesh"
+                        : lc === "sv"
+                          ? "Integrationer · FitMesh"
+                          : lc === "da"
+                            ? "Integrationer · FitMesh"
+                            : lc === "no"
+                              ? "Integrasjoner · FitMesh"
+                              : lc === "fi"
+                                ? "Integraatiot · FitMesh"
+                                : "Integrations · FitMesh";
   const description =
     lc === "it"
       ? "Tutte le integrazioni di FitMesh Sync: Galaxy Watch, Wear OS, Mi Band, Fitbit, Garmin, Strava, Polar, Oura, Withings. Stato live e roadmap aggiornata."
@@ -389,9 +401,9 @@ export default async function IntegrationsHub({
                   "Approfondisci nella guida completa al sync wearable",
                   "Read the complete guide to wearable sync",
                   "Lee la guía completa de sincronización de wearables",
-                  undefined,
-                  undefined,
-                  undefined,
+                  "Lies den vollständigen Leitfaden zur Wearable-Synchronisierung",
+                  "Leia o guia completo de sincronização de wearables",
+                  "Consultez le guide complet de synchronisation des wearables",
                   "Lees de complete gids voor wearable sync",
                   "ウェアラブルsyncの完全ガイドを読む",
                   "웨어러블 동기화 전체 가이드 읽기",
@@ -407,9 +419,9 @@ export default async function IntegrationsHub({
                 "Vedi cosa è live, read-only o ancora in sviluppo",
                 "See what's live, read-only, or still in development",
                 "Mira qué está en vivo, es solo lectura o sigue en desarrollo",
-                undefined,
-                undefined,
-                undefined,
+                "Sieh nach, was live, schreibgeschützt oder noch in Entwicklung ist",
+                "Veja o que está ativo, somente leitura ou ainda em desenvolvimento",
+                "Découvrez ce qui est disponible, en lecture seule ou encore en développement",
                 "Bekijk wat live, alleen-lezen of nog in ontwikkeling is",
                 "何がライブで、読み取り専用で、まだ開発中かを確認",
                 "무엇이 라이브인지, 읽기 전용인지, 아직 개발 중인지 확인하기",

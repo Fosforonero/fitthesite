@@ -6,6 +6,24 @@ import { CTA_IDS, CTA_PLACEMENTS } from "@/lib/analytics/cta";
 import type { Dictionary, Locale } from "@/lib/i18n";
 import { resolveLabsLocale } from "@/lib/labs/locale-redirect";
 
+const INTEGRATIONS_LABEL: Record<Locale, string> = {
+  it: "Integrazioni",
+  en: "Integrations",
+  es: "Integraciones",
+  de: "Integrationen",
+  pt: "Integrações",
+  fr: "Intégrations",
+  pl: "Integracje",
+  tr: "Entegrasyonlar",
+  nl: "Integraties",
+  ja: "連携",
+  ko: "연동",
+  sv: "Integrationer",
+  da: "Integrationer",
+  no: "Integrasjoner",
+  fi: "Integraatiot",
+};
+
 export default function Header({
   dict,
   locale,
@@ -43,7 +61,7 @@ export default function Header({
             href={`/${locale}/integrations`}
             className="px-3 py-1.5 rounded-pill text-text-secondary hover:text-text-primary hover:bg-white/5 transition hidden md:inline-block"
           >
-            {locale === "it" ? "Integrazioni" : "Integrations"}
+            {INTEGRATIONS_LABEL[locale] ?? "Integrations"}
           </Link>
           <Link
             href={`/${locale}/roadmap`}

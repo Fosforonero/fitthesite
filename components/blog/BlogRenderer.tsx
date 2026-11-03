@@ -405,9 +405,9 @@ export function BlogRenderer({
                   <p className="text-[10px] uppercase tracking-[0.22em] text-brand-aqua font-semibold">
                     A
                   </p>
-                  <h4 className="mt-2 font-display text-lg font-semibold text-text-primary">
+                  <h3 className="mt-2 font-display text-lg font-semibold text-text-primary">
                     {tl(s.aTitle, locale)}
-                  </h4>
+                  </h3>
                   <ul className="mt-4 space-y-2 text-sm">
                     {tll(s.aItems, locale).map((it, j) => (
                       <li
@@ -424,9 +424,9 @@ export function BlogRenderer({
                   <p className="text-[10px] uppercase tracking-[0.22em] text-brand-green font-semibold">
                     B
                   </p>
-                  <h4 className="mt-2 font-display text-lg font-semibold text-text-primary">
+                  <h3 className="mt-2 font-display text-lg font-semibold text-text-primary">
                     {tl(s.bTitle, locale)}
-                  </h4>
+                  </h3>
                   <ul className="mt-4 space-y-2 text-sm">
                     {tll(s.bItems, locale).map((it, j) => (
                       <li
@@ -455,9 +455,9 @@ export function BlogRenderer({
                 data-cta-placement={s.ctaPlacement}
                 className="my-10 rounded-card border border-divider bg-gradient-to-br from-brand-aqua/10 to-brand-green/5 p-6 sm:p-8"
               >
-                <h4 className="font-display text-xl sm:text-2xl font-semibold text-text-primary tracking-tight">
+                <h3 className="font-display text-xl sm:text-2xl font-semibold text-text-primary tracking-tight">
                   {tl(s.title, locale)}
-                </h4>
+                </h3>
                 <p className="mt-3 text-text-secondary leading-relaxed">
                   {renderMarkdownInline(tl(s.body, locale), locale)}
                 </p>
@@ -520,9 +520,9 @@ export function BlogRenderer({
                 data-cta-placement={ctaPlacementValue}
                 className="my-10 rounded-card border border-divider bg-gradient-to-br from-brand-aqua/10 to-brand-green/5 p-6 sm:p-8"
               >
-                <h4 className="font-display text-xl sm:text-2xl font-semibold text-text-primary tracking-tight">
+                <h3 className="font-display text-xl sm:text-2xl font-semibold text-text-primary tracking-tight">
                   {tl(s.title, locale)}
-                </h4>
+                </h3>
                 <p className="mt-3 text-text-secondary leading-relaxed">
                   {renderMarkdownInline(tl(s.body, locale), locale)}
                 </p>

@@ -24,13 +24,22 @@ const config: Config = {
         // ── Surfaces (dark-first; sito sempre dark) ───────────────────────
         bg: {
           DEFAULT:    "#050816",   // page background
+          primary:    "#050816",
+          dark:       "#050816",
           secondary:  "#0B1023",   // section subtle
           card:       "#12182B",   // card surface
           elevated:   "#1A2238",   // hover / elevated card
         },
 
+        surface: {
+          DEFAULT:  "#12182B",
+          raised:   "#1A2238",
+          elevated: "#1A2238",
+        },
+
         // ── Hairline / dividers ───────────────────────────────────────────
         divider: "#24304A",
+        "border-subtle": "#24304A",
 
         // ── Text scale ────────────────────────────────────────────────────
         text: {

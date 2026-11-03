@@ -78,103 +78,121 @@ export default async function SupportPage({
     })),
   };
 
-  const subtitle = lc === "en"
-    ? "The answers to the most common issues. If you can't find what you're looking for,"
-    : lc === "es"
-    ? "Respuestas a las dudas más habituales. Si no encuentras lo que buscas,"
-    : lc === "de"
-    ? "Antworten auf die häufigsten Fragen. Wenn du nicht findest, was du suchst,"
-    : lc === "pt"
-    ? "Respostas para as dúvidas mais comuns. Se você não encontrar o que procura,"
-    : lc === "fr"
-    ? "Les réponses aux questions les plus fréquentes. Si vous ne trouvez pas ce que vous cherchez,"
-    : lc === "nl"
-    ? "De antwoorden op de meest voorkomende vragen. Als je niet vindt wat je zoekt,"
-    : lc === "ja"
-    ? "よくある問題への回答です。お探しの内容が見つからない場合は、"
-    : lc === "ko"
-    ? "일반적인 문제들에 대한 답변입니다. 찾고 계신 것이 없다면,"
-    : "Le risposte ai problemi più comuni. Se non trovi quello che cerchi,";
+  const subtitles: Record<Locale, string> = {
+    it: "Le risposte ai problemi più comuni. Se non trovi quello che cerchi,",
+    en: "The answers to the most common issues. If you can't find what you're looking for,",
+    es: "Respuestas a las dudas más habituales. Si no encuentras lo que buscas,",
+    de: "Antworten auf die häufigsten Fragen. Wenn du nicht findest, was du suchst,",
+    pt: "Respostas para as dúvidas mais comuns. Se você não encontrar o que procura,",
+    fr: "Les réponses aux questions les plus fréquentes. Si vous ne trouvez pas ce que vous cherchez,",
+    nl: "De antwoorden op de meest voorkomende vragen. Als je niet vindt wat je zoekt,",
+    ja: "よくある問題への回答です。お探しの内容が見つからない場合は、",
+    ko: "일반적인 문제들에 대한 답변입니다. 찾고 계신 것이 없다면,",
+    pl: "Odpowiedzi na najczęstsze pytania. Jeśli nie możesz znaleźć tego, czego szukasz,",
+    tr: "En sık karşılaşılan sorunların yanıtları. Aradığınızı bulamadıysanız,",
+    sv: "Svaren på de vanligaste frågorna. Om du inte hittar det du söker,",
+    da: "Svarene på de mest almindelige spørgsmål. Hvis du ikke finder det, du leder efter,",
+    no: "Svarene på de vanligste spørsmålene. Hvis du ikke finner det du leter etter,",
+    fi: "Vastaukset yleisimpiin kysymyksiin. Jos et löydä etsimääsi,",
+  };
 
-  const writeUsLabel = lc === "en"
-    ? "write to support@fitmesh.fit"
-    : lc === "es"
-    ? "escríbenos a support@fitmesh.fit"
-    : lc === "de"
-    ? "schreib uns an support@fitmesh.fit"
-    : lc === "pt"
-    ? "escreva para support@fitmesh.fit"
-    : lc === "fr"
-    ? "écrivez-nous à support@fitmesh.fit"
-    : lc === "nl"
-    ? "schrijf ons op support@fitmesh.fit"
-    : lc === "ja"
-    ? "support@fitmesh.fitまでご連絡ください"
-    : lc === "ko"
-    ? "support@fitmesh.fit으로 문의해 주세요"
-    : "scrivici a support@fitmesh.fit";
+  const writeUsLabels: Record<Locale, string> = {
+    it: "scrivici a support@fitmesh.fit",
+    en: "write to support@fitmesh.fit",
+    es: "escríbenos a support@fitmesh.fit",
+    de: "schreib uns an support@fitmesh.fit",
+    pt: "escreva para support@fitmesh.fit",
+    fr: "écrivez-nous à support@fitmesh.fit",
+    nl: "schrijf ons op support@fitmesh.fit",
+    ja: "support@fitmesh.fitまでご連絡ください",
+    ko: "support@fitmesh.fit으로 문의해 주세요",
+    pl: "napisz na support@fitmesh.fit",
+    tr: "support@fitmesh.fit adresine yazın",
+    sv: "skriv till support@fitmesh.fit",
+    da: "skriv til support@fitmesh.fit",
+    no: "skriv til support@fitmesh.fit",
+    fi: "kirjoita osoitteeseen support@fitmesh.fit",
+  };
 
-  const moreQuestionsHeading = lc === "en"
-    ? "Have another question?"
-    : lc === "es"
-    ? "¿Tienes alguna otra duda?"
-    : lc === "de"
-    ? "Noch eine Frage?"
-    : lc === "pt"
-    ? "Tem outra dúvida?"
-    : lc === "fr"
-    ? "Vous avez une autre question ?"
-    : lc === "nl"
-    ? "Heb je nog een andere vraag?"
-    : lc === "ja"
-    ? "別の質問がありますか？"
-    : lc === "ko"
-    ? "다른 질문이 있으신가요?"
-    : "Hai un'altra domanda?";
-  const moreQuestionsDesc = lc === "en"
-    ? "Drop us a line. We respond personally within 48 hours (usually much sooner)."
-    : lc === "es"
-    ? "Escríbenos. Respondemos personalmente en menos de 48 horas (normalmente mucho antes)."
-    : lc === "de"
-    ? "Schreib uns. Wir antworten persönlich innerhalb von 48 Stunden (meistens viel früher)."
-    : lc === "pt"
-    ? "Fale com a gente. Respondemos pessoalmente em até 48 horas (geralmente muito antes)."
-    : lc === "fr"
-    ? "Contactez-nous. Nous répondons personnellement en moins de 48 heures (souvent bien avant)."
-    : lc === "nl"
-    ? "Schrijf ons. We reageren persoonlijk binnen 48 uur (meestal veel eerder)."
-    : lc === "ja"
-    ? "ご連絡ください。48時間以内（通常はもっと早く）に個人的にご回答いたします。"
-    : lc === "ko"
-    ? "문의해 주세요. 48시간 이내(보통 훨씬 빠르게)에 직접 답변 드리겠습니다."
-    : "Scrivici. Rispondiamo personalmente entro 48 ore (di solito molto prima).";
+  const moreQuestionsHeadings: Record<Locale, string> = {
+    it: "Hai un'altra domanda?",
+    en: "Have another question?",
+    es: "¿Tienes alguna otra duda?",
+    de: "Noch eine Frage?",
+    pt: "Tem outra dúvida?",
+    fr: "Vous avez une autre question ?",
+    nl: "Heb je nog een andere vraag?",
+    ja: "別の質問がありますか？",
+    ko: "다른 질문이 있으신가요?",
+    pl: "Masz inne pytanie?",
+    tr: "Başka bir sorunuz mu var?",
+    sv: "Har du en annan fråga?",
+    da: "Har du et andet spørgsmål?",
+    no: "Har du et annet spørsmål?",
+    fi: "Onko sinulla toinen kysymys?",
+  };
 
-  const ctaPrimary = lc === "en"
-    ? "Email support@fitmesh.fit"
-    : lc === "es"
-    ? "Escribe a support@fitmesh.fit"
-    : lc === "de"
-    ? "Schreib an support@fitmesh.fit"
-    : lc === "pt"
-    ? "Escreva para support@fitmesh.fit"
-    : lc === "fr"
-    ? "Écrire à support@fitmesh.fit"
-    : lc === "nl"
-    ? "Schrijf naar support@fitmesh.fit"
-    : lc === "ja"
-    ? "support@fitmesh.fitにメールする"
-    : lc === "ko"
-    ? "support@fitmesh.fit에 이메일 보내기"
-    : "Scrivi a support@fitmesh.fit";
+  const moreQuestionsDescs: Record<Locale, string> = {
+    it: "Scrivici. Rispondiamo personalmente entro 48 ore (di solito molto prima).",
+    en: "Drop us a line. We respond personally within 48 hours (usually much sooner).",
+    es: "Escríbenos. Respondemos personalmente en menos de 48 horas (normalmente mucho antes).",
+    de: "Schreib uns. Wir antworten persönlich innerhalb von 48 Stunden (meistens viel früher).",
+    pt: "Fale com a gente. Respondemos pessoalmente em até 48 horas (geralmente muito antes).",
+    fr: "Contactez-nous. Nous répondons personnellement en moins de 48 heures (souvent bien avant).",
+    nl: "Schrijf ons. We reageren persoonlijk binnen 48 uur (meestal veel eerder).",
+    ja: "ご連絡ください。48時間以内（通常はもっと早く）に個人的にご回答いたします。",
+    ko: "문의해 주세요. 48시간 이내(보통 훨씬 빠르게)에 직접 답변 드리겠습니다.",
+    pl: "Napisz do nas. Odpowiadamy osobiście w ciągu 48 godzin (zazwyczaj znacznie szybciej).",
+    tr: "Bize yazın. 48 saat içinde (genellikle çok daha erken) bizzat yanıt veriyoruz.",
+    sv: "Skriv till oss. Vi svarar personligen inom 48 timmar (oftast mycket tidigare).",
+    da: "Skriv til os. Vi svarer personligt inden for 48 timer (normalt meget hurtigere).",
+    no: "Skriv til oss. Vi svarer personlig innen 48 timer (vanligvis mye raskere).",
+    fi: "Kirjoita meille. Vastaamme henkilökohtaisesti 48 tunnin sisällä (yleensä paljon nopeammin).",
+  };
 
-  const crumbName = lc === "en" ? "Support" : lc === "es" ? "Soporte" : lc === "de" ? "Support" : lc === "pt" ? "Suporte" : lc === "fr" ? "Assistance" : lc === "nl" ? "Ondersteuning" : lc === "ja" ? "サポート" : lc === "ko" ? "고객 지원" : "Supporto";
+  const ctaPrimaries: Record<Locale, string> = {
+    it: "Scrivi a support@fitmesh.fit",
+    en: "Email support@fitmesh.fit",
+    es: "Escribe a support@fitmesh.fit",
+    de: "Schreib an support@fitmesh.fit",
+    pt: "Escreva para support@fitmesh.fit",
+    fr: "Écrire à support@fitmesh.fit",
+    nl: "Schrijf naar support@fitmesh.fit",
+    ja: "support@fitmesh.fitにメールする",
+    ko: "support@fitmesh.fit에 이메일 보내기",
+    pl: "Napisz na support@fitmesh.fit",
+    tr: "support@fitmesh.fit adresine e-posta gönderin",
+    sv: "Mejla support@fitmesh.fit",
+    da: "Send e-mail til support@fitmesh.fit",
+    no: "Send e-post til support@fitmesh.fit",
+    fi: "Lähetä sähköpostia osoitteeseen support@fitmesh.fit",
+  };
 
-  // Solo IT/EN tradotti per ora (P0.4D, fase 5): le altre lingue ricadono
-  // sull'inglese invece di lasciare il link assente, come gia' fa altrove
-  // questo file (es. moreQuestionsHeading non ha varianti per pl/tr/sv/da/no/fi).
-  const deleteAccountLinkText = lc === "it"
-    ? "Vuoi eliminare il tuo account? Vai alla pagina dedicata"
-    : "Want to delete your account? Go to the dedicated page";
+  const deleteAccountLinkTexts: Record<Locale, string> = {
+    it: "Vuoi eliminare il tuo account? Vai alla pagina dedicata",
+    en: "Want to delete your account? Go to the dedicated page",
+    es: "¿Quieres eliminar tu cuenta? Ve a la página dedicada",
+    de: "Möchtest du dein Konto löschen? Zur entsprechenden Seite",
+    pt: "Deseja excluir sua conta? Vá para a página dedicada",
+    fr: "Vous souhaitez supprimer votre compte ? Accédez à la page dédiée",
+    nl: "Wil je je account verwijderen? Ga naar de pagina voor het verwijderen van je account",
+    ja: "アカウントを削除しますか？専用ページへ移動",
+    ko: "계정을 삭제하시겠습니까? 전용 페이지로 이동",
+    pl: "Chcesz usunąć swoje konto? Przejdź do strony usuwania konta",
+    tr: "Hesabınızı silmek mi istiyorsunuz? Özel sayfaya gidin",
+    sv: "Vill du radera ditt konto? Gå till den särskilda sidan",
+    da: "Vil du slette din konto? Gå til den dedikerede side",
+    no: "Vil du slette kontoen din? Gå til den dedikerte siden",
+    fi: "Haluatko poistaa tilisi? Siirry erilliselle sivulle",
+  };
+
+  const subtitle = subtitles[lc];
+  const writeUsLabel = writeUsLabels[lc];
+  const moreQuestionsHeading = moreQuestionsHeadings[lc];
+  const moreQuestionsDesc = moreQuestionsDescs[lc];
+  const ctaPrimary = ctaPrimaries[lc];
+  const crumbName = t.nav.support || "Support";
+  const deleteAccountLinkText = deleteAccountLinkTexts[lc];
   return (
     <article className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
       <Breadcrumbs items={[{ name: crumbName, path: `/${lc}/support` }]} locale={lc} />

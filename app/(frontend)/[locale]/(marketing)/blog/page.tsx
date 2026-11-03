@@ -40,12 +40,16 @@ export async function generateMetadata({
     lc === "nl" ? "FitMesh Blog: wearable synchronisatie, Health Connect, gezondheidsdata" :
     lc === "ja" ? "FitMesh ブログ：ウェアラブル同期・Health Connect・健康データプライバシー" :
     lc === "ko" ? "FitMesh 블로그: 웨어러블 동기화·Health Connect·건강 데이터 프라이버시" :
+    lc === "sv" ? "FitMesh Blogg: wearable-synk, Health Connect, hälsodata" :
+    lc === "da" ? "FitMesh Blog: wearable-synk, Health Connect, sundhedsdata" :
+    lc === "no" ? "FitMesh Blogg: wearable-synk, Health Connect, helsedata" :
+    lc === "fi" ? "FitMesh-blogi: synkronointi, Health Connect, tietosuoja" :
     "FitMesh Blog: Wearable sync, Health Connect, health privacy";
   // P0.8: descrizione ja estesa (era 91 caratteri, sotto la soglia Bing
   // 140-160) con un dettaglio reale già vero del prodotto (dashboard multi
   // dispositivo FitMesh Sync), non padding ripetitivo.
   const description =
-    lc === "it" ? "Guide oneste su sync wearable, Health Connect, esportazione dati Galaxy Watch / Fitbit / Garmin, GDPR e privacy. Niente hype, solo informazioni utili." :
+    lc === "it" ? "Guide oneste su sync wearable, Health Connect, esportazione dati Galaxy Watch e Garmin, GDPR e privacy. Niente hype, solo informazioni utili." :
     lc === "es" ? "Guías honestas sobre sincronización de wearables, Health Connect, exportación de datos de Galaxy Watch y Garmin, GDPR y privacidad. Sin hype, solo información útil." :
     lc === "de" ? "Ehrliche Ratgeber zu Wearable-Synchronisierung, Health Connect, Datenexport für Galaxy Watch und Garmin, DSGVO und Datenschutz. Kein Hype, nur nützliche Informationen." :
     lc === "pt" ? "Guias honestos sobre sincronização de wearables, Health Connect, exportação de dados do Galaxy Watch e Garmin, LGPD e privacidade. Sem hype, só informação útil." :
@@ -55,7 +59,11 @@ export async function generateMetadata({
     lc === "nl" ? "Eerlijke gidsen over wearable synchronisatie, Health Connect, data-export van Galaxy Watch en Garmin, AVG en privacy. Geen hype, alleen nuttige informatie." :
     lc === "ja" ? "ウェアラブル同期・Health Connect・Galaxy Watch/Garminのデータエクスポート・GDPRとプライバシーに関する誠実なガイドを掲載。誇大広告なし、役立つ情報のみ。複数デバイスのデータをFitMesh Syncで1つのダッシュボードにまとめる方法も解説します。" :
     lc === "ko" ? "웨어러블 동기화, Health Connect, Galaxy Watch/Garmin 데이터 내보내기, GDPR 및 개인정보 보호에 관한 정직한 가이드. 과장 없이 유용한 정보만." :
-    "Honest guides on wearable sync, Health Connect, Galaxy Watch / Fitbit / Garmin data export, GDPR and privacy. No hype, just useful information.";
+    lc === "sv" ? "Ärliga guider om wearable-synkronisering, Health Connect, dataexport för Galaxy Watch och Garmin, GDPR och integritet. Ingen hype, bara nyttig information." :
+    lc === "da" ? "Ærlige guides om wearable-synkronisering, Health Connect, dataeksport for Galaxy Watch og Garmin, GDPR og privatliv. Ingen hype, kun nyttig information." :
+    lc === "no" ? "Ærlige veiledninger om wearable-synkronisering, Health Connect, dataeksport for Galaxy Watch og Garmin, GDPR og personvern. Ingen hype, bare nyttig info." :
+    lc === "fi" ? "Oppaita puettavien laitteiden synkronoinnista, Health Connectista, Galaxy Watch- ja Garmin-tietojen viennistä sekä GDPR:stä. Vain hyödyllistä tietoa." :
+    "Honest guides on wearable sync, Health Connect, Galaxy Watch and Garmin data export, GDPR and privacy. No hype, just useful information.";
 
   const path = `/${lc}/blog`;
   return {

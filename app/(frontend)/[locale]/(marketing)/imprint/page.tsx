@@ -135,6 +135,18 @@ export async function generateMetadata(
       canonical: `${SITE_URL}/${lc}/imprint`,
       languages: localeAlternates((l) => `${SITE_URL}/${l}/imprint`),
     },
+    openGraph: {
+      title: `${IMPRINT_NAV_LABEL[lc]} · FitMesh`,
+      description: DESC[lc],
+      url: `${SITE_URL}/${lc}/imprint`,
+      siteName: "FitMesh Sync",
+      type: "website",
+    },
+    twitter: {
+      card: "summary",
+      title: `${IMPRINT_NAV_LABEL[lc]} · FitMesh`,
+      description: DESC[lc],
+    },
   };
 }
 

@@ -193,13 +193,26 @@ describe("title, description, homeLd e ORG_DESCRIPTIONS", () => {
   const layoutMkt = read("app/(frontend)/[locale]/(marketing)/layout.tsx");
   const page = read("app/(frontend)/[locale]/(marketing)/page.tsx");
 
-  it("i due layout leggono title e description da home-meta, senza copie locali", () => {
+  it("la pagina Home legge title e description da home-meta, senza copie locali ne' metadati home nei layout condivisi", () => {
+    // 1. La pagina Home legge title e description da lib/content/home-meta (fonte unica)
+    expect(page).toMatch(/from ["']@\/lib\/content\/home-meta["']/);
+    expect(page).toMatch(/const descriptions = HOME_META_DESCRIPTIONS/);
+    expect(page).toMatch(/const titles = HOME_META_TITLES/);
+    expect(page).toMatch(/title:\s*titles\[lc\]/);
+    expect(page).toMatch(/description:\s*descriptions\[lc\]/);
+
+    // 2. Nessuna tabella di description/title inline o copia locale
+    expect(page).not.toMatch(/\bit:\s*"FitMesh Sync/);
+    expect(layoutRadice).not.toMatch(/\bit:\s*"FitMesh Sync/);
+    expect(layoutMkt).not.toMatch(/\bit:\s*"FitMesh Sync/);
+
+    // 3. I layout condivisi non reintroducono metadati, canonical o hreflang specifici della Home
     for (const src of [layoutRadice, layoutMkt]) {
-      expect(src).toMatch(/from ["']@\/lib\/content\/home-meta["']/);
-      expect(src).toMatch(/const descriptions = HOME_META_DESCRIPTIONS/);
-      expect(src).toMatch(/HOME_META_TITLES/);
-      // nessuna tabella di description inline: nessun oggetto {it:..., en:...} con descrizioni lunghe
-      expect(src).not.toMatch(/\bit:\s*"FitMesh Sync/);
+      expect(src).not.toMatch(/from ["']@\/lib\/content\/home-meta["']/);
+      expect(src).not.toMatch(/HOME_META_DESCRIPTIONS/);
+      expect(src).not.toMatch(/HOME_META_TITLES/);
+      expect(src).not.toMatch(/localeAlternates/);
+      expect(src).not.toMatch(/canonical/);
     }
   });
 
