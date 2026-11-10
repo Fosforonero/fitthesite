@@ -1,7 +1,7 @@
 /**
  * Suunto OAuth backend helpers — usati dalle route /api/v1/oauth/suunto/*.
  *
- * SUUNTO_CLIENT_SECRET e SUUNTO_SUBSCRIPTION_KEY vivono SOLO qui (env Vercel),
+ * SUUNTO_CLIENT_SECRET vive SOLO qui (env Vercel),
  * MAI nel binary Flutter.
  *
  * Suunto usa HTTP Basic Auth per il token exchange (non JSON body come Strava):
@@ -17,20 +17,55 @@ const SUUNTO_TOKEN_URL = "https://cloudapi-oauth.suunto.com/oauth/token";
 export const SUUNTO_REDIRECT_URI =
   "https://www.fitmesh.fit/api/v1/oauth/suunto/callback";
 
-function getSuuntoEnv(): {
-  clientId: string;
-  clientSecret: string;
-  subscriptionKey: string;
-} {
+/**
+ * Per exchange e refresh servono SOLO id e secret (Basic Auth). La
+ * SUBSCRIPTION_KEY serve al proxy dati (lib/api/suunto-proxy.ts, che gestisce
+ * da solo il suo 503): la sua assenza non deve rompere il collegamento.
+ */
+function getSuuntoOAuthEnv(): { clientId: string; clientSecret: string } {
   const clientId = process.env.SUUNTO_CLIENT_ID;
   const clientSecret = process.env.SUUNTO_CLIENT_SECRET;
-  const subscriptionKey = process.env.SUUNTO_SUBSCRIPTION_KEY;
-  if (!clientId || !clientSecret || !subscriptionKey) {
+  if (!clientId || !clientSecret) {
     throw new Error(
-      "SUUNTO_CLIENT_ID, SUUNTO_CLIENT_SECRET, SUUNTO_SUBSCRIPTION_KEY devono essere configurati come env Vercel"
+      "SUUNTO_CLIENT_ID e SUUNTO_CLIENT_SECRET devono essere configurati come env Vercel"
     );
   }
-  return { clientId, clientSecret, subscriptionKey };
+  return { clientId, clientSecret };
+}
+
+/**
+ * Log strutturato per i rami d'errore delle route OAuth Suunto. Scrive SOLO:
+ * evento, route, codice FitMesh, stato HTTP di Suunto e il campo `error` del
+ * JSON di Suunto se e' un identificatore corto (/^[a-z_]{1,40}$/), altrimenti
+ * 'unparsed'. Mai code, token, corpo di Suunto, id/secret o dati utente.
+ */
+export function logSuuntoOAuthError(
+  route: "exchange" | "refresh",
+  code: string,
+  suunto?: { status: number; body: string }
+): void {
+  const entry: Record<string, unknown> = {
+    evt: "suunto_oauth_error",
+    route,
+    code,
+  };
+  if (suunto) {
+    entry.suuntoStatus = suunto.status;
+    entry.error = safeSuuntoErrorField(suunto.body);
+  }
+  console.warn(JSON.stringify(entry));
+}
+
+function safeSuuntoErrorField(body: string): string {
+  try {
+    const parsed = JSON.parse(body) as { error?: unknown };
+    if (typeof parsed?.error === "string" && /^[a-z_]{1,40}$/.test(parsed.error)) {
+      return parsed.error;
+    }
+  } catch {
+    // corpo non JSON
+  }
+  return "unparsed";
 }
 
 export type SuuntoTokenResponse = {
@@ -69,7 +104,7 @@ function extractExpiresAt(token: string): number {
 export async function exchangeSuuntoCode(
   code: string
 ): Promise<SuuntoTokenResponse> {
-  const { clientId, clientSecret } = getSuuntoEnv();
+  const { clientId, clientSecret } = getSuuntoOAuthEnv();
 
   const params = new URLSearchParams({
     grant_type: "authorization_code",
@@ -107,7 +142,7 @@ export async function exchangeSuuntoCode(
 export async function refreshSuuntoToken(
   refreshToken: string
 ): Promise<SuuntoTokenResponse> {
-  const { clientId, clientSecret } = getSuuntoEnv();
+  const { clientId, clientSecret } = getSuuntoOAuthEnv();
 
   const params = new URLSearchParams({
     grant_type: "refresh_token",

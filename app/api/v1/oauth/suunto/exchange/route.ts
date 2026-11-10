@@ -26,6 +26,7 @@ import {
   checkRateLimit,
   exchangeSuuntoCode,
   extractIp,
+  logSuuntoOAuthError,
 } from "@/lib/oauth/suunto-backend";
 
 const bodySchema = z.object({
@@ -35,6 +36,7 @@ const bodySchema = z.object({
 export async function POST(req: Request): Promise<Response> {
   const ip = extractIp(req);
   if (!checkRateLimit(ip)) {
+    logSuuntoOAuthError("exchange", "rate_limit_exceeded");
     return jsonError(429, "rate_limit_exceeded", {
       message: "Troppi tentativi, riprova tra un minuto",
     });
@@ -44,11 +46,13 @@ export async function POST(req: Request): Promise<Response> {
   try {
     raw = await req.json();
   } catch {
+    logSuuntoOAuthError("exchange", "invalid_body");
     return jsonError(400, "invalid_body", { message: "JSON non valido" });
   }
 
   const parsed = bodySchema.safeParse(raw);
   if (!parsed.success) {
+    logSuuntoOAuthError("exchange", "missing_fields");
     return jsonError(400, "missing_fields", {
       issues: parsed.error.flatten().fieldErrors,
     });
@@ -67,12 +71,17 @@ export async function POST(req: Request): Promise<Response> {
     });
   } catch (err) {
     if (err instanceof SuuntoApiError) {
+      logSuuntoOAuthError("exchange", "suunto_api_error", {
+        status: err.suuntoStatus,
+        body: err.suuntoBody,
+      });
       return jsonError(502, "suunto_api_error", {
         suuntoStatus: err.suuntoStatus,
         suuntoBody: err.suuntoBody,
       });
     }
     if (err instanceof Error && err.message.includes("env Vercel")) {
+      logSuuntoOAuthError("exchange", "server_misconfigured");
       return jsonError(500, "server_misconfigured", { message: err.message });
     }
     console.error("[suunto/exchange] unexpected error:", err);
