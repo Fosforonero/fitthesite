@@ -10,9 +10,18 @@
  */
 export const dynamic = "force-dynamic";
 
+import {
+  logSuuntoCodeShape,
+  suuntoCodeFromQuery,
+  suuntoCodeShape,
+} from "@/lib/oauth/suunto-backend";
+
 export async function GET(req: Request): Promise<Response> {
   const url = new URL(req.url);
-  const code = url.searchParams.get("code");
+  // Un '+' letterale nel code resta un '+' (searchParams lo leggerebbe come
+  // spazio). Se la query e' malformata si ripiega sul comportamento di prima.
+  const legacyCode = url.searchParams.get("code");
+  const code = suuntoCodeFromQuery(url.search) ?? legacyCode;
   const state = url.searchParams.get("state");
   const error = url.searchParams.get("error");
 
@@ -24,6 +33,10 @@ export async function GET(req: Request): Promise<Response> {
   if (!code) {
     return new Response("Missing code parameter", { status: 400 });
   }
+
+  logSuuntoCodeShape("callback", suuntoCodeShape(code), {
+    legacyDiffers: legacyCode !== code,
+  });
 
   const params = new URLSearchParams({ code });
   if (state) params.set("state", state);

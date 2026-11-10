@@ -174,3 +174,28 @@ describe("suunto exchange", () => {
     expect(warn).not.toHaveBeenCalled();
   });
 });
+
+describe("suunto exchange: forma del code nei log", () => {
+  it("registra la forma (lunghezza, +, spazi, %), mai il valore", async () => {
+    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    fetchMock.mockResolvedValue(
+      new Response(JSON.stringify({ error: "invalid_request" }), { status: 400 }),
+    );
+    await POST(req({ code: "ZETA+k m%41/q" }));
+    const righe = log.mock.calls.map((c) => String(c[0]));
+    const riga = righe.find((r) => r.includes('"suunto_oauth_code"'))!;
+    expect(riga).toBeDefined();
+    expect(JSON.parse(riga)).toEqual({
+      evt: "suunto_oauth_code",
+      route: "exchange",
+      len: 13,
+      plus: true,
+      space: true,
+      pct: true,
+      other: 1,
+    });
+    const tutto = [...righe, ...warn.mock.calls.map((c) => String(c[0]))].join("\n");
+    expect(tutto).not.toContain("ZETA");
+    expect(tutto).not.toContain("k m");
+  });
+});

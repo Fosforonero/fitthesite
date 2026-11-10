@@ -56,6 +56,62 @@ export function logSuuntoOAuthError(
   console.warn(JSON.stringify(entry));
 }
 
+/**
+ * Forma (MAI il valore) di un authorization code, per capire se lo alteriamo
+ * fra la callback e lo scambio: lunghezza e presenza di '+', spazi, sequenze
+ * percentuali e altri caratteri non alfanumerici. Solo numeri e booleani.
+ */
+export type SuuntoCodeShape = {
+  len: number;
+  plus: boolean;
+  space: boolean;
+  pct: boolean;
+  other: number;
+};
+
+export function suuntoCodeShape(code: string): SuuntoCodeShape {
+  return {
+    len: code.length,
+    plus: code.includes("+"),
+    space: code.includes(" "),
+    pct: /%[0-9A-Fa-f]{2}/.test(code),
+    other: (code.match(/[^A-Za-z0-9\-_.~+ %]/g) ?? []).length,
+  };
+}
+
+/** Log strutturato della sola forma del code (nessun valore). */
+export function logSuuntoCodeShape(
+  route: "callback" | "exchange",
+  shape: SuuntoCodeShape,
+  extra?: { legacyDiffers: boolean }
+): void {
+  console.log(
+    JSON.stringify({ evt: "suunto_oauth_code", route, ...shape, ...(extra ?? {}) })
+  );
+}
+
+/**
+ * Valore del primo parametro `code` della query, decodificato SOLO con le
+ * sequenze percentuali: un '+' letterale resta un '+'. `URLSearchParams.get`
+ * lo trasformerebbe in uno spazio (form-encoding), alterando un code che
+ * contenga un '+' non codificato. null se assente o malformato (allora si usa
+ * il comportamento di prima).
+ */
+export function suuntoCodeFromQuery(search: string): string | null {
+  const query = search.startsWith("?") ? search.slice(1) : search;
+  for (const part of query.split("&")) {
+    if (part === "code" || part.startsWith("code=")) {
+      const raw = part.includes("=") ? part.slice(part.indexOf("=") + 1) : "";
+      try {
+        return decodeURIComponent(raw);
+      } catch {
+        return null;
+      }
+    }
+  }
+  return null;
+}
+
 function safeSuuntoErrorField(body: string): string {
   try {
     const parsed = JSON.parse(body) as { error?: unknown };
