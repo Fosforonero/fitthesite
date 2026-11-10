@@ -83,3 +83,37 @@ describe("suunto callback: il code non si altera", () => {
     expect(e).toMatchObject({ len: 6, plus: false, space: false, pct: false, legacyDiffers: false });
   });
 });
+
+describe("suunto callback: quattro forme, una sola decodifica", () => {
+  const casi: Array<[string, string, string]> = [
+    // [query grezza, code atteso (una sola decodifica), forma nel deep link]
+    ["a+b", "a+b", "code=a%2Bb"],
+    ["a%2Bb", "a+b", "code=a%2Bb"],
+    ["a%20b", "a b", "code=a+b"],
+    ["a%252Bb", "a%2Bb", "code=a%252Bb"],
+  ];
+  for (const [grezzo, atteso, nelLink] of casi) {
+    it(`?code=${grezzo} -> "${atteso}" (nessuna doppia decodifica)`, async () => {
+      const res = await GET(new Request(`${base}?code=${grezzo}&state=s`));
+      const loc = res.headers.get("location")!;
+      expect(codeDelDeepLink(loc)).toBe(atteso);
+      expect(loc).toContain(nelLink);
+    });
+  }
+
+  it("%252B non diventa mai un + (due decodifiche sarebbero un errore)", async () => {
+    const res = await GET(new Request(`${base}?code=a%252Bb&state=s`));
+    expect(codeDelDeepLink(res.headers.get("location")!)).not.toBe("a+b");
+  });
+
+  it("i code validi (alfanumerici e - _ . ~) passano identici e senza differenza dal metodo di prima", async () => {
+    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    for (const valido of ["Zx9Qk2", "a-b_c.d~e", "0123456789abcdef0123456789abcdef", "ABC-def_123"]) {
+      log.mockClear();
+      const res = await GET(new Request(`${base}?code=${valido}&state=s`));
+      expect(codeDelDeepLink(res.headers.get("location")!)).toBe(valido);
+      const riga = log.mock.calls.map((c) => String(c[0])).find((r) => r.includes('"suunto_oauth_code"'))!;
+      expect(JSON.parse(riga).legacyDiffers).toBe(false);
+    }
+  });
+});
