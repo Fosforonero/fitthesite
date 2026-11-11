@@ -25,7 +25,9 @@ export const SUUNTO_REDIRECT_URI =
 function getSuuntoOAuthEnv(): { clientId: string; clientSecret: string } {
   const clientId = process.env.SUUNTO_CLIENT_ID;
   const clientSecret = process.env.SUUNTO_CLIENT_SECRET;
-  if (!clientId || !clientSecret) {
+  // Un valore di soli spazi conta come assente: Suunto (Spring AS, hasText)
+  // risponderebbe 400 invalid_request a ogni richiesta, indistinguibile.
+  if (!clientId?.trim() || !clientSecret?.trim()) {
     throw new Error(
       "SUUNTO_CLIENT_ID e SUUNTO_CLIENT_SECRET devono essere configurati come env Vercel"
     );
@@ -131,11 +133,80 @@ export type SuuntoTokenResponse = {
   token_type: string;
 };
 
-function basicAuth(clientId: string, clientSecret: string): string {
-  return (
-    "Basic " +
-    Buffer.from(`${clientId}:${clientSecret}`).toString("base64")
+/**
+ * RFC 6749 §2.3.1: id e segreto andrebbero codificati con
+ * application/x-www-form-urlencoded PRIMA del Base64, e un server conforme li
+ * decodifica (Spring Authorization Server: URLDecoder; un '%' malformato da'
+ * 400 invalid_request PRIMA di cercare il client, un '+' diventa spazio e da'
+ * 401 invalid_client). La documentazione Suunto mostra invece `curl --user`,
+ * cioe' id e segreto grezzi. Per non cambiare nulla dove il grezzo funziona:
+ * si prova SEMPRE prima il grezzo (comportamento di prima); solo se Suunto
+ * risponde 400 invalid_request o 401 invalid_client E la forma codificata e'
+ * diversa, si ritenta UNA volta con la forma codificata. In Spring AS entrambi
+ * gli errori nascono nell'autenticazione del client, prima che il code sia
+ * consumato, quindi il ritentativo usa un code ancora valido. Per id e segreti
+ * fatti solo di A-Za-z0-9 e -_.!~*'() le due forme coincidono: nessun
+ * ritentativo, header identico a prima.
+ */
+function formUrlEncode(valore: string): string {
+  return encodeURIComponent(valore);
+}
+
+function basicAuth(clientId: string, clientSecret: string, rfc6749: boolean): string {
+  const id = rfc6749 ? formUrlEncode(clientId) : clientId;
+  const segreto = rfc6749 ? formUrlEncode(clientSecret) : clientSecret;
+  return "Basic " + Buffer.from(`${id}:${segreto}`).toString("base64");
+}
+
+/** Il campo `error` del corpo di Suunto, se leggibile. */
+function erroreSuunto(body: string): string {
+  return safeSuuntoErrorField(body);
+}
+
+/**
+ * POST al token endpoint: grezzo, poi al piu' un ritentativo RFC 6749 (vedi
+ * sopra). Log della sola variante e dell'esito, mai valori.
+ */
+async function postTokenSuunto(
+  route: "exchange" | "refresh",
+  params: URLSearchParams
+): Promise<Response> {
+  const { clientId, clientSecret } = getSuuntoOAuthEnv();
+  const invia = (rfc6749: boolean) =>
+    fetch(SUUNTO_TOKEN_URL, {
+      method: "POST",
+      headers: {
+        Authorization: basicAuth(clientId, clientSecret, rfc6749),
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: params.toString(),
+    });
+
+  const grezzo = await invia(false);
+  const formeDiverse =
+    basicAuth(clientId, clientSecret, false) !==
+    basicAuth(clientId, clientSecret, true);
+  if (grezzo.ok || !formeDiverse) return grezzo;
+  if (grezzo.status !== 400 && grezzo.status !== 401) return grezzo;
+  const corpo = await grezzo.text();
+  const errore = erroreSuunto(corpo);
+  const ritenta =
+    (grezzo.status === 400 && errore === "invalid_request") ||
+    (grezzo.status === 401 && errore === "invalid_client");
+  if (!ritenta) {
+    return new Response(corpo, { status: grezzo.status, headers: grezzo.headers });
+  }
+  const codificato = await invia(true);
+  console.log(
+    JSON.stringify({
+      evt: "suunto_oauth_basic",
+      route,
+      variante: "rfc6749",
+      primo: `${grezzo.status} ${errore}`,
+      esito: codificato.status,
+    })
   );
+  return codificato;
 }
 
 /**
@@ -160,22 +231,13 @@ function extractExpiresAt(token: string): number {
 export async function exchangeSuuntoCode(
   code: string
 ): Promise<SuuntoTokenResponse> {
-  const { clientId, clientSecret } = getSuuntoOAuthEnv();
-
   const params = new URLSearchParams({
     grant_type: "authorization_code",
     code,
     redirect_uri: SUUNTO_REDIRECT_URI,
   });
 
-  const res = await fetch(SUUNTO_TOKEN_URL, {
-    method: "POST",
-    headers: {
-      Authorization: basicAuth(clientId, clientSecret),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: params.toString(),
-  });
+  const res = await postTokenSuunto("exchange", params);
 
   if (!res.ok) {
     const body = await res.text();
@@ -198,21 +260,12 @@ export async function exchangeSuuntoCode(
 export async function refreshSuuntoToken(
   refreshToken: string
 ): Promise<SuuntoTokenResponse> {
-  const { clientId, clientSecret } = getSuuntoOAuthEnv();
-
   const params = new URLSearchParams({
     grant_type: "refresh_token",
     refresh_token: refreshToken,
   });
 
-  const res = await fetch(SUUNTO_TOKEN_URL, {
-    method: "POST",
-    headers: {
-      Authorization: basicAuth(clientId, clientSecret),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: params.toString(),
-  });
+  const res = await postTokenSuunto("refresh", params);
 
   if (!res.ok) {
     const body = await res.text();
