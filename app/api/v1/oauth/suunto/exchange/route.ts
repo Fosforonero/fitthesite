@@ -26,7 +26,9 @@ import {
   checkRateLimit,
   exchangeSuuntoCode,
   extractIp,
+  logSuuntoCodeShape,
   logSuuntoOAuthError,
+  suuntoCodeShape,
 } from "@/lib/oauth/suunto-backend";
 
 const bodySchema = z.object({
@@ -57,6 +59,8 @@ export async function POST(req: Request): Promise<Response> {
       issues: parsed.error.flatten().fieldErrors,
     });
   }
+
+  logSuuntoCodeShape("exchange", suuntoCodeShape(parsed.data.code));
 
   try {
     const token = await exchangeSuuntoCode(parsed.data.code);
