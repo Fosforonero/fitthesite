@@ -1,22 +1,25 @@
 /**
- * Credenziali del client nell'header Basic: RFC 6749 §2.3.1 chiede di codificare
- * id e segreto con application/x-www-form-urlencoded PRIMA del Base64, e un
- * server conforme li DECODIFICA. Spring Authorization Server lo fa
- * (ClientSecretBasicAuthenticationConverter: URLDecoder.decode su id e segreto;
- * ogni eccezione di decodifica -> 400 invalid_request, prima di cercare il
- * client). Il code che Suunto emette (128 caratteri base64url) coincide con il
- * generatore predefinito di Spring Authorization Server (96 byte): indizio,
- * NON prova, che Suunto usi quel server.
+ * Credenziali del client nell'header Basic. Tre fonti distinte:
  *
- * Conseguenza se il segreto contiene un '%' non seguito da due cifre esadecimali:
- * OGNI richiesta al token endpoint risponde 400 invalid_request, con un code
- * vero, con un code inventato e con un refresh token inventato; mentre un
- * client/segreto inventato senza '%' risponde 401 invalid_client. E' la stessa
- * firma osservata in Production il 10-11/11. Se il segreto contiene un '+':
- * diventa uno spazio -> 401 invalid_client.
+ * - RFC 6749 §2.3.1 (e Appendice B) chiede di codificare id e segreto con
+ *   application/x-www-form-urlencoded PRIMA del Base64; il server li decodifica.
+ * - La documentazione Suunto (FAQ, API Zone) descrive Basic con un esempio che
+ *   non contiene caratteri speciali: non dice se Suunto decodifica.
+ * - Il finto server qui sotto e' un MODELLO di Spring Authorization Server
+ *   (ClientSecretBasicAuthenticationConverter: URLDecoder.decode su id e
+ *   segreto; eccezione di decodifica -> 400 invalid_request prima di cercare il
+ *   client). Che Suunto usi Spring AS e' solo un indizio (il code di 128
+ *   caratteri base64url coincide con il generatore predefinito da 96 byte).
  *
- * Il finto server qui sotto applica SOLO quelle regole (decodifica come
- * java.net.URLDecoder). Valori tutti sintetici. Nessuna rete.
+ * Contro QUESTO modello, un segreto con un '%' non seguito da due cifre
+ * esadecimali da' 400 invalid_request a ogni richiesta (code vero, code o
+ * refresh inventati), come osservato in Production il 10-11/11; un '+' diventa
+ * spazio -> 401 invalid_client. La somiglianza rende l'ipotesi PLAUSIBILE, NON
+ * DIMOSTRATA: questi test provano il comportamento del nostro codice contro il
+ * modello, non quello di Suunto.
+ *
+ * Valori tutti sintetici. Nessuna rete. I byte esatti dell'header sono in
+ * suunto-basic-byte-header.test.ts, la codifica in form-urlencoded.test.ts.
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 

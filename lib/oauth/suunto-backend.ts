@@ -13,6 +13,8 @@
 // Re-export per non cambiare gli import delle route esistenti.
 export { checkRateLimit, extractIp } from "./shared";
 
+import { formUrlEncode } from "./form-urlencoded";
+
 const SUUNTO_TOKEN_URL = "https://cloudapi-oauth.suunto.com/oauth/token";
 export const SUUNTO_REDIRECT_URI =
   "https://www.fitmesh.fit/api/v1/oauth/suunto/callback";
@@ -25,8 +27,9 @@ export const SUUNTO_REDIRECT_URI =
 function getSuuntoOAuthEnv(): { clientId: string; clientSecret: string } {
   const clientId = process.env.SUUNTO_CLIENT_ID;
   const clientSecret = process.env.SUUNTO_CLIENT_SECRET;
-  // Un valore di soli spazi conta come assente: Suunto (Spring AS, hasText)
-  // risponderebbe 400 invalid_request a ogni richiesta, indistinguibile.
+  // Un valore vuoto o di soli spazi conta come configurazione mancante: non e'
+  // una credenziale da mandare a Suunto (un server tipo Spring AS, con hasText,
+  // risponderebbe 400 invalid_request, indistinguibile dagli altri casi).
   if (!clientId?.trim() || !clientSecret?.trim()) {
     throw new Error(
       "SUUNTO_CLIENT_ID e SUUNTO_CLIENT_SECRET devono essere configurati come env Vercel"
@@ -134,24 +137,36 @@ export type SuuntoTokenResponse = {
 };
 
 /**
- * RFC 6749 §2.3.1: id e segreto andrebbero codificati con
- * application/x-www-form-urlencoded PRIMA del Base64, e un server conforme li
- * decodifica (Spring Authorization Server: URLDecoder; un '%' malformato da'
- * 400 invalid_request PRIMA di cercare il client, un '+' diventa spazio e da'
- * 401 invalid_client). La documentazione Suunto mostra invece `curl --user`,
- * cioe' id e segreto grezzi. Per non cambiare nulla dove il grezzo funziona:
- * si prova SEMPRE prima il grezzo (comportamento di prima); solo se Suunto
- * risponde 400 invalid_request o 401 invalid_client E la forma codificata e'
- * diversa, si ritenta UNA volta con la forma codificata. In Spring AS entrambi
- * gli errori nascono nell'autenticazione del client, prima che il code sia
- * consumato, quindi il ritentativo usa un code ancora valido. Per id e segreti
- * fatti solo di A-Za-z0-9 e -_.!~*'() le due forme coincidono: nessun
+ * Header Basic del token endpoint: tre fonti da NON confondere.
+ *
+ * 1. Cosa richiede la RFC. RFC 6749 §2.3.1 (con l'Appendice B): id e segreto
+ *    si codificano con application/x-www-form-urlencoded PRIMA di unirli con
+ *    ':' e passarli al Base64; il server li decodifica.
+ * 2. Cosa dice la documentazione Suunto. La FAQ e la guida API Zone descrivono
+ *    Basic come Base64(client_id:client_secret) e un `curl --user`, con esempi
+ *    fatti di soli caratteri che la codifica lascia invariati: non dicono se
+ *    Suunto decodifica, ne' cosa succede con caratteri speciali. Non sappiamo
+ *    quale delle due forme Suunto si aspetti.
+ * 3. Cosa fa il nostro finto server di test (suunto-basic-rfc6749.test.ts):
+ *    decodifica come java.net.URLDecoder, sul modello di Spring Authorization
+ *    Server. Prova solo che QUESTO codice si comporta bene CONTRO quel modello;
+ *    non prova come si comporta Suunto.
+ *
+ * Ipotesi NON dimostrata: Production risponde 400 invalid_request perche' id o
+ * segreto contengono caratteri che un server decodificante legge diversamente
+ * (es. un '%' non seguito da due cifre esadecimali). Nessuno ha visto il
+ * segreto reale e nessuno lo deve estrarre.
+ *
+ * Quindi, per non cambiare nulla dove il grezzo funziona: si prova SEMPRE
+ * prima il grezzo (comportamento in produzione); solo se la risposta e' 400
+ * invalid_request o 401 invalid_client E la forma codificata e' diversa, si
+ * ritenta UNA volta con la forma codificata. Se un server si comporta come
+ * Spring AS, entrambi gli errori nascono nell'autenticazione del client, prima
+ * che il code sia consumato; per Suunto non e' verificato, e nel caso peggiore
+ * il ritentativo costa un invalid_grant gia' destinato a fallire. Per id e
+ * segreti fatti solo di A-Za-z0-9 e * - . _ le due forme coincidono: nessun
  * ritentativo, header identico a prima.
  */
-function formUrlEncode(valore: string): string {
-  return encodeURIComponent(valore);
-}
-
 function basicAuth(clientId: string, clientSecret: string, rfc6749: boolean): string {
   const id = rfc6749 ? formUrlEncode(clientId) : clientId;
   const segreto = rfc6749 ? formUrlEncode(clientSecret) : clientSecret;
@@ -164,8 +179,9 @@ function erroreSuunto(body: string): string {
 }
 
 /**
- * POST al token endpoint: grezzo, poi al piu' un ritentativo RFC 6749 (vedi
- * sopra). Log della sola variante e dell'esito, mai valori.
+ * POST al token endpoint (scambio E rinnovo passano entrambi da qui): grezzo,
+ * poi al piu' un ritentativo form-urlencoded RFC 6749 §2.3.1 (vedi sopra). Log
+ * della sola variante e dell'esito, mai valori.
  */
 async function postTokenSuunto(
   route: "exchange" | "refresh",
@@ -197,13 +213,16 @@ async function postTokenSuunto(
     return new Response(corpo, { status: grezzo.status, headers: grezzo.headers });
   }
   const codificato = await invia(true);
+  // Solo categorie: variante provata, esito della prima e della seconda
+  // richiesta, campo `error` della seconda. Mai id, segreto, code o token.
   console.log(
     JSON.stringify({
       evt: "suunto_oauth_basic",
       route,
-      variante: "rfc6749",
+      variante: "form_urlencoded_rfc6749",
       primo: `${grezzo.status} ${errore}`,
       esito: codificato.status,
+      errore: codificato.ok ? null : erroreSuunto(await codificato.clone().text()),
     })
   );
   return codificato;
