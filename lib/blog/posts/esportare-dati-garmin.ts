@@ -179,7 +179,7 @@ export const post: BlogPost = {
   },
   metaDescription: {
     it: "Come esportare dati Garmin: guida pratica per scaricare allenamenti in GPX, TCX, FIT e CSV da Garmin Connect (sito web, app mobile e API). Pro e contro di ogni metodo.",
-    en: "How to export Garmin data: practical guide to downloading activities in GPX, TCX, FIT and CSV from Garmin Connect (website, mobile app and API). Pros and cons of each method.",
+    en: "Guide to exporting Garmin data: file formats, activity downloads and options for saving your training history.",
     es: "Cómo exportar datos de Garmin: guía práctica para descargar entrenamientos en GPX, TCX, FIT y CSV desde Garmin Connect (web, app móvil y API). Ventajas y limitaciones de cada método.",
     de: "Garmin Daten exportieren: Praxisratgeber zum Herunterladen von Trainings als GPX, TCX, FIT und CSV aus Garmin Connect (Website, App und API). Vor- und Nachteile jeder Methode.",
     pt: "Como exportar dados da Garmin: guia prático para baixar treinos em GPX, TCX, FIT e CSV do Garmin Connect (site, app móvel e API). Prós e contras de cada método.",

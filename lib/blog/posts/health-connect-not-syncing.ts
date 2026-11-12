@@ -298,6 +298,11 @@ export const post: BlogPost = {
     // aggiunge il contesto Android, niente promessa di efficacia. 41
     // caratteri (51 col suffisso " · FitMesh" renderizzato).
     en: "Health Connect not syncing: Android fixes",
+    // Micro-sprint SEO 12/11/2026: IT non aveva override e ricadeva su
+    // hero.title + " · FitMesh" = 78 caratteri (dossier Search 12/11). 50
+    // caratteri, 60 col suffisso. H1 (hero.title.it), slug e le altre
+    // lingue invariati; nessuna promessa di efficacia.
+    it: "Health Connect non si sincronizza: cosa verificare",
     nl: "Health Connect synchroniseert niet: 7 oplossingen",
     de: "Samsung Health synchronisiert nicht: 7 Lösungen",
     // SPRINT PRE-FERIE addendum Bing (2026-08-06): title live 73 caratteri
@@ -690,7 +695,7 @@ export const post: BlogPost = {
         en: [
           "**Samsung Health**: make sure the watch has reconnected with the phone, then open the Samsung Health app or pull-to-refresh its home screen (Samsung documents these as ways to refresh the data, not just reconnecting). Then go to Settings → Health Connect → verify the link is active and all data types are enabled. If it is the watch's steps that are missing, see [Galaxy Watch steps not syncing](/en/blog/passi-non-si-sincronizzano-galaxy-watch).",
           "**Garmin Connect**: open the app. Garmin writes to Health Connect after each successful watch sync, one-way into HC (it never reads from it). Check: Garmin Connect → More (☰) → Settings → Health Connect enabled. The step-by-step path is in the [guide to syncing Garmin with Samsung Health and Health Connect](/en/blog/garmin-samsung-health-sync-guide).",
-          "**Google Health (formerly Fitbit)**: since May 19, 2026 the Fitbit app has become the Google Health app. Open the app → wait for it to sync with the device, then check the Health Connect link in its settings.",
+          "**Google Health (formerly Fitbit)**: since May 19, 2026 the Fitbit app has become the Google Health app. Open the app → wait for it to sync with the device, then check the Health Connect link in its settings. To see how Google Health differs from Google Fit, read [Google Health vs Google Fit: what changes in 2026](/en/blog/google-health-google-fit).",
         ],
         es: [
           "**Samsung Health**: asegúrate de que el reloj se haya reconectado con el teléfono, luego abre la app Samsung Health o haz un pull-to-refresh en su pantalla principal (Samsung documenta estas formas de actualizar los datos, no solo la reconexión). Luego ve a Ajustes → Health Connect y verifica que el enlace esté activo y todos los tipos de datos habilitados.",
