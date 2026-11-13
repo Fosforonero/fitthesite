@@ -919,6 +919,8 @@ secondaryKeywords: {
           ko: "Google Health에 데이터가 표시되지 않거나 오래된 값만 보인다면, 아래 사슬의 지점을 순서대로 확인해보세요. 1) 해당 데이터 유형에 대해 Health Connect/Apple Health와 Google Health 앱 양쪽 모두에서 권한이 켜져 있는지; 2) 원본 앱(Garmin Connect, Samsung Health 등)이 최근에 동기화되었는지: 많은 앱은 앱을 열었을 때만, 또는 백그라운드에서 일정하지 않은 간격으로만 Health Connect를 업데이트합니다; 3) 그 데이터 유형이 실제로 공유되고 있는지: Google Health가 Health Connect를 통해 읽고 쓰는 데이터 목록은 유형별로 정해져 있으며 \"전부 아니면 전무\"가 아닙니다; 4) 기대하는 기능(Sleep Score, Cardio Load)이 현재 Fitbit/Pixel 자체 데이터만 사용하는 기능에 해당하는지: 이 경우라면 어떤 서드파티 연결도 그 기능에 반영되지 않습니다; 5) 앱마다 수치가 다르다면 대개는 둘 중 하나가 \"틀려서\"가 아니라 각 앱이 자체 공식으로 지표를 계산하기 때문입니다.",
         },
     },
+    // Collegamento contestuale al nuovo articolo "Google Health not syncing" (solo IT/EN; le altre lingue non lo mostrano). Modifica di solo collegamento: updatedAt invariato.
+    { type: "paragraph", text: { it: "Per una versione passo per passo di questi controlli, con le fonti di Google, vedi [Google Health non si sincronizza: cosa controllare](/it/blog/google-health-not-syncing).", en: "For a step-by-step version of these checks, with Google's sources, see [Google Health not syncing: what to check](/en/blog/google-health-not-syncing)." }, locales: ["it", "en"] },
     {
       type: "heading",
       level: 2,

@@ -92,6 +92,7 @@ import { post as garminBodyBatteryHealthConnect } from "./posts/garmin-body-batt
 // SEO wave 21/06
 import { post as polarHealthConnectSync } from "./posts/polar-health-connect-sync";
 import { post as googleHealthGoogleFit } from "./posts/google-health-google-fit";
+import { post as googleHealthNotSyncing } from "./posts/google-health-not-syncing";
 import { post as sleepTrackerComparison2026 } from "./posts/sleep-tracker-comparison-2026";
 import { post as garminSamsungHealthSyncGuide } from "./posts/garmin-samsung-health-sync-guide";
 import { post as galaxyRingAndroidHealthConnect } from "./posts/galaxy-ring-android-health-connect";
@@ -190,6 +191,7 @@ const RAW_POSTS: BlogPost[] = [
   // SEO wave 21/06
   polarHealthConnectSync,
   googleHealthGoogleFit,
+  googleHealthNotSyncing,
   sleepTrackerComparison2026,
   garminSamsungHealthSyncGuide,
   galaxyRingAndroidHealthConnect,
