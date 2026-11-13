@@ -1325,6 +1325,8 @@ export const post: BlogPost = {
         ],
       },
     },
+    // Collegamento contestuale al nuovo articolo "Google Health not syncing" (solo IT/EN; le altre lingue non lo mostrano). Modifica di solo collegamento: updatedAt invariato.
+    { type: "paragraph", text: { it: "Se il dato è in Health Connect ma manca in Google Health, i controlli da fare sono specifici di Google Health: vedi [Google Health non si sincronizza: cosa controllare](/it/blog/google-health-not-syncing).", en: "If the data is in Health Connect but missing from Google Health, the checks that apply are specific to Google Health: see [Google Health not syncing: what to check](/en/blog/google-health-not-syncing)." }, locales: ["it", "en"] },
     {
       type: "heading",
       level: 2,

@@ -183,6 +183,8 @@ export const POST_COVER: Record<string, CoverType> = {
   // restano invariati per vincolo esplicito dello sprint (post appena
   // riscritto in P1.8B/PR #57).
   "google-health-google-fit": "googleHealthSync",
+  // Guida diagnostica "Google Health not syncing": riusa la cover esistente (nessuna immagine nuova, nessun file aggiunto).
+  "google-health-not-syncing": "googleHealthSync",
   "huawei-health-health-connect-sincronizzazione": "huaweiPath",
   // SPRINT PM COVER-LOTTO3-B (08/10/2026): cover dedicata (endurance-cycling-recovery.webp)
   // al posto del fallback generico "troubleshooting" (gear.webp).

@@ -9855,19 +9855,19 @@
       "sv": "Om du har provat alla ovanstående lösningar och problemet kvarstår kan det bero på ett serveravbrott i källappen (Samsung Health, Garmin Connect) eller ett fel i just din Android-version. I så fall:",
       "da": "Hvis du har prøvet alle ovenstående løsninger, og problemet stadig opstår, kan det skyldes et serverrelateret nedbrud i kildeappen (Samsung Health, Garmin Connect) eller en fejl i netop din Android-version. I så fald:"
     },
-    "body.27.text": {
+    "body.28.text": {
       "sv": "Sammanfattningsvis",
       "da": "Sammenfattende"
     },
-    "body.29.title": {
+    "body.30.title": {
       "sv": "Vill du ha en mer stabil synkronisering?",
       "da": "Vil du have en mere robust synkronisering?"
     },
-    "body.29.body": {
+    "body.30.body": {
       "sv": "FitMesh Sync är utformat för att fungera även under mindre idealiska förhållanden: automatiska omförsök, tolerans för avbrott i anslutningen och en synlig logg i appen som visar vad som har synkroniserats och vad som inte har det. Om dina hälsodata är viktiga för dig är det värt att förvara dem på en plats som inte är beroende av ett enda moln.",
       "da": "FitMesh Sync er udviklet til at fungere selv under ikke-ideelle forhold: automatisk gentagelse, tolerance over for afbrydelser i forbindelsen og en synlig log i appen, så du kan se, hvad der er blevet synkroniseret, og hvad der ikke er. Hvis dine sundhedsdata er vigtige for dig, er det en god idé at opbevare dem et sted, der ikke er afhængigt af en enkelt cloud."
     },
-    "body.29.ctaLabel": {
+    "body.30.ctaLabel": {
       "sv": "Läs mer om FitMesh Sync →",
       "da": "Læs mere om FitMesh Sync →"
     },
@@ -10067,7 +10067,7 @@
         "Som en midlertidig løsning gemmes dataene lokalt i Health Connect: de går ikke tabt, men synkroniseres blot ikke med skyen."
       ]
     },
-    "body.28.items": {
+    "body.29.items": {
       "sv": [
         "De flesta synkroniseringsproblem löses genom tre åtgärder: kontrollera behörigheterna i Health Connect, inaktivera batterioptimeringen för de berörda apparna och tvinga fram öppning av källappen.",
         "På Samsung består den specifika lösningen i att koppla bort och återansluta pipelinen Samsung Health → Health Connect från inställningarna för Samsung Health.",
