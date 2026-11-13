@@ -4,6 +4,8 @@ import { BLOG_POSTS } from "../data";
 import { blogLanguages, isBlogVariantIndexable } from "../indexability";
 import { filterBlogContentForLocale } from "../locale-filter";
 import { localizedBlogSlug } from "../slug-i18n";
+import { applyNordicOverlay, walkPost, type NordicOverlay } from "../nordic-overlay";
+import overlayJson from "../nordic-overlay.json";
 import { COVER_FILE, coverSrc, coverType } from "../covers";
 import { blogSeoTitle, type BlogPost } from "../types";
 import { locales } from "@/lib/i18n";
@@ -233,5 +235,47 @@ describe("google-health-not-syncing: collegamenti contestuali nelle due guide es
     expect(blocchiLink(pillarGoogleHealth)[0]).toBe(pillarGoogleHealth.body[iCatena + 1]);
     const iLista = guidaHealthConnect.body.indexOf(blocchiLink(guidaHealthConnect)[0]) - 1;
     expect(guidaHealthConnect.body[iLista].type).toBe("list");
+  });
+});
+
+describe("google-health-not-syncing: l'inserimento dei collegamenti non sposta le traduzioni nordiche delle guide", () => {
+  // Le chiavi di nordic-overlay.json sono percorsi `body.<indice>` sull'array ORIGINALE (walkPost): un blocco inserito a meta'
+  // corpo sposta i successivi e, se le chiavi non vengono rinumerate, le varianti nordiche risultano incomplete (noindex) e
+  // spariscono dall'hreflang. Regressione trovata sul candidato (SV e DA della guida generica) e corretta rinumerando 5 chiavi.
+  const overlay = overlayJson as unknown as Record<string, Record<string, Record<string, unknown>>>;
+
+  it("ogni chiave d'overlay delle due guide punta a un percorso reale dello stesso tipo, e le lingue nordiche indicizzabili restano quelle di produzione", () => {
+    // Come a runtime (payload-source.ts): overlay nordico applicato su un clone del post registrato.
+    const registrate = [guidaHealthConnect, pillarGoogleHealth].map((g) => {
+      const clone = structuredClone(BLOG_POSTS.find((p) => p.slug === g.slug)!);
+      applyNordicOverlay(clone, overlayJson as unknown as NordicOverlay);
+      return clone;
+    });
+    for (const guida of registrate) {
+      const voci = new Map(walkPost(guida).map((e) => [e.path, e]));
+      for (const [chiave, valori] of Object.entries(overlay[guida.slug] ?? {})) {
+        const e = voci.get(chiave);
+        if (!e) {
+          // Unico caso ammesso senza voce in walkPost: chiavi storiche di un blocco CTA editoriale (walkPost non lo enumera).
+          // L'indice DEVE comunque essere quello del blocco CTA, altrimenti la chiave e' stata spostata dall'inserimento.
+          const indice = Number(chiave.match(/^body\.(\d+)\./)?.[1]);
+          expect(guida.body[indice]?.type, `${guida.slug}: chiave d'overlay senza blocco corrispondente: ${chiave}`).toBe("fitmesh-editorial-cta");
+          continue;
+        }
+        for (const v of Object.values(valori)) {
+          if (e.kind === "list") {
+            expect(Array.isArray(v), `${guida.slug} ${chiave}: lista attesa`).toBe(true);
+            // secondaryKeywords puo' avere cardinalita' diversa per lingua (caso gia' previsto dal repository): si controlla solo il corpo.
+            if (chiave.startsWith("body.")) expect((v as unknown[]).length, `${guida.slug} ${chiave}: stessa lunghezza dell'IT`).toBe((e.node as { it: unknown[] }).it.length);
+          } else {
+            expect(typeof v, `${guida.slug} ${chiave}: testo atteso`).toBe("string");
+          }
+        }
+      }
+    }
+    const nordiche = (p: BlogPost) => (["sv", "da", "no", "fi"] as const).filter((lc) => isBlogVariantIndexable(p, lc));
+    expect(nordiche(registrate[0])).toEqual(["sv", "da"]); // come in produzione (hreflang live del 13/11/2026)
+    expect(nordiche(registrate[1])).toEqual([]);
+    expect(Object.keys(blogLanguages(registrate[0]))).toEqual(expect.arrayContaining(["sv", "da"]));
   });
 });
