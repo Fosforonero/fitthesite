@@ -379,7 +379,7 @@ export function HeartRateZonesCalculator({
       </div>
 
       <div className="mt-6 border-t border-divider pt-5" aria-live="polite">
-        <h3 className="font-display text-base font-semibold text-text-primary">{labels.resultsHeading[lc]}</h3>
+        <h2 className="font-display text-base font-semibold text-text-primary">{labels.resultsHeading[lc]}</h2>
 
         {built.status === "empty" && <p className="mt-2 text-sm text-text-muted">{labels.noResultsYet[lc]}</p>}
 
