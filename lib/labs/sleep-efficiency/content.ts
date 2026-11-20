@@ -305,7 +305,7 @@ export const SLEEP_EFFICIENCY_TOOL_CONTENT: SleepEfficiencyToolContent = {
       title: { it: "Measuring sleep efficiency: what should the denominator be?", en: "Measuring sleep efficiency: what should the denominator be?" },
       authorOrOrg: { it: "Reed DL, Sacco WP - Journal of Clinical Sleep Medicine", en: "Reed DL, Sacco WP - Journal of Clinical Sleep Medicine" },
       year: "2016",
-      url: "https://jcsm.aasm.org/doi/10.5664/jcsm.5498",
+      url: "https://pubmed.ncbi.nlm.nih.gov/26194727/",
       verifiedOn: { it: "17 luglio 2026", en: "July 17, 2026" },
     },
     {
