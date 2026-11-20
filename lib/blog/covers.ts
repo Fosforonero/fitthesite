@@ -16,6 +16,7 @@ export type CoverType =
   | "privacy"
   | "platform"
   | "news"
+  | "fitmeshSync311"
   | "compare"
   | "dashboard"
   | "metrics"
@@ -77,6 +78,7 @@ export const COVER_FILE: Record<CoverType, string> = {
   troubleshooting: "gear.webp",
   export: "data-sync.webp",
   news: "news.webp",
+  fitmeshSync311: "fitmesh-sync-3-11-0-cover-v2.webp",
   // P1.3N-C: cover originale dedicata (watch -> hub dati), NON riusata da
   // altri post. Illustrazione FitMesh generata esternamente (2026-07-21):
   // smartwatch rugged generico, nessun logo Samsung, nessuna copia esatta
@@ -286,6 +288,7 @@ export const POST_COVER: Record<string, CoverType> = {
   // post news/ecosystem), NON uno screenshot che finga di mostrare la UI
   // reale. Segnalato a Matteo come scelta di ripiego, non ideale.
   "novita-giorni-passati": "dashboard",
+  "fitmesh-sync-3-11-0": "fitmeshSync311",
   // SPRINT P1.21 (11/09/2026): cover dedicata consegnata da Matteo, vedi
   // commento su appleHealthConnected in COVER_FILE sopra.
   "nuova-apple-health-rende-inutili-altre-app": "appleHealthConnected",

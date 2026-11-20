@@ -216,6 +216,10 @@ export interface BlogHero {
 }
 
 export interface BlogPost {
+  /** An editorial announcement issued by the publisher, without a personal byline. */
+  organizationAuthor?: boolean;
+  /** Show a local-language notice on incomplete variants, above the English article. */
+  declaredEnglishFallback?: boolean;
   /** URL slug — lowercase, kebab-case, stabile (SEO-critical). */
   slug: string;
   category: BlogCategory;
