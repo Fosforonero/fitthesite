@@ -651,9 +651,9 @@ export const post: BlogPost = {
     "passi-non-si-sincronizzano-galaxy-watch",
   ],
   sources: [
-    "https://developer.android.com/health-and-fitness/guides/health-connect/data-and-data-types/sleep",
+    "https://developer.android.com/health-and-fitness/health-connect/features/sleep-sessions",
     "https://developer.samsung.com/health/data",
-    "https://support.google.com/healthconnect/answer/13054593",
+    "https://support.google.com/android/answer/12201227?hl=en",
   ],
   brandsMentioned: ["Samsung", "Google", "Galaxy Watch", "Health Connect"],
 };
