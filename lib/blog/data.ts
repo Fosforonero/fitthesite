@@ -16,6 +16,7 @@ import { post as stepsTotalVsHourlyChart } from "./posts/steps-total-vs-hourly-c
 import { post as galaxyWatchSleepTrackingHealthConnect } from "./posts/galaxy-watch-sleep-tracking-health-connect";
 import { post as novitaPassiPiuAffidabili } from "./posts/novita-passi-piu-affidabili";
 import { post as novitaGiorniPassati } from "./posts/novita-giorni-passati";
+import { post as fitmeshSync311 } from "./posts/fitmesh-sync-3-11-0";
 import { post as nuovaAppleHealthRendeInutiliAltreApp } from "./posts/nuova-apple-health-rende-inutili-altre-app";
 import { post as guidaSyncWearable2026 } from "./posts/guida-sync-wearable-2026";
 import { post as scegliereSmartwatchDati2026 } from "./posts/scegliere-smartwatch-dati-2026";
@@ -216,6 +217,7 @@ const RAW_POSTS: BlogPost[] = [
   stepsTotalVsHourlyChart,
   novitaPassiPiuAffidabili,
   novitaGiorniPassati,
+  fitmeshSync311,
   nuovaAppleHealthRendeInutiliAltreApp,
   galaxyWatchSleepTrackingHealthConnect,
   fitmeshUltratletaAppleWatchGarminPolar,
