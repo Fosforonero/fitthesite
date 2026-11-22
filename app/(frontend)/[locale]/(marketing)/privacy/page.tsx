@@ -19,13 +19,13 @@ const SITE_URL = "https://www.fitmesh.fit";
  * Non lasciare una data falsa: rappresenta quando il contenuto legale è
  * davvero cambiato, non quando è stato scritto il codice.
  */
-const LEGAL_DATE_ISO = "2026-09-22";
-const LAST_UPDATED_IT = "22 settembre 2026";
-const LAST_UPDATED_EN = "September 22, 2026";
-const LAST_UPDATED_ES = "22 de septiembre de 2026";
-const LAST_UPDATED_DE = "22. September 2026";
-const LAST_UPDATED_PT = "22 de setembro de 2026";
-const LAST_UPDATED_FR = "22 septembre 2026";
+const LEGAL_DATE_ISO = "2026-11-22";
+const LAST_UPDATED_IT = "22 novembre 2026";
+const LAST_UPDATED_EN = "November 22, 2026";
+const LAST_UPDATED_ES = "22 de noviembre de 2026";
+const LAST_UPDATED_DE = "22. November 2026";
+const LAST_UPDATED_PT = "22 de novembro de 2026";
+const LAST_UPDATED_FR = "22 novembre 2026";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> },
@@ -144,15 +144,15 @@ function PrivacyIT() {
         <p>
           Base giuridica del trattamento: art. 6(1)(b) GDPR (esecuzione del servizio richiesto
           dall'utente) e art. 9(2)(a) GDPR (consenso esplicito al trattamento di dati relativi alla
-          salute, fornito tramite le autorizzazioni Health Connect/Samsung Health all'interno
-          dell'app).
+          salute, fornito tramite le autorizzazioni Health Connect/Samsung Health/Huawei Health Service Kit
+          all'interno dell'app).
         </p>
       </Section>
 
       <Section title="3. Informazioni che raccogliamo">
         <p>
           FitMesh Sync raccoglie i seguenti dati relativi alla salute dal tuo dispositivo Android
-          tramite servizi autorizzati (Health Connect, Samsung Health Data SDK):
+          tramite servizi autorizzati (Health Connect, Samsung Health Data SDK, Huawei Health Service Kit):
         </p>
         <List items={[
           ["Attività fisica", "passi, distanza percorsa, calorie bruciate (attive e totali), piani saliti"],
@@ -173,6 +173,10 @@ function PrivacyIT() {
           Importante: questi dati vengono letti solo dai servizi di salute già presenti sul tuo
           dispositivo e solo dopo che hai concesso esplicitamente i permessi necessari.
         </Callout>
+        <p className="text-sm text-text-muted mt-3">
+          <strong>Huawei Health Service Kit (integrazione Android opzionale in sola lettura):</strong>{" "}
+          quando colleghi Huawei Health su Android (versione 3.12.0), l'app richiede esclusivamente i quattro permessi di sola lettura <code>step.read</code> (passi), <code>activityrecord.read</code> (allenamenti), <code>heartrate.read</code> (frequenza cardiaca intraday) e <code>sleep.read</code> (sonno). Nessun permesso di scrittura, nessuna lettura delle calorie continue né della saturazione di ossigeno (SpO₂) è richiesta. I dati importati sono usati unicamente per la visualizzazione fitness personale (nessun fine medico, pubblicitario o di vendita) e vengono conservati solo localmente sul dispositivo (cloud salute disabilitato nella 3.12.0). Puoi scollegare Huawei Health in qualsiasi momento da Fonti in FitMesh Sync (cancellando i dati locali sincronizzati da Huawei) e revocare i consensi nelle impostazioni di Huawei Health / HMS Core.
+        </p>
       </Section>
 
       <Section title="4. Come utilizziamo i dati">
@@ -247,6 +251,7 @@ function PrivacyIT() {
         <List items={[
           ["Health Connect", "per leggere i dati di salute dal sistema operativo Android"],
           ["Samsung Health (opzionale)", "se hai un Galaxy Watch, per dati aggiuntivi non esposti da Health Connect"],
+          ["Huawei Health Service Kit (opzionale, solo Android)", "per importare localmente in sola lettura passi (step.read), allenamenti (activityrecord.read), frequenza cardiaca intraday (heartrate.read) e sonno (sleep.read)"],
           ["Accesso Internet", "per sincronizzare i dati con il backend FitMesh Sync"],
           ["Sync in background", "per inviare dati periodicamente anche quando l'app è chiusa (best-effort: dipende dal sistema operativo)"],
           ["Notifiche", "per ricevere promemoria sync e notifiche di sistema"],
@@ -299,6 +304,7 @@ function PrivacyIT() {
         <List items={[
           ["Health Connect (Google LLC)", "fonte dati di salute Android, letti localmente, non comunicati a Google da noi"],
           ["Samsung Health Data SDK (Samsung Electronics)", "fonte dati Galaxy Watch, letti localmente"],
+          ["Huawei Health Service Kit (Huawei Device Co., Ltd.)", "fonte dati Huawei Health su Android (sola lettura: step.read, activityrecord.read, heartrate.read, sleep.read), letti localmente sul dispositivo, non comunicati da noi a Huawei"],
           ["Supabase Inc.", "database PostgreSQL gestito + Auth (Francoforte, DE), DPA firmato"],
           ["Vercel Inc.", "hosting API serverless (USA, edge globale), DPA firmato + SCC"],
           ["Resend, Inc.", "delivery email transazionali (USA), DPA + SCC"],
@@ -379,14 +385,14 @@ function PrivacyEN({ labels }: { labels: Dictionary["cookie_banner"] }) {
         <p>
           Legal basis: GDPR Art. 6(1)(b) (performance of a service requested by the user) and
           Art. 9(2)(a) (explicit consent to processing health-related data, granted through the
-          Health Connect/Samsung Health authorizations inside the app).
+          Health Connect/Samsung Health/Huawei Health Service Kit authorizations inside the app).
         </p>
       </Section>
 
       <Section title="3. Information we collect">
         <p>
           FitMesh Sync reads the following health-related data from your Android device via
-          authorized services (Health Connect, Samsung Health Data SDK):
+          authorized services (Health Connect, Samsung Health Data SDK, Huawei Health Service Kit):
         </p>
         <List items={[
           ["Physical activity", "steps, distance travelled, calories burned (active and total), floors climbed"],
@@ -407,6 +413,10 @@ function PrivacyEN({ labels }: { labels: Dictionary["cookie_banner"] }) {
           Important: this data is read only from health services already present on your device
           and only after you have explicitly granted the required permissions.
         </Callout>
+        <p className="text-sm text-text-muted mt-3">
+          <strong>Huawei Health Service Kit (optional read-only Android integration):</strong>{" "}
+          when you connect Huawei Health on Android (version 3.12.0), the app requests exclusively the four read-only permissions <code>step.read</code> (steps), <code>activityrecord.read</code> (workouts), <code>heartrate.read</code> (intraday heart rate), and <code>sleep.read</code> (sleep). No write permissions, no continuous calories, and no oxygen saturation (SpO₂) are requested. Imported metrics are used solely for personal fitness display inside FitMesh Sync (non-medical, never sold, never used for advertising) and are stored locally on your device only (remote health cloud sync is disabled in 3.12.0). You can disconnect Huawei Health at any time from Sources in FitMesh Sync (clearing local Huawei-synced data) and revoke consent in Huawei Health / HMS Core settings.
+        </p>
       </Section>
 
       <Section title="4. How we use the data">
@@ -478,6 +488,7 @@ function PrivacyEN({ labels }: { labels: Dictionary["cookie_banner"] }) {
         <List items={[
           ["Health Connect", "to read health data from the Android operating system"],
           ["Samsung Health (optional)", "if you own a Galaxy Watch, for extra data not exposed by Health Connect"],
+          ["Huawei Health Service Kit (optional, Android only)", "for local read-only import of steps (step.read), workouts (activityrecord.read), intraday heart rate (heartrate.read), and sleep (sleep.read)"],
           ["Internet access", "to sync data with the FitMesh Sync backend"],
           ["Background sync", "to send data periodically even when the app is closed (best-effort: depends on the operating system)"],
           ["Notifications", "to receive sync reminders and system notices"],
@@ -530,6 +541,7 @@ function PrivacyEN({ labels }: { labels: Dictionary["cookie_banner"] }) {
         <List items={[
           ["Health Connect (Google LLC)", "Android health data source, read locally, not communicated by us to Google"],
           ["Samsung Health Data SDK (Samsung Electronics)", "Galaxy Watch data source, read locally"],
+          ["Huawei Health Service Kit (Huawei Device Co., Ltd.)", "Huawei Health data source on Android (read-only: step.read, activityrecord.read, heartrate.read, sleep.read), read locally on device, not sent back by us to Huawei"],
           ["Supabase Inc.", "managed PostgreSQL + Auth (Frankfurt, DE), DPA signed"],
           ["Vercel Inc.", "serverless API hosting (US, global edge), DPA signed + SCC"],
           ["Resend, Inc.", "transactional email delivery (US), DPA + SCC"],
@@ -606,7 +618,7 @@ function PrivacyES() {
         <p>
           Base jurídica del tratamiento: art. 6(1)(b) RGPD (ejecución del servicio solicitado por
           el usuario) y art. 9(2)(a) RGPD (consentimiento explícito para el tratamiento de datos
-          relativos a la salud, otorgado mediante los permisos de Health Connect/Samsung Health
+          relativos a la salud, otorgado mediante los permisos de Health Connect/Samsung Health/Huawei Health Service Kit
           dentro de la app).
         </p>
       </Section>
@@ -614,7 +626,7 @@ function PrivacyES() {
       <Section title="3. Información que recopilamos">
         <p>
           FitMesh Sync lee los siguientes datos de salud desde tu dispositivo Android a través de
-          servicios autorizados (Health Connect, Samsung Health Data SDK):
+          servicios autorizados (Health Connect, Samsung Health Data SDK, Huawei Health Service Kit):
         </p>
         <List items={[
           ["Actividad física", "pasos, distancia recorrida, calorías quemadas (activas y totales), pisos subidos"],
@@ -636,6 +648,10 @@ function PrivacyES() {
           tu dispositivo y solo después de que hayas concedido explícitamente los permisos
           necesarios.
         </Callout>
+        <p className="text-sm text-text-muted mt-3">
+          <strong>Huawei Health Service Kit (integración Android opcional de solo lectura):</strong>{" "}
+          cuando conectas Huawei Health en Android (versión 3.12.0), la app solicita únicamente los cuatro permisos de solo lectura <code>step.read</code> (pasos), <code>activityrecord.read</code> (entrenamientos), <code>heartrate.read</code> (frecuencia cardíaca intradía) y <code>sleep.read</code> (sueño). No se solicitan permisos de escritura, calorías continuas ni saturación de oxígeno (SpO₂). Los datos importados se utilizan exclusivamente para mostrar tus métricas personales de fitness en FitMesh Sync (sin fines médicos, de venta ni publicitarios) y se almacenan solo localmente en tu dispositivo (la nube de salud está desactivada en la 3.12.0). Puedes desconectar Huawei Health en cualquier momento desde Fuentes en FitMesh Sync (eliminando los datos locales de Huawei) y revocar el acceso en los ajustes de Huawei Health / HMS Core.
+        </p>
       </Section>
 
       <Section title="4. Cómo utilizamos los datos">
@@ -710,6 +726,7 @@ function PrivacyES() {
         <List items={[
           ["Health Connect", "para leer los datos de salud del sistema operativo Android"],
           ["Samsung Health (opcional)", "si tienes un Galaxy Watch, para obtener datos adicionales que Health Connect no expone"],
+          ["Huawei Health Service Kit (opcional, solo Android)", "para importar localmente en solo lectura pasos (step.read), entrenamientos (activityrecord.read), frecuencia cardíaca intradía (heartrate.read) y sueño (sleep.read)"],
           ["Acceso a Internet", "para sincronizar los datos con el backend de FitMesh Sync"],
           ["Sincronización en segundo plano", "para enviar datos periódicamente incluso cuando la app está cerrada (best-effort: depende del sistema operativo)"],
           ["Notificaciones", "para recibir recordatorios de sincronización y avisos del sistema"],
@@ -758,6 +775,7 @@ function PrivacyES() {
         <List items={[
           ["Health Connect (Google LLC)", "fuente de datos de salud Android, leídos localmente, no comunicados por nosotros a Google"],
           ["Samsung Health Data SDK (Samsung Electronics)", "fuente de datos de Galaxy Watch, leídos localmente"],
+          ["Huawei Health Service Kit (Huawei Device Co., Ltd.)", "fuente de datos Huawei Health en Android (solo lectura: step.read, activityrecord.read, heartrate.read, sleep.read), leídos localmente en el dispositivo, no enviados a Huawei por nosotros"],
           ["Supabase Inc.", "PostgreSQL gestionado + Auth (Fráncfort, DE), DPA firmado"],
           ["Vercel Inc.", "alojamiento de API serverless (EE. UU., edge global), DPA firmado + CCT"],
           ["Resend, Inc.", "envío de correos transaccionales (EE. UU.), DPA + CCT"],
@@ -840,7 +858,7 @@ function PrivacyDE() {
         <p>
           Rechtsgrundlage der Verarbeitung: Art. 6(1)(b) DSGVO (Erfüllung des vom Nutzer
           angeforderten Dienstes) und Art. 9(2)(a) DSGVO (ausdrückliche Einwilligung zur
-          Verarbeitung gesundheitsbezogener Daten, erteilt über die Health Connect/Samsung Health
+          Verarbeitung gesundheitsbezogener Daten, erteilt über die Health Connect/Samsung Health/Huawei Health Service Kit
           Berechtigungen innerhalb der App).
         </p>
       </Section>
@@ -848,7 +866,7 @@ function PrivacyDE() {
       <Section title="3. Erhobene Daten">
         <p>
           FitMesh Sync liest folgende Gesundheitsdaten von Ihrem Android-Gerät über autorisierte
-          Dienste (Health Connect, Samsung Health Data SDK):
+          Dienste (Health Connect, Samsung Health Data SDK, Huawei Health Service Kit):
         </p>
         <List items={[
           ["Körperliche Aktivität", "Schritte, zurückgelegte Distanz, verbrannte Kalorien (aktiv und gesamt), erklommene Stockwerke"],
@@ -870,6 +888,10 @@ function PrivacyDE() {
           Gesundheitsdiensten gelesen und nur nachdem Sie die erforderlichen Berechtigungen
           ausdrücklich erteilt haben.
         </Callout>
+        <p className="text-sm text-text-muted mt-3">
+          <strong>Huawei Health Service Kit (optionale Android-Nur-Lese-Integration):</strong>{" "}
+          wenn Sie Huawei Health auf Android (Version 3.12.0) verbinden, fordert die App ausschließlich die vier Nur-Lese-Berechtigungen <code>step.read</code> (Schritte), <code>activityrecord.read</code> (Trainings), <code>heartrate.read</code> (Intraday-Herzfrequenz) und <code>sleep.read</code> (Schlaf) an. Es werden keine Schreibrechte, keine kontinuierlichen Kalorien und keine Sauerstoffsättigung (SpO₂) angefordert. Die importierten Werte dienen ausschließlich Ihrer persönlichen Fitness-Anzeige in FitMesh Sync (kein medizinischer Zweck, kein Verkauf, keine Werbung) und bleiben lokal auf Ihrem Gerät gespeichert (Gesundheits-Cloud in 3.12.0 deaktiviert). Sie können Huawei Health jederzeit unter Quellen in FitMesh Sync trennen (wodurch lokale Huawei-Daten gelöscht werden) und die Einwilligung in den Einstellungen von Huawei Health / HMS Core widerrufen.
+        </p>
       </Section>
 
       <Section title="4. Verwendung der Daten">
@@ -944,6 +966,7 @@ function PrivacyDE() {
         <List items={[
           ["Health Connect", "zum Lesen von Gesundheitsdaten aus dem Android-Betriebssystem"],
           ["Samsung Health (optional)", "bei Besitz einer Galaxy Watch, für zusätzliche Daten, die Health Connect nicht bereitstellt"],
+          ["Huawei Health Service Kit (optional, nur Android)", "zum lokalen Nur-Lese-Import von Schritten (step.read), Trainings (activityrecord.read), Intraday-Herzfrequenz (heartrate.read) und Schlaf (sleep.read)"],
           ["Internetzugang", "zur Synchronisierung der Daten mit dem FitMesh Sync-Backend"],
           ["Hintergrund-Sync", "zum periodischen Senden von Daten auch wenn die App geschlossen ist (best-effort: abhängig vom Betriebssystem)"],
           ["Benachrichtigungen", "zum Empfang von Sync-Erinnerungen und Systemmeldungen"],
@@ -992,6 +1015,7 @@ function PrivacyDE() {
         <List items={[
           ["Health Connect (Google LLC)", "Android-Gesundheitsdatenquelle, lokal gelesen, nicht von uns an Google übermittelt"],
           ["Samsung Health Data SDK (Samsung Electronics)", "Galaxy Watch-Datenquelle, lokal gelesen"],
+          ["Huawei Health Service Kit (Huawei Device Co., Ltd.)", "Huawei-Health-Datenquelle auf Android (nur Lesen: step.read, activityrecord.read, heartrate.read, sleep.read), lokal auf dem Gerät gelesen, von uns nicht an Huawei übermittelt"],
           ["Supabase Inc.", "verwaltetes PostgreSQL + Auth (Frankfurt, DE), DPA unterzeichnet"],
           ["Vercel Inc.", "serverlose API-Hosting (USA, globale Edge), DPA unterzeichnet + SCC"],
           ["Resend, Inc.", "transaktionale E-Mail-Zustellung (USA), DPA + SCC"],
@@ -1076,7 +1100,7 @@ function PrivacyPT() {
         <p>
           Base legal do tratamento: art. 6(1)(b) do GDPR (execução do serviço solicitado pelo
           usuário) e art. 9(2)(a) do GDPR (consentimento explícito para o tratamento de dados
-          relativos à saúde, concedido por meio das permissões do Health Connect/Samsung Health
+          relativos à saúde, concedido por meio das permissões do Health Connect/Samsung Health/Huawei Health Service Kit
           dentro do app).
         </p>
       </Section>
@@ -1084,7 +1108,7 @@ function PrivacyPT() {
       <Section title="3. Dados que coletamos">
         <p>
           FitMesh Sync lê os seguintes dados de saúde do seu dispositivo Android por meio de
-          serviços autorizados (Health Connect, Samsung Health Data SDK):
+          serviços autorizados (Health Connect, Samsung Health Data SDK, Huawei Health Service Kit):
         </p>
         <List items={[
           ["Atividade física", "passos, distância percorrida, calorias queimadas (ativas e totais), andares subidos"],
@@ -1105,6 +1129,10 @@ function PrivacyPT() {
           Importante: esses dados são lidos apenas dos serviços de saúde já presentes no seu
           dispositivo e somente após você ter concedido explicitamente as permissões necessárias.
         </Callout>
+        <p className="text-sm text-text-muted mt-3">
+          <strong>Huawei Health Service Kit (integração Android opcional somente leitura):</strong>{" "}
+          ao conectar o Huawei Health no Android (versão 3.12.0), o app solicita exclusivamente as quatro permissões somente leitura <code>step.read</code> (passos), <code>activityrecord.read</code> (treinos), <code>heartrate.read</code> (frequência cardíaca intradia) e <code>sleep.read</code> (sono). Nenhuma permissão de escrita, calorias contínuas ou saturação de oxigênio (SpO₂) é solicitada. Os dados importados são usados apenas para exibição pessoal de fitness no FitMesh Sync (sem fins médicos, venda ou publicidade) e armazenados apenas localmente no seu dispositivo (nuvem de saúde desativada na 3.12.0). Você pode desconectar o Huawei Health a qualquer momento em Fontes no FitMesh Sync (removendo os dados locais da Huawei) e revogar as permissões nas configurações do Huawei Health / HMS Core.
+        </p>
       </Section>
 
       <Section title="4. Como usamos os dados">
@@ -1179,6 +1207,7 @@ function PrivacyPT() {
         <List items={[
           ["Health Connect", "para ler dados de saúde do sistema operacional Android"],
           ["Samsung Health (opcional)", "se você possui uma Galaxy Watch, para dados adicionais não disponibilizados pelo Health Connect"],
+          ["Huawei Health Service Kit (opcional, apenas Android)", "para importar localmente em somente leitura passos (step.read), treinos (activityrecord.read), frequência cardíaca intradia (heartrate.read) e sono (sleep.read)"],
           ["Acesso à internet", "para sincronizar os dados com o backend do FitMesh Sync"],
           ["Sincronização em segundo plano", "para enviar dados periodicamente mesmo quando o app está fechado (best-effort: depende do sistema operacional)"],
           ["Notificações", "para receber lembretes de sincronização e avisos do sistema"],
@@ -1227,6 +1256,7 @@ function PrivacyPT() {
         <List items={[
           ["Health Connect (Google LLC)", "fonte de dados de saúde Android, lidos localmente, não comunicados por nós ao Google"],
           ["Samsung Health Data SDK (Samsung Electronics)", "fonte de dados da Galaxy Watch, lidos localmente"],
+          ["Huawei Health Service Kit (Huawei Device Co., Ltd.)", "fonte de dados Huawei Health no Android (somente leitura: step.read, activityrecord.read, heartrate.read, sleep.read), lidos localmente no dispositivo, não enviados à Huawei por nós"],
           ["Supabase Inc.", "PostgreSQL gerenciado + Auth (Frankfurt, DE), DPA assinado"],
           ["Vercel Inc.", "hospedagem de API serverless (EUA, edge global), DPA assinado + SCC"],
           ["Resend, Inc.", "entrega de e-mails transacionais (EUA), DPA + SCC"],
@@ -1309,7 +1339,7 @@ function PrivacyFR() {
         <p>
           Base légale du traitement: art. 6(1)(b) du RGPD (exécution du service demandé par
           l'utilisateur) et art. 9(2)(a) du RGPD (consentement explicite au traitement de données
-          relatives à la santé, accordé via les autorisations Health Connect/Samsung Health dans
+          relatives à la santé, accordé via les autorisations Health Connect/Samsung Health/Huawei Health Service Kit dans
           l'application).
         </p>
       </Section>
@@ -1317,7 +1347,7 @@ function PrivacyFR() {
       <Section title="3. Données collectées">
         <p>
           FitMesh Sync lit les données de santé suivantes depuis votre appareil Android via des
-          services autorisés (Health Connect, Samsung Health Data SDK):
+          services autorisés (Health Connect, Samsung Health Data SDK, Huawei Health Service Kit):
         </p>
         <List items={[
           ["Activité physique", "pas, distance parcourue, calories brûlées (actives et totales), étages montés"],
@@ -1339,6 +1369,10 @@ function PrivacyFR() {
           sur votre appareil et seulement après que vous avez accordé explicitement les
           autorisations nécessaires.
         </Callout>
+        <p className="text-sm text-text-muted mt-3">
+          <strong>Huawei Health Service Kit (intégration Android optionnelle en lecture seule) :</strong>{" "}
+          lorsque vous connectez Huawei Health sur Android (version 3.12.0), l'application demande exclusivement les quatre autorisations en lecture seule <code>step.read</code> (pas), <code>activityrecord.read</code> (séances d'entraînement), <code>heartrate.read</code> (fréquence cardiaque intrajournalière) et <code>sleep.read</code> (sommeil). Aucune autorisation d'écriture, de calories continues ni de saturation en oxygène (SpO₂) n'est demandée. Les données importées sont utilisées uniquement pour l'affichage fitness personnel dans FitMesh Sync (sans but médical, ni vente, ni publicité) et sont conservées uniquement localement sur votre appareil (le cloud santé est désactivé dans la 3.12.0). Vous pouvez déconnecter Huawei Health à tout moment depuis Sources dans FitMesh Sync (ce qui supprime les données locales Huawei) et révoquer l'accès dans les paramètres Huawei Health / HMS Core.
+        </p>
       </Section>
 
       <Section title="4. Utilisation des données">
@@ -1413,6 +1447,7 @@ function PrivacyFR() {
         <List items={[
           ["Health Connect", "pour lire les données de santé depuis le système d'exploitation Android"],
           ["Samsung Health (optionnel)", "si vous possédez une Galaxy Watch, pour des données supplémentaires non exposées par Health Connect"],
+          ["Huawei Health Service Kit (optionnel, Android uniquement)", "pour importer localement en lecture seule les pas (step.read), les séances (activityrecord.read), la fréquence cardiaque intrajournalière (heartrate.read) et le sommeil (sleep.read)"],
           ["Accès à Internet", "pour synchroniser les données avec le backend FitMesh Sync"],
           ["Synchronisation en arrière-plan", "pour envoyer des données périodiquement même lorsque l'application est fermée (best-effort : dépend du système d'exploitation)"],
           ["Notifications", "pour recevoir des rappels de synchronisation et des avis système"],
@@ -1461,6 +1496,7 @@ function PrivacyFR() {
         <List items={[
           ["Health Connect (Google LLC)", "source de données de santé Android, lues localement, non communiquées par nous à Google"],
           ["Samsung Health Data SDK (Samsung Electronics)", "source de données Galaxy Watch, lues localement"],
+          ["Huawei Health Service Kit (Huawei Device Co., Ltd.)", "source de données Huawei Health sur Android (lecture seule : step.read, activityrecord.read, heartrate.read, sleep.read), lues localement sur l'appareil, non transmises à Huawei par nous"],
           ["Supabase Inc.", "PostgreSQL géré + Auth (Francfort, DE), DPA signé"],
           ["Vercel Inc.", "hébergement API serverless (États-Unis, edge global), DPA signé + CCT"],
           ["Resend, Inc.", "envoi d'e-mails transactionnels (États-Unis), DPA + CCT"],
