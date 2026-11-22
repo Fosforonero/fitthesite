@@ -50,6 +50,7 @@ const ANCORE_OBBLIGATORIE: ReadonlyArray<readonly [string, string]> = [
   ["Firebase Cloud Messaging", "notifiche push"],
   ["Firebase Installations", "identificativo tecnico dell'installazione"],
   ["Google Sign-In", "autenticazione opzionale"],
+  ["Huawei Health Service Kit", "integrazione Android opzionale in sola lettura"],
   ["OpenStreetMap Foundation", "destinatario dei riquadri della mappa"],
   ["Supabase", "backend e autenticazione"],
 ];
@@ -90,6 +91,14 @@ describe("la privacy policy nomina cio' che l'app raccoglie", () => {
         expect(corpo).toMatch(
           /note degli allenamenti|workout title and notes|notas de los entrenamientos|Notizen zu Trainings|notas dos treinos|notes des séances/,
         );
+      });
+
+      it("nomina i 4 scope Huawei Health Service Kit senza calories.read ne oxygensaturation.read", () => {
+        for (const s of ["step.read", "activityrecord.read", "heartrate.read", "sleep.read"]) {
+          expect(corpo).toContain(s);
+        }
+        expect(corpo).not.toContain("calories.read");
+        expect(corpo).not.toContain("oxygensaturation.read");
       });
     });
   }
