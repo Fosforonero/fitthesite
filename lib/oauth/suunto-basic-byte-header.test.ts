@@ -161,4 +161,73 @@ describe("byte dell'header Basic: grezzo al primo colpo, form-urlencoded nel rit
       expect(righe[0]).not.toContain(vietato);
     }
   });
+
+  it("nessun ritentativo su 5xx, corpo non JSON o status/error incrociati", async () => {
+    credenziali(ID, "Sg con%zz");
+    const risposte: Array<() => Response> = [
+      () => json(500, { error: "invalid_request" }),
+      () => new Response("<html>503</html>", { status: 503, headers: { "content-type": "text/html" } }),
+      () => new Response("bad request plain", { status: 400, headers: { "content-type": "text/plain" } }),
+      () => json(401, { error: "invalid_request" }),
+      () => json(400, { error: "invalid_client" }),
+    ];
+    for (const crea of risposte) {
+      const visti = copione(crea());
+      await expect(exchangeSuuntoCode("code-sintetico")).rejects.toThrow();
+      expect(visti).toHaveLength(1);
+    }
+  });
+
+  it("errore di rete al primo tentativo: nessuna seconda richiesta", async () => {
+    credenziali(ID, "Sg con%zz");
+    const fetchMock = vi.fn(async () => {
+      throw new Error("timeout-primo");
+    });
+    vi.stubGlobal("fetch", fetchMock);
+    await expect(exchangeSuuntoCode("code-sintetico")).rejects.toThrow("timeout-primo");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it("mai piu' di 2 richieste se anche il secondo tentativo fallisce (400 o 500)", async () => {
+    credenziali(ID, "Sg con%zz");
+    for (const secondoStatus of [400, 500]) {
+      let chiamate = 0;
+      vi.stubGlobal(
+        "fetch",
+        vi.fn(async () => {
+          chiamate += 1;
+          return chiamate === 1
+            ? json(400, { error: "invalid_request" })
+            : json(secondoStatus, { error: "server_error" });
+        }),
+      );
+      await expect(exchangeSuuntoCode("code-sintetico")).rejects.toThrow();
+      expect(chiamate).toBe(2);
+    }
+  });
+
+  it("errore di rete o timeout sul ritentativo: logga suunto_oauth_basic con esito 'rete' e rilancia", async () => {
+    credenziali("id é", "Sg con%zz");
+    let chiamate = 0;
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        chiamate += 1;
+        if (chiamate === 1) return json(400, { error: "invalid_request" });
+        throw new Error("timeout-ritentativo");
+      }),
+    );
+    await expect(exchangeSuuntoCode("code-sintetico")).rejects.toThrow("timeout-ritentativo");
+    expect(chiamate).toBe(2);
+    const righe = log.mock.calls.map((c) => String(c[0])).filter((r) => r.includes("suunto_oauth_basic"));
+    expect(righe).toHaveLength(1);
+    expect(JSON.parse(righe[0])).toEqual({
+      evt: "suunto_oauth_basic",
+      route: "exchange",
+      variante: "form_urlencoded_rfc6749",
+      primo: "400 invalid_request",
+      esito: "rete",
+      errore: null,
+    });
+  });
 });

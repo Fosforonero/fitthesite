@@ -212,7 +212,24 @@ async function postTokenSuunto(
   if (!ritenta) {
     return new Response(corpo, { status: grezzo.status, headers: grezzo.headers });
   }
-  const codificato = await invia(true);
+  let codificato: Response;
+  try {
+    codificato = await invia(true);
+  } catch (err) {
+    // Log strutturato anche in caso di errore di rete/timeout sul ritentativo.
+    // Solo categorie, mai id, segreto, code o token.
+    console.log(
+      JSON.stringify({
+        evt: "suunto_oauth_basic",
+        route,
+        variante: "form_urlencoded_rfc6749",
+        primo: `${grezzo.status} ${errore}`,
+        esito: "rete",
+        errore: null,
+      })
+    );
+    throw err;
+  }
   // Solo categorie: variante provata, esito della prima e della seconda
   // richiesta, campo `error` della seconda. Mai id, segreto, code o token.
   console.log(

@@ -216,7 +216,7 @@ describe("Basic del token endpoint Suunto: grezzo, poi un solo ritentativo RFC 6
     expect(esiti).toEqual(["401 invalid_client", "401 invalid_client"]);
   });
 
-  it("id e segreto con soli caratteri non riservati: UNA richiesta, header byte per byte identico a prima (nessun cambio per la 191)", async () => {
+  it("primo tentativo grezzo riesce (200): UNA sola richiesta, header byte per byte identico a prima (nessun cambio per la 191)", async () => {
     const segreto = "Sg_AZaz09-.~!*'()sintetico";
     usaSegreto(segreto, ["c"]);
     const visti: string[] = [];
@@ -230,6 +230,23 @@ describe("Basic del token endpoint Suunto: grezzo, poi un solo ritentativo RFC 6
     );
     expect(await esitoScambio("c")).toBe("200");
     expect(visti).toEqual([`Basic ${Buffer.from(`${ID}:${segreto}`).toString("base64")}`]);
+  });
+
+  it("credenziali con soli caratteri non riservati (A-Za-z0-9*-._): forme coincidenti, UNA sola richiesta anche su 400 invalid_request", async () => {
+    const segreto = "Sg_AZaz09-.*sintetico";
+    const esiti = usaSegreto(segreto, ["c"]);
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        esiti.push("400 invalid_request");
+        return new Response(JSON.stringify({ error: "invalid_request" }), {
+          status: 400,
+          headers: { "content-type": "application/json" },
+        });
+      }),
+    );
+    expect(await esitoScambio("c")).toBe("400 invalid_request");
+    expect(esiti).toEqual(["400 invalid_request"]);
   });
 
   it("errore che non riguarda il client (invalid_grant): nessun ritentativo", async () => {
