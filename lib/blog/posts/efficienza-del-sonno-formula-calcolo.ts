@@ -226,7 +226,7 @@ export const post: BlogPost = {
     },
   ],
   sources: [
-    "https://jcsm.aasm.org/doi/10.5664/jcsm.5498",
+    "https://pubmed.ncbi.nlm.nih.gov/26194727/",
     "https://pubmed.ncbi.nlm.nih.gov/2748771/",
     "https://aasm.org/clinical-resources/scoring-manual/",
   ],

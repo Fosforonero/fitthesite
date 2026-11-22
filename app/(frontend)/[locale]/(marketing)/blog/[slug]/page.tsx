@@ -27,6 +27,28 @@ import { organizationCompactRef } from "@/components/seo/OrganizationJsonLd";
 import { schemaLanguage } from "@/lib/seo/schema-language";
 import { markdownToPlainText } from "@/lib/seo/plain-text";
 
+const englishFallbackNotice: Record<Exclude<Locale, "it" | "en">, string> = {
+  es: "Este artículo aún no está disponible en español. Se muestra en inglés.",
+  de: "Dieser Artikel ist noch nicht auf Deutsch verfügbar. Er wird auf Englisch angezeigt.",
+  pt: "Este artigo ainda não está disponível em português. O texto é apresentado em inglês.",
+  fr: "Cet article n’est pas encore disponible en français. Il est affiché en anglais.",
+  pl: "Ten artykuł nie jest jeszcze dostępny po polsku. Wyświetlamy wersję angielską.",
+  tr: "Bu yazı henüz Türkçe yayımlanmadı. İngilizce sürümü gösteriliyor.",
+  nl: "Dit artikel is nog niet in het Nederlands beschikbaar. Je ziet de Engelse versie.",
+  ja: "この記事はまだ日本語で公開されていません。英語版を表示しています。",
+  ko: "이 글은 아직 한국어로 제공되지 않습니다. 영어 버전으로 표시됩니다.",
+  sv: "Artikeln finns ännu inte på svenska. Den visas på engelska.",
+  da: "Artiklen findes endnu ikke på dansk. Den vises på engelsk.",
+  no: "Artikkelen er ennå ikke tilgjengelig på norsk. Den vises på engelsk.",
+  fi: "Artikkelia ei ole vielä saatavilla suomeksi. Se näytetään englanniksi.",
+};
+
+function declaredFallback(post: BlogPost, locale: Locale): string | undefined {
+  if (!post.declaredEnglishFallback || locale === "it" || locale === "en" ||
+      isBlogVariantIndexable(post, locale)) return undefined;
+  return englishFallbackNotice[locale];
+}
+
 export async function generateStaticParams() {
   const slugs = await getBlogSlugs();
   return slugs.flatMap((slug) =>
@@ -57,10 +79,11 @@ export async function generateMetadata({
   }
 
   const path = `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;
-  const title = blogSeoTitle(post, lc);
-  const description = tl(post.metaDescription, lc);
-  const secondaryKw = tll(post.secondaryKeywords, lc);
-  const keywords = [tl(post.primaryKeyword, lc), ...secondaryKw].join(", ");
+  const contentLocale = declaredFallback(post, lc) ? "en" : lc;
+  const title = blogSeoTitle(post, contentLocale);
+  const description = tl(post.metaDescription, contentLocale);
+  const secondaryKw = tll(post.secondaryKeywords, contentLocale);
+  const keywords = [tl(post.primaryKeyword, contentLocale), ...secondaryKw].join(", ");
 
   // Brand suffix corto (10c) per stare entro 65c totali raccomandati Bing/Google.
   // Vedi fitmesh-growth SKILL → publishing pipeline step 1 (title length guardrail).
@@ -81,11 +104,12 @@ export async function generateMetadata({
       title,
       description,
       siteName: "FitMesh Sync",
-      locale: ogLocale[lc],
-      alternateLocale: locales.filter((l) => l !== lc).map((l) => ogLocale[l]),
+      locale: ogLocale[contentLocale],
+      alternateLocale: locales.filter((l) => l !== contentLocale &&
+        (!post.declaredEnglishFallback || isBlogVariantIndexable(post, l))).map((l) => ogLocale[l]),
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt,
-      authors: [AUTHOR.name],
+      authors: [post.organizationAuthor ? organizationCompactRef().name : AUTHOR.name],
     },
     twitter: {
       card: "summary_large_image",
@@ -474,8 +498,8 @@ export default async function BlogArticle({
 }) {
   const { locale, slug } = await params;
   if (!locales.includes(locale as Locale)) notFound();
-  const lc = locale as Locale;
-  const { post, redirectTo } = await resolveBlogPost(slug, lc);
+  const routeLocale = locale as Locale;
+  const { post, redirectTo } = await resolveBlogPost(slug, routeLocale);
   if (redirectTo) permanentRedirect(redirectTo);
   if (!post) notFound();
   // Sprint P1.2A: per i post opt-in (REDIRECT_INCOMPLETE_LOCALE_SLUGS), una
@@ -489,13 +513,15 @@ export default async function BlogArticle({
   // contenuto incompleto — condizioni mutuamente esclusive per la stessa
   // richiesta.
   if (
-    lc !== "it" &&
-    lc !== "en" &&
+    routeLocale !== "it" &&
+    routeLocale !== "en" &&
     REDIRECT_INCOMPLETE_LOCALE_SLUGS.has(post.slug) &&
-    !isBlogVariantIndexable(post, lc)
+    !isBlogVariantIndexable(post, routeLocale)
   ) {
     redirect(`/en/blog/${localizedBlogSlug(post.slug, "en")}`);
   }
+  const notice = declaredFallback(post, routeLocale);
+  const lc = notice ? "en" : routeLocale;
   const t = I18N[lc];
 
   // P1.3M: unica superficie per "questo blocco è visibile in questa locale?" —
@@ -504,7 +530,7 @@ export default async function BlogArticle({
   const visibleBody = filterBlogContentForLocale(post.body, lc);
   const visibleFaq = filterBlogContentForLocale(post.faq ?? [], lc);
 
-  const path = `/${lc}/blog/${localizedBlogSlug(post.slug, lc)}`;
+  const path = `/${routeLocale}/blog/${localizedBlogSlug(post.slug, routeLocale)}`;
   const ldType = post.ldType ?? "BlogPosting";
 
   // JSON-LD Article/BlogPosting
@@ -534,7 +560,7 @@ export default async function BlogArticle({
     // completi non sono più nel layout globale (ora solo homepage/about), un
     // bare `{"@id": ...}` qui sarebbe un riferimento a vuoto per chi legge
     // solo questa pagina. Vedi lib/seo/entities.ts e components/seo/OrganizationJsonLd.tsx.
-    author: authorCompactNode(),
+    author: post.organizationAuthor ? organizationCompactRef() : authorCompactNode(),
     publisher: organizationCompactRef(),
     keywords: [
       tl(post.primaryKeyword, lc),
@@ -595,8 +621,14 @@ export default async function BlogArticle({
         locale={lc}
       />
 
+      {notice && (
+        <p className="max-w-3xl mx-auto px-4 sm:px-6 pt-6 text-sm text-text-secondary">
+          {notice}
+        </p>
+      )}
+
       {/* HEADER */}
-      <article>
+      <article lang={notice ? "en" : undefined}>
         <header className="relative max-w-3xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-8">
           <div
             aria-hidden
@@ -781,6 +813,11 @@ export default async function BlogArticle({
 
         {/* AUTHOR BIO CARD — E-E-A-T (YMYL salute). Aiuta Google e i lettori
            a capire chi scrive: nome, ruolo, link About. */}
+        {post.organizationAuthor ? (
+          <p className="max-w-3xl mx-auto px-4 sm:px-6 pt-2 pb-8 text-sm text-text-muted">
+            {organizationCompactRef().name}
+          </p>
+        ) : (
         <section className="max-w-3xl mx-auto px-4 sm:px-6 pt-2 pb-8">
           <div className="rounded-card border border-divider bg-bg-card/40 p-5 sm:p-6 flex gap-4 items-start">
             <div className="shrink-0 w-12 h-12 rounded-full bg-brand-aqua/15 border border-brand-aqua/30 flex items-center justify-center text-brand-aqua font-display font-bold text-lg">
@@ -863,6 +900,8 @@ export default async function BlogArticle({
             </div>
           </div>
         </section>
+
+        )}
 
         {/* RELATED */}
         {related.length > 0 && (

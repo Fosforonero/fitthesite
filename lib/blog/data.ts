@@ -16,6 +16,7 @@ import { post as stepsTotalVsHourlyChart } from "./posts/steps-total-vs-hourly-c
 import { post as galaxyWatchSleepTrackingHealthConnect } from "./posts/galaxy-watch-sleep-tracking-health-connect";
 import { post as novitaPassiPiuAffidabili } from "./posts/novita-passi-piu-affidabili";
 import { post as novitaGiorniPassati } from "./posts/novita-giorni-passati";
+import { post as fitmeshSync311 } from "./posts/fitmesh-sync-3-11-0";
 import { post as nuovaAppleHealthRendeInutiliAltreApp } from "./posts/nuova-apple-health-rende-inutili-altre-app";
 import { post as guidaSyncWearable2026 } from "./posts/guida-sync-wearable-2026";
 import { post as scegliereSmartwatchDati2026 } from "./posts/scegliere-smartwatch-dati-2026";
@@ -92,6 +93,7 @@ import { post as garminBodyBatteryHealthConnect } from "./posts/garmin-body-batt
 // SEO wave 21/06
 import { post as polarHealthConnectSync } from "./posts/polar-health-connect-sync";
 import { post as googleHealthGoogleFit } from "./posts/google-health-google-fit";
+import { post as googleHealthNotSyncing } from "./posts/google-health-not-syncing";
 import { post as sleepTrackerComparison2026 } from "./posts/sleep-tracker-comparison-2026";
 import { post as garminSamsungHealthSyncGuide } from "./posts/garmin-samsung-health-sync-guide";
 import { post as galaxyRingAndroidHealthConnect } from "./posts/galaxy-ring-android-health-connect";
@@ -190,6 +192,7 @@ const RAW_POSTS: BlogPost[] = [
   // SEO wave 21/06
   polarHealthConnectSync,
   googleHealthGoogleFit,
+  googleHealthNotSyncing,
   sleepTrackerComparison2026,
   garminSamsungHealthSyncGuide,
   galaxyRingAndroidHealthConnect,
@@ -214,6 +217,7 @@ const RAW_POSTS: BlogPost[] = [
   stepsTotalVsHourlyChart,
   novitaPassiPiuAffidabili,
   novitaGiorniPassati,
+  fitmeshSync311,
   nuovaAppleHealthRendeInutiliAltreApp,
   galaxyWatchSleepTrackingHealthConnect,
   fitmeshUltratletaAppleWatchGarminPolar,

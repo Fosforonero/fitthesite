@@ -954,7 +954,7 @@ const LANDING_PAGES_RAW: LandingPage[] = [
           ],
           de: [
             "Lokale Health Connect Synchronisierung: Liest von Garmin freigegebene Standard-Metriken (Schritte, Puls, Gesamtschlafdauer, Aktivitätskalorien, Distanz, Workouts) direkt auf Android aus ([Garmin Support: Weitergabe an Health Connect](https://support.garmin.com/?faq=Zk545Yp36a0489i9D70a16)).",
-            "Proprietäre Metriken: Body Battery, Training Load und Erholungszeit verbleiben im Garmin-System. Eine direkte API-Anbindung erfordert die Freigabe im Garmin Developer Program ([Garmin Health API Übersicht](https://developer.garmin.com/health-api/overview/)) und garantiert nicht automatisch den Zugriff auf alle herstellerspezifischen Berechnungen.",
+            "Proprietäre Metriken: Body Battery, Training Load und Erholungszeit verbleiben im Garmin-System. Eine direkte API-Anbindung erfordert die Freigabe im Garmin Developer Program ([Garmin Health API Übersicht](https://developer.garmin.com/gc-developer-program/overview/)) und garantiert nicht automatisch den Zugriff auf alle herstellerspezifischen Berechnungen.",
             "Plattformübergreifendes Dashboard in der App: Garmin-Werte neben Galaxy Watch, Pixel Watch oder weiteren über Health Connect angebundenen Wearables auf einer gemeinsamen Oberfläche.",
             "Volle Datenkontrolle: Beliebiger Export deiner synchronisierten Gesundheitsdaten als CSV oder JSON jederzeit möglich.",
           ],

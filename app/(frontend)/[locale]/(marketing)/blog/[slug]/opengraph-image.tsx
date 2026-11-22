@@ -9,6 +9,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
 const DEDICATED_SOCIAL_IMAGES: Record<string, string> = {
+  "fitmesh-sync-3-11-0": "fitmesh-sync-3-11-0.png",
   "huawei-health-health-connect-sincronizzazione": "huawei-health-path.png",
   "passi-non-si-sincronizzano-galaxy-watch": "galaxy-watch-steps-troubleshooting.png",
 };

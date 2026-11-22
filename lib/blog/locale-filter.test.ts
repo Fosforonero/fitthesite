@@ -152,11 +152,17 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
   // informativo sulla scadenza Fitbit Web API, nelle 11 lingue pubblicate. Le lingue
   // diverse da it/en sono traduzioni di lavoro senza revisione di madrelingua
   // (vedi TRADUZIONI-CONTROLLI-20OTT.md). Le lingue nordiche non lo vedono.
+  //
+  // `health-connect-not-syncing` e' la QUINTA (13/11/2026): un solo paragrafo di collegamento al nuovo
+  // articolo "google-health-not-syncing", ristretto a locales:["it","en"], pubblicato insieme all'articolo
+  // (le altre lingue non lo vedono e non diventano incomplete). Stesso blocco, stessa regola, sul pillar
+  // `google-health-google-fit` (che era gia' nell'elenco): vedi le asserzioni dedicate sotto.
   const LOCALE_SCOPED_POST_SLUGS = new Set([
     "health-connect-vs-samsung-health",
     "come-funziona-fitmesh",
     "dati-anello-smart-apple-salute",
     "google-health-google-fit",
+    "health-connect-not-syncing",
   ]);
 
   it("per ogni post NON toccato da P1.3M/P1.5B-C, filterBlogContentForLocale non rimuove NULLA (stesso output di prima)", () => {
@@ -170,12 +176,29 @@ describe("Nessuna regressione sui post NON toccati da P1.3M (nessuno di loro usa
       }
     }
     // Il riquadro Fitbit Web API di google-health-google-fit e' tradotto nelle 11 lingue
-    // pubblicate (traduzione di lavoro, non rivista da madrelingua): tutte vedono lo stesso numero di sezioni.
+    // pubblicate (traduzione di lavoro, non rivista da madrelingua): tutte vedono lo stesso numero di sezioni,
+    // TRANNE il solo paragrafo di collegamento al nuovo articolo (13/11/2026), ristretto a it/en:
+    // it/en vedono tutte le sezioni, le altre una in meno (e solo quella).
     const gh = BLOG_POSTS.find((p) => p.slug === "google-health-google-fit")!;
     const ghIt = filterBlogContentForLocale(gh.body, "it").length;
     expect(ghIt).toBe(gh.body.length);
-    for (const lc of ["en", "es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const) {
-      expect(filterBlogContentForLocale(gh.body, lc).length, `google-health-google-fit/${lc}`).toBe(ghIt);
+    // (il riquadro Fitbit Web API in 11 lingue e' un altro blocco scoped, gia' esistente: qui si isola solo il collegamento)
+    const ghLink = gh.body.filter((b) => JSON.stringify(b).includes("google-health-not-syncing"));
+    expect(ghLink).toHaveLength(1);
+    expect(ghLink[0].locales).toEqual(["it", "en"]);
+    expect(filterBlogContentForLocale(gh.body, "en").length, "google-health-google-fit/en").toBe(ghIt);
+    for (const lc of ["es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const) {
+      expect(filterBlogContentForLocale(gh.body, lc).length, `google-health-google-fit/${lc}`).toBe(ghIt - 1);
+    }
+    // Stessa regola per la guida generica: un solo blocco scoped it/en (il collegamento), nient'altro e nessuna FAQ scoped.
+    const hc = BLOG_POSTS.find((p) => p.slug === "health-connect-not-syncing")!;
+    const hcScoped = hc.body.filter((b) => b.locales !== undefined);
+    expect(hcScoped.map((b) => b.locales)).toEqual([["it", "en"]]);
+    expect(JSON.stringify(hcScoped[0])).toContain("google-health-not-syncing");
+    expect(hc.faq?.filter((q) => q.locales !== undefined) ?? []).toHaveLength(0);
+    for (const lc of ["it", "en"] as const) expect(filterBlogContentForLocale(hc.body, lc).length, `health-connect-not-syncing/${lc}`).toBe(hc.body.length);
+    for (const lc of ["es", "de", "pt", "fr", "pl", "tr", "nl", "ja", "ko"] as const) {
+      expect(filterBlogContentForLocale(hc.body, lc).length, `health-connect-not-syncing/${lc}`).toBe(hc.body.length - 1);
     }
   });
 
